@@ -21,6 +21,25 @@ interface InputComponentsProps {
    */
   label: string
   placeholder: string
+  /**
+   * 데이터를 표시
+   * @example
+   * // type !== select
+   * <input
+   *   type={type}
+   *   className="wrapper__input"
+   *   id={dataLabel}
+   *   placeholder={placeholder}
+   *   defaultValue={inputValue as string}
+   * />
+   *
+   * @example
+   * // type === 'select'
+   * <div className="wrapper__select">
+   *   <PropsNodes/> => React.ReactNode
+   * </div>
+   *
+   */
   inputValue?: string | React.ReactNode
 }
 
@@ -84,6 +103,7 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
           className="wrapper__input"
           id={dataLabel}
           placeholder={placeholder}
+          defaultValue={inputValue as string}
         />
       ) : (
         <div className="wrapper__select">

@@ -66,7 +66,7 @@ const SearchComponent: React.FC = () => {
           dataLabel="search-input-generation"
           type="select"
           label="추가 설정"
-          placeholder="추가 설정"
+          placeholder="추가설정"
         />
       </div>
     </Search>
