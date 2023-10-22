@@ -7,7 +7,6 @@ interface SettingComponentProps {}
 const Setting = styled.div`
   width: 130px;
   height: 80px;
-  background-color: red;
 `
 
 const SettingComponent: React.FC<SettingComponentProps> = (props) => {
