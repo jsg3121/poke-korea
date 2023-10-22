@@ -41,6 +41,8 @@ interface InputComponentsProps {
    *
    */
   inputValue?: string | React.ReactNode
+  onChange?: (value: string) => void
+  onSelectModalClick?: () => void
 }
 
 const Input = styled.label`
@@ -92,10 +94,30 @@ const Input = styled.label`
 `
 
 const InputComponents: React.FC<InputComponentsProps> = (props) => {
-  const { dataLabel, label, type, placeholder, inputValue } = props
+  const {
+    dataLabel,
+    label,
+    type,
+    placeholder,
+    inputValue,
+    onChange,
+    onSelectModalClick,
+  } = props
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(e.target.value)
+    }
+  }
+
+  const handleSelectModalClick = () => {
+    if (type === 'select' && onSelectModalClick) {
+      onSelectModalClick()
+    }
+  }
 
   return (
-    <Input htmlFor={dataLabel}>
+    <Input htmlFor={dataLabel} onClick={handleSelectModalClick}>
       <p className="input__label">{label}</p>
       {type !== 'select' ? (
         <input
@@ -104,9 +126,10 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
           id={dataLabel}
           placeholder={placeholder}
           defaultValue={inputValue as string}
+          onChange={handleInputChange}
         />
       ) : (
-        <div className="wrapper__select">
+        <div className="wrapper__select" id={dataLabel}>
           {!inputValue ? (
             <span className="input__paceholder">{placeholder}</span>
           ) : (
