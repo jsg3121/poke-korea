@@ -42,7 +42,10 @@ interface InputComponentsProps {
    */
   inputValue?: string | React.ReactNode
   onChange?: (value: string) => void
-  onSelectModalClick?: () => void
+  /**
+   * type이 select인 경우 옵션을 선택할 수 있는 modal 오픈 트리거 함수
+   */
+  onSelectInputClick?: () => void
 }
 
 const Input = styled.label`
@@ -101,7 +104,7 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
     placeholder,
     inputValue,
     onChange,
-    onSelectModalClick,
+    onSelectInputClick,
   } = props
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,8 +114,8 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
   }
 
   const handleSelectModalClick = () => {
-    if (type === 'select' && onSelectModalClick) {
-      onSelectModalClick()
+    if (type === 'select' && onSelectInputClick) {
+      onSelectInputClick()
     }
   }
 

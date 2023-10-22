@@ -35,6 +35,10 @@ const Search = styled.div`
 `
 
 const SearchComponent: React.FC = () => {
+  const handleInputChange = React.useCallback(() => {}, [])
+
+  const handleSelectInputClick = React.useCallback(() => {}, [])
+
   return (
     <Search>
       <div className="search-wrapper__input--name">
@@ -43,6 +47,7 @@ const SearchComponent: React.FC = () => {
           type="text"
           label="포켓몬 이름"
           placeholder="포켓몬 이름 검색"
+          onChange={handleInputChange}
         />
       </div>
       <div className="search-wrapper__input--type">
@@ -51,6 +56,7 @@ const SearchComponent: React.FC = () => {
           type="select"
           label="포켓몬 타입"
           placeholder="포켓몬 타입 검색"
+          onSelectInputClick={handleSelectInputClick}
         />
       </div>
       <div className="search-wrapper__input--generation">
