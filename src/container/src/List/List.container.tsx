@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
+import { Card } from './components'
 
 const List = styled.div`
   width: 100%;
@@ -16,7 +17,7 @@ const ListContainer: React.FC = () => {
       <VirtuosoGrid
         totalCount={pokemonList.length}
         itemContent={(index) => {
-          return <div>Item {pokemonList[index].name}</div>
+          return <Card pokemonData={pokemonList[index]} />
         }}
       />
     )

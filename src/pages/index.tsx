@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import styled from 'styled-components'
-import { Header } from '~/container'
-import { List } from '~/container'
-import { ListProvider } from '~/context'
+import { MainViews } from '~/views'
 
 const Main = styled.main`
   width: 100%;
@@ -19,10 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <ListProvider>
-          <Header />
-          <List />
-        </ListProvider>
+        <MainViews />
       </Main>
     </>
   )

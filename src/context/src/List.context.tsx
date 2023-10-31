@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client'
 import React from 'react'
 import { PokemonInfoFragment, useGetPokemonListQuery } from '~/graphql/hooks'
 
@@ -22,55 +21,6 @@ type ContextType = {
   loading: boolean
   onChagneFilter?: (filter: ListFilterType) => void
 }
-
-gql`
-  fragment PokemonInfo on Pokemon {
-    id
-    number
-    name
-    type
-    isRegion
-    isMega
-    typeSingle1
-    typeSingle2
-    isEvolution
-    evolutionId
-    generation
-    isForm
-    stats {
-      pokemonId
-      hp
-      attack
-      defense
-      specialAttack
-      specialDefense
-      speed
-      total
-    }
-  }
-
-  query getPokemonList(
-    $pokemonNumber: Int
-    $type: [String!]
-    $isMega: Boolean
-    $isRegion: Boolean
-    $isEvolution: Boolean
-    $name: String
-    $generation: [String!]
-  ) {
-    getPokemonFilter(
-      pokemonNumber: $pokemonNumber
-      type: $type
-      isMega: $isMega
-      isRegion: $isRegion
-      isEvolution: $isEvolution
-      name: $name
-      generation: $generation
-    ) {
-      ...PokemonInfo
-    }
-  }
-`
 
 export const ListContext = React.createContext<ContextType>({
   pokemonList: [],
