@@ -27,7 +27,7 @@ type ContextType = {
   onChagneFilter?: (filter: ListFilterType) => void
 }
 
-const POKEMON_LIST = gql`
+gql`
   query GetPokemonFilter(
     $pokemonNumber: Int
     $type: [String!]
@@ -80,7 +80,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
 
   const { data, loading } = useQuery<PokemonDataType>(POKEMON_LIST, {
     variables: { ...listFilter },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'cache-and-network',
   })
 
   const onChagneFilter = React.useCallback((filter: ListFilterType) => {
