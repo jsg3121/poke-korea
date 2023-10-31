@@ -1,13 +1,9 @@
 import { gql, useQuery } from '@apollo/client'
 import React from 'react'
-import { Pokemon } from '../../graphql'
+import { PokemonInfoFragment, useGetPokemonListQuery } from '~/graphql/hooks'
 
 interface ListProviderProps {
   children: React.ReactNode
-}
-
-type PokemonDataType = {
-  getPokemonFilter: Array<Pokemon>
 }
 
 type ListFilterType = {
@@ -22,13 +18,38 @@ type ListFilterType = {
 }
 
 type ContextType = {
-  pokemonList?: Array<Pokemon>
-  loading?: boolean
+  pokemonList: Array<PokemonInfoFragment>
+  loading: boolean
   onChagneFilter?: (filter: ListFilterType) => void
 }
 
 gql`
-  query GetPokemonFilter(
+  fragment PokemonInfo on Pokemon {
+    id
+    number
+    name
+    type
+    isRegion
+    isMega
+    typeSingle1
+    typeSingle2
+    isEvolution
+    evolutionId
+    generation
+    isForm
+    stats {
+      pokemonId
+      hp
+      attack
+      defense
+      specialAttack
+      specialDefense
+      speed
+      total
+    }
+  }
+
+  query getPokemonList(
     $pokemonNumber: Int
     $type: [String!]
     $isMega: Boolean
@@ -46,40 +67,24 @@ gql`
       name: $name
       generation: $generation
     ) {
-      id
-      number
-      name
-      type
-      isRegion
-      isMega
-      typeSingle1
-      typeSingle2
-      isEvolution
-      evolutionId
-      generation
-      isForm
-      stats {
-        pokemonId
-        hp
-        attack
-        defense
-        specialAttack
-        specialDefense
-        speed
-        total
-      }
+      ...PokemonInfo
     }
   }
 `
 
-export const ListContext = React.createContext<ContextType>({})
+export const ListContext = React.createContext<ContextType>({
+  pokemonList: [],
+  loading: false,
+})
 
 export const ListProvider: React.FC<ListProviderProps> = (props) => {
   const { children } = props
   const [listFilter, setListFilter] = React.useState<ListFilterType>({})
 
-  const { data, loading } = useQuery<PokemonDataType>(POKEMON_LIST, {
-    variables: { ...listFilter },
+  const { data, loading } = useGetPokemonListQuery({
+    variables: {
+      ...listFilter,
+    },
     fetchPolicy: 'cache-and-network',
   })
 
@@ -93,7 +98,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
   }, [])
 
   const initialValue = {
-    pokemonList: data?.getPokemonFilter,
+    pokemonList: data?.getPokemonFilter || [],
     loading,
     onChagneFilter,
   }

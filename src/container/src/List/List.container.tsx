@@ -9,7 +9,7 @@ const List = styled.div`
 `
 
 const ListContainer: React.FC = () => {
-  const { pokemonList = [] } = useContext(ListContext)
+  const { pokemonList } = useContext(ListContext)
 
   const list = React.useMemo(() => {
     return (
