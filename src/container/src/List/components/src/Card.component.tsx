@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import styled from 'styled-components'
 import { imageMode } from '~/common'
+import { Tag } from '~/components'
 import { PokemonCardFragment } from '~/graphql/hooks'
 
 interface CardComponentProps {
@@ -31,11 +32,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
       <p>{pokemonData.number}</p>
       <p className="card-info__name">{pokemonData.name}</p>
       {pokemonData.type.map((item, index) => {
-        return (
-          <p className="card-info__type" key={index}>
-            {item}
-          </p>
-        )
+        return <Tag key={`${item}-id-${index}`} label={item} />
       })}
       {pokemonData.isMega && <p>메가진화</p>}
       {pokemonData.isRegion && <p>리전폼</p>}

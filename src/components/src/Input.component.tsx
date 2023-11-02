@@ -1,5 +1,4 @@
 import React from 'react'
-import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 
 interface InputComponentsProps {
@@ -144,4 +143,4 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
   )
 }
 
-export default React.memo(InputComponents, isEqual)
+export default InputComponents

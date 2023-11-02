@@ -77,7 +77,7 @@ export const GlobalStyle = createGlobalStyle`
     @media screen and (min-width: 1281px) {
         html,
         body {
-            font-size: calc(max(18px, 1vw));
+            font-size: 18px;
         }
     }
     @media screen and (min-width: 960px) and (max-width: 1280px) {

@@ -1,1 +1,2 @@
-export { default as Input } from './src/Input.components'
+export { default as Input } from './src/Input.component'
+export { default as Tag } from './src/Tag.component'
