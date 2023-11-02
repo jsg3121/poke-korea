@@ -8,8 +8,8 @@ interface TagComponentProps {
 }
 
 const Tag = styled.p<{ color: TypesColor; type: string }>`
-  width: 3.75rem;
-  height: 1.38888889rem;
+  width: 3.05555556rem;
+  height: 1.22222222rem;
   padding: 0 0.5rem;
   border-radius: 0.5rem;
   background-color: ${(props) => props.color};
@@ -18,12 +18,12 @@ const Tag = styled.p<{ color: TypesColor; type: string }>`
   align-items: center;
 
   & > span {
-    height: 0.75rem;
     width: 100%;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     text-align: center;
-    margin: 0;
+    line-height: 1.22222222rem;
     color: #ffffff;
+    margin: 0;
   }
 `
 

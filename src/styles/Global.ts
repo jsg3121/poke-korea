@@ -23,7 +23,6 @@ export const GlobalStyle = createGlobalStyle`
     html,body{
         font-size: 18px;
         -webkit-text-size-adjust: none;
-        font-family: sans-serif,-apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo;       
         font-display: fallback;
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -70,7 +69,6 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1,h2,h3,h4,h5,h6,p,span,textarea {
-        font-family: sans-serif,-apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo;       
         color: #333333;
     }
 
