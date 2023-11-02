@@ -5,17 +5,26 @@ import { Input } from '~/components'
 
 const Search = styled.div`
   min-width: 50%;
-  height: 60px;
-  margin: 0 20px;
-  border: 1px solid #333333;
-  border-radius: 40px;
+  max-width: 960px;
+  height: 3.33333333rem;
+  margin: 0 auto;
+  border: 1px solid #dddddd;
+  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  border-radius: 2.22222222rem;
   display: flex;
   align-items: center;
+  overflow: hidden;
 
   [class*='search-wrapper__input'] {
     height: 100%;
     flex-shrink: 0;
     overflow: hidden;
+    position: relative;
+
+    &:hover {
+      background-color: #ebebeb;
+      border-radius: 2.22222222rem;
+    }
   }
 
   .search-wrapper__input {

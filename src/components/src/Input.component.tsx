@@ -55,28 +55,29 @@ const Input = styled.label`
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
-  border-radius: 40px;
-  padding: 0 25px;
+  border-radius: 2.22222222rem;
+  padding: 0 1.38888889rem;
 
   .input__label {
     width: 100%;
-    height: 14px;
-    font-size: 12px;
+    height: 0.77777778rem;
+    font-size: 0.66666667rem;
     font-weight: 700;
     text-align: left;
-    line-height: 14px;
+    line-height: 0.77777778rem;
   }
 
   .wrapper__input,
   .input__paceholder {
     width: 100%;
-    height: 20px;
-    font-size: 16px;
+    height: 1.11111111rem;
+    font-size: 0.83333333rem;
     font-weight: normal;
-    line-height: 20px;
+    line-height: 1.11111111rem;
     border: 0;
     padding: 0;
     cursor: pointer;
+    background-color: transparent;
 
     &::placeholder {
       color: #999999;
@@ -85,7 +86,7 @@ const Input = styled.label`
 
   .wrapper__select {
     width: 100%;
-    height: 20px;
+    height: 1.11111111rem;
     display: flex;
     align-items: center;
   }
