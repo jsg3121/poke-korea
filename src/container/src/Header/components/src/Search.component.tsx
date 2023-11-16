@@ -14,6 +14,7 @@ const Search = styled.div`
   display: flex;
   align-items: center;
   overflow: hidden;
+  background-color: #ffffff;
 
   [class*='search-wrapper__input'] {
     height: 100%;
