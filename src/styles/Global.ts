@@ -26,16 +26,20 @@ export const GlobalStyle = createGlobalStyle`
         font-display: fallback;
         -ms-overflow-style: none;
         scrollbar-width: none;
-        min-height:100vh;
         width: 100%;
-        background-color: #ffffff;
+        background: linear-gradient(
+          0deg,
+          #142129 3rem,
+          #1c303d 5rem,
+          #45545e 10rem,
+          #85929a 20rem
+        );
         scroll-behavior: smooth;
         overflow-x: hidden;
     }
     
     body {
         position: relative;
-        height: 100vh;
     }
 
     button {

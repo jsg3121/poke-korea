@@ -25,6 +25,7 @@ const ListContainer: React.FC = () => {
   const list = React.useMemo(() => {
     return (
       <VirtuosoGrid
+        useWindowScroll
         totalCount={pokemonList.length}
         itemContent={(index) => {
           return <Card pokemonData={pokemonList[index]} />

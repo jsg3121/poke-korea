@@ -4,14 +4,7 @@ import { MainViews } from '~/views'
 
 const Main = styled.main`
   width: 100%;
-  height: 100vh;
-  background: linear-gradient(
-    0deg,
-    #142129 70%,
-    #1c303d 80%,
-    #45545e 90%,
-    #85929a 100%
-  );
+  min-height: fit-content;
 `
 
 export default function Home() {

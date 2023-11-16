@@ -7,7 +7,7 @@ const MainViews: React.FC = () => {
   return (
     <ListProvider>
       <Header />
-      {/* <List /> */}
+      <List />
     </ListProvider>
   )
 }
