@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useDebounce } from '~/hook'
 
 interface InputComponentsProps {
   /**
@@ -107,11 +108,28 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
     onSelectInputClick,
   } = props
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChange) {
-      onChange(e.target.value)
+  const [keyword, setKeyword] = useDebounce()
+
+  const handleInputChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value
+      if (value === '' && onChange) {
+        onChange('')
+      }
+      setKeyword(value.trim())
+    },
+    [onChange, setKeyword]
+  )
+
+  React.useEffect(() => {
+    if (onChange && keyword) {
+      if (Number.isNaN(parseInt(keyword, 10))) {
+        onChange(keyword)
+      } else {
+        onChange(keyword)
+      }
     }
-  }
+  }, [keyword, onChange])
 
   const handleSelectModalClick = () => {
     if (type === 'select' && onSelectInputClick) {

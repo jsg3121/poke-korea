@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import { Input } from '~/components'
+import { ListContext } from '~/context'
 
 const Search = styled.div`
   min-width: 50%;
@@ -45,7 +46,16 @@ const Search = styled.div`
 `
 
 const SearchComponent: React.FC = () => {
-  const handleInputChange = React.useCallback(() => {}, [])
+  const { onChagneFilter } = useContext(ListContext)
+
+  const handleInputChange = React.useCallback(
+    (value: string) => {
+      if (onChagneFilter) {
+        onChagneFilter({ name: value })
+      }
+    },
+    [onChagneFilter]
+  )
 
   const handleSelectInputClick = React.useCallback(() => {}, [])
 

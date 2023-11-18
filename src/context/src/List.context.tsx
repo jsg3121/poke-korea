@@ -1,5 +1,6 @@
 import React from 'react'
-import { PokemonInfoFragment, useGetPokemonListQuery } from '~/graphql/hooks'
+import { useGetPokemonListQuery } from '~/graphql/gqlGenerated'
+import { PokemonInfoFragment } from '~/graphql/typeGenerated'
 
 interface ListProviderProps {
   children: React.ReactNode

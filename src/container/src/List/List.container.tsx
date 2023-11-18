@@ -9,6 +9,7 @@ const List = styled.section`
   max-width: 2160px;
   height: calc(100% - 10rem);
   margin: 0 auto;
+  padding: 0 2rem 2rem;
 
   .virtuoso-grid-list {
     display: grid;

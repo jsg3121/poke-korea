@@ -27,19 +27,15 @@ export const GlobalStyle = createGlobalStyle`
         -ms-overflow-style: none;
         scrollbar-width: none;
         width: 100%;
-        background: linear-gradient(
-          0deg,
-          #142129 3rem,
-          #1c303d 5rem,
-          #45545e 10rem,
-          #85929a 20rem
-        );
+        background-color: #142129;
         scroll-behavior: smooth;
         overflow-x: hidden;
     }
     
     body {
         position: relative;
+        width: 100%;
+        height: 100%;
     }
 
     button {

@@ -1,18 +1,45 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
+  overwrite: true,
   schema: 'http://localhost:4000/graphql',
   documents: ['src/**/*.graphql'],
   generates: {
     'src/graphql/schema.graphql': {
-      plugins: ['typescript', 'typescript-operations'],
+      plugins: ['schema-ast'],
+      config: {
+        includeDirectives: true,
+        commentDescriptions: true,
+      },
     },
-    'src/graphql/hooks.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
+    'src/graphql/gqlGenerated.ts': {
+      documents: ['src/**/*.graphql'],
+      preset: 'import-types',
+      presetConfig: {
+        typesPath: 'app.modules/graphql/typeGenerated',
+      },
+      plugins: ['typescript-react-apollo'],
+      config: {
+        withHooks: 'true',
+        namingConvention: {
+          enumValues: 'change-case#constantCase',
+        },
+        scalars: {
+          Date: 'number',
+        },
+      },
+    },
+    'src/graphql/typeGenerated.ts': {
+      documents: ['src/**/*.graphql'],
+      plugins: ['typescript', 'typescript-operations'],
+      config: {
+        namingConvention: {
+          enumValues: 'change-case#constantCase',
+        },
+        scalars: {
+          Date: 'number',
+        },
+      },
     },
   },
 }

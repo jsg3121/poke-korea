@@ -5,7 +5,7 @@ import { Logo, Search, Settings } from './components'
 const Header = styled.header`
   width: 100%;
   padding: 7rem 1.11111111rem 1.38888889rem;
-  box-shadow: rgb(0 0 0 / 8%) 0 1px 0;
+  background: linear-gradient(0deg, #142129 0%, #7e8da1 100%);
 
   .header__content {
     width: 100%;
