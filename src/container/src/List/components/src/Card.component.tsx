@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { changeType, imageMode } from '~/common'
 import { Image, Tag } from '~/components'
-import { TypesColor } from '~/types'
+import { CardColor, TypesColor } from '~/types'
 import { pokemonNumberFormat } from '../../module'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 
@@ -11,7 +11,7 @@ interface CardComponentProps {
   pokemonData: PokemonCardFragment
 }
 
-type CardType = { backgroundColor: Array<TypesColor> }
+type CardType = { backgroundColor: Array<CardColor> }
 
 const Card = styled.article<CardType>`
   width: 14rem;
@@ -61,6 +61,7 @@ const Card = styled.article<CardType>`
   .card-info__image {
     width: fit-content;
     margin: 1.11111111rem auto;
+    filter: drop-shadow(2px 3px 2px #333333);
   }
 
   .card-info__name {
@@ -79,9 +80,9 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   const backgroundColor = React.useMemo(() => {
-    const background: Array<TypesColor> = []
+    const background: Array<CardColor> = []
     pokemonData.type.map((item) => {
-      return background.push(changeType(item).color)
+      return background.push(changeType(item).cardColor)
     })
     return background
   }, [pokemonData])
