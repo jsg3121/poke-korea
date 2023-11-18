@@ -3,9 +3,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { changeType, imageMode } from '~/common'
 import { Image, Tag } from '~/components'
-import { PokemonCardFragment } from '~/graphql/hooks'
 import { TypesColor } from '~/types'
 import { pokemonNumberFormat } from '../../module'
+import { PokemonCardFragment } from '~/graphql/typeGenerated'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -23,12 +23,12 @@ const Card = styled.article<CardType>`
   border: 0;
   background: ${(props) => {
     if (props.backgroundColor.length === 1) {
-      return `${props.backgroundColor[0]}66`
+      return `${props.backgroundColor[0]}`
     } else {
       return `linear-gradient(
               135deg,
-              ${props.backgroundColor[0]}66 35%,
-              ${props.backgroundColor[1]}66 65%
+              ${props.backgroundColor[0]} 35%,
+              ${props.backgroundColor[1]} 65%
             )`
     }
   }};
