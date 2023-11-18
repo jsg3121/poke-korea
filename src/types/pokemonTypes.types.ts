@@ -57,7 +57,7 @@ export enum CardColor {
   GHOST = '#c8c0d7',
   DRAGON = '#c8b6fd',
   DARK = '#c7c0ba',
-  STEEL = '#B8Be3e3ed8D0',
+  STEEL = '#e3e3ec',
   FAIRY = '#f8d8df',
 }
 

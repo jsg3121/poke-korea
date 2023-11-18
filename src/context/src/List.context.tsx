@@ -35,6 +35,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
   const { data, loading } = useGetPokemonListQuery({
     variables: {
       ...listFilter,
+      generation: ['9'],
     },
     fetchPolicy: 'cache-and-network',
   })
