@@ -15,6 +15,7 @@ const List = styled.section`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(14rem, auto));
     grid-column-gap: 1rem;
+    grid-row-gap: 1.5rem;
     justify-items: center;
     justify-content: space-between;
   }
