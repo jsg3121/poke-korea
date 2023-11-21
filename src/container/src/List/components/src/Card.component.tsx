@@ -126,7 +126,7 @@ const Card = styled.article<CardType>`
 
     .card-info__image {
       width: fit-content;
-      margin: 0 auto;
+      margin: 0 auto 1rem;
       filter: drop-shadow(2px 3px 2px #333333);
       position: relative;
     }
@@ -160,8 +160,8 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
       <div className="card-info__image">
         <div className="card-info__image--background"></div>
         <Image
-          height="11rem"
-          width="11rem"
+          height="10rem"
+          width="10rem"
           alt={`pokemon_id_${pokemonData.number}`}
           src={`${imageMode}/${pokemonData.number}.webp`}
           imageCaption={`포켓몬 ${pokemonData.name} 이미지`}

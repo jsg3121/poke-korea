@@ -4,7 +4,6 @@ import { MainViews } from '~/views'
 
 const Main = styled.main`
   width: 100%;
-  min-height: fit-content;
 `
 
 export default function Home() {

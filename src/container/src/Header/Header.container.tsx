@@ -1,11 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Logo, Search, Settings } from './components'
+import { Logo, Search } from './components'
 
 const Header = styled.header`
   width: 100%;
+  height: 32rem;
   padding: 7rem 1.11111111rem 1.38888889rem;
   background: linear-gradient(0deg, #142129 0%, #7e8da1 100%);
+  position: sticky;
+  top: -25.5rem;
+  z-index: 5;
 
   .header__content {
     width: 100%;

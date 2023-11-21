@@ -27,9 +27,9 @@ export const GlobalStyle = createGlobalStyle`
         -ms-overflow-style: none;
         scrollbar-width: none;
         width: 100%;
+        height: 100%;
         background-color: #142129;
         scroll-behavior: smooth;
-        overflow-x: hidden;
     }
     
     body {

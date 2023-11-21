@@ -7,9 +7,8 @@ import { Card } from './components'
 const List = styled.section`
   width: 100%;
   max-width: 2160px;
-  height: calc(100% - 10rem);
   margin: 0 auto;
-  padding: 0 2rem 2rem;
+  padding: 2rem;
 
   .virtuoso-grid-list {
     display: grid;
