@@ -31,7 +31,7 @@ const Search = styled.div`
 
   .search-wrapper__input {
     &--name {
-      width: 34%;
+      width: 100%;
     }
     &--type {
       width: 22%;
@@ -65,12 +65,12 @@ const SearchComponent: React.FC = () => {
         <Input
           dataLabel="search-input-name"
           type="text"
-          label="포켓몬 이름"
-          placeholder="포켓몬 이름 검색"
+          label="포켓몬 검색"
+          placeholder="찾고싶은 포켓몬 이름을 입력해주세요"
           onChange={handleInputChange}
         />
       </div>
-      <div className="search-wrapper__input--type">
+      {/* <div className="search-wrapper__input--type">
         <Input
           dataLabel="search-input-type"
           type="select"
@@ -94,7 +94,7 @@ const SearchComponent: React.FC = () => {
           label="추가 설정"
           placeholder="추가설정"
         />
-      </div>
+      </div> */}
     </Search>
   )
 }

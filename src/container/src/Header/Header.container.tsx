@@ -5,7 +5,7 @@ import { Logo, Search } from './components'
 const Header = styled.header`
   width: 100%;
   height: 32rem;
-  padding: 7rem 1.11111111rem 1.38888889rem;
+  padding: 7rem 1.11111111rem 1rem;
   background: linear-gradient(0deg, #142129 0%, #7e8da1 100%);
   position: sticky;
   top: -25.5rem;
