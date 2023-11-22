@@ -28,7 +28,7 @@ const Ball = styled.span<{ value: boolean }>`
     left: 50%;
     transform: translate(-50%, 0);
     box-sizing: border-box;
-    box-shadow: inset -2px 0 0px 0px #aa3333, inset 3px 1px 0px 0px #fa6969;
+    box-shadow: inset 3px 3px 0px -2px #f6d9d9, inset -2px 0 0px 0px #aa3333;
     z-index: 1;
   }
 
