@@ -8,7 +8,6 @@ const Search = styled.div`
   min-width: 50%;
   max-width: 960px;
   height: 3.33333333rem;
-  margin: 0 auto;
   border: 1px solid #dddddd;
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
   border-radius: 2.22222222rem;
@@ -16,6 +15,9 @@ const Search = styled.div`
   align-items: center;
   overflow: hidden;
   background-color: #ffffff;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 
   [class*='search-wrapper__input'] {
     height: 100%;
@@ -31,7 +33,7 @@ const Search = styled.div`
 
   .search-wrapper__input {
     &--name {
-      width: 100%;
+      width: 34%;
     }
     &--type {
       width: 22%;
@@ -70,7 +72,7 @@ const SearchComponent: React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-      {/* <div className="search-wrapper__input--type">
+      <div className="search-wrapper__input--type">
         <Input
           dataLabel="search-input-type"
           type="select"
@@ -94,7 +96,7 @@ const SearchComponent: React.FC = () => {
           label="추가 설정"
           placeholder="추가설정"
         />
-      </div> */}
+      </div>
     </Search>
   )
 }

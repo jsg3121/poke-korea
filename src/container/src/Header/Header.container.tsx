@@ -4,22 +4,24 @@ import { Logo, Search } from './components'
 
 const Header = styled.header`
   width: 100%;
-  height: 25rem;
-  padding: 0 1.11111111rem 1rem;
+  height: 6rem;
+  padding: 0 1.11111111rem;
   background: linear-gradient(0deg, #142129 0%, #7e8da1 100%);
+  display: flex;
+  align-items: center;
   position: sticky;
-  top: -18.5rem;
+  top: 0;
   z-index: 5;
+  box-shadow: 0 1px 6px -2px #838383;
 
   .header__content {
-    width: 100%;
+    width: 15rem;
     max-width: 2160px;
-    height: 20rem;
+    height: 6rem;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1.11111111rem;
-    margin: 0 auto;
   }
 `
 
