@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Logo, Search } from './components'
+import { Search } from './search'
+import { Logo } from './logo'
 
 const Header = styled.header`
   width: 100%;

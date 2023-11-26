@@ -3,6 +3,8 @@ import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import { Input } from '~/components'
 import { ListContext } from '~/context'
+import { SearchSelect } from './components'
+import useOutsideEffect from '~/hook/src/useOutSideEffect'
 
 const Search = styled.div`
   min-width: 50%;
@@ -13,7 +15,6 @@ const Search = styled.div`
   border-radius: 2.22222222rem;
   display: flex;
   align-items: center;
-  overflow: hidden;
   background-color: #ffffff;
   position: absolute;
   left: 50%;
@@ -48,6 +49,9 @@ const Search = styled.div`
 `
 
 const SearchComponent: React.FC = () => {
+  const searchRef = React.useRef<HTMLDivElement>(null)
+  const [isSelectShow, setIsSelectShow] = React.useState<boolean>(false)
+
   const { onChagneFilter } = useContext(ListContext)
 
   const handleInputChange = React.useCallback(
@@ -59,10 +63,14 @@ const SearchComponent: React.FC = () => {
     [onChagneFilter]
   )
 
-  const handleSelectInputClick = React.useCallback(() => {}, [])
+  const handleSelectInputClick = React.useCallback(() => {
+    setIsSelectShow(() => true)
+  }, [])
+
+  useOutsideEffect(searchRef, () => setIsSelectShow(false))
 
   return (
-    <Search>
+    <Search ref={searchRef}>
       <div className="search-wrapper__input--name">
         <Input
           dataLabel="search-input-name"
@@ -97,6 +105,7 @@ const SearchComponent: React.FC = () => {
           placeholder="추가설정"
         />
       </div>
+      {isSelectShow && <SearchSelect />}
     </Search>
   )
 }
