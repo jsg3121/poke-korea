@@ -2,6 +2,9 @@ import React, { useContext } from 'react'
 import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
+import { PokemonTypes } from '~/types'
+import { Checkbox } from '~/components'
+import { InputFieldType } from '../select.field'
 
 interface SearchSelectComponentProps {}
 
@@ -18,9 +21,13 @@ const SearchSelect = styled.aside`
 `
 
 const SearchSelectComponent: React.FC<SearchSelectComponentProps> = () => {
-  const { selectOption } = useContext(ListContext)
+  const { listFilter, selectOption, onChagneFilter } = useContext(ListContext)
 
-  return <SearchSelect></SearchSelect>
+  return (
+    <SearchSelect>
+      {selectOption === 'type' && <InputFieldType filter={listFilter.type} />}
+    </SearchSelect>
+  )
 }
 
 export default React.memo(SearchSelectComponent, isEqual)

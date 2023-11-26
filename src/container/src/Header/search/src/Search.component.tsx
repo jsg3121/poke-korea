@@ -3,7 +3,7 @@ import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import { Input } from '~/components'
 import { ListContext, SelectFilterType } from '~/context'
-import { SearchSelect } from './components'
+import { SearchSelect } from './search.select'
 import useOutsideEffect from '~/hook/src/useOutSideEffect'
 
 const Search = styled.div`

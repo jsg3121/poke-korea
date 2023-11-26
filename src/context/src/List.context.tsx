@@ -21,6 +21,7 @@ export type SelectFilterType = 'type' | 'generation' | 'moreOption' | undefined
 
 type ContextType = {
   pokemonList: Array<PokemonInfoFragment>
+  listFilter: ListFilterType
   selectOption: SelectFilterType
   loading: boolean
   onChagneFilter?: (filter: ListFilterType) => void
@@ -29,6 +30,7 @@ type ContextType = {
 
 export const ListContext = React.createContext<ContextType>({
   pokemonList: [],
+  listFilter: {},
   selectOption: undefined,
   loading: false,
 })
@@ -60,6 +62,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
 
   const initialValue = {
     pokemonList: data?.getPokemonFilter || [],
+    listFilter: {},
     selectOption,
     loading,
     onChagneFilter,
