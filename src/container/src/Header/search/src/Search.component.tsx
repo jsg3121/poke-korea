@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import { Input } from '~/components'
-import { ListContext } from '~/context'
+import { ListContext, SelectFilterType } from '~/context'
 import { SearchSelect } from './components'
 import useOutsideEffect from '~/hook/src/useOutSideEffect'
 
@@ -50,9 +50,9 @@ const Search = styled.div`
 
 const SearchComponent: React.FC = () => {
   const searchRef = React.useRef<HTMLDivElement>(null)
-  const [isSelectShow, setIsSelectShow] = React.useState<boolean>(false)
 
-  const { onChagneFilter } = useContext(ListContext)
+  const { selectOption, onChagneFilter, onSelectSearchFilter } =
+    useContext(ListContext)
 
   const handleInputChange = React.useCallback(
     (value: string) => {
@@ -63,11 +63,22 @@ const SearchComponent: React.FC = () => {
     [onChagneFilter]
   )
 
-  const handleSelectInputClick = React.useCallback(() => {
-    setIsSelectShow(() => true)
-  }, [])
+  const handleSelectInputClick = React.useCallback(
+    (options: SelectFilterType) => () => {
+      if (onSelectSearchFilter) {
+        onSelectSearchFilter(options)
+      }
+    },
+    [onSelectSearchFilter]
+  )
 
-  useOutsideEffect(searchRef, () => setIsSelectShow(false))
+  const handleOutSideEffect = () => {
+    if (onSelectSearchFilter) {
+      onSelectSearchFilter(undefined)
+    }
+  }
+
+  useOutsideEffect(searchRef, handleOutSideEffect)
 
   return (
     <Search ref={searchRef}>
@@ -75,8 +86,8 @@ const SearchComponent: React.FC = () => {
         <Input
           dataLabel="search-input-name"
           type="text"
-          label="포켓몬 검색"
-          placeholder="찾고싶은 포켓몬 이름을 입력해주세요"
+          label="포켓몬"
+          placeholder="포켓몬 검색"
           onChange={handleInputChange}
         />
       </div>
@@ -86,7 +97,7 @@ const SearchComponent: React.FC = () => {
           type="select"
           label="포켓몬 타입"
           placeholder="포켓몬 타입 검색"
-          onSelectInputClick={handleSelectInputClick}
+          onSelectInputClick={handleSelectInputClick('type')}
         />
       </div>
       <div className="search-wrapper__input--generation">
@@ -95,6 +106,7 @@ const SearchComponent: React.FC = () => {
           type="select"
           label="포켓몬 세대"
           placeholder="포켓몬 세대 검색"
+          onSelectInputClick={handleSelectInputClick('generation')}
         />
       </div>
       <div className="search-wrapper__input--checkbox">
@@ -103,9 +115,10 @@ const SearchComponent: React.FC = () => {
           type="select"
           label="추가 설정"
           placeholder="추가설정"
+          onSelectInputClick={handleSelectInputClick('moreOption')}
         />
       </div>
-      {isSelectShow && <SearchSelect />}
+      {selectOption && <SearchSelect />}
     </Search>
   )
 }
