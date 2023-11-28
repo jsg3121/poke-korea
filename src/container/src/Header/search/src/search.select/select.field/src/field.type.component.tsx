@@ -1,9 +1,9 @@
-import React from 'react'
 import isEqual from 'fast-deep-equal'
-import { Checkbox, Image, Tag } from '~/components'
-import { PokemonTypes } from '~/types'
+import React from 'react'
 import styled from 'styled-components'
+import { Image } from '~/components'
 import { ListContext } from '~/context'
+import { PokemonTypes } from '~/types'
 
 interface FieldTypeComponentProps {
   filter?: Array<string>
@@ -21,7 +21,6 @@ const FieldTypeInput = styled.div`
   .button__field--type {
     width: 3rem;
     text-align: center;
-    padding: 0 0.5rem;
     transition: transform 0.2s ease-out;
     will-change: transform;
     cursor: pointer;
@@ -31,11 +30,16 @@ const FieldTypeInput = styled.div`
     }
 
     label {
+      width: 3rem;
+      padding: 0 0.5rem;
       opacity: 0.6;
+      filter: grayscale(1);
+      display: block;
     }
 
     input:checked + label {
       opacity: 1;
+      filter: grayscale(0);
     }
 
     input:disabled + label {
