@@ -24,7 +24,7 @@ type ContextType = {
   listFilter: ListFilterType
   selectOption: SelectFilterType
   loading: boolean
-  onChagneFilter?: (filter: ListFilterType) => void
+  onChangeFilter?: (filter: ListFilterType) => void
   onSelectSearchFilter?: (filterOption: SelectFilterType) => void
 }
 
@@ -51,7 +51,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
     setSeletOption(filterOption)
   }
 
-  const onChagneFilter = React.useCallback((filter: ListFilterType) => {
+  const onChangeFilter = React.useCallback((filter: ListFilterType) => {
     setListFilter((value) => {
       return {
         ...value,
@@ -65,7 +65,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
     listFilter: {},
     selectOption,
     loading,
-    onChagneFilter,
+    onChangeFilter,
     onSelectSearchFilter,
   }
 

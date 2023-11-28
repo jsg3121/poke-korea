@@ -51,16 +51,16 @@ const Search = styled.div`
 const SearchComponent: React.FC = () => {
   const searchRef = React.useRef<HTMLDivElement>(null)
 
-  const { selectOption, onChagneFilter, onSelectSearchFilter } =
+  const { selectOption, onChangeFilter, onSelectSearchFilter } =
     useContext(ListContext)
 
   const handleInputChange = React.useCallback(
     (value: string) => {
-      if (onChagneFilter) {
-        onChagneFilter({ name: value })
+      if (onChangeFilter) {
+        onChangeFilter({ name: value })
       }
     },
-    [onChagneFilter]
+    [onChangeFilter]
   )
 
   const handleSelectInputClick = React.useCallback(

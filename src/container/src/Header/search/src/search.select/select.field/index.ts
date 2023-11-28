@@ -1,1 +1,1 @@
-export { default as InputFieldType } from './src/field.type.component'
+export { default as InputFieldType } from './src/Field.type.component'

@@ -20,7 +20,11 @@ const SearchSelect = styled.aside`
 `
 
 const SearchSelectComponent: React.FC<SearchSelectComponentProps> = () => {
-  const { listFilter, selectOption, onChagneFilter } = useContext(ListContext)
+  const {
+    listFilter,
+    selectOption,
+    onChangeFilter: onChangeFilter,
+  } = useContext(ListContext)
 
   return (
     <SearchSelect>
