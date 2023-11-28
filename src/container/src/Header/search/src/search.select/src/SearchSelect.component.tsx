@@ -1,23 +1,22 @@
-import React, { useContext } from 'react'
 import isEqual from 'fast-deep-equal'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
-import { PokemonTypes } from '~/types'
-import { Checkbox } from '~/components'
 import { InputFieldType } from '../select.field'
 
 interface SearchSelectComponentProps {}
 
 const SearchSelect = styled.aside`
-  width: 100%;
-  min-height: 10rem;
-  background-color: #ffffff;
-  border: 1px solid #333333;
+  width: fit-content;
+  min-height: fit-content;
+  background-color: #1c2c36;
+  outline: 1px solid #ced9de;
   border-radius: 2.22222222rem;
   position: absolute;
   top: 3.5rem;
   z-index: 111;
-  left: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 `
 
 const SearchSelectComponent: React.FC<SearchSelectComponentProps> = () => {
