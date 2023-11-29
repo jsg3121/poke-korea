@@ -16,7 +16,7 @@ export const useCheckSelectTypeListField: UseCheckSeletTypeListField = (
   const [typeList, setTypeList] = React.useState<Array<string>>(selectedType)
 
   const changeSelectTypeList = (value: string) => {
-    if (selectedType.indexOf(value) === -1) {
+    if (typeList.indexOf(value) === -1) {
       setTypeList((types) => {
         return [...types, value]
       })

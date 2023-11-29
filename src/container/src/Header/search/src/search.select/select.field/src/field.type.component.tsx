@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { ListContext } from '~/context'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
-import { useCheckSelectTypeListField } from '../hook'
 
 interface FieldTypeComponentProps {}
 
@@ -20,21 +19,15 @@ const FieldTypeInput = styled.div`
 
 const FieldTypeComponent: React.FC<FieldTypeComponentProps> = () => {
   const { listFilter, onChangeFilter } = React.useContext(ListContext)
-  const [typeList, setTypeList] = useCheckSelectTypeListField(
-    listFilter.type || []
-  )
 
-  const handleChageFilter = React.useCallback(
-    (value: string) => {
-      setTypeList(value)
-      if (onChangeFilter) {
-        onChangeFilter({
-          type: [...typeList],
-        })
+  const handleChageFilter = (value: string) => {
+    const typeList = listFilter.type || []
+    if (onChangeFilter) {
+      if (typeList.indexOf(value) === -1) {
+        onChangeFilter({ type: [...typeList, value] })
       }
-    },
-    [onChangeFilter, setTypeList, typeList]
-  )
+    }
+  }
 
   return (
     <FieldTypeInput>

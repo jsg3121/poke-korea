@@ -20,16 +20,10 @@ const SearchSelect = styled.aside`
 `
 
 const SearchSelectComponent: React.FC<SearchSelectComponentProps> = () => {
-  const {
-    listFilter,
-    selectOption,
-    onChangeFilter: onChangeFilter,
-  } = useContext(ListContext)
+  const { selectOption } = useContext(ListContext)
 
   return (
-    <SearchSelect>
-      {selectOption === 'type' && <InputFieldType filter={listFilter.type} />}
-    </SearchSelect>
+    <SearchSelect>{selectOption === 'type' && <InputFieldType />}</SearchSelect>
   )
 }
 

@@ -52,6 +52,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
   }
 
   const onChangeFilter = React.useCallback((filter: ListFilterType) => {
+    console.log(filter)
     setListFilter((value) => {
       return {
         ...value,
