@@ -42,7 +42,7 @@ const ImageComponent: React.FC<ImageComponentProps> = (props) => {
       <picture>
         <figure>
           <figcaption>{imageCaption ?? '아이콘'}</figcaption>
-          <NextImage {...imageProps} fill sizes="10vw" loading="lazy" />
+          <NextImage {...imageProps} fill />
         </figure>
       </picture>
     </StyledImage>

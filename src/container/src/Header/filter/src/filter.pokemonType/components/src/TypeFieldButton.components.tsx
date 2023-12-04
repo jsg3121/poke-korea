@@ -90,6 +90,7 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
           height="2rem"
           width="2rem"
           src={`/assets/type/${typeValue}.svg`}
+          loading="lazy"
         />
       </label>
       <span className="field__tooltip">{typeName}</span>

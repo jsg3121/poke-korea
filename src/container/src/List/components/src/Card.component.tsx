@@ -165,6 +165,8 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
           alt={`pokemon_id_${pokemonData.number}`}
           src={`${imageMode}/${pokemonData.number}.webp`}
           imageCaption={`포켓몬 ${pokemonData.name} 이미지`}
+          sizes="10rem"
+          priority
         />
       </div>
       <div className="card-info__types">
