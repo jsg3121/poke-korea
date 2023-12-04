@@ -11,7 +11,7 @@ interface TypeFieldButtonComponentsProps {
 }
 
 const TypeFieldButton = styled.div`
-  width: 3rem;
+  width: 2rem;
   text-align: center;
   transition: transform 0.2s ease-out;
   will-change: transform;
@@ -22,8 +22,7 @@ const TypeFieldButton = styled.div`
   }
 
   label {
-    width: 3rem;
-    padding: 0 0.5rem;
+    width: 2rem;
     opacity: 0.6;
     filter: grayscale(1);
     display: block;

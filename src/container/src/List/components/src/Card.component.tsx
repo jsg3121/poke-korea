@@ -11,10 +11,10 @@ interface CardComponentProps {
   pokemonData: PokemonCardFragment
 }
 
-type CardType = { background: Array<CardColor> }
+type CardType = { backgroundColor: Array<CardColor> }
 
 const Card = styled.article<CardType>`
-  ${({ background }) => css`
+  ${({ backgroundColor }) => css`
     width: 14rem;
     height: 20rem;
     border: 1px solid #333333;
@@ -25,13 +25,13 @@ const Card = styled.article<CardType>`
     overflow: hidden;
     box-shadow: inset 10px 0 0 0 #334150;
     background: ${() => {
-      if (background.length === 1) {
-        return `${background[0]}`
+      if (backgroundColor.length === 1) {
+        return `${backgroundColor[0]}`
       } else {
         return `linear-gradient(
               135deg,
-              ${background[0]} 35%,
-              ${background[1]} 65%
+              ${backgroundColor[0]} 35%,
+              ${backgroundColor[1]} 65%
             )`
       }
     }};
@@ -147,7 +147,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
   }, [pokemonData])
 
   return (
-    <Card background={backgroundColor}>
+    <Card backgroundColor={backgroundColor}>
       <div className="card-info__title">
         <div className="card-info__icon">
           <Ball />
