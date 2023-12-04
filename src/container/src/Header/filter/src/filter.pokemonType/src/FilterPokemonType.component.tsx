@@ -1,7 +1,5 @@
-import isEqual from 'fast-deep-equal'
 import React from 'react'
 import styled from 'styled-components'
-import { ListContext } from '~/context'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 
@@ -19,9 +17,9 @@ const FieldTypeInput = styled.div`
 const FilterPokemonTypeComponent: React.FC<
   FilterPokemonTypeComponentProps
 > = () => {
-  const { listFilter, onChangeFilter } = React.useContext(ListContext)
-
-  const handleChageFilter = (value: string) => {}
+  const handleChageFilter = () => {
+    console.log(213)
+  }
 
   return (
     <FieldTypeInput>

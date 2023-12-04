@@ -5,7 +5,7 @@ import { PokemonTypes } from '~/types'
 import { Image } from '~/components'
 
 interface TypeFieldButtonComponentsProps {
-  onClick: (value: string) => void
+  onClick: () => void
   typeValue: string
   typeName: PokemonTypes
 }
@@ -78,13 +78,13 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
   const { onClick, typeName, typeValue } = props
 
   const handleClick = React.useCallback(() => {
-    onClick(typeName)
-  }, [onClick, typeName])
+    onClick()
+  }, [onClick])
 
   return (
-    <TypeFieldButton onClick={handleClick} className="button__field--type">
+    <TypeFieldButton className="button__field--type">
       <input type="checkbox" name="" id={`field-type-${typeValue}`} />
-      <label htmlFor={`field-type-${typeValue}`}>
+      <label htmlFor={`field-type-${typeValue}`} onClick={handleClick}>
         <Image
           alt={`${typeName} 타입 필터 선택`}
           height="2rem"

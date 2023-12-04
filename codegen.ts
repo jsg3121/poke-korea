@@ -16,7 +16,7 @@ const config: CodegenConfig = {
       documents: ['src/**/*.graphql'],
       preset: 'import-types',
       presetConfig: {
-        typesPath: 'app.modules/graphql/typeGenerated',
+        typesPath: './typeGenerated',
       },
       plugins: ['typescript-react-apollo'],
       config: {
