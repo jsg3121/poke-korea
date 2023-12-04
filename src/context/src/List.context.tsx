@@ -17,28 +17,22 @@ type ListFilterType = {
   keyword?: string
 }
 
-export type SelectFilterType = 'type' | 'generation' | 'moreOption' | undefined
-
 type ContextType = {
   pokemonList: Array<PokemonInfoFragment>
   listFilter: ListFilterType
-  selectOption: SelectFilterType
   loading: boolean
   onChangeFilter?: (filter: ListFilterType) => void
-  onSelectSearchFilter?: (filterOption: SelectFilterType) => void
 }
 
 export const ListContext = React.createContext<ContextType>({
   pokemonList: [],
   listFilter: {},
-  selectOption: undefined,
   loading: false,
 })
 
 export const ListProvider: React.FC<ListProviderProps> = (props) => {
   const { children } = props
   const [listFilter, setListFilter] = React.useState<ListFilterType>({})
-  const [selectOption, setSeletOption] = React.useState<SelectFilterType>()
 
   const { data, loading } = useGetPokemonListQuery({
     variables: {
@@ -47,12 +41,7 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
     fetchPolicy: 'cache-and-network',
   })
 
-  const onSelectSearchFilter = (filterOption: SelectFilterType) => {
-    setSeletOption(filterOption)
-  }
-
   const onChangeFilter = React.useCallback((filter: ListFilterType) => {
-    console.log(filter)
     setListFilter((value) => {
       return {
         ...value,
@@ -64,10 +53,8 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
   const initialValue = {
     pokemonList: data?.getPokemonFilter || [],
     listFilter: {},
-    selectOption,
     loading,
     onChangeFilter,
-    onSelectSearchFilter,
   }
 
   return (

@@ -21,14 +21,7 @@ const FilterPokemonTypeComponent: React.FC<
 > = () => {
   const { listFilter, onChangeFilter } = React.useContext(ListContext)
 
-  const handleChageFilter = (value: string) => {
-    const typeList = listFilter.type || []
-    if (onChangeFilter) {
-      if (typeList.indexOf(value) === -1) {
-        onChangeFilter({ type: [...typeList, value] })
-      }
-    }
-  }
+  const handleChageFilter = (value: string) => {}
 
   return (
     <FieldTypeInput>
