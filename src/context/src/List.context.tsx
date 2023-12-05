@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useGetPokemonListQuery } from '~/graphql/gqlGenerated'
 import { PokemonInfoFragment } from '~/graphql/typeGenerated'

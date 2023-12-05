@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
+import { useRouter } from 'next/router'
+import { useSetTypeFieldList } from '../module'
+import { ListContext } from '~/context'
 
 interface FilterPokemonTypeComponentProps {}
 
@@ -17,8 +20,13 @@ const FieldTypeInput = styled.div`
 const FilterPokemonTypeComponent: React.FC<
   FilterPokemonTypeComponentProps
 > = () => {
-  const handleChageFilter = () => {
-    console.log(213)
+  const { listFilter } = React.useContext(ListContext)
+  const [typeList, onChangeTypeList] = useSetTypeFieldList(
+    listFilter.type || []
+  )
+
+  const handleClickTypeFilter = (type: string) => {
+    onChangeTypeList(type)
   }
 
   return (
@@ -27,9 +35,14 @@ const FilterPokemonTypeComponent: React.FC<
         return (
           <TypeFieldButton
             key={`pokemon-type-key-${types}`}
-            onClick={handleChageFilter}
+            onClick={handleClickTypeFilter}
             typeValue={types.toLowerCase()}
             typeName={typeName}
+            disabled={
+              typeList.length === 2 && typeList.indexOf(typeName) < 0
+                ? true
+                : false
+            }
           />
         )
       })}

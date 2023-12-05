@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import { PokemonTypes } from '~/types'
 import { Image } from '~/components'
 
 interface TypeFieldButtonComponentsProps {
-  onClick: () => void
+  onClick: (value: string) => void
   typeValue: string
   typeName: PokemonTypes
+  disabled?: boolean
 }
 
 const TypeFieldButton = styled.div`
@@ -75,16 +76,25 @@ const TypeFieldButton = styled.div`
 const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
   props
 ) => {
-  const { onClick, typeName, typeValue } = props
+  const { onClick, typeName, typeValue, disabled } = props
 
-  const handleClick = React.useCallback(() => {
-    onClick()
-  }, [onClick])
+  const handleClick = React.useCallback(
+    (e: React.MouseEvent<HTMLInputElement>) => {
+      onClick(e.currentTarget.value)
+    },
+    [onClick]
+  )
 
   return (
     <TypeFieldButton className="button__field--type">
-      <input type="checkbox" name="" id={`field-type-${typeValue}`} />
-      <label htmlFor={`field-type-${typeValue}`} onClick={handleClick}>
+      <input
+        type="checkbox"
+        id={`field-type-${typeValue}`}
+        disabled={disabled}
+        onClick={handleClick}
+        value={typeName}
+      />
+      <label htmlFor={`field-type-${typeValue}`}>
         <Image
           alt={`${typeName} 타입 필터 선택`}
           height="2rem"
