@@ -43,9 +43,9 @@ const HeaderContainer: React.FC = () => {
         </div>
         <Search />
       </div>
-      <div className="header__filter">
+      {/* <div className="header__filter">
         <Filter />
-      </div>
+      </div> */}
     </Header>
   )
 }

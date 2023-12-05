@@ -1,4 +1,5 @@
 import isEqual from 'fast-deep-equal'
+import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Input } from '~/components'
@@ -24,15 +25,12 @@ const Search = styled.div`
 `
 
 const SearchComponent: React.FC = () => {
-  const { onChangeFilter } = useContext(ListContext)
-
+  const router = useRouter()
   const handleInputChange = React.useCallback(
     (value: string) => {
-      if (onChangeFilter) {
-        onChangeFilter({ name: value })
-      }
+      router.push(`${router.pathname}?name=${value}`)
     },
-    [onChangeFilter]
+    [router]
   )
 
   return (

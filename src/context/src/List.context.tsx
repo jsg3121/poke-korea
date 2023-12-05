@@ -33,23 +33,16 @@ export const ListContext = React.createContext<ContextType>({
 
 export const ListProvider: React.FC<ListProviderProps> = (props) => {
   const { children } = props
-  const [listFilter, setListFilter] = React.useState<ListFilterType>({})
+  const { query } = useRouter()
 
   const { data, loading } = useGetPokemonListQuery({
     variables: {
-      ...listFilter,
+      ...query,
     },
     fetchPolicy: 'cache-and-network',
   })
 
-  const onChangeFilter = React.useCallback((filter: ListFilterType) => {
-    setListFilter((value) => {
-      return {
-        ...value,
-        ...filter,
-      }
-    })
-  }, [])
+  const onChangeFilter = React.useCallback((filter: ListFilterType) => {}, [])
 
   const initialValue = {
     pokemonList: data?.getPokemonFilter || [],
