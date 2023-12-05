@@ -1,9 +1,8 @@
 import isEqual from 'fast-deep-equal'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Input } from '~/components'
-import { ListContext } from '~/context'
 
 const Search = styled.div`
   min-width: 50%;
@@ -26,12 +25,9 @@ const Search = styled.div`
 
 const SearchComponent: React.FC = () => {
   const router = useRouter()
-  const handleInputChange = React.useCallback(
-    (value: string) => {
-      router.push(`${router.pathname}?name=${value}`)
-    },
-    [router]
-  )
+  const handleInputChange = React.useCallback((value: string) => {
+    console.log(value)
+  }, [])
 
   return (
     <Search>
@@ -42,6 +38,7 @@ const SearchComponent: React.FC = () => {
         placeholder="포켓몬 검색"
         onChange={handleInputChange}
       />
+      <div className="search-icon"></div>
     </Search>
   )
 }

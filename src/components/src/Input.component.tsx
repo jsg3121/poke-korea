@@ -86,13 +86,12 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
   const handleInputChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value.trim()
-      if (value === '' && onChange) {
-        onChange('')
+      if (onChange) {
+        onChange(value)
       }
     },
     [onChange]
   )
-
   return (
     <Input>
       <p className="input__label">{label}</p>
