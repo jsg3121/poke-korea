@@ -16,18 +16,13 @@ export const useCheckSelectTypeListField: UseCheckSeletTypeListField = (
   const [typeList, setTypeList] = React.useState<Array<string>>(selectedType)
 
   const changeSelectTypeList = (value: string) => {
-    if (typeList.indexOf(value) === -1) {
-      setTypeList((types) => {
-        return [...types, value]
-      })
-    } else {
-      const index = typeList.indexOf(value)
-      const cut = [...typeList]
-      cut.splice(index, 1)
-      setTypeList(() => {
-        return [...cut]
-      })
-    }
+    typeList.includes(value)
+      ? setTypeList((types) => {
+          return types.filter((list) => list !== value)
+        })
+      : setTypeList((types) => {
+          return [...types, value]
+        })
   }
 
   return [typeList, changeSelectTypeList]

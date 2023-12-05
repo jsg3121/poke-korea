@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { ListContext } from '~/context'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
-import { useRouter } from 'next/router'
-import { useSetTypeFieldList } from '../module'
-import { ListContext } from '~/context'
+import { useCheckSelectTypeListField } from '../hook'
 
 interface FilterPokemonTypeComponentProps {}
 
@@ -20,14 +19,20 @@ const FieldTypeInput = styled.div`
 const FilterPokemonTypeComponent: React.FC<
   FilterPokemonTypeComponentProps
 > = () => {
-  const { listFilter } = React.useContext(ListContext)
-  const [typeList, onChangeTypeList] = useSetTypeFieldList(
+  const { listFilter, onChangeFilter } = React.useContext(ListContext)
+  const [typeList, onChangeTypeList] = useCheckSelectTypeListField(
     listFilter.type || []
   )
 
   const handleClickTypeFilter = (type: string) => {
     onChangeTypeList(type)
   }
+
+  React.useEffect(() => {
+    if (onChangeFilter) {
+      onChangeFilter({ type: typeList })
+    }
+  }, [onChangeFilter, typeList])
 
   return (
     <FieldTypeInput>
