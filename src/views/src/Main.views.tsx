@@ -13,3 +13,13 @@ const MainViews: React.FC = () => {
 }
 
 export default React.memo(MainViews, isEqual)
+
+export async function getServerSideProps({
+  params: { type },
+}: {
+  params: { type: Array<string> }
+}) {
+  return {
+    props: { type },
+  }
+}

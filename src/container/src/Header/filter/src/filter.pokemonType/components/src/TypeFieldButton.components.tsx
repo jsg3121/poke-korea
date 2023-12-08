@@ -1,8 +1,8 @@
-import React, { MouseEventHandler } from 'react'
 import isEqual from 'fast-deep-equal'
+import React from 'react'
 import styled from 'styled-components'
-import { PokemonTypes } from '~/types'
 import { Image } from '~/components'
+import { PokemonTypes } from '~/types'
 
 interface TypeFieldButtonComponentsProps {
   onClick: (value: string) => void
@@ -35,7 +35,7 @@ const TypeFieldButton = styled.div`
   }
 
   input:disabled + label {
-    opacity: 0.4;
+    opacity: 0.2;
   }
 
   .field__tooltip {

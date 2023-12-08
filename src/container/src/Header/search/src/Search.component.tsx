@@ -52,6 +52,7 @@ const SearchComponent: React.FC = () => {
     router.replace({
       pathname: router.pathname,
       query: {
+        ...router.query,
         name: searchKeyword,
       },
     })

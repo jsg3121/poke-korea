@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Logo } from './logo'
 import { Search } from './search'
+import { Filter } from './filter'
 
 const Header = styled.header`
   width: 100%;
@@ -11,6 +12,7 @@ const Header = styled.header`
   z-index: 5;
   box-shadow: 0 1px 6px -2px #838383;
   background: linear-gradient(0deg, #142129 37.5%, #7e8da1 100%);
+  padding: 0 5rem;
 
   .header__search {
     width: 15rem;
@@ -42,9 +44,9 @@ const HeaderContainer: React.FC = () => {
         </div>
         <Search />
       </div>
-      {/* <div className="header__filter">
+      <div className="header__filter">
         <Filter />
-      </div> */}
+      </div>
     </Header>
   )
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import Ball from './Ball.component'
 

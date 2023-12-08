@@ -1,9 +1,9 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
-import { useCheckSelectTypeListField } from '../hook'
 
 interface FilterPokemonTypeComponentProps {}
 
@@ -16,23 +16,31 @@ const FieldTypeInput = styled.div`
   position: relative;
 `
 
+const getChangeTypeList = (typeList: Array<string>, type: string) => {
+  return typeList.includes(type)
+    ? typeList.filter((list) => list !== type)
+    : [...typeList, type]
+}
+
 const FilterPokemonTypeComponent: React.FC<
   FilterPokemonTypeComponentProps
 > = () => {
-  const { listFilter, onChangeFilter } = React.useContext(ListContext)
-  const [typeList, onChangeTypeList] = useCheckSelectTypeListField(
-    listFilter.type || []
-  )
+  const router = useRouter()
+  const typeList = router.query.type
+    ? (router.query.type as string).split(',')
+    : []
 
   const handleClickTypeFilter = (type: string) => {
-    onChangeTypeList(type)
-  }
+    const changeList = getChangeTypeList(typeList, type).join(',')
 
-  React.useEffect(() => {
-    if (onChangeFilter) {
-      onChangeFilter({ type: typeList })
-    }
-  }, [onChangeFilter, typeList])
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        type: changeList,
+      },
+    })
+  }
 
   return (
     <FieldTypeInput>

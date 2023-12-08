@@ -22,7 +22,6 @@ type ContextType = {
   pokemonList: Array<PokemonInfoFragment>
   listFilter: ListFilterType
   loading: boolean
-  onChangeFilter?: (filter: ListFilterType) => void
 }
 
 export const ListContext = React.createContext<ContextType>({
@@ -35,20 +34,24 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
   const { children } = props
   const { query } = useRouter()
 
+  const changeTypeArrayToString = query.type
+    ? (query.type as string).split(',')
+    : []
+
   const { data, loading } = useGetPokemonListQuery({
     variables: {
       ...query,
+      ...(query.type && {
+        type: changeTypeArrayToString,
+      }),
     },
     fetchPolicy: 'cache-and-network',
   })
-
-  const onChangeFilter = React.useCallback((filter: ListFilterType) => {}, [])
 
   const initialValue = {
     pokemonList: data?.getPokemonFilter || [],
     listFilter: {},
     loading,
-    onChangeFilter,
   }
 
   return (
