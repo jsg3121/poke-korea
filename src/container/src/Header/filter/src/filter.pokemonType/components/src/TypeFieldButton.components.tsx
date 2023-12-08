@@ -8,6 +8,7 @@ interface TypeFieldButtonComponentsProps {
   onClick: (value: string) => void
   typeValue: string
   typeName: PokemonTypes
+  defaultChecked?: boolean
   disabled?: boolean
 }
 
@@ -76,7 +77,7 @@ const TypeFieldButton = styled.div`
 const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
   props
 ) => {
-  const { onClick, typeName, typeValue, disabled } = props
+  const { typeName, typeValue, disabled, defaultChecked, onClick } = props
 
   const handleClick = React.useCallback(
     (e: React.MouseEvent<HTMLInputElement>) => {
@@ -91,8 +92,9 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
         type="checkbox"
         id={`field-type-${typeValue}`}
         disabled={disabled}
-        onClick={handleClick}
         value={typeName}
+        defaultChecked={defaultChecked}
+        onClick={handleClick}
       />
       <label htmlFor={`field-type-${typeValue}`}>
         <Image

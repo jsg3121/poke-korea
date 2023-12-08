@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
-import { ListContext } from '~/context'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 
@@ -37,7 +36,7 @@ const FilterPokemonTypeComponent: React.FC<
       pathname: router.pathname,
       query: {
         ...router.query,
-        type: changeList,
+        type: changeList !== '' ? changeList : [],
       },
     })
   }
@@ -51,6 +50,7 @@ const FilterPokemonTypeComponent: React.FC<
             onClick={handleClickTypeFilter}
             typeValue={types.toLowerCase()}
             typeName={typeName}
+            defaultChecked={typeList.includes(typeName)}
             disabled={
               typeList.length === 2 && typeList.indexOf(typeName) < 0
                 ? true
