@@ -39,7 +39,7 @@ interface InputComponentsProps {
    * </div>
    *
    */
-  inputValue?: string | React.ReactNode
+  defaultValue?: string
   onChange?: (value: string) => void
 }
 
@@ -81,7 +81,7 @@ const Input = styled.div`
 `
 
 const InputComponents: React.FC<InputComponentsProps> = (props) => {
-  const { dataLabel, label, type, placeholder, inputValue, onChange } = props
+  const { dataLabel, label, type, placeholder, defaultValue, onChange } = props
 
   const handleInputChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +92,7 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
     },
     [onChange]
   )
+
   return (
     <Input>
       <p className="input__label">{label}</p>
@@ -100,7 +101,7 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
         className="wrapper__input"
         id={dataLabel}
         placeholder={placeholder}
-        defaultValue={inputValue as string}
+        defaultValue={defaultValue}
         onChange={handleInputChange}
       />
     </Input>

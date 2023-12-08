@@ -2,7 +2,7 @@ import isEqual from 'fast-deep-equal'
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
-import { Input } from '~/components'
+import { Image, Input } from '~/components'
 
 const Search = styled.div`
   min-width: 50%;
@@ -21,24 +21,64 @@ const Search = styled.div`
     background-color: #ebebeb;
     border-radius: 2.22222222rem;
   }
+
+  .search__input {
+    width: calc(100% - 3.5rem);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .search__button--icon {
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translate(0, -50%);
+    cursor: pointer;
+  }
 `
 
 const SearchComponent: React.FC = () => {
   const router = useRouter()
+  const [searchKeyword, setSearchKeyword] = React.useState<string>()
   const handleInputChange = React.useCallback((value: string) => {
-    console.log(value)
+    setSearchKeyword(() => value)
   }, [])
+
+  const handleClickSearchPokemon = () => {
+    router.replace({
+      pathname: router.pathname,
+      query: {
+        name: searchKeyword,
+      },
+    })
+  }
 
   return (
     <Search>
-      <Input
-        dataLabel="search-input-name"
-        type="text"
-        label="포켓몬"
-        placeholder="포켓몬 검색"
-        onChange={handleInputChange}
-      />
-      <div className="search-icon"></div>
+      <div className="search__input">
+        <Input
+          dataLabel="search-input-name"
+          type="text"
+          label="포켓몬"
+          placeholder="포켓몬 검색"
+          onChange={handleInputChange}
+          defaultValue={router.query.name as string}
+        />
+      </div>
+      <button
+        className="search__button--icon"
+        onClick={handleClickSearchPokemon}>
+        <Image
+          src="/assets/image/search.svg"
+          width="2rem"
+          height="2rem"
+          alt="포켓몬 검색"
+        />
+      </button>
     </Search>
   )
 }
