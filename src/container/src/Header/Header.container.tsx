@@ -15,23 +15,27 @@ const Header = styled.header`
   padding: 0 5rem;
 
   .header__search {
-    width: 15rem;
-    max-width: 2160px;
+    width: 100%;
+    max-width: 1980px;
     height: 5rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 1.11111111rem 2.22222222rem;
+    justify-content: flex-start;
+    padding: 1.11111111rem 0;
+    gap: 5rem;
+    margin: 0 auto;
 
     .header__logo {
-      width: 100%;
+      width: 10rem;
     }
   }
 
   .header__filter {
     width: 100%;
+    max-width: 1980px;
     height: 3rem;
     background-color: #142129;
+    margin: 0 auto;
   }
 `
 

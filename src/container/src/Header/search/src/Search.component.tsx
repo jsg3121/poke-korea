@@ -6,16 +6,15 @@ import { Image, Input } from '~/components'
 
 const Search = styled.div`
   min-width: 50%;
+  width: 50vh;
   max-width: 960px;
   height: 3.33333333rem;
   border: 1px solid #dddddd;
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
   border-radius: 2.22222222rem;
   background-color: #ffffff;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
   overflow: hidden;
+  position: relative;
 
   &:hover {
     background-color: #ebebeb;
