@@ -70,7 +70,7 @@ const FilterPokemonTypeComponent: React.FC<
           />
         )
       })}
-      <div className="button--filter">
+      <button className="button--filter">
         <Image
           alt="다른 필터 조건 추가"
           src="/assets/image/filter.svg"
@@ -78,7 +78,7 @@ const FilterPokemonTypeComponent: React.FC<
           width="1.5rem"
         />
         필터
-      </div>
+      </button>
     </FieldTypeInput>
   )
 }
