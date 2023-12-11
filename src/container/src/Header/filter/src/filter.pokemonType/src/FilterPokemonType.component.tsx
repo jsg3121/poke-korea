@@ -3,6 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
+import { Image } from '~/components'
+import { getChangeTypeList } from '../module'
 
 interface FilterPokemonTypeComponentProps {}
 
@@ -13,13 +15,22 @@ const FieldTypeInput = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-`
 
-const getChangeTypeList = (typeList: Array<string>, type: string) => {
-  return typeList.includes(type)
-    ? typeList.filter((list) => list !== type)
-    : [...typeList, type]
-}
+  .button--filter {
+    width: 6rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #b8bfc9;
+    border-radius: 1rem;
+    color: #142129;
+    font-weight: 500;
+    line-height: 2rem;
+    cursor: pointer;
+  }
+`
 
 const FilterPokemonTypeComponent: React.FC<
   FilterPokemonTypeComponentProps
@@ -30,7 +41,7 @@ const FilterPokemonTypeComponent: React.FC<
     : []
 
   const handleClickTypeFilter = (type: string) => {
-    const changeList = getChangeTypeList(typeList, type).join(',')
+    const changeList = getChangeTypeList(typeList, type)
 
     router.push({
       pathname: router.pathname,
@@ -59,6 +70,15 @@ const FilterPokemonTypeComponent: React.FC<
           />
         )
       })}
+      <div className="button--filter">
+        <Image
+          alt="다른 필터 조건 추가"
+          src="/assets/image/filter.svg"
+          height="1.5rem"
+          width="1.5rem"
+        />
+        필터
+      </div>
     </FieldTypeInput>
   )
 }

@@ -6,13 +6,13 @@ import { Filter } from './filter'
 
 const Header = styled.header`
   width: 100%;
-  height: 8rem;
+  height: 8.5rem;
   position: sticky;
   top: 0;
   z-index: 5;
   box-shadow: 0 1px 6px -2px #838383;
   background: linear-gradient(0deg, #142129 37.5%, #7e8da1 100%);
-  padding: 0 5rem;
+  padding: 0 5rem 0.5rem;
 
   .header__search {
     width: 100%;
@@ -34,7 +34,7 @@ const Header = styled.header`
     width: 100%;
     max-width: 1980px;
     height: 3rem;
-    background-color: #142129;
+    background-color: transparent;
     margin: 0 auto;
   }
 `

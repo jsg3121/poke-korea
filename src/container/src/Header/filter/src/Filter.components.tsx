@@ -9,7 +9,6 @@ const Filter = styled.div`
   width: 100%;
   max-width: 2160px;
   height: 3rem;
-  background-color: #142129;
 `
 
 const FilterComponents: React.FC<FilterComponentsProps> = (props) => {
