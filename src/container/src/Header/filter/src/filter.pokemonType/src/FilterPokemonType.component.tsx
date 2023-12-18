@@ -5,6 +5,7 @@ import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
 import { getChangeTypeList } from '../module'
+import { FilterModal } from '../filter.modal'
 
 interface FilterPokemonTypeComponentProps {}
 
@@ -35,6 +36,7 @@ const FieldTypeInput = styled.div`
 const FilterPokemonTypeComponent: React.FC<
   FilterPokemonTypeComponentProps
 > = () => {
+  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false)
   const router = useRouter()
   const typeList = router.query.type
     ? (router.query.type as string).split(',')
@@ -50,6 +52,14 @@ const FilterPokemonTypeComponent: React.FC<
         type: changeList !== '' ? changeList : [],
       },
     })
+  }
+
+  const handleClickOpenFilter = () => {
+    setIsOpenModal(true)
+  }
+
+  const handleClickCloseModal = () => {
+    setIsOpenModal(false)
   }
 
   return (
@@ -70,7 +80,7 @@ const FilterPokemonTypeComponent: React.FC<
           />
         )
       })}
-      <button className="button--filter">
+      <button className="button--filter" onClick={handleClickOpenFilter}>
         <Image
           alt="다른 필터 조건 추가"
           src="/assets/image/filter.svg"
@@ -79,6 +89,7 @@ const FilterPokemonTypeComponent: React.FC<
         />
         필터
       </button>
+      <FilterModal onClickCloseModal={handleClickCloseModal} />
     </FieldTypeInput>
   )
 }
