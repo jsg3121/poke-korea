@@ -22,6 +22,7 @@ const Checkbox = styled.div`
     align-items: center;
     position: relative;
     height: 1.3rem;
+    cursor: pointer;
 
     .check__icon {
       width: 1rem;

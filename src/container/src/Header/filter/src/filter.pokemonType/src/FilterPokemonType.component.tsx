@@ -89,7 +89,7 @@ const FilterPokemonTypeComponent: React.FC<
         />
         필터
       </button>
-      <FilterModal onClickCloseModal={handleClickCloseModal} />
+      {isOpenModal && <FilterModal onClickCloseModal={handleClickCloseModal} />}
     </FieldTypeInput>
   )
 }

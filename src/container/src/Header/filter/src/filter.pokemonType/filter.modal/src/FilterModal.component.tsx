@@ -1,11 +1,17 @@
 import React from 'react'
 import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
-import { Checkbox, Image } from '~/components'
+import { Checkbox, Image, RadioGroup, Switch } from '~/components'
 
 interface FilterModalComponentProps {
   onClickCloseModal: () => void
 }
+
+const RadioOptions = [
+  { label: '존재', value: 'true' },
+  { label: '존재하지 않음', value: 'false' },
+  { label: '모두', value: 'all' },
+]
 
 const FilterModal = styled.div`
   width: 100vw;
@@ -27,9 +33,10 @@ const FilterModal = styled.div`
     transform: translate(-50%, -50%);
 
     .modal__header {
-      height: 2rem;
-      border-bottom: 1px solid #b8bfc9;
+      height: 3rem;
+      border-bottom: 1px solid #e2e2e2;
       margin-bottom: 1rem;
+      padding-bottom: 1rem;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -46,8 +53,11 @@ const FilterModal = styled.div`
 
   .modal-content {
     width: 100%;
+    height: calc(100% - 3rem);
+    position: relative;
 
-    .content__filter-option--generation {
+    & > div {
+      margin-bottom: 2rem;
       width: 100%;
 
       .filter-option__title {
@@ -79,6 +89,24 @@ const FilterModal = styled.div`
           }
         }
       }
+
+      .filter-option__options {
+        margin-top: 0.5rem;
+      }
+    }
+
+    .button__search-filter {
+      width: 100%;
+      height: 3rem;
+      background-color: #142129;
+      border-radius: 0.5rem;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      position: absolute;
+      bottom: 1rem;
+      left: 0;
     }
   }
 `
@@ -91,6 +119,10 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
   }
 
   const handleCheckGeneration = (generation: string) => {}
+
+  const handleChangeMegaEvolution = () => {}
+
+  const handleSelect = () => {}
 
   return (
     <FilterModal>
@@ -134,21 +166,39 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
           </div>
           <div className="content__filter-option--mega">
             <div className="filter-option__title">
-              <p>메가진화가 가능한가요?</p>
+              <p>메가진화 가능 포켓몬 포함</p>
             </div>
-            <div className="filter-option__options"></div>
+            <div className="filter-option__options">
+              <RadioGroup
+                name="isMegaEvolution"
+                onSelect={handleSelect}
+                options={RadioOptions}
+              />
+            </div>
           </div>
           <div className="content__filter-option--region">
             <div className="filter-option__title">
-              <p>리전폼이 있나요?</p>
+              <p>리전폼 존재 포켓몬 포함</p>
             </div>
-            <div className="filter-option__options"></div>
+            <div className="filter-option__options">
+              <RadioGroup
+                name="hasRegionForm"
+                onSelect={handleSelect}
+                options={RadioOptions}
+              />
+            </div>
           </div>
           <div className="content__filter-option--evolution">
             <div className="filter-option__title">
-              <p>진화가 가능한가요?</p>
+              <p>진화 가능 포켓몬 포함</p>
             </div>
-            <div className="filter-option__options"></div>
+            <div className="filter-option__options">
+              <RadioGroup
+                name="hasEvolution"
+                onSelect={handleSelect}
+                options={RadioOptions}
+              />
+            </div>
           </div>
           <button className="button__search-filter" type="button">
             필터 조건으로 검색하기
