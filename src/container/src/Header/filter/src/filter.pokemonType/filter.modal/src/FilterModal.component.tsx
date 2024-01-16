@@ -2,6 +2,7 @@ import React from 'react'
 import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import { Checkbox, Image, RadioGroup, Switch } from '~/components'
+import { useForm } from 'react-hook-form'
 
 interface FilterModalComponentProps {
   onClickCloseModal: () => void
