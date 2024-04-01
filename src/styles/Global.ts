@@ -3,6 +3,20 @@ import { reset } from 'styled-reset'
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
+    :root {
+        --color-primary-1 :#27374D;
+        --color-primary-2 :#526D82;
+        --color-primary-3 :#9DB2BF;
+        --color-primary-4 :#DDE6ED;
+        --color-white-1: #ffffff;
+        --color-white-2: #dddddd;
+        --color-white-3: #f2f3f4;
+        --color-black-1: #000000;
+        --color-black-2: #333333;
+        --color-shadow-1: #eeeeee;
+        --color-shadow-2: #dddddd;
+        --color-shadow-3: #838383;
+    }
     :focus {
         outline: none;
         border: none;
@@ -28,7 +42,7 @@ export const GlobalStyle = createGlobalStyle`
         scrollbar-width: none;
         width: 100%;
         height: 100%;
-        background-color: #142129;
+        background-color: var(--color-primary-1);
         scroll-behavior: smooth;
     }
     
@@ -46,7 +60,7 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         &:disabled {
             cursor: default;
-            fill: #f2f3f4;
+            fill: var(--color-white-3);
         }
     }
     a {
@@ -64,12 +78,13 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     * {
+         font-family: 'GmarketSans' !important;
         -webkit-tap-highlight-color: transparent !important;
          box-sizing: border-box;
     }
 
     h1,h2,h3,h4,h5,h6,p,span,textarea {
-        color: #333333;
+        color: var(--color-black-2);
     }
 
     @media screen and (min-width: 1281px) {

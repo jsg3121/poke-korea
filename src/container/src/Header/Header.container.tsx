@@ -1,48 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Logo } from './logo'
-import { Search } from './search'
-import { Filter } from './filter'
+import HeaderNav from './nav/header.nav'
 
 const Header = styled.header`
   width: 100%;
-  height: 8.5rem;
+  height: 33.33333333rem;
   position: sticky;
   top: 0;
   z-index: 5;
-  box-shadow: 0 1px 6px -2px #838383;
-  background: linear-gradient(0deg, #142129 37.5%, #7e8da1 100%);
-  padding: 0 5rem 0.5rem;
-
-  .header__search {
-    width: 100%;
-    max-width: 1980px;
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 1.11111111rem 0;
-    gap: 5rem;
-    margin: 0 auto;
-
-    .header__logo {
-      width: 10rem;
-    }
-  }
-
-  .header__filter {
-    width: 100%;
-    max-width: 1980px;
-    height: 3rem;
-    background-color: transparent;
-    margin: 0 auto;
-  }
+  box-shadow: 0 1px 6px -2px var(--color-shadow-3);
+  background-color: var(--color-primary-2);
+  padding: 1.5rem 0;
 `
 
 const HeaderContainer: React.FC = () => {
   return (
     <Header>
-      <div className="header__search">
+      <HeaderNav />
+      {/* <div className="header__search">
         <div className="header__logo">
           <Logo />
         </div>
@@ -50,7 +25,7 @@ const HeaderContainer: React.FC = () => {
       </div>
       <div className="header__filter">
         <Filter />
-      </div>
+      </div> */}
     </Header>
   )
 }

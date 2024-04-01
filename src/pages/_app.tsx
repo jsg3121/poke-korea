@@ -2,6 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import type { AppProps } from 'next/app'
 import { GqlMode } from '~/common'
 import { GlobalStyle } from '~/styles/Global'
+import '~/styles/common.css'
 
 const GQLMode = GqlMode
 
