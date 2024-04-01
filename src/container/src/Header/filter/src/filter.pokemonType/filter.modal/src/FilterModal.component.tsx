@@ -1,8 +1,7 @@
-import React from 'react'
 import isEqual from 'fast-deep-equal'
+import React from 'react'
 import styled from 'styled-components'
-import { Checkbox, Image, RadioGroup, Switch } from '~/components'
-import { useForm } from 'react-hook-form'
+import { Checkbox, Image, RadioGroup } from '~/components'
 
 interface FilterModalComponentProps {
   onClickCloseModal: () => void
