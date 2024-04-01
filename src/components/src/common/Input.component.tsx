@@ -50,7 +50,7 @@ const Input = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  cursor: pointer;
+  cursor: text;
   border-radius: 2.22222222rem;
   padding: 0 1.38888889rem;
 
@@ -71,7 +71,7 @@ const Input = styled.div`
     line-height: 1.11111111rem;
     border: 0;
     padding: 0;
-    cursor: pointer;
+    cursor: text;
     background-color: transparent;
 
     &::placeholder {

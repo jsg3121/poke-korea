@@ -1,4 +1,3 @@
-import isEqual from 'fast-deep-equal'
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
@@ -6,7 +5,7 @@ import { Image, Input } from '~/components'
 
 const Search = styled.div`
   min-width: 50%;
-  width: 50vh;
+  width: 50%;
   max-width: 960px;
   height: 3.33333333rem;
   border: 1px solid #dddddd;
@@ -15,6 +14,7 @@ const Search = styled.div`
   background-color: #ffffff;
   overflow: hidden;
   position: relative;
+  margin: 60px auto 0;
 
   &:hover {
     background-color: #ebebeb;
@@ -63,8 +63,8 @@ const SearchComponent: React.FC = () => {
         <Input
           dataLabel="search-input-name"
           type="text"
-          label="포켓몬"
-          placeholder="포켓몬 검색"
+          label="포켓몬 검색"
+          placeholder="포켓몬의 이름을 입력해주세요"
           onChange={handleInputChange}
           defaultValue={router.query.name as string}
         />
@@ -83,4 +83,4 @@ const SearchComponent: React.FC = () => {
   )
 }
 
-export default React.memo(SearchComponent, isEqual)
+export default SearchComponent

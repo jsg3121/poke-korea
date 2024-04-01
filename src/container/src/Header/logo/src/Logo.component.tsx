@@ -4,8 +4,8 @@ import LogoIcon from '~/assets/logo.svg'
 import styled from 'styled-components'
 
 const Logo = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 40%;
+  margin: 70px auto 0;
 
   .header-title {
     font-size: 1.4rem;
