@@ -3,16 +3,16 @@ import styled from 'styled-components'
 import HeaderNav from './nav/header.nav'
 import { Logo } from './logo'
 import { Search } from './search'
+import { Filter } from './filter'
 
 const Header = styled.header`
   width: 100%;
-  height: 26rem;
+  height: 29rem;
   position: sticky;
   top: 0;
   z-index: 5;
-  box-shadow: 0 1px 6px -2px var(--color-shadow-3);
   background-color: var(--color-primary-2);
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0;
 `
 
 const HeaderContainer: React.FC = () => {
@@ -21,14 +21,7 @@ const HeaderContainer: React.FC = () => {
       <HeaderNav />
       <Logo />
       <Search />
-      {/* <div className="header__search">
-        <div className="header__logo">
-          
-        </div>
-      </div>
-      <div className="header__filter">
-        <Filter />
-      </div> */}
+      <Filter />
     </Header>
   )
 }

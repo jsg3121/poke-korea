@@ -26,13 +26,13 @@ const TypeFieldButton = styled.div`
   label {
     width: 2rem;
     opacity: 0.6;
-    filter: grayscale(1);
+    filter: grayscale(1) drop-shadow(1px 2px 0px var(--color-black-1));
     display: block;
   }
 
   input:checked + label {
     opacity: 1;
-    filter: grayscale(0);
+    filter: grayscale(0) drop-shadow(1px 2px 0px var(--color-black-1));
   }
 
   input:disabled + label {

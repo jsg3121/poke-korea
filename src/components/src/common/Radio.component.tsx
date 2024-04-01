@@ -36,6 +36,7 @@ const Radio = styled.div`
       height: 1.2rem;
       border-radius: 50%;
       border: 1px solid black;
+      background-color: var(--color-white-3);
       position: absolute;
       left: 0;
       z-index: 10;

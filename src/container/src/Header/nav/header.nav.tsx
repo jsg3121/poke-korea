@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import NavLink from './components/Nav.link'
 import NavSetting from './components/Nav.setting'
 
 interface HeaderNavProps {}
@@ -11,7 +10,7 @@ const NavBar = styled.div`
   height: 3.33333333rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 0 auto;
 `
 
@@ -20,7 +19,7 @@ const HeaderNav: React.FC<HeaderNavProps> = (props) => {
 
   return (
     <NavBar>
-      <NavLink />
+      {/* <NavLink /> */}
       <NavSetting />
     </NavBar>
   )

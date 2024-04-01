@@ -11,11 +11,13 @@ interface FilterPokemonTypeComponentProps {}
 
 const FieldTypeInput = styled.div`
   width: 100%;
+  max-width: 1280px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  margin: 2rem auto;
 
   .button--filter {
     width: 6rem;

@@ -7,8 +7,9 @@ interface FilterComponentsProps {}
 
 const Filter = styled.div`
   width: 100%;
-  max-width: 2160px;
-  height: 3rem;
+  height: 4.8rem;
+  background-color: var(--color-primary-1);
+  box-shadow: 0 1px 6px -2px var(--color-black-1);
 `
 
 const FilterComponents: React.FC<FilterComponentsProps> = (props) => {
