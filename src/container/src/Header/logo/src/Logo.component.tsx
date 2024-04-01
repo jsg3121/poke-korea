@@ -5,7 +5,8 @@ import styled from 'styled-components'
 
 const Logo = styled.div`
   width: 40%;
-  margin: 70px auto 0;
+  max-width: 41.66666667rem;
+  margin: 3.88888889rem auto 0;
 
   .header-title {
     font-size: 1.4rem;

@@ -4,17 +4,17 @@ import styled from 'styled-components'
 interface NavSettingProps {}
 
 const Div = styled.div`
-  height: 60px;
+  height: 3.33333333rem;
   background-color: var(--color-primary-3);
-  border-radius: 30px;
+  border-radius: 1.66666667rem;
 
   > ul {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 18px;
-    padding: 0 20px;
+    gap: 1rem;
+    padding: 0 1.11111111rem;
 
     > li {
       text-align: center;

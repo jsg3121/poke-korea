@@ -6,7 +6,7 @@ import { Search } from './search'
 
 const Header = styled.header`
   width: 100%;
-  height: 28rem;
+  height: 26rem;
   position: sticky;
   top: 0;
   z-index: 5;

@@ -8,7 +8,7 @@ interface HeaderNavProps {}
 const NavBar = styled.div`
   width: 100%;
   max-width: 1280px;
-  height: 60px;
+  height: 3.33333333rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -4,9 +4,8 @@ import styled from 'styled-components'
 import { Image, Input } from '~/components'
 
 const Search = styled.div`
-  min-width: 50%;
-  width: 50%;
-  max-width: 960px;
+  width: 40%;
+  max-width: 41.66666667rem;
   height: 3.33333333rem;
   border: 1px solid #dddddd;
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
@@ -14,7 +13,7 @@ const Search = styled.div`
   background-color: #ffffff;
   overflow: hidden;
   position: relative;
-  margin: 60px auto 0;
+  margin: 3.33333333rem auto 0;
 
   &:hover {
     background-color: #ebebeb;

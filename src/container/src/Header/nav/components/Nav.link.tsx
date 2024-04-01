@@ -7,8 +7,8 @@ interface NavLinkProps {}
 
 const Nav = styled.nav`
   height: 100%;
-  padding: 0 30px;
-  border-radius: 30px;
+  padding: 0 1.66666667rem;
+  border-radius: 1.66666667rem;
   background-color: var(--color-primary-4);
 
   > ul {
@@ -16,10 +16,10 @@ const Nav = styled.nav`
     height: 100%;
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 1rem;
 
     > li {
-      height: 38px;
+      height: 2.11111111rem;
       display: flex;
       align-items: center;
 
@@ -37,7 +37,7 @@ const Nav = styled.nav`
         line-height: 1.5rem;
         font-weight: normal;
         color: var(--color-primary-1);
-        padding: 0 20px;
+        padding: 0 1.11111111rem;
       }
     }
   }
