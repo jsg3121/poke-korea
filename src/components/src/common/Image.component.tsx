@@ -22,6 +22,7 @@ const StyledImage = styled.div<StyledImageProps>`
     picture {
       width: 100%;
       height: 100%;
+      display: block;
 
       figure {
         figcaption {
