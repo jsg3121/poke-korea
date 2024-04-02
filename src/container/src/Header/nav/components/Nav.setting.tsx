@@ -21,6 +21,7 @@ const Div = styled.div`
     height: 2rem;
     position: absolute;
     right: 0;
+    z-index: 15;
 
     ul {
       width: 5rem;
@@ -44,6 +45,7 @@ const Div = styled.div`
 
       & > li {
         height: 2rem;
+        cursor: pointer;
       }
     }
 
