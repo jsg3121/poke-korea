@@ -1,7 +1,38 @@
+import { gql } from '@apollo/client'
 import React from 'react'
-import isEqual from 'fast-deep-equal'
-import { ListProvider } from '~/context'
 import { Header, List } from '~/container'
+import { ListProvider } from '~/context'
+import { initializeApollo } from '~/module/apolloClient'
+
+const QUERY = gql`
+  query getPokemonList(
+    $pokemonNumber: Int
+    $type: [String!]
+    $isMega: Boolean
+    $isRegion: Boolean
+    $isEvolution: Boolean
+    $name: String
+    $generation: [String!]
+  ) {
+    getPokemonFilter(
+      pokemonNumber: $pokemonNumber
+      type: $type
+      isMega: $isMega
+      isRegion: $isRegion
+      isEvolution: $isEvolution
+      name: $name
+      generation: $generation
+    ) {
+      id
+      typeSingle1
+      typeSingle2
+      isEvolution
+      evolutionId
+      generation
+      isForm
+    }
+  }
+`
 
 const MainViews: React.FC = () => {
   return (
@@ -12,13 +43,20 @@ const MainViews: React.FC = () => {
   )
 }
 
-export default React.memo(MainViews, isEqual)
+export default MainViews
 
-export async function getServerSideProps({
+export const getServerSideProps = async ({
   params: { type },
 }: {
   params: { type: Array<string> }
-}) {
+}) => {
+  console.log('ssss')
+  const apolloClient = initializeApollo()
+
+  const { data } = await apolloClient.query({
+    query: QUERY,
+  })
+
   return {
     props: { type },
   }
