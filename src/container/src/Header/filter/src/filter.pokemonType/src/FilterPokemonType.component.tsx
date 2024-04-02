@@ -17,7 +17,7 @@ const FieldTypeInput = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  margin: 2rem auto;
+  margin: 0 auto;
 
   .button--filter {
     width: 6rem;

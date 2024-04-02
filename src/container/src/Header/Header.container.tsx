@@ -13,6 +13,8 @@ const Header = styled.header`
   z-index: 5;
   background-color: var(--color-primary-2);
   padding: 1.5rem 0 0;
+  position: sticky;
+  top: 0;
 `
 
 const HeaderContainer: React.FC = () => {

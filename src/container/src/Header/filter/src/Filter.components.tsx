@@ -10,6 +10,9 @@ const Filter = styled.div`
   height: 4.8rem;
   background-color: var(--color-primary-1);
   box-shadow: 0 1px 6px -2px var(--color-black-1);
+  position: absolute;
+  bottom: 0;
+  left: 0;
 `
 
 const FilterComponents: React.FC<FilterComponentsProps> = (props) => {
