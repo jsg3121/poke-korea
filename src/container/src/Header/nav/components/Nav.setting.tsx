@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Image, Switch } from '~/components'
+import ThemeSwitch from './ThemeSwitch'
 
 interface NavSettingProps {
   scrolling: boolean
@@ -10,20 +11,20 @@ const Div = styled.div`
   width: 10rem;
   height: 3.33333333rem;
   border-radius: 1.66666667rem;
-  transition: height 0.3s, width 0.3s;
+  transition: height 0.2s, width 0.2s;
   will-change: heignt, width;
   overflow: hidden;
   background-color: var(--color-primary-3);
 
   &[data-scrolling='true'] {
-    width: 7rem;
+    width: 5rem;
     height: 2rem;
     position: absolute;
     right: 0;
 
     ul {
-      width: 7rem;
-      transform: translateY(0);
+      width: 5rem;
+      transform: translateY(-2rem);
     }
   }
 
@@ -34,9 +35,8 @@ const Div = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    transition: transform 0.3s, width 0.3s;
+    transition: transform 0.2s, width 0.2s;
     will-change: transform, width;
-    transform: translateY(-2rem);
 
     &.scroll-nav {
       height: 2rem;
@@ -51,7 +51,6 @@ const Div = styled.div`
       overflow: hidden;
 
       > button {
-        width: 100%;
         height: 2rem;
 
         > p {
@@ -73,19 +72,6 @@ const NavSetting: React.FC<NavSettingProps> = (props) => {
 
   return (
     <Div data-scrolling={scrolling}>
-      <ul className="scroll-nav">
-        <li className="button-setting">
-          <Image
-            alt="icon-setting"
-            src="/assets/image/setting.svg"
-            height="2rem"
-            width="2rem"
-          />
-        </li>
-        <li className="button-theme">
-          <Switch name="change-theme" onChange={handleChangeTheme} />
-        </li>
-      </ul>
       <ul>
         <li className="button-setting">
           <button>
@@ -96,6 +82,19 @@ const NavSetting: React.FC<NavSettingProps> = (props) => {
           <button>
             <p>테마 변경</p>
           </button>
+        </li>
+      </ul>
+      <ul className="scroll-nav">
+        <li className="button-setting">
+          <Image
+            alt="icon-setting"
+            src="/assets/image/setting.svg"
+            height="2rem"
+            width="2rem"
+          />
+        </li>
+        <li className="button-theme">
+          <ThemeSwitch />
         </li>
       </ul>
     </Div>
