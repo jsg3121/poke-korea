@@ -1,12 +1,74 @@
+import { gql } from '@apollo/client'
+import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { Pokemon } from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
 import { MainViews } from '~/views'
+
+const QUERY = gql`
+  fragment PokemonInfo on Pokemon {
+    id
+    typeSingle1
+    typeSingle2
+    isEvolution
+    evolutionId
+    generation
+    isForm
+    ...PokemonCard
+  }
+
+  fragment PokemonCard on Pokemon {
+    id
+    number
+    name
+    type
+    isRegion
+    isMega
+    stats {
+      pokemonId
+      hp
+      attack
+      defense
+      specialAttack
+      specialDefense
+      speed
+      total
+    }
+  }
+
+  query getPokemonList(
+    $pokemonNumber: Int
+    $type: [String!]
+    $isMega: Boolean
+    $isRegion: Boolean
+    $isEvolution: Boolean
+    $name: String
+    $generation: [String!]
+  ) {
+    getPokemonFilter(
+      pokemonNumber: $pokemonNumber
+      type: $type
+      isMega: $isMega
+      isRegion: $isRegion
+      isEvolution: $isEvolution
+      name: $name
+      generation: $generation
+    ) {
+      ...PokemonInfo
+    }
+  }
+`
+
+interface HomeProps {
+  pokemonList: Array<Pokemon>
+}
 
 const Main = styled.main`
   width: 100%;
 `
 
-export default function Home() {
+const Home: NextPage<HomeProps> = ({ pokemonList }) => {
   return (
     <>
       <Head>
@@ -15,8 +77,35 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <MainViews />
+        <MainViews pokemonList={pokemonList} />
       </Main>
     </>
   )
+}
+
+export default Home
+
+export const getServerSideProps: GetServerSideProps = async (props) => {
+  const { query } = props
+  const apolloClient = initializeApollo()
+
+  const changeTypeArrayToString = query.type
+    ? (query.type as string).split(',')
+    : []
+
+  const { data } = await apolloClient.query({
+    query: QUERY,
+    variables: {
+      ...query,
+      ...(query.type && {
+        type: changeTypeArrayToString,
+      }),
+    },
+  })
+
+  return {
+    props: {
+      pokemonList: data?.getPokemonFilter || [],
+    },
+  }
 }

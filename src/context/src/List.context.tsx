@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useGetPokemonListQuery } from '~/graphql/gqlGenerated'
-import { PokemonInfoFragment } from '~/graphql/typeGenerated'
+import { Pokemon, PokemonInfoFragment } from '~/graphql/typeGenerated'
 import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
 
 interface ListProviderProps {
+  pokemonList: Array<Pokemon>
   children: React.ReactNode
 }
 
@@ -22,44 +23,29 @@ type ListFilterType = {
 type ContextType = {
   pokemonList: Array<PokemonInfoFragment>
   listFilter: ListFilterType
-  loading: boolean
   scrolling: boolean
 }
 
 export const ListContext = React.createContext<ContextType>({
   pokemonList: [],
   listFilter: {},
-  loading: false,
   scrolling: false,
 })
 
 export const ListProvider: React.FC<ListProviderProps> = (props) => {
-  const { children } = props
+  const { pokemonList, children } = props
   const { query } = useRouter()
   const { scrolling } = useHeaderScroll()
 
-  const changeTypeArrayToString = query.type
-    ? (query.type as string).split(',')
-    : []
-
-  const { data, loading } = useGetPokemonListQuery({
-    variables: {
-      ...query,
-      ...(query.type && {
-        type: changeTypeArrayToString,
-      }),
-    },
-    fetchPolicy: 'cache-and-network',
-  })
-
   const initialValue = {
-    pokemonList: data?.getPokemonFilter || [],
+    pokemonList,
     listFilter: {},
-    loading,
     scrolling,
   }
 
   return (
-    <ListContext.Provider value={initialValue}>{children}</ListContext.Provider>
+    <ListContext.Provider value={initialValue}>
+      <React.Suspense>{children}</React.Suspense>
+    </ListContext.Provider>
   )
 }

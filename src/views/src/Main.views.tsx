@@ -1,42 +1,15 @@
-import { gql } from '@apollo/client'
 import React from 'react'
 import { Header, List } from '~/container'
 import { ListProvider } from '~/context'
-import { initializeApollo } from '~/module/apolloClient'
+import { Pokemon } from '~/graphql/typeGenerated'
 
-const QUERY = gql`
-  query getPokemonList(
-    $pokemonNumber: Int
-    $type: [String!]
-    $isMega: Boolean
-    $isRegion: Boolean
-    $isEvolution: Boolean
-    $name: String
-    $generation: [String!]
-  ) {
-    getPokemonFilter(
-      pokemonNumber: $pokemonNumber
-      type: $type
-      isMega: $isMega
-      isRegion: $isRegion
-      isEvolution: $isEvolution
-      name: $name
-      generation: $generation
-    ) {
-      id
-      typeSingle1
-      typeSingle2
-      isEvolution
-      evolutionId
-      generation
-      isForm
-    }
-  }
-`
+interface ManinViewsProps {
+  pokemonList: Array<Pokemon>
+}
 
-const MainViews: React.FC = () => {
+const MainViews: React.FC<ManinViewsProps> = ({ pokemonList }) => {
   return (
-    <ListProvider>
+    <ListProvider pokemonList={pokemonList}>
       <Header />
       <List />
     </ListProvider>
@@ -44,20 +17,3 @@ const MainViews: React.FC = () => {
 }
 
 export default MainViews
-
-export const getServerSideProps = async ({
-  params: { type },
-}: {
-  params: { type: Array<string> }
-}) => {
-  console.log('ssss')
-  const apolloClient = initializeApollo()
-
-  const { data } = await apolloClient.query({
-    query: QUERY,
-  })
-
-  return {
-    props: { type },
-  }
-}
