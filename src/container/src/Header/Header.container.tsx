@@ -14,14 +14,22 @@ const Header = styled.header`
   top: 0;
   z-index: 5;
   padding: 1.5rem 0 0;
+
+  & > .header-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 `
 
 const HeaderContainer: React.FC = () => {
   return (
     <Header>
       <HeaderNav />
-      <Logo />
-      <Search />
+      <div className="header-wrapper">
+        <Logo />
+        <Search />
+      </div>
       <Filter />
     </Header>
   )

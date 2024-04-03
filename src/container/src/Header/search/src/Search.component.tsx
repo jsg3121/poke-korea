@@ -2,9 +2,10 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 import { Image, Input } from '~/components'
+import { ListContext } from '~/context'
 
 const Search = styled.div`
-  width: 40%;
+  width: 100%;
   max-width: 41.66666667rem;
   height: 3.33333333rem;
   border: 1px solid #dddddd;
@@ -13,7 +14,17 @@ const Search = styled.div`
   background-color: #ffffff;
   overflow: hidden;
   position: relative;
-  margin: 3.33333333rem auto 0;
+  top: 3.33333333rem;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 0.3s, width 0.3s, max-width 0.3s;
+  will-change: top, width, max-width;
+
+  &[data-scrolling='true'] {
+    width: 40%;
+    max-width: 600px;
+    top: -3.33333333rem;
+  }
 
   &:hover {
     background-color: #ebebeb;
@@ -40,6 +51,7 @@ const Search = styled.div`
 `
 
 const SearchComponent: React.FC = () => {
+  const { scrolling } = React.useContext(ListContext)
   const router = useRouter()
   const [searchKeyword, setSearchKeyword] = React.useState<string>()
   const handleInputChange = React.useCallback((value: string) => {
@@ -57,7 +69,7 @@ const SearchComponent: React.FC = () => {
   }
 
   return (
-    <Search>
+    <Search data-scrolling={scrolling}>
       <div className="search__input">
         <Input
           dataLabel="search-input-name"

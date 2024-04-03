@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
@@ -22,7 +22,7 @@ const List = styled.section`
 `
 
 const ListContainer: React.FC = () => {
-  const { pokemonList } = useContext(ListContext)
+  const { pokemonList } = React.useContext(ListContext)
 
   const list = React.useMemo(() => {
     return (

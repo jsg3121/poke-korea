@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import isEqual from 'fast-deep-equal'
 import LogoIcon from '~/assets/logo.svg'
 import styled from 'styled-components'
@@ -9,14 +9,18 @@ const Logo = styled.div`
   max-width: 1280px;
   height: 8.44444444rem;
   position: relative;
+  transition: height 0.3s;
+  will-change: height;
   margin: 0 auto;
 
   &[data-scrolling='true'] {
+    height: 0;
+
     & > .logo {
-      top: -5rem;
+      top: -5.5rem;
       left: 0;
       transform-origin: left;
-      transform: translate3d(0, 0, 0) scale(0.45);
+      transform: translate3d(0, 0, 0) scale(0.4);
     }
   }
 
@@ -34,7 +38,7 @@ const Logo = styled.div`
 `
 
 const LogoComponent: React.FC = () => {
-  const { scrolling } = useContext(ListContext)
+  const { scrolling } = React.useContext(ListContext)
 
   return (
     <Logo data-scrolling={scrolling}>

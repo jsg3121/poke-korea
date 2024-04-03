@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import NavSetting from './components/Nav.setting'
 import { ListContext } from '~/context'
@@ -18,7 +18,7 @@ const NavBar = styled.div`
 
 const HeaderNav: React.FC<HeaderNavProps> = (props) => {
   const {} = props
-  const { scrolling } = useContext(ListContext)
+  const { scrolling } = React.useContext(ListContext)
 
   return (
     <NavBar>
