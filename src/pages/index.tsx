@@ -1,8 +1,10 @@
 import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
+import React from 'react'
 import styled from 'styled-components'
 import { Pokemon } from '~/graphql/typeGenerated'
+import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
 import { initializeApollo } from '~/module/apolloClient'
 import { MainViews } from '~/views'
 

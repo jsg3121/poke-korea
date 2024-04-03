@@ -1,22 +1,33 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 
 export const useHeaderScroll = () => {
-  const [scrolling, setScrolling] = useState<boolean>(false)
+  const [isScroll, setIsScroll] = React.useState(false)
+  const observerRef = React.useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleWindowScroll = () => {
-      const moveScrolling = window.scrollY > 5
-      setScrolling(moveScrolling)
+  const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
+    entries.forEach((entry) => {
+      setIsScroll(entry.intersectionRatio < 1)
+    })
+  }
+
+  React.useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1,
     }
 
-    window.addEventListener('scroll', handleWindowScroll)
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+    if (observerRef.current) observer.observe(observerRef.current)
 
     return () => {
-      window.removeEventListener('scroll', handleWindowScroll)
+      observer.disconnect()
     }
-  }, [])
+  }, [observerRef])
 
   return {
-    scrolling,
+    observerRef,
+    isScroll,
   }
 }

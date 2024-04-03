@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useGetPokemonListQuery } from '~/graphql/gqlGenerated'
 import { Pokemon, PokemonInfoFragment } from '~/graphql/typeGenerated'
-import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
 
 interface ListProviderProps {
+  scrolling: boolean
   pokemonList: Array<Pokemon>
   children: React.ReactNode
 }
@@ -33,9 +32,8 @@ export const ListContext = React.createContext<ContextType>({
 })
 
 export const ListProvider: React.FC<ListProviderProps> = (props) => {
-  const { pokemonList, children } = props
+  const { pokemonList, children, scrolling } = props
   const { query } = useRouter()
-  const { scrolling } = useHeaderScroll()
 
   const initialValue = {
     pokemonList,

@@ -4,27 +4,37 @@ import { Filter } from './filter'
 import { Logo } from './logo'
 import HeaderNav from './nav/header.nav'
 import { Search } from './search'
+import { ListContext } from '~/context'
 
 const Header = styled.header`
   width: 100%;
   height: 31rem;
   background-color: var(--color-primary-2);
-  transition: all 0.3s;
+  transition: height 0.3s;
+  will-change: height;
   position: sticky;
   top: 0;
   z-index: 5;
   padding: 1.5rem 0 0;
 
+  &[data-scrolling='true'] {
+    height: 11rem;
+  }
+
   & > .header-wrapper {
     width: 100%;
     max-width: 1280px;
-    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
 `
 
 const HeaderContainer: React.FC = () => {
+  const { scrolling } = React.useContext(ListContext)
+
   return (
-    <Header>
+    <Header data-scrolling={scrolling}>
       <HeaderNav />
       <div className="header-wrapper">
         <Logo />
