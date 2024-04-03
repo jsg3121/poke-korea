@@ -66,6 +66,7 @@ interface HomeProps {
 
 const Main = styled.main`
   width: 100%;
+  min-height: 100vh;
 `
 
 const Home: NextPage<HomeProps> = ({ pokemonList }) => {
