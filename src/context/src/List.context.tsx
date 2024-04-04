@@ -42,8 +42,6 @@ export const ListProvider: React.FC<ListProviderProps> = (props) => {
   }
 
   return (
-    <ListContext.Provider value={initialValue}>
-      <React.Suspense>{children}</React.Suspense>
-    </ListContext.Provider>
+    <ListContext.Provider value={initialValue}>{children}</ListContext.Provider>
   )
 }

@@ -24,7 +24,7 @@ export const useHeaderScroll = () => {
     return () => {
       observer.disconnect()
     }
-  }, [observerRef])
+  }, [])
 
   return {
     observerRef,

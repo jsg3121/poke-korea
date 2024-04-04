@@ -12,7 +12,7 @@ const Header = styled.header`
   background-color: var(--color-primary-2);
   transition: height 0.3s;
   will-change: height;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 5;
   padding: 1.5rem 0 0;
