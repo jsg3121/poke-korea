@@ -20,12 +20,13 @@ const FilterModal = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 100;
 
   .modal-section {
     width: 30rem;
     height: 40rem;
     border-radius: 1rem;
-    background-color: #b8bfc9;
+    background-color: var(--color-primary-3);
     padding: 2rem;
     position: absolute;
     top: 50%;

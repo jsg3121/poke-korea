@@ -6,6 +6,7 @@ import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
 import { getChangeTypeList } from '../module'
 import { FilterModal } from '../filter.modal'
+import { useBodyScrollLock } from '~/hook/src/useBodyScrollLock'
 
 interface FilterPokemonTypeComponentProps {}
 
@@ -40,6 +41,8 @@ const FilterPokemonTypeComponent: React.FC<
 > = () => {
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false)
   const router = useRouter()
+  useBodyScrollLock(isOpenModal)
+
   const typeList = router.query.type
     ? (router.query.type as string).split(',')
     : []
