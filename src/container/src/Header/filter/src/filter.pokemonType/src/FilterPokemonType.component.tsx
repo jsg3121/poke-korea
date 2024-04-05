@@ -6,7 +6,7 @@ import { Image } from '~/components'
 import { getChangeTypeList } from '../module'
 import { FilterModal } from '../filter.modal'
 import { useBodyScrollLock } from '~/hook/src/useBodyScrollLock'
-import { styled } from 'styled-components'
+import styled from 'styled-components'
 
 interface FilterPokemonTypeComponentProps {}
 

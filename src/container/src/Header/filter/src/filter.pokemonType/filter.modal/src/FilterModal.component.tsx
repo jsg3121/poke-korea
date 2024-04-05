@@ -1,7 +1,11 @@
 import isEqual from 'fast-deep-equal'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { ChangeEvent } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { Checkbox, Image, RadioGroup } from '~/components'
+import CloseIcon from '~/assets/close.svg'
+import { Checkbox, RadioGroup } from '~/components'
+import { FilterFormType } from '../types/filterForm.type'
 
 interface FilterModalComponentProps {
   onClickCloseModal: () => void
@@ -26,7 +30,7 @@ const FilterModal = styled.div`
     width: 30rem;
     height: 40rem;
     border-radius: 1rem;
-    background-color: var(--color-primary-3);
+    background-color: var(--color-primary-1);
     padding: 2rem;
     position: absolute;
     top: 50%;
@@ -47,7 +51,12 @@ const FilterModal = styled.div`
         font-size: 1.5rem;
         font-weight: 600;
         line-height: 2rem;
-        color: #142129;
+        color: var(--color-primary-4);
+      }
+
+      & > button {
+        width: 1.5rem;
+        height: 1.5rem;
       }
     }
   }
@@ -68,7 +77,7 @@ const FilterModal = styled.div`
           font-size: 1.125rem;
           font-weight: 500;
           line-height: 1.125rem;
-          color: #142129;
+          color: var(--color-primary-3);
         }
       }
 
@@ -99,9 +108,9 @@ const FilterModal = styled.div`
     .button__search-filter {
       width: 100%;
       height: 3rem;
-      background-color: #142129;
+      background-color: var(--color-primary-4);
       border-radius: 0.5rem;
-      color: #ffffff;
+      color: var(--color-black-2);
       font-weight: 500;
       font-size: 1rem;
       cursor: pointer;
@@ -114,98 +123,130 @@ const FilterModal = styled.div`
 
 const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
   const { onClickCloseModal } = props
+  const router = useRouter()
+  const formMethods = useForm<FilterFormType>({
+    defaultValues: {
+      generations: [],
+      isEvolutions: null,
+      isMega: null,
+      isRegion: null,
+    },
+  })
+
+  const { register, setValue, getValues, handleSubmit } = formMethods
 
   const handleClickCloseModal = () => {
     onClickCloseModal()
   }
 
-  const handleCheckGeneration = (generation: string) => {}
+  const handleChangeGeneration = (e: ChangeEvent<HTMLInputElement>) => {
+    const prevList = getValues('generations')
+    const checked = e.target.checked
+    const gen = e.target.value
 
-  const handleChangeMegaEvolution = () => {}
+    if (!checked) {
+      const checkedList = prevList.filter((item) => item !== gen)
+      setValue('generations', checkedList)
+    } else {
+      const checkedList = [...prevList, gen]
+      setValue('generations', checkedList)
+    }
+  }
 
-  const handleSelect = () => {}
+  const onSubmitFilter = (filterData: FilterFormType) => {
+    const { query, pathname } = router
+
+    router.push({
+      pathname,
+      query: {
+        ...query,
+        ...filterData,
+      },
+    })
+  }
 
   return (
     <FilterModal>
-      <section className="modal-section">
-        <header className="modal__header">
-          <p className="modal__header--title">추가 필터 검색</p>
-          <button
-            className="modal__button--close"
-            type="button"
-            onClick={handleClickCloseModal}>
-            <Image
-              alt="필터 팝업 닫기"
-              src="/assets/image/close.svg"
-              height="1.25rem"
-              width="1.25rem"
-            />
-          </button>
-        </header>
-        <div className="modal-content">
-          <div className="content__filter-option--generation">
-            <div className="filter-option__title">
-              <p>포켓몬 세대</p>
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(onSubmitFilter)}>
+          <section className="modal-section">
+            <header className="modal__header">
+              <p className="modal__header--title">추가 필터 검색</p>
+              <button
+                className="modal__button--close"
+                type="button"
+                onClick={handleClickCloseModal}
+              >
+                <CloseIcon
+                  width="1.5rem"
+                  height="1.5rem"
+                  fill="var(--color-primary-4)"
+                />
+              </button>
+            </header>
+            <div className="modal-content">
+              <div className="content__filter-option--generation">
+                <div className="filter-option__title">
+                  <p>포켓몬 세대</p>
+                </div>
+                <div className="filter-option__wrapper">
+                  <ul className="filter-option__list">
+                    {new Array(9).fill(null).map((_, index: number) => {
+                      const gen = index + 1
+                      return (
+                        <li
+                          className="filter-option__item"
+                          key={`pokemon-generation-id-${index}`}
+                        >
+                          <Checkbox
+                            id={`filter-generation-item-id-${gen}`}
+                            label={`${gen}세대`}
+                            value={`${gen}`}
+                            onChange={handleChangeGeneration}
+                          />
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              </div>
+              <div className="content__filter-option--mega">
+                <div className="filter-option__title">
+                  <p>메가진화 가능 포켓몬 포함</p>
+                </div>
+                <div className="filter-option__options">
+                  <RadioGroup options={RadioOptions} {...register('isMega')} />
+                </div>
+              </div>
+              <div className="content__filter-option--region">
+                <div className="filter-option__title">
+                  <p>리전폼 존재 포켓몬 포함</p>
+                </div>
+                <div className="filter-option__options">
+                  <RadioGroup
+                    options={RadioOptions}
+                    {...register('isRegion')}
+                  />
+                </div>
+              </div>
+              <div className="content__filter-option--evolution">
+                <div className="filter-option__title">
+                  <p>진화 가능 포켓몬 포함</p>
+                </div>
+                <div className="filter-option__options">
+                  <RadioGroup
+                    options={RadioOptions}
+                    {...register('isEvolutions')}
+                  />
+                </div>
+              </div>
+              <button className="button__search-filter" type="submit">
+                필터 조건으로 검색하기
+              </button>
             </div>
-            <div className="filter-option__wrapper">
-              <ul className="filter-option__list">
-                {new Array(9).fill(null).map((_, index: number) => {
-                  return (
-                    <li
-                      className="filter-option__item"
-                      key={`pokemon-generation-id-${index}`}>
-                      <Checkbox
-                        label={`${index + 1}세대`}
-                        onChecked={handleCheckGeneration}
-                        value={`${index + 1}`}
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </div>
-          <div className="content__filter-option--mega">
-            <div className="filter-option__title">
-              <p>메가진화 가능 포켓몬 포함</p>
-            </div>
-            <div className="filter-option__options">
-              <RadioGroup
-                name="isMegaEvolution"
-                onSelect={handleSelect}
-                options={RadioOptions}
-              />
-            </div>
-          </div>
-          <div className="content__filter-option--region">
-            <div className="filter-option__title">
-              <p>리전폼 존재 포켓몬 포함</p>
-            </div>
-            <div className="filter-option__options">
-              <RadioGroup
-                name="hasRegionForm"
-                onSelect={handleSelect}
-                options={RadioOptions}
-              />
-            </div>
-          </div>
-          <div className="content__filter-option--evolution">
-            <div className="filter-option__title">
-              <p>진화 가능 포켓몬 포함</p>
-            </div>
-            <div className="filter-option__options">
-              <RadioGroup
-                name="hasEvolution"
-                onSelect={handleSelect}
-                options={RadioOptions}
-              />
-            </div>
-          </div>
-          <button className="button__search-filter" type="button">
-            필터 조건으로 검색하기
-          </button>
-        </div>
-      </section>
+          </section>
+        </form>
+      </FormProvider>
     </FilterModal>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import isEqual from 'fast-deep-equal'
-import styled from 'styled-components'
 import { FilterPokemonType } from './filter.pokemonType'
+import styled from 'styled-components'
 
 interface FilterComponentsProps {}
 
@@ -15,9 +15,7 @@ const Filter = styled.div`
   left: 0;
 `
 
-const FilterComponents: React.FC<FilterComponentsProps> = (props) => {
-  const {} = props
-
+const FilterComponents: React.FC<FilterComponentsProps> = () => {
   return (
     <Filter>
       <FilterPokemonType />

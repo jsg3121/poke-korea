@@ -2,12 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import Radio from './Radio.component'
 
-interface RadioComponentProps {
+interface RadioComponentProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string
-  name: string
   options: Array<{ label: string; value: string }>
-  defaultValue?: string
-  onSelect: (data: { name: string; value: string }) => void
 }
 
 const RadioGroup = styled.div`
@@ -27,15 +25,11 @@ const RadioGroup = styled.div`
   }
 `
 
-const RadioGroupComponent: React.FC<RadioComponentProps> = (props) => {
-  const { title, name, options, defaultValue, onSelect } = props
-
-  const handleCheck = React.useCallback(
-    (data: string) => {
-      onSelect({ name, value: data })
-    },
-    [name, onSelect]
-  )
+const RadioGroupComponent = React.forwardRef<
+  HTMLInputElement,
+  RadioComponentProps
+>((props, radioRef) => {
+  const { title, name, options, defaultValue, ...restProps } = props
 
   return (
     <RadioGroup>
@@ -45,18 +39,18 @@ const RadioGroupComponent: React.FC<RadioComponentProps> = (props) => {
           const { label, value } = item
           return (
             <Radio
+              ref={radioRef}
               key={index}
               name={name}
               label={label}
               value={value}
-              onChecked={handleCheck}
               defaultChecked={defaultValue === value}
+              {...restProps}
             />
           )
         })}
       </div>
     </RadioGroup>
   )
-}
-
+})
 export default RadioGroupComponent

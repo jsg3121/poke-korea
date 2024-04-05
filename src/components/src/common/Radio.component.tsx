@@ -1,15 +1,10 @@
-import isEqual from 'fast-deep-equal'
 import React from 'react'
 import styled from 'styled-components'
 import Ball from './Ball.component'
 
-interface RadioComponentProps {
-  name: string
+interface RadioComponentProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
-  value: string
-  defaultChecked?: boolean
-  disabled?: boolean
-  onChecked: (value: string) => void
 }
 
 const Radio = styled.div`
@@ -22,6 +17,7 @@ const Radio = styled.div`
     align-items: center;
     position: relative;
     height: 1.3rem;
+    cursor: pointer;
 
     .ball {
       width: 1.2rem;
@@ -48,6 +44,7 @@ const Radio = styled.div`
     & > .radio__text {
       margin-left: 1.5rem;
       font-size: 1rem;
+      color: var(--color-primary-3);
     }
   }
 
@@ -57,6 +54,9 @@ const Radio = styled.div`
     }
     .radio__unchecked {
       transform: scale(0);
+    }
+    & > .radio__text {
+      color: var(--color-primary-4);
     }
   }
 
@@ -81,52 +81,37 @@ const Radio = styled.div`
   }
 `
 
-const RadioComponent: React.FC<RadioComponentProps> = (props) => {
-  const {
-    name,
-    label,
-    value,
-    defaultChecked = false,
-    disabled,
-    onChecked,
-  } = props
+const RadioComponent = React.forwardRef<HTMLInputElement, RadioComponentProps>(
+  (props, ref) => {
+    const {
+      name,
+      label,
+      value,
+      defaultChecked = false,
+      disabled,
+      ...restInputProps
+    } = props
 
-  const radioRef = React.useRef<HTMLInputElement>(null)
-
-  const handleCheck = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChecked(e.target.value)
-    },
-    [onChecked]
-  )
-
-  React.useEffect(() => {
-    if (!defaultChecked) {
-      if (radioRef.current) {
-        radioRef.current.checked = false
-      }
-    }
-  }, [defaultChecked])
-
-  return (
-    <Radio>
-      <input
-        ref={radioRef}
-        type="radio"
-        name={name}
-        disabled={disabled}
-        id={`${name}__${value}`}
-        value={value}
-        defaultChecked={defaultChecked}
-        onChange={handleCheck}
-      />
-      <label htmlFor={`${name}__${value}`}>
-        <i className="radio__unchecked" />
-        <Ball value={defaultChecked} />
-        <span className="radio__text">{label}</span>
-      </label>
-    </Radio>
-  )
-}
+    return (
+      <Radio>
+        <input
+          ref={ref}
+          type="radio"
+          name={name}
+          disabled={disabled}
+          id={`${name}__${value}`}
+          value={value}
+          defaultChecked={defaultChecked}
+          {...restInputProps}
+        />
+        <label htmlFor={`${name}__${value}`}>
+          <i className="radio__unchecked" />
+          <Ball value={defaultChecked} />
+          <span className="radio__text">{label}</span>
+        </label>
+      </Radio>
+    )
+  },
+)
 
 export default RadioComponent

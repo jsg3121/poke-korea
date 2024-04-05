@@ -2,12 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Ball from './Ball.component'
 
-interface CheckboxComponentProps {
-  value: string
+interface CheckboxComponentProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
-  disabled?: boolean
-  defaultChecked?: boolean
-  onChecked: (value: string) => void
 }
 
 const Checkbox = styled.div`
@@ -44,7 +41,7 @@ const Checkbox = styled.div`
         height: 1rem;
         border-radius: 0.3rem;
         border: 1px solid black;
-        background-color: var(--color-white-3);
+        background-color: var(--color-white-2);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -61,6 +58,7 @@ const Checkbox = styled.div`
       margin-left: 0.3rem;
       font-size: 1rem;
       line-height: 1.5;
+      color: var(--color-primary-3);
     }
   }
 
@@ -70,6 +68,10 @@ const Checkbox = styled.div`
     }
     .checkbox__unchecked {
       transform: scale(0) translate(-50%, -50%);
+    }
+
+    & > .checkbox__text {
+      color: var(--color-primary-4);
     }
   }
 
@@ -94,43 +96,22 @@ const Checkbox = styled.div`
   }
 `
 
-const CheckboxComponent: React.FC<CheckboxComponentProps> = (props) => {
-  const {
-    label,
-    value,
-    defaultChecked = false,
-    disabled = false,
-    onChecked,
-  } = props
-  const checkboxRef = React.useRef<HTMLInputElement>(null)
-
-  const handleCheck = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChecked(e.target.value)
-    },
-    [onChecked]
-  )
-
-  React.useEffect(() => {
-    if (!defaultChecked) {
-      if (checkboxRef.current) {
-        checkboxRef.current.checked = false
-      }
-    }
-  }, [defaultChecked])
+const CheckboxComponent = React.forwardRef<
+  HTMLInputElement,
+  CheckboxComponentProps
+>((props, inputRef) => {
+  const { id, label, defaultChecked = false, ...restProps } = props
 
   return (
     <Checkbox>
       <input
-        ref={checkboxRef}
+        id={id}
+        ref={inputRef}
         type="checkbox"
-        disabled={disabled}
-        id={value}
-        value={value}
         defaultChecked={defaultChecked}
-        onChange={handleCheck}
+        {...restProps}
       />
-      <label htmlFor={value}>
+      <label htmlFor={id}>
         <div className="check__icon">
           <i className="checkbox__unchecked" />
           <Ball value={defaultChecked} />
@@ -139,6 +120,6 @@ const CheckboxComponent: React.FC<CheckboxComponentProps> = (props) => {
       </label>
     </Checkbox>
   )
-}
+})
 
 export default CheckboxComponent
