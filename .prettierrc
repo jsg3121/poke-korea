@@ -1,9 +1,18 @@
 {
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "semi": false,
-  "singleQuote": true,
+  "endOfLine": "lf",
+  "trailingComma": "all",
   "arrowParens": "always",
-  "jsxBracketSameLine": true,
-  "jsxSingleQuote": false
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "embeddedLanguageFormatting": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "semi": false,
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 80,
+  "singleQuote": true,
+  "insertPragma": false,
+  "bracketSpacing": true,
+  "jsxSingleQuote": false,
+  "importOrder": ["^react", "<THIRD_PARTY_MODULES>", "^[./]"]
 }

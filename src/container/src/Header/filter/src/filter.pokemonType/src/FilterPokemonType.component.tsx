@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import styled from 'styled-components'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
 import { getChangeTypeList } from '../module'
 import { FilterModal } from '../filter.modal'
 import { useBodyScrollLock } from '~/hook/src/useBodyScrollLock'
+import { styled } from 'styled-components'
 
 interface FilterPokemonTypeComponentProps {}
 
