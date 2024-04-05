@@ -1,6 +1,6 @@
 export type FilterFormType = {
-  generations: Array<string>
-  isMega: boolean | null
-  isRegion: boolean | null
-  isEvolutions: boolean | null
+  generation: Array<string>
+  isMega: string | null
+  isRegion: string | null
+  isEvolution: string | null
 }

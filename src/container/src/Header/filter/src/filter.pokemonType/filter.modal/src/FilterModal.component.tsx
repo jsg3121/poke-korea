@@ -126,8 +126,8 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
   const router = useRouter()
   const formMethods = useForm<FilterFormType>({
     defaultValues: {
-      generations: [],
-      isEvolutions: null,
+      generation: [],
+      isEvolution: null,
       isMega: null,
       isRegion: null,
     },
@@ -140,27 +140,42 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
   }
 
   const handleChangeGeneration = (e: ChangeEvent<HTMLInputElement>) => {
-    const prevList = getValues('generations')
+    const prevList = getValues('generation')
     const checked = e.target.checked
     const gen = e.target.value
 
     if (!checked) {
       const checkedList = prevList.filter((item) => item !== gen)
-      setValue('generations', checkedList)
+      setValue('generation', checkedList)
     } else {
       const checkedList = [...prevList, gen]
-      setValue('generations', checkedList)
+      setValue('generation', checkedList)
     }
   }
 
   const onSubmitFilter = (filterData: FilterFormType) => {
     const { query, pathname } = router
 
+    const filter = {
+      ...(filterData.generation && {
+        generation: filterData.generation,
+      }),
+      ...(filterData.isMega && {
+        isMega: filterData.isMega,
+      }),
+      ...(filterData.isEvolution && {
+        isEvolution: filterData.isEvolution,
+      }),
+      ...(filterData.isRegion && {
+        isRegion: filterData.isRegion,
+      }),
+    }
+
     router.push({
       pathname,
       query: {
         ...query,
-        ...filterData,
+        ...filter,
       },
     })
   }
@@ -236,7 +251,7 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
                 <div className="filter-option__options">
                   <RadioGroup
                     options={RadioOptions}
-                    {...register('isEvolutions')}
+                    {...register('isEvolution')}
                   />
                 </div>
               </div>

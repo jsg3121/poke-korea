@@ -1,10 +1,8 @@
 import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import React from 'react'
 import styled from 'styled-components'
 import { Pokemon } from '~/graphql/typeGenerated'
-import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
 import { initializeApollo } from '~/module/apolloClient'
 import { MainViews } from '~/views'
 
@@ -96,14 +94,40 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     ? (query.type as string).split(',')
     : []
 
+  const isMega =
+    query.isMega === 'true'
+      ? true
+      : query.isMega === 'false'
+        ? false
+        : undefined
+
+  const isRegion =
+    query.isRegion === 'true'
+      ? true
+      : query.isRegion === 'false'
+        ? false
+        : undefined
+
+  const isEvolution =
+    query.isEvolution === 'true'
+      ? true
+      : query.isEvolution === 'false'
+        ? false
+        : undefined
+
+  const filterInput = {
+    ...query,
+    isRegion,
+    isEvolution,
+    isMega,
+    ...(query.type && {
+      type: changeTypeArrayToString,
+    }),
+  }
+
   const { data } = await apolloClient.query({
     query: QUERY,
-    variables: {
-      ...query,
-      ...(query.type && {
-        type: changeTypeArrayToString,
-      }),
-    },
+    variables: filterInput,
   })
 
   return {
