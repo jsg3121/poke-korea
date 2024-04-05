@@ -37,6 +37,10 @@ const FieldTypeInput = styled.div`
 
   .button--reset {
     color: var(--color-primary-4);
+
+    &:disabled {
+      color: var(--color-primary-2);
+    }
   }
 `
 
@@ -110,11 +114,13 @@ const FilterPokemonTypeComponent: React.FC<
         />
         필터
       </button>
-      {!isEmptyQuery && (
-        <button className="button--reset" onClick={handleClickReset}>
-          초기화
-        </button>
-      )}
+      <button
+        className="button--reset"
+        onClick={handleClickReset}
+        disabled={isEmptyQuery}
+      >
+        초기화
+      </button>
       {isOpenModal && <FilterModal onClickCloseModal={handleClickCloseModal} />}
     </FieldTypeInput>
   )
