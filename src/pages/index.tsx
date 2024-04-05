@@ -4,6 +4,10 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import { Pokemon } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
+import {
+  changeTypeArrayToString,
+  toBooleanOrUndefined,
+} from '~/module/filter.module'
 import { MainViews } from '~/views'
 
 const QUERY = gql`
@@ -90,39 +94,14 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
   const { query } = props
   const apolloClient = initializeApollo()
 
-  const changeTypeArrayToString = query.type
-    ? (query.type as string).split(',')
-    : []
-
-  const isMega =
-    query.isMega === 'true'
-      ? true
-      : query.isMega === 'false'
-        ? false
-        : undefined
-
-  const isRegion =
-    query.isRegion === 'true'
-      ? true
-      : query.isRegion === 'false'
-        ? false
-        : undefined
-
-  const isEvolution =
-    query.isEvolution === 'true'
-      ? true
-      : query.isEvolution === 'false'
-        ? false
-        : undefined
+  const { type, isMega, isRegion, isEvolution, ...restQuery } = query
 
   const filterInput = {
-    ...query,
-    isRegion,
-    isEvolution,
-    isMega,
-    ...(query.type && {
-      type: changeTypeArrayToString,
-    }),
+    ...restQuery,
+    isMega: toBooleanOrUndefined(isMega as string),
+    isRegion: toBooleanOrUndefined(isRegion as string),
+    isEvolution: toBooleanOrUndefined(isEvolution as string),
+    ...(type && { type: changeTypeArrayToString(type as string) }),
   }
 
   const { data } = await apolloClient.query({

@@ -35,12 +35,6 @@
     "react/react-in-jsx-scope": "off",
     "react/display-name": "off",
     "react-hooks/rules-of-hooks": "warn",
-    "@typescript-eslint/consistent-type-assertions": [
-      "warn",
-      {
-        "assertionStyle": "never",
-      },
-    ],
     "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": "warn",
     "@typescript-eslint/ban-ts-comment": "warn",
