@@ -178,6 +178,8 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
         ...filter,
       },
     })
+
+    onClickCloseModal()
   }
 
   return (

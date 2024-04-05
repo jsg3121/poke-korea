@@ -1,15 +1,13 @@
 import isEqual from 'fast-deep-equal'
-import React from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import { Image } from '~/components'
 import { PokemonTypes } from '~/types'
 
-interface TypeFieldButtonComponentsProps {
-  onClick: (value: string) => void
+interface TypeFieldButtonComponentsProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   typeValue: string
   typeName: PokemonTypes
-  defaultChecked?: boolean
-  disabled?: boolean
 }
 
 const TypeFieldButton = styled.div`
@@ -75,16 +73,9 @@ const TypeFieldButton = styled.div`
 `
 
 const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
-  props
+  props,
 ) => {
-  const { typeName, typeValue, disabled, defaultChecked, onClick } = props
-
-  const handleClick = React.useCallback(
-    (e: React.MouseEvent<HTMLInputElement>) => {
-      onClick(e.currentTarget.value)
-    },
-    [onClick]
-  )
+  const { typeName, typeValue, disabled, defaultChecked, ...restProps } = props
 
   return (
     <TypeFieldButton className="button__field--type">
@@ -93,8 +84,8 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
         id={`field-type-${typeValue}`}
         disabled={disabled}
         value={typeName}
-        defaultChecked={defaultChecked}
-        onClick={handleClick}
+        checked={defaultChecked}
+        {...restProps}
       />
       <label htmlFor={`field-type-${typeValue}`}>
         <Image

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
@@ -34,7 +34,14 @@ const FieldTypeInput = styled.div`
     line-height: 2rem;
     cursor: pointer;
   }
+
+  .button--reset {
+    color: var(--color-primary-4);
+  }
 `
+
+const isEmptyQueryCheck = (obj: object): boolean =>
+  Object.keys(obj).length === 0
 
 const FilterPokemonTypeComponent: React.FC<
   FilterPokemonTypeComponentProps
@@ -47,7 +54,8 @@ const FilterPokemonTypeComponent: React.FC<
     ? (router.query.type as string).split(',')
     : []
 
-  const handleClickTypeFilter = (type: string) => {
+  const handleClickTypeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    const type = e.target.value
     const changeList = getChangeTypeList(typeList, type)
 
     router.push({
@@ -67,16 +75,24 @@ const FilterPokemonTypeComponent: React.FC<
     setIsOpenModal(false)
   }
 
+  const handleClickReset = () => {
+    router.push({
+      pathname: router.pathname,
+    })
+  }
+
+  const isEmptyQuery = isEmptyQueryCheck(router.query)
+
   return (
     <FieldTypeInput>
       {Object.entries(PokemonTypes).map(([types, typeName]) => {
         return (
           <TypeFieldButton
             key={`pokemon-type-key-${types}`}
-            onClick={handleClickTypeFilter}
+            onChange={handleClickTypeFilter}
             typeValue={types.toLowerCase()}
             typeName={typeName}
-            defaultChecked={typeList.includes(typeName)}
+            checked={typeList.includes(typeName)}
             disabled={
               typeList.length === 2 && typeList.indexOf(typeName) < 0
                 ? true
@@ -94,6 +110,11 @@ const FilterPokemonTypeComponent: React.FC<
         />
         필터
       </button>
+      {!isEmptyQuery && (
+        <button className="button--reset" onClick={handleClickReset}>
+          초기화
+        </button>
+      )}
       {isOpenModal && <FilterModal onClickCloseModal={handleClickCloseModal} />}
     </FieldTypeInput>
   )
