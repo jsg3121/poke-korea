@@ -6,6 +6,7 @@ import { Ball, Image, Tag } from '~/components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { CardColor } from '~/types'
 import { pokemonNumberFormat } from '../../module'
+import { useRouter } from 'next/router'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -143,6 +144,7 @@ const Card = styled.article<CardType>`
 
 const CardComponent: React.FC<CardComponentProps> = (props) => {
   const { pokemonData } = props
+  const router = useRouter()
 
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
@@ -154,8 +156,12 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
     return background
   }, [pokemonData])
 
+  const handleRouteDetailPokemon = () => {
+    router.push(`/detail/${pokemonData.number}`)
+  }
+
   return (
-    <Card background={backgroundColor}>
+    <Card background={backgroundColor} onClick={handleRouteDetailPokemon}>
       <div className="card-info__title">
         <div className="card-info__icon">
           <Ball />

@@ -32,8 +32,13 @@ const Logo = styled.div`
     left: 50%;
     transform: translate3d(-50%, 0, 0) scale(1);
     transform-origin: left;
-    transition: top 0.3s, left 0.3s, transform 0.3s;
-    will-change: top left, transform;
+    transition:
+      top 0.3s,
+      left 0.3s,
+      transform 0.3s;
+    will-change:
+      top left,
+      transform;
   }
 `
 

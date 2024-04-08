@@ -83,10 +83,6 @@ export const GlobalStyle = createGlobalStyle`
          box-sizing: border-box;
     }
 
-    h1,h2,h3,h4,h5,h6,p,span,textarea {
-        color: var(--color-black-2);
-    }
-
     @media screen and (min-width: 1281px) {
         html,
         body {
