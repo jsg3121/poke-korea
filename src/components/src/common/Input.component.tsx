@@ -1,12 +1,7 @@
-import React from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 
-interface InputComponentsProps {
-  /**
-   * input 타입을 지정
-   * @example  <input type={type} {...otherProps} />
-   */
-  type: 'text' | 'password'
+interface InputComponentsProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * input data 정보를 명시하는 텍스트
    * @example
@@ -19,28 +14,6 @@ interface InputComponentsProps {
    * 해당 input의 title, name등의 텍스트를 입력
    */
   label: string
-  placeholder: string
-  /**
-   * 데이터를 표시
-   * @example
-   * // type !== select
-   * <input
-   *   type={type}
-   *   className="wrapper__input"
-   *   id={dataLabel}
-   *   placeholder={placeholder}
-   *   defaultValue={inputValue as string}
-   * />
-   *
-   * @example
-   * // type === 'select'
-   * <div className="wrapper__select">
-   *   <PropsNodes/> => React.ReactNode
-   * </div>
-   *
-   */
-  defaultValue?: string
-  onChange?: (value: string) => void
 }
 
 const Input = styled.div`
@@ -81,29 +54,12 @@ const Input = styled.div`
 `
 
 const InputComponents: React.FC<InputComponentsProps> = (props) => {
-  const { dataLabel, label, type, placeholder, defaultValue, onChange } = props
-
-  const handleInputChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value.trim()
-      if (onChange) {
-        onChange(value)
-      }
-    },
-    [onChange]
-  )
+  const { dataLabel, label, ...restProps } = props
 
   return (
     <Input>
       <p className="input__label">{label}</p>
-      <input
-        type={type}
-        className="wrapper__input"
-        id={dataLabel}
-        placeholder={placeholder}
-        defaultValue={defaultValue}
-        onChange={handleInputChange}
-      />
+      <input className="wrapper__input" id={dataLabel} {...restProps} />
     </Input>
   )
 }

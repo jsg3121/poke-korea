@@ -9,7 +9,9 @@ const Search = styled.div`
   max-width: 41.66666667rem;
   height: 3.33333333rem;
   border: 1px solid #dddddd;
-  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 3px 12px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.08);
   border-radius: 2.22222222rem;
   background-color: #ffffff;
   overflow: hidden;
@@ -17,7 +19,10 @@ const Search = styled.div`
   top: 3.33333333rem;
   left: 50%;
   transform: translateX(-50%);
-  transition: top 0.3s, width 0.3s, max-width 0.3s;
+  transition:
+    top 0.3s,
+    width 0.3s,
+    max-width 0.3s;
   will-change: top, width, max-width;
 
   &[data-scrolling='true'] {
@@ -54,16 +59,36 @@ const SearchComponent: React.FC = () => {
   const { scrolling } = React.useContext(ListContext)
   const router = useRouter()
   const [searchKeyword, setSearchKeyword] = React.useState<string>()
-  const handleInputChange = React.useCallback((value: string) => {
-    setSearchKeyword(() => value)
-  }, [])
+
+  const handleInputChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value.replaceAll(' ', '')
+      setSearchKeyword(() => value)
+    },
+    [],
+  )
+
+  const handleKeyDownSearch = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ): void => {
+    if (e.key === 'Enter') {
+      const value = e.currentTarget.value.replaceAll(' ', '')
+      router.replace({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          name: value.trim(),
+        },
+      })
+    }
+  }
 
   const handleClickSearchPokemon = () => {
     router.replace({
       pathname: router.pathname,
       query: {
         ...router.query,
-        name: searchKeyword,
+        name: searchKeyword?.trim(),
       },
     })
   }
@@ -77,12 +102,14 @@ const SearchComponent: React.FC = () => {
           label="포켓몬 검색"
           placeholder="포켓몬의 이름을 입력해주세요"
           onChange={handleInputChange}
+          onKeyDown={handleKeyDownSearch}
           defaultValue={router.query.name as string}
         />
       </div>
       <button
         className="search__button--icon"
-        onClick={handleClickSearchPokemon}>
+        onClick={handleClickSearchPokemon}
+      >
         <Image
           src="/assets/image/search.svg"
           width="2rem"
