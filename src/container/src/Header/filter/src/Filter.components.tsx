@@ -13,6 +13,7 @@ const Filter = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 20;
 `
 
 const FilterComponents: React.FC<FilterComponentsProps> = () => {

@@ -24,6 +24,9 @@ const Card = styled.article<CardType>`
     position: relative;
     overflow: hidden;
     box-shadow: inset 10px 0 0 0 #334150;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.03, 0.57, 0.37, 1.02);
+    transform: scale(1);
     background: ${() => {
       if (background.length === 1) {
         return `${background[0]}`
@@ -35,6 +38,11 @@ const Card = styled.article<CardType>`
             )`
       }
     }};
+
+    &:hover {
+      transform: scale(1.2);
+      z-index: 10;
+    }
 
     &::before {
       content: '';

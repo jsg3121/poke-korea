@@ -14,7 +14,7 @@ const Header = styled.header`
   will-change: height;
   position: fixed;
   top: 0;
-  z-index: 5;
+  z-index: 20;
   padding: 1.5rem 0 0;
 
   &[data-scrolling='true'] {
