@@ -24,8 +24,8 @@ ChartJS.register(
 )
 
 const Article = styled.article`
-  width: 28rem;
-  height: 28rem;
+  width: 25rem;
+  height: 25rem;
 
   & > table {
     width: 100%;
@@ -74,12 +74,24 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
     scales: {
       r: {
         min: 0,
-        max: maxPoint,
+        max: maxPoint + 10,
         backgroundColor: '#DDE6ED',
         pointLabels: {
           color: (ctx) => {
-            if (parseInt(ctx.label[1], 10) === maxPoint) return 'blue'
-            return 'red'
+            switch (ctx.label[0]) {
+              case '체력':
+                return '#FF5959'
+              case '공격':
+                return '#F5AC78'
+              case '특수공격':
+                return '#FAE078'
+              case '방어':
+                return '#9DB7F5'
+              case '특수방어':
+                return '#A7DB8D'
+              case '스피드':
+                return '#FA92B2'
+            }
           },
           font: {
             size: 15,
