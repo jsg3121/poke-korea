@@ -34,5 +34,7 @@ const Article = styled.article`
   height: 100%;
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 1rem;
+  padding: 2rem 0 0;
 `
