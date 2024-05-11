@@ -24,8 +24,8 @@ ChartJS.register(
 )
 
 const Article = styled.article`
-  width: 25rem;
-  height: 25rem;
+  width: 28rem;
+  height: 28rem;
 
   & > table {
     width: 100%;
@@ -46,14 +46,26 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
     speed,
   )
 
-  const ablityData: ChartData<'radar', number[], string> = {
-    labels: ['체력', '공격', '특수공격', '방어', '특수방어', '스피드'],
+  const ablityData: ChartData<'radar'> = {
+    labels: [
+      ['체력', hp],
+      ['공격', attack],
+      ['특수공격', specialAttack],
+      ['방어', defense],
+      ['특수방어', specialDefense],
+      ['스피드', speed],
+    ],
     datasets: [
       {
         data: [hp, attack, specialAttack, defense, specialDefense, speed],
-        backgroundColor: 'rgba(225, 133, 153, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1,
+        backgroundColor: 'rgba(39, 55, 77, 0.6)',
+        borderColor: 'rgba(39, 55, 77, 1)',
+        borderWidth: 2,
+        animation: {
+          delay: 300,
+          easing: 'easeOutQuart',
+          duration: 1000,
+        },
       },
     ],
   }
@@ -63,6 +75,21 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
       r: {
         min: 0,
         max: maxPoint,
+        backgroundColor: '#DDE6ED',
+        pointLabels: {
+          color: (ctx) => {
+            if (parseInt(ctx.label[1], 10) === maxPoint) return 'blue'
+            return 'red'
+          },
+          font: {
+            size: 15,
+            weight: 500,
+          },
+        },
+        angleLines: {
+          color: '#9DB2BF',
+          lineWidth: 1,
+        },
         ticks: {
           display: false,
         },
