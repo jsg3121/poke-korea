@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { NormalStats } from '~/graphql/typeGenerated'
-import { AilityRow } from './components'
+import { AbilityRow } from './components'
 
 const Article = styled.article`
   width: 20rem;
@@ -27,13 +27,13 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
           <col width="50%" />
         </colgroup>
         <tbody>
-          <AilityRow label="체력" status={hp} />
-          <AilityRow label="공격" status={attack} />
-          <AilityRow label="특수공격" status={specialAttack} />
-          <AilityRow label="방어" status={defense} />
-          <AilityRow label="특수방어" status={specialDefense} />
-          <AilityRow label="스피드" status={speed} />
-          <AilityRow label="총합" status={total} />
+          <AbilityRow label="체력" status={hp} />
+          <AbilityRow label="공격" status={attack} />
+          <AbilityRow label="특수공격" status={specialAttack} />
+          <AbilityRow label="방어" status={defense} />
+          <AbilityRow label="특수방어" status={specialDefense} />
+          <AbilityRow label="스피드" status={speed} />
+          <AbilityRow label="총합" status={total} />
         </tbody>
       </table>
     </Article>

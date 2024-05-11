@@ -1,1 +1,1 @@
-export { default as AilityRow } from './src/AbilityRow.components'
+export { default as AbilityRow } from './src/AbilityRow.components'

@@ -1,14 +1,14 @@
 import {
   ApolloClient,
-  InMemoryCache,
   HttpLink,
+  InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
 import fetch from 'cross-fetch'
-import { useMemo } from 'react'
-import { GqlMode } from '~/common'
 import merge from 'deepmerge'
 import isEqual from 'fast-deep-equal'
+import { useMemo } from 'react'
+import { GqlMode } from '~/common'
 
 const GQLMode = GqlMode
 
@@ -37,7 +37,7 @@ export function initializeApollo(initialState = null) {
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
         ...destinationArray.filter((d) =>
-          sourceArray.every((s) => !isEqual(d, s))
+          sourceArray.every((s) => !isEqual(d, s)),
         ),
       ],
     })

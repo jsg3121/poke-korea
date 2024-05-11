@@ -14,14 +14,14 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
   return (
     <Article>
       {info && (
-        <>
+        <React.Fragment>
           <PokemonImage
             name={info.name}
             pokemonNumber={info.number}
             evolutionId={info.evolutionId}
           />
           <Abilities {...info.stats} />
-        </>
+        </React.Fragment>
       )}
     </Article>
   )
