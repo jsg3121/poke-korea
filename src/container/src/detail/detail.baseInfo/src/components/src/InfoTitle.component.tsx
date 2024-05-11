@@ -20,7 +20,6 @@ const StyledWrapper = styled.h1`
   font-weight: 500;
   color: var(--color-primary-4);
   text-align: center;
-  background-color: var(--color-primary-1);
   padding-top: 7rem;
   padding-bottom: 1rem;
 `

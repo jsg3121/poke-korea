@@ -32,6 +32,14 @@ const Main = styled.main`
     gap: 1rem;
     padding: 0;
     margin: 0 auto;
-    background-color: white;
+    position: relative;
+
+    &::before {
+      content: '';
+      width: 100%;
+      height: 20rem;
+      background-color: #ffffff;
+      display: block;
+    }
   }
 `

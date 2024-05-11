@@ -31,7 +31,7 @@ const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
 export default RelationPokemonComponent
 
 const Div = styled.div`
-  width: 21rem;
+  width: 100%;
   height: 10rem;
   display: flex;
   align-items: center;

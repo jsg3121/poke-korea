@@ -41,7 +41,9 @@ const Div = styled.div<TStyledProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   background: ${(props) => {
     if (props.backgroundColor.length === 1) {
       return `${props.backgroundColor[0]}66`
