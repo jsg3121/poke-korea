@@ -12,24 +12,20 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
   const { info } = props
 
   return (
-    <Article>
-      {info && (
-        <React.Fragment>
-          <PokemonImage
-            name={info.name}
-            pokemonNumber={info.number}
-            evolutionId={info.evolutionId}
-          />
-          <Abilities {...info.stats} />
-        </React.Fragment>
-      )}
-    </Article>
+    <Div>
+      <PokemonImage
+        name={info.name}
+        pokemonNumber={info.number}
+        evolutionId={info.evolutionId}
+      />
+      <Abilities {...info.stats} />
+    </Div>
   )
 }
 
 export default DetailBaseInfoContainer
 
-const Article = styled.article`
+const Div = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

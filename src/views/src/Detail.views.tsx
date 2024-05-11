@@ -8,11 +8,9 @@ const DetailViews: FC<IFDetailPokemonInfo> = (props) => {
   return (
     <Main>
       <header></header>
-      <div className="pokemon-detail-content">
+      <section className="pokemon-detail-content">
         <DetailBaseInfo info={pokemonBaseInfo} />
-        <div className="pokemon-others">추가 정보들</div>
-        <div className="pokemon-status">스탯</div>
-      </div>
+      </section>
     </Main>
   )
 }
