@@ -59,6 +59,6 @@ const Div = styled.div<TStyledProps>`
     height: 23rem;
     position: absolute;
     bottom: -6.5rem;
-    filter: drop-shadow(0px -3px 3px #333333);
+    filter: drop-shadow(0px -3px 3px #000000);
   }
 `
