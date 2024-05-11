@@ -147,7 +147,7 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
             }
           },
           font: {
-            size: 15,
+            size: 20,
             weight: 500,
           },
         },

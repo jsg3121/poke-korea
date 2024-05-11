@@ -22,4 +22,5 @@ const StyledWrapper = styled.h1`
   text-align: center;
   padding-top: 7rem;
   padding-bottom: 1rem;
+  grid-column: 1/3;
 `

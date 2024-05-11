@@ -4,8 +4,10 @@ import { NormalStats } from '~/graphql/typeGenerated'
 import { AbilityChart } from './components'
 
 const Article = styled.article`
-  width: 25rem;
-  height: 25rem;
+  width: 40rem;
+  height: 40rem;
+  padding: 2rem;
+  margin: 0 auto;
 `
 
 const AbilityComponent: React.FC<NormalStats> = (props) => {

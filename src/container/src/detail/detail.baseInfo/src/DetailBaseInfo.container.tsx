@@ -4,6 +4,7 @@ import { Abilities } from './baseInfo.abilities'
 import { PokemonImage } from './baseInfo.pokemonImage'
 import { RelationPokemon } from './baseinfo.relationPokemon'
 import { InfoTitle } from './components'
+import styled from 'styled-components'
 
 interface IFDetailBaseInfoProps {
   info: Pokemon
@@ -13,17 +14,23 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
   const { info } = props
 
   return (
-    <React.Fragment>
+    <Div>
       <PokemonImage
         name={info.name}
         pokemonNumber={info.number}
         type={info.type}
       />
       <InfoTitle name={info.name} />
-      <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
       <Abilities {...info.stats} />
-    </React.Fragment>
+      <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
+    </Div>
   )
 }
 
 export default DetailBaseInfoContainer
+
+const Div = styled.div`
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+`
