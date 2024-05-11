@@ -27,7 +27,11 @@ const Main = styled.main`
   }
 
   & > .pokemon-detail-content {
-    max-width: 1280px;
+    width: 100%;
+    height: 100%;
+    gap: 1rem;
+    padding: 0;
     margin: 0 auto;
+    background-color: white;
   }
 `

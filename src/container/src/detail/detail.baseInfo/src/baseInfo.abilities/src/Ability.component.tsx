@@ -14,7 +14,7 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
   return (
     <Article>
       <header>
-        <h3>능력치</h3>
+        <h2>능력치</h2>
         <strong>총 합: {total}</strong>
       </header>
       <AbilityChart {...restProps} />

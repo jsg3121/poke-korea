@@ -1,8 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Pokemon } from '~/graphql/typeGenerated'
 import { Abilities } from './baseInfo.abilities'
 import { PokemonImage } from './baseInfo.pokemonImage'
+import { RelationPokemon } from './baseinfo.relationPokemon'
 
 interface IFDetailBaseInfoProps {
   info: Pokemon
@@ -12,25 +12,19 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
   const { info } = props
 
   return (
-    <Div>
+    <React.Fragment>
       <PokemonImage
         name={info.name}
         pokemonNumber={info.number}
-        evolutionId={info.evolutionId}
+        type={info.type}
       />
+      <h1>
+        {info.id} {info.name}
+      </h1>
+      <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
       <Abilities {...info.stats} />
-    </Div>
+    </React.Fragment>
   )
 }
 
 export default DetailBaseInfoContainer
-
-const Div = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 2rem 0 0;
-`
