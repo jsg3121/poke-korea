@@ -40,7 +40,7 @@ const Div = styled.div`
   border-radius: 1rem;
   outline: 3px solid var(--color-primary-4);
   padding: 1rem;
-  margin: 2rem auto 0;
+  margin: 0 auto;
 
   & > h2 {
     width: 100%;

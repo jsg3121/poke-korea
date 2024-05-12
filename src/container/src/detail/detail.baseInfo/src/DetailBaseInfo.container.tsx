@@ -20,9 +20,12 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
         pokemonNumber={info.number}
         type={info.type}
       />
+
       <InfoTitle name={info.name} />
-      <Abilities {...info.stats} />
-      <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
+      <div className="pokemon-description">
+        {info && <Abilities {...info.stats} />}
+        <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
+      </div>
     </Div>
   )
 }
@@ -33,4 +36,11 @@ const Div = styled.div`
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
+
+  & > .pokemon-description {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem 0;
+  }
 `

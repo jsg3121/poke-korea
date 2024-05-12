@@ -48,8 +48,14 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
     datasets: [
       {
         data: [hp, attack, specialAttack, defense, specialDefense, speed],
-        backgroundColor: 'rgba(39, 55, 77, 0.6)',
-        borderColor: 'rgba(39, 55, 77, 1)',
+
+        animation: {
+          delay: 300,
+          easing: 'easeOutQuart',
+          duration: 1000,
+        },
+        backgroundColor: 'rgba(39, 55, 77, 0.7)',
+        borderColor: '#444444',
         pointBorderColor: (ctx) => {
           switch (ctx.dataIndex) {
             case 0:
@@ -83,11 +89,6 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
           }
         },
         borderWidth: 2,
-        animation: {
-          delay: 300,
-          easing: 'easeOutQuart',
-          duration: 1000,
-        },
       },
     ],
   }
@@ -95,7 +96,7 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
   const options: ChartOptions<'radar'> = {
     elements: {
       point: {
-        radius: 5,
+        radius: 8,
       },
     },
     plugins: {
@@ -122,37 +123,29 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
               return '#A13959'
           }
         },
+        titleFont: {
+          size: 20,
+        },
+        bodyFont: {
+          size: 20,
+        },
+        boxPadding: 12,
       },
     },
     scales: {
       r: {
         min: 0,
         max: maxPoint + 10,
-        backgroundColor: '#DDE6ED',
+        backgroundColor: '#9DB2BF',
         pointLabels: {
-          color: (ctx) => {
-            switch (ctx.label[0]) {
-              case '체력':
-                return '#FF5959'
-              case '공격':
-                return '#F5AC78'
-              case '특수공격':
-                return '#FAE078'
-              case '방어':
-                return '#9DB7F5'
-              case '특수방어':
-                return '#A7DB8D'
-              case '스피드':
-                return '#FA92B2'
-            }
-          },
+          color: '#27374D',
           font: {
             size: 20,
             weight: 500,
           },
         },
         angleLines: {
-          color: '#9DB2BF',
+          color: '#526D82',
           lineWidth: 2,
         },
         ticks: {
