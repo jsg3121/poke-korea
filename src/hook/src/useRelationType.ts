@@ -1,6 +1,6 @@
 import { changeToEngType, changeType } from '../../common'
 
-type UseRelationType = (types: Array<string>) => {
+export type UseRelationType = (types: Array<string>) => {
   quad: Array<string>
   double: Array<string>
   half: Array<string>

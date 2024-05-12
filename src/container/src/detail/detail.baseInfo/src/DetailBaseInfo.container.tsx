@@ -5,6 +5,7 @@ import { PokemonImage } from './baseInfo.pokemonImage'
 import { RelationPokemon } from './baseinfo.relationPokemon'
 import { InfoTitle } from './components'
 import styled from 'styled-components'
+import { TypesInfo } from './basInfo.typesInfo'
 
 interface IFDetailBaseInfoProps {
   info: Pokemon
@@ -24,6 +25,7 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
       <InfoTitle name={info.name} />
       <div className="pokemon-description">
         <Abilities {...info.stats} />
+        <TypesInfo type={info.type} />
         <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
       </div>
     </Div>
@@ -39,8 +41,11 @@ const Div = styled.div`
 
   & > .pokemon-description {
     width: 100%;
+    height: 44rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2rem;
     padding: 2rem 0;
   }
 `

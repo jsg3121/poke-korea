@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import { NormalStats } from '~/graphql/typeGenerated'
 import { AbilityChart } from './components'
 
-const Article = styled.article`
+const Section = styled.section`
   width: 40rem;
   height: 40rem;
+  grid-row: 1/3;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
@@ -43,13 +44,13 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
   const { total, ...restProps } = props
 
   return (
-    <Article>
+    <Section>
       <header>
         <h2>능력치</h2>
         <strong>총 합: {total}</strong>
       </header>
       <AbilityChart {...restProps} />
-    </Article>
+    </Section>
   )
 }
 

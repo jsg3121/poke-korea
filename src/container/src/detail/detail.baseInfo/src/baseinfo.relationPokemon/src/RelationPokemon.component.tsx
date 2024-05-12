@@ -11,7 +11,7 @@ interface IFProps {
 
 const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
   return (
-    <Div>
+    <Section>
       <h2>진화 체인</h2>
       <div className="relation-pokemon-list">
         {evolutionId.map((id) => {
@@ -19,8 +19,8 @@ const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
             <Link key={`relation-pokemon-id-${id}`} href={`/detail/${id}`}>
               <Image
                 src={`${imageMode}/${id}.webp`}
-                width="10rem"
-                height="10rem"
+                width="12rem"
+                height="12rem"
                 alt={`포켓몬 ${name}`}
                 unoptimized
               />
@@ -28,15 +28,15 @@ const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
           )
         })}
       </div>
-    </Div>
+    </Section>
   )
 }
 
 export default RelationPokemonComponent
 
-const Div = styled.div`
-  width: 24rem;
-  height: 16rem;
+const Section = styled.section`
+  width: 100%;
+  height: 100%;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
@@ -53,10 +53,12 @@ const Div = styled.div`
   }
 
   & > .relation-pokemon-list {
+    width: 100%;
+    height: calc(100% - 2rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem 0;
+    padding: 1rem 0 0;
   }
 `
