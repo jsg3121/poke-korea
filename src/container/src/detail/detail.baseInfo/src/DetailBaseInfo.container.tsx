@@ -21,7 +21,6 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
         pokemonNumber={info.number}
         type={info.type}
       />
-
       <InfoTitle name={info.name} />
       <div className="pokemon-description">
         <Abilities {...info.stats} />
