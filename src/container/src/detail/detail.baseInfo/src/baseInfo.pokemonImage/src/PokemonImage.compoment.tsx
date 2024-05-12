@@ -22,8 +22,8 @@ const PokemonImageCompoment: FC<IFProps> = (props) => {
       <div className="pokemon-main">
         <Image
           src={`${imageMode}/${pokemonNumber}.webp`}
-          width="23rem"
-          height="23rem"
+          width="25rem"
+          height="25rem"
           alt={`포켓몬 ${name}의 모습`}
           className="pokemon-main"
           unoptimized
@@ -57,8 +57,8 @@ const Div = styled.div<TStyledProps>`
   }};
 
   & > .pokemon-main {
-    width: 23rem;
-    height: 23rem;
+    width: 25rem;
+    height: 25rem;
     position: absolute;
     bottom: -6.5rem;
     filter: drop-shadow(0px -3px 3px #000000);
