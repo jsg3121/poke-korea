@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { FC } from 'react'
 import styled from 'styled-components'
 import { imageMode } from '~/common'
@@ -15,14 +16,15 @@ const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
       <div className="relation-pokemon-list">
         {evolutionId.map((id) => {
           return (
-            <Image
-              key={`relation-pokemon-id-${id}`}
-              src={`${imageMode}/${id}.webp`}
-              width="10rem"
-              height="10rem"
-              alt={`포켓몬 ${name}`}
-              unoptimized
-            />
+            <Link key={`relation-pokemon-id-${id}`} href={`/detail/${id}`}>
+              <Image
+                src={`${imageMode}/${id}.webp`}
+                width="10rem"
+                height="10rem"
+                alt={`포켓몬 ${name}`}
+                unoptimized
+              />
+            </Link>
           )
         })}
       </div>

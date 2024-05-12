@@ -23,7 +23,7 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
 
       <InfoTitle name={info.name} />
       <div className="pokemon-description">
-        {info && <Abilities {...info.stats} />}
+        <Abilities {...info.stats} />
         <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
       </div>
     </Div>
