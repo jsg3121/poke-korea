@@ -52,10 +52,7 @@ const TypeList = styled.div`
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-
-    p {
-      margin: 0 0.25rem;
-    }
+    gap: 0.5rem;
   }
 `
 

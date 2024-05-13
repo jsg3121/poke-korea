@@ -25,7 +25,9 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
       <div className="pokemon-description">
         <Abilities {...info.stats} />
         <TypesInfo type={info.type} />
-        <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
+        {info.evolutionId.length > 0 && (
+          <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
+        )}
       </div>
     </Div>
   )
