@@ -35,16 +35,22 @@ export default DetailBaseInfoContainer
 
 const Div = styled.div`
   width: 100%;
-  max-width: 1280px;
+  max-width: 1320px;
+  padding: 0 20px;
   margin: 0 auto;
 
   & > .pokemon-description {
     width: 100%;
     height: 44rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 2rem;
     padding: 2rem 0;
+
+    @media screen and (max-width: 1080px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 40rem 22rem 20rem;
+    }
   }
 `

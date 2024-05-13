@@ -4,8 +4,9 @@ import { NormalStats } from '~/graphql/typeGenerated'
 import { AbilityChart } from './components'
 
 const Section = styled.section`
-  width: 40rem;
-  height: 40rem;
+  width: 100%;
+  height: 100%;
+  grid-column: 1/3;
   grid-row: 1/3;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
@@ -33,10 +34,15 @@ const Section = styled.section`
     }
   }
 
-  & > canvas {
+  & > .ability-chart {
     width: 33rem;
     height: 33rem;
     margin: 1rem auto 0;
+  }
+
+  @media screen and (max-width: 1080px) {
+    grid-column: 1;
+    grid-row: 1;
   }
 `
 
@@ -49,7 +55,9 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
         <h2>능력치</h2>
         <strong>총 합: {total}</strong>
       </header>
-      <AbilityChart {...restProps} />
+      <div className="ability-chart">
+        <AbilityChart {...restProps} />
+      </div>
     </Section>
   )
 }
