@@ -24,7 +24,6 @@ const Div = styled.div<TStyledProps>`
     height: 20rem;
     background-color: #ffffff;
     display: block;
-    z-index: -1;
   }
 
   &::after {
@@ -34,7 +33,6 @@ const Div = styled.div<TStyledProps>`
     display: block;
     position: absolute;
     top: 0;
-    z-index: 0;
     background: ${(props) => {
       if (props.backgroundColor.length === 1) {
         return `${props.backgroundColor[0]}66`
@@ -51,7 +49,9 @@ const Div = styled.div<TStyledProps>`
   & > .detail-profile {
     width: 100%;
     max-width: 1320px;
-    height: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
     top: -17rem;
     left: 0;
@@ -69,11 +69,13 @@ const DetailSummaryContainer: FC<IFProps> = (props) => {
   return (
     <Div backgroundColor={newColor}>
       <div className="detail-profile">
-        <PokemonImage name={info.name} pokemonNumber={info.number} />
-        <InfoTitle name={info.name} />
-      </div>
-      <div className="detail-description">
-        <Abilities {...info.stats} />
+        <div className="profile-image">
+          <PokemonImage name={info.name} pokemonNumber={info.number} />
+          <InfoTitle name={info.name} />
+        </div>
+        <div className="profile-description">
+          <Abilities {...info.stats} />
+        </div>
       </div>
     </Div>
   )
