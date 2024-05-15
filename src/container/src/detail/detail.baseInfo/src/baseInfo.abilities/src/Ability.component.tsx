@@ -1,42 +1,64 @@
 import React from 'react'
 import styled from 'styled-components'
 import { NormalStats } from '~/graphql/typeGenerated'
-import { AilityRow } from './components'
+import { AbilityChart } from './components'
 
-const Article = styled.article`
-  width: 20rem;
+const Section = styled.section`
+  width: 100%;
+  height: 100%;
+  grid-column: 1/3;
+  grid-row: 1/3;
+  background-color: var(--color-primary-4);
+  border: 3px solid var(--color-primary-1);
+  border-radius: 1rem;
+  outline: 3px solid var(--color-primary-4);
   padding: 1rem;
-  background-color: var(--color-white-1);
-  border-radius: 0.5rem;
 
-  & > table {
+  & > header {
     width: 100%;
-    table-layout: fixed;
+    height: 4rem;
+    border-bottom: 1px solid var(--color-primary-1);
+
+    & > h2 {
+      height: 2rem;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      color: var(--color-primary-1);
+    }
+
+    & > strong {
+      height: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      color: var(--color-primary-2);
+    }
+  }
+
+  & > .ability-chart {
+    width: 33rem;
+    height: 33rem;
+    margin: 1rem auto 0;
+  }
+
+  @media screen and (max-width: 1080px) {
+    grid-column: 1;
+    grid-row: 1;
   }
 `
 
 const AbilityComponent: React.FC<NormalStats> = (props) => {
-  const { attack, defense, hp, specialAttack, speed, specialDefense, total } =
-    props
+  const { total, ...restProps } = props
 
   return (
-    <Article>
-      <table>
-        <colgroup>
-          <col width="50%" />
-          <col width="50%" />
-        </colgroup>
-        <tbody>
-          <AilityRow label="체력" status={hp} />
-          <AilityRow label="공격" status={attack} />
-          <AilityRow label="특수공격" status={specialAttack} />
-          <AilityRow label="방어" status={defense} />
-          <AilityRow label="특수방어" status={specialDefense} />
-          <AilityRow label="스피드" status={speed} />
-          <AilityRow label="총합" status={total} />
-        </tbody>
-      </table>
-    </Article>
+    <Section>
+      <header>
+        <h2>능력치</h2>
+        <strong>총 합: {total}</strong>
+      </header>
+      <div className="ability-chart">
+        <AbilityChart {...restProps} />
+      </div>
+    </Section>
   )
 }
 

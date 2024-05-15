@@ -1,1 +1,1 @@
-export { default as AilityRow } from './src/AbilityRow.components'
+export { default as AbilityChart } from './src/AbilityChart.component'

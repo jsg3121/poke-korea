@@ -27,7 +27,7 @@ export const GlobalStyle = createGlobalStyle`
     img, svg{
         pointer-events : none;
     }
-    img, svg, body {
+    img, svg {
         -webkit-user-select:none;
         -webkit-user-drag: none;
         -moz-user-select:none;

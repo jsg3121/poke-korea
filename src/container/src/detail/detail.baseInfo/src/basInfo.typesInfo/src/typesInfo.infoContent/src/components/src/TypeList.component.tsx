@@ -1,0 +1,76 @@
+import isEqual from 'fast-deep-equal'
+import React from 'react'
+import styled from 'styled-components'
+import { Tag } from '~/components'
+
+interface TypeListComponentProps {
+  list: Array<string>
+  title: string
+  grade: 'best' | 'better' | 'good' | 'warning' | 'danger'
+}
+
+const TypeList = styled.div`
+  width: 100%;
+  height: 100%;
+  max-height: 5rem;
+  text-align: center;
+
+  &:last-child {
+    border-bottom: 1px solid var(--color-primary-1);
+  }
+
+  .type-list__title {
+    height: 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: calc(1.5rem + 2px);
+    margin-bottom: 0.5rem;
+    &[data-grade='best'] {
+      background-color: #6af073;
+    }
+    &[data-grade='better'] {
+      background-color: #5ce9ff;
+    }
+    &[data-grade='good'] {
+      background-color: #59a0f5;
+    }
+    &[data-grade='warning'] {
+      background-color: #f9bd3d;
+    }
+    &[data-grade='danger'] {
+      background-color: #ff5f42;
+    }
+
+    @media screen and (max-width: 475px) {
+      letter-spacing: -0.75px;
+    }
+  }
+
+  .type-list__tag {
+    height: calc(100% - 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+`
+
+const TypeListComponent: React.FC<TypeListComponentProps> = (props) => {
+  const { list, title, grade } = props
+
+  return (
+    <TypeList>
+      <p className="type-list__title" data-grade={grade}>
+        {title}
+      </p>
+      <div className="type-list__tag">
+        {list.map((item, index) => {
+          return <Tag key={index} label={item} />
+        })}
+      </div>
+    </TypeList>
+  )
+}
+
+export default React.memo(TypeListComponent, isEqual)

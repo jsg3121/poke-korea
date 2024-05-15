@@ -94,11 +94,7 @@ const GET_POKEMON = gql`
 `
 
 const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
-  return (
-    <>
-      <DetailViews {...props} />
-    </>
-  )
+  return <DetailViews {...props} />
 }
 
 export default PokemonId
