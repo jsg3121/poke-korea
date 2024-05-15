@@ -15,8 +15,10 @@ type TStyledProps = { backgroundColor: Array<TypesColor> }
 
 const Div = styled.div<TStyledProps>`
   width: 100%;
+  height: 30rem;
   margin: 0 auto;
   position: relative;
+  margin-bottom: 10rem;
 
   &::before {
     content: '';

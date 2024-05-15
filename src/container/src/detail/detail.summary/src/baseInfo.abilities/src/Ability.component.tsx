@@ -33,8 +33,8 @@ const Section = styled.section`
   }
 
   & > .ability-chart {
-    width: 20rem;
-    height: 20rem;
+    width: 25rem;
+    height: 25rem;
     margin: 1rem auto 0;
   }
 `
