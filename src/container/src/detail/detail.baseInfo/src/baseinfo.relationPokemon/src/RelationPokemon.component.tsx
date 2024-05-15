@@ -57,7 +57,7 @@ const Section = styled.section`
     height: calc(100% - 2rem);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 1rem;
     padding: 1rem 0 0;
   }

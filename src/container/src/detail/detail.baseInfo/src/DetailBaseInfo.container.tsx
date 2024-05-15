@@ -1,11 +1,8 @@
 import React from 'react'
-import { Pokemon } from '~/graphql/typeGenerated'
-import { Abilities } from './baseInfo.abilities'
-import { PokemonImage } from './baseInfo.pokemonImage'
-import { RelationPokemon } from './baseinfo.relationPokemon'
-import { InfoTitle } from './components'
 import styled from 'styled-components'
+import { Pokemon } from '~/graphql/typeGenerated'
 import { TypesInfo } from './basInfo.typesInfo'
+import { RelationPokemon } from './baseinfo.relationPokemon'
 
 interface IFDetailBaseInfoProps {
   info: Pokemon
@@ -16,19 +13,10 @@ const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
 
   return (
     <Div>
-      <PokemonImage
-        name={info.name}
-        pokemonNumber={info.number}
-        type={info.type}
-      />
-      <InfoTitle name={info.name} />
-      <div className="pokemon-description">
-        <Abilities {...info.stats} />
-        <TypesInfo type={info.type} />
-        {info.evolutionId.length > 0 && (
-          <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
-        )}
-      </div>
+      <TypesInfo type={info.type} />
+      {info.evolutionId.length > 0 && (
+        <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
+      )}
     </Div>
   )
 }
@@ -38,21 +26,16 @@ export default DetailBaseInfoContainer
 const Div = styled.div`
   width: 100%;
   max-width: 1320px;
-  padding: 0 20px;
+  height: 44rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem 20px;
   margin: 0 auto;
 
-  & > .pokemon-description {
-    width: 100%;
-    height: 44rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 2rem;
-    padding: 2rem 0;
-
-    @media screen and (max-width: 1080px) {
-      grid-template-columns: 1fr;
-      grid-template-rows: 40rem 22rem 20rem;
-    }
+  @media screen and (max-width: 1080px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 40rem 22rem 20rem;
   }
 `

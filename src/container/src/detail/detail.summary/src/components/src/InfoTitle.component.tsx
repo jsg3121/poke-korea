@@ -13,14 +13,12 @@ const InfoTitleComponent: FC<IFProps> = (props) => {
 export default InfoTitleComponent
 
 const StyledWrapper = styled.h1`
-  width: 100%;
-  height: 15rem;
+  width: 25rem;
+  height: 7rem;
   font-size: 5rem;
-  line-height: 5rem;
+  line-height: 7rem;
   font-weight: 500;
   color: var(--color-white-1);
   text-align: center;
-  padding-top: 7rem;
-  padding-bottom: 3rem;
   grid-column: 1/3;
 `
