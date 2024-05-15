@@ -7,11 +7,12 @@ import { Abilities } from './baseInfo.abilities'
 
 import { TypesColor } from '~/types'
 import { changeColor } from '~/common'
+import { Switch } from '~/components'
 interface IFProps {
   info: Pokemon
 }
 
-type TStyledProps = { backgroundColor: Array<TypesColor> }
+type TStyledProps = { gradient: Array<TypesColor> }
 
 const Div = styled.div<TStyledProps>`
   width: 100%;
@@ -36,13 +37,13 @@ const Div = styled.div<TStyledProps>`
     position: absolute;
     top: 0;
     background: ${(props) => {
-      if (props.backgroundColor.length === 1) {
-        return `${props.backgroundColor[0]}66`
+      if (props.gradient.length === 1) {
+        return `${props.gradient[0]}66`
       } else {
         return `linear-gradient(
               135deg,
-              ${props.backgroundColor[0]}88 35%,
-              ${props.backgroundColor[1]}88 65%
+              ${props.gradient[0]}88 35%,
+              ${props.gradient[1]}88 65%
             )`
       }
     }};
@@ -60,6 +61,21 @@ const Div = styled.div<TStyledProps>`
     z-index: 1;
     margin: 0 auto;
     padding: 0 20px;
+
+    & > .profile-description {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+
+      & > .button-switch {
+        width: 10rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+    }
   }
 `
 
@@ -68,14 +84,20 @@ const DetailSummaryContainer: FC<IFProps> = (props) => {
 
   const newColor = changeColor(info.type)
 
+  const handleChangeMega = () => {}
+
   return (
-    <Div backgroundColor={newColor}>
+    <Div gradient={newColor}>
       <div className="detail-profile">
         <div className="profile-image">
           <PokemonImage name={info.name} pokemonNumber={info.number} />
           <InfoTitle name={info.name} />
         </div>
         <div className="profile-description">
+          <div className="button-switch">
+            이로치치치
+            <Switch name="shiny-switch" onChange={handleChangeMega} />
+          </div>
           <Abilities {...info.stats} />
         </div>
       </div>
