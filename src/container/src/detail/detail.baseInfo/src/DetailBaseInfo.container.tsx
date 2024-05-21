@@ -1,21 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Pokemon } from '~/graphql/typeGenerated'
+import { DetailContext } from '~/context/src/Detail.context'
 import { TypesInfo } from './basInfo.typesInfo'
 import { RelationPokemon } from './baseinfo.relationPokemon'
 
-interface IFDetailBaseInfoProps {
-  info: Pokemon
-}
+const DetailBaseInfoContainer: React.FC = () => {
+  const { pokemonBaseInfo } = React.useContext(DetailContext)
 
-const DetailBaseInfoContainer: React.FC<IFDetailBaseInfoProps> = (props) => {
-  const { info } = props
+  if (!pokemonBaseInfo) return <></> // TODO : 에러 페이지 및 잘못된 페이지로 처리하기
 
   return (
     <Div>
-      <TypesInfo type={info.type} />
-      {info.evolutionId.length > 0 && (
-        <RelationPokemon name={info.name} evolutionId={info.evolutionId} />
+      <TypesInfo type={pokemonBaseInfo.type} />
+      {pokemonBaseInfo.evolutionId.length > 0 && (
+        <RelationPokemon
+          name={pokemonBaseInfo.name}
+          evolutionId={pokemonBaseInfo.evolutionId}
+        />
       )}
     </Div>
   )

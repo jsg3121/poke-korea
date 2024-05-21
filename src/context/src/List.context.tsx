@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import React from 'react'
 import { Pokemon, PokemonInfoFragment } from '~/graphql/typeGenerated'
 
@@ -33,7 +32,6 @@ export const ListContext = React.createContext<ContextType>({
 
 export const ListProvider: React.FC<ListProviderProps> = (props) => {
   const { pokemonList, children, scrolling } = props
-  const { query } = useRouter()
 
   const initialValue = {
     pokemonList,

@@ -1,15 +1,11 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
 import { changeColor } from '~/common'
-import { Pokemon } from '~/graphql/typeGenerated'
+import { DetailContext } from '~/context/src/Detail.context'
 import { TypesColor } from '~/types'
 import { InfoTitle, MegaSwitch, ShinySwitch } from './components'
 import { Abilities } from './summary.abilities'
 import { PokemonImage } from './summary.pokemonImage'
-
-interface IFProps {
-  info: Pokemon
-}
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -70,22 +66,22 @@ const Div = styled.div<TStyledProps>`
   }
 `
 
-const DetailSummaryContainer: FC<IFProps> = (props) => {
-  const { info } = props
+const DetailSummaryContainer: FC = () => {
+  const { pokemonBaseInfo } = React.useContext(DetailContext)
 
-  const newColor = changeColor(info.type)
+  const newColor = changeColor(pokemonBaseInfo?.type ?? [])
 
   return (
     <Div gradient={newColor}>
       <div className="detail-profile">
         <div className="profile-image">
-          <PokemonImage name={info.name} pokemonNumber={info.number} />
-          <InfoTitle name={info.name} />
+          <PokemonImage />
+          <InfoTitle name={pokemonBaseInfo.name} />
         </div>
         <div className="profile-description">
           <ShinySwitch />
-          {info.isMega && <MegaSwitch />}
-          <Abilities {...info.stats} />
+          {pokemonBaseInfo.isMega && <MegaSwitch />}
+          <Abilities {...pokemonBaseInfo.stats} />
         </div>
       </div>
     </Div>
