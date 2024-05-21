@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { changeColor } from '~/common'
 import { Pokemon } from '~/graphql/typeGenerated'
 import { TypesColor } from '~/types'
-import { InfoTitle, ShinySwitch } from './components'
+import { InfoTitle, MegaSwitch, ShinySwitch } from './components'
 import { Abilities } from './summary.abilities'
 import { PokemonImage } from './summary.pokemonImage'
 
@@ -84,6 +84,7 @@ const DetailSummaryContainer: FC<IFProps> = (props) => {
         </div>
         <div className="profile-description">
           <ShinySwitch />
+          {info.isMega && <MegaSwitch />}
           <Abilities {...info.stats} />
         </div>
       </div>
