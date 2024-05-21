@@ -14,12 +14,18 @@ const ShinySwitchComponent: FC<IFProps> = () => {
     const checked = e.target.checked
     const { query } = router
 
-    router.push({
-      query: {
-        ...query,
-        shinyMode: checked ? 'shiny' : 'normal',
+    router.push(
+      {
+        query: {
+          ...query,
+          shinyMode: checked ? 'shiny' : 'normal',
+        },
       },
-    })
+      undefined,
+      {
+        scroll: false,
+      },
+    )
   }
 
   return (

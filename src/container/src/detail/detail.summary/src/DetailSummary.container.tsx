@@ -4,8 +4,8 @@ import { changeColor } from '~/common'
 import { DetailContext } from '~/context/src/Detail.context'
 import { TypesColor } from '~/types'
 import { InfoTitle, MegaSwitch, ShinySwitch } from './components'
-import { Abilities } from './summary.abilities'
 import { PokemonImage } from './summary.pokemonImage'
+import { Stats } from './summary.stats'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -76,12 +76,12 @@ const DetailSummaryContainer: FC = () => {
       <div className="detail-profile">
         <div className="profile-image">
           <PokemonImage />
-          <InfoTitle name={pokemonBaseInfo.name} />
+          <InfoTitle name={pokemonBaseInfo?.name ?? ''} />
         </div>
         <div className="profile-description">
           <ShinySwitch />
-          {pokemonBaseInfo.isMega && <MegaSwitch />}
-          <Abilities {...pokemonBaseInfo.stats} />
+          {pokemonBaseInfo?.isMega && <MegaSwitch />}
+          {pokemonBaseInfo && <Stats {...pokemonBaseInfo.stats} />}
         </div>
       </div>
     </Div>

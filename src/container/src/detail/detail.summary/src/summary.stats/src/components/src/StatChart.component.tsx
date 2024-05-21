@@ -24,7 +24,7 @@ ChartJS.register(
   Tooltip,
 )
 
-const AbilityChartComponent: FC<IFProps> = (props) => {
+const StatChartComponent: FC<IFProps> = (props) => {
   const { attack, defense, hp, specialAttack, speed, specialDefense } = props
 
   const maxPoint = Math.max(
@@ -36,7 +36,7 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
     speed,
   )
 
-  const ablityData: ChartData<'radar'> = {
+  const statData: ChartData<'radar'> = {
     labels: [
       ['체력', hp],
       ['공격', attack],
@@ -155,7 +155,7 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
     },
   }
 
-  return <Radar data={ablityData} options={options} />
+  return <Radar data={statData} options={options} />
 }
 
-export default AbilityChartComponent
+export default StatChartComponent

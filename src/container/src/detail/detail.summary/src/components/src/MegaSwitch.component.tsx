@@ -14,12 +14,18 @@ const MegaSwitchComponent: FC<IFProps> = () => {
     const checked = e.target.checked
     const { query } = router
 
-    router.push({
-      query: {
-        ...query,
-        megaMode: checked ? 'mega' : 'normal',
+    router.push(
+      {
+        query: {
+          ...query,
+          megaMode: checked ? 'mega' : 'normal',
+        },
       },
-    })
+      undefined,
+      {
+        scroll: false,
+      },
+    )
   }
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { NormalStats } from '~/graphql/typeGenerated'
-import { AbilityChart } from './components'
+import { StatChart } from './components'
 
 const Section = styled.section`
   width: 100%;
@@ -32,14 +32,14 @@ const Section = styled.section`
     }
   }
 
-  & > .ability-chart {
+  & > .stat-chart {
     width: 25rem;
     height: 25rem;
     margin: 1rem auto 0;
   }
 `
 
-const AbilityComponent: React.FC<NormalStats> = (props) => {
+const StatsComponent: React.FC<NormalStats> = (props) => {
   const { total, ...restProps } = props
 
   return (
@@ -48,11 +48,11 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
         <h2>능력치</h2>
         <strong>총 합: {total}</strong>
       </header>
-      <div className="ability-chart">
-        <AbilityChart {...restProps} />
+      <div className="stat-chart">
+        <StatChart {...restProps} />
       </div>
     </Section>
   )
 }
 
-export default AbilityComponent
+export default StatsComponent
