@@ -75,8 +75,6 @@ const DetailSummaryContainer: FC<IFProps> = (props) => {
 
   const newColor = changeColor(info.type)
 
-  const handleChangeShiny = () => {}
-
   return (
     <Div gradient={newColor}>
       <div className="detail-profile">
@@ -85,7 +83,7 @@ const DetailSummaryContainer: FC<IFProps> = (props) => {
           <InfoTitle name={info.name} />
         </div>
         <div className="profile-description">
-          <ShinySwitch onChangeShiny={handleChangeShiny} />
+          <ShinySwitch />
           <Abilities {...info.stats} />
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 import styled from 'styled-components'
 import { imageMode } from '~/common'
@@ -10,11 +11,17 @@ interface IFProps {
 
 const PokemonImageCompoment: FC<IFProps> = (props) => {
   const { name, pokemonNumber } = props
+  const { query } = useRouter()
+
+  const imageSrc =
+    query.shinyMode === 'shiny'
+      ? `${imageMode}/shiny/${pokemonNumber}.webp`
+      : `${imageMode}/${pokemonNumber}.webp`
 
   return (
     <Div>
       <Image
-        src={`${imageMode}/${pokemonNumber}.webp`}
+        src={imageSrc}
         width="25rem"
         height="25rem"
         alt={`포켓몬 ${name}의 모습`}

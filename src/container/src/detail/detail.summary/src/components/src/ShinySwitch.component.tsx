@@ -1,21 +1,33 @@
+import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
 
-interface IFProps {
-  onChangeShiny: () => void
-}
+interface IFProps {}
 
-const ShinySwitchComponent: FC<IFProps> = (props) => {
-  const { onChangeShiny } = props
-  const handleClickShiny = () => {
-    onChangeShiny()
+const ShinySwitchComponent: FC<IFProps> = () => {
+  const router = useRouter()
+
+  const handleChangeShiny = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked
+    const { query } = router
+
+    router.push({
+      query: {
+        ...query,
+        shinyMode: checked ? 'shiny' : 'normal',
+      },
+    })
   }
 
   return (
     <StyledWrapper role="button">
-      <input type="checkbox" id="swtich-change-shiny" />
-      <label htmlFor="swtich-change-shiny" onClick={handleClickShiny}>
+      <input
+        type="checkbox"
+        id="swtich-change-shiny"
+        onChange={handleChangeShiny}
+      />
+      <label htmlFor="swtich-change-shiny">
         <i className="icon-shiny">
           <ShinyIcon />
         </i>
