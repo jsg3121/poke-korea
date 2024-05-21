@@ -1,13 +1,12 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { PokemonImage } from './baseInfo.pokemonImage'
-import { InfoTitle } from './components'
-import { Pokemon } from '~/graphql/typeGenerated'
-import { Abilities } from './baseInfo.abilities'
-
-import { TypesColor } from '~/types'
 import { changeColor } from '~/common'
-import { Switch } from '~/components'
+import { Pokemon } from '~/graphql/typeGenerated'
+import { TypesColor } from '~/types'
+import { InfoTitle, ShinySwitch } from './components'
+import { Abilities } from './summary.abilities'
+import { PokemonImage } from './summary.pokemonImage'
+
 interface IFProps {
   info: Pokemon
 }
@@ -65,16 +64,8 @@ const Div = styled.div<TStyledProps>`
     & > .profile-description {
       display: flex;
       align-items: flex-start;
-      gap: 2rem;
-
-      & > .button-switch {
-        width: 10rem;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-      }
+      gap: 1rem;
+      position: relative;
     }
   }
 `
@@ -84,7 +75,7 @@ const DetailSummaryContainer: FC<IFProps> = (props) => {
 
   const newColor = changeColor(info.type)
 
-  const handleChangeMega = () => {}
+  const handleChangeShiny = () => {}
 
   return (
     <Div gradient={newColor}>
@@ -94,10 +85,7 @@ const DetailSummaryContainer: FC<IFProps> = (props) => {
           <InfoTitle name={info.name} />
         </div>
         <div className="profile-description">
-          <div className="button-switch">
-            이로치치치
-            <Switch name="shiny-switch" onChange={handleChangeMega} />
-          </div>
+          <ShinySwitch onChangeShiny={handleChangeShiny} />
           <Abilities {...info.stats} />
         </div>
       </div>

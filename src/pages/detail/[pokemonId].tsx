@@ -20,6 +20,13 @@ const GET_POKEMON = gql`
       evolutionId
       generation
       isForm
+      abilities {
+        pokemonId
+        abilityId
+        name
+        description
+        isHidden
+      }
       stats {
         pokemonId
         hp

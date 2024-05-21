@@ -8,6 +8,8 @@ import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 
 const DetailViews: FC<IFDetailPokemonInfo> = (props) => {
   const { pokemonBaseInfo } = props
+
+  console.log(pokemonBaseInfo)
   return (
     <Main>
       <header>

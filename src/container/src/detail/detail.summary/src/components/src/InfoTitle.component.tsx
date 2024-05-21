@@ -20,5 +20,4 @@ const StyledWrapper = styled.h1`
   font-weight: 500;
   color: var(--color-white-1);
   text-align: center;
-  grid-column: 1/3;
 `
