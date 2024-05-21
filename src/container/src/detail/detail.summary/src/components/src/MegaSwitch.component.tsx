@@ -8,7 +8,7 @@ interface IFProps {}
 const MegaSwitchComponent: FC<IFProps> = () => {
   const router = useRouter()
 
-  const defaultChecked = router.query.megaMode === 'mega' ? true : false
+  const defaultChecked = router.query.activeType === 'mega' ? true : false
 
   const handleChangeMega = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
@@ -18,7 +18,7 @@ const MegaSwitchComponent: FC<IFProps> = () => {
       {
         query: {
           ...query,
-          megaMode: checked ? 'mega' : 'normal',
+          activeType: checked ? 'mega' : 'normal',
         },
       },
       undefined,

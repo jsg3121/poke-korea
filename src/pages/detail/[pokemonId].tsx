@@ -114,7 +114,7 @@ export default PokemonId
 export const getServerSideProps: GetServerSideProps = async (props) => {
   const { query } = props
 
-  const isMega = query.megaMode === 'mega' ? true : false
+  const isMega = query.activeType === 'mega' ? true : false
 
   const apolloClient = initializeApollo()
 

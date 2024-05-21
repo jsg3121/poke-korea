@@ -8,13 +8,33 @@ import { DetailContext } from '~/context/src/Detail.context'
 interface IFProps {}
 
 const PokemonImageCompoment: FC<IFProps> = () => {
-  const { pokemonBaseInfo } = React.useContext(DetailContext)
+  const { pokemonBaseInfo, activeType } = React.useContext(DetailContext)
   const { query } = useRouter()
+
+  const imageCode = React.useMemo(() => {
+    switch (activeType) {
+      case 'normal':
+        return pokemonBaseInfo?.number
+      case 'mega':
+        return parseInt(
+          `1${pokemonBaseInfo?.number.toString().padStart(3, '0')}00`,
+          10,
+        )
+
+      case 'region':
+        break
+
+      default:
+        return pokemonBaseInfo?.number
+    }
+  }, [activeType])
+
+  console.log(activeType)
 
   const imageSrc =
     query.shinyMode === 'shiny'
-      ? `${imageMode}/shiny/${pokemonBaseInfo?.number}.webp`
-      : `${imageMode}/${pokemonBaseInfo?.number}.webp`
+      ? `${imageMode}/shiny/${imageCode}.webp`
+      : `${imageMode}/${imageCode}.webp`
 
   return (
     <Div>
