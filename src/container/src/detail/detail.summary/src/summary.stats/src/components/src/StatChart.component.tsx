@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { NormalStats } from '~/graphql/typeGenerated'
 
 import type { ChartData, ChartOptions } from 'chart.js'
 import {
@@ -12,8 +11,9 @@ import {
   Tooltip,
 } from 'chart.js'
 import { Radar } from 'react-chartjs-2'
+import { IFPokemonStat } from '~/types/detailInfo.types'
 
-type IFProps = Omit<NormalStats, 'total'>
+type IFProps = Omit<IFPokemonStat, 'total'>
 
 ChartJS.register(
   RadialLinearScale,
@@ -50,7 +50,6 @@ const StatChartComponent: FC<IFProps> = (props) => {
         data: [hp, attack, specialAttack, defense, specialDefense, speed],
 
         animation: {
-          delay: 300,
           easing: 'easeOutQuart',
           duration: 1000,
         },

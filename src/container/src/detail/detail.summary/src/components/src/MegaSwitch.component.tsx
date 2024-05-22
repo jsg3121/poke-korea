@@ -14,9 +14,7 @@ const MegaSwitchComponent: FC<IFProps> = () => {
     const checked = e.target.checked
     const { query } = router
 
-    if (!checked) {
-      delete query.activeIndex
-    }
+    delete query.activeIndex
 
     router.push(
       {

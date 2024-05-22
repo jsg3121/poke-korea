@@ -6,6 +6,7 @@ import { TypesColor } from '~/types'
 import { InfoTitle, MegaSwitch, ShinySwitch } from './components'
 import { PokemonImage } from './summary.pokemonImage'
 import { Stats } from './summary.stats'
+import { useRouter } from 'next/router'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -67,9 +68,26 @@ const Div = styled.div<TStyledProps>`
 `
 
 const DetailSummaryContainer: FC = () => {
-  const { pokemonBaseInfo } = React.useContext(DetailContext)
+  const { pokemonBaseInfo, megaEvolutions, activeType } =
+    React.useContext(DetailContext)
+  const router = useRouter()
 
   const newColor = changeColor(pokemonBaseInfo?.type ?? [])
+
+  const stats = React.useMemo(() => {
+    switch (activeType) {
+      case 'mega': {
+        const activeIndex = router.query.activeIndex
+          ? parseInt(router.query.activeIndex as string, 10)
+          : 0
+
+        return megaEvolutions?.[activeIndex].megaStats
+      }
+      default: {
+        return pokemonBaseInfo?.stats
+      }
+    }
+  }, [activeType, megaEvolutions, pokemonBaseInfo?.stats, router.query])
 
   return (
     <Div gradient={newColor}>
@@ -81,7 +99,7 @@ const DetailSummaryContainer: FC = () => {
         <div className="profile-description">
           <ShinySwitch />
           {pokemonBaseInfo?.isMega && <MegaSwitch />}
-          {pokemonBaseInfo && <Stats {...pokemonBaseInfo.stats} />}
+          {pokemonBaseInfo && stats && <Stats {...stats} />}
         </div>
       </div>
     </Div>

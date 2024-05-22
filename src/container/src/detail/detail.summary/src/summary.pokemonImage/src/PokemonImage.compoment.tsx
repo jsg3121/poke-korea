@@ -61,6 +61,7 @@ const PokemonImageCompoment: FC<IFProps> = () => {
           onSlideChange={handleSlideChange}
           draggable={false}
           initialSlide={defaultIndex}
+          cssMode
         >
           {imageList.map((item) => {
             const imageSrc =
