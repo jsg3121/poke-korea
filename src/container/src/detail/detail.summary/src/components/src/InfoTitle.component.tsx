@@ -13,7 +13,7 @@ const InfoTitleComponent: FC<IFProps> = (props) => {
 export default InfoTitleComponent
 
 const StyledWrapper = styled.h1`
-  width: 25rem;
+  width: 30rem;
   height: 7rem;
   font-size: 5rem;
   line-height: 7rem;
