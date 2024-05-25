@@ -2,12 +2,9 @@ import Link from 'next/link'
 import { FC } from 'react'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
+import { DetailBaseInfo, DetailSummary } from '~/container/src/detail'
 
-import { DetailBaseInfo } from '~/container/src/detail'
-import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
-
-const DetailViews: FC<IFDetailPokemonInfo> = (props) => {
-  const { pokemonBaseInfo } = props
+const DetailViews: FC = () => {
   return (
     <Main>
       <header>
@@ -18,7 +15,8 @@ const DetailViews: FC<IFDetailPokemonInfo> = (props) => {
         </Link>
       </header>
       <section className="pokemon-detail-content">
-        <DetailBaseInfo info={pokemonBaseInfo} />
+        <DetailSummary />
+        <DetailBaseInfo />
       </section>
     </Main>
   )
@@ -47,17 +45,8 @@ const Main = styled.main`
   & > .pokemon-detail-content {
     width: 100%;
     height: 100%;
-    gap: 1rem;
     padding: 0;
     margin: 0 auto;
     position: relative;
-
-    &::before {
-      content: '';
-      width: 100%;
-      height: 20rem;
-      background-color: #ffffff;
-      display: block;
-    }
   }
 `

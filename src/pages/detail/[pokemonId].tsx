@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
+import { DetailProvider } from '~/context/src/Detail.context'
 
 import { initializeApollo } from '~/module/apolloClient'
 import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 import DetailViews from '~/views/src/Detail.views'
 
 const GET_POKEMON = gql`
-  query GetPokemonDetailInfo($number: Float!) {
+  query GetPokemonDetailInfo($number: Float!, $isMega: Boolean!) {
     getSinglePokemon(number: $number) {
       id
       number
@@ -20,6 +21,13 @@ const GET_POKEMON = gql`
       evolutionId
       generation
       isForm
+      abilities {
+        pokemonId
+        abilityId
+        name
+        description
+        isHidden
+      }
       stats {
         pokemonId
         hp
@@ -50,7 +58,7 @@ const GET_POKEMON = gql`
       }
     }
 
-    getMegaEvolution(number: $number) {
+    getMegaEvolution(number: $number) @include(if: $isMega) {
       id
       pokemonId
       pokemonNumber
@@ -94,7 +102,11 @@ const GET_POKEMON = gql`
 `
 
 const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
-  return <DetailViews {...props} />
+  return (
+    <DetailProvider {...props}>
+      <DetailViews />;
+    </DetailProvider>
+  )
 }
 
 export default PokemonId
@@ -102,21 +114,24 @@ export default PokemonId
 export const getServerSideProps: GetServerSideProps = async (props) => {
   const { query } = props
 
+  const isMega = query.activeType === 'mega' ? true : false
+
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query({
     query: GET_POKEMON,
     variables: {
       number: parseInt(String(query.pokemonId), 10),
+      isMega,
     },
   })
 
   return {
     props: {
       pokemonBaseInfo: data.getSinglePokemon,
-      regionFormInfo: data.getRegionForm,
-      megaEvolutions: data.getMegaEvolution,
-      normalForm: data.getNormalForm,
+      regionFormInfo: data.getRegionForm ?? null,
+      megaEvolutions: data.getMegaEvolution ?? null,
+      normalForm: data.getNormalForm ?? null,
     },
   }
 }

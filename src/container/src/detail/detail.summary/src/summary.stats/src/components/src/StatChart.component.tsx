@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { NormalStats } from '~/graphql/typeGenerated'
 
 import type { ChartData, ChartOptions } from 'chart.js'
 import {
@@ -12,8 +11,9 @@ import {
   Tooltip,
 } from 'chart.js'
 import { Radar } from 'react-chartjs-2'
+import { IFPokemonStat } from '~/types/detailInfo.types'
 
-type IFProps = Omit<NormalStats, 'total'>
+type IFProps = Omit<IFPokemonStat, 'total'>
 
 ChartJS.register(
   RadialLinearScale,
@@ -24,7 +24,7 @@ ChartJS.register(
   Tooltip,
 )
 
-const AbilityChartComponent: FC<IFProps> = (props) => {
+const StatChartComponent: FC<IFProps> = (props) => {
   const { attack, defense, hp, specialAttack, speed, specialDefense } = props
 
   const maxPoint = Math.max(
@@ -36,7 +36,7 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
     speed,
   )
 
-  const ablityData: ChartData<'radar'> = {
+  const statData: ChartData<'radar'> = {
     labels: [
       ['체력', hp],
       ['공격', attack],
@@ -50,7 +50,6 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
         data: [hp, attack, specialAttack, defense, specialDefense, speed],
 
         animation: {
-          delay: 300,
           easing: 'easeOutQuart',
           duration: 1000,
         },
@@ -155,7 +154,7 @@ const AbilityChartComponent: FC<IFProps> = (props) => {
     },
   }
 
-  return <Radar data={ablityData} options={options} />
+  return <Radar data={statData} options={options} />
 }
 
-export default AbilityChartComponent
+export default StatChartComponent

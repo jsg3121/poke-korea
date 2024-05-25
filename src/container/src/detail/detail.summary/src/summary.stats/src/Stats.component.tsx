@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { NormalStats } from '~/graphql/typeGenerated'
-import { AbilityChart } from './components'
+import { IFPokemonStat } from '~/types/detailInfo.types'
+import { StatChart } from './components'
 
 const Section = styled.section`
   width: 100%;
   height: 100%;
-  grid-column: 1/3;
-  grid-row: 1/3;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
@@ -34,19 +32,14 @@ const Section = styled.section`
     }
   }
 
-  & > .ability-chart {
-    width: 33rem;
-    height: 33rem;
+  & > .stat-chart {
+    width: 25rem;
+    height: 25rem;
     margin: 1rem auto 0;
-  }
-
-  @media screen and (max-width: 1080px) {
-    grid-column: 1;
-    grid-row: 1;
   }
 `
 
-const AbilityComponent: React.FC<NormalStats> = (props) => {
+const StatsComponent: React.FC<IFPokemonStat> = (props) => {
   const { total, ...restProps } = props
 
   return (
@@ -55,11 +48,11 @@ const AbilityComponent: React.FC<NormalStats> = (props) => {
         <h2>능력치</h2>
         <strong>총 합: {total}</strong>
       </header>
-      <div className="ability-chart">
-        <AbilityChart {...restProps} />
+      <div className="stat-chart">
+        <StatChart {...restProps} />
       </div>
     </Section>
   )
 }
 
-export default AbilityComponent
+export default StatsComponent
