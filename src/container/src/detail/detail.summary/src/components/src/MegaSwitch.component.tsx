@@ -29,11 +29,11 @@ const MegaSwitchComponent: FC = () => {
   }
 
   return (
-    <StyledWrapper role="button">
+    <Li role="button">
       <input
         type="checkbox"
         id="swtich-change-mega"
-        defaultChecked={defaultChecked}
+        checked={defaultChecked}
         onChange={handleChangeMega}
       />
       <label htmlFor="swtich-change-mega">
@@ -47,17 +47,15 @@ const MegaSwitchComponent: FC = () => {
         </i>
         <p>메가진화</p>
       </label>
-    </StyledWrapper>
+    </Li>
   )
 }
 
 export default MegaSwitchComponent
 
-const StyledWrapper = styled.div`
-  position: absolute;
-  top: 3.5rem;
+const Li = styled.li`
+  position: relative;
   left: -2.75rem;
-  z-index: -1;
   transition: left 0.2s ease-out;
 
   &:hover {

@@ -28,11 +28,11 @@ const RegionSwitchComponent: FC = () => {
     )
   }
   return (
-    <StyledWrapper role="button">
+    <Li role="button">
       <input
         type="checkbox"
         id="swtich-change-region"
-        defaultChecked={defaultChecked}
+        checked={defaultChecked}
         onChange={handleChangeMega}
       />
       <label htmlFor="swtich-change-region">
@@ -41,17 +41,15 @@ const RegionSwitchComponent: FC = () => {
         </i>
         <p>리전폼</p>
       </label>
-    </StyledWrapper>
+    </Li>
   )
 }
 
 export default RegionSwitchComponent
 
-const StyledWrapper = styled.div`
-  position: absolute;
-  top: 6rem;
+const Li = styled.li`
+  position: relative;
   left: -2.75rem;
-  z-index: -1;
   transition: left 0.2s ease-out;
 
   &:hover {

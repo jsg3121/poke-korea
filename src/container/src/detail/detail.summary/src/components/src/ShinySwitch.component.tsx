@@ -27,11 +27,11 @@ const ShinySwitchComponent: FC = () => {
   }
 
   return (
-    <StyledWrapper role="button">
+    <Li role="button">
       <input
         type="checkbox"
         id="swtich-change-shiny"
-        defaultChecked={defaultChecked}
+        checked={defaultChecked}
         onChange={handleChangeShiny}
       />
       <label htmlFor="swtich-change-shiny">
@@ -40,17 +40,15 @@ const ShinySwitchComponent: FC = () => {
         </i>
         <p>이로치</p>
       </label>
-    </StyledWrapper>
+    </Li>
   )
 }
 
 export default ShinySwitchComponent
 
-const StyledWrapper = styled.div`
-  position: absolute;
-  top: 1rem;
+const Li = styled.li`
+  position: relative;
   left: -2.75rem;
-  z-index: -1;
   transition: left 0.2s ease-out;
 
   &:hover {
