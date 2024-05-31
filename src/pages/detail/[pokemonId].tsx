@@ -22,8 +22,6 @@ const GET_POKEMON = gql`
       generation
       isForm
       abilities {
-        pokemonId
-        abilityId
         name
         description
         isHidden
@@ -56,6 +54,11 @@ const GET_POKEMON = gql`
         speed
         total
       }
+      abilities {
+        name
+        description
+        isHidden
+      }
     }
 
     getMegaEvolution(number: $number) @include(if: $isMega) {
@@ -75,6 +78,11 @@ const GET_POKEMON = gql`
         specialDefense
         speed
         total
+      }
+      abilities {
+        name
+        description
+        isHidden
       }
     }
 
@@ -96,6 +104,11 @@ const GET_POKEMON = gql`
         specialDefense
         speed
         total
+      }
+      abilities {
+        name
+        description
+        isHidden
       }
     }
   }

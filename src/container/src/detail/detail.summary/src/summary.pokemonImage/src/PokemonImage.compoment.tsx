@@ -44,12 +44,18 @@ const PokemonImageCompoment: FC<IFProps> = () => {
 
   const handleSlideChange = (data: SwiperClass) => {
     const activeIndex = data.activeIndex
-    router.replace({
-      query: {
-        ...router.query,
-        activeIndex,
+    router.replace(
+      {
+        query: {
+          ...router.query,
+          activeIndex,
+        },
       },
-    })
+      undefined,
+      {
+        scroll: false,
+      },
+    )
   }
 
   return (
