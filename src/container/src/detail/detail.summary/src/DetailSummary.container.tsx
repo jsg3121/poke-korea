@@ -12,10 +12,9 @@ type TStyledProps = { gradient: Array<TypesColor> }
 
 const Div = styled.div<TStyledProps>`
   width: 100%;
-  height: 30rem;
+  height: 40rem;
   margin: 0 auto;
   position: relative;
-  margin-bottom: 10rem;
 
   &::before {
     content: '';
