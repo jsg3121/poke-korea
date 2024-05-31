@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/src/Detail.context'
 import { Description } from './baseInfo.description'
+import { Abilities } from './baseInfo.abilities'
 
 const DetailBaseInfoContainer: React.FC = () => {
   const { pokemonBaseInfo } = React.useContext(DetailContext)
@@ -11,6 +12,7 @@ const DetailBaseInfoContainer: React.FC = () => {
   return (
     <Div>
       <Description />
+      <Abilities />
       {/* <TypesInfo type={pokemonBaseInfo.type} />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemon

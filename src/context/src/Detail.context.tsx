@@ -9,6 +9,11 @@ import type {
 import type { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 
 type TActiveType = 'normal' | 'mega' | 'region'
+type TAbilityType = {
+  name: string
+  description: string
+  isHidden: boolean
+}
 type TActiveTypeInfo = {
   activeType: TActiveType
   name: string
@@ -16,6 +21,7 @@ type TActiveTypeInfo = {
   generation: number
   types: Array<string>
   isEvolution: boolean
+  abilities: Array<TAbilityType>
 }
 
 export interface IFDetailProviderProps extends IFDetailPokemonInfo {
@@ -41,6 +47,7 @@ const DetailContext = createContext<IFDetailProps>({
     name: '',
     pokemonNumber: 0,
     types: [],
+    abilities: [],
   },
 })
 
@@ -73,6 +80,20 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
     }
   })()
 
+  const abilities = (() => {
+    switch (activeType) {
+      case 'mega': {
+        return megaEvolutions[activeIndex].abilities
+      }
+      case 'region': {
+        return regionFormInfo[activeIndex].abilities
+      }
+      default: {
+        return normalForm[activeIndex]?.abilities ?? pokemonBaseInfo.abilities
+      }
+    }
+  })()
+
   const activeTypeInfo: TActiveTypeInfo = (() => {
     return {
       activeType,
@@ -81,6 +102,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
       pokemonNumber: pokemonBaseInfo.number,
       generation: pokemonBaseInfo.generation,
       types,
+      abilities,
     }
   })()
 
