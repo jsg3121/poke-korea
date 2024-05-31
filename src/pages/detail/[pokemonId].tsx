@@ -125,7 +125,7 @@ const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
 export default PokemonId
 
 export const getServerSideProps: GetServerSideProps = async (props) => {
-  const { query } = props
+  const { resolvedUrl, query } = props
 
   const isMega = query.activeType === 'mega' ? true : false
 
@@ -139,7 +139,30 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     },
   })
 
+  const changeRedirect = () => {
+    if (
+      !data.getSinglePokemon.isMega &&
+      (query.activeType as string) === 'mega'
+    ) {
+      return {
+        destination: resolvedUrl.replace('mega', 'normal'),
+        statusCode: 301,
+      }
+    } else if (
+      !data.getSinglePokemon.isRegion &&
+      (query.activeType as string) === 'region'
+    ) {
+      return {
+        destination: resolvedUrl.replace('region', 'normal'),
+        statusCode: 301,
+      }
+    }
+  }
+
+  const redirectOption = changeRedirect()
+
   return {
+    redirect: redirectOption,
     props: {
       pokemonBaseInfo: data.getSinglePokemon,
       regionFormInfo: data.getRegionForm ?? null,
