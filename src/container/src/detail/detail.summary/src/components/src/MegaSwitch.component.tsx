@@ -3,9 +3,7 @@ import React, { FC } from 'react'
 import styled from 'styled-components'
 import { Image } from '~/components'
 
-interface IFProps {}
-
-const MegaSwitchComponent: FC<IFProps> = () => {
+const MegaSwitchComponent: FC = () => {
   const router = useRouter()
 
   const defaultChecked = router.query.activeType === 'mega' ? true : false

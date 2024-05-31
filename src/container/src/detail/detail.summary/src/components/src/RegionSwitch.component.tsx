@@ -1,22 +1,24 @@
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import { ChangeEvent, FC } from 'react'
 import styled from 'styled-components'
-import ShinyIcon from '~/assets/icons/sparkle.svg'
+import RegionIcon from '~/assets/icons/region.svg'
 
-const ShinySwitchComponent: FC = () => {
+const RegionSwitchComponent: FC = () => {
   const router = useRouter()
 
-  const defaultChecked = router.query.shinyMode === 'shiny' ? true : false
+  const defaultChecked = router.query.activeType === 'region' ? true : false
 
-  const handleChangeShiny = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMega = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     const { query } = router
+
+    delete query.activeIndex
 
     router.push(
       {
         query: {
           ...query,
-          shinyMode: checked ? 'shiny' : 'normal',
+          activeType: checked ? 'region' : 'normal',
         },
       },
       undefined,
@@ -25,30 +27,29 @@ const ShinySwitchComponent: FC = () => {
       },
     )
   }
-
   return (
     <StyledWrapper role="button">
       <input
         type="checkbox"
-        id="swtich-change-shiny"
+        id="swtich-change-region"
         defaultChecked={defaultChecked}
-        onChange={handleChangeShiny}
+        onChange={handleChangeMega}
       />
-      <label htmlFor="swtich-change-shiny">
+      <label htmlFor="swtich-change-region">
         <i className="icon-shiny">
-          <ShinyIcon />
+          <RegionIcon />
         </i>
-        <p>이로치</p>
+        <p>리전폼</p>
       </label>
     </StyledWrapper>
   )
 }
 
-export default ShinySwitchComponent
+export default RegionSwitchComponent
 
 const StyledWrapper = styled.div`
   position: absolute;
-  top: 1rem;
+  top: 6rem;
   left: -2.75rem;
   z-index: -1;
   transition: left 0.2s ease-out;
@@ -61,7 +62,7 @@ const StyledWrapper = styled.div`
     display: none;
 
     &:checked + label > .icon-shiny > svg {
-      fill: #f5b62e;
+      filter: grayscale(0);
     }
   }
 
@@ -95,7 +96,7 @@ const StyledWrapper = styled.div`
       display: block;
 
       svg {
-        fill: transparent;
+        filter: grayscale(1);
       }
     }
   }
