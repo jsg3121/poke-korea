@@ -33,8 +33,6 @@ export default AbilitiesInfoComponent
 
 const Article = styled.article`
   width: 100%;
-  height: 100%;
-  grid-column: 2/4;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;

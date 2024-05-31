@@ -48,8 +48,8 @@ const DescriptionComponent: FC = () => {
         </li>
         <li>
           <div>
-            <strong>진화여부 : </strong>
-            <span>{isEvolution ? '진화 가능' : '진화 불가'}</span>
+            <strong>진화체 : </strong>
+            <span>{isEvolution ? '진화체 있음' : '진화 불가'}</span>
           </div>
         </li>
       </ul>
@@ -60,8 +60,9 @@ const DescriptionComponent: FC = () => {
 export default DescriptionComponent
 
 const Article = styled.article`
-  width: 100%;
+  width: 18rem;
   height: 100%;
+  flex-shrink: 0;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;

@@ -30,14 +30,14 @@ const Div = styled.div`
   width: 100%;
   max-width: 1320px;
   height: 27rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  align-items: flex-start;
   gap: 2rem;
   padding: 2rem 20px;
   margin: 0 auto;
 
-  @media screen and (max-width: 1080px) {
+  /* @media screen and (max-width: 1080px) {
     grid-template-columns: 1fr;
     grid-template-rows: 40rem 22rem 20rem;
-  }
+  } */
 `
