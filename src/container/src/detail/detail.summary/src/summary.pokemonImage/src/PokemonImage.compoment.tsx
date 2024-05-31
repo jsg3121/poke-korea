@@ -12,13 +12,18 @@ import { DetailContext } from '~/context/src/Detail.context'
 interface IFProps {}
 
 const PokemonImageCompoment: FC<IFProps> = () => {
-  const { pokemonBaseInfo, megaEvolutions, normalForm, activeType } =
-    React.useContext(DetailContext)
+  const {
+    pokemonBaseInfo,
+    megaEvolutions,
+    regionFormInfo,
+    normalForm,
+    activeType,
+  } = React.useContext(DetailContext)
   const router = useRouter()
 
   const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
 
-  const imageList = React.useMemo(() => {
+  const imageList = (() => {
     switch (activeType) {
       case 'mega': {
         const megaImages = megaEvolutions?.map((mega, index) => {
@@ -33,14 +38,27 @@ const PokemonImageCompoment: FC<IFProps> = () => {
         })
         return megaImages
       }
+      case 'region': {
+        const regionImages = regionFormInfo?.map((region, index) => {
+          return {
+            imageCode: parseInt(
+              `2${region.pokemonNumber.toString().padStart(3, '0')}${index
+                ?.toString()
+                .padStart(2, '0')}`,
+              10,
+            ),
+          }
+        })
+        return regionImages
+      }
       default: {
         if (normalForm && normalForm.length > 0) {
-          const megaImages = normalForm?.map((form) => {
+          const nomalFormImages = normalForm?.map((form) => {
             return {
               imageCode: form.imagePath,
             }
           })
-          return megaImages
+          return nomalFormImages
         } else {
           const pokemonData = {
             imageCode: pokemonBaseInfo?.number,
@@ -49,7 +67,7 @@ const PokemonImageCompoment: FC<IFProps> = () => {
         }
       }
     }
-  }, [activeType, megaEvolutions, normalForm, pokemonBaseInfo])
+  })()
 
   const handleSlideChange = (data: SwiperClass) => {
     const activeIndex = data.activeIndex
