@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/src/Detail.context'
-import { TypesInfo } from './basInfo.typesInfo'
-import { RelationPokemon } from './baseinfo.relationPokemon'
 import { Description } from './baseInfo.description'
 
 const DetailBaseInfoContainer: React.FC = () => {
@@ -13,13 +11,13 @@ const DetailBaseInfoContainer: React.FC = () => {
   return (
     <Div>
       <Description />
-      <TypesInfo type={pokemonBaseInfo.type} />
+      {/* <TypesInfo type={pokemonBaseInfo.type} />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemon
           name={pokemonBaseInfo.name}
           evolutionId={pokemonBaseInfo.evolutionId}
         />
-      )}
+      )} */}
     </Div>
   )
 }
@@ -29,7 +27,7 @@ export default DetailBaseInfoContainer
 const Div = styled.div`
   width: 100%;
   max-width: 1320px;
-  height: 30rem;
+  height: 26rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;

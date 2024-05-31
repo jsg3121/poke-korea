@@ -24,7 +24,7 @@ const StyledWrapper = styled.h1`
   text-align: center;
 
   &[data-name-size='medium'] {
-    font-size: 5rem;
+    font-size: 3rem;
   }
   &[data-name-size='small'] {
     font-size: 2.5rem;

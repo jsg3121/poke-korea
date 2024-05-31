@@ -57,6 +57,11 @@ const Div = styled.div<TStyledProps>`
     margin: 0 auto;
     padding: 0 20px;
 
+    & > .profile-image {
+      position: relative;
+      z-index: -1;
+    }
+
     & > .profile-description {
       display: flex;
       align-items: flex-start;

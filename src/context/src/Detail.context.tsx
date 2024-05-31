@@ -29,11 +29,19 @@ interface IFDetailProps {
   regionFormInfo?: Array<PokemonRegion>
   normalForm?: Array<PokemonNormalForm>
   activeType: TActiveType
-  activeTypeInfo?: TActiveTypeInfo
+  activeTypeInfo: TActiveTypeInfo
 }
 
 const DetailContext = createContext<IFDetailProps>({
   activeType: 'normal',
+  activeTypeInfo: {
+    activeType: 'normal',
+    generation: 1,
+    isEvolution: false,
+    name: '',
+    pokemonNumber: 0,
+    types: [],
+  },
 })
 
 const DetailProvider: FC<IFDetailProviderProps> = (props) => {
@@ -47,7 +55,9 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
   const { query } = useRouter()
 
   const activeType = query.activeType as TActiveType
-  const activeIndex = parseInt(query.activeIndex as string, 10) ?? 0
+  const activeIndex = query.activeIndex
+    ? parseInt(query.activeIndex as string, 10)
+    : 0
 
   const types = (() => {
     switch (activeType) {
@@ -58,7 +68,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
         return regionFormInfo[activeIndex].type
       }
       default: {
-        return normalForm[activeIndex].type ?? pokemonBaseInfo.type
+        return normalForm[activeIndex]?.type ?? pokemonBaseInfo.type
       }
     }
   })()
