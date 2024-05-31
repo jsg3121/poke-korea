@@ -27,7 +27,7 @@ const DetailContext = createContext<IFDetailProps>({
 })
 
 const DetailProvider: FC<IFDetailProviderProps> = (props) => {
-  const { children, pokemonBaseInfo, megaEvolutions } = props
+  const { children, pokemonBaseInfo, normalForm, megaEvolutions } = props
   const { query } = useRouter()
 
   const activeType = query.activeType as TActiveType
@@ -36,6 +36,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
     pokemonBaseInfo,
     megaEvolutions,
     activeType,
+    normalForm,
   }
 
   return (

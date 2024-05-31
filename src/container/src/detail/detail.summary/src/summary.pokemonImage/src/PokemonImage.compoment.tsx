@@ -12,7 +12,7 @@ import { DetailContext } from '~/context/src/Detail.context'
 interface IFProps {}
 
 const PokemonImageCompoment: FC<IFProps> = () => {
-  const { pokemonBaseInfo, megaEvolutions, activeType } =
+  const { pokemonBaseInfo, megaEvolutions, normalForm, activeType } =
     React.useContext(DetailContext)
   const router = useRouter()
 
@@ -34,13 +34,22 @@ const PokemonImageCompoment: FC<IFProps> = () => {
         return megaImages
       }
       default: {
-        const pokemonData = {
-          imageCode: pokemonBaseInfo?.number,
+        if (normalForm && normalForm.length > 0) {
+          const megaImages = normalForm?.map((form) => {
+            return {
+              imageCode: form.imagePath,
+            }
+          })
+          return megaImages
+        } else {
+          const pokemonData = {
+            imageCode: pokemonBaseInfo?.number,
+          }
+          return [pokemonData]
         }
-        return [pokemonData]
       }
     }
-  }, [activeType, megaEvolutions, pokemonBaseInfo])
+  }, [activeType, megaEvolutions, normalForm, pokemonBaseInfo])
 
   const handleSlideChange = (data: SwiperClass) => {
     const activeIndex = data.activeIndex
@@ -66,6 +75,7 @@ const PokemonImageCompoment: FC<IFProps> = () => {
           modules={[Navigation]}
           onSlideChange={handleSlideChange}
           draggable={false}
+          speed={150}
           initialSlide={defaultIndex}
           cssMode
         >

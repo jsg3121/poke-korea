@@ -68,26 +68,31 @@ const Div = styled.div<TStyledProps>`
 `
 
 const DetailSummaryContainer: FC = () => {
-  const { pokemonBaseInfo, megaEvolutions, activeType } =
+  const { pokemonBaseInfo, megaEvolutions, normalForm, activeType } =
     React.useContext(DetailContext)
   const router = useRouter()
 
   const newColor = changeColor(pokemonBaseInfo?.type ?? [])
 
   const stats = React.useMemo(() => {
+    const indexQuery = parseInt(router.query.activeIndex as string, 10)
+    const activeIndex = router.query.activeIndex ? indexQuery : 0
+
     switch (activeType) {
       case 'mega': {
-        const activeIndex = router.query.activeIndex
-          ? parseInt(router.query.activeIndex as string, 10)
-          : 0
-
         return megaEvolutions?.[activeIndex].megaStats
       }
       default: {
-        return pokemonBaseInfo?.stats
+        return normalForm?.[activeIndex].formStats ?? pokemonBaseInfo?.stats
       }
     }
-  }, [activeType, megaEvolutions, pokemonBaseInfo?.stats, router.query])
+  }, [
+    activeType,
+    megaEvolutions,
+    normalForm,
+    pokemonBaseInfo,
+    router.query.activeIndex,
+  ])
 
   return (
     <Div gradient={newColor}>
