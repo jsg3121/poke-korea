@@ -29,7 +29,7 @@ export default DetailBaseInfoContainer
 const Div = styled.div`
   width: 100%;
   max-width: 1320px;
-  height: 26rem;
+  height: 27rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
