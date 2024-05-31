@@ -12,13 +12,18 @@ import { DetailContext } from '~/context/src/Detail.context'
 interface IFProps {}
 
 const PokemonImageCompoment: FC<IFProps> = () => {
-  const { pokemonBaseInfo, megaEvolutions, activeType } =
-    React.useContext(DetailContext)
+  const {
+    pokemonBaseInfo,
+    megaEvolutions,
+    regionFormInfo,
+    normalForm,
+    activeType,
+  } = React.useContext(DetailContext)
   const router = useRouter()
 
   const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
 
-  const imageList = React.useMemo(() => {
+  const imageList = (() => {
     switch (activeType) {
       case 'mega': {
         const megaImages = megaEvolutions?.map((mega, index) => {
@@ -33,23 +38,51 @@ const PokemonImageCompoment: FC<IFProps> = () => {
         })
         return megaImages
       }
+      case 'region': {
+        const regionImages = regionFormInfo?.map((region, index) => {
+          return {
+            imageCode: parseInt(
+              `2${region.pokemonNumber.toString().padStart(3, '0')}${index
+                ?.toString()
+                .padStart(2, '0')}`,
+              10,
+            ),
+          }
+        })
+        return regionImages
+      }
       default: {
-        const pokemonData = {
-          imageCode: pokemonBaseInfo?.number,
+        if (normalForm && normalForm.length > 0) {
+          const nomalFormImages = normalForm?.map((form) => {
+            return {
+              imageCode: form.imagePath,
+            }
+          })
+          return nomalFormImages
+        } else {
+          const pokemonData = {
+            imageCode: pokemonBaseInfo?.number,
+          }
+          return [pokemonData]
         }
-        return [pokemonData]
       }
     }
-  }, [activeType, megaEvolutions, pokemonBaseInfo])
+  })()
 
   const handleSlideChange = (data: SwiperClass) => {
     const activeIndex = data.activeIndex
-    router.replace({
-      query: {
-        ...router.query,
-        activeIndex,
+    router.replace(
+      {
+        query: {
+          ...router.query,
+          activeIndex,
+        },
       },
-    })
+      undefined,
+      {
+        scroll: false,
+      },
+    )
   }
 
   return (
@@ -60,6 +93,7 @@ const PokemonImageCompoment: FC<IFProps> = () => {
           modules={[Navigation]}
           onSlideChange={handleSlideChange}
           draggable={false}
+          speed={150}
           initialSlide={defaultIndex}
           cssMode
         >

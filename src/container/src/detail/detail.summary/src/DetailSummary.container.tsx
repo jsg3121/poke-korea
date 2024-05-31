@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { changeColor } from '~/common'
 import { DetailContext } from '~/context/src/Detail.context'
 import { TypesColor } from '~/types'
-import { InfoTitle, MegaSwitch, ShinySwitch } from './components'
+import { InfoTitle, MegaSwitch, RegionSwitch, ShinySwitch } from './components'
 import { PokemonImage } from './summary.pokemonImage'
 import { Stats } from './summary.stats'
 import { useRouter } from 'next/router'
@@ -68,26 +68,31 @@ const Div = styled.div<TStyledProps>`
 `
 
 const DetailSummaryContainer: FC = () => {
-  const { pokemonBaseInfo, megaEvolutions, activeType } =
-    React.useContext(DetailContext)
+  const {
+    pokemonBaseInfo,
+    megaEvolutions,
+    regionFormInfo,
+    normalForm,
+    activeType,
+  } = React.useContext(DetailContext)
   const router = useRouter()
 
   const newColor = changeColor(pokemonBaseInfo?.type ?? [])
+  const indexQuery = parseInt(router.query.activeIndex as string, 10)
+  const activeIndex = router.query.activeIndex ? indexQuery : 0
 
-  const stats = React.useMemo(() => {
+  const stats = (() => {
     switch (activeType) {
-      case 'mega': {
-        const activeIndex = router.query.activeIndex
-          ? parseInt(router.query.activeIndex as string, 10)
-          : 0
-
+      case 'mega':
         return megaEvolutions?.[activeIndex].megaStats
-      }
-      default: {
-        return pokemonBaseInfo?.stats
-      }
+      case 'region':
+        return (
+          regionFormInfo?.[activeIndex].regionStats ?? pokemonBaseInfo?.stats
+        )
+      default:
+        return normalForm?.[activeIndex]?.formStats ?? pokemonBaseInfo?.stats
     }
-  }, [activeType, megaEvolutions, pokemonBaseInfo?.stats, router.query])
+  })()
 
   return (
     <Div gradient={newColor}>
@@ -99,6 +104,7 @@ const DetailSummaryContainer: FC = () => {
         <div className="profile-description">
           <ShinySwitch />
           {pokemonBaseInfo?.isMega && <MegaSwitch />}
+          {pokemonBaseInfo?.isRegion && <RegionSwitch />}
           {pokemonBaseInfo && stats && <Stats {...stats} />}
         </div>
       </div>

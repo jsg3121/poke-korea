@@ -14,7 +14,8 @@ const TypesInfoComponent: FC<IFProps> = (props) => {
 
   return (
     <Section>
-      <h2>타입 정보</h2>
+      <h2>타입, 상성, 특성, 진화가능성 추가해</h2>
+      <h2>이름, 도감번호 관련 진화 포켓몬</h2>
       <InfoContent relationType={relationType} />
     </Section>
   )
@@ -33,7 +34,6 @@ const Section = styled.section`
 
   & > h2 {
     width: 100%;
-    height: 2rem;
     font-size: 1.5rem;
     line-height: 2rem;
     border-bottom: 1px solid var(--color-primary-1);
