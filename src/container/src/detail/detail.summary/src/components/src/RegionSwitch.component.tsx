@@ -14,7 +14,7 @@ const RegionSwitchComponent: FC = () => {
 
     delete query.activeIndex
 
-    router.push(
+    router.replace(
       {
         query: {
           ...query,

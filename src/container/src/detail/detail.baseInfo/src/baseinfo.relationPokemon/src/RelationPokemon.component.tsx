@@ -3,6 +3,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { imageMode } from '~/common'
 import { Image } from '~/components'
+import { InfoCardTitle } from '../../../components'
 
 interface IFProps {
   evolutionId: Array<number>
@@ -12,7 +13,7 @@ interface IFProps {
 const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
   return (
     <Section>
-      <h2>진화 체인</h2>
+      <InfoCardTitle title="진화 체인" />
       <div className="relation-pokemon-list">
         {evolutionId.map((id) => {
           return (
@@ -37,6 +38,7 @@ export default RelationPokemonComponent
 const Section = styled.section`
   width: 100%;
   height: 100%;
+  grid-column: 3/5;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
@@ -44,17 +46,8 @@ const Section = styled.section`
   padding: 1rem;
   margin: 0 auto;
 
-  & > h2 {
-    width: 100%;
-    height: 2rem;
-    font-size: 1.5rem;
-    line-height: 2rem;
-    border-bottom: 1px solid var(--color-primary-1);
-  }
-
   & > .relation-pokemon-list {
     width: 100%;
-    height: calc(100% - 2rem);
     display: flex;
     align-items: center;
     justify-content: center;

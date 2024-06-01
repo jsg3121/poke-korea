@@ -12,7 +12,7 @@ const ShinySwitchComponent: FC = () => {
     const checked = e.target.checked
     const { query } = router
 
-    router.push(
+    router.replace(
       {
         query: {
           ...query,

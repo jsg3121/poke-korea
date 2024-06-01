@@ -62,7 +62,6 @@ export default DescriptionComponent
 const Article = styled.article`
   width: 18rem;
   height: 100%;
-  flex-shrink: 0;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;

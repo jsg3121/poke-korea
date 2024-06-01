@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { DetailContext } from '~/context/src/Detail.context'
 import { Description } from './baseInfo.description'
 import { Abilities } from './baseInfo.abilities'
+import { TypesInfo } from './basInfo.typesInfo'
+import { RelationPokemon } from './baseinfo.relationPokemon'
 
 const DetailBaseInfoContainer: React.FC = () => {
   const { pokemonBaseInfo } = React.useContext(DetailContext)
@@ -13,13 +15,13 @@ const DetailBaseInfoContainer: React.FC = () => {
     <Div>
       <Description />
       <Abilities />
-      {/* <TypesInfo type={pokemonBaseInfo.type} />
+      <TypesInfo type={pokemonBaseInfo.type} />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemon
           name={pokemonBaseInfo.name}
           evolutionId={pokemonBaseInfo.evolutionId}
         />
-      )} */}
+      )}
     </Div>
   )
 }
@@ -29,9 +31,10 @@ export default DetailBaseInfoContainer
 const Div = styled.div`
   width: 100%;
   max-width: 1320px;
-  height: 27rem;
-  display: flex;
-  align-items: flex-start;
+  height: 48rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 21rem 21rem;
   gap: 2rem;
   padding: 2rem 20px;
   margin: 0 auto;

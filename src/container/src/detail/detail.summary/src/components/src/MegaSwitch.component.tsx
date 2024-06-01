@@ -14,7 +14,7 @@ const MegaSwitchComponent: FC = () => {
 
     delete query.activeIndex
 
-    router.push(
+    router.replace(
       {
         query: {
           ...query,

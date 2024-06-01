@@ -15,7 +15,7 @@ const TypesInfoComponent: FC<IFProps> = (props) => {
 
   return (
     <Section>
-      <InfoCardTitle title=" 상성, 특성 관련 진화 포켓몬" />
+      <InfoCardTitle title="타입 상성" />
       <InfoContent relationType={relationType} />
     </Section>
   )
@@ -26,6 +26,7 @@ export default TypesInfoComponent
 const Section = styled.section`
   width: 100%;
   height: 100%;
+  grid-column: 1 / 3;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
