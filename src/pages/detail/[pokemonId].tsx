@@ -68,6 +68,7 @@ const GET_POKEMON = gql`
       type
       typeSingle1
       typeSingle2
+      name
       megaStats {
         id
         statCode

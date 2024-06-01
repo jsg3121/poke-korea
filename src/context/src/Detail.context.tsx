@@ -9,21 +9,46 @@ import type {
 import type { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 
 type TActiveType = 'normal' | 'mega' | 'region'
+type TAbilityType = {
+  name: string
+  description: string
+  isHidden: boolean
+}
+type TActiveTypeInfo = {
+  activeType: TActiveType
+  name: string
+  pokemonNumber: number
+  generation: number
+  types: Array<string>
+  isEvolution: boolean
+  abilities: Array<TAbilityType>
+}
 
 export interface IFDetailProviderProps extends IFDetailPokemonInfo {
   children: ReactNode
 }
 
+// TODO : 각각 상태 정보를 하나로 묶어서 context에서 관리하도록 수정
 interface IFDetailProps {
   pokemonBaseInfo?: Pokemon
   megaEvolutions?: Array<PokemonMega>
   regionFormInfo?: Array<PokemonRegion>
   normalForm?: Array<PokemonNormalForm>
   activeType: TActiveType
+  activeTypeInfo: TActiveTypeInfo
 }
 
 const DetailContext = createContext<IFDetailProps>({
   activeType: 'normal',
+  activeTypeInfo: {
+    activeType: 'normal',
+    generation: 1,
+    isEvolution: false,
+    name: '',
+    pokemonNumber: 0,
+    types: [],
+    abilities: [],
+  },
 })
 
 const DetailProvider: FC<IFDetailProviderProps> = (props) => {
@@ -37,6 +62,49 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
   const { query } = useRouter()
 
   const activeType = query.activeType as TActiveType
+  const activeIndex = query.activeIndex
+    ? parseInt(query.activeIndex as string, 10)
+    : 0
+
+  const types = (() => {
+    switch (activeType) {
+      case 'mega': {
+        return megaEvolutions[activeIndex].type
+      }
+      case 'region': {
+        return regionFormInfo[activeIndex].type
+      }
+      default: {
+        return normalForm[activeIndex]?.type ?? pokemonBaseInfo.type
+      }
+    }
+  })()
+
+  const abilities = (() => {
+    switch (activeType) {
+      case 'mega': {
+        return megaEvolutions[activeIndex].abilities
+      }
+      case 'region': {
+        return regionFormInfo[activeIndex].abilities
+      }
+      default: {
+        return normalForm[activeIndex]?.abilities ?? pokemonBaseInfo.abilities
+      }
+    }
+  })()
+
+  const activeTypeInfo: TActiveTypeInfo = (() => {
+    return {
+      activeType,
+      isEvolution: pokemonBaseInfo.isEvolution,
+      name: pokemonBaseInfo.name,
+      pokemonNumber: pokemonBaseInfo.number,
+      generation: pokemonBaseInfo.generation,
+      types,
+      abilities,
+    }
+  })()
 
   const initialValue: IFDetailProps = {
     pokemonBaseInfo,
@@ -44,6 +112,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
     regionFormInfo,
     activeType,
     normalForm,
+    activeTypeInfo,
   }
 
   return (

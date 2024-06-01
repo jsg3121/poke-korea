@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/src/Detail.context'
+import { Description } from './baseInfo.description'
+import { Abilities } from './baseInfo.abilities'
 import { TypesInfo } from './basInfo.typesInfo'
 import { RelationPokemon } from './baseinfo.relationPokemon'
 
@@ -11,6 +13,8 @@ const DetailBaseInfoContainer: React.FC = () => {
 
   return (
     <Div>
+      <Description />
+      <Abilities />
       <TypesInfo type={pokemonBaseInfo.type} />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemon
@@ -27,16 +31,16 @@ export default DetailBaseInfoContainer
 const Div = styled.div`
   width: 100%;
   max-width: 1320px;
-  height: 44rem;
+  height: 48rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 21rem 21rem;
   gap: 2rem;
   padding: 2rem 20px;
   margin: 0 auto;
 
-  @media screen and (max-width: 1080px) {
+  /* @media screen and (max-width: 1080px) {
     grid-template-columns: 1fr;
     grid-template-rows: 40rem 22rem 20rem;
-  }
+  } */
 `

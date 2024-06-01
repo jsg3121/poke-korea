@@ -12,10 +12,9 @@ type TStyledProps = { gradient: Array<TypesColor> }
 
 const Div = styled.div<TStyledProps>`
   width: 100%;
-  height: 30rem;
+  height: 40rem;
   margin: 0 auto;
   position: relative;
-  margin-bottom: 10rem;
 
   &::before {
     content: '';
@@ -58,11 +57,25 @@ const Div = styled.div<TStyledProps>`
     margin: 0 auto;
     padding: 0 20px;
 
+    & > .profile-image {
+      position: relative;
+      z-index: -1;
+    }
+
     & > .profile-description {
       display: flex;
       align-items: flex-start;
       gap: 1rem;
       position: relative;
+
+      & > .switch-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: absolute;
+        top: 1rem;
+        z-index: -1;
+      }
     }
   }
 `
@@ -81,16 +94,26 @@ const DetailSummaryContainer: FC = () => {
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
   const activeIndex = router.query.activeIndex ? indexQuery : 0
 
-  const stats = (() => {
+  const pokemonInfo = (() => {
     switch (activeType) {
       case 'mega':
-        return megaEvolutions?.[activeIndex].megaStats
+        return {
+          name: megaEvolutions?.[activeIndex].name,
+          stats: megaEvolutions?.[activeIndex].megaStats,
+        }
       case 'region':
-        return (
-          regionFormInfo?.[activeIndex].regionStats ?? pokemonBaseInfo?.stats
-        )
+        return {
+          name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습`,
+          stats:
+            regionFormInfo?.[activeIndex].regionStats ?? pokemonBaseInfo?.stats,
+        }
       default:
-        return normalForm?.[activeIndex]?.formStats ?? pokemonBaseInfo?.stats
+        return {
+          name:
+            normalForm?.[activeIndex]?.name.replace('_', ' ') ??
+            pokemonBaseInfo?.name,
+          stats: normalForm?.[activeIndex]?.formStats ?? pokemonBaseInfo?.stats,
+        }
     }
   })()
 
@@ -99,13 +122,17 @@ const DetailSummaryContainer: FC = () => {
       <div className="detail-profile">
         <div className="profile-image">
           <PokemonImage />
-          <InfoTitle name={pokemonBaseInfo?.name ?? ''} />
+          <InfoTitle name={pokemonInfo.name ?? ''} />
         </div>
         <div className="profile-description">
-          <ShinySwitch />
-          {pokemonBaseInfo?.isMega && <MegaSwitch />}
-          {pokemonBaseInfo?.isRegion && <RegionSwitch />}
-          {pokemonBaseInfo && stats && <Stats {...stats} />}
+          <ul className="switch-list">
+            <ShinySwitch />
+            {pokemonBaseInfo?.isMega && <MegaSwitch />}
+            {pokemonBaseInfo?.isRegion && <RegionSwitch />}
+          </ul>
+          {pokemonBaseInfo && pokemonInfo.stats && (
+            <Stats {...pokemonInfo.stats} />
+          )}
         </div>
       </div>
     </Div>
