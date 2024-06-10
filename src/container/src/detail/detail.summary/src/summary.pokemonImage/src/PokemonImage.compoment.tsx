@@ -128,4 +128,8 @@ const Div = styled.div`
   width: 30rem;
   height: 25rem;
   filter: drop-shadow(0px -3px 3px #000000);
+
+  .swiper-slide > div {
+    margin: 0 auto;
+  }
 `
