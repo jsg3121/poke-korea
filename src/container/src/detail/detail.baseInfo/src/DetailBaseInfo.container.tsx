@@ -32,15 +32,9 @@ const Div = styled.div`
   width: 100%;
   max-width: 1320px;
   height: 48rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 21rem 21rem;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   padding: 2rem 20px;
   margin: 0 auto;
-
-  /* @media screen and (max-width: 1080px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 40rem 22rem 20rem;
-  } */
 `

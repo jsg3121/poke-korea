@@ -93,7 +93,6 @@ export default InfoContentComponent
 
 const Article = styled.article`
   width: 100%;
-  height: calc(100% - 3rem);
   margin-top: 1rem;
 
   & > .type-tabs {
