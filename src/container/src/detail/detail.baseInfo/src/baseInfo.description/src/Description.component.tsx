@@ -2,6 +2,7 @@ import { FC, useContext } from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/src/Detail.context'
 import { Tag } from '~/components'
+import { InfoCardTitle } from '../../../components'
 
 const DescriptionComponent: FC = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -18,6 +19,7 @@ const DescriptionComponent: FC = () => {
 
   return (
     <Article>
+      <InfoCardTitle title="기본 정보" />
       <ul>
         <li>
           <strong>이름</strong>

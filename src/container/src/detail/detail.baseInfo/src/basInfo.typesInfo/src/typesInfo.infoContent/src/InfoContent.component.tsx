@@ -131,6 +131,6 @@ const Article = styled.article`
     height: calc(100% - 2rem);
     display: flex;
     gap: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 1.5rem;
   }
 `

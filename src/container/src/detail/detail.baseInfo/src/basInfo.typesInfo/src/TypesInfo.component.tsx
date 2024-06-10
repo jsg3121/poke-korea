@@ -2,6 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { useRelationType } from '~/hook'
 import { InfoContent } from './typesInfo.infoContent'
+import { InfoCardTitle } from '../../../components'
 
 interface IFProps {
   type: Array<string>
@@ -14,6 +15,7 @@ const TypesInfoComponent: FC<IFProps> = (props) => {
 
   return (
     <Section>
+      <InfoCardTitle title="타입 상성" />
       <InfoContent relationType={relationType} />
     </Section>
   )

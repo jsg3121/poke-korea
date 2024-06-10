@@ -17,7 +17,7 @@ const H2 = styled.h2`
   font-size: 1.75rem;
   line-height: 2.75rem;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid var(--color-primary-1);
   margin-bottom: 1.5rem;
 `
