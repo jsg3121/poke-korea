@@ -12,19 +12,21 @@ interface TypeListComponentProps {
 const TypeList = styled.div`
   width: 100%;
   height: 100%;
-  max-height: 5rem;
   text-align: center;
-
-  &:last-child {
-    border-bottom: 1px solid var(--color-primary-1);
-  }
+  padding: 0 0 0.5rem;
+  border: 3px solid var(--color-primary-1);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: inset -2px 0px 5px 0 #9a9a9a;
 
   .type-list__title {
     height: 1.5rem;
     font-size: 1rem;
     font-weight: 500;
     line-height: calc(1.5rem + 2px);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    box-shadow: inset -6px 1px 7px -4px #9a9a9a;
+
     &[data-grade='best'] {
       background-color: #6af073;
     }

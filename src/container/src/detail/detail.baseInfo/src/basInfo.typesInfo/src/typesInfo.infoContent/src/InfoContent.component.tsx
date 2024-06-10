@@ -65,7 +65,6 @@ const InfoContentComponent: FC<IFProps> = (props) => {
             )}
           </>
         )}
-
         {activeTab === 'weak' && (
           <>
             {relationType.double.length > 0 && (
@@ -93,24 +92,34 @@ export default InfoContentComponent
 
 const Article = styled.article`
   width: 100%;
-  margin-top: 1rem;
 
   & > .type-tabs {
     width: 100%;
-    height: 1.5rem;
+    height: 3rem;
+    background-color: var(--color-primary-1);
+    border-radius: 1rem;
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding: 0.5rem;
 
     & > button {
       width: calc(50% - 0.5rem);
-      height: 100%;
+      height: 2rem;
+      border-radius: 0.725rem;
       font-size: 1.125rem;
-      line-height: 1.5rem;
+      line-height: calc(2rem + 2px);
       color: var(--color-primary-2);
       text-align: center;
 
+      &:not([data-active='active']):hover {
+        background-color: var(--color-primary-3);
+        color: var(--color-primary-2);
+      }
+
       &[data-active='active'] {
+        height: 2rem;
+        background-color: var(--color-primary-4);
         color: var(--color-primary-1);
         font-weight: 700;
       }
@@ -121,7 +130,7 @@ const Article = styled.article`
     width: 100%;
     height: calc(100% - 2rem);
     display: flex;
-    flex-direction: column;
+    gap: 1rem;
     margin-top: 0.5rem;
   }
 `

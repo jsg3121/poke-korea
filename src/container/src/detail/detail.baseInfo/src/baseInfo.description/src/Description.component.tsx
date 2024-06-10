@@ -12,7 +12,7 @@ const DescriptionComponent: FC = () => {
     <Article>
       <ul>
         <li>
-          <strong>이름 :</strong>
+          <strong>이름</strong>
           <span className="pokemon-name">
             {name}&nbsp;
             {activeType === 'mega'
@@ -23,21 +23,21 @@ const DescriptionComponent: FC = () => {
           </span>
         </li>
         <li>
-          <strong>전국도감번호 : </strong>
+          <strong>전국도감번호</strong>
           <span>No. {pokemonNumber.toString().padStart(3, '0')}</span>
         </li>
         <li>
-          <strong>등장 세대 : </strong>
+          <strong>등장 세대</strong>
           <span>{generation} 세대</span>
         </li>
         <li>
-          <strong>타입 : </strong>
+          <strong>타입</strong>
           {types.map((type) => {
             return <Tag key={type} label={type} />
           })}
         </li>
         <li>
-          <strong>진화체 : </strong>
+          <strong>진화체</strong>
           <span>{isEvolution ? '진화체 있음' : '진화 불가'}</span>
         </li>
       </ul>
@@ -69,11 +69,25 @@ const Article = styled.article`
       gap: 0.5rem;
       padding: 0.5rem 0;
 
+      &:last-child {
+        border-bottom: 0;
+        padding: 0;
+      }
+
       & > strong,
       & > span {
         height: 2.5rem;
         font-size: 1.25rem;
         line-height: calc(2.5rem + 2px);
+      }
+
+      & > strong {
+        width: 12rem;
+
+        &::after {
+          content: ':';
+          float: right;
+        }
       }
 
       & > span {
