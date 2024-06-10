@@ -22,6 +22,8 @@ type TActiveTypeInfo = {
   types: Array<string>
   isEvolution: boolean
   abilities: Array<TAbilityType>
+  isRegion: boolean
+  isMega: boolean
 }
 
 export interface IFDetailProviderProps extends IFDetailPokemonInfo {
@@ -48,6 +50,8 @@ const DetailContext = createContext<IFDetailProps>({
     pokemonNumber: 0,
     types: [],
     abilities: [],
+    isMega: false,
+    isRegion: false,
   },
 })
 
@@ -101,6 +105,8 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
       name: pokemonBaseInfo.name,
       pokemonNumber: pokemonBaseInfo.number,
       generation: pokemonBaseInfo.generation,
+      isMega: pokemonBaseInfo.isMega ?? false,
+      isRegion: pokemonBaseInfo.isRegion ?? false,
       types,
       abilities,
     }

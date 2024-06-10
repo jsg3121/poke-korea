@@ -38,7 +38,6 @@ export default RelationPokemonComponent
 const Section = styled.section`
   width: 100%;
   height: 100%;
-  grid-column: 3/5;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;

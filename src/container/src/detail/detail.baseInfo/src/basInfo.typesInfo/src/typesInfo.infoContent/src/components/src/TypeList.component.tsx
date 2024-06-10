@@ -11,7 +11,6 @@ interface TypeListComponentProps {
 
 const TypeList = styled.div`
   width: 100%;
-  height: 100%;
   text-align: center;
   padding: 0 0 0.5rem;
   border: 3px solid var(--color-primary-1);

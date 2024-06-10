@@ -5,8 +5,16 @@ import { Tag } from '~/components'
 
 const DescriptionComponent: FC = () => {
   const { activeTypeInfo } = useContext(DetailContext)
-  const { types, generation, isEvolution, name, pokemonNumber, activeType } =
-    activeTypeInfo
+  const {
+    types,
+    generation,
+    isEvolution,
+    name,
+    pokemonNumber,
+    activeType,
+    isMega,
+    isRegion,
+  } = activeTypeInfo
 
   return (
     <Article>
@@ -40,6 +48,18 @@ const DescriptionComponent: FC = () => {
           <strong>진화체</strong>
           <span>{isEvolution ? '진화체 있음' : '진화 불가'}</span>
         </li>
+        {isRegion && (
+          <li>
+            <strong>리전폼</strong>
+            <span>리전폼 존재</span>
+          </li>
+        )}
+        {isMega && (
+          <li>
+            <strong>메가진화</strong>
+            <span>메가진화 가능</span>
+          </li>
+        )}
       </ul>
     </Article>
   )
