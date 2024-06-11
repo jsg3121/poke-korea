@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import NavSetting from './components/Nav.setting'
-import { ListContext } from '~/context'
 
 interface HeaderNavProps {}
 
@@ -17,12 +15,10 @@ const NavBar = styled.div`
 `
 
 const HeaderNav: React.FC<HeaderNavProps> = () => {
-  const { scrolling } = React.useContext(ListContext)
-
   return (
     <NavBar>
       {/* <NavLink /> 2차 기능 개발시 적용 */}
-      <NavSetting scrolling={scrolling} />
+      {/* <NavSetting scrolling={scrolling} /> */}
     </NavBar>
   )
 }

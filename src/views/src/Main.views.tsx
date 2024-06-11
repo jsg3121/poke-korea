@@ -22,9 +22,11 @@ const Div = styled.div`
 const MainViews: React.FC<ManinViewsProps> = ({ pokemonList }) => {
   const { observerRef, isScroll } = useHeaderScroll()
 
+  const ableScroll = pokemonList.length > 5 ? isScroll : false
+
   return (
-    <ListProvider pokemonList={pokemonList} scrolling={isScroll}>
-      <Div ref={observerRef} data-scrolling={isScroll}>
+    <ListProvider pokemonList={pokemonList} scrolling={ableScroll}>
+      <Div ref={observerRef} data-scrolling={ableScroll}>
         <Header />
       </Div>
       <List />
