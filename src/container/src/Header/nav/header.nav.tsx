@@ -16,8 +16,7 @@ const NavBar = styled.div`
   margin: 0 auto;
 `
 
-const HeaderNav: React.FC<HeaderNavProps> = (props) => {
-  const {} = props
+const HeaderNav: React.FC<HeaderNavProps> = () => {
   const { scrolling } = React.useContext(ListContext)
 
   return (

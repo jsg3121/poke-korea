@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Image, Switch } from '~/components'
+import { Image } from '~/components'
 import ThemeSwitch from './ThemeSwitch'
 
 interface NavSettingProps {
@@ -11,7 +11,9 @@ const Div = styled.div`
   width: 10rem;
   height: 3.33333333rem;
   border-radius: 1.66666667rem;
-  transition: height 0.2s, width 0.2s;
+  transition:
+    height 0.2s,
+    width 0.2s;
   will-change: heignt, width;
   overflow: hidden;
   background-color: var(--color-primary-3);
@@ -36,7 +38,9 @@ const Div = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    transition: transform 0.2s, width 0.2s;
+    transition:
+      transform 0.2s,
+      width 0.2s;
     will-change: transform, width;
 
     &.scroll-nav {
@@ -69,8 +73,6 @@ const Div = styled.div`
 
 const NavSetting: React.FC<NavSettingProps> = (props) => {
   const { scrolling } = props
-
-  const handleChangeTheme = () => {}
 
   return (
     <Div data-scrolling={scrolling}>

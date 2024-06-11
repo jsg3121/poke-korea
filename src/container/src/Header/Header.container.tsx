@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { ListContext } from '~/context'
 import { Filter } from './filter'
 import { Logo } from './logo'
-import HeaderNav from './nav/header.nav'
 import { Search } from './search'
-import { ListContext } from '~/context'
 
 const Header = styled.header`
   width: 100%;
@@ -35,7 +34,7 @@ const HeaderContainer: React.FC = () => {
 
   return (
     <Header data-scrolling={scrolling}>
-      <HeaderNav />
+      {/* <HeaderNav /> // TODO : 2차 개발에 추가하기 */}
       <div className="header-wrapper">
         <Logo />
         <Search />
