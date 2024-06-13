@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 import { Header, List } from '~/container'
@@ -20,9 +21,13 @@ const Div = styled.div`
 `
 
 const MainViews: React.FC<ManinViewsProps> = ({ pokemonList }) => {
+  const router = useRouter()
   const { observerRef, isScroll } = useHeaderScroll()
 
-  const ableScroll = pokemonList.length > 5 ? isScroll : false
+  console.log(isScroll)
+  console.log(router.query)
+
+  const ableScroll = isScroll
 
   return (
     <ListProvider pokemonList={pokemonList} scrolling={ableScroll}>
