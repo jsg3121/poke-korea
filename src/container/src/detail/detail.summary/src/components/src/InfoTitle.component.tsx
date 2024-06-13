@@ -8,8 +8,6 @@ interface IFProps {
 const InfoTitleComponent: FC<IFProps> = (props) => {
   const { name } = props
 
-  console.log(name.length)
-
   const fontSize =
     name.length > 14 ? 'small' : name.length > 6 ? 'medium' : 'large'
 

@@ -13,11 +13,12 @@ const List = styled.section`
 
   .virtuoso-grid-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, auto));
+    grid-template-columns: repeat(auto-fill, minmax(calc(14rem - 10px), auto));
     grid-column-gap: 1rem;
     grid-row-gap: 1.5rem;
     justify-items: center;
     justify-content: space-between;
+    padding: 0 20px;
   }
 `
 
