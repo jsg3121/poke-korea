@@ -82,14 +82,14 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-tap-highlight-color: transparent !important;
          box-sizing: border-box;
     }
-
+/* 
     @media screen and (min-width: 1281px) {
         html,
         body {
             font-size: 18px;
         }
-    }
-    @media screen and (min-width: 960px) and (max-width: 1280px) {
+    } */
+    @media screen and (min-width: 960px){
         html,
         body {
             font-size: 16px;

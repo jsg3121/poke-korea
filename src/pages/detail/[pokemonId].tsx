@@ -43,6 +43,7 @@ const GET_POKEMON = gql`
       region
       type
       pokemonNumber
+      name
       regionStats {
         id
         statCode

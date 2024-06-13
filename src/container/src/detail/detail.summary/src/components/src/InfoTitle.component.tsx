@@ -8,7 +8,10 @@ interface IFProps {
 const InfoTitleComponent: FC<IFProps> = (props) => {
   const { name } = props
 
-  const fontSize = name.length > 6 ? 'small' : 'medium'
+  console.log(name.length)
+
+  const fontSize =
+    name.length > 14 ? 'small' : name.length > 6 ? 'medium' : 'large'
 
   return <StyledWrapper data-name-size={fontSize}>{name}</StyledWrapper>
 }
@@ -23,10 +26,15 @@ const StyledWrapper = styled.h1`
   color: var(--color-white-1);
   text-align: center;
 
-  &[data-name-size='medium'] {
+  &[data-name-size='large'] {
     font-size: 3rem;
   }
-  &[data-name-size='small'] {
+
+  &[data-name-size='medium'] {
     font-size: 2.5rem;
+  }
+
+  &[data-name-size='small'] {
+    font-size: 1.8rem;
   }
 `
