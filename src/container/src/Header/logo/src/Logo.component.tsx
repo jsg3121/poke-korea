@@ -13,7 +13,8 @@ const Logo = styled.div`
   will-change: height;
   margin: 0 auto;
 
-  &[data-scrolling='true'] {
+  &[data-scrolling='true'],
+  &[data-searching='has-query'] {
     height: 0;
 
     & > .logo {
@@ -43,10 +44,13 @@ const Logo = styled.div`
 `
 
 const LogoComponent: React.FC = () => {
-  const { scrolling } = React.useContext(ListContext)
+  const { scrolling, searching } = React.useContext(ListContext)
 
   return (
-    <Logo data-scrolling={scrolling}>
+    <Logo
+      data-scrolling={scrolling}
+      data-searching={searching ? 'has-query' : ''}
+    >
       {/* <h1 className="header-title">포켓몬의 모든 정보 Poke Korea</h1> */}
       <div className="logo">
         <LogoIcon />

@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router'
-import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
@@ -19,7 +17,8 @@ const Header = styled.header`
   z-index: 20;
   padding: 1.5rem 0 0;
 
-  &[data-scrolling='true'] {
+  &[data-scrolling='true'],
+  &[data-searching='has-query'] {
     height: 11rem;
   }
 
@@ -33,22 +32,14 @@ const Header = styled.header`
   }
 `
 
-const checkRouteQuery = (query: ParsedUrlQuery) => {
-  const values = Object.values(query)
-  return (
-    values.some((value) => value !== '') &&
-    !values.every((value) => value === '')
-  )
-}
-
 const HeaderContainer: React.FC = () => {
-  const { scrolling } = React.useContext(ListContext)
-  const router = useRouter()
-
-  const dat = checkRouteQuery(router.query ?? {})
+  const { scrolling, searching } = React.useContext(ListContext)
 
   return (
-    <Header data-scrolling={scrolling}>
+    <Header
+      data-scrolling={scrolling}
+      data-searching={searching ? 'has-query' : ''}
+    >
       <HeaderNav />
       <div className="header-wrapper">
         <Logo />

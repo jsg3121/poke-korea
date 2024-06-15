@@ -26,7 +26,8 @@ const Search = styled.div`
     max-width 0.3s;
   will-change: top, width, max-width;
 
-  &[data-scrolling='true'] {
+  &[data-scrolling='true'],
+  &[data-searching='has-query'] {
     width: 40%;
     max-width: 600px;
     top: -3.33333333rem;
@@ -61,7 +62,7 @@ type SearchFormType = {
 }
 
 const SearchComponent: React.FC = () => {
-  const { scrolling } = React.useContext(ListContext)
+  const { scrolling, searching } = React.useContext(ListContext)
   const router = useRouter()
 
   const searchFormMethods = useForm<SearchFormType>({
@@ -92,7 +93,10 @@ const SearchComponent: React.FC = () => {
   }, [router.query])
 
   return (
-    <Search data-scrolling={scrolling}>
+    <Search
+      data-scrolling={scrolling}
+      data-searching={searching ? 'has-query' : ''}
+    >
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}
