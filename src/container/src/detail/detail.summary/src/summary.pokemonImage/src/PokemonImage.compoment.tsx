@@ -9,9 +9,7 @@ import { imageMode } from '~/common'
 import { Image } from '~/components'
 import { DetailContext } from '~/context/src/Detail.context'
 
-interface IFProps {}
-
-const PokemonImageCompoment: FC<IFProps> = () => {
+const PokemonImageCompoment: FC = () => {
   const {
     pokemonBaseInfo,
     megaEvolutions,
@@ -128,4 +126,8 @@ const Div = styled.div`
   width: 30rem;
   height: 25rem;
   filter: drop-shadow(0px -3px 3px #000000);
+
+  .swiper-slide > div {
+    margin: 0 auto;
+  }
 `

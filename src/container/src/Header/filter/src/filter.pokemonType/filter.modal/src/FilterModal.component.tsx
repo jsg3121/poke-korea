@@ -126,14 +126,14 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
   const router = useRouter()
   const formMethods = useForm<FilterFormType>({
     defaultValues: {
-      generation: [],
-      isEvolution: null,
-      isMega: null,
-      isRegion: null,
+      generation: (router.query.generation as Array<string>) ?? [],
+      isEvolution: (router.query.isEvolution as string) ?? null,
+      isMega: (router.query.isMega as string) ?? null,
+      isRegion: (router.query.isRegion as string) ?? null,
     },
   })
 
-  const { register, setValue, getValues, handleSubmit } = formMethods
+  const { watch, register, setValue, getValues, handleSubmit } = formMethods
 
   const handleClickCloseModal = () => {
     onClickCloseModal()
@@ -182,6 +182,8 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
     onClickCloseModal()
   }
 
+  const generation = watch('generation')
+
   return (
     <FilterModal>
       <FormProvider {...formMethods}>
@@ -219,6 +221,7 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
                             id={`filter-generation-item-id-${gen}`}
                             label={`${gen}세대`}
                             value={`${gen}`}
+                            defaultChecked={generation.includes(gen.toString())}
                             onChange={handleChangeGeneration}
                           />
                         </li>

@@ -46,7 +46,7 @@ const Div = styled.div<TStyledProps>`
 
   & > .detail-profile {
     width: 100%;
-    max-width: 1320px;
+    max-width: 1280px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -103,7 +103,7 @@ const DetailSummaryContainer: FC = () => {
         }
       case 'region':
         return {
-          name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습`,
+          name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습 ${regionFormInfo?.[activeIndex].name && `(${regionFormInfo?.[activeIndex].name})`}`,
           stats:
             regionFormInfo?.[activeIndex].regionStats ?? pokemonBaseInfo?.stats,
         }

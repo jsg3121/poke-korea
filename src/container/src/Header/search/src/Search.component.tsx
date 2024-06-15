@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
-import { Image, Input } from '~/components'
+import { Image } from '~/components'
 import { ListContext } from '~/context'
+import { Input } from '../components'
+import { FormProvider, useForm } from 'react-hook-form'
 
 const Search = styled.div`
   width: 100%;
@@ -14,7 +16,6 @@ const Search = styled.div`
     0 1px 2px 0 rgba(0, 0, 0, 0.08);
   border-radius: 2.22222222rem;
   background-color: #ffffff;
-  overflow: hidden;
   position: relative;
   top: 3.33333333rem;
   left: 50%;
@@ -25,7 +26,8 @@ const Search = styled.div`
     max-width 0.3s;
   will-change: top, width, max-width;
 
-  &[data-scrolling='true'] {
+  &[data-scrolling='true'],
+  &[data-searching='has-query'] {
     width: 40%;
     max-width: 600px;
     top: -3.33333333rem;
@@ -55,68 +57,68 @@ const Search = styled.div`
   }
 `
 
+type SearchFormType = {
+  name: string | null
+}
+
 const SearchComponent: React.FC = () => {
-  const { scrolling } = React.useContext(ListContext)
+  const { scrolling, searching } = React.useContext(ListContext)
   const router = useRouter()
-  const [searchKeyword, setSearchKeyword] = React.useState<string>()
 
-  const handleInputChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value.replaceAll(' ', '')
-      setSearchKeyword(() => value)
+  const searchFormMethods = useForm<SearchFormType>({
+    defaultValues: {
+      name: (router.query.name as string) ?? null,
     },
-    [],
-  )
+  })
 
-  const handleKeyDownSearch = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ): void => {
-    if (e.key === 'Enter') {
-      const value = e.currentTarget.value.replaceAll(' ', '')
-      router.replace({
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          name: value.trim(),
-        },
-      })
-    }
-  }
+  const { handleSubmit, register, setValue, watch } = searchFormMethods
 
-  const handleClickSearchPokemon = () => {
-    router.replace({
+  const onSubmitSearch = (form: SearchFormType) => {
+    const { name } = form
+    router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        name: searchKeyword?.trim(),
+        ...(name && { name: name.trim() }),
       },
     })
   }
 
+  const name = watch('name') || ''
+  const hasValue = name.length > 0
+
+  React.useEffect(() => {
+    const name = router.query.name === undefined ? '' : `${router.query.name}`
+    setValue('name', name)
+  }, [router.query])
+
   return (
-    <Search data-scrolling={scrolling}>
-      <div className="search__input">
-        <Input
-          dataLabel="search-input-name"
-          type="text"
-          label="포켓몬 검색"
-          placeholder="포켓몬의 이름을 입력해주세요"
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDownSearch}
-          defaultValue={router.query.name as string}
-        />
-      </div>
-      <button
-        className="search__button--icon"
-        onClick={handleClickSearchPokemon}
-      >
-        <Image
-          src="/assets/image/search.svg"
-          width="2rem"
-          height="2rem"
-          alt="포켓몬 검색"
-        />
-      </button>
+    <Search
+      data-scrolling={scrolling}
+      data-searching={searching ? 'has-query' : ''}
+    >
+      <FormProvider {...searchFormMethods}>
+        <form
+          onSubmit={handleSubmit(onSubmitSearch)}
+          className="search__input"
+          role="search"
+        >
+          <Input
+            hasValue={hasValue}
+            dataLabel="search-input-name"
+            label="포켓몬 검색"
+            {...register('name')}
+          />
+          <button type="submit" className="search__button--icon">
+            <Image
+              src="/assets/image/search.svg"
+              width="2rem"
+              height="2rem"
+              alt="포켓몬 검색"
+            />
+          </button>
+        </form>
+      </FormProvider>
     </Search>
   )
 }

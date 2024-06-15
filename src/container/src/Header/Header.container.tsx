@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
+import { ListContext } from '~/context'
 import { Filter } from './filter'
 import { Logo } from './logo'
 import HeaderNav from './nav/header.nav'
 import { Search } from './search'
-import { ListContext } from '~/context'
 
 const Header = styled.header`
   width: 100%;
@@ -17,7 +17,8 @@ const Header = styled.header`
   z-index: 20;
   padding: 1.5rem 0 0;
 
-  &[data-scrolling='true'] {
+  &[data-scrolling='true'],
+  &[data-searching='has-query'] {
     height: 11rem;
   }
 
@@ -27,14 +28,18 @@ const Header = styled.header`
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
+    padding: 0 20px;
   }
 `
 
 const HeaderContainer: React.FC = () => {
-  const { scrolling } = React.useContext(ListContext)
+  const { scrolling, searching } = React.useContext(ListContext)
 
   return (
-    <Header data-scrolling={scrolling}>
+    <Header
+      data-scrolling={scrolling}
+      data-searching={searching ? 'has-query' : ''}
+    >
       <HeaderNav />
       <div className="header-wrapper">
         <Logo />

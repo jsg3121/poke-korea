@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
-import { DetailBaseInfo, DetailSummary } from '~/container/src/detail'
+import { DetailBaseInfo, DetailSummary } from '~/container'
 
 const DetailViews: FC = () => {
   return (

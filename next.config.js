@@ -3,6 +3,10 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     domains: ['localhost', '*'],
   },

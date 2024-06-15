@@ -19,6 +19,7 @@ const FieldTypeInput = styled.div`
   justify-content: space-between;
   position: relative;
   margin: 0 auto;
+  padding: 0 20px;
 
   .button--filter {
     width: 6rem;

@@ -18,7 +18,6 @@ const StyledImage = styled.div<StyledImageProps>`
     width: ${width};
     height: ${height};
     position: relative;
-    margin: 0 auto;
 
     picture {
       width: 100%;

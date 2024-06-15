@@ -13,15 +13,17 @@ const DetailBaseInfoContainer: React.FC = () => {
 
   return (
     <Div>
-      <Description />
+      <div className="grid-wrapper">
+        <Description />
+        {pokemonBaseInfo.evolutionId.length > 0 && (
+          <RelationPokemon
+            name={pokemonBaseInfo.name}
+            evolutionId={pokemonBaseInfo.evolutionId}
+          />
+        )}
+      </div>
       <Abilities />
       <TypesInfo type={pokemonBaseInfo.type} />
-      {pokemonBaseInfo.evolutionId.length > 0 && (
-        <RelationPokemon
-          name={pokemonBaseInfo.name}
-          evolutionId={pokemonBaseInfo.evolutionId}
-        />
-      )}
     </Div>
   )
 }
@@ -30,17 +32,17 @@ export default DetailBaseInfoContainer
 
 const Div = styled.div`
   width: 100%;
-  max-width: 1320px;
-  height: 48rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 21rem 21rem;
-  gap: 2rem;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   padding: 2rem 20px;
   margin: 0 auto;
 
-  /* @media screen and (max-width: 1080px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 40rem 22rem 20rem;
-  } */
+  & > .grid-wrapper {
+    width: 100%;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 1rem), 1fr));
+  }
 `
