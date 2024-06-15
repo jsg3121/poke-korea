@@ -69,9 +69,8 @@ const SearchComponent: React.FC = () => {
       name: (router.query.name as string) ?? null,
     },
   })
-  const { handleSubmit, register } = searchFormMethods
 
-  const handleClickSearchPokemon = () => {}
+  const { handleSubmit, register, setValue, watch } = searchFormMethods
 
   const onSubmitSearch = (form: SearchFormType) => {
     const { name } = form
@@ -84,20 +83,29 @@ const SearchComponent: React.FC = () => {
     })
   }
 
+  const name = watch('name') || ''
+  const hasValue = name.length > 0
+
+  React.useEffect(() => {
+    const name = router.query.name === undefined ? '' : `${router.query.name}`
+    setValue('name', name)
+  }, [router.query])
+
   return (
     <Search data-scrolling={scrolling}>
       <FormProvider {...searchFormMethods}>
-        <form onSubmit={handleSubmit(onSubmitSearch)} className="search__input">
+        <form
+          onSubmit={handleSubmit(onSubmitSearch)}
+          className="search__input"
+          role="search"
+        >
           <Input
+            hasValue={hasValue}
             dataLabel="search-input-name"
             label="포켓몬 검색"
             {...register('name')}
           />
-          <button
-            type="submit"
-            className="search__button--icon"
-            onClick={handleClickSearchPokemon}
-          >
+          <button type="submit" className="search__button--icon">
             <Image
               src="/assets/image/search.svg"
               width="2rem"

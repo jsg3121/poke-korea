@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 interface InputComponentsProps {
@@ -14,6 +14,7 @@ interface InputComponentsProps {
    * 해당 input의 title, name등의 텍스트를 입력
    */
   label: string
+  hasValue: boolean
 }
 
 const Input = styled.div`
@@ -76,26 +77,17 @@ const InputComponents = React.forwardRef<
   HTMLInputElement,
   InputComponentsProps
 >((props, ref) => {
-  const { dataLabel, label, ...restProps } = props
-  const [hasValue, setHasValue] = useState<boolean>(false)
-
-  const handleChangeSearchKeyword = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const value = e.target.value
-    setHasValue(!!value)
-  }
+  const { hasValue = false, dataLabel, label, ...restProps } = props
 
   return (
     <Input data-has-value={hasValue ? 'has-value' : ''}>
       <p className="input__label">{label}</p>
       <input
+        id={dataLabel}
         ref={ref}
         type="text"
         placeholder="포켓몬의 이름을 입력해주세요"
         className="wrapper__input"
-        id={dataLabel}
-        onInput={handleChangeSearchKeyword}
         {...restProps}
       />
     </Input>
