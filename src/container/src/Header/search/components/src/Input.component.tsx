@@ -1,7 +1,7 @@
-import React, { InputHTMLAttributes, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-interface InputComponentsProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputComponentsProps {
   /**
    * input data 정보를 명시하는 텍스트
    * @example
@@ -72,8 +72,11 @@ const Input = styled.div`
   }
 `
 
-const InputComponents: React.FC<InputComponentsProps> = (props) => {
-  const { dataLabel, label, onChange, ...restProps } = props
+const InputComponents = React.forwardRef<
+  HTMLInputElement,
+  InputComponentsProps
+>((props, ref) => {
+  const { dataLabel, label, ...restProps } = props
   const [hasValue, setHasValue] = useState<boolean>(false)
 
   const handleChangeSearchKeyword = (
@@ -81,23 +84,22 @@ const InputComponents: React.FC<InputComponentsProps> = (props) => {
   ) => {
     const value = e.target.value
     setHasValue(!!value)
-
-    if (onChange) {
-      onChange(e)
-    }
   }
 
   return (
     <Input data-has-value={hasValue ? 'has-value' : ''}>
       <p className="input__label">{label}</p>
       <input
+        ref={ref}
+        type="text"
+        placeholder="포켓몬의 이름을 입력해주세요"
         className="wrapper__input"
         id={dataLabel}
-        onChange={handleChangeSearchKeyword}
+        onInput={handleChangeSearchKeyword}
         {...restProps}
       />
     </Input>
   )
-}
+})
 
 export default InputComponents

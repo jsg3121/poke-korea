@@ -65,6 +65,7 @@ const QUERY = gql`
 `
 
 interface HomeProps {
+  loading: boolean
   pokemonList: Array<Pokemon>
 }
 
@@ -73,7 +74,9 @@ const Main = styled.main`
   min-height: 100vh;
 `
 
-const Home: NextPage<HomeProps> = ({ pokemonList }) => {
+const Home: NextPage<HomeProps> = ({ pokemonList, loading }) => {
+  if (loading) return <></>
+
   return (
     <>
       <Head>
@@ -98,20 +101,25 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
 
   const filterInput = {
     ...restQuery,
-    isMega: toBooleanOrUndefined(isMega as string),
-    isRegion: toBooleanOrUndefined(isRegion as string),
-    isEvolution: toBooleanOrUndefined(isEvolution as string),
+    ...(isMega && { isMega: toBooleanOrUndefined(isMega as string) }),
+    ...(isRegion && { isRegion: toBooleanOrUndefined(isRegion as string) }),
+    ...(isEvolution && {
+      isEvolution: toBooleanOrUndefined(isEvolution as string),
+    }),
     ...(type && { type: changeTypeArrayToString(type as string) }),
   }
 
-  const { data } = await apolloClient.query({
+  const { data, loading } = await apolloClient.query({
     query: QUERY,
     variables: filterInput,
   })
 
   return {
     props: {
-      pokemonList: data?.getPokemonFilter || [],
+      loading,
+      ...(data && {
+        pokemonList: data.getPokemonFilter || [],
+      }),
     },
   }
 }

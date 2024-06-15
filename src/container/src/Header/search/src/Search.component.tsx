@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Image } from '~/components'
 import { ListContext } from '~/context'
 import { Input } from '../components'
+import { FormProvider, useForm } from 'react-hook-form'
 
 const Search = styled.div`
   width: 100%;
@@ -55,65 +56,57 @@ const Search = styled.div`
   }
 `
 
+type SearchFormType = {
+  name: string | null
+}
+
 const SearchComponent: React.FC = () => {
   const { scrolling } = React.useContext(ListContext)
   const router = useRouter()
-  const [searchKeyword, setSearchKeyword] = React.useState<string>()
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replaceAll(' ', '')
-    setSearchKeyword(() => value)
-  }
+  const searchFormMethods = useForm<SearchFormType>({
+    defaultValues: {
+      name: (router.query.name as string) ?? null,
+    },
+  })
+  const { handleSubmit, register } = searchFormMethods
 
-  const handleKeyDownSearch = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ): void => {
-    if (e.key === 'Enter') {
-      const value = e.currentTarget.value.replaceAll(' ', '')
-      router.replace({
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          name: value.trim(),
-        },
-      })
-    }
-  }
+  const handleClickSearchPokemon = () => {}
 
-  const handleClickSearchPokemon = () => {
-    router.replace({
+  const onSubmitSearch = (form: SearchFormType) => {
+    const { name } = form
+    router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        name: searchKeyword?.trim(),
+        ...(name && { name: name.trim() }),
       },
     })
   }
 
   return (
     <Search data-scrolling={scrolling}>
-      <div className="search__input">
-        <Input
-          dataLabel="search-input-name"
-          type="text"
-          label="포켓몬 검색"
-          placeholder="포켓몬의 이름을 입력해주세요"
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDownSearch}
-          defaultValue={router.query.name as string}
-        />
-      </div>
-      <button
-        className="search__button--icon"
-        onClick={handleClickSearchPokemon}
-      >
-        <Image
-          src="/assets/image/search.svg"
-          width="2rem"
-          height="2rem"
-          alt="포켓몬 검색"
-        />
-      </button>
+      <FormProvider {...searchFormMethods}>
+        <form onSubmit={handleSubmit(onSubmitSearch)} className="search__input">
+          <Input
+            dataLabel="search-input-name"
+            label="포켓몬 검색"
+            {...register('name')}
+          />
+          <button
+            type="submit"
+            className="search__button--icon"
+            onClick={handleClickSearchPokemon}
+          >
+            <Image
+              src="/assets/image/search.svg"
+              width="2rem"
+              height="2rem"
+              alt="포켓몬 검색"
+            />
+          </button>
+        </form>
+      </FormProvider>
     </Search>
   )
 }

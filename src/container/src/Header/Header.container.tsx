@@ -1,10 +1,12 @@
+import { useRouter } from 'next/router'
+import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
 import { Filter } from './filter'
 import { Logo } from './logo'
-import { Search } from './search'
 import HeaderNav from './nav/header.nav'
+import { Search } from './search'
 
 const Header = styled.header`
   width: 100%;
@@ -31,8 +33,19 @@ const Header = styled.header`
   }
 `
 
+const checkRouteQuery = (query: ParsedUrlQuery) => {
+  const values = Object.values(query)
+  return (
+    values.some((value) => value !== '') &&
+    !values.every((value) => value === '')
+  )
+}
+
 const HeaderContainer: React.FC = () => {
   const { scrolling } = React.useContext(ListContext)
+  const router = useRouter()
+
+  const dat = checkRouteQuery(router.query ?? {})
 
   return (
     <Header data-scrolling={scrolling}>
