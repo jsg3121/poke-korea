@@ -9,9 +9,7 @@ import { imageMode } from '~/common'
 import { Image } from '~/components'
 import { DetailContext } from '~/context/src/Detail.context'
 
-interface IFProps {}
-
-const PokemonImageCompoment: FC<IFProps> = () => {
+const PokemonImageCompoment: FC = () => {
   const {
     pokemonBaseInfo,
     megaEvolutions,

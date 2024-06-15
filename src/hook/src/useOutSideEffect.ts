@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 type UseOutSideEffect = (
   ref: React.RefObject<HTMLElement>,
-  onOutSideClick: () => void
+  onOutSideClick: () => void,
 ) => void
 
 const useOutsideEffect: UseOutSideEffect = (ref, onOutsideClick) => {
