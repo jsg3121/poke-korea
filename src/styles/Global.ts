@@ -82,13 +82,7 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-tap-highlight-color: transparent !important;
          box-sizing: border-box;
     }
-/* 
-    @media screen and (min-width: 1281px) {
-        html,
-        body {
-            font-size: 18px;
-        }
-    } */
+    
     @media screen and (min-width: 960px){
         html,
         body {
@@ -107,9 +101,4 @@ export const GlobalStyle = createGlobalStyle`
             font-size: 12px;
         }
     }
-    /* @media screen and (max-width: 479px) {
-        html, body {
-            font-size : 11px;
-        }
-    } */
 `

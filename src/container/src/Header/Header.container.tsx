@@ -5,6 +5,7 @@ import { Filter } from './filter'
 import { Logo } from './logo'
 import HeaderNav from './nav/header.nav'
 import { Search } from './search'
+import { useDevice } from '~/context/src/Device.context'
 
 const Header = styled.header`
   width: 100%;
@@ -34,6 +35,7 @@ const Header = styled.header`
 
 const HeaderContainer: React.FC = () => {
   const { scrolling, searching } = React.useContext(ListContext)
+  const { isMobile } = useDevice()
 
   return (
     <Header
