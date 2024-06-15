@@ -1,4 +1,3 @@
-export { default as Input } from './src/common/Input.component'
 export { default as Tag } from './src/common/Tag.component'
 export { default as Image } from './src/common/Image.component'
 export { default as Ball } from './src/common/Ball.component'

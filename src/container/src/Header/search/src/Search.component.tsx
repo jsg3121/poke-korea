@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
-import { Image, Input } from '~/components'
+import { Image } from '~/components'
 import { ListContext } from '~/context'
+import { Input } from '../components'
 
 const Search = styled.div`
   width: 100%;
@@ -14,7 +15,6 @@ const Search = styled.div`
     0 1px 2px 0 rgba(0, 0, 0, 0.08);
   border-radius: 2.22222222rem;
   background-color: #ffffff;
-  overflow: hidden;
   position: relative;
   top: 3.33333333rem;
   left: 50%;
@@ -60,13 +60,10 @@ const SearchComponent: React.FC = () => {
   const router = useRouter()
   const [searchKeyword, setSearchKeyword] = React.useState<string>()
 
-  const handleInputChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value.replaceAll(' ', '')
-      setSearchKeyword(() => value)
-    },
-    [],
-  )
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replaceAll(' ', '')
+    setSearchKeyword(() => value)
+  }
 
   const handleKeyDownSearch = (
     e: React.KeyboardEvent<HTMLInputElement>,
