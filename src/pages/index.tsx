@@ -9,7 +9,7 @@ import {
   changeTypeArrayToString,
   toBooleanOrUndefined,
 } from '~/module/filter.module'
-import { DesktopView } from '~/views'
+import { DesktopView, MobileView } from '~/views'
 
 const QUERY = gql`
   fragment PokemonInfo on Pokemon {
@@ -87,7 +87,11 @@ const Home: NextPage<HomeProps> = ({ pokemonList, loading }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        {isMobile ? <></> : <DesktopView.MainViews pokemonList={pokemonList} />}
+        {isMobile ? (
+          <MobileView.MainViews pokemonList={pokemonList} />
+        ) : (
+          <DesktopView.MainViews pokemonList={pokemonList} />
+        )}
       </Main>
     </>
   )

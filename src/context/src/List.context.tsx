@@ -4,8 +4,8 @@ import { Pokemon, PokemonInfoFragment } from '~/graphql/typeGenerated'
 interface ListProviderProps {
   pokemonList: Array<Pokemon>
   children: React.ReactNode
-  scrolling: boolean
-  searching: boolean
+  scrolling?: boolean
+  searching?: boolean
 }
 
 type ListFilterType = {
@@ -22,8 +22,8 @@ type ListFilterType = {
 type ContextType = {
   pokemonList: Array<PokemonInfoFragment>
   listFilter: ListFilterType
-  scrolling: boolean
-  searching: boolean
+  scrolling?: boolean
+  searching?: boolean
 }
 
 export const ListContext = React.createContext<ContextType>({

@@ -1,1 +1,1 @@
-export { default as Input } from './src/Input.component'
+export { default as SearchInputName } from './src/Input.component'
