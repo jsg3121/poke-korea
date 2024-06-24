@@ -23,6 +23,7 @@ const TypeFieldButton = styled.div`
 
   label {
     width: 2rem;
+    height: 2rem;
     opacity: 0.6;
     filter: grayscale(1) drop-shadow(1px 2px 0px var(--color-black-1));
     display: block;
@@ -70,6 +71,16 @@ const TypeFieldButton = styled.div`
   &:active {
     transform: scale(1.2);
   }
+
+  @media screen and (max-width: 639px) {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    label {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
 `
 
 const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
@@ -90,8 +101,8 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
       <label htmlFor={`field-type-${typeValue}`}>
         <Image
           alt={`${typeName} 타입 필터 선택`}
-          height="2rem"
-          width="2rem"
+          height="100%"
+          width="100%"
           src={`/assets/type/${typeValue}.svg`}
           loading="lazy"
         />

@@ -31,6 +31,10 @@ const Search = styled.div`
     width: 40%;
     max-width: 600px;
     top: -3.33333333rem;
+
+    @media screen and (max-width: 890px) {
+      left: 80%;
+    }
   }
 
   &:hover {
