@@ -10,38 +10,17 @@ import styled from 'styled-components'
 
 interface FilterPokemonTypeComponentProps {}
 
-const FieldTypeInput = styled.div`
+const Div = styled.div`
   width: 100%;
-  max-width: 1280px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  margin: 0 auto;
-  padding: 0 20px;
 
-  .button--filter {
-    width: 6rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background-color: #b8bfc9;
-    border-radius: 1rem;
-    color: #142129;
-    font-weight: 500;
-    line-height: 2rem;
-    cursor: pointer;
-  }
-
-  .button--reset {
-    color: var(--color-primary-4);
-
-    &:disabled {
-      color: var(--color-primary-2);
-    }
+  & > .select-types-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    justify-items: center;
+    row-gap: 1rem;
+    margin-top: 1rem;
+    padding: 0 1rem;
   }
 `
 
@@ -89,23 +68,25 @@ const FilterPokemonTypeComponent: React.FC<
   const isEmptyQuery = isEmptyQueryCheck(router.query)
 
   return (
-    <FieldTypeInput>
-      {Object.entries(PokemonTypes).map(([types, typeName]) => {
-        return (
-          <TypeFieldButton
-            key={`pokemon-type-key-${types}`}
-            onChange={handleClickTypeFilter}
-            typeValue={types.toLowerCase()}
-            typeName={typeName}
-            checked={typeList.includes(typeName)}
-            disabled={
-              typeList.length === 2 && typeList.indexOf(typeName) < 0
-                ? true
-                : false
-            }
-          />
-        )
-      })}
+    <Div>
+      <div className="select-types-wrapper" role="searchbox">
+        {Object.entries(PokemonTypes).map(([types, typeName]) => {
+          return (
+            <TypeFieldButton
+              key={`pokemon-type-key-${types}`}
+              onChange={handleClickTypeFilter}
+              typeValue={types.toLowerCase()}
+              typeName={typeName}
+              checked={typeList.includes(typeName)}
+              disabled={
+                typeList.length === 2 && typeList.indexOf(typeName) < 0
+                  ? true
+                  : false
+              }
+            />
+          )
+        })}
+      </div>
       <button className="button--filter" onClick={handleClickOpenFilter}>
         <Image
           alt="다른 필터 조건 추가"
@@ -123,7 +104,7 @@ const FilterPokemonTypeComponent: React.FC<
         초기화
       </button>
       {isOpenModal && <FilterModal onClickCloseModal={handleClickCloseModal} />}
-    </FieldTypeInput>
+    </Div>
   )
 }
 

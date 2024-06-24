@@ -6,22 +6,16 @@ import { Search } from './search'
 
 const Header = styled.header`
   width: 100%;
-  height: 15rem;
-  background-color: blue;
-
-  & > .header-wrapper {
-    width: 100%;
-    padding-top: 2rem;
-  }
+  min-height: 15rem;
+  background-color: var(--color-primary-2);
+  padding-top: 2rem;
 `
 
 const HeaderContainer: React.FC = () => {
   return (
     <Header>
-      <div className="header-wrapper">
-        <Logo />
-        <Search />
-      </div>
+      <Logo />
+      <Search />
       <Filter />
     </Header>
   )
