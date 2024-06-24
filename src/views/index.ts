@@ -1,1 +1,2 @@
-export { default as MainViews } from './src/Main.views'
+export * from './src/desktop'
+export * from './src/mobile'

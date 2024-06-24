@@ -1,10 +1,9 @@
 import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import { DetailProvider } from '~/context/src/Detail.context'
-
 import { initializeApollo } from '~/module/apolloClient'
 import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
-import DetailViews from '~/views/src/Detail.views'
+import { DesktopView } from '~/views'
 
 const GET_POKEMON = gql`
   query GetPokemonDetailInfo($number: Float!, $isMega: Boolean!) {
@@ -119,7 +118,7 @@ const GET_POKEMON = gql`
 const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
   return (
     <DetailProvider {...props}>
-      <DetailViews />;
+      <DesktopView.DetailViews />;
     </DetailProvider>
   )
 }

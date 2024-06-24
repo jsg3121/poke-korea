@@ -2,13 +2,14 @@ import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { useDevice } from '~/context/src/Device.context'
 import { Pokemon } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import {
   changeTypeArrayToString,
   toBooleanOrUndefined,
 } from '~/module/filter.module'
-import { MainViews } from '~/views'
+import { DesktopView } from '~/views'
 
 const QUERY = gql`
   fragment PokemonInfo on Pokemon {
@@ -75,6 +76,7 @@ const Main = styled.main`
 `
 
 const Home: NextPage<HomeProps> = ({ pokemonList, loading }) => {
+  const { isMobile } = useDevice()
   if (loading) return <></>
 
   return (
@@ -85,7 +87,7 @@ const Home: NextPage<HomeProps> = ({ pokemonList, loading }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <MainViews pokemonList={pokemonList} />
+        {isMobile ? <></> : <DesktopView.MainViews pokemonList={pokemonList} />}
       </Main>
     </>
   )
