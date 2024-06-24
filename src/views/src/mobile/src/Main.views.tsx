@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
 import styled from 'styled-components'
-import { Header, List } from '~/container'
 import { ListProvider } from '~/context'
 import { Pokemon } from '~/graphql/typeGenerated'
 import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
@@ -11,16 +10,7 @@ interface ManinViewsProps {
   pokemonList: Array<Pokemon>
 }
 
-const Div = styled.div`
-  padding-bottom: 31rem;
-  transition: padding-bottom 0.3s;
-  will-change: padding-bottom;
-
-  &[data-scrolling='true'],
-  &[data-searching='has-query'] {
-    padding-bottom: 11rem;
-  }
-`
+const Div = styled.div``
 
 const checkRouteQuery = (query: ParsedUrlQuery) => {
   const values = Object.values(query)
@@ -48,9 +38,8 @@ const MainViews: React.FC<ManinViewsProps> = ({ pokemonList }) => {
         data-scrolling={ableScroll}
         data-searching={hasSearchQuery ? 'has-query' : ''}
       >
-        <Header />
+        {/* <Header /> */}
       </Div>
-      <List />
     </ListProvider>
   )
 }
