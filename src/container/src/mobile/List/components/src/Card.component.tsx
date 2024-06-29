@@ -90,12 +90,12 @@ const Card = styled.article<CardType>`
 
     .card-info__stat {
       width: 100%;
-      max-width: 18rem;
+      max-width: 19rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-column-gap: 1rem;
+      grid-column-gap: 0.75rem;
       margin: 1rem auto 0;
-      padding: 0 0.5rem;
+      padding-left: 0.5rem;
 
       .stat__info {
         width: 100%;

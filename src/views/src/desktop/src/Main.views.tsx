@@ -34,18 +34,17 @@ const MainViews: React.FC<ManinViewsProps> = ({ pokemonList }) => {
   const router = useRouter()
   const { observerRef, isScroll } = useHeaderScroll()
 
-  const ableScroll = isScroll
   const hasSearchQuery = checkRouteQuery(router.query ?? {})
 
   return (
     <ListProvider
       pokemonList={pokemonList}
-      scrolling={ableScroll}
+      scrolling={isScroll}
       searching={hasSearchQuery}
     >
       <Div
         ref={observerRef}
-        data-scrolling={ableScroll}
+        data-scrolling={isScroll}
         data-searching={hasSearchQuery ? 'has-query' : ''}
       >
         <DesktopContainer.Header />
