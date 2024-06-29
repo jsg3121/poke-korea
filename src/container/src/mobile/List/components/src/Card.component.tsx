@@ -16,8 +16,8 @@ type CardType = { background: Array<CardColor> }
 
 const Card = styled.article<CardType>`
   ${({ background }) => css`
-    width: 14rem;
-    height: 20rem;
+    width: 100%;
+    height: 22rem;
     border: 1px solid #333333;
     border-radius: 10px;
     padding: 0.83333333rem 0.55555556rem;
@@ -26,8 +26,6 @@ const Card = styled.article<CardType>`
     overflow: hidden;
     box-shadow: inset 10px 0 0 0 #334150;
     cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.03, 0.57, 0.37, 1.02);
-    transform: scale(1);
     background: ${() => {
       if (background.length === 1) {
         return `${background[0]}`
@@ -39,11 +37,6 @@ const Card = styled.article<CardType>`
             )`
       }
     }};
-
-    &:hover {
-      transform: scale(1.2);
-      z-index: 10;
-    }
 
     &::before {
       content: '';
@@ -97,11 +90,12 @@ const Card = styled.article<CardType>`
 
     .card-info__stat {
       width: 100%;
+      max-width: 18rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-column-gap: 1rem;
-      margin-top: 0.55555556rem;
-      padding: 0 0.55555556rem;
+      margin: 1rem auto 0;
+      padding: 0 0.5rem;
 
       .stat__info {
         width: 100%;
@@ -122,10 +116,13 @@ const Card = styled.article<CardType>`
     }
 
     .card-info__types {
+      width: 100%;
+      max-width: 18rem;
       display: flex;
       align-items: center;
-      gap: 0.38888889rem;
-      padding: 0 0.55555556rem;
+      gap: 0.4rem;
+      padding: 0 0.5rem;
+      margin: 0 auto;
     }
 
     .card-info__point {
@@ -174,8 +171,8 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
       <div className="card-info__image">
         <div className="card-info__image--background"></div>
         <Image
-          height="10rem"
-          width="10rem"
+          height="11rem"
+          width="11rem"
           alt={`pokemon_id_${pokemonData.number}`}
           src={`${imageMode}/${pokemonData.number}.webp`}
           imageCaption={`포켓몬 ${pokemonData.name} 이미지`}
@@ -216,27 +213,6 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
           <p className="info__description">{pokemonData.stats.speed}</p>
         </div>
       </div>
-
-      {/* {(pokemonData.isMega || pokemonData.isRegion) && (
-        <div className="card-info__point">
-          {pokemonData.isMega && (
-            <Image
-              src="/assets/icons/mega.webp"
-              alt="메가진화_아이콘"
-              width="1rem"
-              height="1rem"
-            />
-          )}
-          {pokemonData.isRegion && (
-            <Image
-              src="/assets/icons/regionForm.webp"
-              alt="리전폼_아이콘"
-              width="1rem"
-              height="1rem"
-            />
-          )}
-        </div>
-      )} */}
     </Card>
   )
 }

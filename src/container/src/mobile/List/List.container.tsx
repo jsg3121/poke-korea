@@ -6,19 +6,23 @@ import { Card } from './components'
 
 const List = styled.section`
   width: 100%;
-  max-width: 1280px;
   height: 100%;
   margin: 0 auto;
   padding: 2rem 0;
 
   .virtuoso-grid-list {
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(calc(14rem - 10px), auto));
+    grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 1rem;
     grid-row-gap: 1.5rem;
     justify-items: center;
     justify-content: space-between;
     padding: 0 20px;
+
+    .virtuoso-grid-item {
+      width: 100%;
+    }
   }
 `
 
