@@ -5,7 +5,7 @@ import LogoIcon from '~/assets/logo.svg'
 
 const Div = styled.div`
   width: 25rem;
-  margin: 0 auto 2rem;
+  margin: 0 auto;
 `
 
 const LogoComponent: React.FC = () => {

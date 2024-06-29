@@ -24,23 +24,23 @@ export const useHeaderScroll: UseHeaderScrollType = (mode = 'desktop') => {
         }
       } else {
         const intersectionRatio = entry.intersectionRatio
-        if (intersectionRatio > 0) {
-          setIsScroll(false)
-        } else {
+        if (intersectionRatio < 1) {
           setIsScroll(true)
+        } else {
+          setIsScroll(false)
         }
       }
     })
   }
 
   const oberverRootMargin =
-    mode === 'desktop' ? '0px 0px 0px 50%' : '0px 0px 405px 0px'
+    mode === 'desktop' ? '0px 0px 0px 50%' : '0px 0px 0px 0px'
 
   React.useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: oberverRootMargin,
-      threshold: mode === 'desktop' ? 1 : 0,
+      threshold: 1,
     }
 
     const observer = new IntersectionObserver(observerCallback, observerOptions)

@@ -4,19 +4,51 @@ import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { Image } from '~/components'
 import { SearchInputName } from '../components'
+import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
+
+type SearchFormType = {
+  name: string | null
+}
 
 const Search = styled.div`
-  width: calc(100% - 3rem);
+  width: 100%;
   height: 5rem;
   margin: 2.5rem auto;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 5rem;
+    display: block;
+  }
 
   & > .form__search--name {
-    width: 100%;
-    height: 100%;
-    position: relative;
+    width: calc(100% - 3rem);
+    height: 5rem;
     background-color: #ffffff;
     border-radius: 2.5rem;
-    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    transition:
+      width 0.2s,
+      border-radius 0.2s;
+
+    &[data-is-scroll='scroll'] {
+      width: 100%;
+      border-radius: 0;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
+
+    & > .scroll-search-warpper {
+      width: 100%;
+      height: 5rem;
+      position: absolute;
+    }
 
     & > .search__button--icon {
       width: 2rem;
@@ -28,11 +60,9 @@ const Search = styled.div`
   }
 `
 
-type SearchFormType = {
-  name: string | null
-}
-
 const SearchComponent: React.FC = () => {
+  const { observerRef, isScroll } = useHeaderScroll('mobile')
+
   const router = useRouter()
 
   const searchFormMethods = useForm<SearchFormType>({
@@ -60,11 +90,12 @@ const SearchComponent: React.FC = () => {
   }, [router.query])
 
   return (
-    <Search>
+    <Search ref={observerRef}>
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}
           className="form__search--name"
+          data-is-scroll={isScroll ? 'scroll' : ''}
           role="search"
         >
           <SearchInputName
