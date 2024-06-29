@@ -11,10 +11,11 @@ import styled from 'styled-components'
 interface FilterPokemonTypeComponentProps {}
 
 const Div = styled.div`
-  width: 100%;
+  width: calc(100% - 3rem);
+  margin: 1rem auto 0;
 
   & > .select-types-wrapper {
-    width: calc(100% - 3rem);
+    width: 100%;
     height: 8rem;
     background-color: var(--color-primary-4);
     border-radius: 2rem;
@@ -22,8 +23,35 @@ const Div = styled.div`
     align-items: center;
     gap: 1rem;
     overflow-x: scroll;
-    margin: 1rem auto 0;
     padding: 0 1.5rem;
+  }
+
+  & > .select-filter-wrapper {
+    width: 100%;
+    border-bottom: 1px solid var(--color-primary-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+
+    & > .button--filter {
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background-color: var(--color-primary-4);
+      padding: 0 1rem;
+      border-radius: 3rem;
+    }
+
+    & > .button--reset {
+      color: var(--color-primary-4);
+
+      &:disabled {
+        color: var(--color-primary-2);
+      }
+    }
   }
 `
 
@@ -90,23 +118,27 @@ const FilterPokemonTypeComponent: React.FC<
           )
         })}
       </div>
-      <button className="button--filter" onClick={handleClickOpenFilter}>
-        <Image
-          alt="다른 필터 조건 추가"
-          src="/assets/image/filter.svg"
-          height="1.5rem"
-          width="1.5rem"
-        />
-        필터
-      </button>
-      <button
-        className="button--reset"
-        onClick={handleClickReset}
-        disabled={isEmptyQuery}
-      >
-        초기화
-      </button>
-      {isOpenModal && <FilterModal onClickCloseModal={handleClickCloseModal} />}
+      <div className="select-filter-wrapper" role="searchbox">
+        <button className="button--filter" onClick={handleClickOpenFilter}>
+          <Image
+            alt="다른 필터 조건 추가"
+            src="/assets/image/filter.svg"
+            height="1.5rem"
+            width="1.5rem"
+          />
+          필터
+        </button>
+        <button
+          className="button--reset"
+          onClick={handleClickReset}
+          disabled={isEmptyQuery}
+        >
+          초기화
+        </button>
+        {isOpenModal && (
+          <FilterModal onClickCloseModal={handleClickCloseModal} />
+        )}
+      </div>
     </Div>
   )
 }
