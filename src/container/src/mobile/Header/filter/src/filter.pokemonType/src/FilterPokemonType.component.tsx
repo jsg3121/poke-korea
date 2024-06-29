@@ -14,13 +14,16 @@ const Div = styled.div`
   width: 100%;
 
   & > .select-types-wrapper {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    justify-items: center;
-    row-gap: 1rem;
-    margin-top: 1rem;
-    padding: 0 1rem;
+    width: calc(100% - 3rem);
+    height: 8rem;
+    background-color: var(--color-primary-4);
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow-x: scroll;
+    margin: 1rem auto 0;
+    padding: 0 1.5rem;
   }
 `
 

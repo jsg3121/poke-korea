@@ -11,8 +11,9 @@ interface TypeFieldButtonComponentsProps
 }
 
 const TypeFieldButton = styled.div`
-  width: 100%;
+  width: 3rem;
   height: 3.5rem;
+  flex-shrink: 0;
   text-align: center;
   transition: transform 0.2s ease-out;
   will-change: transform;

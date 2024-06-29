@@ -7,8 +7,7 @@ import { Search } from './search'
 const Header = styled.header`
   width: 100%;
   min-height: 15rem;
-  background-color: var(--color-primary-2);
-  padding-top: 2rem;
+  padding-top: 5rem;
 `
 
 const HeaderContainer: React.FC = () => {

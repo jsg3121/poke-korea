@@ -14,11 +14,11 @@ interface InputComponentsProps {
 
 const Input = styled.input`
   width: calc(100% - 2.5rem);
-  height: 3.5rem;
-  border-radius: 1.5rem;
+  height: 5rem;
+  border-radius: 2.5rem;
   font-size: 14px;
   border: 0;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 `
 
 const InputComponents = React.forwardRef<

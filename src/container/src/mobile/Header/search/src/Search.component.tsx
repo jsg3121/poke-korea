@@ -6,23 +6,23 @@ import { Image } from '~/components'
 import { SearchInputName } from '../components'
 
 const Search = styled.div`
-  width: 80%;
-  height: 3.5rem;
-  margin: 0 auto;
+  width: calc(100% - 3rem);
+  height: 5rem;
+  margin: 2.5rem auto;
 
   & > .form__search--name {
     width: 100%;
     height: 100%;
     position: relative;
     background-color: #ffffff;
-    border-radius: 1.5rem;
+    border-radius: 2.5rem;
     padding: 0;
 
     & > .search__button--icon {
       width: 2rem;
       height: 2rem;
-      right: 1rem;
-      top: 0.75rem;
+      right: 1.5rem;
+      top: 1.5rem;
       position: absolute;
     }
   }

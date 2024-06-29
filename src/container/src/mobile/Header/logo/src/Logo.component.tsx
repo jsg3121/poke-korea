@@ -4,9 +4,8 @@ import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
 
 const Div = styled.div`
-  width: 100%;
-  width: 20rem;
-  margin: 0 auto 1rem;
+  width: 25rem;
+  margin: 0 auto 2rem;
 `
 
 const LogoComponent: React.FC = () => {
