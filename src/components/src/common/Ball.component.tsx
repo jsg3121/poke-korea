@@ -13,7 +13,9 @@ const Ball = styled.span<{ value: boolean }>`
   background-color: #ffffff;
   border: 1px solid #aaaaaa;
   position: relative;
-  transition: transform 0.3s, rotate 0.3s;
+  transition:
+    transform 0.3s,
+    rotate 0.3s;
   will-change: transform;
 
   .ball--top {
@@ -28,7 +30,9 @@ const Ball = styled.span<{ value: boolean }>`
     left: 50%;
     transform: translate(-50%, 0);
     box-sizing: border-box;
-    box-shadow: inset 3px 3px 0px -2px #f6d9d9, inset -2px 0 0px 0px #aa3333;
+    box-shadow:
+      inset 3px 3px 0px -2px #ff7373,
+      inset -2px 0 0px 0px #aa3333;
     z-index: 1;
   }
 
@@ -44,7 +48,7 @@ const Ball = styled.span<{ value: boolean }>`
     left: 50%;
     transform: translate(-50%, 0);
     box-sizing: border-box;
-    box-shadow: inset -2px -1.5px 0px 0px #bbbbbb;
+    box-shadow: inset -2px -1.5px 0px 0px #d9d9d9;
     z-index: 2;
   }
 
@@ -60,7 +64,7 @@ const Ball = styled.span<{ value: boolean }>`
     transform: translate(-50%, -50%);
     z-index: 3;
     box-sizing: border-box;
-    box-shadow: inset -1.3px -1.2px 0px 0px #bbbbbb;
+    box-shadow: inset -1.3px -1.2px 0px 0px #d9d9d9;
   }
 `
 
