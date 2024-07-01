@@ -46,6 +46,16 @@ const Div = styled.div<TStyledProps>`
       }};
     }
   }
+
+  & > .switch-list {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0 20px;
+  }
 `
 
 const DetailSummaryContainer: FC = () => {
@@ -91,16 +101,12 @@ const DetailSummaryContainer: FC = () => {
         <PokemonImage />
         <InfoTitle name={pokemonInfo.name ?? ''} />
       </div>
-      <div className="profile-description">
-        <ul className="switch-list">
-          <ShinySwitch />
-          {pokemonBaseInfo?.isMega && <MegaSwitch />}
-          {pokemonBaseInfo?.isRegion && <RegionSwitch />}
-        </ul>
-        {pokemonBaseInfo && pokemonInfo.stats && (
-          <Stats {...pokemonInfo.stats} />
-        )}
-      </div>
+      <ul className="switch-list">
+        <ShinySwitch />
+        {pokemonBaseInfo?.isMega && <MegaSwitch />}
+        {pokemonBaseInfo?.isRegion && <RegionSwitch />}
+      </ul>
+      {pokemonBaseInfo && pokemonInfo.stats && <Stats {...pokemonInfo.stats} />}
     </Div>
   )
 }
