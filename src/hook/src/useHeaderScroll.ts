@@ -1,19 +1,45 @@
 import React from 'react'
 
-export const useHeaderScroll = () => {
+type UseHeaderScrollType = (mode?: 'desktop' | 'mobile') => {
+  observerRef: React.RefObject<HTMLDivElement>
+  isScroll: boolean
+}
+
+export const useHeaderScroll: UseHeaderScrollType = (mode = 'desktop') => {
   const [isScroll, setIsScroll] = React.useState(false)
   const observerRef = React.useRef<HTMLDivElement>(null)
+  const initialYPosRef = React.useRef<number | null>(null)
 
   const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
     entries.forEach((entry) => {
-      setIsScroll(entry.intersectionRatio < 1)
+      if (mode === 'desktop') {
+        if (initialYPosRef.current === null) {
+          initialYPosRef.current = entry.boundingClientRect.top
+        }
+        const currentYPos = entry.boundingClientRect.top
+        if (initialYPosRef.current !== currentYPos) {
+          setIsScroll(true)
+        } else {
+          setIsScroll(false)
+        }
+      } else {
+        const intersectionRatio = entry.intersectionRatio
+        if (intersectionRatio < 1) {
+          setIsScroll(true)
+        } else {
+          setIsScroll(false)
+        }
+      }
     })
   }
+
+  const oberverRootMargin =
+    mode === 'desktop' ? '0px 0px 0px 50%' : '-20px 0px 0px 0px'
 
   React.useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: oberverRootMargin,
       threshold: 1,
     }
 

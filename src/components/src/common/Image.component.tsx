@@ -25,6 +25,10 @@ const StyledImage = styled.div<StyledImageProps>`
       display: block;
 
       figure {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
         figcaption {
           width: 0;
           height: 0;
