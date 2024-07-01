@@ -11,12 +11,12 @@ import { DetailContext } from '~/context/src/Detail.context'
 
 const Div = styled.div`
   width: 27rem;
-  height: 23rem;
+  height: 18rem;
   filter: drop-shadow(0px 5px 5px #000000);
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -50%);
   z-index: 100;
 
   .swiper-slide > div {
@@ -120,8 +120,8 @@ const PokemonImageCompoment: FC = () => {
               <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
                 <Image
                   src={imageSrc}
-                  width="20rem"
-                  height="20rem"
+                  width="18rem"
+                  height="18rem"
                   alt={`포켓몬 ${pokemonBaseInfo?.name}의 모습`}
                   className="pokemon-main"
                   priority

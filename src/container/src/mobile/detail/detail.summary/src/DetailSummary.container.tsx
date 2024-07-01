@@ -99,8 +99,8 @@ const DetailSummaryContainer: FC = () => {
     <Div gradient={newColor}>
       <div className="image-wrapper">
         <PokemonImage />
-        <InfoTitle name={pokemonInfo.name ?? ''} />
       </div>
+      <InfoTitle name={pokemonInfo.name ?? ''} />
       <ul className="switch-list">
         <ShinySwitch />
         {pokemonBaseInfo?.isMega && <MegaSwitch />}
