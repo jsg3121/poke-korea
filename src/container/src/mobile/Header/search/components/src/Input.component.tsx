@@ -14,7 +14,7 @@ interface InputComponentsProps {
 
 const Input = styled.input`
   width: calc(100% - 2.5rem);
-  height: 5rem;
+  height: 100%;
   border-radius: 2.5rem;
   font-size: 14px;
   border: 0;

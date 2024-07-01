@@ -23,6 +23,32 @@ const Search = styled.div`
     display: block;
   }
 
+  &[data-is-scroll='scroll'] {
+    &::after {
+      content: '';
+      width: 100%;
+      height: 4rem;
+      background-color: var(--color-primary-1);
+      border-bottom: 1px solid var(--color-primary-4);
+      padding: 1rem 0;
+      display: block;
+      position: fixed;
+      top: 0;
+      z-index: 10;
+    }
+
+    & > .form__search--name {
+      height: 4rem;
+      position: fixed;
+      top: 1rem;
+      z-index: 100;
+
+      & > .search__button--icon {
+        top: 1rem;
+      }
+    }
+  }
+
   & > .form__search--name {
     width: calc(100% - 3rem);
     height: 5rem;
@@ -32,23 +58,7 @@ const Search = styled.div`
     top: 0;
     left: 50%;
     transform: translate(-50%, 0);
-    transition:
-      width 0.2s,
-      border-radius 0.2s;
-
-    &[data-is-scroll='scroll'] {
-      width: 100%;
-      border-radius: 0;
-      position: fixed;
-      top: 0;
-      z-index: 100;
-    }
-
-    & > .scroll-search-warpper {
-      width: 100%;
-      height: 5rem;
-      position: absolute;
-    }
+    transition: height 0.2s;
 
     & > .search__button--icon {
       width: 2rem;
@@ -56,6 +66,7 @@ const Search = styled.div`
       right: 1.5rem;
       top: 1.5rem;
       position: absolute;
+      transition: top 0.2s;
     }
   }
 `
@@ -90,12 +101,11 @@ const SearchComponent: React.FC = () => {
   }, [router.query])
 
   return (
-    <Search ref={observerRef}>
+    <Search ref={observerRef} data-is-scroll={isScroll ? 'scroll' : ''}>
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}
           className="form__search--name"
-          data-is-scroll={isScroll ? 'scroll' : ''}
           role="search"
         >
           <SearchInputName

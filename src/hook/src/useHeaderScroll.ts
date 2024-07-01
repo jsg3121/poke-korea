@@ -34,7 +34,7 @@ export const useHeaderScroll: UseHeaderScrollType = (mode = 'desktop') => {
   }
 
   const oberverRootMargin =
-    mode === 'desktop' ? '0px 0px 0px 50%' : '0px 0px 0px 0px'
+    mode === 'desktop' ? '0px 0px 0px 50%' : '-20px 0px 0px 0px'
 
   React.useEffect(() => {
     const observerOptions = {
