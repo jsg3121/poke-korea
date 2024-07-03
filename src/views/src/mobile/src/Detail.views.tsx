@@ -16,7 +16,7 @@ const DetailViews: FC = () => {
       </header>
       <section className="pokemon-detail-content">
         <MobileContainer.DetailSummary />
-        {/* <MobileContainer.DetailBaseInfo /> */}
+        <MobileContainer.DetailBaseInfo />
       </section>
     </Main>
   )
