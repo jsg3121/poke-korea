@@ -4,13 +4,14 @@ import { IFPokemonStat } from '~/types/detailInfo.types'
 import { StatChart } from './components'
 
 const Section = styled.section`
-  width: 100%;
+  width: calc(100% - 40px);
   height: 100%;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
   outline: 3px solid var(--color-primary-4);
   padding: 1rem;
+  margin: 0 auto;
 
   & > header {
     width: 100%;
@@ -33,8 +34,9 @@ const Section = styled.section`
   }
 
   & > .stat-chart {
-    width: 25rem;
-    height: 25rem;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     margin: 1rem auto 0;
   }
 `
