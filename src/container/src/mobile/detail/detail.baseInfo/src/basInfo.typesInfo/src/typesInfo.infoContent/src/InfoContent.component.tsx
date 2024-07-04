@@ -130,6 +130,7 @@ const Article = styled.article`
     width: 100%;
     height: calc(100% - 2rem);
     display: flex;
+    flex-direction: column;
     gap: 1rem;
     margin-top: 1.5rem;
   }

@@ -63,7 +63,7 @@ const FilterPokemonTypeComponent: React.FC<
     const type = e.target.value
     const changeList = getChangeTypeList(typeList, type)
 
-    router.push({
+    router.replace({
       pathname: router.pathname,
       query: {
         ...router.query,
@@ -81,7 +81,7 @@ const FilterPokemonTypeComponent: React.FC<
   }
 
   const handleClickReset = () => {
-    router.push({
+    router.replace({
       pathname: router.pathname,
     })
   }

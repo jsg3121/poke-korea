@@ -3,6 +3,54 @@ import { ChangeEvent, FC } from 'react'
 import styled from 'styled-components'
 import RegionIcon from '~/assets/icons/region.svg'
 
+const Li = styled.li`
+  & > input {
+    display: none;
+
+    &:checked + label {
+      opacity: 1;
+
+      & > .icon-shiny > svg {
+        filter: grayscale(0);
+      }
+    }
+  }
+
+  & > label {
+    width: 6.5rem;
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+    background-color: var(--color-primary-4);
+    opacity: 0.65;
+
+    &:active {
+      background-color: var(--color-primary-3);
+    }
+
+    & > p {
+      flex-shrink: 0;
+      padding: 0 0.25rem;
+    }
+
+    & > .icon-shiny {
+      width: 2rem;
+      height: 2rem;
+      flex-shrink: 0;
+      display: block;
+
+      svg {
+        filter: grayscale(1);
+      }
+    }
+  }
+`
+
 const RegionSwitchComponent: FC = () => {
   const router = useRouter()
 
@@ -46,56 +94,3 @@ const RegionSwitchComponent: FC = () => {
 }
 
 export default RegionSwitchComponent
-
-const Li = styled.li`
-  position: relative;
-  left: -2.75rem;
-  transition: left 0.2s ease-out;
-
-  &:hover {
-    left: -6.5rem;
-  }
-
-  & > input {
-    display: none;
-
-    &:checked + label > .icon-shiny > svg {
-      filter: grayscale(0);
-    }
-  }
-
-  & > label {
-    width: 7rem;
-    height: 2rem;
-    font-size: 1rem;
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    padding: 0 1rem 0 0.5rem;
-    border-top-left-radius: 9999px;
-    border-bottom-left-radius: 9999px;
-    background-color: var(--color-primary-4);
-    cursor: pointer;
-
-    &:active {
-      background-color: var(--color-primary-3);
-    }
-
-    & > p {
-      flex-shrink: 0;
-    }
-
-    & > .icon-shiny {
-      width: 2rem;
-      height: 2rem;
-      flex-shrink: 0;
-      display: block;
-
-      svg {
-        filter: grayscale(1);
-      }
-    }
-  }
-`

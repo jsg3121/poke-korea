@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
-import { DetailBaseInfo, DetailSummary } from '~/container'
+import { MobileContainer } from '~/container'
 
 const DetailViews: FC = () => {
   return (
@@ -15,8 +15,8 @@ const DetailViews: FC = () => {
         </Link>
       </header>
       <section className="pokemon-detail-content">
-        <DetailSummary />
-        <DetailBaseInfo />
+        <MobileContainer.DetailSummary />
+        <MobileContainer.DetailBaseInfo />
       </section>
     </Main>
   )
@@ -33,12 +33,18 @@ const Main = styled.main`
     background-color: var(--color-primary-2);
     display: flex;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0 20px;
 
     & > a {
-      width: 15rem;
-      height: 3rem;
+      width: 10rem;
+      height: 2rem;
       display: block;
+
+      & > i {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
     }
   }
 

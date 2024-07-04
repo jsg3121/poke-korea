@@ -9,6 +9,21 @@ import { imageMode } from '~/common'
 import { Image } from '~/components'
 import { DetailContext } from '~/context/src/Detail.context'
 
+const Div = styled.div`
+  width: 27rem;
+  height: 18rem;
+  filter: drop-shadow(0px 5px 5px #000000);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+
+  .swiper-slide > div {
+    margin: 0 auto;
+  }
+`
+
 const PokemonImageCompoment: FC = () => {
   const {
     pokemonBaseInfo,
@@ -105,8 +120,8 @@ const PokemonImageCompoment: FC = () => {
               <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
                 <Image
                   src={imageSrc}
-                  width="25rem"
-                  height="25rem"
+                  width="18rem"
+                  height="18rem"
                   alt={`포켓몬 ${pokemonBaseInfo?.name}의 모습`}
                   className="pokemon-main"
                   priority
@@ -121,13 +136,3 @@ const PokemonImageCompoment: FC = () => {
 }
 
 export default PokemonImageCompoment
-
-const Div = styled.div`
-  width: 30rem;
-  height: 25rem;
-  filter: drop-shadow(0px -3px 3px #000000);
-
-  .swiper-slide > div {
-    margin: 0 auto;
-  }
-`

@@ -48,7 +48,6 @@ const StatChartComponent: FC<IFProps> = (props) => {
     datasets: [
       {
         data: [hp, attack, specialAttack, defense, specialDefense, speed],
-
         animation: {
           easing: 'easeOutQuart',
           duration: 1000,
@@ -123,12 +122,12 @@ const StatChartComponent: FC<IFProps> = (props) => {
           }
         },
         titleFont: {
-          size: 20,
+          size: 15,
         },
         bodyFont: {
-          size: 20,
+          size: 12,
         },
-        boxPadding: 12,
+        boxPadding: 15,
       },
     },
     scales: {
@@ -139,7 +138,7 @@ const StatChartComponent: FC<IFProps> = (props) => {
         pointLabels: {
           color: '#27374D',
           font: {
-            size: 20,
+            size: 16,
             weight: 500,
           },
         },
