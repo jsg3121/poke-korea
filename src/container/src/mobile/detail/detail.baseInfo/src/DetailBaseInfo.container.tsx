@@ -30,7 +30,6 @@ export default DetailBaseInfoContainer
 
 const Div = styled.div`
   width: 100%;
-  max-width: 1280px;
   display: flex;
   flex-direction: column;
   gap: 3rem;

@@ -171,7 +171,7 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
       }),
     }
 
-    router.push({
+    router.replace({
       pathname,
       query: {
         ...query,

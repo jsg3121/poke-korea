@@ -33,12 +33,18 @@ const Main = styled.main`
     background-color: var(--color-primary-2);
     display: flex;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0 20px;
 
     & > a {
-      width: 15rem;
-      height: 3rem;
+      width: 10rem;
+      height: 2rem;
       display: block;
+
+      & > i {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
     }
   }
 
