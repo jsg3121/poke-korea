@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'poke-korea',
       script: 'npm',
-      args: 'start',
+      args: 'start --port 80',
       instances: 1,
       exec_mode: 'cluster',
       env_production: {
