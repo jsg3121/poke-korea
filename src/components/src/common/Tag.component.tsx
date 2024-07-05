@@ -24,6 +24,7 @@ const Tag = styled.p<{ color: TypesColor; type: string }>`
     text-align: center;
     line-height: calc(1.3rem + 2px);
     color: #ffffff;
+    filter: drop-shadow(0px 0px 1px #000000);
     margin: 0;
   }
 `
