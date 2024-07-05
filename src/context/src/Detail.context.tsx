@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { FC, ReactNode, createContext } from 'react'
 import type {
@@ -122,9 +123,17 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
   }
 
   return (
-    <DetailContext.Provider value={initialValue}>
-      {children}
-    </DetailContext.Provider>
+    <>
+      <Head>
+        <title>
+          포켓몬 정보 {initialValue?.pokemonBaseInfo?.name} | 포켓몬의 모든 정보
+          | 포케 코리아
+        </title>
+      </Head>
+      <DetailContext.Provider value={initialValue}>
+        {children}
+      </DetailContext.Provider>
+    </>
   )
 }
 
