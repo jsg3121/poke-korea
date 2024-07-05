@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 import Head from 'next/head'
 import styled from 'styled-components'
 import { useDevice } from '~/context/src/Device.context'
@@ -9,6 +10,7 @@ import {
   changeTypeArrayToString,
   toBooleanOrUndefined,
 } from '~/module/filter.module'
+import { randomOgImages } from '~/module/seoMeta.module'
 import { DesktopView, MobileView } from '~/views'
 
 const QUERY = gql`
@@ -75,14 +77,45 @@ const Main = styled.main`
   min-height: 100vh;
 `
 
-const Home: NextPage<HomeProps> = ({ pokemonList, loading }) => {
+const Home: NextPage<HomeProps> = ({ pokemonList }) => {
   const { isMobile } = useDevice()
-  if (loading) return <></>
 
   return (
     <>
+      <NextSeo
+        title="포켓몬의 모든 정보 포케 코리아"
+        description={`
+          언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.
+          카드형식을 통해 포켓몬의 능력치를 확인할 수 있고 타입 또는 진화 여부 등으로 원하는 포켓몬을 빠르게 찾아보세요.
+          간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색해 확인해보세요.
+        `}
+        canonical="https://poke-korea.com/"
+        openGraph={{
+          type: 'website',
+          url: 'https://poke-korea.com/',
+          title: '포켓몬의 모든 정보 포케 코리아',
+          description:
+            '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+          images: [
+            {
+              url: 'https://poke-korea.com/assets/image/ogImage.png',
+              width: 1200,
+              height: 630,
+              alt: 'poke-korea',
+              type: 'image/png',
+            },
+            {
+              url: 'https://poke-korea.com/assets/image/kakaoOg.png',
+              width: 800,
+              height: 800,
+              alt: 'poke-korea',
+              type: 'image/png',
+            },
+          ],
+          siteName: '포케 코리아',
+        }}
+      />
       <Head>
-        <title>포켓몬의 모든 정보 포케 코리아</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
