@@ -1,4 +1,4 @@
-import isEqual from 'fast-deep-equal'
+import { useRouter } from 'next/router'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { changeType, imageMode } from '~/common'
@@ -6,7 +6,6 @@ import { Ball, Image, Tag } from '~/components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { CardColor } from '~/types'
 import { pokemonNumberFormat } from '../../module'
-import { useRouter } from 'next/router'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -161,18 +160,21 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
   }
 
   return (
-    <Card background={backgroundColor} onClick={handleRouteDetailPokemon}>
-      <div className="card-info__title">
-        <div className="card-info__icon">
+    <Card
+      background={backgroundColor}
+      onClick={handleRouteDetailPokemon}
+      aria-label={`포켓몬 ${pokemonData.name} 카드`}
+    >
+      <header className="card-info__title">
+        <i className="card-info__icon">
           <Ball />
-        </div>
+        </i>
         <div className="card-info__text">
           <p className="card-info__number">No.{pokemonNumber}</p>
           <h3 className="card-info__name">{pokemonData.name}</h3>
         </div>
-      </div>
-      <div className="card-info__image">
-        <div className="card-info__image--background"></div>
+      </header>
+      <div className="card-info__image" aria-description="포켓몬 이미지">
         <Image
           height="10rem"
           width="10rem"
@@ -183,62 +185,41 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
           priority
         />
       </div>
-      <div className="card-info__types">
+      <div className="card-info__types" aria-description="포켓몬 타입 정보">
         {pokemonData.type.map((item, index) => {
           return <Tag key={`${item}-id-${index}`} label={item} />
         })}
       </div>
-      <div className="card-info__stat">
-        <div className="stat__info">
+      <ul className="card-info__stat" aria-description="포켓몬 능력치 정보">
+        <li className="stat__info">
           <p className="info__title">체력</p>
           <p className="info__description">{pokemonData.stats.hp}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">공격</p>
           <p className="info__description">{pokemonData.stats.attack}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">특수공격</p>
           <p className="info__description">{pokemonData.stats.specialAttack}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">방어</p>
           <p className="info__description">{pokemonData.stats.defense}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">특수방어</p>
           <p className="info__description">
             {pokemonData.stats.specialDefense}
           </p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">스피드</p>
           <p className="info__description">{pokemonData.stats.speed}</p>
-        </div>
-      </div>
-
-      {/* {(pokemonData.isMega || pokemonData.isRegion) && (
-        <div className="card-info__point">
-          {pokemonData.isMega && (
-            <Image
-              src="/assets/icons/mega.webp"
-              alt="메가진화_아이콘"
-              width="1rem"
-              height="1rem"
-            />
-          )}
-          {pokemonData.isRegion && (
-            <Image
-              src="/assets/icons/regionForm.webp"
-              alt="리전폼_아이콘"
-              width="1rem"
-              height="1rem"
-            />
-          )}
-        </div>
-      )} */}
+        </li>
+      </ul>
     </Card>
   )
 }
 
-export default React.memo(CardComponent, isEqual)
+export default CardComponent
