@@ -10,7 +10,6 @@ import {
   changeTypeArrayToString,
   toBooleanOrUndefined,
 } from '~/module/filter.module'
-import { randomOgImages } from '~/module/seoMeta.module'
 import { DesktopView, MobileView } from '~/views'
 
 const QUERY = gql`
