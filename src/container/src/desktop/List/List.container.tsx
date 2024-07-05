@@ -10,6 +10,14 @@ const List = styled.section`
   height: 100%;
   margin: 0 auto;
   padding: 2rem 0;
+  position: relative;
+
+  & > h2 {
+    position: absolute;
+    top: 0;
+    color: var(--color-primary-1);
+    user-select: none;
+  }
 
   .virtuoso-grid-list {
     display: grid;
@@ -37,7 +45,12 @@ const ListContainer: React.FC = () => {
     )
   }, [pokemonList])
 
-  return <List>{list}</List>
+  return (
+    <List>
+      <h2>포켓몬 리스트</h2>
+      {list}
+    </List>
+  )
 }
 
 export default ListContainer
