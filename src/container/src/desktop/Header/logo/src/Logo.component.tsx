@@ -25,6 +25,16 @@ const Logo = styled.div`
     }
   }
 
+  & > .header-title {
+    font-size: 2.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: var(--color-primary-2);
+    pointer-events: none;
+    user-select: none;
+  }
+
   & > .logo {
     width: 100%;
     max-width: 41.66666667rem;
@@ -51,7 +61,7 @@ const LogoComponent: React.FC = () => {
       data-scrolling={scrolling}
       data-searching={searching ? 'has-query' : ''}
     >
-      {/* <h1 className="header-title">포켓몬의 모든 정보 Poke Korea</h1> */}
+      <h1 className="header-title">포켓몬의 모든 정보 Poke Korea</h1>
       <div className="logo">
         <LogoIcon />
       </div>
