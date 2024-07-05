@@ -100,7 +100,11 @@ const FilterPokemonTypeComponent: React.FC<
 
   return (
     <Div>
-      <div className="select-types-wrapper" role="searchbox">
+      <div
+        className="select-types-wrapper"
+        role="searchbox"
+        aria-label="타입별 포켓몬 필터 검색"
+      >
         {Object.entries(PokemonTypes).map(([types, typeName]) => {
           return (
             <TypeFieldButton
@@ -118,7 +122,7 @@ const FilterPokemonTypeComponent: React.FC<
           )
         })}
       </div>
-      <div className="select-filter-wrapper" role="searchbox">
+      <div className="select-filter-wrapper">
         <button className="button--filter" onClick={handleClickOpenFilter}>
           <Image
             alt="다른 필터 조건 추가"

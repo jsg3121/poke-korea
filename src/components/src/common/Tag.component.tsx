@@ -20,7 +20,7 @@ const Tag = styled.p<{ color: TypesColor; type: string }>`
   & > span {
     width: 100%;
     height: 1.3rem;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     text-align: center;
     line-height: calc(1.3rem + 2px);
     color: #ffffff;

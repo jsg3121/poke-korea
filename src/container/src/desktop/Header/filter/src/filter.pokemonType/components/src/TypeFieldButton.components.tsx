@@ -111,7 +111,9 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
           loading="lazy"
         />
       </label>
-      <span className="field__tooltip">{typeName}</span>
+      <span className="field__tooltip" role="tooltip">
+        {typeName}
+      </span>
     </TypeFieldButton>
   )
 }

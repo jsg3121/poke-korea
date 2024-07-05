@@ -5,13 +5,13 @@ import styled from 'styled-components'
 
 interface FilterComponentsProps {}
 
-const Filter = styled.div``
+const Section = styled.section``
 
 const FilterComponents: React.FC<FilterComponentsProps> = () => {
   return (
-    <Filter>
+    <Section>
       <FilterPokemonType />
-    </Filter>
+    </Section>
   )
 }
 

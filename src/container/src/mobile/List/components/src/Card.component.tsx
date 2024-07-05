@@ -1,4 +1,3 @@
-import isEqual from 'fast-deep-equal'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { changeType, imageMode } from '~/common'
@@ -158,63 +157,65 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
   }
 
   return (
-    <Card background={backgroundColor} onClick={handleRouteDetailPokemon}>
-      <div className="card-info__title">
-        <div className="card-info__icon">
+    <Card
+      background={backgroundColor}
+      onClick={handleRouteDetailPokemon}
+      aria-label={`포켓몬 ${pokemonData.name} 카드`}
+    >
+      <header className="card-info__title">
+        <i className="card-info__icon">
           <Ball />
-        </div>
+        </i>
         <div className="card-info__text">
           <p className="card-info__number">No.{pokemonNumber}</p>
           <h3 className="card-info__name">{pokemonData.name}</h3>
         </div>
-      </div>
-      <div className="card-info__image">
-        <div className="card-info__image--background"></div>
+      </header>
+      <div className="card-info__image" aria-description="포켓몬 이미지">
         <Image
-          height="11rem"
-          width="11rem"
+          height="10rem"
+          width="10rem"
           alt={`pokemon_id_${pokemonData.number}`}
           src={`${imageMode}/${pokemonData.number}.webp`}
-          imageCaption={`포켓몬 ${pokemonData.name} 이미지`}
           sizes="10rem"
           priority
         />
       </div>
-      <div className="card-info__types">
+      <div className="card-info__types" aria-description="포켓몬 타입 정보">
         {pokemonData.type.map((item, index) => {
           return <Tag key={`${item}-id-${index}`} label={item} />
         })}
       </div>
-      <div className="card-info__stat">
-        <div className="stat__info">
+      <ul className="card-info__stat" aria-description="포켓몬 능력치 정보">
+        <li className="stat__info">
           <p className="info__title">체력</p>
           <p className="info__description">{pokemonData.stats.hp}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">공격</p>
           <p className="info__description">{pokemonData.stats.attack}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">특수공격</p>
           <p className="info__description">{pokemonData.stats.specialAttack}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">방어</p>
           <p className="info__description">{pokemonData.stats.defense}</p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">특수방어</p>
           <p className="info__description">
             {pokemonData.stats.specialDefense}
           </p>
-        </div>
-        <div className="stat__info">
+        </li>
+        <li className="stat__info">
           <p className="info__title">스피드</p>
           <p className="info__description">{pokemonData.stats.speed}</p>
-        </div>
-      </div>
+        </li>
+      </ul>
     </Card>
   )
 }
 
-export default React.memo(CardComponent, isEqual)
+export default CardComponent

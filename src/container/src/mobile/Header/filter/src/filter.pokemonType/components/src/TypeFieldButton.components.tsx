@@ -67,7 +67,11 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
   const { typeName, typeValue, disabled, defaultChecked, ...restProps } = props
 
   return (
-    <TypeFieldButton className="button__field--type">
+    <TypeFieldButton
+      className="button__field--type"
+      role="button"
+      aria-label={`포켓몬 필터 ${typeName}타입`}
+    >
       <input
         type="checkbox"
         id={`field-type-${typeValue}`}

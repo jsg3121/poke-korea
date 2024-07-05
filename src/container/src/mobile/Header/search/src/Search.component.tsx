@@ -44,7 +44,6 @@ const Search = styled.div`
       z-index: 100;
 
       & > .search__button--icon {
-        top: 1rem;
       }
     }
   }
@@ -54,19 +53,22 @@ const Search = styled.div`
     height: 5rem;
     background-color: #ffffff;
     border-radius: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     position: absolute;
     top: 0;
     left: 50%;
     transform: translate(-50%, 0);
     transition: height 0.2s;
+    padding: 0 1.5rem;
 
     & > .search__button--icon {
       width: 2rem;
       height: 2rem;
-      right: 1.5rem;
-      top: 1.5rem;
-      position: absolute;
-      transition: top 0.2s;
+      flex-shrink: 0;
+      display: block;
     }
   }
 `
