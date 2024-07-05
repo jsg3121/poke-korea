@@ -4,7 +4,7 @@ import LogoIcon from '~/assets/logo.svg'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
 
-const Logo = styled.div`
+const Article = styled.article`
   width: 100%;
   max-width: 1280px;
   height: 8.44444444rem;
@@ -57,7 +57,7 @@ const LogoComponent: React.FC = () => {
   const { scrolling, searching } = React.useContext(ListContext)
 
   return (
-    <Logo
+    <Article
       data-scrolling={scrolling}
       data-searching={searching ? 'has-query' : ''}
     >
@@ -65,7 +65,7 @@ const LogoComponent: React.FC = () => {
       <div className="logo">
         <LogoIcon />
       </div>
-    </Logo>
+    </Article>
   )
 }
 

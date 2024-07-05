@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 interface FilterComponentsProps {}
 
-const Filter = styled.div`
+const Section = styled.section`
   width: 100%;
   height: 4.8rem;
   background-color: var(--color-primary-1);
@@ -18,9 +18,9 @@ const Filter = styled.div`
 
 const FilterComponents: React.FC<FilterComponentsProps> = () => {
   return (
-    <Filter>
+    <Section>
       <FilterPokemonType />
-    </Filter>
+    </Section>
   )
 }
 

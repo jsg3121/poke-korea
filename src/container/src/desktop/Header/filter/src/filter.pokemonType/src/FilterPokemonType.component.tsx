@@ -89,7 +89,7 @@ const FilterPokemonTypeComponent: React.FC<
   const isEmptyQuery = isEmptyQueryCheck(router.query)
 
   return (
-    <FieldTypeInput>
+    <FieldTypeInput role="searchbox" aria-label="타입별 포켓몬 필터 검색">
       {Object.entries(PokemonTypes).map(([types, typeName]) => {
         return (
           <TypeFieldButton
