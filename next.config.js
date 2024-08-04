@@ -8,7 +8,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['localhost', '*'],
+    domains: ['localhost', '*', 'image.poke-korea.com'],
   },
   productionBrowserSourceMaps: false,
   webpack(config) {
