@@ -41,6 +41,7 @@ const Div = styled.div`
 
   & > .grid-wrapper {
     width: 100%;
+    height: 24.625rem;
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(calc(50% - 1rem), 1fr));
