@@ -23,6 +23,7 @@ const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
                 width="12rem"
                 height="12rem"
                 alt={`포켓몬 ${name}`}
+                unoptimized
               />
             </Link>
           )

@@ -124,7 +124,7 @@ const PokemonImageCompoment: FC = () => {
                   height="18rem"
                   alt={`포켓몬 ${pokemonBaseInfo?.name}의 모습`}
                   className="pokemon-main"
-                  priority
+                  unoptimized
                 />
               </SwiperSlide>
             )
