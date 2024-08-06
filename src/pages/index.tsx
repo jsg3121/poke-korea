@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import Head from 'next/head'
 import styled from 'styled-components'
 import { useDevice } from '~/context/src/Device.context'
 import { Pokemon } from '~/graphql/typeGenerated'
@@ -114,10 +113,6 @@ const Home: NextPage<HomeProps> = ({ pokemonList }) => {
           siteName: '포케 코리아',
         }}
       />
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Main>
         {isMobile ? (
           <MobileView.MainViews pokemonList={pokemonList} />

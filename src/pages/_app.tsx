@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import App from 'next/app'
+import Head from 'next/head'
 import { DeviceProvider } from '~/context/src/Device.context'
 import { useApollo } from '~/module/apolloClient'
 import { GlobalStyle } from '~/styles/Global'
@@ -16,6 +17,10 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
   return (
     <>
       <GlobalStyle />
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <ApolloProvider client={apolloClient}>
         <DeviceProvider userAgent={userAgent}>
           <Component {...pageProps} />

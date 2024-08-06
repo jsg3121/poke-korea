@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { FC, ReactNode, createContext } from 'react'
 import type {
@@ -71,6 +71,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
     ? parseInt(query.activeIndex as string, 10)
     : 0
 
+  // TODO: 익명함수 형태로 사용된 부분 함수로 분리해서 구분하기
   const types = (() => {
     switch (activeType) {
       case 'mega': {
@@ -122,14 +123,42 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
     activeTypeInfo,
   }
 
+  const title = `No. ${pokemonBaseInfo.number} ${pokemonBaseInfo.name} | 대한민국 포켓몬의 모든 정보 - 포케 코리아`
+
   return (
     <>
-      <Head>
-        <title>
-          포켓몬 정보 {initialValue?.pokemonBaseInfo?.name} | 포켓몬의 모든 정보
-          | 포케 코리아
-        </title>
-      </Head>
+      <NextSeo
+        title={title}
+        description={`
+          전국 도감번호 : ${pokemonBaseInfo.number} 포켓몬명 : ${pokemonBaseInfo.name} 타입 : [${types.join(', ')}]
+          포켓몬의 자세한 정보를 빠르고 간편하게 확인할 수 있습니다.
+        `}
+        canonical={`https://poke-korea.com/detail/${pokemonBaseInfo.number}`}
+        openGraph={{
+          type: 'website',
+          url: `https://poke-korea.com/detail/${pokemonBaseInfo.number}`,
+          title,
+          description:
+            '포케 코리아에서 포켓몬의 자세한 정보를 빠르고 간편하게 확인하세요',
+          images: [
+            {
+              url: 'https://poke-korea.com/assets/image/ogImage.png',
+              width: 1200,
+              height: 630,
+              alt: 'poke-korea',
+              type: 'image/png',
+            },
+            {
+              url: 'https://poke-korea.com/assets/image/kakaoOg.png',
+              width: 800,
+              height: 800,
+              alt: 'poke-korea',
+              type: 'image/png',
+            },
+          ],
+          siteName: '포케 코리아',
+        }}
+      />
       <DetailContext.Provider value={initialValue}>
         {children}
       </DetailContext.Provider>
