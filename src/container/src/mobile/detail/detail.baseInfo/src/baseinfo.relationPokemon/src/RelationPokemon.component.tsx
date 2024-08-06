@@ -20,8 +20,8 @@ const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
             <Link key={`relation-pokemon-id-${id}`} href={`/detail/${id}`}>
               <Image
                 src={`${imageMode}/${id}.webp`}
-                width="12rem"
-                height="12rem"
+                width="11.5rem"
+                height="11.5rem"
                 alt={`포켓몬 ${name}`}
                 unoptimized
               />
@@ -46,12 +46,14 @@ const Section = styled.section`
   margin: 0 auto;
 
   & > .relation-pokemon-list {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     height: calc(100% - 4.25rem);
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 1rem;
     padding: 0;
+    overflow-x: auto;
+    margin: 0 auto;
   }
 `

@@ -46,12 +46,14 @@ const Section = styled.section`
   margin: 0 auto;
 
   & > .relation-pokemon-list {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     height: calc(100% - 4.25rem);
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 1rem;
     padding: 0;
+    overflow-x: auto;
+    margin: 0 auto;
   }
 `

@@ -75,7 +75,6 @@ const Article = styled.article`
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
   outline: 3px solid var(--color-primary-4);
-  display: grid;
   padding: 1rem;
 
   & > ul {
