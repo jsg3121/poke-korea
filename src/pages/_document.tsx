@@ -5,6 +5,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from 'next/document'
+import Script from 'next/script'
 
 import { ServerStyleSheet } from 'styled-components'
 
@@ -35,11 +36,13 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           {/* <!-- Google tag (gtag.js) --> */}
-          <script
-            async
+          <Script
+            strategy="afterInteractive"
             src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
-          ></script>
-          <script
+          />
+          <Script
+            id="gtag-init"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];
@@ -49,7 +52,7 @@ export default class MyDocument extends Document {
                 gtag('config', 'G-28P8TKSR5M');
               `,
             }}
-          ></script>
+          />
         </Head>
         <body>
           <Main />
