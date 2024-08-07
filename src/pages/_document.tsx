@@ -34,18 +34,19 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
+          {/* <!-- Google tag (gtag.js) --> */}
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
+          ></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `
-                <!-- Google tag (gtag.js) -->
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"></script>
-                <script>
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-                  gtag('config', 'G-28P8TKSR5M');
-                </script>
+                gtag('config', 'G-28P8TKSR5M');
               `,
             }}
           ></script>
