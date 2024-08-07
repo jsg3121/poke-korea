@@ -18,6 +18,24 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
     <>
       <GlobalStyle />
       <Head>
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            {/* <!-- Google tag (gtag.js) --> */}
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
+            ></script>
+            <script>
+              {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+
+                  gtag('config', 'G-28P8TKSR5M');
+                `}
+            </script>
+          </>
+        )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
