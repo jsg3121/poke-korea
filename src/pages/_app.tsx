@@ -25,15 +25,17 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
               async
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
             ></script>
-            <script>
-              {`
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
 
-                  gtag('config', 'G-28P8TKSR5M');
-                `}
-            </script>
+                  gtag('config', 'G-28P8TKSR5M');  
+              `,
+              }}
+            ></script>
           </>
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
