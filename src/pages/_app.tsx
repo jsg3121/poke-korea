@@ -2,7 +2,6 @@ import { ApolloProvider } from '@apollo/client'
 import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import App from 'next/app'
 import Head from 'next/head'
-import Script from 'next/script'
 import { DeviceProvider } from '~/context/src/Device.context'
 import { useApollo } from '~/module/apolloClient'
 import { GlobalStyle } from '~/styles/Global'
@@ -22,19 +21,21 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
         {process.env.NODE_ENV === 'production' && (
           <>
             {/* <!-- Google tag (gtag.js) --> */}
-            <Script
-              strategy="afterInteractive"
+            <script
+              async
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
             />
-            <Script id="gtag-init" strategy="afterInteractive">
+            <script>
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
 
-                gtag('config', 'G-28P8TKSR5M');
+                gtag('config', 'G-28P8TKSR5M', {
+                  page_path: window.location.pathname
+                });
               `}
-            </Script>
+            </script>
           </>
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
