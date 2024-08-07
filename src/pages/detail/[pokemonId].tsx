@@ -141,6 +141,7 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
       number: parseInt(String(query.pokemonId), 10),
       isMega,
     },
+    fetchPolicy: 'cache-first',
   })
 
   const changeRedirect = () => {

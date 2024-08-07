@@ -2,7 +2,9 @@ import React from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
-import { Card } from './components'
+import dynamic from 'next/dynamic'
+
+const CardItem = dynamic(() => import('./components/src/Card.component'))
 
 const List = styled.section`
   width: 100%;
@@ -43,7 +45,7 @@ const ListContainer: React.FC = () => {
         useWindowScroll
         totalCount={pokemonList.length}
         itemContent={(index) => {
-          return <Card pokemonData={pokemonList[index]} />
+          return <CardItem pokemonData={pokemonList[index]} />
         }}
       />
     )
