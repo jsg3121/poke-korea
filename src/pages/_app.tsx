@@ -25,20 +25,16 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
             <Script
               strategy="afterInteractive"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
-            ></Script>
-            <Script
-              id="gtag-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-                  gtag('config', 'G-28P8TKSR5M');  
-              `,
-              }}
-            ></Script>
+                gtag('config', 'G-28P8TKSR5M');
+              `}
+            </Script>
           </>
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
