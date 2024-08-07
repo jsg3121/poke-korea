@@ -33,7 +33,26 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="ko">
-        <Head />
+        <Head>
+          {process.env.NODE_ENV === 'production' && (
+            <>
+              {/* <!-- Google tag (gtag.js) --> */}
+              <script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
+              ></script>
+              <script>
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+
+                  gtag('config', 'G-28P8TKSR5M');
+                `}
+              </script>
+            </>
+          )}
+        </Head>
         <body>
           <Main />
           <NextScript />
