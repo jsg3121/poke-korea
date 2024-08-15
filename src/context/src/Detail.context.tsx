@@ -131,7 +131,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
       <NextSeo
         title={title}
         description={`
-          전국 도감번호 : ${pokemonBaseInfo.number} 포켓몬명 : ${pokemonBaseInfo.name} 타입 : [${types.join(', ')}]
+          전국 도감번호 : ${pokemonBaseInfo.number} 포켓몬명 : ${pokemonBaseInfo.name} 타입 : [${types.join(', ')}] 등장세대 : ${pokemonBaseInfo.generation}세대
           포켓몬의 자세한 정보를 빠르고 간편하게 확인할 수 있습니다.
         `}
         canonical={`https://poke-korea.com/detail/${pokemonBaseInfo.number}`}
@@ -139,8 +139,10 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
           type: 'website',
           url: `https://poke-korea.com/detail/${pokemonBaseInfo.number}`,
           title,
-          description:
-            '포케 코리아에서 포켓몬의 자세한 정보를 빠르고 간편하게 확인하세요',
+          description: `
+            전국 도감번호 : ${pokemonBaseInfo.number} 포켓몬명 : ${pokemonBaseInfo.name} 타입 : [${types.join(', ')}] 등장세대 : ${pokemonBaseInfo.generation}세대
+            포케 코리아에서 포켓몬의 자세한 정보를 빠르고 간편하게 확인하세요.
+          `,
           images: [
             {
               url: 'https://poke-korea.com/assets/image/ogImage.png',
