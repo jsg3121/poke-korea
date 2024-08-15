@@ -87,6 +87,7 @@ const PokemonImageCompoment: FC = () => {
     <Div>
       {imageList && (
         <Swiper
+          key={`pokemon-id-${pokemonBaseInfo?.number}`}
           navigation={true}
           modules={[Navigation]}
           onSlideChange={handleSlideChange}
