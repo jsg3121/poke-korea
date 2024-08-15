@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 import { GetServerSideProps } from 'next'
 import { getServerSideSitemapLegacy } from 'next-sitemap'
 import { Pokemon } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/common'
 
 const QUERY = gql`
   fragment PokemonInfo on Pokemon {
