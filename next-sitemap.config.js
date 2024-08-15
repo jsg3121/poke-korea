@@ -12,6 +12,7 @@ module.exports = {
       {
         userAgent: '*', // 모든 agent 허용
         allow: '/', // 모든 페이지 주소 크롤링 허용
+        disallow: '/images', // 이미지 관련 도메인은 제거
       },
     ],
     additionalSitemaps: ['https://poke-korea.com/server-sitemap.xml'],
