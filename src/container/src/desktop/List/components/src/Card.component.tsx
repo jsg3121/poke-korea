@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { changeType, imageMode } from '~/common'
+import { changeType, imageMode } from '~/module'
 import { Ball, Image, Tag } from '~/components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { CardColor } from '~/types'

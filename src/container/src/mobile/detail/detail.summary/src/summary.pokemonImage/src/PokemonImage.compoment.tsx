@@ -5,7 +5,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
-import { imageMode } from '~/common'
+import { imageMode } from '~/module'
 import { Image } from '~/components'
 import { DetailContext } from '~/context/src/Detail.context'
 

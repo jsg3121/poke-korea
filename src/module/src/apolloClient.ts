@@ -8,7 +8,7 @@ import fetch from 'cross-fetch'
 import merge from 'deepmerge'
 import isEqual from 'fast-deep-equal'
 import { useMemo } from 'react'
-import { GqlMode } from '~/common'
+import { GqlMode } from './buildMode'
 
 const GQLMode = GqlMode
 

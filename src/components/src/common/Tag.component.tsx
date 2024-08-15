@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { changeType } from '~/common'
+import { changeType } from '~/module'
 import { TypesColor } from '~/types'
 
 interface TagComponentProps {

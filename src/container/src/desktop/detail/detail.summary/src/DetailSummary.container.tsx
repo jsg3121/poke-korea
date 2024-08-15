@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { changeColor } from '~/common'
+import { changeColor } from '~/module'
 import { DetailContext } from '~/context/src/Detail.context'
 import { TypesColor } from '~/types'
 import { InfoTitle, MegaSwitch, RegionSwitch, ShinySwitch } from './components'

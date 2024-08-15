@@ -1,4 +1,4 @@
-import { changeToEngType, changeType } from '../../common'
+import { changeToEngType, changeType } from '~/module'
 
 export type UseRelationType = (types: Array<string>) => {
   quad: Array<string>
