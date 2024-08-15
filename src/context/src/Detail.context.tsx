@@ -70,6 +70,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
   const activeIndex = query.activeIndex
     ? parseInt(query.activeIndex as string, 10)
     : 0
+  const isShiny = query.shinyMode === 'shiny'
 
   // TODO: 익명함수 형태로 사용된 부분 함수로 분리해서 구분하기
   const types = (() => {
@@ -123,7 +124,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
     activeTypeInfo,
   }
 
-  const title = `No. ${pokemonBaseInfo.number} ${pokemonBaseInfo.name} | 대한민국 포켓몬의 모든 정보 - 포케 코리아`
+  const title = `No. ${pokemonBaseInfo.number} ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo.name} ${activeType === 'region' ? '리전폼' : ''} ${isShiny ? '이로치' : ''} | 대한민국 포켓몬의 모든 정보 - 포케 코리아`
 
   return (
     <>
