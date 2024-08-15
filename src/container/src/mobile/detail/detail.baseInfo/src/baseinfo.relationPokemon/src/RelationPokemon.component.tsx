@@ -37,7 +37,7 @@ export default RelationPokemonComponent
 
 const Section = styled.section`
   width: 100%;
-  height: 100%;
+  height: 20rem;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
@@ -55,5 +55,20 @@ const Section = styled.section`
     padding: 0;
     overflow-x: auto;
     margin: 0 auto;
+
+    &::-webkit-scrollbar {
+      display: block;
+      height: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-primary-2);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--color-primary-3);
+      border-radius: 12px;
+    }
   }
 `
