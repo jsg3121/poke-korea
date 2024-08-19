@@ -123,7 +123,7 @@ const PokemonImageCompoment: FC = () => {
                   src={imageSrc}
                   width="18rem"
                   height="18rem"
-                  alt={`포켓몬 ${pokemonBaseInfo?.name}의 모습`}
+                  alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${router.query.shinyMode === 'shiny' ? '이로치' : ''}`}
                   className="pokemon-main"
                   unoptimized
                 />
