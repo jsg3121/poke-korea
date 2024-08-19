@@ -18,6 +18,7 @@ const DetailViews: FC = () => {
         <MobileContainer.DetailSummary />
         <MobileContainer.DetailBaseInfo />
       </section>
+      <MobileContainer.Footer />
     </Main>
   )
 }
