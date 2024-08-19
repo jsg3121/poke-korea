@@ -18,6 +18,7 @@ const DetailViews: FC = () => {
         <DesktopContainer.DetailSummary />
         <DesktopContainer.DetailBaseInfo />
       </section>
+      <DesktopContainer.Footer />
     </Main>
   )
 }

@@ -4,11 +4,11 @@ import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 import { useDevice } from '~/context/src/Device.context'
 import { Pokemon } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
 import {
   changeTypeArrayToString,
+  initializeApollo,
   toBooleanOrUndefined,
-} from '~/module/filter.module'
+} from '~/module'
 import { DesktopView, MobileView } from '~/views'
 
 const QUERY = gql`

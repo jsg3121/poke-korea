@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import styled from 'styled-components'
-import { imageMode } from '~/common'
+import { imageMode } from '~/module'
 import { Image } from '~/components'
 import { InfoCardTitle } from '../../../components'
 

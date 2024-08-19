@@ -1,5 +1,5 @@
 import { FC, ReactNode, createContext, useContext } from 'react'
-import { detectUserAgent } from '~/module/device.module'
+import { detectUserAgent } from '~/module'
 
 export interface IFDeviceProviderProps {
   userAgent: string

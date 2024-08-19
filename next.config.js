@@ -11,6 +11,7 @@ const nextConfig = {
     domains: ['localhost', '*', 'image.poke-korea.com'],
   },
   productionBrowserSourceMaps: false,
+  poweredByHeader: false,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
