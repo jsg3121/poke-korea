@@ -11,7 +11,7 @@ const List = styled.section`
   max-width: 1280px;
   height: 100%;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 3rem 0 2rem;
   position: relative;
 
   & > h2 {
