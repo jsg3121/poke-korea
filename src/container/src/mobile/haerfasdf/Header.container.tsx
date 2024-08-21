@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Filter } from './filter'
-import { Logo } from './logo'
-import { Search } from './search'
+import { Filter } from './src/filter'
+import { Logo } from './src/logo'
+import { Search } from './src/search'
 
 const Header = styled.header`
   width: 100%;

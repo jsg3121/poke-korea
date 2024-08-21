@@ -1,4 +1,4 @@
-import Header from './Header/Header.container'
+import { Header } from './haerfasdf'
 import List from './List/List.container'
 import { DetailBaseInfo, DetailSummary } from './detail'
 import { Footer } from './footer'
