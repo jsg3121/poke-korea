@@ -1,5 +1,5 @@
 import { Header } from './header'
-import List from './lisaetas/List.container'
+import List from './list/List.container'
 import { DetailBaseInfo, DetailSummary } from './detail'
 import { Footer } from './footer'
 
