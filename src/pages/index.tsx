@@ -146,6 +146,7 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     query: QUERY,
     variables: filterInput,
     fetchPolicy: 'cache-first',
+    errorPolicy: 'all',
   })
 
   return {
