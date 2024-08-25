@@ -35,7 +35,7 @@ const QUERY = gql`
     }
   }
 
-  query getPokemonList {
+  query getPokemonListSiteMap {
     getPokemonFilter {
       ...PokemonInfo
     }
