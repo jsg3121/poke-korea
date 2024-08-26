@@ -145,8 +145,6 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
   const { data, loading } = await apolloClient.query({
     query: QUERY,
     variables: filterInput,
-    fetchPolicy: 'cache-first',
-    errorPolicy: 'all',
   })
 
   return {
