@@ -18,7 +18,7 @@ const Input = styled.input`
   border-radius: 2.5rem;
   font-size: 14px;
   border: 0;
-  padding: 0;
+  padding: 0 10px;
 `
 
 const InputComponents = React.forwardRef<
