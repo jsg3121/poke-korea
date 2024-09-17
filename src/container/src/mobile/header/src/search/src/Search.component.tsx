@@ -95,6 +95,9 @@ const SearchComponent: React.FC = () => {
         ...(name && { name: name.trim() }),
       },
     })
+
+    const activeElement = document.activeElement as HTMLElement
+    activeElement.blur()
   }
 
   React.useEffect(() => {

@@ -7,7 +7,7 @@ import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 import { DesktopView, MobileView } from '~/views'
 
 const GET_POKEMON = gql`
-  query GetPokemonDetailInfo($number: Float!, $isMega: Boolean!) {
+  query GetPokemonDetailInfo($number: Float!) {
     getSinglePokemon(number: $number) {
       id
       number
@@ -62,7 +62,7 @@ const GET_POKEMON = gql`
       }
     }
 
-    getMegaEvolution(number: $number) @include(if: $isMega) {
+    getMegaEvolution(number: $number) {
       id
       pokemonId
       pokemonNumber
@@ -131,15 +131,12 @@ export default PokemonId
 export const getServerSideProps: GetServerSideProps = async (props) => {
   const { resolvedUrl, query } = props
 
-  const isMega = query.activeType === 'mega' ? true : false
-
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query({
     query: GET_POKEMON,
     variables: {
       number: parseInt(String(query.pokemonId), 10),
-      isMega,
     },
     fetchPolicy: 'cache-first',
   })
