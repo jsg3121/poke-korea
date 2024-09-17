@@ -52,6 +52,22 @@ export default class MyDocument extends Document {
                 `,
                 }}
               />
+              <script
+                type="text/javascript"
+                src="//wcs.naver.net/wcslog.js"
+              ></script>
+              <script
+                type="text/javascript"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    if(!wcs_add) var wcs_add = {};
+                    wcs_add["wa"] = "7c0a94c9c2ab1c";
+                    if(window.wcs) {
+                      wcs_do();
+                    }
+                  `,
+                }}
+              ></script>
               <meta
                 name="naver-site-verification"
                 content="28fbf8b85e4e80ff37d5a2338991716ae74de83f"
