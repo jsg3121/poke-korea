@@ -2,9 +2,11 @@ import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 import { useDevice } from '~/context/src/Device.context'
-import { Pokemon } from '~/graphql/typeGenerated'
+import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
+import { PokemonList } from '~/graphql/typeGenerated'
 import {
   changeTypeArrayToString,
+  getGenerationParams,
   initializeApollo,
   toBooleanOrUndefined,
 } from '~/module'
@@ -12,7 +14,7 @@ import { DesktopView, MobileView } from '~/views'
 
 interface HomeProps {
   loading: boolean
-  pokemonList: Array<Pokemon>
+  pokemonList: Array<PokemonList>
 }
 
 const Main = styled.main`
@@ -75,10 +77,14 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
   const { query } = props
   const apolloClient = initializeApollo()
 
-  const { type, isMega, isRegion, isEvolution, ...restQuery } = query
+  const { type, isMega, isRegion, isEvolution, generation, ...restQuery } =
+    query
 
   const filterInput = {
     ...restQuery,
+    ...(generation && {
+      generation: getGenerationParams(generation),
+    }),
     ...(isMega && { isMega: toBooleanOrUndefined(isMega as string) }),
     ...(isRegion && { isRegion: toBooleanOrUndefined(isRegion as string) }),
     ...(isEvolution && {
@@ -88,8 +94,10 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
   }
 
   const { data, loading } = await apolloClient.query({
-    query: QUERY,
-    variables: filterInput,
+    query: GetPokemonListDocument,
+    variables: {
+      filter: filterInput,
+    },
   })
 
   return {

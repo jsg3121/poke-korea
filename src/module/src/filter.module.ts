@@ -7,3 +7,13 @@ export const toBooleanOrUndefined = (
 export const changeTypeArrayToString = (type: string | undefined): string[] => {
   return type ? type.split(',') : []
 }
+
+export const getGenerationParams = (generation: string | Array<string>) => {
+  if (typeof generation === 'string') {
+    return parseInt(generation, 10)
+  } else {
+    return generation.map((item) => {
+      return parseInt(item, 10)
+    })
+  }
+}
