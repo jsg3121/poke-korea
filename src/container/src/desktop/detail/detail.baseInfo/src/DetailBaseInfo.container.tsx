@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { DetailContext } from '~/context/src/Detail.context'
 import { Description } from './baseInfo.description'
 import { Abilities } from './baseInfo.abilities'
-import { TypesInfo } from './basInfo.typesInfo'
 import { RelationPokemon } from './baseinfo.relationPokemon'
+import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
 
 const DetailBaseInfoContainer: React.FC = () => {
   const { pokemonBaseInfo } = React.useContext(DetailContext)
@@ -23,7 +23,7 @@ const DetailBaseInfoContainer: React.FC = () => {
         )}
       </div>
       <Abilities />
-      <TypesInfo type={pokemonBaseInfo.type} />
+      <TypesInfo type={pokemonBaseInfo.types} />
     </Div>
   )
 }

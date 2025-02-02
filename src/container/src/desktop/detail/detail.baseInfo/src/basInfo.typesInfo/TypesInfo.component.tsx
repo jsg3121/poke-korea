@@ -1,14 +1,15 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import { InfoContent } from './typesInfo.infoContent'
-import { InfoCardTitle } from '../../../components'
+import { InfoCardTitle } from '../../components'
 import { useRelationType } from '~/hook/useRelationType'
+import { PokemonType } from '~/graphql/typeGenerated'
 
 interface IFProps {
-  type: Array<string>
+  type: Array<PokemonType>
 }
 
-const TypesInfoComponent: FC<IFProps> = (props) => {
+export const TypesInfo: FC<IFProps> = (props) => {
   const { type } = props
 
   const relationType = useRelationType(type)
@@ -20,8 +21,6 @@ const TypesInfoComponent: FC<IFProps> = (props) => {
     </Section>
   )
 }
-
-export default TypesInfoComponent
 
 const Section = styled.section`
   width: 100%;

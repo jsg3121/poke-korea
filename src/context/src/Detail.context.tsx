@@ -1,20 +1,17 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { FC, ReactNode, createContext } from 'react'
-import type {
-  Pokemon,
-  PokemonMega,
+import { ReactNode, createContext } from 'react'
+import {
+  PokemonAbilityList,
+  PokemonDetail,
+  PokemonMegaEvolution,
   PokemonNormalForm,
-  PokemonRegion,
+  PokemonRegionForm,
 } from '~/graphql/typeGenerated'
-import type { IFDetailPokemonInfo } from '~/types/detailInfo.types'
+import { PokemonTypes } from '~/types'
 
 type TActiveType = 'normal' | 'mega' | 'region'
-type TAbilityType = {
-  name: string
-  description: string
-  isHidden: boolean
-}
+
 type TActiveTypeInfo = {
   activeType: TActiveType
   name: string
@@ -22,20 +19,23 @@ type TActiveTypeInfo = {
   generation: number
   types: Array<string>
   isEvolution: boolean
-  abilities: Array<TAbilityType>
+  abilities: Array<PokemonAbilityList>
   isRegion: boolean
   isMega: boolean
 }
 
-export interface IFDetailProviderProps extends IFDetailPokemonInfo {
+export interface IFDetailProviderProps {
+  pokemonBaseInfo: PokemonDetail
+  megaEvolutions: Array<PokemonMegaEvolution>
+  regionFormInfo: Array<PokemonRegionForm>
+  normalForm: Array<PokemonNormalForm>
   children: ReactNode
 }
 
-// TODO : 각각 상태 정보를 하나로 묶어서 context에서 관리하도록 수정
 interface IFDetailProps {
-  pokemonBaseInfo?: Pokemon
-  megaEvolutions?: Array<PokemonMega>
-  regionFormInfo?: Array<PokemonRegion>
+  pokemonBaseInfo?: PokemonDetail
+  megaEvolutions?: Array<PokemonMegaEvolution>
+  regionFormInfo?: Array<PokemonRegionForm>
   normalForm?: Array<PokemonNormalForm>
   activeType: TActiveType
   activeTypeInfo: TActiveTypeInfo
@@ -56,14 +56,13 @@ const DetailContext = createContext<IFDetailProps>({
   },
 })
 
-const DetailProvider: FC<IFDetailProviderProps> = (props) => {
-  const {
-    children,
-    pokemonBaseInfo,
-    normalForm,
-    regionFormInfo,
-    megaEvolutions,
-  } = props
+const DetailProvider = ({
+  children,
+  pokemonBaseInfo,
+  normalForm,
+  regionFormInfo,
+  megaEvolutions,
+}: IFDetailProviderProps) => {
   const { query } = useRouter()
 
   const activeType = query.activeType as TActiveType
@@ -72,48 +71,66 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
     : 0
   const isShiny = query.shinyMode === 'shiny'
 
-  // TODO: 익명함수 형태로 사용된 부분 함수로 분리해서 구분하기
-  const types = (() => {
+  const getTypes = () => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutions[activeIndex].type
+        return megaEvolutions?.[activeIndex].types?.map((type) => {
+          return PokemonTypes[type]
+        })
       }
       case 'region': {
-        return regionFormInfo[activeIndex].type
+        return regionFormInfo?.[activeIndex].types?.map((type) => {
+          return PokemonTypes[type]
+        })
       }
       default: {
-        return normalForm[activeIndex]?.type ?? pokemonBaseInfo.type
+        return (
+          normalForm?.[activeIndex]?.types?.map((type) => {
+            return PokemonTypes[type]
+          }) ??
+          pokemonBaseInfo.types?.map((type) => {
+            return PokemonTypes[type]
+          })
+        )
       }
     }
-  })()
+  }
 
-  const abilities = (() => {
+  const getAbilityList = () => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutions[activeIndex].abilities
+        return megaEvolutions?.[activeIndex].megaEvolutionAbilityList
       }
       case 'region': {
-        return regionFormInfo[activeIndex].abilities
+        return regionFormInfo?.[activeIndex].regionFormAbilityList
       }
       default: {
-        return normalForm[activeIndex]?.abilities ?? pokemonBaseInfo.abilities
+        return (
+          normalForm?.[activeIndex]?.normalFormAbilityList ??
+          pokemonBaseInfo.pokemonAbilityList
+        )
       }
     }
-  })()
+  }
 
-  const activeTypeInfo: TActiveTypeInfo = (() => {
+  const getActiveTypeInfo = () => {
     return {
       activeType,
       isEvolution: pokemonBaseInfo.isEvolution,
       name: pokemonBaseInfo.name,
       pokemonNumber: pokemonBaseInfo.number,
       generation: pokemonBaseInfo.generation,
-      isMega: pokemonBaseInfo.isMega ?? false,
-      isRegion: pokemonBaseInfo.isRegion ?? false,
+      isMega: pokemonBaseInfo.isMegaEvolution ?? false,
+      isRegion: pokemonBaseInfo.isRegionForm ?? false,
       types,
       abilities,
     }
-  })()
+  }
+
+  const types = getTypes() ?? []
+  const abilities = getAbilityList() ?? []
+
+  const activeTypeInfo: TActiveTypeInfo = getActiveTypeInfo()
 
   const initialValue: IFDetailProps = {
     pokemonBaseInfo,

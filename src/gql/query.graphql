@@ -75,3 +75,22 @@ query GetPokemonRegionForm($pokemonId: Int) {
     }
   }
 }
+
+query GetPokemonNormalForm($pokemonId: Int) {
+  getPokemonNormalForm(pokemonId: $pokemonId) {
+    id
+    pokemonId
+    name
+    types
+    typePrimary
+    typeSecondary
+    imagePath
+    normalFormCode
+    normalFormAbilityList {
+      ...PokemonAbilityList
+    }
+    normalFormStats {
+      ...PokemonStats
+    }
+  }
+}

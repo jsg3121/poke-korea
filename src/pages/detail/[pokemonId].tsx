@@ -1,9 +1,25 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { DetailProvider } from '~/context/src/Detail.context'
 import { useDevice } from '~/context/src/Device.context'
+import {
+  GetPokemonNormalFormDocument,
+  PokemonDetailDocument,
+} from '~/graphql/gqlGenerated'
+import {
+  PokemonDetail,
+  PokemonMegaEvolution,
+  PokemonNormalForm,
+  PokemonRegionForm,
+} from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
-import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 import { DesktopView, MobileView } from '~/views'
+
+interface IFDetailPokemonInfo {
+  pokemonBaseInfo: PokemonDetail
+  regionFormInfo: Array<PokemonRegionForm>
+  megaEvolutions: Array<PokemonMegaEvolution>
+  normalForm: Array<PokemonNormalForm>
+}
 
 const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
   const { isMobile } = useDevice()
@@ -23,16 +39,24 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query({
-    query: GET_POKEMON,
+    query: PokemonDetailDocument,
     variables: {
-      number: parseInt(String(query.pokemonId), 10),
+      pokemonId: parseInt(String(query.pokemonId), 10),
+    },
+    fetchPolicy: 'cache-first',
+  })
+
+  const { data: normalFormData } = await apolloClient.query({
+    query: GetPokemonNormalFormDocument,
+    variables: {
+      pokemonId: parseInt(String(query.pokemonId), 10),
     },
     fetchPolicy: 'cache-first',
   })
 
   const changeRedirect = () => {
     if (
-      !data.getSinglePokemon.isMega &&
+      !data.getPokemonDetail.isMegaEvolution &&
       (query.activeType as string) === 'mega'
     ) {
       return {
@@ -40,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
         statusCode: 301,
       }
     } else if (
-      !data.getSinglePokemon.isRegion &&
+      !data.getPokemonDetail.isRegionForm &&
       (query.activeType as string) === 'region'
     ) {
       return {
@@ -55,10 +79,10 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
   return {
     redirect: redirectOption,
     props: {
-      pokemonBaseInfo: data.getSinglePokemon,
-      regionFormInfo: data.getRegionForm ?? null,
-      megaEvolutions: data.getMegaEvolution ?? null,
-      normalForm: data.getNormalForm ?? null,
+      pokemonBaseInfo: data.getPokemonDetail,
+      regionFormInfo: [],
+      megaEvolutions: [],
+      normalForm: normalFormData.getPokemonNormalForm,
     },
   }
 }

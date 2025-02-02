@@ -1,7 +1,7 @@
 import { PokemonType } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types'
 
-export type UseRelationType = (types: Array<string>) => {
+export type UseRelationType = (types: Array<PokemonType>) => {
   quad: Array<string>
   double: Array<string>
   half: Array<string>

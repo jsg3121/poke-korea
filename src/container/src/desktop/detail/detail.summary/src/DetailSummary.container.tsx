@@ -90,7 +90,7 @@ const DetailSummaryContainer: FC = () => {
   } = useContext(DetailContext)
   const router = useRouter()
 
-  const newColor = changeColor(pokemonBaseInfo?.type ?? [])
+  const newColor = changeColor(pokemonBaseInfo?.types ?? [])
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
   const activeIndex = router.query.activeIndex ? indexQuery : 0
 
@@ -99,20 +99,22 @@ const DetailSummaryContainer: FC = () => {
       case 'mega':
         return {
           name: megaEvolutions?.[activeIndex].name,
-          stats: megaEvolutions?.[activeIndex].megaStats,
+          stats: megaEvolutions?.[activeIndex].megaEvolutionStats,
         }
       case 'region':
         return {
           name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습 ${regionFormInfo?.[activeIndex].name && `(${regionFormInfo?.[activeIndex].name})`}`,
           stats:
-            regionFormInfo?.[activeIndex].regionStats ?? pokemonBaseInfo?.stats,
+            regionFormInfo?.[activeIndex].regionFormStats ??
+            pokemonBaseInfo?.pokemonStats,
         }
       default:
         return {
           name:
             normalForm?.[activeIndex]?.name.replace('_', ' ') ??
             pokemonBaseInfo?.name,
-          stats: normalForm?.[activeIndex]?.formStats ?? pokemonBaseInfo?.stats,
+          stats:
+            normalForm?.[activeIndex]?.stats ?? pokemonBaseInfo?.pokemonStats,
         }
     }
   })()
@@ -127,8 +129,8 @@ const DetailSummaryContainer: FC = () => {
         <div className="profile-description">
           <ul className="switch-list">
             <ShinySwitch />
-            {pokemonBaseInfo?.isMega && <MegaSwitch />}
-            {pokemonBaseInfo?.isRegion && <RegionSwitch />}
+            {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
+            {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
           </ul>
           {pokemonBaseInfo && pokemonInfo.stats && (
             <Stats {...pokemonInfo.stats} />
