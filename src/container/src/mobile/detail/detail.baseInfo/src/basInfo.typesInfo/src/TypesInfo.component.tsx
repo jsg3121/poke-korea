@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { useRelationType } from '~/hook'
 import { InfoContent } from './typesInfo.infoContent'
 import { InfoCardTitle } from '../../../components'
+import { useRelationType } from '~/hook/useRelationType'
 
 interface IFProps {
   type: Array<string>

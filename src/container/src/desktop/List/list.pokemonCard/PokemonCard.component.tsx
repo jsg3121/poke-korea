@@ -5,7 +5,6 @@ import { Ball, Image, Tag } from '~/components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { CardColor } from '~/types'
 import { pokemonNumberFormat } from '../module'
-import { changeType } from '~/module/changeType'
 import { imageMode } from '~/module/buildMode'
 
 interface CardComponentProps {
@@ -150,7 +149,7 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
   const backgroundColor = useMemo(() => {
     const background: Array<CardColor> = []
     pokemonData.types.map((item) => {
-      return background.push(changeType(item).cardColor)
+      return background.push(CardColor[item])
     })
     return background
   }, [pokemonData])
@@ -186,7 +185,7 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
       </div>
       <div className="card-info__types" aria-description="포켓몬 타입 정보">
         {pokemonData.types.map((item, index) => {
-          return <Tag key={`${item}-id-${index}`} label={item} />
+          return <Tag key={`${item}-id-${index}`} type={item} />
         })}
       </div>
       <ul className="card-info__stat" aria-description="포켓몬 능력치 정보">
