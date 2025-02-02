@@ -1,4 +1,5 @@
-import { changeToEngType, changeType } from '~/module'
+import { changeType } from '~/module/changeType'
+import { changeToEngType } from '~/module/getIconType'
 
 export type UseRelationType = (types: Array<string>) => {
   quad: Array<string>

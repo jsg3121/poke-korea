@@ -1,12 +1,12 @@
-import React, { FC } from 'react'
+import { useRouter } from 'next/router'
+import { FC, useContext } from 'react'
 import styled from 'styled-components'
-import { changeColor } from '~/module'
 import { DetailContext } from '~/context/src/Detail.context'
+import { changeColor } from '~/module/changeColor'
 import { TypesColor } from '~/types'
 import { InfoTitle, MegaSwitch, RegionSwitch, ShinySwitch } from './components'
 import { PokemonImage } from './summary.pokemonImage'
 import { Stats } from './summary.stats'
-import { useRouter } from 'next/router'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -65,7 +65,7 @@ const DetailSummaryContainer: FC = () => {
     regionFormInfo,
     normalForm,
     activeType,
-  } = React.useContext(DetailContext)
+  } = useContext(DetailContext)
   const router = useRouter()
 
   const newColor = changeColor(pokemonBaseInfo?.type ?? [])

@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import { useDevice } from '~/context/src/Device.context'
 import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
 import { PokemonList } from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
 import {
   changeTypeArrayToString,
   getGenerationParams,
-  initializeApollo,
   toBooleanOrUndefined,
-} from '~/module'
+} from '~/module/filter.module'
 import { DesktopView, MobileView } from '~/views'
 
 interface HomeProps {
@@ -104,7 +104,7 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     props: {
       loading,
       ...(data && {
-        pokemonList: data.getPokemonFilter || [],
+        pokemonList: data.getPokemonList || [],
       }),
     },
   }

@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import { FC, useContext } from 'react'
 import styled from 'styled-components'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
-import { imageMode } from '~/module'
 import { Image } from '~/components'
 import { DetailContext } from '~/context/src/Detail.context'
+import { imageMode } from '~/module/buildMode'
 
 const Div = styled.div`
   width: 27rem;
@@ -31,7 +31,7 @@ const PokemonImageCompoment: FC = () => {
     regionFormInfo,
     normalForm,
     activeType,
-  } = React.useContext(DetailContext)
+  } = useContext(DetailContext)
   const router = useRouter()
 
   const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0

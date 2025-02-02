@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 
 type UseBodyScrollLockFn = (isLock: boolean) => void
 
@@ -7,10 +7,14 @@ type UseBodyScrollLockFn = (isLock: boolean) => void
  * @param isLock 스크롤 잠김 여부
  */
 export const useBodyScrollLock: UseBodyScrollLockFn = (isLock) => {
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLock) {
       document.body.style.overflow = 'hidden'
     } else {
+      document.body.style.overflow = ''
+    }
+
+    return () => {
       document.body.style.overflow = ''
     }
   }, [isLock])

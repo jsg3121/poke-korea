@@ -1,4 +1,4 @@
-import { PokemonTypes } from '../../types'
+import { PokemonTypes } from '../types'
 
 /**
  * info : card 타입별 배경 아이콘

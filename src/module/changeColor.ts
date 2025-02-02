@@ -1,4 +1,4 @@
-import { TypesColor } from '../../types'
+import { TypesColor } from '../types'
 import { changeType } from './changeType'
 
 type ChangeColor = (types: Array<string>) => Array<TypesColor>

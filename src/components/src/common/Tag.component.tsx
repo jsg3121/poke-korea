@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { changeType } from '~/module'
+import { changeType } from '~/module/changeType'
 import { TypesColor } from '~/types'
 
 interface TagComponentProps {
@@ -29,10 +29,8 @@ const Tag = styled.p<{ color: TypesColor; type: string }>`
   }
 `
 
-const TagComponent: React.FC<TagComponentProps> = (props) => {
-  const { label } = props
-
-  const { color, type } = React.useMemo(() => {
+const TagComponent = ({ label }: TagComponentProps) => {
+  const { color, type } = useMemo(() => {
     return changeType(label)
   }, [label])
 

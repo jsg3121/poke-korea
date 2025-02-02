@@ -5,7 +5,7 @@ import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
 import { getChangeTypeList } from '../module'
 import { FilterModal } from '../filter.modal'
-import { useBodyScrollLock } from '~/hook/src/useBodyScrollLock'
+import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import styled from 'styled-components'
 
 interface FilterPokemonTypeComponentProps {}

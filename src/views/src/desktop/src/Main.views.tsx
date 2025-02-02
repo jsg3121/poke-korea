@@ -4,11 +4,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { DesktopContainer } from '~/container'
 import { ListProvider } from '~/context'
-import { Pokemon } from '~/graphql/typeGenerated'
-import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
+import { PokemonList } from '~/graphql/typeGenerated'
+import { useHeaderScroll } from '~/hook/useHeaderScroll'
 
 interface ManinViewsProps {
-  pokemonList: Array<Pokemon>
+  pokemonList: Array<PokemonList>
 }
 
 const Div = styled.div`

@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { DetailProvider } from '~/context/src/Detail.context'
 import { useDevice } from '~/context/src/Device.context'
-import { initializeApollo } from '~/module'
+import { initializeApollo } from '~/module/apolloClient'
 import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 import { DesktopView, MobileView } from '~/views'
 

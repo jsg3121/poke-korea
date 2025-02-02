@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { getServerSideSitemapLegacy } from 'next-sitemap'
 import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
 import { PokemonList } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module'
+import { initializeApollo } from '~/module/apolloClient'
 
 export const getServerSideProps: GetServerSideProps = async (props) => {
   const apolloClient = initializeApollo()

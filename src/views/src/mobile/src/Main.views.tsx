@@ -1,10 +1,10 @@
 import React from 'react'
 import { MobileContainer } from '~/container'
 import { ListProvider } from '~/context'
-import { Pokemon } from '~/graphql/typeGenerated'
+import { PokemonList } from '~/graphql/typeGenerated'
 
 interface ManinViewsProps {
-  pokemonList: Array<Pokemon>
+  pokemonList: Array<PokemonList>
 }
 
 const MainViews: React.FC<ManinViewsProps> = ({ pokemonList }) => {

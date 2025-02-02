@@ -1,10 +1,12 @@
-import React from 'react'
+import dynamic from 'next/dynamic'
+import React, { useContext } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 import styled from 'styled-components'
 import { ListContext } from '~/context'
-import dynamic from 'next/dynamic'
 
-const CardItem = dynamic(() => import('./components/src/Card.component'))
+const PokemonCard = dynamic(
+  () => import('./list.pokemonCard/PokemonCard.component'),
+)
 
 const List = styled.section`
   width: 100%;
@@ -32,8 +34,8 @@ const List = styled.section`
   }
 `
 
-const ListContainer: React.FC = () => {
-  const { pokemonList } = React.useContext(ListContext)
+const ListContainer = () => {
+  const { pokemonList } = useContext(ListContext)
 
   const list = React.useMemo(() => {
     return (
@@ -41,7 +43,7 @@ const ListContainer: React.FC = () => {
         useWindowScroll
         totalCount={pokemonList.length}
         itemContent={(index) => {
-          return <CardItem pokemonData={pokemonList[index]} />
+          return <PokemonCard pokemonData={pokemonList[index]} />
         }}
       />
     )

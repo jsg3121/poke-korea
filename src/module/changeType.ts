@@ -1,4 +1,4 @@
-import { CardColor, EngTypes, TypesColor } from '../../types'
+import { CardColor, EngTypes, TypesColor } from '../types'
 
 /**
  * info : 타입 정보 및 색상 설정

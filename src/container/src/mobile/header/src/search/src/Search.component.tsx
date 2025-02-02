@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { Image } from '~/components'
 import { SearchInputName } from '../components'
-import { useHeaderScroll } from '~/hook/src/useHeaderScroll'
+import { useHeaderScroll } from '~/hook/useHeaderScroll'
 
 type SearchFormType = {
   name: string | null
