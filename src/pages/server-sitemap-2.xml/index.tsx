@@ -1,56 +1,18 @@
-import { gql } from '@apollo/client'
 import { GetServerSideProps } from 'next'
 import { getServerSideSitemapLegacy } from 'next-sitemap'
-import { Pokemon } from '~/graphql/typeGenerated'
+import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
+import { PokemonList } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module'
-
-const QUERY = gql`
-  fragment PokemonInfo on Pokemon {
-    id
-    typeSingle1
-    typeSingle2
-    isEvolution
-    evolutionId
-    generation
-    isForm
-    ...PokemonCard
-  }
-
-  fragment PokemonCard on Pokemon {
-    id
-    number
-    name
-    type
-    isRegion
-    isMega
-    stats {
-      pokemonId
-      hp
-      attack
-      defense
-      specialAttack
-      specialDefense
-      speed
-      total
-    }
-  }
-
-  query getPokemonListSiteMap {
-    getPokemonFilter {
-      ...PokemonInfo
-    }
-  }
-`
 
 export const getServerSideProps: GetServerSideProps = async (props) => {
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query({
-    query: QUERY,
+    query: GetPokemonListDocument,
   })
 
   const dynamicSiteMapIdsWithQuery = data.getPokemonFilter.map(
-    (pokemon: Pokemon) => {
+    (pokemon: PokemonList) => {
       return {
         loc: `https://poke-korea.com/detail/${pokemon.number}?shinyMode=shiny`, // 페이지 경로
         lastmod: new Date().toISOString(), // 최근변경일자

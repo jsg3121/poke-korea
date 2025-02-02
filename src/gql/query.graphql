@@ -1,0 +1,77 @@
+query GetPokemonList($filter: PokemonFilterInput) {
+  getPokemonList(filter: $filter) {
+    ...PokemonInfo
+  }
+}
+
+query PokemonDetail($pokemonId: ID!) {
+  getPokemonDetail(pokemonId: $pokemonId) {
+    id
+    abilityId
+    evolutionId
+    generation
+    name
+    isEvolution
+    isFormChange
+    isMegaEvolution
+    isRegionForm
+    types
+    number
+    typePrimary
+    typeSecondary
+    pokemonStats {
+      ...PokemonStats
+    }
+    pokemonAbilityList {
+      ...PokemonAbilityList
+    }
+    normalForms {
+      id
+      pokemonId
+      name
+      types
+      imagePath
+      normalFormCode
+      stats {
+        ...PokemonStats
+      }
+    }
+  }
+}
+
+query GetPokemonMegaEvolution($pokemonId: Int) {
+  getPokemonMegaEvolution(pokemonId: $pokemonId) {
+    id
+    pokemonId
+    name
+    types
+    typePrimary
+    typeSecondary
+    megaEvolutionCode
+    megaEvolutionStats {
+      ...PokemonStats
+    }
+    megaEvolutionAbilityList {
+      ...PokemonAbilityList
+    }
+  }
+}
+
+query GetPokemonRegionForm($pokemonId: Int) {
+  getPokemonRegionForm(pokemonId: $pokemonId) {
+    id
+    pokemonId
+    name
+    types
+    typePrimary
+    typeSecondary
+    regionFormCode
+    region
+    regionFormAbilityList {
+      ...PokemonAbilityList
+    }
+    regionFormStats {
+      ...PokemonStats
+    }
+  }
+}

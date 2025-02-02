@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
@@ -10,60 +9,6 @@ import {
   toBooleanOrUndefined,
 } from '~/module'
 import { DesktopView, MobileView } from '~/views'
-
-const QUERY = gql`
-  fragment PokemonInfo on Pokemon {
-    id
-    typeSingle1
-    typeSingle2
-    isEvolution
-    evolutionId
-    generation
-    isForm
-    ...PokemonCard
-  }
-
-  fragment PokemonCard on Pokemon {
-    id
-    number
-    name
-    type
-    isRegion
-    isMega
-    stats {
-      pokemonId
-      hp
-      attack
-      defense
-      specialAttack
-      specialDefense
-      speed
-      total
-    }
-  }
-
-  query getPokemonList(
-    $pokemonNumber: Int
-    $type: [String!]
-    $isMega: Boolean
-    $isRegion: Boolean
-    $isEvolution: Boolean
-    $name: String
-    $generation: [String!]
-  ) {
-    getPokemonFilter(
-      pokemonNumber: $pokemonNumber
-      type: $type
-      isMega: $isMega
-      isRegion: $isRegion
-      isEvolution: $isEvolution
-      name: $name
-      generation: $generation
-    ) {
-      ...PokemonInfo
-    }
-  }
-`
 
 interface HomeProps {
   loading: boolean

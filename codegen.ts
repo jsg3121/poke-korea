@@ -3,7 +3,7 @@ import { CodegenConfig } from '@graphql-codegen/cli'
 const config: CodegenConfig = {
   overwrite: true,
   schema: 'http://localhost:4000/graphql',
-  documents: ['src/**/*.tsx'],
+  documents: ['src/**/*.graphql'],
   generates: {
     'src/graphql/schema.graphql': {
       overwrite: true,
@@ -15,7 +15,7 @@ const config: CodegenConfig = {
     },
     'src/graphql/gqlGenerated.ts': {
       overwrite: true,
-      documents: ['src/**/*.tsx'],
+      documents: ['src/**/*.graphql'],
       preset: 'import-types',
       presetConfig: {
         typesPath: './typeGenerated',
@@ -33,7 +33,7 @@ const config: CodegenConfig = {
     },
     'src/graphql/typeGenerated.ts': {
       overwrite: true,
-      documents: ['src/**/*.tsx'],
+      documents: ['src/**/*.graphql'],
       plugins: ['typescript', 'typescript-operations'],
       config: {
         namingConvention: {
