@@ -3,10 +3,10 @@ import React, { ChangeEvent } from 'react'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
-import { getChangeTypeList } from '../module'
 import { FilterModal } from '../filter.modal'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import styled from 'styled-components'
+import { getChangeTypeList } from '~/module/getChangeTypeList'
 
 interface FilterPokemonTypeComponentProps {}
 

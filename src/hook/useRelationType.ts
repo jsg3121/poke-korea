@@ -1,5 +1,5 @@
-import { changeType } from '~/module/changeType'
-import { changeToEngType } from '~/module/getIconType'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { PokemonTypes } from '~/types'
 
 export type UseRelationType = (types: Array<string>) => {
   quad: Array<string>
@@ -142,9 +142,9 @@ const relationList: LelationListType = [
 ]
 
 export const useRelationType: UseRelationType = (types) => {
-  const double: string[] = []
-  const half: string[] = []
-  const invalidity: string[] = []
+  const double: Array<PokemonType> = []
+  const half: Array<PokemonType> = []
+  const invalidity: Array<PokemonType> = []
 
   const list: TypesListType = {
     normal: 0,
@@ -178,24 +178,15 @@ export const useRelationType: UseRelationType = (types) => {
   })
 
   double.forEach((item) => {
-    if (item !== '') {
-      const { type } = changeType(item)
-      list[type] += 1
-    }
+    list[PokemonTypes[item]] += 1
   })
 
   half.forEach((item) => {
-    if (item !== '') {
-      const { type } = changeType(item)
-      list[type] -= 1
-    }
+    list[PokemonTypes[item]] -= 1
   })
 
   invalidity.forEach((item) => {
-    if (item !== '') {
-      const { type } = changeType(item)
-      list[type] = 999
-    }
+    list[PokemonTypes[item]] = 999
   })
 
   const result: ReturnType<UseRelationType> = {
@@ -204,20 +195,6 @@ export const useRelationType: UseRelationType = (types) => {
     half: [],
     quarter: [],
     zero: [],
-  }
-
-  for (const [key, value] of Object.entries(list)) {
-    if (value === 2) {
-      result.quad.push(changeToEngType(key))
-    } else if (value === 1) {
-      result.double.push(changeToEngType(key))
-    } else if (value === -1) {
-      result.half.push(changeToEngType(key))
-    } else if (value === -2) {
-      result.quarter.push(changeToEngType(key))
-    } else if (value === 999) {
-      result.zero.push(changeToEngType(key))
-    }
   }
 
   return result
