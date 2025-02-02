@@ -4,7 +4,9 @@ export const toBooleanOrUndefined = (
   return value === 'true' ? true : value === 'false' ? false : undefined
 }
 
-export const changeTypeArrayToString = (type: string | undefined): string[] => {
+export const changeTypeArrayToString = (
+  type: string | undefined,
+): Array<string> => {
   return type ? type.split(',') : []
 }
 

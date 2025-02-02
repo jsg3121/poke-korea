@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
@@ -7,8 +7,6 @@ import { FilterModal } from '../filter.modal'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import styled from 'styled-components'
 import { getChangeTypeList } from '~/module/getChangeTypeList'
-
-interface FilterPokemonTypeComponentProps {}
 
 const FieldTypeInput = styled.div`
   width: 100%;
@@ -48,10 +46,8 @@ const FieldTypeInput = styled.div`
 const isEmptyQueryCheck = (obj: object): boolean =>
   Object.keys(obj).length === 0
 
-const FilterPokemonTypeComponent: React.FC<
-  FilterPokemonTypeComponentProps
-> = () => {
-  const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false)
+const FilterPokemonTypeComponent = () => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const router = useRouter()
   useBodyScrollLock(isOpenModal)
 
@@ -95,11 +91,11 @@ const FilterPokemonTypeComponent: React.FC<
           <TypeFieldButton
             key={`pokemon-type-key-${types}`}
             onChange={handleClickTypeFilter}
-            typeValue={types.toLowerCase()}
+            typeValue={types}
             typeName={typeName}
-            checked={typeList.includes(typeName)}
+            checked={typeList.includes(types)}
             disabled={
-              typeList.length === 2 && typeList.indexOf(typeName) < 0
+              typeList.length === 2 && typeList.indexOf(types) < 0
                 ? true
                 : false
             }
