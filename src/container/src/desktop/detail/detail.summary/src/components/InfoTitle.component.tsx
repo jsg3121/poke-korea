@@ -5,7 +5,7 @@ interface IFProps {
   name: string
 }
 
-const InfoTitleComponent: FC<IFProps> = (props) => {
+const InfoTitle: FC<IFProps> = (props) => {
   const { name } = props
 
   const fontSize =
@@ -14,7 +14,7 @@ const InfoTitleComponent: FC<IFProps> = (props) => {
   return <StyledWrapper data-name-size={fontSize}>{name}</StyledWrapper>
 }
 
-export default InfoTitleComponent
+export default InfoTitle
 
 const StyledWrapper = styled.h1`
   width: 30rem;

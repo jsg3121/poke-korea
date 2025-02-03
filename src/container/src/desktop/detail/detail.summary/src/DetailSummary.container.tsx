@@ -1,12 +1,15 @@
 import { useRouter } from 'next/router'
 import { FC, useContext } from 'react'
 import styled from 'styled-components'
-import { DetailContext } from '~/context/src/Detail.context'
+import { DetailContext, TActiveType } from '~/context/src/Detail.context'
 import { changeColor } from '~/module/changeColor'
 import { TypesColor } from '~/types'
-import { InfoTitle, MegaSwitch, RegionSwitch, ShinySwitch } from './components'
 import { PokemonImage } from './summary.pokemonImage'
 import { Stats } from './summary.stats'
+import InfoTitle from './components/InfoTitle.component'
+import ShinySwitch from './components/ShinySwitch.component'
+import MegaSwitch from './components/MegaSwitch.component'
+import RegionSwitch from './components/RegionSwitch.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -87,8 +90,15 @@ const DetailSummaryContainer: FC = () => {
     regionFormInfo,
     normalForm,
     activeType,
+    handleChangeActiveType,
   } = useContext(DetailContext)
   const router = useRouter()
+
+  const handleChangeType = (type: TActiveType) => {
+    if (handleChangeActiveType) {
+      handleChangeActiveType(type)
+    }
+  }
 
   const newColor = changeColor(pokemonBaseInfo?.types ?? [])
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
@@ -130,7 +140,9 @@ const DetailSummaryContainer: FC = () => {
         <div className="profile-description">
           <ul className="switch-list">
             <ShinySwitch />
-            {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
+            {pokemonBaseInfo?.isMegaEvolution && (
+              <MegaSwitch onChnageType={handleChangeType} />
+            )}
             {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
           </ul>
           {pokemonBaseInfo && pokemonInfo.stats && (

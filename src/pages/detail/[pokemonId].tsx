@@ -5,19 +5,12 @@ import {
   GetPokemonNormalFormDocument,
   PokemonDetailDocument,
 } from '~/graphql/gqlGenerated'
-import {
-  PokemonDetail,
-  PokemonMegaEvolution,
-  PokemonNormalForm,
-  PokemonRegionForm,
-} from '~/graphql/typeGenerated'
+import { PokemonDetail, PokemonNormalForm } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { DesktopView, MobileView } from '~/views'
 
 interface IFDetailPokemonInfo {
   pokemonBaseInfo: PokemonDetail
-  regionFormInfo: Array<PokemonRegionForm>
-  megaEvolutions: Array<PokemonMegaEvolution>
   normalForm: Array<PokemonNormalForm>
 }
 
@@ -80,8 +73,6 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     redirect: redirectOption,
     props: {
       pokemonBaseInfo: data.getPokemonDetail,
-      regionFormInfo: [],
-      megaEvolutions: [],
       normalForm: normalFormData.getPokemonNormalForm,
     },
   }
