@@ -2,7 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { InfoContent } from './typesInfo.infoContent'
 import { InfoCardTitle } from '../../components'
-import { useRelationType } from '~/hook/useRelationType'
+import { calculateRelationType } from '~/module/calculateRelationType'
 import { PokemonType } from '~/graphql/typeGenerated'
 
 interface IFProps {
@@ -12,7 +12,7 @@ interface IFProps {
 export const TypesInfo: FC<IFProps> = (props) => {
   const { type } = props
 
-  const relationType = useRelationType(type)
+  const relationType = calculateRelationType(type)
 
   return (
     <Section>
