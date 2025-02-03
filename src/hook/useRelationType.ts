@@ -196,6 +196,7 @@ export const useRelationType: UseRelationType = (types) => {
     quarter: [],
     zero: [],
   }
+  console.log('🔬 dev-only ~ result:', result)
 
   return result
 }

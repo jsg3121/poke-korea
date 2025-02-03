@@ -114,7 +114,8 @@ const DetailSummaryContainer: FC = () => {
             normalForm?.[activeIndex]?.name.replace('_', ' ') ??
             pokemonBaseInfo?.name,
           stats:
-            normalForm?.[activeIndex]?.stats ?? pokemonBaseInfo?.pokemonStats,
+            normalForm?.[activeIndex]?.normalFormStats ??
+            pokemonBaseInfo?.pokemonStats,
         }
     }
   })()

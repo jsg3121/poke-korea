@@ -7,8 +7,8 @@ import {
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
+  PokemonType,
 } from '~/graphql/typeGenerated'
-import { PokemonTypes } from '~/types'
 
 type TActiveType = 'normal' | 'mega' | 'region'
 
@@ -17,7 +17,7 @@ type TActiveTypeInfo = {
   name: string
   pokemonNumber: number
   generation: number
-  types: Array<string>
+  types: Array<PokemonType>
   isEvolution: boolean
   abilities: Array<PokemonAbilityList>
   isRegion: boolean
@@ -75,21 +75,21 @@ const DetailProvider = ({
     switch (activeType) {
       case 'mega': {
         return megaEvolutions?.[activeIndex].types?.map((type) => {
-          return PokemonTypes[type]
+          return type
         })
       }
       case 'region': {
         return regionFormInfo?.[activeIndex].types?.map((type) => {
-          return PokemonTypes[type]
+          return type
         })
       }
       default: {
         return (
           normalForm?.[activeIndex]?.types?.map((type) => {
-            return PokemonTypes[type]
+            return type
           }) ??
           pokemonBaseInfo.types?.map((type) => {
-            return PokemonTypes[type]
+            return type
           })
         )
       }
@@ -113,6 +113,9 @@ const DetailProvider = ({
     }
   }
 
+  const types = getTypes() ?? []
+  const abilities = getAbilityList() ?? []
+
   const getActiveTypeInfo = () => {
     return {
       activeType,
@@ -126,9 +129,6 @@ const DetailProvider = ({
       abilities,
     }
   }
-
-  const types = getTypes() ?? []
-  const abilities = getAbilityList() ?? []
 
   const activeTypeInfo: TActiveTypeInfo = getActiveTypeInfo()
 

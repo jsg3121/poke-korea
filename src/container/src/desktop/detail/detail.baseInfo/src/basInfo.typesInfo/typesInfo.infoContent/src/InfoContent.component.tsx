@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import styled from 'styled-components'
-import { UseRelationType } from '~/hook'
 import { TypeList } from './components'
+import { UseRelationType } from '~/hook/useRelationType'
 
 interface IFProps {
   relationType: ReturnType<UseRelationType>
