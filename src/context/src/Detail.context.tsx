@@ -134,7 +134,7 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
           전국 도감번호 : ${pokemonBaseInfo.number} 포켓몬명 : ${pokemonBaseInfo.name} 타입 : [${types.join(', ')}] 등장세대 : ${pokemonBaseInfo.generation}세대
           포켓몬의 자세한 정보를 빠르고 간편하게 확인할 수 있습니다.
         `}
-        canonical={`https://poke-korea.com/detail/${pokemonBaseInfo.number}`}
+        canonical={`https://poke-korea.com/detail/${pokemonBaseInfo.number}${isShiny ? '?shinyMode=shiny' : ''} `}
         openGraph={{
           type: 'website',
           url: `https://poke-korea.com/detail/${pokemonBaseInfo.number}`,
