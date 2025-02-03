@@ -143,7 +143,9 @@ const DetailSummaryContainer: FC = () => {
             {pokemonBaseInfo?.isMegaEvolution && (
               <MegaSwitch onChnageType={handleChangeType} />
             )}
-            {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
+            {pokemonBaseInfo?.isRegionForm && (
+              <RegionSwitch onChnageType={handleChangeType} />
+            )}
           </ul>
           {pokemonBaseInfo && pokemonInfo.stats && (
             <Stats {...pokemonInfo.stats} />

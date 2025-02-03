@@ -1,39 +1,30 @@
 import { useRouter } from 'next/router'
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import RegionIcon from '~/assets/icons/region.svg'
+import { TActiveType } from '~/context/src/Detail.context'
 
-const RegionSwitch: FC = () => {
+interface RegionSwitchProps {
+  onChnageType: (type: TActiveType) => void
+}
+
+const RegionSwitch = ({ onChnageType }: RegionSwitchProps) => {
   const router = useRouter()
 
   const defaultChecked = router.query.activeType === 'region' ? true : false
 
-  const handleChangeMega = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRegion = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
-    const { query } = router
-
-    delete query.activeIndex
-
-    router.replace(
-      {
-        query: {
-          ...query,
-          activeType: checked ? 'region' : 'normal',
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
+    onChnageType(checked ? 'region' : 'normal')
   }
+
   return (
     <Li role="button">
       <input
         type="checkbox"
         id="swtich-change-region"
         checked={defaultChecked}
-        onChange={handleChangeMega}
+        onChange={handleChangeRegion}
       />
       <label htmlFor="swtich-change-region">
         <i className="icon-shiny">

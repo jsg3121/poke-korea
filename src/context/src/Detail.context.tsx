@@ -1,7 +1,10 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ReactNode, createContext, useState } from 'react'
-import { useGetPokemonMegaEvolutionLazyQuery } from '~/graphql/gqlGenerated'
+import {
+  useGetPokemonMegaEvolutionLazyQuery,
+  useGetPokemonRegionFormLazyQuery,
+} from '~/graphql/gqlGenerated'
 import {
   PokemonAbilityList,
   PokemonDetail,
@@ -64,8 +67,15 @@ const DetailProvider = ({
   const router = useRouter()
   const [pokemonMegaEvolution, setPokemonMegaEvolutions] =
     useState<Array<PokemonMegaEvolution>>()
+  const [pokemonRegionForm, setPokemonRegionForm] =
+    useState<Array<PokemonRegionForm>>()
 
   const [getPokemonMegaEvolution] = useGetPokemonMegaEvolutionLazyQuery({
+    variables: {
+      pokemonId: parseInt(router.query.pokemonId as string, 10),
+    },
+  })
+  const [getPokemonRegionForm] = useGetPokemonRegionFormLazyQuery({
     variables: {
       pokemonId: parseInt(router.query.pokemonId as string, 10),
     },
@@ -93,6 +103,26 @@ const DetailProvider = ({
         return
       }
       case 'region': {
+        const { data } = await getPokemonRegionForm()
+        if (data?.getPokemonRegionForm) {
+          console.log(
+            '🔬 dev-only ~ handleChangeActiveType ~ data?.getPokemonRegionForm:',
+            data?.getPokemonRegionForm,
+          )
+          setPokemonRegionForm(data.getPokemonRegionForm)
+          await router.replace(
+            {
+              query: {
+                ...router.query,
+                activeType: 'region',
+              },
+            },
+            undefined,
+            {
+              scroll: false,
+            },
+          )
+        }
         return
       }
       case 'normal':
@@ -120,17 +150,46 @@ const DetailProvider = ({
     : 0
   const isShiny = router.query.shinyMode === 'shiny'
 
-  const types =
-    normalForm?.[activeIndex]?.types?.map((type) => {
-      return type
-    }) ??
-    pokemonBaseInfo.types?.map((type) => {
-      return type
-    })
+  const types = (() => {
+    switch (activeType) {
+      case 'mega': {
+        console.log(pokemonMegaEvolution?.[activeIndex].types)
+        return pokemonMegaEvolution?.[activeIndex].types ?? []
+      }
+      case 'region': {
+        return pokemonRegionForm?.[activeIndex].types ?? []
+      }
+      default: {
+        return (
+          normalForm?.[activeIndex]?.types?.map((type) => {
+            return type
+          }) ??
+          pokemonBaseInfo.types?.map((type) => {
+            return type
+          })
+        )
+      }
+    }
+  })()
 
-  const abilities =
-    normalForm?.[activeIndex]?.normalFormAbilityList ??
-    pokemonBaseInfo.pokemonAbilityList
+  const abilities = (() => {
+    switch (activeType) {
+      case 'mega': {
+        return (
+          pokemonMegaEvolution?.[activeIndex].megaEvolutionAbilityList ?? []
+        )
+      }
+      case 'region': {
+        return pokemonRegionForm?.[activeIndex].regionFormAbilityList ?? []
+      }
+      default: {
+        return (
+          normalForm?.[activeIndex]?.normalFormAbilityList ??
+          pokemonBaseInfo.pokemonAbilityList
+        )
+      }
+    }
+  })()
 
   const getActiveTypeInfo = () => {
     return {
@@ -154,6 +213,7 @@ const DetailProvider = ({
     normalForm,
     activeTypeInfo,
     megaEvolutions: pokemonMegaEvolution,
+    regionFormInfo: pokemonRegionForm,
     handleChangeActiveType,
   }
 

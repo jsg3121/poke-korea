@@ -7,7 +7,7 @@ import { RelationPokemon } from './baseinfo.relationPokemon'
 import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
 
 const DetailBaseInfoContainer: React.FC = () => {
-  const { pokemonBaseInfo } = React.useContext(DetailContext)
+  const { pokemonBaseInfo, activeTypeInfo } = React.useContext(DetailContext)
 
   if (!pokemonBaseInfo) return <></> // TODO : 에러 페이지 및 잘못된 페이지로 처리하기
 
@@ -23,7 +23,7 @@ const DetailBaseInfoContainer: React.FC = () => {
         )}
       </div>
       <Abilities />
-      <TypesInfo type={pokemonBaseInfo.types} />
+      <TypesInfo type={activeTypeInfo.types} />
     </Div>
   )
 }

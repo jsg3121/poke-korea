@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { Image } from '~/components'
 import { TActiveType } from '~/context/src/Detail.context'
@@ -13,7 +13,7 @@ const MegaSwitch = ({ onChnageType }: MegaSwitchProps) => {
 
   const defaultChecked = router.query.activeType === 'mega' ? true : false
 
-  const handleChangeMega = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMega = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     onChnageType(checked ? 'mega' : 'normal')
   }
