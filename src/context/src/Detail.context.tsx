@@ -31,6 +31,8 @@ type TActiveTypeInfo = {
 export interface IFDetailProviderProps {
   pokemonBaseInfo: PokemonDetail
   normalForm: Array<PokemonNormalForm>
+  megaEvolutionData?: Array<PokemonMegaEvolution>
+  regionFormData?: Array<PokemonRegionForm>
   children: ReactNode
 }
 
@@ -63,18 +65,23 @@ const DetailProvider = ({
   children,
   pokemonBaseInfo,
   normalForm,
+  megaEvolutionData,
+  regionFormData,
 }: IFDetailProviderProps) => {
   const router = useRouter()
-  const [pokemonMegaEvolution, setPokemonMegaEvolutions] =
-    useState<Array<PokemonMegaEvolution>>()
-  const [pokemonRegionForm, setPokemonRegionForm] =
-    useState<Array<PokemonRegionForm>>()
+  const [pokemonMegaEvolution, setPokemonMegaEvolutions] = useState<
+    Array<PokemonMegaEvolution> | undefined
+  >(megaEvolutionData)
+  const [pokemonRegionForm, setPokemonRegionForm] = useState<
+    Array<PokemonRegionForm> | undefined
+  >(regionFormData)
 
   const [getPokemonMegaEvolution] = useGetPokemonMegaEvolutionLazyQuery({
     variables: {
       pokemonId: parseInt(router.query.pokemonId as string, 10),
     },
   })
+
   const [getPokemonRegionForm] = useGetPokemonRegionFormLazyQuery({
     variables: {
       pokemonId: parseInt(router.query.pokemonId as string, 10),
@@ -84,44 +91,44 @@ const DetailProvider = ({
   const handleChangeActiveType = async (type: TActiveType) => {
     switch (type) {
       case 'mega': {
-        const { data } = await getPokemonMegaEvolution()
-        if (data?.getPokemonMegaEvolution) {
-          setPokemonMegaEvolutions(data.getPokemonMegaEvolution)
-          await router.replace(
-            {
-              query: {
-                ...router.query,
-                activeType: 'mega',
+        if (!megaEvolutionData) {
+          const { data } = await getPokemonMegaEvolution()
+          if (data?.getPokemonMegaEvolution) {
+            setPokemonMegaEvolutions(data.getPokemonMegaEvolution)
+            await router.replace(
+              {
+                query: {
+                  ...router.query,
+                  activeType: 'mega',
+                },
               },
-            },
-            undefined,
-            {
-              scroll: false,
-            },
-          )
+              undefined,
+              {
+                scroll: false,
+              },
+            )
+          }
         }
         return
       }
       case 'region': {
-        const { data } = await getPokemonRegionForm()
-        if (data?.getPokemonRegionForm) {
-          console.log(
-            '🔬 dev-only ~ handleChangeActiveType ~ data?.getPokemonRegionForm:',
-            data?.getPokemonRegionForm,
-          )
-          setPokemonRegionForm(data.getPokemonRegionForm)
-          await router.replace(
-            {
-              query: {
-                ...router.query,
-                activeType: 'region',
+        if (!regionFormData) {
+          const { data } = await getPokemonRegionForm()
+          if (data?.getPokemonRegionForm) {
+            setPokemonRegionForm(data.getPokemonRegionForm)
+            await router.replace(
+              {
+                query: {
+                  ...router.query,
+                  activeType: 'region',
+                },
               },
-            },
-            undefined,
-            {
-              scroll: false,
-            },
-          )
+              undefined,
+              {
+                scroll: false,
+              },
+            )
+          }
         }
         return
       }
@@ -153,7 +160,6 @@ const DetailProvider = ({
   const types = (() => {
     switch (activeType) {
       case 'mega': {
-        console.log(pokemonMegaEvolution?.[activeIndex].types)
         return pokemonMegaEvolution?.[activeIndex].types ?? []
       }
       case 'region': {

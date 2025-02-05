@@ -2,16 +2,29 @@ import { GetServerSideProps, NextPage } from 'next'
 import { DetailProvider } from '~/context/src/Detail.context'
 import { useDevice } from '~/context/src/Device.context'
 import {
+  GetPokemonMegaEvolutionDocument,
   GetPokemonNormalFormDocument,
+  GetPokemonRegionFormDocument,
   PokemonDetailDocument,
 } from '~/graphql/gqlGenerated'
-import { PokemonDetail, PokemonNormalForm } from '~/graphql/typeGenerated'
+import {
+  GetPokemonMegaEvolutionQuery,
+  GetPokemonNormalFormQuery,
+  GetPokemonRegionFormQuery,
+  PokemonDetail,
+  PokemonDetailQuery,
+  PokemonMegaEvolution,
+  PokemonNormalForm,
+  PokemonRegionForm,
+} from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { DesktopView, MobileView } from '~/views'
 
 interface IFDetailPokemonInfo {
   pokemonBaseInfo: PokemonDetail
   normalForm: Array<PokemonNormalForm>
+  megaEvolutionData?: Array<PokemonMegaEvolution>
+  regionFormData?: Array<PokemonRegionForm>
 }
 
 const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
@@ -31,25 +44,27 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
 
   const apolloClient = initializeApollo()
 
-  const { data } = await apolloClient.query({
-    query: PokemonDetailDocument,
-    variables: {
-      pokemonId: parseInt(String(query.pokemonId), 10),
-    },
-    fetchPolicy: 'cache-first',
-  })
-
-  const { data: normalFormData } = await apolloClient.query({
-    query: GetPokemonNormalFormDocument,
-    variables: {
-      pokemonId: parseInt(String(query.pokemonId), 10),
-    },
-    fetchPolicy: 'cache-first',
-  })
+  const [{ data: defaultPokemonData }, { data: normalFormData }] =
+    await Promise.all([
+      apolloClient.query<PokemonDetailQuery>({
+        query: PokemonDetailDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      }),
+      apolloClient.query<GetPokemonNormalFormQuery>({
+        query: GetPokemonNormalFormDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      }),
+    ])
 
   const changeRedirect = () => {
     if (
-      !data.getPokemonDetail.isMegaEvolution &&
+      !defaultPokemonData.getPokemonDetail?.isMegaEvolution &&
       (query.activeType as string) === 'mega'
     ) {
       return {
@@ -57,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
         statusCode: 301,
       }
     } else if (
-      !data.getPokemonDetail.isRegionForm &&
+      !defaultPokemonData.getPokemonDetail?.isRegionForm &&
       (query.activeType as string) === 'region'
     ) {
       return {
@@ -69,10 +84,50 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
 
   const redirectOption = changeRedirect()
 
+  if (query.activeType === 'mega') {
+    const { data: megaEvolutionData } =
+      await apolloClient.query<GetPokemonMegaEvolutionQuery>({
+        query: GetPokemonMegaEvolutionDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      })
+
+    return {
+      redirect: redirectOption,
+      props: {
+        pokemonBaseInfo: defaultPokemonData.getPokemonDetail,
+        normalForm: normalFormData.getPokemonNormalForm,
+        megaEvolutionData: megaEvolutionData.getPokemonMegaEvolution,
+      },
+    }
+  }
+
+  if (query.activeType === 'region') {
+    const { data: regionFormData } =
+      await apolloClient.query<GetPokemonRegionFormQuery>({
+        query: GetPokemonRegionFormDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      })
+
+    return {
+      redirect: redirectOption,
+      props: {
+        pokemonBaseInfo: defaultPokemonData.getPokemonDetail,
+        normalForm: normalFormData.getPokemonNormalForm,
+        regionFormData: regionFormData.getPokemonRegionForm,
+      },
+    }
+  }
+
   return {
     redirect: redirectOption,
     props: {
-      pokemonBaseInfo: data.getPokemonDetail,
+      pokemonBaseInfo: defaultPokemonData.getPokemonDetail,
       normalForm: normalFormData.getPokemonNormalForm,
     },
   }
