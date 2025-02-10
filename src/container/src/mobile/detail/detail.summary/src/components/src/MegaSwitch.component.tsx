@@ -1,7 +1,12 @@
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { Image } from '~/components'
+import { TActiveType } from '~/context/src/Detail.context'
+
+interface MegaSwitchProps {
+  onChnageType: (type: TActiveType) => void
+}
 
 const Li = styled.li`
   & > input {
@@ -48,29 +53,14 @@ const Li = styled.li`
   }
 `
 
-const MegaSwitchComponent: FC = () => {
+const MegaSwitchComponent = ({ onChnageType }: MegaSwitchProps) => {
   const router = useRouter()
 
   const defaultChecked = router.query.activeType === 'mega' ? true : false
 
-  const handleChangeMega = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMega = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
-    const { query } = router
-
-    delete query.activeIndex
-
-    router.replace(
-      {
-        query: {
-          ...query,
-          activeType: checked ? 'mega' : 'normal',
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
+    onChnageType(checked ? 'mega' : 'normal')
   }
 
   return (

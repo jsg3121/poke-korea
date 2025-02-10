@@ -42,7 +42,7 @@ const PokemonImageCompoment: FC = () => {
         const megaImages = megaEvolutions?.map((mega, index) => {
           return {
             imageCode: parseInt(
-              `1${mega.pokemonNumber.toString().padStart(3, '0')}${index
+              `1${mega.pokemonId.toString().padStart(3, '0')}${index
                 ?.toString()
                 .padStart(2, '0')}`,
               10,
@@ -55,7 +55,7 @@ const PokemonImageCompoment: FC = () => {
         const regionImages = regionFormInfo?.map((region, index) => {
           return {
             imageCode: parseInt(
-              `2${region.pokemonNumber.toString().padStart(3, '0')}${index
+              `2${region.pokemonId.toString().padStart(3, '0')}${index
                 ?.toString()
                 .padStart(2, '0')}`,
               10,

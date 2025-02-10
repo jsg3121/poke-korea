@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import { InfoContent } from './typesInfo.infoContent'
 import { InfoCardTitle } from '../../../components'
 import { calculateRelationType } from '~/module/calculateRelationType'
+import { PokemonType } from '~/graphql/typeGenerated'
 
 interface IFProps {
-  type: Array<string>
+  type: Array<PokemonType>
 }
 
 const TypesInfoComponent: FC<IFProps> = (props) => {

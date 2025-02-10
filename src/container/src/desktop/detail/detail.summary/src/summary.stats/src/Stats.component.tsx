@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { IFPokemonStat } from '~/types/detailInfo.types'
+import { PokemonStats } from '~/graphql/typeGenerated'
 import { StatChart } from './components'
 
 const Section = styled.section`
@@ -39,7 +39,7 @@ const Section = styled.section`
   }
 `
 
-const StatsComponent: React.FC<IFPokemonStat> = (props) => {
+const StatsComponent: React.FC<PokemonStats> = (props) => {
   const { total, ...restProps } = props
 
   return (

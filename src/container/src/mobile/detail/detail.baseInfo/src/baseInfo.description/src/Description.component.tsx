@@ -43,7 +43,7 @@ const DescriptionComponent: FC = () => {
         <li>
           <strong>타입</strong>
           {types.map((type) => {
-            return <Tag key={type} label={type} />
+            return <Tag key={type} type={type} />
           })}
         </li>
         <li>

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { FC, useContext } from 'react'
 import styled from 'styled-components'
-import { DetailContext } from '~/context/src/Detail.context'
+import { DetailContext, TActiveType } from '~/context/src/Detail.context'
 import { changeColor } from '~/module/changeColor'
 import { TypesColor } from '~/types'
 import { InfoTitle, MegaSwitch, RegionSwitch, ShinySwitch } from './components'
@@ -65,10 +65,17 @@ const DetailSummaryContainer: FC = () => {
     regionFormInfo,
     normalForm,
     activeType,
+    handleChangeActiveType,
   } = useContext(DetailContext)
   const router = useRouter()
 
-  const newColor = changeColor(pokemonBaseInfo?.type ?? [])
+  const handleChangeType = (type: TActiveType) => {
+    if (handleChangeActiveType) {
+      handleChangeActiveType(type)
+    }
+  }
+
+  const newColor = changeColor(pokemonBaseInfo?.types ?? [])
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
   const activeIndex = router.query.activeIndex ? indexQuery : 0
 
@@ -77,20 +84,23 @@ const DetailSummaryContainer: FC = () => {
       case 'mega':
         return {
           name: megaEvolutions?.[activeIndex].name,
-          stats: megaEvolutions?.[activeIndex].megaStats,
+          stats: megaEvolutions?.[activeIndex].megaEvolutionStats,
         }
       case 'region':
         return {
           name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습 ${regionFormInfo?.[activeIndex].name && `(${regionFormInfo?.[activeIndex].name})`}`,
           stats:
-            regionFormInfo?.[activeIndex].regionStats ?? pokemonBaseInfo?.stats,
+            regionFormInfo?.[activeIndex].regionFormStats ??
+            pokemonBaseInfo?.pokemonStats,
         }
       default:
         return {
           name:
             normalForm?.[activeIndex]?.name.replace('_', ' ') ??
             pokemonBaseInfo?.name,
-          stats: normalForm?.[activeIndex]?.formStats ?? pokemonBaseInfo?.stats,
+          stats:
+            normalForm?.[activeIndex]?.normalFormStats ??
+            pokemonBaseInfo?.pokemonStats,
         }
     }
   })()
@@ -103,8 +113,12 @@ const DetailSummaryContainer: FC = () => {
       <InfoTitle name={pokemonInfo.name ?? ''} />
       <ul className="switch-list">
         <ShinySwitch />
-        {pokemonBaseInfo?.isMega && <MegaSwitch />}
-        {pokemonBaseInfo?.isRegion && <RegionSwitch />}
+        {pokemonBaseInfo?.isMegaEvolution && (
+          <MegaSwitch onChnageType={handleChangeType} />
+        )}
+        {pokemonBaseInfo?.isRegionForm && (
+          <RegionSwitch onChnageType={handleChangeType} />
+        )}
       </ul>
       {pokemonBaseInfo && pokemonInfo.stats && <Stats {...pokemonInfo.stats} />}
     </Div>
