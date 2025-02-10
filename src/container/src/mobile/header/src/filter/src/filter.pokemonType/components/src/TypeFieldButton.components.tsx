@@ -76,7 +76,7 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
         type="checkbox"
         id={`field-type-${typeValue}`}
         disabled={disabled}
-        value={typeName}
+        value={typeValue}
         checked={defaultChecked}
         {...restProps}
       />

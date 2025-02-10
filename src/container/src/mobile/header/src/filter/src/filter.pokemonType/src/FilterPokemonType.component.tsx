@@ -110,11 +110,11 @@ const FilterPokemonTypeComponent: React.FC<
             <TypeFieldButton
               key={`pokemon-type-key-${types}`}
               onChange={handleClickTypeFilter}
-              typeValue={types.toLowerCase()}
+              typeValue={types}
               typeName={typeName}
-              checked={typeList.includes(typeName)}
+              checked={typeList.includes(types)}
               disabled={
-                typeList.length === 2 && typeList.indexOf(typeName) < 0
+                typeList.length === 2 && typeList.indexOf(types) < 0
                   ? true
                   : false
               }
