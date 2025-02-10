@@ -86,7 +86,7 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
             alt={`${typeName} 타입 필터 선택`}
             height="100%"
             width="100%"
-            src={`/assets/type/${typeValue}.svg`}
+            src={`/assets/type/${typeValue.toLowerCase()}.svg`}
             loading="lazy"
           />
         </i>
