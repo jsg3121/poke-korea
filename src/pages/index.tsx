@@ -1,73 +1,20 @@
-import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 import { useDevice } from '~/context/src/Device.context'
-import { Pokemon } from '~/graphql/typeGenerated'
+import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
+import { PokemonList } from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
 import {
   changeTypeArrayToString,
-  initializeApollo,
+  getGenerationParams,
   toBooleanOrUndefined,
-} from '~/module'
+} from '~/module/filter.module'
 import { DesktopView, MobileView } from '~/views'
-
-const QUERY = gql`
-  fragment PokemonInfo on Pokemon {
-    id
-    typeSingle1
-    typeSingle2
-    isEvolution
-    evolutionId
-    generation
-    isForm
-    ...PokemonCard
-  }
-
-  fragment PokemonCard on Pokemon {
-    id
-    number
-    name
-    type
-    isRegion
-    isMega
-    stats {
-      pokemonId
-      hp
-      attack
-      defense
-      specialAttack
-      specialDefense
-      speed
-      total
-    }
-  }
-
-  query getPokemonList(
-    $pokemonNumber: Int
-    $type: [String!]
-    $isMega: Boolean
-    $isRegion: Boolean
-    $isEvolution: Boolean
-    $name: String
-    $generation: [String!]
-  ) {
-    getPokemonFilter(
-      pokemonNumber: $pokemonNumber
-      type: $type
-      isMega: $isMega
-      isRegion: $isRegion
-      isEvolution: $isEvolution
-      name: $name
-      generation: $generation
-    ) {
-      ...PokemonInfo
-    }
-  }
-`
 
 interface HomeProps {
   loading: boolean
-  pokemonList: Array<Pokemon>
+  pokemonList: Array<PokemonList>
 }
 
 const Main = styled.main`
@@ -130,28 +77,34 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
   const { query } = props
   const apolloClient = initializeApollo()
 
-  const { type, isMega, isRegion, isEvolution, ...restQuery } = query
+  const { type, isMega, isRegion, isEvolution, generation, ...restQuery } =
+    query
 
   const filterInput = {
     ...restQuery,
-    ...(isMega && { isMega: toBooleanOrUndefined(isMega as string) }),
-    ...(isRegion && { isRegion: toBooleanOrUndefined(isRegion as string) }),
+    ...(generation && {
+      generation: getGenerationParams(generation),
+    }),
+    ...(isMega && { isMegaEvolution: toBooleanOrUndefined(isMega as string) }),
+    ...(isRegion && { isRegionForm: toBooleanOrUndefined(isRegion as string) }),
     ...(isEvolution && {
       isEvolution: toBooleanOrUndefined(isEvolution as string),
     }),
-    ...(type && { type: changeTypeArrayToString(type as string) }),
+    ...(type && { types: changeTypeArrayToString(type as string) }),
   }
 
   const { data, loading } = await apolloClient.query({
-    query: QUERY,
-    variables: filterInput,
+    query: GetPokemonListDocument,
+    variables: {
+      filter: filterInput,
+    },
   })
 
   return {
     props: {
       loading,
       ...(data && {
-        pokemonList: data.getPokemonFilter || [],
+        pokemonList: data.getPokemonList || [],
       }),
     },
   }

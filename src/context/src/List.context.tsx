@@ -1,8 +1,8 @@
 import React from 'react'
-import { Pokemon, PokemonInfoFragment } from '~/graphql/typeGenerated'
+import { PokemonList, PokemonInfoFragment } from '~/graphql/typeGenerated'
 
 interface ListProviderProps {
-  pokemonList: Array<Pokemon>
+  pokemonList: Array<PokemonList>
   children: React.ReactNode
   scrolling?: boolean
   searching?: boolean

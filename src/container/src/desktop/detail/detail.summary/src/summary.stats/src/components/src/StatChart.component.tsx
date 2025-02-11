@@ -11,9 +11,9 @@ import {
   Tooltip,
 } from 'chart.js'
 import { Radar } from 'react-chartjs-2'
-import { IFPokemonStat } from '~/types/detailInfo.types'
+import { PokemonStats } from '~/graphql/typeGenerated'
 
-type IFProps = Omit<IFPokemonStat, 'total'>
+type IFProps = Omit<PokemonStats, 'total'>
 
 ChartJS.register(
   RadialLinearScale,

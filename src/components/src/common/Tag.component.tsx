@@ -1,13 +1,12 @@
-import React from 'react'
 import styled from 'styled-components'
-import { changeType } from '~/module'
-import { TypesColor } from '~/types'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { PokemonTypes, TypesColor } from '~/types'
 
 interface TagComponentProps {
-  label: string
+  type: PokemonType
 }
 
-const Tag = styled.p<{ color: TypesColor; type: string }>`
+const Tag = styled.p<{ color: TypesColor }>`
   width: 3.6rem;
   height: 1.5rem;
   padding: 0 0.5rem;
@@ -29,16 +28,10 @@ const Tag = styled.p<{ color: TypesColor; type: string }>`
   }
 `
 
-const TagComponent: React.FC<TagComponentProps> = (props) => {
-  const { label } = props
-
-  const { color, type } = React.useMemo(() => {
-    return changeType(label)
-  }, [label])
-
+const TagComponent = ({ type }: TagComponentProps) => {
   return (
-    <Tag color={color} type={type}>
-      <span>{label}</span>
+    <Tag color={TypesColor[type]}>
+      <span>{PokemonTypes[type]}</span>
     </Tag>
   )
 }

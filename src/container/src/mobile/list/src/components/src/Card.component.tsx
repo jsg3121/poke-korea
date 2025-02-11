@@ -1,11 +1,11 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { changeType, imageMode } from '~/module'
 import { Ball, Image, Tag } from '~/components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
+import { imageMode } from '~/module/buildMode'
 import { CardColor } from '~/types'
 import { pokemonNumberFormat } from '../../module'
-import { useRouter } from 'next/router'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -138,16 +138,15 @@ const Card = styled.article<CardType>`
   `}
 `
 
-const CardComponent: React.FC<CardComponentProps> = (props) => {
-  const { pokemonData } = props
+const CardComponent = ({ pokemonData }: CardComponentProps) => {
   const router = useRouter()
 
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   const backgroundColor = React.useMemo(() => {
     const background: Array<CardColor> = []
-    pokemonData.type.map((item) => {
-      return background.push(changeType(item).cardColor)
+    pokemonData.types.map((item) => {
+      return background.push(CardColor[item])
     })
     return background
   }, [pokemonData])
@@ -182,36 +181,40 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
         />
       </div>
       <div className="card-info__types" aria-description="포켓몬 타입 정보">
-        {pokemonData.type.map((item, index) => {
-          return <Tag key={`${item}-id-${index}`} label={item} />
+        {pokemonData.types.map((item, index) => {
+          return <Tag key={`${item}-id-${index}`} type={item} />
         })}
       </div>
       <ul className="card-info__stat" aria-description="포켓몬 능력치 정보">
         <li className="stat__info">
           <p className="info__title">체력</p>
-          <p className="info__description">{pokemonData.stats.hp}</p>
+          <p className="info__description">{pokemonData.pokemonStats.hp}</p>
         </li>
         <li className="stat__info">
           <p className="info__title">공격</p>
-          <p className="info__description">{pokemonData.stats.attack}</p>
+          <p className="info__description">{pokemonData.pokemonStats.attack}</p>
         </li>
         <li className="stat__info">
           <p className="info__title">특수공격</p>
-          <p className="info__description">{pokemonData.stats.specialAttack}</p>
+          <p className="info__description">
+            {pokemonData.pokemonStats.specialAttack}
+          </p>
         </li>
         <li className="stat__info">
           <p className="info__title">방어</p>
-          <p className="info__description">{pokemonData.stats.defense}</p>
+          <p className="info__description">
+            {pokemonData.pokemonStats.defense}
+          </p>
         </li>
         <li className="stat__info">
           <p className="info__title">특수방어</p>
           <p className="info__description">
-            {pokemonData.stats.specialDefense}
+            {pokemonData.pokemonStats.specialDefense}
           </p>
         </li>
         <li className="stat__info">
           <p className="info__title">스피드</p>
-          <p className="info__description">{pokemonData.stats.speed}</p>
+          <p className="info__description">{pokemonData.pokemonStats.speed}</p>
         </li>
       </ul>
     </Card>

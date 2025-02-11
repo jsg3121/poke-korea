@@ -3,7 +3,7 @@ import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import App from 'next/app'
 import Head from 'next/head'
 import { DeviceProvider } from '~/context/src/Device.context'
-import { useApollo } from '~/module'
+import { useApollo } from '~/module/apolloClient'
 import { GlobalStyle } from '~/styles/Global'
 import '~/styles/common.css'
 

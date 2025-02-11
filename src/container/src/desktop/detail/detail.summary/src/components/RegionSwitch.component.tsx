@@ -1,50 +1,42 @@
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
-import ShinyIcon from '~/assets/icons/sparkle.svg'
+import RegionIcon from '~/assets/icons/region.svg'
+import { TActiveType } from '~/context/src/Detail.context'
 
-const ShinySwitchComponent: FC = () => {
+interface RegionSwitchProps {
+  onChnageType: (type: TActiveType) => void
+}
+
+const RegionSwitch = ({ onChnageType }: RegionSwitchProps) => {
   const router = useRouter()
 
-  const defaultChecked = router.query.shinyMode === 'shiny' ? true : false
+  const defaultChecked = router.query.activeType === 'region' ? true : false
 
-  const handleChangeShiny = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRegion = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
-    const { query } = router
-
-    router.replace(
-      {
-        query: {
-          ...query,
-          shinyMode: checked ? 'shiny' : 'normal',
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
+    onChnageType(checked ? 'region' : 'normal')
   }
 
   return (
     <Li role="button">
       <input
         type="checkbox"
-        id="swtich-change-shiny"
+        id="swtich-change-region"
         checked={defaultChecked}
-        onChange={handleChangeShiny}
+        onChange={handleChangeRegion}
       />
-      <label htmlFor="swtich-change-shiny">
+      <label htmlFor="swtich-change-region">
         <i className="icon-shiny">
-          <ShinyIcon />
+          <RegionIcon />
         </i>
-        <p>이로치</p>
+        <p>리전폼</p>
       </label>
     </Li>
   )
 }
 
-export default ShinySwitchComponent
+export default RegionSwitch
 
 const Li = styled.li`
   position: relative;
@@ -59,7 +51,7 @@ const Li = styled.li`
     display: none;
 
     &:checked + label > .icon-shiny > svg {
-      fill: #f5b62e;
+      filter: grayscale(0);
     }
   }
 
@@ -93,7 +85,7 @@ const Li = styled.li`
       display: block;
 
       svg {
-        fill: transparent;
+        filter: grayscale(1);
       }
     }
   }

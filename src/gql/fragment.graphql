@@ -1,0 +1,41 @@
+fragment PokemonStats on PokemonStats {
+  hp
+  attack
+  defense
+  specialAttack
+  specialDefense
+  speed
+  total
+}
+
+fragment PokemonAbilityList on PokemonAbilityList {
+  pokemonId
+  abilityId
+  name
+  description
+  isHidden
+}
+
+fragment PokemonInfo on PokemonList {
+  id
+  generation
+  typePrimary
+  typeSecondary
+  isEvolution
+  isFormChange
+  evolutionId
+  abilityId
+  ...PokemonCard
+}
+
+fragment PokemonCard on PokemonList {
+  id
+  number
+  name
+  types
+  isRegionForm
+  isMegaEvolution
+  pokemonStats {
+    ...PokemonStats
+  }
+}

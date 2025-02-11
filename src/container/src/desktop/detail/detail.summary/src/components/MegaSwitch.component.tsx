@@ -1,51 +1,47 @@
 import { useRouter } from 'next/router'
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
-import RegionIcon from '~/assets/icons/region.svg'
+import { Image } from '~/components'
+import { TActiveType } from '~/context/src/Detail.context'
 
-const RegionSwitchComponent: FC = () => {
+interface MegaSwitchProps {
+  onChnageType: (type: TActiveType) => void
+}
+
+const MegaSwitch = ({ onChnageType }: MegaSwitchProps) => {
   const router = useRouter()
 
-  const defaultChecked = router.query.activeType === 'region' ? true : false
+  const defaultChecked = router.query.activeType === 'mega' ? true : false
 
   const handleChangeMega = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
-    const { query } = router
-
-    delete query.activeIndex
-
-    router.replace(
-      {
-        query: {
-          ...query,
-          activeType: checked ? 'region' : 'normal',
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
+    onChnageType(checked ? 'mega' : 'normal')
   }
+
   return (
     <Li role="button">
       <input
         type="checkbox"
-        id="swtich-change-region"
+        id="swtich-change-mega"
         checked={defaultChecked}
         onChange={handleChangeMega}
       />
-      <label htmlFor="swtich-change-region">
-        <i className="icon-shiny">
-          <RegionIcon />
+      <label htmlFor="swtich-change-mega">
+        <i className="icon-mega">
+          <Image
+            alt="메가진화 보기 스위치"
+            height="1.625rem"
+            width="1.625rem"
+            src="/assets/icons/mega.webp"
+          />
         </i>
-        <p>리전폼</p>
+        <p>메가진화</p>
       </label>
     </Li>
   )
 }
 
-export default RegionSwitchComponent
+export default MegaSwitch
 
 const Li = styled.li`
   position: relative;
@@ -53,19 +49,19 @@ const Li = styled.li`
   transition: left 0.2s ease-out;
 
   &:hover {
-    left: -6.5rem;
+    left: -7rem;
   }
 
   & > input {
     display: none;
 
-    &:checked + label > .icon-shiny > svg {
+    &:checked + label > .icon-mega {
       filter: grayscale(0);
     }
   }
 
   & > label {
-    width: 7rem;
+    width: 8rem;
     height: 2rem;
     font-size: 1rem;
     font-weight: normal;
@@ -87,15 +83,12 @@ const Li = styled.li`
       flex-shrink: 0;
     }
 
-    & > .icon-shiny {
-      width: 2rem;
-      height: 2rem;
+    & > .icon-mega {
+      width: 1.625rem;
+      height: 1.625rem;
       flex-shrink: 0;
       display: block;
-
-      svg {
-        filter: grayscale(1);
-      }
+      filter: grayscale(1);
     }
   }
 `

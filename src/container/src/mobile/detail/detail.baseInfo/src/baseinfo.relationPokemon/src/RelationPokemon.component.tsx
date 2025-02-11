@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { FC } from 'react'
 import styled from 'styled-components'
-import { imageMode } from '~/module'
 import { Image } from '~/components'
+import { imageMode } from '~/module/buildMode'
 import { InfoCardTitle } from '../../../components'
 
 interface IFProps {
@@ -10,7 +9,7 @@ interface IFProps {
   name: string
 }
 
-const RelationPokemonComponent: FC<IFProps> = ({ name, evolutionId }) => {
+const RelationPokemonComponent = ({ name, evolutionId }: IFProps) => {
   return (
     <Section>
       <InfoCardTitle title="진화 체인" />

@@ -1,24 +1,22 @@
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { Image } from '~/components'
+import ShinyIcon from '~/assets/icons/sparkle.svg'
 
-const MegaSwitchComponent: FC = () => {
+const ShinySwitch: FC = () => {
   const router = useRouter()
 
-  const defaultChecked = router.query.activeType === 'mega' ? true : false
+  const defaultChecked = router.query.shinyMode === 'shiny' ? true : false
 
-  const handleChangeMega = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeShiny = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     const { query } = router
-
-    delete query.activeIndex
 
     router.replace(
       {
         query: {
           ...query,
-          activeType: checked ? 'mega' : 'normal',
+          shinyMode: checked ? 'shiny' : 'normal',
         },
       },
       undefined,
@@ -32,26 +30,21 @@ const MegaSwitchComponent: FC = () => {
     <Li role="button">
       <input
         type="checkbox"
-        id="swtich-change-mega"
+        id="swtich-change-shiny"
         checked={defaultChecked}
-        onChange={handleChangeMega}
+        onChange={handleChangeShiny}
       />
-      <label htmlFor="swtich-change-mega">
-        <i className="icon-mega">
-          <Image
-            alt="메가진화 보기 스위치"
-            height="1.625rem"
-            width="1.625rem"
-            src="/assets/icons/mega.webp"
-          />
+      <label htmlFor="swtich-change-shiny">
+        <i className="icon-shiny">
+          <ShinyIcon />
         </i>
-        <p>메가진화</p>
+        <p>이로치</p>
       </label>
     </Li>
   )
 }
 
-export default MegaSwitchComponent
+export default ShinySwitch
 
 const Li = styled.li`
   position: relative;
@@ -59,19 +52,19 @@ const Li = styled.li`
   transition: left 0.2s ease-out;
 
   &:hover {
-    left: -7rem;
+    left: -6.5rem;
   }
 
   & > input {
     display: none;
 
-    &:checked + label > .icon-mega {
-      filter: grayscale(0);
+    &:checked + label > .icon-shiny > svg {
+      fill: #f5b62e;
     }
   }
 
   & > label {
-    width: 8rem;
+    width: 7rem;
     height: 2rem;
     font-size: 1rem;
     font-weight: normal;
@@ -93,12 +86,15 @@ const Li = styled.li`
       flex-shrink: 0;
     }
 
-    & > .icon-mega {
-      width: 1.625rem;
-      height: 1.625rem;
+    & > .icon-shiny {
+      width: 2rem;
+      height: 2rem;
       flex-shrink: 0;
       display: block;
-      filter: grayscale(1);
+
+      svg {
+        fill: transparent;
+      }
     }
   }
 `

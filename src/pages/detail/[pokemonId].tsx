@@ -1,120 +1,31 @@
-import { gql } from '@apollo/client'
 import { GetServerSideProps, NextPage } from 'next'
 import { DetailProvider } from '~/context/src/Detail.context'
 import { useDevice } from '~/context/src/Device.context'
-import { initializeApollo } from '~/module'
-import { IFDetailPokemonInfo } from '~/types/detailInfo.types'
+import {
+  GetPokemonMegaEvolutionDocument,
+  GetPokemonNormalFormDocument,
+  GetPokemonRegionFormDocument,
+  PokemonDetailDocument,
+} from '~/graphql/gqlGenerated'
+import {
+  GetPokemonMegaEvolutionQuery,
+  GetPokemonNormalFormQuery,
+  GetPokemonRegionFormQuery,
+  PokemonDetail,
+  PokemonDetailQuery,
+  PokemonMegaEvolution,
+  PokemonNormalForm,
+  PokemonRegionForm,
+} from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
 import { DesktopView, MobileView } from '~/views'
 
-const GET_POKEMON = gql`
-  query GetPokemonDetailInfo($number: Float!) {
-    getSinglePokemon(number: $number) {
-      id
-      number
-      name
-      type
-      isRegion
-      isMega
-      typeSingle1
-      typeSingle2
-      isEvolution
-      evolutionId
-      generation
-      isForm
-      abilities {
-        name
-        description
-        isHidden
-      }
-      stats {
-        pokemonId
-        hp
-        attack
-        defense
-        specialAttack
-        specialDefense
-        speed
-        total
-      }
-    }
-
-    getRegionForm(number: $number) {
-      pokemonId
-      region
-      type
-      pokemonNumber
-      name
-      regionStats {
-        id
-        statCode
-        hp
-        attack
-        defense
-        specialAttack
-        specialDefense
-        speed
-        total
-      }
-      abilities {
-        name
-        description
-        isHidden
-      }
-    }
-
-    getMegaEvolution(number: $number) {
-      id
-      pokemonId
-      pokemonNumber
-      type
-      typeSingle1
-      typeSingle2
-      name
-      megaStats {
-        id
-        statCode
-        hp
-        attack
-        defense
-        specialAttack
-        specialDefense
-        speed
-        total
-      }
-      abilities {
-        name
-        description
-        isHidden
-      }
-    }
-
-    getNormalForm(number: $number) {
-      id
-      pokemonId
-      type
-      typeSingle1
-      typeSingle2
-      imagePath
-      name
-      formStats {
-        id
-        statCode
-        hp
-        attack
-        defense
-        specialAttack
-        specialDefense
-        speed
-        total
-      }
-      abilities {
-        name
-        description
-        isHidden
-      }
-    }
-  }
-`
+interface IFDetailPokemonInfo {
+  pokemonBaseInfo: PokemonDetail
+  normalForm: Array<PokemonNormalForm>
+  megaEvolutionData?: Array<PokemonMegaEvolution>
+  regionFormData?: Array<PokemonRegionForm>
+}
 
 const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
   const { isMobile } = useDevice()
@@ -133,17 +44,27 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
 
   const apolloClient = initializeApollo()
 
-  const { data } = await apolloClient.query({
-    query: GET_POKEMON,
-    variables: {
-      number: parseInt(String(query.pokemonId), 10),
-    },
-    fetchPolicy: 'cache-first',
-  })
+  const [{ data: defaultPokemonData }, { data: normalFormData }] =
+    await Promise.all([
+      apolloClient.query<PokemonDetailQuery>({
+        query: PokemonDetailDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      }),
+      apolloClient.query<GetPokemonNormalFormQuery>({
+        query: GetPokemonNormalFormDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      }),
+    ])
 
   const changeRedirect = () => {
     if (
-      !data.getSinglePokemon.isMega &&
+      !defaultPokemonData.getPokemonDetail?.isMegaEvolution &&
       (query.activeType as string) === 'mega'
     ) {
       return {
@@ -151,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
         statusCode: 301,
       }
     } else if (
-      !data.getSinglePokemon.isRegion &&
+      !defaultPokemonData.getPokemonDetail?.isRegionForm &&
       (query.activeType as string) === 'region'
     ) {
       return {
@@ -163,13 +84,51 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
 
   const redirectOption = changeRedirect()
 
+  if (query.activeType === 'mega') {
+    const { data: megaEvolutionData } =
+      await apolloClient.query<GetPokemonMegaEvolutionQuery>({
+        query: GetPokemonMegaEvolutionDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      })
+
+    return {
+      redirect: redirectOption,
+      props: {
+        pokemonBaseInfo: defaultPokemonData.getPokemonDetail,
+        normalForm: normalFormData.getPokemonNormalForm,
+        megaEvolutionData: megaEvolutionData.getPokemonMegaEvolution,
+      },
+    }
+  }
+
+  if (query.activeType === 'region') {
+    const { data: regionFormData } =
+      await apolloClient.query<GetPokemonRegionFormQuery>({
+        query: GetPokemonRegionFormDocument,
+        variables: {
+          pokemonId: parseInt(String(query.pokemonId), 10),
+        },
+        fetchPolicy: 'cache-first',
+      })
+
+    return {
+      redirect: redirectOption,
+      props: {
+        pokemonBaseInfo: defaultPokemonData.getPokemonDetail,
+        normalForm: normalFormData.getPokemonNormalForm,
+        regionFormData: regionFormData.getPokemonRegionForm,
+      },
+    }
+  }
+
   return {
     redirect: redirectOption,
     props: {
-      pokemonBaseInfo: data.getSinglePokemon,
-      regionFormInfo: data.getRegionForm ?? null,
-      megaEvolutions: data.getMegaEvolution ?? null,
-      normalForm: data.getNormalForm ?? null,
+      pokemonBaseInfo: defaultPokemonData.getPokemonDetail,
+      normalForm: normalFormData.getPokemonNormalForm,
     },
   }
 }

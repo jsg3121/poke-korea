@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
-import { imageMode } from '~/module'
 import { Image } from '~/components'
 import { DetailContext } from '~/context/src/Detail.context'
+import { imageMode } from '~/module/buildMode'
 
 const PokemonImageCompoment: FC = () => {
   const {
@@ -16,7 +16,7 @@ const PokemonImageCompoment: FC = () => {
     regionFormInfo,
     normalForm,
     activeType,
-  } = React.useContext(DetailContext)
+  } = useContext(DetailContext)
   const router = useRouter()
 
   const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
@@ -27,7 +27,7 @@ const PokemonImageCompoment: FC = () => {
         const megaImages = megaEvolutions?.map((mega, index) => {
           return {
             imageCode: parseInt(
-              `1${mega.pokemonNumber.toString().padStart(3, '0')}${index
+              `1${mega.pokemonId.toString().padStart(3, '0')}${index
                 ?.toString()
                 .padStart(2, '0')}`,
               10,
@@ -40,7 +40,7 @@ const PokemonImageCompoment: FC = () => {
         const regionImages = regionFormInfo?.map((region, index) => {
           return {
             imageCode: parseInt(
-              `2${region.pokemonNumber.toString().padStart(3, '0')}${index
+              `2${region.pokemonId.toString().padStart(3, '0')}${index
                 ?.toString()
                 .padStart(2, '0')}`,
               10,

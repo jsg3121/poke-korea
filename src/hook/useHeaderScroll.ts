@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 type UseHeaderScrollType = (mode?: 'desktop' | 'mobile') => {
   observerRef: React.RefObject<HTMLDivElement>
@@ -36,7 +36,7 @@ export const useHeaderScroll: UseHeaderScrollType = (mode = 'desktop') => {
   const oberverRootMargin =
     mode === 'desktop' ? '0px 0px 0px 50%' : '-20px 0px 0px 0px'
 
-  React.useEffect(() => {
+  useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: oberverRootMargin,

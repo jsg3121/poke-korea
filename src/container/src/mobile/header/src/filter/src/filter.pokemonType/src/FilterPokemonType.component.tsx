@@ -3,10 +3,10 @@ import React, { ChangeEvent } from 'react'
 import { PokemonTypes } from '~/types'
 import { TypeFieldButton } from '../components'
 import { Image } from '~/components'
-import { getChangeTypeList } from '../module'
 import { FilterModal } from '../filter.modal'
-import { useBodyScrollLock } from '~/hook/src/useBodyScrollLock'
+import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import styled from 'styled-components'
+import { getChangeTypeList } from '~/module/getChangeTypeList'
 
 interface FilterPokemonTypeComponentProps {}
 
@@ -110,11 +110,11 @@ const FilterPokemonTypeComponent: React.FC<
             <TypeFieldButton
               key={`pokemon-type-key-${types}`}
               onChange={handleClickTypeFilter}
-              typeValue={types.toLowerCase()}
+              typeValue={types}
               typeName={typeName}
-              checked={typeList.includes(typeName)}
+              checked={typeList.includes(types)}
               disabled={
-                typeList.length === 2 && typeList.indexOf(typeName) < 0
+                typeList.length === 2 && typeList.indexOf(types) < 0
                   ? true
                   : false
               }

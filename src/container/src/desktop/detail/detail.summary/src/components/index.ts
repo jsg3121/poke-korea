@@ -1,4 +1,0 @@
-export { default as InfoTitle } from './src/InfoTitle.component'
-export { default as ShinySwitch } from './src/ShinySwitch.component'
-export { default as MegaSwitch } from './src/MegaSwitch.component'
-export { default as RegionSwitch } from './src/RegionSwitch.component'

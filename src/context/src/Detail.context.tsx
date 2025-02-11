@@ -1,44 +1,49 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { FC, ReactNode, createContext } from 'react'
-import type {
-  Pokemon,
-  PokemonMega,
+import { ReactNode, createContext, useState } from 'react'
+import {
+  useGetPokemonMegaEvolutionLazyQuery,
+  useGetPokemonRegionFormLazyQuery,
+} from '~/graphql/gqlGenerated'
+import {
+  PokemonAbilityList,
+  PokemonDetail,
+  PokemonMegaEvolution,
   PokemonNormalForm,
-  PokemonRegion,
+  PokemonRegionForm,
+  PokemonType,
 } from '~/graphql/typeGenerated'
-import type { IFDetailPokemonInfo } from '~/types/detailInfo.types'
 
-type TActiveType = 'normal' | 'mega' | 'region'
-type TAbilityType = {
-  name: string
-  description: string
-  isHidden: boolean
-}
+export type TActiveType = 'normal' | 'mega' | 'region'
+
 type TActiveTypeInfo = {
   activeType: TActiveType
   name: string
   pokemonNumber: number
   generation: number
-  types: Array<string>
+  types: Array<PokemonType>
   isEvolution: boolean
-  abilities: Array<TAbilityType>
+  abilities: Array<PokemonAbilityList>
   isRegion: boolean
   isMega: boolean
 }
 
-export interface IFDetailProviderProps extends IFDetailPokemonInfo {
+export interface IFDetailProviderProps {
+  pokemonBaseInfo: PokemonDetail
+  normalForm: Array<PokemonNormalForm>
+  megaEvolutionData?: Array<PokemonMegaEvolution>
+  regionFormData?: Array<PokemonRegionForm>
   children: ReactNode
 }
 
-// TODO : 각각 상태 정보를 하나로 묶어서 context에서 관리하도록 수정
 interface IFDetailProps {
-  pokemonBaseInfo?: Pokemon
-  megaEvolutions?: Array<PokemonMega>
-  regionFormInfo?: Array<PokemonRegion>
+  pokemonBaseInfo?: PokemonDetail
+  megaEvolutions?: Array<PokemonMegaEvolution>
+  regionFormInfo?: Array<PokemonRegionForm>
   normalForm?: Array<PokemonNormalForm>
   activeType: TActiveType
   activeTypeInfo: TActiveTypeInfo
+  handleChangeActiveType?: (type: TActiveType) => void
 }
 
 const DetailContext = createContext<IFDetailProps>({
@@ -56,33 +61,119 @@ const DetailContext = createContext<IFDetailProps>({
   },
 })
 
-const DetailProvider: FC<IFDetailProviderProps> = (props) => {
-  const {
-    children,
-    pokemonBaseInfo,
-    normalForm,
-    regionFormInfo,
-    megaEvolutions,
-  } = props
-  const { query } = useRouter()
+const DetailProvider = ({
+  children,
+  pokemonBaseInfo,
+  normalForm,
+  megaEvolutionData,
+  regionFormData,
+}: IFDetailProviderProps) => {
+  const router = useRouter()
+  const [pokemonMegaEvolution, setPokemonMegaEvolutions] = useState<
+    Array<PokemonMegaEvolution> | undefined
+  >(megaEvolutionData)
+  const [pokemonRegionForm, setPokemonRegionForm] = useState<
+    Array<PokemonRegionForm> | undefined
+  >(regionFormData)
 
-  const activeType = query.activeType as TActiveType
-  const activeIndex = query.activeIndex
-    ? parseInt(query.activeIndex as string, 10)
+  const [getPokemonMegaEvolution] = useGetPokemonMegaEvolutionLazyQuery({
+    variables: {
+      pokemonId: parseInt(router.query.pokemonId as string, 10),
+    },
+  })
+
+  const [getPokemonRegionForm] = useGetPokemonRegionFormLazyQuery({
+    variables: {
+      pokemonId: parseInt(router.query.pokemonId as string, 10),
+    },
+  })
+
+  const handleChangeActiveType = async (type: TActiveType) => {
+    switch (type) {
+      case 'mega': {
+        if (!megaEvolutionData) {
+          const { data } = await getPokemonMegaEvolution()
+          if (data?.getPokemonMegaEvolution) {
+            setPokemonMegaEvolutions(data.getPokemonMegaEvolution)
+            await router.replace(
+              {
+                query: {
+                  ...router.query,
+                  activeType: 'mega',
+                },
+              },
+              undefined,
+              {
+                scroll: false,
+              },
+            )
+          }
+        }
+        return
+      }
+      case 'region': {
+        if (!regionFormData) {
+          const { data } = await getPokemonRegionForm()
+          if (data?.getPokemonRegionForm) {
+            setPokemonRegionForm(data.getPokemonRegionForm)
+            await router.replace(
+              {
+                query: {
+                  ...router.query,
+                  activeType: 'region',
+                },
+              },
+              undefined,
+              {
+                scroll: false,
+              },
+            )
+          }
+        }
+        return
+      }
+      case 'normal':
+      default: {
+        await router.replace(
+          {
+            query: {
+              ...router.query,
+              activeType: 'normal',
+            },
+          },
+          undefined,
+          {
+            scroll: false,
+          },
+        )
+        return
+      }
+    }
+  }
+
+  const activeType = router.query.activeType as TActiveType
+  const activeIndex = router.query.activeIndex
+    ? parseInt(router.query.activeIndex as string, 10)
     : 0
-  const isShiny = query.shinyMode === 'shiny'
+  const isShiny = router.query.shinyMode === 'shiny'
 
-  // TODO: 익명함수 형태로 사용된 부분 함수로 분리해서 구분하기
   const types = (() => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutions[activeIndex].type
+        return pokemonMegaEvolution?.[activeIndex].types ?? []
       }
       case 'region': {
-        return regionFormInfo[activeIndex].type
+        return pokemonRegionForm?.[activeIndex].types ?? []
       }
       default: {
-        return normalForm[activeIndex]?.type ?? pokemonBaseInfo.type
+        return (
+          normalForm?.[activeIndex]?.types?.map((type) => {
+            return type
+          }) ??
+          pokemonBaseInfo.types?.map((type) => {
+            return type
+          })
+        )
       }
     }
   })()
@@ -90,38 +181,46 @@ const DetailProvider: FC<IFDetailProviderProps> = (props) => {
   const abilities = (() => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutions[activeIndex].abilities
+        return (
+          pokemonMegaEvolution?.[activeIndex].megaEvolutionAbilityList ?? []
+        )
       }
       case 'region': {
-        return regionFormInfo[activeIndex].abilities
+        return pokemonRegionForm?.[activeIndex].regionFormAbilityList ?? []
       }
       default: {
-        return normalForm[activeIndex]?.abilities ?? pokemonBaseInfo.abilities
+        return (
+          normalForm?.[activeIndex]?.normalFormAbilityList ??
+          pokemonBaseInfo.pokemonAbilityList
+        )
       }
     }
   })()
 
-  const activeTypeInfo: TActiveTypeInfo = (() => {
+  const getActiveTypeInfo = () => {
     return {
       activeType,
       isEvolution: pokemonBaseInfo.isEvolution,
       name: pokemonBaseInfo.name,
       pokemonNumber: pokemonBaseInfo.number,
       generation: pokemonBaseInfo.generation,
-      isMega: pokemonBaseInfo.isMega ?? false,
-      isRegion: pokemonBaseInfo.isRegion ?? false,
+      isMega: pokemonBaseInfo.isMegaEvolution ?? false,
+      isRegion: pokemonBaseInfo.isRegionForm ?? false,
       types,
-      abilities,
+      abilities: abilities ?? [],
     }
-  })()
+  }
+
+  const activeTypeInfo: TActiveTypeInfo = getActiveTypeInfo()
 
   const initialValue: IFDetailProps = {
     pokemonBaseInfo,
-    megaEvolutions,
-    regionFormInfo,
     activeType,
     normalForm,
     activeTypeInfo,
+    megaEvolutions: pokemonMegaEvolution,
+    regionFormInfo: pokemonRegionForm,
+    handleChangeActiveType,
   }
 
   const title = `No. ${pokemonBaseInfo.number} ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo.name} ${activeType === 'region' ? '리전폼' : ''}${isShiny ? '이로치' : ''} | 대한민국 포켓몬의 모든 정보 - 포케 코리아`

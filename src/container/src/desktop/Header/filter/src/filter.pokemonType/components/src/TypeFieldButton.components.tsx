@@ -1,5 +1,5 @@
 import isEqual from 'fast-deep-equal'
-import React, { InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, memo } from 'react'
 import styled from 'styled-components'
 import { Image } from '~/components'
 import { PokemonTypes } from '~/types'
@@ -83,11 +83,13 @@ const TypeFieldButton = styled.div`
   }
 `
 
-const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
-  props,
-) => {
-  const { typeName, typeValue, disabled, defaultChecked, ...restProps } = props
-
+const TypeFieldButtonComponents = ({
+  typeName,
+  typeValue,
+  disabled,
+  defaultChecked,
+  ...restProps
+}: TypeFieldButtonComponentsProps) => {
   return (
     <TypeFieldButton
       className="button__field--type"
@@ -98,7 +100,7 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
         type="checkbox"
         id={`field-type-${typeValue}`}
         disabled={disabled}
-        value={typeName}
+        value={typeValue}
         checked={defaultChecked}
         {...restProps}
       />
@@ -107,7 +109,7 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
           alt={`${typeName} 타입 필터 선택`}
           height="100%"
           width="100%"
-          src={`/assets/type/${typeValue}.svg`}
+          src={`/assets/type/${typeValue.toLowerCase()}.svg`}
           loading="lazy"
         />
       </label>
@@ -118,4 +120,4 @@ const TypeFieldButtonComponents: React.FC<TypeFieldButtonComponentsProps> = (
   )
 }
 
-export default React.memo(TypeFieldButtonComponents, isEqual)
+export default memo(TypeFieldButtonComponents, isEqual)
