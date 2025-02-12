@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { DetailContext, TActiveType } from '~/context/Detail.context'
+import { DetailContext } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
 import { TypesColor } from '~/types/pokemonTypes.types'
 import InfoTitle from './components/InfoTitle.component'
@@ -90,15 +90,8 @@ const DetailSummaryContainer = () => {
     regionFormInfo,
     normalForm,
     activeType,
-    handleChangeActiveType,
   } = useContext(DetailContext)
   const router = useRouter()
-
-  const handleChangeType = (type: TActiveType) => {
-    if (handleChangeActiveType) {
-      handleChangeActiveType(type)
-    }
-  }
 
   const newColor = changeColor(pokemonBaseInfo?.types ?? [])
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
@@ -140,12 +133,8 @@ const DetailSummaryContainer = () => {
         <div className="profile-description">
           <ul className="switch-list">
             <ShinySwitch />
-            {pokemonBaseInfo?.isMegaEvolution && (
-              <MegaSwitch onChnageType={handleChangeType} />
-            )}
-            {pokemonBaseInfo?.isRegionForm && (
-              <RegionSwitch onChnageType={handleChangeType} />
-            )}
+            {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
+            {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
           </ul>
           {pokemonBaseInfo && pokemonInfo.stats && (
             <StatsComponent {...pokemonInfo.stats} />

@@ -1,32 +1,26 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
-import { TActiveType } from '~/context/Detail.context'
 
-interface MegaSwitchProps {
-  onChnageType: (type: TActiveType) => void
-}
-
-const MegaSwitch = ({ onChnageType }: MegaSwitchProps) => {
+const MegaSwitch = () => {
   const router = useRouter()
+  const isMega = router.query.activeType === 'mega' ? true : false
 
-  const defaultChecked = router.query.activeType === 'mega' ? true : false
-
-  const handleChangeMega = (e: ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked
-    onChnageType(checked ? 'mega' : 'normal')
+  const megaHref = {
+    query: {
+      ...router.query,
+      activeType: isMega ? 'normal' : 'mega',
+    },
   }
 
   return (
-    <Li role="button">
-      <input
-        type="checkbox"
-        id="swtich-change-mega"
-        checked={defaultChecked}
-        onChange={handleChangeMega}
-      />
-      <label htmlFor="swtich-change-mega">
+    <Li>
+      <Link
+        href={megaHref}
+        className={`switch-mega ${isMega ? 'active-mega' : ''}`}
+        replace
+      >
         <i className="icon-mega">
           <ImageComponent
             alt="메가진화 보기 스위치"
@@ -36,7 +30,7 @@ const MegaSwitch = ({ onChnageType }: MegaSwitchProps) => {
           />
         </i>
         <p>메가진화</p>
-      </label>
+      </Link>
     </Li>
   )
 }
@@ -52,19 +46,9 @@ const Li = styled.li`
     left: -7rem;
   }
 
-  & > input {
-    display: none;
-
-    &:checked + label > .icon-mega {
-      filter: grayscale(0);
-    }
-  }
-
-  & > label {
+  & > .switch-mega {
     width: 8rem;
     height: 2rem;
-    font-size: 1rem;
-    font-weight: normal;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,10 +60,20 @@ const Li = styled.li`
     cursor: pointer;
 
     &:active {
+      color: #333333;
       background-color: var(--color-primary-3);
     }
 
+    &.active-mega > .icon-mega {
+      filter: grayscale(0);
+    }
+
     & > p {
+      height: 2rem;
+      font-size: 1rem;
+      font-weight: normal;
+      line-height: calc(2rem + 2px);
+      color: #333333;
       flex-shrink: 0;
     }
 

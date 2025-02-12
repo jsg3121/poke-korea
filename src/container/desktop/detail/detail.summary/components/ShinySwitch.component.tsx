@@ -1,45 +1,32 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
 
 const ShinySwitch = () => {
   const router = useRouter()
 
-  const defaultChecked = router.query.shinyMode === 'shiny' ? true : false
+  const isShiny = router.query.shinyMode === 'shiny' ? true : false
 
-  const handleChangeShiny = (e: ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked
-    const { query } = router
-
-    router.replace(
-      {
-        query: {
-          ...query,
-          shinyMode: checked ? 'shiny' : 'normal',
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
+  const switchHref = {
+    query: {
+      ...router.query,
+      shinyMode: isShiny ? 'normal' : 'shiny',
+    },
   }
 
   return (
-    <Li role="button">
-      <input
-        type="checkbox"
-        id="swtich-change-shiny"
-        checked={defaultChecked}
-        onChange={handleChangeShiny}
-      />
-      <label htmlFor="swtich-change-shiny">
+    <Li>
+      <Link
+        href={switchHref}
+        className={`switch-shiny ${isShiny ? 'active-shiny' : ''}`}
+        replace
+      >
         <i className="icon-shiny">
           <ShinyIcon />
         </i>
         <p>이로치</p>
-      </label>
+      </Link>
     </Li>
   )
 }
@@ -55,19 +42,9 @@ const Li = styled.li`
     left: -6.5rem;
   }
 
-  & > input {
-    display: none;
-
-    &:checked + label > .icon-shiny > svg {
-      fill: #f5b62e;
-    }
-  }
-
-  & > label {
+  & > .switch-shiny {
     width: 7rem;
     height: 2rem;
-    font-size: 1rem;
-    font-weight: normal;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,11 +56,20 @@ const Li = styled.li`
     cursor: pointer;
 
     &:active {
+      color: #333333;
       background-color: var(--color-primary-3);
     }
 
+    &.active-shiny > .icon-shiny > svg {
+      fill: #f5b62e;
+    }
+
     & > p {
-      flex-shrink: 0;
+      height: 2rem;
+      font-size: 1rem;
+      font-weight: normal;
+      line-height: calc(2rem + 2px);
+      color: #333333;
     }
 
     & > .icon-shiny {

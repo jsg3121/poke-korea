@@ -1,37 +1,32 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import RegionIcon from '~/assets/icons/region.svg'
-import { TActiveType } from '~/context/Detail.context'
 
-interface RegionSwitchProps {
-  onChnageType: (type: TActiveType) => void
-}
-
-const RegionSwitch = ({ onChnageType }: RegionSwitchProps) => {
+const RegionSwitch = () => {
   const router = useRouter()
 
-  const defaultChecked = router.query.activeType === 'region' ? true : false
+  const isRegion = router.query.activeType === 'region' ? true : false
 
-  const handleChangeRegion = (e: ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked
-    onChnageType(checked ? 'region' : 'normal')
+  const regionHref = {
+    query: {
+      ...router.query,
+      activeType: isRegion ? 'normal' : 'region',
+    },
   }
 
   return (
-    <Li role="button">
-      <input
-        type="checkbox"
-        id="swtich-change-region"
-        checked={defaultChecked}
-        onChange={handleChangeRegion}
-      />
-      <label htmlFor="swtich-change-region">
-        <i className="icon-shiny">
+    <Li>
+      <Link
+        href={regionHref}
+        className={`switch-region ${isRegion ? 'active-region' : ''}`}
+        replace
+      >
+        <i className="icon-region">
           <RegionIcon />
         </i>
         <p>리전폼</p>
-      </label>
+      </Link>
     </Li>
   )
 }
@@ -47,19 +42,9 @@ const Li = styled.li`
     left: -6.5rem;
   }
 
-  & > input {
-    display: none;
-
-    &:checked + label > .icon-shiny > svg {
-      filter: grayscale(0);
-    }
-  }
-
-  & > label {
+  & > .switch-region {
     width: 7rem;
     height: 2rem;
-    font-size: 1rem;
-    font-weight: normal;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,14 +56,23 @@ const Li = styled.li`
     cursor: pointer;
 
     &:active {
+      color: #333333;
       background-color: var(--color-primary-3);
     }
 
-    & > p {
-      flex-shrink: 0;
+    &.active-region > .icon-region > svg {
+      filter: grayscale(0);
     }
 
-    & > .icon-shiny {
+    & > p {
+      height: 2rem;
+      font-size: 1rem;
+      font-weight: normal;
+      line-height: calc(2rem + 2px);
+      color: #333333;
+    }
+
+    & > .icon-region {
       width: 2rem;
       height: 2rem;
       flex-shrink: 0;
