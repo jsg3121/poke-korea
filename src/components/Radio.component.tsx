@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import Ball from './Ball.component'
-import { forwardRef } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 
-interface RadioComponentProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+interface RadioComponentProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 

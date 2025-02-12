@@ -58,9 +58,7 @@ const TypeList = styled.div`
   }
 `
 
-const TypeListComponent: React.FC<TypeListComponentProps> = (props) => {
-  const { list, title, grade } = props
-
+const TypeListComponent = ({ list, title, grade }: TypeListComponentProps) => {
   return (
     <TypeList>
       <p className="type-list__title" data-grade={grade}>

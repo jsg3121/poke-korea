@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import Ball from './Ball.component'
-import { forwardRef } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 
-interface CheckboxComponentProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+interface CheckboxComponentProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 

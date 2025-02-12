@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import styled, { css } from 'styled-components'
-import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
-import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
+import { PokemonCardFragment } from '~/graphql/typeGenerated'
+import { imageMode } from '~/module/buildMode'
 import { CardColor } from '~/types/pokemonTypes.types'
+import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment

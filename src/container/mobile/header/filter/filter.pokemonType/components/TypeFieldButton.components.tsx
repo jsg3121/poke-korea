@@ -1,5 +1,5 @@
 import isEqual from 'fast-deep-equal'
-import React, { InputHTMLAttributes, memo } from 'react'
+import { InputHTMLAttributes, memo } from 'react'
 import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { PokemonTypes } from '~/types/pokemonTypes.types'

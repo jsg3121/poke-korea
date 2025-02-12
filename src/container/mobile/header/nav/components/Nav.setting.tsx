@@ -70,9 +70,7 @@ const Div = styled.div`
   }
 `
 
-const NavSetting: React.FC<NavSettingProps> = (props) => {
-  const { scrolling } = props
-
+const NavSetting = ({ scrolling }: NavSettingProps) => {
   return (
     <Div data-scrolling={scrolling}>
       <ul>

@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
-import React, { ChangeEvent, useState } from 'react'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
+import { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
-import { getChangeTypeList } from '~/module/getChangeTypeList'
-import TypeFieldButtonComponents from './components/TypeFieldButton.components'
 import ImageComponent from '~/components/Image.component'
-import FilterModalComponent from './filter.modal/FilterModal.component'
+import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
+import { getChangeTypeList } from '~/module/getChangeTypeList'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import TypeFieldButtonComponents from './components/TypeFieldButton.components'
+import FilterModalComponent from './filter.modal/FilterModal.component'
 
 const FieldTypeInput = styled.div`
   width: 100%;

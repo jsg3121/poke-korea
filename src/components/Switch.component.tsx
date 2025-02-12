@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Ball from './Ball.component'
+import { ChangeEvent } from 'react'
 
 interface SwitchComponentProps {
   onChange: (data: { name: string; value: boolean }) => void
@@ -84,7 +85,7 @@ const SwitchComponent = ({
   disabled = false,
   onChange,
 }: SwitchComponentProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange({ name, value: e.target.checked })
   }
 

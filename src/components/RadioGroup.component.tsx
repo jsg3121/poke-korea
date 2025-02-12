@@ -1,9 +1,8 @@
+import { forwardRef, InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import Radio from './Radio.component'
-import { forwardRef } from 'react'
 
-interface RadioComponentProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+interface RadioComponentProps extends InputHTMLAttributes<HTMLInputElement> {
   title?: string
   options: Array<{ label: string; value: string }>
 }
