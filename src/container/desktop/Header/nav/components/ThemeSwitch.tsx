@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Image } from '~/components'
+import ImageComponent from '~/components/Image.component'
 
 type ThemeType = 'dark' | 'light'
 
@@ -44,7 +44,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = (props) => {
       <Switch data-theme={theme} onClick={handleChangeTheme}>
         <div>
           <i>
-            <Image
+            <ImageComponent
               src="/assets/icons/icon-theme-dark.svg"
               width="1.7rem"
               height="1.7rem"
@@ -52,7 +52,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = (props) => {
             />
           </i>
           <i>
-            <Image
+            <ImageComponent
               src="/assets/icons/icon-theme-light.svg"
               width="1.7rem"
               height="1.7rem"

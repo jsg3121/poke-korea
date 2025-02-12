@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Image } from '~/components'
 import ThemeSwitch from './ThemeSwitch'
+import ImageComponent from '~/components/Image.component'
 
 interface NavSettingProps {
   scrolling: boolean
@@ -90,7 +90,7 @@ const NavSetting: React.FC<NavSettingProps> = (props) => {
       </ul>
       <ul className="scroll-nav">
         <li className="button-setting">
-          <Image
+          <ImageComponent
             alt="icon-setting"
             src="/assets/image/setting.svg"
             height="2rem"

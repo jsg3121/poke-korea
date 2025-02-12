@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/Detail.context'
-import { Description } from './baseInfo.description'
-import { Abilities } from './baseInfo.abilities'
-import { RelationPokemon } from './baseinfo.relationPokemon'
 import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
+import DescriptionComponent from './baseInfo.description/Description.component'
+import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
+import AbilitiesInfoComponent from './baseInfo.abilities/AbilitiesInfo.component'
 
 const DetailBaseInfoContainer: React.FC = () => {
   const { pokemonBaseInfo, activeTypeInfo } = React.useContext(DetailContext)
@@ -14,15 +14,15 @@ const DetailBaseInfoContainer: React.FC = () => {
   return (
     <Div>
       <div className="grid-wrapper">
-        <Description />
+        <DescriptionComponent />
         {pokemonBaseInfo.evolutionId.length > 0 && (
-          <RelationPokemon
+          <RelationPokemonComponent
             name={pokemonBaseInfo.name}
             evolutionId={pokemonBaseInfo.evolutionId}
           />
         )}
       </div>
-      <Abilities />
+      <AbilitiesInfoComponent />
       <TypesInfo type={activeTypeInfo.types} />
     </Div>
   )

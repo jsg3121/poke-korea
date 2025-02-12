@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { InfoContent } from './typesInfo.infoContent'
-import { InfoCardTitle } from '../../components'
 import { calculateRelationType } from '~/module/calculateRelationType'
 import { PokemonType } from '~/graphql/typeGenerated'
+import InfoCardTitleComponent from '../components/InfoCardTitle.component'
+import InfoContentComponent from './typesInfo.infoContent/InfoContent.component'
 
 interface IFProps {
   type: Array<PokemonType>
@@ -16,8 +16,8 @@ export const TypesInfo: FC<IFProps> = (props) => {
 
   return (
     <Section>
-      <InfoCardTitle title="타입 상성" />
-      <InfoContent relationType={relationType} />
+      <InfoCardTitleComponent title="타입 상성" />
+      <InfoContentComponent relationType={relationType} />
     </Section>
   )
 }

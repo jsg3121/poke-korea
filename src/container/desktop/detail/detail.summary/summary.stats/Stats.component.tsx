@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { PokemonStats } from '~/graphql/typeGenerated'
-import { StatChart } from './components'
+import StatChartComponent from './components/StatChart.component'
 
 const Section = styled.section`
   width: 100%;
@@ -49,7 +49,7 @@ const StatsComponent: React.FC<PokemonStats> = (props) => {
         <strong>총 합: {total}</strong>
       </header>
       <div className="stat-chart">
-        <StatChart {...restProps} />
+        <StatChartComponent {...restProps} />
       </div>
     </Section>
   )

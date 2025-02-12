@@ -2,6 +2,8 @@ import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
 import styled from 'styled-components'
+import HeaderContainer from '~/container/desktop/Header/Header.container'
+import ListContainer from '~/container/desktop/List/List.container'
 import { ListProvider } from '~/context/List.context'
 import { PokemonList } from '~/graphql/typeGenerated'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
@@ -46,9 +48,9 @@ const MainDesktop: React.FC<ManinViewsProps> = ({ pokemonList }) => {
         data-scrolling={isScroll}
         data-searching={hasSearchQuery ? 'has-query' : ''}
       >
-        <DesktopContainer.Header />
+        <HeaderContainer />
       </Div>
-      <DesktopContainer.List />
+      <ListContainer />
     </ListProvider>
   )
 }

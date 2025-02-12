@@ -2,7 +2,7 @@ import React from 'react'
 import isEqual from 'fast-deep-equal'
 import LogoIcon from '~/assets/logo.svg'
 import styled from 'styled-components'
-import { ListContext } from '~/context'
+import { ListContext } from '~/context/List.context'
 
 const Article = styled.article`
   width: 100%;

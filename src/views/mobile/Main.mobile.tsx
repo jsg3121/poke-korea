@@ -1,5 +1,6 @@
 import React from 'react'
-import { MobileContainer } from '~/container'
+import HeaderContainer from '~/container/mobile/header/Header.container'
+import ListContainer from '~/container/mobile/list/List.container'
 import { ListProvider } from '~/context/List.context'
 import { PokemonList } from '~/graphql/typeGenerated'
 
@@ -10,8 +11,8 @@ interface ManinViewsProps {
 const MainMobile: React.FC<ManinViewsProps> = ({ pokemonList }) => {
   return (
     <ListProvider pokemonList={pokemonList}>
-      <MobileContainer.Header />
-      <MobileContainer.List />
+      <HeaderContainer />
+      <ListContainer />
     </ListProvider>
   )
 }

@@ -1,5 +1,4 @@
 import { FC } from 'react'
-
 import type { ChartData, ChartOptions } from 'chart.js'
 import {
   Chart as ChartJS,

@@ -4,9 +4,12 @@ import styled from 'styled-components'
 import { DetailContext, TActiveType } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
 import { TypesColor } from '~/types'
-import { InfoTitle, MegaSwitch, RegionSwitch, ShinySwitch } from './components'
-import { PokemonImage } from './summary.pokemonImage'
-import { Stats } from './summary.stats'
+import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
+import InfoTitleComponent from './components/InfoTitle.component'
+import ShinySwitchComponent from './components/ShinySwitch.component'
+import MegaSwitchComponent from './components/MegaSwitch.component'
+import RegionSwitchComponent from './components/RegionSwitch.component'
+import StatsComponent from './summary.stats/Stats.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -108,19 +111,21 @@ const DetailSummaryContainer: FC = () => {
   return (
     <Div gradient={newColor}>
       <div className="image-wrapper">
-        <PokemonImage />
+        <PokemonImageCompoment />
       </div>
-      <InfoTitle name={pokemonInfo.name ?? ''} />
+      <InfoTitleComponent name={pokemonInfo.name ?? ''} />
       <ul className="switch-list">
-        <ShinySwitch />
+        <ShinySwitchComponent />
         {pokemonBaseInfo?.isMegaEvolution && (
-          <MegaSwitch onChnageType={handleChangeType} />
+          <MegaSwitchComponent onChnageType={handleChangeType} />
         )}
         {pokemonBaseInfo?.isRegionForm && (
-          <RegionSwitch onChnageType={handleChangeType} />
+          <RegionSwitchComponent onChnageType={handleChangeType} />
         )}
       </ul>
-      {pokemonBaseInfo && pokemonInfo.stats && <Stats {...pokemonInfo.stats} />}
+      {pokemonBaseInfo && pokemonInfo.stats && (
+        <StatsComponent {...pokemonInfo.stats} />
+      )}
     </Div>
   )
 }

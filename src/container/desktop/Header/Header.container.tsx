@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ListContext } from '~/context'
-import { Filter } from './filter'
-import { Logo } from './logo'
 import HeaderNav from './nav/header.nav'
-import { Search } from './search'
+import { ListContext } from '~/context/List.context'
+import LogoComponent from './logo/Logo.component'
+import SearchComponent from './search/Search.component'
+import FilterComponents from './filter/Filter.components'
 
 const Header = styled.header`
   width: 100%;
@@ -42,10 +42,10 @@ const HeaderContainer: React.FC = () => {
     >
       <HeaderNav />
       <div className="header-wrapper">
-        <Logo />
-        <Search />
+        <LogoComponent />
+        <SearchComponent />
       </div>
-      <Filter />
+      <FilterComponents />
     </Header>
   )
 }

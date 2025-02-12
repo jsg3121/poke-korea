@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import { Image } from '~/components'
 import { imageMode } from '~/module/buildMode'
-import { InfoCardTitle } from '../../../components'
+import InfoCardTitleComponent from '../components/InfoCardTitle.component'
+import ImageComponent from '~/components/Image.component'
 
 interface IFProps {
   evolutionId: Array<number>
@@ -12,12 +12,12 @@ interface IFProps {
 const RelationPokemonComponent = ({ name, evolutionId }: IFProps) => {
   return (
     <Section>
-      <InfoCardTitle title="진화 체인" />
+      <InfoCardTitleComponent title="진화 체인" />
       <div className="relation-pokemon-list">
         {evolutionId.map((id) => {
           return (
             <Link key={`relation-pokemon-id-${id}`} href={`/detail/${id}`}>
-              <Image
+              <ImageComponent
                 src={`${imageMode}/${id}.webp`}
                 width="11.5rem"
                 height="11.5rem"

@@ -4,8 +4,9 @@ import React, { ChangeEvent } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import CloseIcon from '~/assets/close.svg'
-import { Checkbox, RadioGroup } from '~/components'
 import { FilterFormType } from './types/filterForm.type'
+import CheckboxComponent from '~/components/Checkbox.component'
+import RadioGroupComponent from '~/components/RadioGroup.component'
 
 interface FilterModalComponentProps {
   onClickCloseModal: () => void
@@ -217,7 +218,7 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
                           className="filter-option__item"
                           key={`pokemon-generation-id-${index}`}
                         >
-                          <Checkbox
+                          <CheckboxComponent
                             id={`filter-generation-item-id-${gen}`}
                             label={`${gen}세대`}
                             value={`${gen}`}
@@ -235,7 +236,10 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
                   <p>메가진화 가능 포켓몬 포함</p>
                 </div>
                 <div className="filter-option__options">
-                  <RadioGroup options={RadioOptions} {...register('isMega')} />
+                  <RadioGroupComponent
+                    options={RadioOptions}
+                    {...register('isMega')}
+                  />
                 </div>
               </div>
               <div className="content__filter-option--region">
@@ -243,7 +247,7 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
                   <p>리전폼 존재 포켓몬 포함</p>
                 </div>
                 <div className="filter-option__options">
-                  <RadioGroup
+                  <RadioGroupComponent
                     options={RadioOptions}
                     {...register('isRegion')}
                   />
@@ -254,7 +258,7 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
                   <p>진화 가능 포켓몬 포함</p>
                 </div>
                 <div className="filter-option__options">
-                  <RadioGroup
+                  <RadioGroupComponent
                     options={RadioOptions}
                     {...register('isEvolution')}
                   />

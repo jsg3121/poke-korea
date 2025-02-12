@@ -18,7 +18,8 @@ import {
   PokemonRegionForm,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
-import { DesktopView, MobileView } from '~/views'
+import DetailDesktop from '~/views/desktop/Detail.desktop'
+import DetailMobile from '~/views/mobile/Detail.mobile'
 
 interface IFDetailPokemonInfo {
   pokemonBaseInfo: PokemonDetail
@@ -32,7 +33,7 @@ const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
 
   return (
     <DetailProvider {...props}>
-      {isMobile ? <MobileView.DetailViews /> : <DesktopView.DetailViews />}
+      {isMobile ? <DetailMobile /> : <DetailDesktop />}
     </DetailProvider>
   )
 }

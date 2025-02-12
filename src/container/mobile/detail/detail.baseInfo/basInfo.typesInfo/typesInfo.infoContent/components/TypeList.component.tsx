@@ -1,7 +1,7 @@
 import isEqual from 'fast-deep-equal'
 import React from 'react'
 import styled from 'styled-components'
-import { Tag } from '~/components'
+import TagComponent from '~/components/Tag.component'
 import { PokemonType } from '~/graphql/typeGenerated'
 
 interface TypeListComponentProps {
@@ -68,7 +68,7 @@ const TypeListComponent: React.FC<TypeListComponentProps> = (props) => {
       </p>
       <div className="type-list__tag">
         {list.map((item, index) => {
-          return <Tag key={index} type={item} />
+          return <TagComponent key={index} type={item} />
         })}
       </div>
     </TypeList>

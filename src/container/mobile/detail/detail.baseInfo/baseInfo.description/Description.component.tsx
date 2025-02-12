@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/Detail.context'
-import { Tag } from '~/components'
-import { InfoCardTitle } from '../../../components'
+import InfoCardTitleComponent from '../components/InfoCardTitle.component'
+import TagComponent from '~/components/Tag.component'
 
 const DescriptionComponent: FC = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -19,7 +19,7 @@ const DescriptionComponent: FC = () => {
 
   return (
     <Article>
-      <InfoCardTitle title="기본 정보" />
+      <InfoCardTitleComponent title="기본 정보" />
       <ul>
         <li>
           <strong>이름</strong>
@@ -43,7 +43,7 @@ const DescriptionComponent: FC = () => {
         <li>
           <strong>타입</strong>
           {types.map((type) => {
-            return <Tag key={type} type={type} />
+            return <TagComponent key={type} type={type} />
           })}
         </li>
         <li>

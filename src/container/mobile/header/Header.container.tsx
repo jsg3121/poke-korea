@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Filter } from './filter'
-import { Logo } from './logo'
-import { Search } from './search'
+import LogoComponent from './logo/Logo.component'
+import SearchComponent from './search/Search.component'
+import FilterComponents from './filter/Filter.components'
 
 const Header = styled.header`
   width: 100%;
@@ -13,9 +13,9 @@ const Header = styled.header`
 const HeaderContainer: React.FC = () => {
   return (
     <Header>
-      <Logo />
-      <Search />
-      <Filter />
+      <LogoComponent />
+      <SearchComponent />
+      <FilterComponents />
     </Header>
   )
 }

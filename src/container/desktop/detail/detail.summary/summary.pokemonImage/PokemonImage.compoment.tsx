@@ -5,7 +5,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
-import { Image } from '~/components'
+import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
 import { imageMode } from '~/module/buildMode'
 
@@ -104,7 +104,7 @@ const PokemonImageCompoment: FC = () => {
 
             return (
               <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
-                <Image
+                <ImageComponent
                   src={imageSrc}
                   width="25rem"
                   height="25rem"

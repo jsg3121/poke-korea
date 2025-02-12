@@ -2,7 +2,9 @@ import Link from 'next/link'
 import { FC } from 'react'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
-import { DesktopContainer } from '~/container'
+import DetailBaseInfoContainer from '~/container/desktop/detail/detail.baseInfo/DetailBaseInfo.container'
+import DetailSummaryContainer from '~/container/desktop/detail/detail.summary/DetailSummary.container'
+import FooterContainer from '~/container/desktop/footer/Footer.container'
 
 const DetailDesktop: FC = () => {
   return (
@@ -15,10 +17,10 @@ const DetailDesktop: FC = () => {
         </Link>
       </header>
       <section className="pokemon-detail-content">
-        <DesktopContainer.DetailSummary />
-        <DesktopContainer.DetailBaseInfo />
+        <DetailSummaryContainer />
+        <DetailBaseInfoContainer />
       </section>
-      <DesktopContainer.Footer />
+      <FooterContainer />
     </Main>
   )
 }

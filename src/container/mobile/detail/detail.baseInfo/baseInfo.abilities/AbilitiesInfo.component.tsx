@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/Detail.context'
-import { InfoCardTitle } from '../../../components'
+import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
 const AbilitiesInfoComponent: FC = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -9,7 +9,7 @@ const AbilitiesInfoComponent: FC = () => {
 
   return (
     <Article>
-      <InfoCardTitle title="특성" />
+      <InfoCardTitleComponent title="특성" />
       <ul>
         {abilities.map((ability, index) => {
           return (

@@ -1,7 +1,7 @@
 import isEqual from 'fast-deep-equal'
 import { InputHTMLAttributes, memo } from 'react'
 import styled from 'styled-components'
-import { Image } from '~/components'
+import ImageComponent from '~/components/Image.component'
 import { PokemonTypes } from '~/types'
 
 interface TypeFieldButtonComponentsProps
@@ -105,7 +105,7 @@ const TypeFieldButtonComponents = ({
         {...restProps}
       />
       <label htmlFor={`field-type-${typeValue}`}>
-        <Image
+        <ImageComponent
           alt={`${typeName} 타입 필터 선택`}
           height="100%"
           width="100%"

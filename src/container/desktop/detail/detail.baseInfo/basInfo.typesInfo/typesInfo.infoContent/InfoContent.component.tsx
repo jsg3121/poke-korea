@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import styled from 'styled-components'
-import { TypeList } from './components'
 import { UseRelationType } from '~/module/calculateRelationType'
+import TypeListComponent from './components/TypeList.component'
 
 interface IFProps {
   relationType: ReturnType<UseRelationType>
@@ -43,21 +43,21 @@ const InfoContentComponent: FC<IFProps> = (props) => {
         {activeTab === 'strong' && (
           <>
             {relationType.half.length > 0 && (
-              <TypeList
+              <TypeListComponent
                 list={relationType.half}
                 title="0.5배의 데미지를 받음"
                 grade="good"
               />
             )}
             {relationType.quarter.length > 0 && (
-              <TypeList
+              <TypeListComponent
                 list={relationType.quarter}
                 title="0.25배의 데미지를 받음"
                 grade="better"
               />
             )}
             {relationType.zero.length > 0 && (
-              <TypeList
+              <TypeListComponent
                 list={relationType.zero}
                 title="데미지를 받지 않음"
                 grade="best"
@@ -68,14 +68,14 @@ const InfoContentComponent: FC<IFProps> = (props) => {
         {activeTab === 'weak' && (
           <>
             {relationType.double.length > 0 && (
-              <TypeList
+              <TypeListComponent
                 list={relationType.double}
                 title="2배의 데미지를 받음"
                 grade="warning"
               />
             )}
             {relationType.quad.length > 0 && (
-              <TypeList
+              <TypeListComponent
                 list={relationType.quad}
                 title="4배의 데미지를 받음"
                 grade="danger"

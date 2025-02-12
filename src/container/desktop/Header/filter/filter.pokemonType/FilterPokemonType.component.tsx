@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import React, { ChangeEvent, useState } from 'react'
 import { PokemonTypes } from '~/types'
-import { TypeFieldButton } from '../components'
-import { Image } from '~/components'
-import { FilterModal } from '../filter.modal'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import styled from 'styled-components'
 import { getChangeTypeList } from '~/module/getChangeTypeList'
+import TypeFieldButtonComponents from './components/TypeFieldButton.components'
+import ImageComponent from '~/components/Image.component'
+import FilterModalComponent from './filter.modal/FilterModal.component'
 
 const FieldTypeInput = styled.div`
   width: 100%;
@@ -88,7 +88,7 @@ const FilterPokemonTypeComponent = () => {
     <FieldTypeInput role="searchbox" aria-label="타입별 포켓몬 필터 검색">
       {Object.entries(PokemonTypes).map(([types, typeName]) => {
         return (
-          <TypeFieldButton
+          <TypeFieldButtonComponents
             key={`pokemon-type-key-${types}`}
             onChange={handleClickTypeFilter}
             typeValue={types}
@@ -103,7 +103,7 @@ const FilterPokemonTypeComponent = () => {
         )
       })}
       <button className="button--filter" onClick={handleClickOpenFilter}>
-        <Image
+        <ImageComponent
           alt="다른 필터 조건 추가"
           src="/assets/image/filter.svg"
           height="1.5rem"
@@ -118,7 +118,9 @@ const FilterPokemonTypeComponent = () => {
       >
         초기화
       </button>
-      {isOpenModal && <FilterModal onClickCloseModal={handleClickCloseModal} />}
+      {isOpenModal && (
+        <FilterModalComponent onClickCloseModal={handleClickCloseModal} />
+      )}
     </FieldTypeInput>
   )
 }

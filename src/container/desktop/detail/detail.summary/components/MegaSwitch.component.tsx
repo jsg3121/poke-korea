@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { ChangeEvent } from 'react'
 import styled from 'styled-components'
-import { Image } from '~/components'
+import ImageComponent from '~/components/Image.component'
 import { TActiveType } from '~/context/Detail.context'
 
 interface MegaSwitchProps {
@@ -28,7 +28,7 @@ const MegaSwitch = ({ onChnageType }: MegaSwitchProps) => {
       />
       <label htmlFor="swtich-change-mega">
         <i className="icon-mega">
-          <Image
+          <ImageComponent
             alt="메가진화 보기 스위치"
             height="1.625rem"
             width="1.625rem"

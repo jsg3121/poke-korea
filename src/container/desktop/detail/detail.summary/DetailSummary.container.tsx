@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import { DetailContext, TActiveType } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
 import { TypesColor } from '~/types'
-import { PokemonImage } from './summary.pokemonImage'
-import { Stats } from './summary.stats'
 import InfoTitle from './components/InfoTitle.component'
 import ShinySwitch from './components/ShinySwitch.component'
 import MegaSwitch from './components/MegaSwitch.component'
 import RegionSwitch from './components/RegionSwitch.component'
+import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
+import StatsComponent from './summary.stats/Stats.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -134,7 +134,7 @@ const DetailSummaryContainer: FC = () => {
     <Div gradient={newColor}>
       <div className="detail-profile">
         <div className="profile-image">
-          <PokemonImage />
+          <PokemonImageCompoment />
           <InfoTitle name={pokemonInfo.name ?? ''} />
         </div>
         <div className="profile-description">
@@ -148,7 +148,7 @@ const DetailSummaryContainer: FC = () => {
             )}
           </ul>
           {pokemonBaseInfo && pokemonInfo.stats && (
-            <Stats {...pokemonInfo.stats} />
+            <StatsComponent {...pokemonInfo.stats} />
           )}
         </div>
       </div>

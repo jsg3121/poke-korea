@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
-import { Image } from '~/components'
-import { ListContext } from '~/context'
-import { Input } from './components'
 import { FormProvider, useForm } from 'react-hook-form'
+import { ListContext } from '~/context/List.context'
+import InputComponents from './components/Input.component'
+import ImageComponent from '~/components/Image.component'
 
 const Search = styled.div`
   width: 100%;
@@ -107,14 +107,14 @@ const SearchComponent: React.FC = () => {
           className="search__input"
           role="search"
         >
-          <Input
+          <InputComponents
             hasValue={hasValue}
             dataLabel="search-input-name"
             label="포켓몬 검색"
             {...register('name')}
           />
           <button type="submit" className="search__button--icon">
-            <Image
+            <ImageComponent
               src="/assets/image/search.svg"
               width="2rem"
               height="2rem"

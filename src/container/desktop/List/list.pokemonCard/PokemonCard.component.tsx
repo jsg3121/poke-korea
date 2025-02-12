@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import styled, { css } from 'styled-components'
-import { Ball, Image, Tag } from '~/components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { CardColor } from '~/types'
-import { pokemonNumberFormat } from '../module'
 import { imageMode } from '~/module/buildMode'
+import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
+import BallComponent from '~/components/Ball.component'
+import ImageComponent from '~/components/Image.component'
+import TagComponent from '~/components/Tag.component'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -166,7 +168,7 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
     >
       <header className="card-info__title">
         <i className="card-info__icon">
-          <Ball />
+          <BallComponent />
         </i>
         <div className="card-info__text">
           <p className="card-info__number">No.{pokemonNumber}</p>
@@ -174,7 +176,7 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
         </div>
       </header>
       <div className="card-info__image" aria-description="포켓몬 이미지">
-        <Image
+        <ImageComponent
           height="10rem"
           width="10rem"
           alt={`pokemon_id_${pokemonData.number}`}
@@ -185,7 +187,7 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
       </div>
       <div className="card-info__types" aria-description="포켓몬 타입 정보">
         {pokemonData.types.map((item, index) => {
-          return <Tag key={`${item}-id-${index}`} type={item} />
+          return <TagComponent key={`${item}-id-${index}`} type={item} />
         })}
       </div>
       <ul className="card-info__stat" aria-description="포켓몬 능력치 정보">

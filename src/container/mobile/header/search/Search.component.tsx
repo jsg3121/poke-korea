@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { Image } from '~/components'
-import { SearchInputName } from '../components'
+import ImageComponent from '~/components/Image.component'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
+import InputComponents from './components/Input.component'
 
 type SearchFormType = {
   name: string | null
@@ -113,12 +113,12 @@ const SearchComponent: React.FC = () => {
           className="form__search--name"
           role="search"
         >
-          <SearchInputName
+          <InputComponents
             dataLabel="search-input-name"
             {...register('name')}
           />
           <button type="submit" className="search__button--icon">
-            <Image
+            <ImageComponent
               src="/assets/image/search.svg"
               width="2rem"
               height="2rem"

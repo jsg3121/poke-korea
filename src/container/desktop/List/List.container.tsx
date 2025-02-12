@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import React, { useContext } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 import styled from 'styled-components'
-import { ListContext } from '~/context'
+import { ListContext } from '~/context/List.context'
 
 const PokemonCard = dynamic(
   () => import('./list.pokemonCard/PokemonCard.component'),
