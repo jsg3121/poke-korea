@@ -1,7 +1,4 @@
-import React from 'react'
 import styled from 'styled-components'
-
-interface HeaderNavProps {}
 
 const NavBar = styled.div`
   width: 100%;
@@ -14,7 +11,7 @@ const NavBar = styled.div`
   margin: 0 auto;
 `
 
-const HeaderNav: React.FC<HeaderNavProps> = () => {
+const HeaderNav = () => {
   return (
     <NavBar>
       {/* <NavLink /> 2차 기능 개발시 적용 */}

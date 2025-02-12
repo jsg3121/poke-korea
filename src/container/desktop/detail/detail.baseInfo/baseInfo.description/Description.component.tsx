@@ -1,10 +1,10 @@
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
+import TagComponent from '~/components/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
-import TagComponent from '~/components/Tag.component'
 
-const DescriptionComponent: FC = () => {
+const DescriptionComponent = () => {
   const { activeTypeInfo } = useContext(DetailContext)
   const {
     types,

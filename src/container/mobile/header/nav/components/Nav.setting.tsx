@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import ThemeSwitch from './ThemeSwitch'
 import ImageComponent from '~/components/Image.component'

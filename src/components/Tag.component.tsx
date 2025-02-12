@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { PokemonTypes, TypesColor } from '~/types'
+import { PokemonTypes, TypesColor } from '~/types/pokemonTypes.types'
 
 interface TagComponentProps {
   type: PokemonType

@@ -1,4 +1,4 @@
-import { FC, ReactNode, createContext, useContext } from 'react'
+import { ReactNode, createContext, useContext } from 'react'
 import { detectUserAgent } from '~/module/device.module'
 
 export interface IFDeviceProviderProps {
@@ -14,7 +14,7 @@ const DeviceContext = createContext<IFDeviceProps>({
   isMobile: true,
 })
 
-const DeviceProvider: FC<IFDeviceProviderProps> = ({ children, userAgent }) => {
+const DeviceProvider = ({ children, userAgent }: IFDeviceProviderProps) => {
   const isMobile = detectUserAgent(userAgent)
 
   const initialValue: IFDeviceProps = {

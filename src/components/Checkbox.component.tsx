@@ -1,6 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
 import Ball from './Ball.component'
+import { forwardRef } from 'react'
 
 interface CheckboxComponentProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -96,30 +96,27 @@ const Checkbox = styled.div`
   }
 `
 
-const CheckboxComponent = React.forwardRef<
-  HTMLInputElement,
-  CheckboxComponentProps
->((props, inputRef) => {
-  const { id, label, defaultChecked = false, ...restProps } = props
-
-  return (
-    <Checkbox>
-      <input
-        id={id}
-        ref={inputRef}
-        type="checkbox"
-        defaultChecked={defaultChecked}
-        {...restProps}
-      />
-      <label htmlFor={id}>
-        <div className="check__icon">
-          <i className="checkbox__unchecked" />
-          <Ball value={defaultChecked} />
-        </div>
-        <span className="checkbox__text">{label}</span>
-      </label>
-    </Checkbox>
-  )
-})
+const CheckboxComponent = forwardRef<HTMLInputElement, CheckboxComponentProps>(
+  ({ id, label, defaultChecked = false, ...restProps }, inputRef) => {
+    return (
+      <Checkbox>
+        <input
+          id={id}
+          ref={inputRef}
+          type="checkbox"
+          defaultChecked={defaultChecked}
+          {...restProps}
+        />
+        <label htmlFor={id}>
+          <div className="check__icon">
+            <i className="checkbox__unchecked" />
+            <Ball value={defaultChecked} />
+          </div>
+          <span className="checkbox__text">{label}</span>
+        </label>
+      </Checkbox>
+    )
+  },
+)
 
 export default CheckboxComponent

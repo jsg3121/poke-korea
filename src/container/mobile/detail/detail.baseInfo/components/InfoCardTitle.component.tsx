@@ -1,11 +1,10 @@
-import { FC } from 'react'
 import styled from 'styled-components'
 
-interface IFProps {
+interface InfoCardTitleComponentProps {
   title: string
 }
 
-const InfoCardTitleComponent: FC<IFProps> = ({ title }) => {
+const InfoCardTitleComponent = ({ title }: InfoCardTitleComponentProps) => {
   return <H2>{title}</H2>
 }
 

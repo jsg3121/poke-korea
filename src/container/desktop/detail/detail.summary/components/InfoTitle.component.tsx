@@ -1,13 +1,10 @@
-import { FC } from 'react'
 import styled from 'styled-components'
 
-interface IFProps {
+interface InfoTitleProps {
   name: string
 }
 
-const InfoTitle: FC<IFProps> = (props) => {
-  const { name } = props
-
+const InfoTitle = ({ name }: InfoTitleProps) => {
   const fontSize =
     name.length > 14 ? 'small' : name.length > 6 ? 'medium' : 'large'
 

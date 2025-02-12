@@ -1,4 +1,4 @@
-import React from 'react'
+import { forwardRef } from 'react'
 import styled from 'styled-components'
 
 interface InputComponentsProps {
@@ -21,21 +21,18 @@ const Input = styled.input`
   padding: 0 10px;
 `
 
-const InputComponents = React.forwardRef<
-  HTMLInputElement,
-  InputComponentsProps
->((props, ref) => {
-  const { dataLabel, ...restProps } = props
-
-  return (
-    <Input
-      id={dataLabel}
-      ref={ref}
-      type="text"
-      placeholder="포켓몬의 이름을 입력해주세요"
-      {...restProps}
-    />
-  )
-})
+const InputComponents = forwardRef<HTMLInputElement, InputComponentsProps>(
+  ({ dataLabel, ...restProps }, ref) => {
+    return (
+      <Input
+        id={dataLabel}
+        ref={ref}
+        type="text"
+        placeholder="포켓몬의 이름을 입력해주세요"
+        {...restProps}
+      />
+    )
+  },
+)
 
 export default InputComponents

@@ -1,5 +1,5 @@
 import isEqual from 'fast-deep-equal'
-import React from 'react'
+import { memo } from 'react'
 import styled from 'styled-components'
 import TagComponent from '~/components/Tag.component'
 import { PokemonType } from '~/graphql/typeGenerated'
@@ -58,9 +58,7 @@ const TypeList = styled.div`
   }
 `
 
-const TypeListComponent: React.FC<TypeListComponentProps> = (props) => {
-  const { list, title, grade } = props
-
+const TypeListComponent = ({ list, title, grade }: TypeListComponentProps) => {
   return (
     <TypeList>
       <p className="type-list__title" data-grade={grade}>
@@ -75,4 +73,4 @@ const TypeListComponent: React.FC<TypeListComponentProps> = (props) => {
   )
 }
 
-export default React.memo(TypeListComponent, isEqual)
+export default memo(TypeListComponent, isEqual)

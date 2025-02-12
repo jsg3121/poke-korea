@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import { CardColor } from '~/types'
 import { imageMode } from '~/module/buildMode'
 import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
+import { CardColor } from '~/types/pokemonTypes.types'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -145,7 +145,6 @@ const Card = styled.article<CardType>`
 
 const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
   const router = useRouter()
-
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   const backgroundColor = useMemo(() => {

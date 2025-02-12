@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import { FC } from 'react'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
 import DetailBaseInfoContainer from '~/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container'
 import DetailSummaryContainer from '~/container/mobile/detail/detail.summary/DetailSummary.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 
-const DetailMobile: FC = () => {
+const DetailMobile = () => {
   return (
     <Main>
       <header>

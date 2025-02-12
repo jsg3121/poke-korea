@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import LogoComponent from './logo/Logo.component'
 import SearchComponent from './search/Search.component'
@@ -10,7 +9,7 @@ const Header = styled.header`
   padding-top: 5rem;
 `
 
-const HeaderContainer: React.FC = () => {
+const HeaderContainer = () => {
   return (
     <Header>
       <LogoComponent />

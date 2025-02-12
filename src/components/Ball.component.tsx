@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 
 interface BallComponentProps {
@@ -68,9 +67,7 @@ const Ball = styled.span<{ value: boolean }>`
   }
 `
 
-const BallComponent: React.FC<BallComponentProps> = (props) => {
-  const { value } = props
-
+const BallComponent = ({ value }: BallComponentProps) => {
   return (
     <Ball value={value ?? false} className="ball">
       <i className="ball--top" />

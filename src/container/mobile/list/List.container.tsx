@@ -1,8 +1,8 @@
-import React from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 import styled from 'styled-components'
 import dynamic from 'next/dynamic'
 import { ListContext } from '~/context/List.context'
+import { useContext, useMemo } from 'react'
 
 const CardItem = dynamic(() => import('./components/Card.component'))
 
@@ -36,10 +36,10 @@ const List = styled.section`
   }
 `
 
-const ListContainer: React.FC = () => {
-  const { pokemonList } = React.useContext(ListContext)
+const ListContainer = () => {
+  const { pokemonList } = useContext(ListContext)
 
-  const list = React.useMemo(() => {
+  const list = useMemo(() => {
     return (
       <VirtuosoGrid
         useWindowScroll

@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { PokemonStats } from '~/graphql/typeGenerated'
 import StatChartComponent from './components/StatChart.component'
@@ -39,9 +38,7 @@ const Section = styled.section`
   }
 `
 
-const StatsComponent: React.FC<PokemonStats> = (props) => {
-  const { total, ...restProps } = props
-
+const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
   return (
     <Section>
       <header>

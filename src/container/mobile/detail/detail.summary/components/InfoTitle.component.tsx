@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import styled from 'styled-components'
 
-interface IFProps {
+interface InfoTitleComponentProps {
   name: string
 }
 
@@ -27,9 +26,7 @@ const H1 = styled.h1`
   }
 `
 
-const InfoTitleComponent: FC<IFProps> = (props) => {
-  const { name } = props
-
+const InfoTitleComponent = ({ name }: InfoTitleComponentProps) => {
   const fontSize =
     name.length > 14 ? 'small' : name.length > 6 ? 'medium' : 'large'
 

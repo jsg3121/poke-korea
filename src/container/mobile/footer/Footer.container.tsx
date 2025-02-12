@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import styled from 'styled-components'
 
-const FooterContainer: FC = () => {
+const FooterContainer = () => {
   return (
     <Footer>
       <p>Pokémon and Pokémon character names are trademarks of Nintendo.</p>

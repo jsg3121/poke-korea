@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
 
-const ShinySwitch: FC = () => {
+const ShinySwitch = () => {
   const router = useRouter()
 
   const defaultChecked = router.query.shinyMode === 'shiny' ? true : false
 
-  const handleChangeShiny = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeShiny = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     const { query } = router
 

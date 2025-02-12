@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { DetailContext, TActiveType } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
-import { TypesColor } from '~/types'
+import { TypesColor } from '~/types/pokemonTypes.types'
 import InfoTitle from './components/InfoTitle.component'
-import ShinySwitch from './components/ShinySwitch.component'
 import MegaSwitch from './components/MegaSwitch.component'
 import RegionSwitch from './components/RegionSwitch.component'
+import ShinySwitch from './components/ShinySwitch.component'
 import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
 import StatsComponent from './summary.stats/Stats.component'
 
@@ -83,7 +83,7 @@ const Div = styled.div<TStyledProps>`
   }
 `
 
-const DetailSummaryContainer: FC = () => {
+const DetailSummaryContainer = () => {
   const {
     pokemonBaseInfo,
     megaEvolutions,

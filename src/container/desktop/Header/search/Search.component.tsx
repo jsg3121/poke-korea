@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
-import React from 'react'
 import styled from 'styled-components'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ListContext } from '~/context/List.context'
 import InputComponents from './components/Input.component'
 import ImageComponent from '~/components/Image.component'
+import { useContext, useEffect } from 'react'
 
 const Search = styled.div`
   width: 100%;
@@ -65,8 +65,8 @@ type SearchFormType = {
   name: string | null
 }
 
-const SearchComponent: React.FC = () => {
-  const { scrolling, searching } = React.useContext(ListContext)
+const SearchComponent = () => {
+  const { scrolling, searching } = useContext(ListContext)
   const router = useRouter()
 
   const searchFormMethods = useForm<SearchFormType>({
@@ -91,7 +91,7 @@ const SearchComponent: React.FC = () => {
   const name = watch('name') || ''
   const hasValue = name.length > 0
 
-  React.useEffect(() => {
+  useEffect(() => {
     const name = router.query.name === undefined ? '' : `${router.query.name}`
     setValue('name', name)
   }, [router.query])

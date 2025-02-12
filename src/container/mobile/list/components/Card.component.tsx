@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+
 import styled, { css } from 'styled-components'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import { CardColor } from '~/types'
 import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import BallComponent from '~/components/Ball.component'
+import { CardColor } from '~/types/pokemonTypes.types'
+import { useMemo } from 'react'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -145,7 +146,7 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
 
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
-  const backgroundColor = React.useMemo(() => {
+  const backgroundColor = useMemo(() => {
     const background: Array<CardColor> = []
     pokemonData.types.map((item) => {
       return background.push(CardColor[item])

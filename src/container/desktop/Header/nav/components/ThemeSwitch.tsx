@@ -4,8 +4,6 @@ import ImageComponent from '~/components/Image.component'
 
 type ThemeType = 'dark' | 'light'
 
-interface ThemeSwitchProps {}
-
 const Switch = styled.button`
   width: 2rem;
   height: 2rem;
@@ -31,8 +29,7 @@ const Switch = styled.button`
   }
 `
 
-const ThemeSwitch: React.FC<ThemeSwitchProps> = (props) => {
-  const {} = props
+const ThemeSwitch = () => {
   const [theme, setTheme] = useState<ThemeType>('dark')
 
   const handleChangeTheme = () => {

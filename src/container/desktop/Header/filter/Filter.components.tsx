@@ -1,9 +1,7 @@
-import React from 'react'
 import isEqual from 'fast-deep-equal'
 import styled from 'styled-components'
 import FilterPokemonTypeComponent from './filter.pokemonType/FilterPokemonType.component'
-
-interface FilterComponentsProps {}
+import { memo } from 'react'
 
 const Section = styled.section`
   width: 100%;
@@ -16,7 +14,7 @@ const Section = styled.section`
   z-index: 20;
 `
 
-const FilterComponents: React.FC<FilterComponentsProps> = () => {
+const FilterComponents = () => {
   return (
     <Section>
       <FilterPokemonTypeComponent />
@@ -24,4 +22,4 @@ const FilterComponents: React.FC<FilterComponentsProps> = () => {
   )
 }
 
-export default React.memo(FilterComponents, isEqual)
+export default memo(FilterComponents, isEqual)

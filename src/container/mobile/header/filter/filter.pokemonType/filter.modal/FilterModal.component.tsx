@@ -1,12 +1,12 @@
 import isEqual from 'fast-deep-equal'
 import { useRouter } from 'next/router'
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent, memo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import CloseIcon from '~/assets/close.svg'
-import { FilterFormType } from './types/filterForm.type'
 import CheckboxComponent from '~/components/Checkbox.component'
 import RadioGroupComponent from '~/components/RadioGroup.component'
+import { FilterFormType } from './types/filterForm.type'
 
 interface FilterModalComponentProps {
   onClickCloseModal: () => void
@@ -122,8 +122,9 @@ const FilterModal = styled.div`
   }
 `
 
-const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
-  const { onClickCloseModal } = props
+const FilterModalComponent = ({
+  onClickCloseModal,
+}: FilterModalComponentProps) => {
   const router = useRouter()
   const formMethods = useForm<FilterFormType>({
     defaultValues: {
@@ -275,4 +276,4 @@ const FilterModalComponent: React.FC<FilterModalComponentProps> = (props) => {
   )
 }
 
-export default React.memo(FilterModalComponent, isEqual)
+export default memo(FilterModalComponent, isEqual)

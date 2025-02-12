@@ -1,9 +1,9 @@
-import React from 'react'
+import { createContext, ReactNode } from 'react'
 import { PokemonList, PokemonInfoFragment } from '~/graphql/typeGenerated'
 
 interface ListProviderProps {
   pokemonList: Array<PokemonList>
-  children: React.ReactNode
+  children: ReactNode
   scrolling?: boolean
   searching?: boolean
 }
@@ -26,16 +26,19 @@ type ContextType = {
   searching?: boolean
 }
 
-export const ListContext = React.createContext<ContextType>({
+export const ListContext = createContext<ContextType>({
   pokemonList: [],
   listFilter: {},
   scrolling: false,
   searching: false,
 })
 
-export const ListProvider: React.FC<ListProviderProps> = (props) => {
-  const { pokemonList, children, scrolling, searching } = props
-
+export const ListProvider = ({
+  pokemonList,
+  children,
+  scrolling,
+  searching,
+}: ListProviderProps) => {
   const initialValue = {
     pokemonList,
     listFilter: {},

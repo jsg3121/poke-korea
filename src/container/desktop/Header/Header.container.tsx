@@ -1,10 +1,10 @@
-import React from 'react'
 import styled from 'styled-components'
 import HeaderNav from './nav/header.nav'
 import { ListContext } from '~/context/List.context'
 import LogoComponent from './logo/Logo.component'
 import SearchComponent from './search/Search.component'
 import FilterComponents from './filter/Filter.components'
+import { useContext } from 'react'
 
 const Header = styled.header`
   width: 100%;
@@ -32,8 +32,8 @@ const Header = styled.header`
   }
 `
 
-const HeaderContainer: React.FC = () => {
-  const { scrolling, searching } = React.useContext(ListContext)
+const HeaderContainer = () => {
+  const { scrolling, searching } = useContext(ListContext)
 
   return (
     <Header

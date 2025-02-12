@@ -1,8 +1,8 @@
-import React from 'react'
 import isEqual from 'fast-deep-equal'
 import LogoIcon from '~/assets/logo.svg'
 import styled from 'styled-components'
 import { ListContext } from '~/context/List.context'
+import { memo, useContext } from 'react'
 
 const Article = styled.article`
   width: 100%;
@@ -53,8 +53,8 @@ const Article = styled.article`
   }
 `
 
-const LogoComponent: React.FC = () => {
-  const { scrolling, searching } = React.useContext(ListContext)
+const LogoComponent = () => {
+  const { scrolling, searching } = useContext(ListContext)
 
   return (
     <Article
@@ -69,4 +69,4 @@ const LogoComponent: React.FC = () => {
   )
 }
 
-export default React.memo(LogoComponent, isEqual)
+export default memo(LogoComponent, isEqual)

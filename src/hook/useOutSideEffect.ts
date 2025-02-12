@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { RefObject, useEffect } from 'react'
 
 type UseOutSideEffect = (
-  ref: React.RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement>,
   onOutSideClick: () => void,
 ) => void
 

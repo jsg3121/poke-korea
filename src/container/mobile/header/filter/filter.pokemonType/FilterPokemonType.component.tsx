@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router'
 import React, { ChangeEvent } from 'react'
-import { PokemonTypes } from '~/types'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import styled from 'styled-components'
 import { getChangeTypeList } from '~/module/getChangeTypeList'
 import TypeFieldButtonComponents from './components/TypeFieldButton.components'
 import ImageComponent from '~/components/Image.component'
 import FilterModalComponent from './filter.modal/FilterModal.component'
-
-interface FilterPokemonTypeComponentProps {}
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const Div = styled.div`
   width: calc(100% - 3rem);
@@ -58,9 +56,7 @@ const Div = styled.div`
 const isEmptyQueryCheck = (obj: object): boolean =>
   Object.keys(obj).length === 0
 
-const FilterPokemonTypeComponent: React.FC<
-  FilterPokemonTypeComponentProps
-> = () => {
+const FilterPokemonTypeComponent = () => {
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false)
   const router = useRouter()
   useBodyScrollLock(isOpenModal)

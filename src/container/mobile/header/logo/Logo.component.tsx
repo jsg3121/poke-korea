@@ -1,5 +1,5 @@
 import isEqual from 'fast-deep-equal'
-import React from 'react'
+import { memo } from 'react'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
 
@@ -19,7 +19,7 @@ const Article = styled.article`
   }
 `
 
-const LogoComponent: React.FC = () => {
+const LogoComponent = () => {
   return (
     <Article>
       <h1 className="header-title">포켓몬의 모든 정보 Poke Korea</h1>
@@ -28,4 +28,4 @@ const LogoComponent: React.FC = () => {
   )
 }
 
-export default React.memo(LogoComponent, isEqual)
+export default memo(LogoComponent, isEqual)

@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import ThemeSwitch from './ThemeSwitch'
 import ImageComponent from '~/components/Image.component'
@@ -71,9 +70,7 @@ const Div = styled.div`
   }
 `
 
-const NavSetting: React.FC<NavSettingProps> = (props) => {
-  const { scrolling } = props
-
+const NavSetting = ({ scrolling }: NavSettingProps) => {
   return (
     <Div data-scrolling={scrolling}>
       <ul>

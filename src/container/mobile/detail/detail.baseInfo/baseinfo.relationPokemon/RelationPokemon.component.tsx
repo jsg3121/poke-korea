@@ -4,12 +4,15 @@ import { imageMode } from '~/module/buildMode'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 import ImageComponent from '~/components/Image.component'
 
-interface IFProps {
+interface RelationPokemonComponentProps {
   evolutionId: Array<number>
   name: string
 }
 
-const RelationPokemonComponent = ({ name, evolutionId }: IFProps) => {
+const RelationPokemonComponent = ({
+  name,
+  evolutionId,
+}: RelationPokemonComponentProps) => {
   return (
     <Section>
       <InfoCardTitleComponent title="진화 체인" />

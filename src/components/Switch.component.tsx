@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import Ball from './Ball.component'
 
@@ -79,15 +78,15 @@ const Switch = styled.div<{ disabled?: boolean }>`
     }}
   }
 `
-const SwitchComponent: React.FC<SwitchComponentProps> = (props) => {
-  const { name, value = false, disabled = false, onChange } = props
-
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange({ name, value: e.target.checked })
-    },
-    [name, onChange]
-  )
+const SwitchComponent = ({
+  name,
+  value = false,
+  disabled = false,
+  onChange,
+}: SwitchComponentProps) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange({ name, value: e.target.checked })
+  }
 
   return (
     <Switch disabled={disabled}>

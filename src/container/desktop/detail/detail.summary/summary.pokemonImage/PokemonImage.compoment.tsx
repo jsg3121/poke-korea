@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { FC, useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -9,7 +9,7 @@ import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
 import { imageMode } from '~/module/buildMode'
 
-const PokemonImageCompoment: FC = () => {
+const PokemonImageCompoment = () => {
   const {
     pokemonBaseInfo,
     megaEvolutions,

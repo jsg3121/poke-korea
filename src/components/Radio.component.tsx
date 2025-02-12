@@ -1,6 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
 import Ball from './Ball.component'
+import { forwardRef } from 'react'
 
 interface RadioComponentProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -81,17 +81,11 @@ const Radio = styled.div`
   }
 `
 
-const RadioComponent = React.forwardRef<HTMLInputElement, RadioComponentProps>(
-  (props, ref) => {
-    const {
-      name,
-      label,
-      value,
-      defaultChecked = false,
-      disabled,
-      ...restInputProps
-    } = props
-
+const RadioComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
+  (
+    { name, label, value, defaultChecked = false, disabled, ...restInputProps },
+    ref,
+  ) => {
     return (
       <Radio>
         <input

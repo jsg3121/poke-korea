@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import type { ChartData, ChartOptions } from 'chart.js'
 import {
   Chart as ChartJS,
@@ -12,7 +11,7 @@ import {
 import { Radar } from 'react-chartjs-2'
 import { PokemonStats } from '~/graphql/typeGenerated'
 
-type IFProps = Omit<PokemonStats, 'total'>
+type StatChartComponentProps = Omit<PokemonStats, 'total'>
 
 ChartJS.register(
   RadialLinearScale,
@@ -23,9 +22,14 @@ ChartJS.register(
   Tooltip,
 )
 
-const StatChartComponent: FC<IFProps> = (props) => {
-  const { attack, defense, hp, specialAttack, speed, specialDefense } = props
-
+const StatChartComponent = ({
+  attack,
+  defense,
+  hp,
+  specialAttack,
+  speed,
+  specialDefense,
+}: StatChartComponentProps) => {
   const maxPoint = Math.max(
     hp,
     attack,

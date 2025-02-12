@@ -1,5 +1,4 @@
 import NextImage, { ImageProps } from 'next/image'
-import React from 'react'
 import styled, { css } from 'styled-components'
 
 interface ImageComponentProps extends Omit<ImageProps, 'width' | 'height'> {
@@ -32,9 +31,11 @@ const StyledImage = styled.div<StyledImageProps>`
   `}
 `
 
-const ImageComponent: React.FC<ImageComponentProps> = (props) => {
-  const { width, height, ...imageProps } = props
-
+const ImageComponent = ({
+  width,
+  height,
+  ...imageProps
+}: ImageComponentProps) => {
   return (
     <StyledImage width={width} height={height}>
       <picture>

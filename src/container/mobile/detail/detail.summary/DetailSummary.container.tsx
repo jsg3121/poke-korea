@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router'
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { DetailContext, TActiveType } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
-import { TypesColor } from '~/types'
-import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
+import { TypesColor } from '~/types/pokemonTypes.types'
 import InfoTitleComponent from './components/InfoTitle.component'
-import ShinySwitchComponent from './components/ShinySwitch.component'
 import MegaSwitchComponent from './components/MegaSwitch.component'
 import RegionSwitchComponent from './components/RegionSwitch.component'
+import ShinySwitchComponent from './components/ShinySwitch.component'
+import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
 import StatsComponent from './summary.stats/Stats.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
@@ -61,7 +61,7 @@ const Div = styled.div<TStyledProps>`
   }
 `
 
-const DetailSummaryContainer: FC = () => {
+const DetailSummaryContainer = () => {
   const {
     pokemonBaseInfo,
     megaEvolutions,

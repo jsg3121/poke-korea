@@ -2,7 +2,7 @@ import isEqual from 'fast-deep-equal'
 import { InputHTMLAttributes, memo } from 'react'
 import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
-import { PokemonTypes } from '~/types'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 interface TypeFieldButtonComponentsProps
   extends InputHTMLAttributes<HTMLInputElement> {

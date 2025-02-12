@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
-import React from 'react'
 import styled from 'styled-components'
 import HeaderContainer from '~/container/desktop/Header/Header.container'
 import ListContainer from '~/container/desktop/List/List.container'
@@ -31,7 +30,7 @@ const checkRouteQuery = (query: ParsedUrlQuery) => {
   )
 }
 
-const MainDesktop: React.FC<ManinViewsProps> = ({ pokemonList }) => {
+const MainDesktop = ({ pokemonList }: ManinViewsProps) => {
   const router = useRouter()
   const { observerRef, isScroll } = useHeaderScroll()
 

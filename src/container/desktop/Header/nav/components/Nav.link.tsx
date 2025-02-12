@@ -1,8 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
 import styled from 'styled-components'
-
-interface NavLinkProps {}
 
 const Nav = styled.nav`
   height: 100%;
@@ -42,8 +39,7 @@ const Nav = styled.nav`
   }
 `
 
-const NavLink: React.FC<NavLinkProps> = (props) => {
-  const {} = props
+const NavLink = () => {
   const { pathname } = useRouter()
 
   return (

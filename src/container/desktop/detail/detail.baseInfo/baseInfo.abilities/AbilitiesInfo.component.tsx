@@ -1,9 +1,9 @@
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
-const AbilitiesInfoComponent: FC = () => {
+const AbilitiesInfoComponent = () => {
   const { activeTypeInfo } = useContext(DetailContext)
   const { abilities } = activeTypeInfo
 

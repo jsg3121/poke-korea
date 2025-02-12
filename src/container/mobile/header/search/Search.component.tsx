@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
-import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
 import InputComponents from './components/Input.component'
+import { useEffect } from 'react'
 
 type SearchFormType = {
   name: string | null
@@ -73,7 +73,7 @@ const Search = styled.div`
   }
 `
 
-const SearchComponent: React.FC = () => {
+const SearchComponent = () => {
   const { observerRef, isScroll } = useHeaderScroll('mobile')
 
   const router = useRouter()
@@ -100,7 +100,7 @@ const SearchComponent: React.FC = () => {
     activeElement.blur()
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const name = router.query.name === undefined ? '' : `${router.query.name}`
     setValue('name', name)
   }, [router.query])

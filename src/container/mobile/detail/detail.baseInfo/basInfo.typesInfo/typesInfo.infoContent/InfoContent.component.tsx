@@ -1,14 +1,13 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { UseRelationType } from '~/module/calculateRelationType'
 import TypeListComponent from './components/TypeList.component'
 
-interface IFProps {
+interface InfoContentComponentProps {
   relationType: ReturnType<UseRelationType>
 }
 
-const InfoContentComponent: FC<IFProps> = (props) => {
-  const { relationType } = props
+const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
   const [activeTab, setActiveTab] = useState<'strong' | 'weak'>('strong')
 
   const handleClickChangeStrong = () => {

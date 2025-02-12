@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 
 type UseHeaderScrollType = (mode?: 'desktop' | 'mobile') => {
-  observerRef: React.RefObject<HTMLDivElement>
+  observerRef: RefObject<HTMLDivElement>
   isScroll: boolean
 }
 
 export const useHeaderScroll: UseHeaderScrollType = (mode = 'desktop') => {
-  const [isScroll, setIsScroll] = React.useState(false)
-  const observerRef = React.useRef<HTMLDivElement>(null)
-  const initialYPosRef = React.useRef<number | null>(null)
+  const [isScroll, setIsScroll] = useState<boolean>(false)
+  const observerRef = useRef<HTMLDivElement>(null)
+  const initialYPosRef = useRef<number | null>(null)
 
   const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
     entries.forEach((entry) => {
