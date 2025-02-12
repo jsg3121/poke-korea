@@ -1,5 +1,5 @@
 import { PokemonType } from '~/graphql/typeGenerated'
-import { TypesColor } from '../types'
+import { TypesColor } from '~/types/pokemonTypes.types'
 
 type ChangeColor = (types: Array<PokemonType>) => Array<TypesColor>
 

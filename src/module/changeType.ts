@@ -1,5 +1,5 @@
 import { PokemonType } from '~/graphql/typeGenerated'
-import { CardColor, PokemonTypes, TypesColor } from '../types'
+import { CardColor, PokemonTypes, TypesColor } from '~/types/pokemonTypes.types'
 
 /**
  * info : 타입 정보 및 색상 설정
