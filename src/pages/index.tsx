@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
-import { useDevice } from '~/context/src/Device.context'
+import { useDevice } from '~/context/Device.context'
 import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
 import { PokemonList } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
@@ -10,7 +10,8 @@ import {
   getGenerationParams,
   toBooleanOrUndefined,
 } from '~/module/filter.module'
-import { DesktopView, MobileView } from '~/views'
+import MainDesktop from '~/views/desktop/Main.desktop'
+import MainMobile from '~/views/mobile/Main.mobile'
 
 interface HomeProps {
   loading: boolean
@@ -62,9 +63,9 @@ const Home: NextPage<HomeProps> = ({ pokemonList }) => {
       />
       <Main>
         {isMobile ? (
-          <MobileView.MainViews pokemonList={pokemonList} />
+          <MainMobile pokemonList={pokemonList} />
         ) : (
-          <DesktopView.MainViews pokemonList={pokemonList} />
+          <MainDesktop pokemonList={pokemonList} />
         )}
       </Main>
     </>

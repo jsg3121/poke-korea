@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
-import { DetailProvider } from '~/context/src/Detail.context'
-import { useDevice } from '~/context/src/Device.context'
+import { DetailProvider } from '~/context/Detail.context'
+import { useDevice } from '~/context/Device.context'
 import {
   GetPokemonMegaEvolutionDocument,
   GetPokemonNormalFormDocument,

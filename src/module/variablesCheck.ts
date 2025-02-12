@@ -31,8 +31,8 @@ export const variablesCheck = (filter: FilterTypes) => {
       isEvolution === 'true'
         ? true
         : isEvolution === 'false'
-        ? false
-        : undefined,
+          ? false
+          : undefined,
   }
 
   return variable
