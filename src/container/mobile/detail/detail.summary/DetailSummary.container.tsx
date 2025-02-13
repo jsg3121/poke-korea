@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { DetailContext, TActiveType } from '~/context/Detail.context'
+import { DetailContext } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
 import { TypesColor } from '~/types/pokemonTypes.types'
 import InfoTitleComponent from './components/InfoTitle.component'
@@ -68,15 +68,8 @@ const DetailSummaryContainer = () => {
     regionFormInfo,
     normalForm,
     activeType,
-    handleChangeActiveType,
   } = useContext(DetailContext)
   const router = useRouter()
-
-  const handleChangeType = (type: TActiveType) => {
-    if (handleChangeActiveType) {
-      handleChangeActiveType(type)
-    }
-  }
 
   const newColor = changeColor(pokemonBaseInfo?.types ?? [])
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
@@ -116,12 +109,8 @@ const DetailSummaryContainer = () => {
       <InfoTitleComponent name={pokemonInfo.name ?? ''} />
       <ul className="switch-list">
         <ShinySwitchComponent />
-        {pokemonBaseInfo?.isMegaEvolution && (
-          <MegaSwitchComponent onChnageType={handleChangeType} />
-        )}
-        {pokemonBaseInfo?.isRegionForm && (
-          <RegionSwitchComponent onChnageType={handleChangeType} />
-        )}
+        {pokemonBaseInfo?.isMegaEvolution && <MegaSwitchComponent />}
+        {pokemonBaseInfo?.isRegionForm && <RegionSwitchComponent />}
       </ul>
       {pokemonBaseInfo && pokemonInfo.stats && (
         <StatsComponent {...pokemonInfo.stats} />

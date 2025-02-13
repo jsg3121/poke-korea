@@ -29,6 +29,7 @@ const Li = styled.li`
       font-size: 1rem;
       font-weight: normal;
       line-height: calc(2rem + 2px);
+      color: #000000;
       flex-shrink: 0;
       padding: 0 0.25rem;
     }
