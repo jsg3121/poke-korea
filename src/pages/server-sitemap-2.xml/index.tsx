@@ -9,7 +9,11 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
 
   const { data } = await apolloClient.query({
     query: GetPokemonListDocument,
+    variables: {
+      filter: {},
+    },
   })
+  console.log(data.getPokemonList)
 
   const dynamicSiteMapIdsWithQuery = data.getPokemonList.map(
     (pokemon: PokemonList) => {
