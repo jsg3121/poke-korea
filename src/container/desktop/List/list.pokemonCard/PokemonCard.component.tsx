@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import BallComponent from '~/components/Ball.component'
@@ -19,8 +19,10 @@ const Card = styled.article<CardType>`
   ${({ background }) => css`
     width: 14rem;
     height: 20rem;
+    color: #333333;
     border: 1px solid #333333;
     border-radius: 10px;
+    display: block;
     padding: 0.83333333rem 0.55555556rem;
     outline: 0.25rem solid #ffffff;
     position: relative;
@@ -37,7 +39,7 @@ const Card = styled.article<CardType>`
               135deg,
               ${background[0]} 35%,
               ${background[1]} 65%
-            )`
+              )`
       }
     }};
 
@@ -85,6 +87,7 @@ const Card = styled.article<CardType>`
           height: 1rem;
           font-size: 1rem;
           font-weight: 500;
+          color: #333333;
         }
 
         .card-info__name {
@@ -92,6 +95,7 @@ const Card = styled.article<CardType>`
           font-size: 1rem;
           font-weight: 600;
           text-align: right;
+          color: #000000;
         }
       }
     }
@@ -99,26 +103,27 @@ const Card = styled.article<CardType>`
     .card-info__stat {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: 1rem;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: 35% 15% 35% 15%;
       margin-top: 0.55555556rem;
       padding: 0 0.55555556rem;
 
-      .stat__info {
-        width: 100%;
+      .info__title,
+      .info__description {
         height: 1.25rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
 
-        p {
-          font-size: 0.875rem;
-          line-height: 1.25rem;
-
-          &.info__title {
-            font-weight: 500;
-          }
+      .info__title {
+        &:nth-of-type(even) {
+          margin-left: 1rem;
         }
+      }
+
+      .info__description {
+        text-align: right;
+        color: #000000;
       }
     }
 
@@ -136,7 +141,7 @@ const Card = styled.article<CardType>`
 
     .card-info__image {
       width: fit-content;
-      margin: 0 auto 1rem;
+      margin: 0 auto 0.5rem;
       filter: drop-shadow(2px 3px 2px #333333);
       position: relative;
     }
@@ -144,7 +149,6 @@ const Card = styled.article<CardType>`
 `
 
 const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
-  const router = useRouter()
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   const backgroundColor = useMemo(() => {
@@ -155,73 +159,62 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
     return background
   }, [pokemonData])
 
-  const handleRouteDetailPokemon = () => {
-    router.push(`/detail/${pokemonData.number}`)
-  }
-
   return (
-    <Card
-      background={backgroundColor}
-      onClick={handleRouteDetailPokemon}
-      aria-label={`포켓몬 ${pokemonData.name} 카드`}
-    >
-      <header className="card-info__title">
-        <i className="card-info__icon">
-          <BallComponent />
-        </i>
-        <div className="card-info__text">
-          <p className="card-info__number">No.{pokemonNumber}</p>
-          <h3 className="card-info__name">{pokemonData.name}</h3>
+    <Link href={`/detail/${pokemonData.number}`}>
+      <Card
+        background={backgroundColor}
+        aria-label={`포켓몬 ${pokemonData.name} 카드`}
+      >
+        <header className="card-info__title">
+          <i className="card-info__icon">
+            <BallComponent />
+          </i>
+          <div className="card-info__text">
+            <p className="card-info__number">No.{pokemonNumber}</p>
+            <h3 className="card-info__name">{pokemonData.name}</h3>
+          </div>
+        </header>
+        <div className="card-info__image" aria-description="포켓몬 이미지">
+          <ImageComponent
+            height="10rem"
+            width="10rem"
+            alt={`pokemon_id_${pokemonData.number}`}
+            src={`${imageMode}/${pokemonData.number}.webp`}
+            sizes="10rem"
+            unoptimized
+          />
         </div>
-      </header>
-      <div className="card-info__image" aria-description="포켓몬 이미지">
-        <ImageComponent
-          height="10rem"
-          width="10rem"
-          alt={`pokemon_id_${pokemonData.number}`}
-          src={`${imageMode}/${pokemonData.number}.webp`}
-          sizes="10rem"
-          unoptimized
-        />
-      </div>
-      <div className="card-info__types" aria-description="포켓몬 타입 정보">
-        {pokemonData.types.map((item, index) => {
-          return <TagComponent key={`${item}-id-${index}`} type={item} />
-        })}
-      </div>
-      <ul className="card-info__stat" aria-description="포켓몬 능력치 정보">
-        <li className="stat__info">
-          <p className="info__title">체력</p>
-          <p className="info__description">{pokemonData.pokemonStats.hp}</p>
-        </li>
-        <li className="stat__info">
-          <p className="info__title">공격</p>
-          <p className="info__description">{pokemonData.pokemonStats.attack}</p>
-        </li>
-        <li className="stat__info">
-          <p className="info__title">특수공격</p>
-          <p className="info__description">
+        <div className="card-info__types" aria-description="포켓몬 타입 정보">
+          {pokemonData.types.map((item, index) => {
+            return <TagComponent key={`${item}-id-${index}`} type={item} />
+          })}
+        </div>
+        <dl className="card-info__stat" aria-description="포켓몬 능력치 정보">
+          <dt className="info__title">체력</dt>
+          <dd className="info__description">{pokemonData.pokemonStats.hp}</dd>
+          <dt className="info__title">공격</dt>
+          <dd className="info__description">
+            {pokemonData.pokemonStats.attack}
+          </dd>
+          <dt className="info__title">특수공격</dt>
+          <dd className="info__description">
             {pokemonData.pokemonStats.specialAttack}
-          </p>
-        </li>
-        <li className="stat__info">
-          <p className="info__title">방어</p>
-          <p className="info__description">
+          </dd>
+          <dt className="info__title">방어</dt>
+          <dd className="info__description">
             {pokemonData.pokemonStats.defense}
-          </p>
-        </li>
-        <li className="stat__info">
-          <p className="info__title">특수방어</p>
-          <p className="info__description">
+          </dd>
+          <dt className="info__title">특수방어</dt>
+          <dd className="info__description">
             {pokemonData.pokemonStats.specialDefense}
-          </p>
-        </li>
-        <li className="stat__info">
-          <p className="info__title">스피드</p>
-          <p className="info__description">{pokemonData.pokemonStats.speed}</p>
-        </li>
-      </ul>
-    </Card>
+          </dd>
+          <dt className="info__title">스피드</dt>
+          <dd className="info__description">
+            {pokemonData.pokemonStats.speed}
+          </dd>
+        </dl>
+      </Card>
+    </Link>
   )
 }
 
