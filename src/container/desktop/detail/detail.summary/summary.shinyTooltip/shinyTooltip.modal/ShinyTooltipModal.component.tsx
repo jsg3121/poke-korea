@@ -45,7 +45,7 @@ const Div = styled.div`
     width: 40rem;
     height: 35.5rem;
     border-radius: 1rem;
-    background-color: #ffffff;
+    background-color: var(--color-primary-4);
     padding: 1.5rem;
     position: absolute;
     top: 50%;
