@@ -16,12 +16,8 @@ const ShinySwitch = () => {
   }
 
   return (
-    <Li>
-      <Link
-        href={switchHref}
-        className={`switch-shiny ${isShiny ? 'active-shiny' : ''}`}
-        replace
-      >
+    <Li className={isShiny ? 'active-shiny' : ''}>
+      <Link href={switchHref} className="switch-shiny" replace>
         <i className="icon-shiny">
           <ShinyIcon />
         </i>
@@ -42,6 +38,20 @@ const Li = styled.li`
     left: -6.5rem;
   }
 
+  &.active-shiny {
+    left: -6.5rem;
+
+    & > .switch-shiny {
+      & > p {
+        color: #333333;
+      }
+
+      & > .icon-shiny > svg {
+        fill: #f5b62e;
+      }
+    }
+  }
+
   & > .switch-shiny {
     width: 7rem;
     height: 2rem;
@@ -60,16 +70,12 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    &.active-shiny > .icon-shiny > svg {
-      fill: #f5b62e;
-    }
-
     & > p {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;
       line-height: calc(2rem + 2px);
-      color: #333333;
+      color: #888888;
     }
 
     & > .icon-shiny {

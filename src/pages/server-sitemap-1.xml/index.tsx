@@ -14,8 +14,6 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     },
   })
 
-  console.log(data.getPokemonList)
-
   const dynamicSiteMapIds = data.getPokemonList.map((pokemon: PokemonList) => {
     return {
       loc: `https://poke-korea.com/detail/${pokemon.number}`, // 페이지 경로
