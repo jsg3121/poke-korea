@@ -15,12 +15,8 @@ const MegaSwitch = () => {
   }
 
   return (
-    <Li>
-      <Link
-        href={megaHref}
-        className={`switch-mega ${isMega ? 'active-mega' : ''}`}
-        replace
-      >
+    <Li className={isMega ? 'active-mega' : ''}>
+      <Link href={megaHref} className="switch-mega" replace>
         <i className="icon-mega">
           <ImageComponent
             alt="메가진화 보기 스위치"
@@ -46,6 +42,20 @@ const Li = styled.li`
     left: -7rem;
   }
 
+  &.active-mega {
+    left: -7rem;
+
+    & > .switch-mega {
+      & > p {
+        color: #333333;
+      }
+
+      & > .icon-mega {
+        filter: grayscale(0);
+      }
+    }
+  }
+
   & > .switch-mega {
     width: 8rem;
     height: 2rem;
@@ -64,16 +74,12 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    &.active-mega > .icon-mega {
-      filter: grayscale(0);
-    }
-
     & > p {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;
       line-height: calc(2rem + 2px);
-      color: #333333;
+      color: #888888;
       flex-shrink: 0;
     }
 

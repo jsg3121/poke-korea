@@ -10,6 +10,8 @@ import RegionSwitchComponent from './components/RegionSwitch.component'
 import ShinySwitchComponent from './components/ShinySwitch.component'
 import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
 import StatsComponent from './summary.stats/Stats.component'
+import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
+import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -50,6 +52,13 @@ const Div = styled.div<TStyledProps>`
     }
   }
 
+  & > .shiny-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 20px;
+  }
+
   & > .switch-list {
     width: 100%;
     height: 3rem;
@@ -74,6 +83,7 @@ const DetailSummaryContainer = () => {
   const newColor = changeColor(pokemonBaseInfo?.types ?? [])
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
   const activeIndex = router.query.activeIndex ? indexQuery : 0
+  const isShiny = router.query.shinyMode === 'shiny'
 
   const pokemonInfo = (() => {
     switch (activeType) {
@@ -107,6 +117,12 @@ const DetailSummaryContainer = () => {
         <PokemonImageCompoment />
       </div>
       <InfoTitleComponent name={pokemonInfo.name ?? ''} />
+      {isShiny && (
+        <div className="shiny-buttons">
+          <ShinyTooltipComponent />
+          <ShinyRateComponent />
+        </div>
+      )}
       <ul className="switch-list">
         <ShinySwitchComponent />
         {pokemonBaseInfo?.isMegaEvolution && <MegaSwitchComponent />}

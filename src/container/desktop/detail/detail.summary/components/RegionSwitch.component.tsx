@@ -16,12 +16,8 @@ const RegionSwitch = () => {
   }
 
   return (
-    <Li>
-      <Link
-        href={regionHref}
-        className={`switch-region ${isRegion ? 'active-region' : ''}`}
-        replace
-      >
+    <Li className={isRegion ? 'active-region' : ''}>
+      <Link href={regionHref} className="switch-region" replace>
         <i className="icon-region">
           <RegionIcon />
         </i>
@@ -39,7 +35,21 @@ const Li = styled.li`
   transition: left 0.2s ease-out;
 
   &:hover {
-    left: -6.5rem;
+    left: -75rem;
+  }
+
+  &.active-region {
+    left: -7rem;
+
+    & > .switch-region {
+      & > p {
+        color: #333333;
+      }
+
+      & > .icon-region > svg {
+        filter: grayscale(0);
+      }
+    }
   }
 
   & > .switch-region {
@@ -60,16 +70,12 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    &.active-region > .icon-region > svg {
-      filter: grayscale(0);
-    }
-
     & > p {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;
       line-height: calc(2rem + 2px);
-      color: #333333;
+      color: #888888;
     }
 
     & > .icon-region {

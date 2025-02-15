@@ -20,8 +20,12 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    &.active-mega > .icon-mega {
-      filter: grayscale(0);
+    &.active-mega {
+      opacity: 1;
+
+      & > .icon-mega {
+        filter: grayscale(0);
+      }
     }
 
     & > p {

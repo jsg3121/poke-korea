@@ -19,8 +19,12 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    &.active-shiny > .icon-shiny > svg {
-      fill: #f5b62e;
+    &.active-shiny {
+      opacity: 1;
+
+      & > .icon-shiny > svg {
+        fill: #f5b62e;
+      }
     }
 
     & > p {

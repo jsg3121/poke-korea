@@ -10,8 +10,81 @@ import RegionSwitch from './components/RegionSwitch.component'
 import ShinySwitch from './components/ShinySwitch.component'
 import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
 import StatsComponent from './summary.stats/Stats.component'
+import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
+import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
+
+const DetailSummaryContainer = () => {
+  const {
+    pokemonBaseInfo,
+    megaEvolutions,
+    regionFormInfo,
+    normalForm,
+    activeType,
+  } = useContext(DetailContext)
+  const router = useRouter()
+
+  const newColor = changeColor(pokemonBaseInfo?.types ?? [])
+  const indexQuery = parseInt(router.query.activeIndex as string, 10)
+  const activeIndex = router.query.activeIndex ? indexQuery : 0
+  const isShiny = router.query.shinyMode === 'shiny'
+
+  const pokemonInfo = (() => {
+    switch (activeType) {
+      case 'mega':
+        return {
+          name: megaEvolutions?.[activeIndex].name,
+          stats: megaEvolutions?.[activeIndex].megaEvolutionStats,
+        }
+      case 'region':
+        return {
+          name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습 ${regionFormInfo?.[activeIndex].name && `(${regionFormInfo?.[activeIndex].name})`}`,
+          stats:
+            regionFormInfo?.[activeIndex].regionFormStats ??
+            pokemonBaseInfo?.pokemonStats,
+        }
+      default:
+        return {
+          name:
+            normalForm?.[activeIndex]?.name.replace('_', ' ') ??
+            pokemonBaseInfo?.name,
+          stats:
+            normalForm?.[activeIndex]?.normalFormStats ??
+            pokemonBaseInfo?.pokemonStats,
+        }
+    }
+  })()
+
+  return (
+    <Div gradient={newColor}>
+      <div className="detail-profile">
+        {isShiny && (
+          <div className="shiny-buttons">
+            <ShinyTooltipComponent />
+            <ShinyRateComponent />
+          </div>
+        )}
+        <div className="profile-image">
+          <PokemonImageCompoment />
+          <InfoTitle name={pokemonInfo.name ?? ''} />
+        </div>
+        <div className="profile-description">
+          <ul className="switch-list">
+            <ShinySwitch />
+            {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
+            {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
+          </ul>
+          {pokemonBaseInfo && pokemonInfo.stats && (
+            <StatsComponent {...pokemonInfo.stats} />
+          )}
+        </div>
+      </div>
+    </Div>
+  )
+}
+
+export default DetailSummaryContainer
 
 const Div = styled.div<TStyledProps>`
   width: 100%;
@@ -65,11 +138,22 @@ const Div = styled.div<TStyledProps>`
       z-index: -1;
     }
 
+    & > .shiny-buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: absolute;
+      top: 0;
+      left: 20px;
+      z-index: 100;
+    }
+
     & > .profile-description {
       display: flex;
       align-items: flex-start;
       gap: 1rem;
       position: relative;
+      z-index: 10;
 
       & > .switch-list {
         display: flex;
@@ -82,67 +166,3 @@ const Div = styled.div<TStyledProps>`
     }
   }
 `
-
-const DetailSummaryContainer = () => {
-  const {
-    pokemonBaseInfo,
-    megaEvolutions,
-    regionFormInfo,
-    normalForm,
-    activeType,
-  } = useContext(DetailContext)
-  const router = useRouter()
-
-  const newColor = changeColor(pokemonBaseInfo?.types ?? [])
-  const indexQuery = parseInt(router.query.activeIndex as string, 10)
-  const activeIndex = router.query.activeIndex ? indexQuery : 0
-
-  const pokemonInfo = (() => {
-    switch (activeType) {
-      case 'mega':
-        return {
-          name: megaEvolutions?.[activeIndex].name,
-          stats: megaEvolutions?.[activeIndex].megaEvolutionStats,
-        }
-      case 'region':
-        return {
-          name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습 ${regionFormInfo?.[activeIndex].name && `(${regionFormInfo?.[activeIndex].name})`}`,
-          stats:
-            regionFormInfo?.[activeIndex].regionFormStats ??
-            pokemonBaseInfo?.pokemonStats,
-        }
-      default:
-        return {
-          name:
-            normalForm?.[activeIndex]?.name.replace('_', ' ') ??
-            pokemonBaseInfo?.name,
-          stats:
-            normalForm?.[activeIndex]?.normalFormStats ??
-            pokemonBaseInfo?.pokemonStats,
-        }
-    }
-  })()
-
-  return (
-    <Div gradient={newColor}>
-      <div className="detail-profile">
-        <div className="profile-image">
-          <PokemonImageCompoment />
-          <InfoTitle name={pokemonInfo.name ?? ''} />
-        </div>
-        <div className="profile-description">
-          <ul className="switch-list">
-            <ShinySwitch />
-            {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
-            {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
-          </ul>
-          {pokemonBaseInfo && pokemonInfo.stats && (
-            <StatsComponent {...pokemonInfo.stats} />
-          )}
-        </div>
-      </div>
-    </Div>
-  )
-}
-
-export default DetailSummaryContainer

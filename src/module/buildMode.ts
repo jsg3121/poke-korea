@@ -1,3 +1,6 @@
-export const GqlMode = 'https://api.poke-korea.com/graphql'
+export const GqlMode =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000/graphql'
+    : 'https://api.poke-korea.com/graphql'
 
 export const imageMode = 'https://image.poke-korea.com/image'
