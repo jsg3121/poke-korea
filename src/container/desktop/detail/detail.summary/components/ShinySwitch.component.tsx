@@ -35,11 +35,11 @@ const Li = styled.li`
   transition: left 0.2s ease-out;
 
   &:hover {
-    left: -6.5rem;
+    left: -7rem;
   }
 
   &.active-shiny {
-    left: -6.5rem;
+    left: -7rem;
 
     & > .switch-shiny {
       & > p {

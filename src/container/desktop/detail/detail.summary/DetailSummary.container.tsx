@@ -10,6 +10,7 @@ import RegionSwitch from './components/RegionSwitch.component'
 import ShinySwitch from './components/ShinySwitch.component'
 import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
 import StatsComponent from './summary.stats/Stats.component'
+import ShinyTooltipComponent from './components/ShinyTooltip.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -96,6 +97,7 @@ const DetailSummaryContainer = () => {
   const newColor = changeColor(pokemonBaseInfo?.types ?? [])
   const indexQuery = parseInt(router.query.activeIndex as string, 10)
   const activeIndex = router.query.activeIndex ? indexQuery : 0
+  const isShiny = router.query.shinyMode === 'shiny'
 
   const pokemonInfo = (() => {
     switch (activeType) {
@@ -127,6 +129,7 @@ const DetailSummaryContainer = () => {
     <Div gradient={newColor}>
       <div className="detail-profile">
         <div className="profile-image">
+          {isShiny && <ShinyTooltipComponent />}
           <PokemonImageCompoment />
           <InfoTitle name={pokemonInfo.name ?? ''} />
         </div>
