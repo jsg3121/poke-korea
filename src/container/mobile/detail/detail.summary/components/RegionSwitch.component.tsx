@@ -20,8 +20,12 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    &.active-region > .icon-region > svg {
-      filter: grayscale(0);
+    &.active-region {
+      opacity: 1;
+
+      & > .icon-region > svg {
+        filter: grayscale(0);
+      }
     }
 
     & > p {
