@@ -30,7 +30,7 @@ const Section = styled.section`
 
     & > dt {
       width: 100%;
-      height: 1.25rem;
+      min-height: 1.25rem;
       font-size: 1rem;
       line-height: 1.25rem;
       text-align: left;
@@ -40,7 +40,7 @@ const Section = styled.section`
 
     & > dd {
       width: 100%;
-      height: 1rem;
+      min-height: 1rem;
       font-size: 0.75rem;
       line-height: 1rem;
       text-align: left;

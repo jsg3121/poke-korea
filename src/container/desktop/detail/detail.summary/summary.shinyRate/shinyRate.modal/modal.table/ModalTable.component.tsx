@@ -211,7 +211,7 @@ const Table = styled.table`
 
         & > p {
           width: 100%;
-          font-size: 1rem;
+          font-size: 0.9rem;
           color: var(--color-primary-1);
 
           & > span {
