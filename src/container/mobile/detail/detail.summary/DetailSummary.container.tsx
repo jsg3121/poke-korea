@@ -10,8 +10,8 @@ import RegionSwitchComponent from './components/RegionSwitch.component'
 import ShinySwitchComponent from './components/ShinySwitch.component'
 import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment'
 import StatsComponent from './summary.stats/Stats.component'
-import ShinyTooltipComponent from '~/container/desktop/detail/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
-import ShinyRateComponent from '~/container/desktop/detail/detail.summary/summary.shinyRate/ShinyRate.component'
+import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
+import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
