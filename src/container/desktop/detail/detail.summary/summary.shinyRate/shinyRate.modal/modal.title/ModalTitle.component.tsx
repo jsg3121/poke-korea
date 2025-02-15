@@ -12,8 +12,8 @@ const ModalTitleComponent = ({ onClickClose }: ModalTitleComponentProps) => {
 
   return (
     <Header>
-      <h2>이로치 포획률</h2>
-      <button aria-label="이초리 설명 팝업 닫기" onClick={handleClickClose}>
+      <h2 id="shiny-rate-title">이로치 포획률</h2>
+      <button aria-label="이로치 설명 팝업 닫기" onClick={handleClickClose}>
         <CloseIcon
           width="1.5rem"
           height="1.5rem"

@@ -16,32 +16,27 @@ const ShinyTooltipModalComponent = ({
   }
 
   return (
-    <Div className={isOpenModal ? 'show-modal' : ''}>
-      <aside>
+    <Dialog open={isOpenModal}>
+      <div>
         <ModalTitleComponent onClickClose={handleClickCloseModal} />
         <ModalDescriptionComponent />
-      </aside>
-    </Div>
+      </div>
+    </Dialog>
   )
 }
 
 export default ShinyTooltipModalComponent
 
-const Div = styled.div`
+const Dialog = styled.dialog`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10000;
 
-  &.show-modal {
-    display: block;
-  }
-
-  & > aside {
+  & > div {
     width: 40rem;
     height: 35.5rem;
     border-radius: 1rem;

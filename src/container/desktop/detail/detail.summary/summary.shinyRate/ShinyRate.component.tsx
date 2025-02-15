@@ -1,26 +1,34 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import ShinyRateModalComponent from './shinyRate.modal/ShinyRateModal.component'
 
 const ShinyRateComponent = () => {
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false)
+
+  const checkOpenDialog = (isDialogOpen?: boolean) => {
+    const isOpen = isDialogOpen || false
+    setIsOpenDialog(() => isOpen)
+  }
 
   const handleClickOpenModal = () => {
-    setIsOpenModal(() => true)
+    dialogRef.current?.showModal()
+    checkOpenDialog(dialogRef.current?.open)
   }
 
   const handleClickCloseModal = () => {
-    setIsOpenModal(() => false)
+    dialogRef.current?.close()
+    checkOpenDialog(dialogRef.current?.open)
   }
 
-  useBodyScrollLock(isOpenModal)
+  useBodyScrollLock(isOpenDialog)
 
   return (
     <Fragment>
       <Button onClick={handleClickOpenModal}>이로치 포획률</Button>
       <ShinyRateModalComponent
-        isOpenModal={isOpenModal}
+        ref={dialogRef}
         onClickCloseModal={handleClickCloseModal}
       />
     </Fragment>

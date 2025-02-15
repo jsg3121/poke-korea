@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const ModalDescriptionComponent = () => {
   return (
-    <Div>
+    <Summary>
       <p>
         일반적인 포켓몬과는 다른 색으로 이루어진 경우를 이로치
         <b>(색이 다른)</b>
@@ -43,13 +43,13 @@ const ModalDescriptionComponent = () => {
         * 이로치 이미지는 일반 포켓몬 이미지에서 색상을 변경한 이미지이므로,
         공식 이미지가 아닌 점 참고 부탁드립니다.
       </span>
-    </Div>
+    </Summary>
   )
 }
 
 export default ModalDescriptionComponent
 
-const Div = styled.div`
+const Summary = styled.summary`
   width: 100%;
   height: fit-content;
 
