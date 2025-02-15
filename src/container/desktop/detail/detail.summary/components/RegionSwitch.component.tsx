@@ -35,7 +35,7 @@ const Li = styled.li`
   transition: left 0.2s ease-out;
 
   &:hover {
-    left: -75rem;
+    left: -7rem;
   }
 
   &.active-region {
