@@ -12,10 +12,10 @@ const ModalTitleComponent = ({ onClickClose }: ModalTitleComponentProps) => {
 
   return (
     <Header>
-      <h2>
+      <h2 id="shiny-info-title">
         이로치<b>(색이 다른 포켓몬)</b>이란?
       </h2>
-      <button aria-label="이초리 설명 팝업 닫기" onClick={handleClickClose}>
+      <button aria-label="이로치 설명 팝업 닫기" onClick={handleClickClose}>
         <CloseIcon
           width="1.5rem"
           height="1.5rem"

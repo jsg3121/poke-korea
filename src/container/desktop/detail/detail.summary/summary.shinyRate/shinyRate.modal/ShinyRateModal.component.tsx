@@ -22,10 +22,10 @@ const ShinyRateModalComponent = forwardRef<
       ref={ref}
       role="dialog"
       aria-labelledby="shiny-rate-title"
-      aria-description="popup-description"
+      aria-describedby="shiny-rate-description"
     >
       <ModalTitleComponent onClickClose={handleClickCloseModal} />
-      <p id="popup-description" className="visually-hidden">
+      <p id="shiny-rate-description" className="visually-hidden">
         포켓몬 세대별 이로치 포획률을 정리한 표입니다. 국제 교배와 빛나는 부적
         사용 여부에 따른 포획 확률도 포함되어 있습니다.
       </p>

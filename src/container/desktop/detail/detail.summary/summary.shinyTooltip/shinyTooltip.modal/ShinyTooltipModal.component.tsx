@@ -1,50 +1,52 @@
 import styled from 'styled-components'
 import ModalDescriptionComponent from './modal.description/ModalDescription.component'
 import ModalTitleComponent from './modal.title/ModalTitle.component'
+import { forwardRef } from 'react'
 
 interface ShinyTooltipModalComponentProps {
-  isOpenModal: boolean
   onClickCloseModal: () => void
 }
 
-const ShinyTooltipModalComponent = ({
-  isOpenModal,
-  onClickCloseModal,
-}: ShinyTooltipModalComponentProps) => {
+const ShinyTooltipModalComponent = forwardRef<
+  HTMLDialogElement,
+  ShinyTooltipModalComponentProps
+>(({ onClickCloseModal }, ref) => {
   const handleClickCloseModal = () => {
     onClickCloseModal()
   }
 
   return (
-    <Dialog open={isOpenModal}>
-      <div>
-        <ModalTitleComponent onClickClose={handleClickCloseModal} />
-        <ModalDescriptionComponent />
-      </div>
+    <Dialog
+      ref={ref}
+      role="dialog"
+      aria-labelledby="shiny-info-title"
+      aria-describedby="shiny-info-description"
+    >
+      <ModalTitleComponent onClickClose={handleClickCloseModal} />
+      <p id="shiny-info-description" className="visually-hidden">
+        색이다른 포켓몬의 정의와 어떤 특징을 가지고 있는지 설명합니다.
+      </p>
+      <ModalDescriptionComponent />
     </Dialog>
   )
-}
+})
 
 export default ShinyTooltipModalComponent
 
 const Dialog = styled.dialog`
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-
-  & > div {
-    width: 40rem;
-    height: 35.5rem;
-    border-radius: 1rem;
-    background-color: var(--color-primary-4);
-    padding: 1.5rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
   }
+
+  width: 40rem;
+  min-height: 35.5rem;
+  border: 0;
+  border-radius: 1rem;
+  background-color: var(--color-primary-4);
+  padding: 1.5rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `
