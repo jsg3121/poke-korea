@@ -33,6 +33,7 @@ const Button = styled.button`
   width: 4.5rem;
   height: 1.5rem;
   font-size: 0.75rem;
+  line-height: calc(1.5rem + 2px);
   text-align: center;
   background-color: var(--color-primary-4);
   border-radius: 0.75rem;

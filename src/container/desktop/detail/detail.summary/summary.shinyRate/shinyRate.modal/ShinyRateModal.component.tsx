@@ -11,10 +11,14 @@ const ShinyRateModalComponent = ({
   isOpenModal,
   onClickCloseModal,
 }: ShinyRateModalComponentProps) => {
+  const handleClickCloseModal = () => {
+    onClickCloseModal()
+  }
+
   return (
     <Div className={isOpenModal ? 'show-modal' : ''}>
       <aside>
-        <ModalTitleComponent />
+        <ModalTitleComponent onClickClose={handleClickCloseModal} />
         <ModalTableComponent />
       </aside>
     </Div>

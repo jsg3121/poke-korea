@@ -11,10 +11,14 @@ const ShinyTooltipModalComponent = ({
   isOpenModal,
   onClickCloseModal,
 }: ShinyTooltipModalComponentProps) => {
+  const handleClickCloseModal = () => {
+    onClickCloseModal()
+  }
+
   return (
     <Div className={isOpenModal ? 'show-modal' : ''}>
       <aside>
-        <ModalTitleComponent />
+        <ModalTitleComponent onClickClose={handleClickCloseModal} />
         <ModalDescriptionComponent />
       </aside>
     </Div>
