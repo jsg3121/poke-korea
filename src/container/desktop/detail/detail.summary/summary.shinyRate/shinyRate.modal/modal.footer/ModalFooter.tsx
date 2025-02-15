@@ -21,17 +21,19 @@ const ModalFooter = () => {
 export default ModalFooter
 
 const Footer = styled.footer`
-  width: 100%;
-  min-height: 1.25rem;
-  font-size: 1rem;
-  line-height: 1.25rem;
-  text-align: left;
-  color: var(--color-primary-2);
-  margin-top: 1rem;
-
-  & > a {
+  & > p {
+    width: 100%;
+    min-height: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    text-align: left;
     color: var(--color-primary-2);
-    text-decoration: underline;
-    font-style: italic;
+    margin-top: 1rem;
+
+    & > a {
+      color: var(--color-primary-2);
+      text-decoration: underline;
+      font-style: italic;
+    }
   }
 `
