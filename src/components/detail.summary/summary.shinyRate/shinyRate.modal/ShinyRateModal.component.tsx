@@ -44,14 +44,21 @@ const Dialog = styled.dialog`
   }
 
   width: 40rem;
-  min-height: 35.5rem;
+  max-height: 35.5rem;
   border: 0;
   border-radius: 1rem;
   background-color: var(--color-primary-4);
   padding: 1.5rem;
   margin: 0;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  &[open] {
+    width: 40rem;
+    max-width: calc(100% - 40px);
+    max-height: 80%;
+    overflow-y: auto;
+  }
 `
