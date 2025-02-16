@@ -24,21 +24,23 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
 
   return (
     <Article>
-      <div className="type-tabs">
+      <div className="type-tabs" aria-label="타입 강점, 약점 변환 버튼">
         <button
           data-active={activeTab === 'strong' ? 'active' : ''}
+          aria-label="강점 타입 확인하기"
           onClick={handleClickChangeStrong}
         >
           강점
         </button>
         <button
           data-active={activeTab === 'weak' ? 'active' : ''}
+          aria-label="약점 타입 확인하기"
           onClick={handleClickChangeWeak}
         >
           약점
         </button>
       </div>
-      <div className="info-description">
+      <dl className="info-description">
         {activeTab === 'strong' && (
           <>
             {relationType.half.length > 0 && (
@@ -82,7 +84,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
             )}
           </>
         )}
-      </div>
+      </dl>
     </Article>
   )
 }
@@ -127,7 +129,7 @@ const Article = styled.article`
 
   & > .info-description {
     width: 100%;
-    height: calc(100% - 2rem);
+    height: 100%;
     display: flex;
     gap: 1rem;
     margin-top: 1.5rem;

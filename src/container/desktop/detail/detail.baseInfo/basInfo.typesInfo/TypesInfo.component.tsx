@@ -12,8 +12,8 @@ export const TypesInfo = ({ type }: TypesInfoProps) => {
   const relationType = calculateRelationType(type)
 
   return (
-    <Section>
-      <InfoCardTitleComponent title="타입 상성" />
+    <Section aria-labelledby="pokemon-type-relation">
+      <InfoCardTitleComponent title="타입 상성" id="pokemon-type-relation" />
       <InfoContentComponent relationType={relationType} />
     </Section>
   )
