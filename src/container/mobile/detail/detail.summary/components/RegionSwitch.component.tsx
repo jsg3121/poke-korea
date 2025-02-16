@@ -28,7 +28,7 @@ const Li = styled.li`
       }
     }
 
-    & > p {
+    & > span {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;
@@ -68,12 +68,13 @@ const RegionSwitchComponent = () => {
       <Link
         href={regionHref}
         className={`switch-region ${isRegion ? 'active-region' : ''}`}
+        aria-label="리전폼 변환 스위치"
         replace
       >
         <i className="icon-region">
           <RegionIcon />
         </i>
-        <p>리전폼</p>
+        <span>리전폼</span>
       </Link>
     </Li>
   )

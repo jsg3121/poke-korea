@@ -24,7 +24,7 @@ const MegaSwitch = () => {
       >
         <i className="icon-mega" aria-hidden>
           <ImageComponent
-            alt="메가진화 보기 스위치"
+            alt="메가진화 보기"
             height="1.625rem"
             width="1.625rem"
             src="/assets/icons/mega.webp"
