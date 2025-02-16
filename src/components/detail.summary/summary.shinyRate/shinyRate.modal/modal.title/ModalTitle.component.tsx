@@ -28,11 +28,16 @@ export default ModalTitleComponent
 
 const Header = styled.header`
   width: 100%;
-  height: 3rem;
+  height: 4.5rem;
+  border-bottom: 1px solid #333333;
+  background-color: var(--color-primary-4);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 1.5rem;
   padding-bottom: 0.75rem;
+  position: sticky;
+  top: 0;
 
   & > h2 {
     height: 3rem;

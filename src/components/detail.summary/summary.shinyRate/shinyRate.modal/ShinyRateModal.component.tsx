@@ -48,7 +48,7 @@ const Dialog = styled.dialog`
   border: 0;
   border-radius: 1rem;
   background-color: var(--color-primary-4);
-  padding: 1.5rem;
+  padding: 0 1.5rem 1.5rem;
   margin: 0;
   position: fixed;
   top: 50%;

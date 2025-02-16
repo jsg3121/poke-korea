@@ -175,7 +175,6 @@ const Table = styled.table`
   }
 
   & > thead {
-    border-top: 1px solid var(--color-primary-1);
     border-bottom: 1px solid var(--color-primary-1);
 
     & > tr {
