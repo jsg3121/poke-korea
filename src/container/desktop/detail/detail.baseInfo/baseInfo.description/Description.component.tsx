@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import TagComponent from '~/components/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const DescriptionComponent = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -18,51 +19,53 @@ const DescriptionComponent = () => {
   } = activeTypeInfo
 
   return (
-    <Article>
-      <InfoCardTitleComponent title="기본 정보" />
-      <ul>
-        <li>
-          <strong>이름</strong>
-          <span className="pokemon-name">
+    <Article aria-labelledby="pokemon-base-info">
+      <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
+      <dl>
+        <div>
+          <dt>이름</dt>
+          <dd className="pokemon-name">
             {name}&nbsp;
             {activeType === 'mega'
               ? '(메가진화)'
               : activeType === 'region'
                 ? '(리전폼)'
                 : ''}
-          </span>
-        </li>
-        <li>
-          <strong>전국도감번호</strong>
-          <span>No. {pokemonNumber.toString().padStart(3, '0')}</span>
-        </li>
-        <li>
-          <strong>등장 세대</strong>
-          <span>{generation} 세대</span>
-        </li>
-        <li>
-          <strong>타입</strong>
-          {types.map((type) => {
-            return <TagComponent key={type} type={type} />
-          })}
-        </li>
-        <li>
-          <strong>진화체</strong>
-          <span>{isEvolution ? '진화체 있음' : '진화 불가'}</span>
-        </li>
+          </dd>
+        </div>
+        <div>
+          <dt>전국도감번호</dt>
+          <dd>No. {pokemonNumber.toString().padStart(3, '0')}</dd>
+        </div>
+        <div>
+          <dt>등장 세대</dt>
+          <dd>{generation} 세대</dd>
+        </div>
+        <div>
+          <dt>타입</dt>
+          <dd aria-label={types.map((type) => PokemonTypes[type]).join(',')}>
+            {types.map((type) => {
+              return <TagComponent key={type} type={type} />
+            })}
+          </dd>
+        </div>
+        <div>
+          <dt>진화체</dt>
+          <dd>{isEvolution ? '진화체 있음' : '진화 불가'}</dd>
+        </div>
         {isRegion && (
-          <li>
-            <strong>리전폼</strong>
-            <span>리전폼 존재</span>
-          </li>
+          <div>
+            <dt>리전폼</dt>
+            <dd>리전폼 존재</dd>
+          </div>
         )}
         {isMega && (
-          <li>
-            <strong>메가진화</strong>
-            <span>메가진화 가능</span>
-          </li>
+          <div>
+            <dt>메가진화</dt>
+            <dd>메가진화 가능</dd>
+          </div>
         )}
-      </ul>
+      </dl>
     </Article>
   )
 }
@@ -78,10 +81,10 @@ const Article = styled.article`
   display: grid;
   padding: 1rem;
 
-  & > ul {
+  & > dl {
     width: 100%;
 
-    & > li {
+    & > div {
       width: 100%;
       height: 3rem;
       width: 100%;
@@ -96,14 +99,14 @@ const Article = styled.article`
         padding: 0;
       }
 
-      & > strong,
-      & > span {
+      & > dt,
+      & > dd {
         height: 2.5rem;
         font-size: 1.25rem;
         line-height: calc(2.5rem + 2px);
       }
 
-      & > strong {
+      & > dt {
         width: 12rem;
 
         &::after {
@@ -112,8 +115,11 @@ const Article = styled.article`
         }
       }
 
-      & > span {
+      & > dd {
         font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
     }
   }
