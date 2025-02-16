@@ -17,11 +17,16 @@ const ShinySwitch = () => {
 
   return (
     <Li className={isShiny ? 'active-shiny' : ''}>
-      <Link href={switchHref} className="switch-shiny" replace>
-        <i className="icon-shiny">
+      <Link
+        href={switchHref}
+        className="switch-shiny"
+        aria-label="이로치 상태 변환"
+        replace
+      >
+        <i className="icon-shiny" aria-hidden>
           <ShinyIcon />
         </i>
-        <p>이로치</p>
+        <span>이로치</span>
       </Link>
     </Li>
   )
@@ -42,7 +47,7 @@ const Li = styled.li`
     left: -7rem;
 
     & > .switch-shiny {
-      & > p {
+      & > span {
         color: #333333;
       }
 
@@ -70,7 +75,7 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    & > p {
+    & > span {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;

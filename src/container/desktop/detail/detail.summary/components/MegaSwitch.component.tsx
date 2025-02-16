@@ -16,8 +16,13 @@ const MegaSwitch = () => {
 
   return (
     <Li className={isMega ? 'active-mega' : ''}>
-      <Link href={megaHref} className="switch-mega" replace>
-        <i className="icon-mega">
+      <Link
+        href={megaHref}
+        className="switch-mega"
+        aria-label="메가진화 모습 변환 스위치"
+        replace
+      >
+        <i className="icon-mega" aria-hidden>
           <ImageComponent
             alt="메가진화 보기 스위치"
             height="1.625rem"
@@ -25,7 +30,7 @@ const MegaSwitch = () => {
             src="/assets/icons/mega.webp"
           />
         </i>
-        <p>메가진화</p>
+        <span>메가진화</span>
       </Link>
     </Li>
   )
@@ -46,7 +51,7 @@ const Li = styled.li`
     left: -7rem;
 
     & > .switch-mega {
-      & > p {
+      & > span {
         color: #333333;
       }
 
@@ -74,7 +79,7 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    & > p {
+    & > span {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;
