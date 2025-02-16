@@ -19,7 +19,7 @@ type CardType = { background: Array<CardColor> }
 const Card = styled.article<CardType>`
   ${({ background }) => css`
     width: 100%;
-    height: 22rem;
+    height: 21rem;
     border: 1px solid #333333;
     border-radius: 10px;
     padding: 0.83333333rem 0.55555556rem;
