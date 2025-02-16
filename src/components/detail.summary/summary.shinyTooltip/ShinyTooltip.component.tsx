@@ -42,6 +42,7 @@ const Button = styled.button`
   font-size: 0.75rem;
   line-height: calc(1.5rem + 2px);
   text-align: center;
+  color: var(--color-primary-1);
   background-color: var(--color-primary-4);
   border-radius: 0.75rem;
 `

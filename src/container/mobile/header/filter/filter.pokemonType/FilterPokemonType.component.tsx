@@ -35,15 +35,20 @@ const Div = styled.div`
 
     & > .button--filter {
       height: 2.5rem;
+      font-size: 1.125rem;
+      line-height: 2.5rem;
+      color: var(--color-primary-1);
       display: flex;
       align-items: center;
       gap: 0.25rem;
       background-color: var(--color-primary-4);
-      padding: 0 1rem;
       border-radius: 3rem;
+      padding: 0 1rem;
     }
 
     & > .button--reset {
+      font-size: 1.125rem;
+      line-height: 2.5rem;
       color: var(--color-primary-4);
 
       &:disabled {
