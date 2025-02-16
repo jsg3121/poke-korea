@@ -184,13 +184,13 @@ const Table = styled.table`
       background-color: var(--color-primary-3);
 
       & > th {
-        align-content: center;
         text-align: center;
+        vertical-align: middle;
 
         & > p {
           width: 100%;
           height: 100%;
-          font-size: 1rem;
+          font-size: 0.9rem;
           color: #000000;
         }
       }
@@ -206,7 +206,7 @@ const Table = styled.table`
 
       & > th,
       & > td {
-        align-content: center;
+        vertical-align: middle;
         text-align: center;
 
         & > p {
