@@ -15,10 +15,10 @@ const DetailDesktop = () => {
           </i>
         </Link>
       </header>
-      <section className="pokemon-detail-content">
+      <div className="pokemon-detail-content">
         <DetailSummaryContainer />
         <DetailBaseInfoContainer />
-      </section>
+      </div>
       <FooterContainer />
     </Main>
   )

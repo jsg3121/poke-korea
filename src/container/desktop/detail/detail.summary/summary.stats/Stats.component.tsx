@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { PokemonStats } from '~/graphql/typeGenerated'
 import StatChartComponent from './components/StatChart.component'
 
-const Section = styled.section`
+const Article = styled.article`
   width: 100%;
   height: 100%;
   background-color: var(--color-primary-4);
@@ -40,7 +40,7 @@ const Section = styled.section`
 
 const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
   return (
-    <Section>
+    <Article>
       <header>
         <h2>능력치</h2>
         <strong>총 합: {total}</strong>
@@ -48,7 +48,7 @@ const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
       <div className="stat-chart">
         <StatChartComponent {...restProps} />
       </div>
-    </Section>
+    </Article>
   )
 }
 

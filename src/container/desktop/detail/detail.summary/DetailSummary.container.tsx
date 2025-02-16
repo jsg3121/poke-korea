@@ -65,12 +65,15 @@ const DetailSummaryContainer = () => {
             <ShinyRateComponent />
           </div>
         )}
-        <div className="profile-image">
+        <section className="profile-image" aria-label="포켓몬 이미지">
           <PokemonImageCompoment />
           <InfoTitle name={pokemonInfo.name ?? ''} />
-        </div>
-        <div className="profile-description">
-          <ul className="switch-list">
+        </section>
+        <section className="profile-description">
+          <ul
+            className="switch-list"
+            aria-label="포켓몬 상대 변환 스위치 리스트"
+          >
             <ShinySwitch />
             {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
             {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
@@ -78,7 +81,7 @@ const DetailSummaryContainer = () => {
           {pokemonBaseInfo && pokemonInfo.stats && (
             <StatsComponent {...pokemonInfo.stats} />
           )}
-        </div>
+        </section>
       </div>
     </Div>
   )

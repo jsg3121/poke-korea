@@ -84,7 +84,14 @@ const PokemonImageCompoment = () => {
   }
 
   return (
-    <Div>
+    <Div
+      aria-labelledby="pokemon-image-slide"
+      role="region"
+      aria-roledescription="carousel"
+    >
+      <p className="visually-hidden" id="pokemon-image-slide">
+        포켓몬 이미지 정보
+      </p>
       {imageList && (
         <Swiper
           key={`pokemon-id-${pokemonBaseInfo?.number}`}
