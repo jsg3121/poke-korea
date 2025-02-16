@@ -156,7 +156,13 @@ const StatChartComponent = ({
     },
   }
 
-  return <Radar data={statData} options={options} />
+  return (
+    <Radar
+      data={statData}
+      options={options}
+      aria-label="포켓몬 능력치 차트 그래프"
+    />
+  )
 }
 
 export default StatChartComponent

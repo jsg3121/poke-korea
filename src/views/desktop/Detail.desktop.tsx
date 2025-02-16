@@ -15,7 +15,13 @@ const DetailDesktop = () => {
           </i>
         </Link>
       </header>
-      <section className="pokemon-detail-content">
+      <section
+        className="pokemon-detail-content"
+        aria-labelledby="pokemon-detail-info"
+      >
+        <h1 className="visually-hidden" id="pokemon-detail-info">
+          포켓몬 능력치 및 상세 정보
+        </h1>
         <DetailSummaryContainer />
         <DetailBaseInfoContainer />
       </section>

@@ -17,11 +17,16 @@ const RegionSwitch = () => {
 
   return (
     <Li className={isRegion ? 'active-region' : ''}>
-      <Link href={regionHref} className="switch-region" replace>
-        <i className="icon-region">
+      <Link
+        href={regionHref}
+        className="switch-region"
+        aria-label="리전폼 변환 스위치"
+        replace
+      >
+        <i className="icon-region" aria-hidden>
           <RegionIcon />
         </i>
-        <p>리전폼</p>
+        <span>리전폼</span>
       </Link>
     </Li>
   )
@@ -42,7 +47,7 @@ const Li = styled.li`
     left: -7rem;
 
     & > .switch-region {
-      & > p {
+      & > span {
         color: #333333;
       }
 
@@ -70,7 +75,7 @@ const Li = styled.li`
       background-color: var(--color-primary-3);
     }
 
-    & > p {
+    & > span {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;

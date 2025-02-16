@@ -14,23 +14,31 @@ const RelationPokemonComponent = ({
   evolutionId,
 }: RelationPokemonComponentProps) => {
   return (
-    <Section>
-      <InfoCardTitleComponent title="진화 체인" />
-      <div className="relation-pokemon-list">
+    <Section aria-labelledby="pokemon-evelotion-chain">
+      <InfoCardTitleComponent title="진화 체인" id="pokemon-evelotion-chain" />
+      <ul
+        className="relation-pokemon-list"
+        aria-label="진화 체인 포켓몬 리스트"
+      >
         {evolutionId.map((id) => {
           return (
-            <Link key={`relation-pokemon-id-${id}`} href={`/detail/${id}`}>
-              <ImageComponent
-                src={`${imageMode}/${id}.webp`}
-                width="12rem"
-                height="12rem"
-                alt={`포켓몬 ${name}`}
-                unoptimized
-              />
-            </Link>
+            <li key={`relation-pokemon-id-${id}`}>
+              <Link
+                href={`/detail/${id}`}
+                aria-label={`${name}와(과) 연관된 포켓몬`}
+              >
+                <ImageComponent
+                  src={`${imageMode}/${id}.webp`}
+                  width="12rem"
+                  height="12rem"
+                  alt={`포켓몬 ${name} 연관 포켓몬 ${id}`}
+                  unoptimized
+                />
+              </Link>
+            </li>
           )
         })}
-      </div>
+      </ul>
     </Section>
   )
 }

@@ -28,7 +28,7 @@ const Li = styled.li`
       }
     }
 
-    & > p {
+    & > span {
       height: 2rem;
       font-size: 1rem;
       font-weight: normal;
@@ -63,17 +63,18 @@ const MegaSwitchComponent = () => {
       <Link
         href={megaHref}
         className={`switch-mega ${isMega ? 'active-mega' : ''}`}
+        aria-label="메가진화 모습 변환 스위치"
         replace
       >
         <i className="icon-mega">
           <ImageComponent
-            alt="메가진화 보기 스위치"
+            alt="메가진화 보기"
             height="1.625rem"
             width="1.625rem"
             src="/assets/icons/mega.webp"
           />
         </i>
-        <p>메가진화</p>
+        <span>메가진화</span>
       </Link>
     </Li>
   )

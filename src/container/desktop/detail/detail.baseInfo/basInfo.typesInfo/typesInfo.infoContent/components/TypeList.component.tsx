@@ -13,13 +13,13 @@ interface TypeListComponentProps {
 const TypeList = styled.div`
   width: 100%;
   text-align: center;
-  padding: 0 0 0.5rem;
+  padding: 0 0 0.75rem;
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: inset -2px 0px 5px 0 #9a9a9a;
 
-  .type-list__title {
+  & > dt {
     height: 1.5rem;
     font-size: 1rem;
     font-weight: 500;
@@ -48,27 +48,35 @@ const TypeList = styled.div`
     }
   }
 
-  .type-list__tag {
-    height: calc(100% - 2.5rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  & > dd {
+    height: calc(100% - 2.25rem);
+
+    & > ul {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
   }
 `
 
 const TypeListComponent = ({ list, title, grade }: TypeListComponentProps) => {
   return (
     <TypeList>
-      <p className="type-list__title" data-grade={grade}>
-        {title}
-      </p>
-      <div className="type-list__tag">
-        {list.map((item, index) => {
-          return <TagComponent key={index} type={item} />
-        })}
-      </div>
+      <dt data-grade={grade}>{title}</dt>
+      <dd>
+        <ul aria-label="상성 타입 리스트">
+          {list.map((item, index) => {
+            return (
+              <li key={index}>
+                <TagComponent type={item} />
+              </li>
+            )
+          })}
+        </ul>
+      </dd>
     </TypeList>
   )
 }

@@ -57,7 +57,7 @@ const DetailSummaryContainer = () => {
   })()
 
   return (
-    <Div gradient={newColor}>
+    <Section gradient={newColor} aria-label="포켓몬 이미지 및 능력치 정보">
       <div className="detail-profile">
         {isShiny && (
           <div className="shiny-buttons">
@@ -65,12 +65,15 @@ const DetailSummaryContainer = () => {
             <ShinyRateComponent />
           </div>
         )}
-        <div className="profile-image">
+        <section className="profile-image" aria-label="포켓몬 이미지">
           <PokemonImageCompoment />
           <InfoTitle name={pokemonInfo.name ?? ''} />
-        </div>
-        <div className="profile-description">
-          <ul className="switch-list">
+        </section>
+        <section className="profile-description">
+          <ul
+            className="switch-list"
+            aria-label="포켓몬 상대 변환 스위치 리스트"
+          >
             <ShinySwitch />
             {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
             {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
@@ -78,15 +81,15 @@ const DetailSummaryContainer = () => {
           {pokemonBaseInfo && pokemonInfo.stats && (
             <StatsComponent {...pokemonInfo.stats} />
           )}
-        </div>
+        </section>
       </div>
-    </Div>
+    </Section>
   )
 }
 
 export default DetailSummaryContainer
 
-const Div = styled.div<TStyledProps>`
+const Section = styled.section<TStyledProps>`
   width: 100%;
   height: 40rem;
   margin: 0 auto;

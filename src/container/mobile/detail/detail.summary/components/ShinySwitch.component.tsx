@@ -27,7 +27,7 @@ const Li = styled.li`
       }
     }
 
-    & > p {
+    & > span {
       height: 2rem;
       flex-shrink: 0;
       font-size: 1rem;
@@ -67,12 +67,13 @@ const ShinySwitchComponent = () => {
       <Link
         href={switchHref}
         className={`switch-shiny ${isShiny ? 'active-shiny' : ''}`}
+        aria-label="이로치 상태 변환"
         replace
       >
-        <i className="icon-shiny">
+        <i className="icon-shiny" aria-hidden>
           <ShinyIcon />
         </i>
-        <p>이로치</p>
+        <span>이로치</span>
       </Link>
     </Li>
   )

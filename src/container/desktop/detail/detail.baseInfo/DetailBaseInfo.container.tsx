@@ -12,7 +12,7 @@ const DetailBaseInfoContainer = () => {
   if (!pokemonBaseInfo) return <></> // TODO : 에러 페이지 및 잘못된 페이지로 처리하기
 
   return (
-    <Div>
+    <Section aria-label="포켓몬 상세 정보">
       <div className="grid-wrapper">
         <DescriptionComponent />
         {pokemonBaseInfo.evolutionId.length > 0 && (
@@ -24,13 +24,13 @@ const DetailBaseInfoContainer = () => {
       </div>
       <AbilitiesInfoComponent />
       <TypesInfo type={activeTypeInfo.types} />
-    </Div>
+    </Section>
   )
 }
 
 export default DetailBaseInfoContainer
 
-const Div = styled.div`
+const Section = styled.section`
   width: 100%;
   max-width: 1280px;
   display: flex;
