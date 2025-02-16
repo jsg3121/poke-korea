@@ -13,7 +13,7 @@ const InfoTitle = ({ name }: InfoTitleProps) => {
 
 export default InfoTitle
 
-const StyledWrapper = styled.h1`
+const StyledWrapper = styled.h2`
   width: 30rem;
   height: 7rem;
   line-height: 7rem;

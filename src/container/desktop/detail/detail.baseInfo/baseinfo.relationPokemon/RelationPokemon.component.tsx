@@ -14,7 +14,7 @@ const RelationPokemonComponent = ({
   evolutionId,
 }: RelationPokemonComponentProps) => {
   return (
-    <Article aria-labelledby="pokemon-evelotion-chain">
+    <Section aria-labelledby="pokemon-evelotion-chain">
       <InfoCardTitleComponent title="진화 체인" id="pokemon-evelotion-chain" />
       <ul
         className="relation-pokemon-list"
@@ -39,13 +39,13 @@ const RelationPokemonComponent = ({
           )
         })}
       </ul>
-    </Article>
+    </Section>
   )
 }
 
 export default RelationPokemonComponent
 
-const Article = styled.article`
+const Section = styled.section`
   width: 100%;
   height: 100%;
   background-color: var(--color-primary-4);

@@ -8,28 +8,28 @@ const AbilitiesInfoComponent = () => {
   const { abilities } = activeTypeInfo
 
   return (
-    <Article>
+    <Section aria-label="포켓몬 특성 정보">
       <InfoCardTitleComponent title="특성" />
-      <ul>
+      <dl>
         {abilities.map((ability, index) => {
           return (
-            <li key={`ability-id-${index}`}>
-              <h3>
+            <div key={`ability-id-${index}`}>
+              <dt>
                 {ability.name}&nbsp;
                 {ability.isHidden && <span>(숨겨진 특성)</span>}
-              </h3>
-              <p>{ability.description}</p>
-            </li>
+              </dt>
+              <dd>{ability.description}</dd>
+            </div>
           )
         })}
-      </ul>
-    </Article>
+      </dl>
+    </Section>
   )
 }
 
 export default AbilitiesInfoComponent
 
-const Article = styled.article`
+const Section = styled.section`
   width: 100%;
   height: 100%;
   background-color: var(--color-primary-4);
@@ -38,14 +38,14 @@ const Article = styled.article`
   outline: 3px solid var(--color-primary-4);
   padding: 1rem;
 
-  & > ul {
+  & > dl {
     width: 100%;
     height: calc(100% - 4.25rem);
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
-    & > li {
+    & > div {
       width: 100%;
       border-bottom: 1px solid var(--color-primary-3);
       padding: 0.5rem 0;
@@ -55,7 +55,7 @@ const Article = styled.article`
         padding: 0;
       }
 
-      & > h3 {
+      & > dt {
         width: 100%;
         height: 1.75rem;
         font-size: 1.25rem;
@@ -69,7 +69,7 @@ const Article = styled.article`
         }
       }
 
-      & > p {
+      & > dd {
         width: 100%;
         min-height: 1.5rem;
         font-size: 1rem;

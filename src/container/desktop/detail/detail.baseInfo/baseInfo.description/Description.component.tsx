@@ -19,7 +19,7 @@ const DescriptionComponent = () => {
   } = activeTypeInfo
 
   return (
-    <Article aria-labelledby="pokemon-base-info">
+    <Section aria-labelledby="pokemon-base-info">
       <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
       <dl>
         <div>
@@ -66,13 +66,13 @@ const DescriptionComponent = () => {
           </div>
         )}
       </dl>
-    </Article>
+    </Section>
   )
 }
 
 export default DescriptionComponent
 
-const Article = styled.article`
+const Section = styled.section`
   height: 100%;
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);

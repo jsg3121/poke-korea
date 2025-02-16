@@ -57,7 +57,7 @@ const DetailSummaryContainer = () => {
   })()
 
   return (
-    <Section gradient={newColor}>
+    <Section gradient={newColor} aria-label="포켓몬 이미지 및 능력치 정보">
       <div className="detail-profile">
         {isShiny && (
           <div className="shiny-buttons">
