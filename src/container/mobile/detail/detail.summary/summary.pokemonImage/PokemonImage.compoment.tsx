@@ -9,21 +9,6 @@ import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
 import { imageMode } from '~/module/buildMode'
 
-const Div = styled.div`
-  width: 27rem;
-  height: 18rem;
-  filter: drop-shadow(0px 5px 5px #000000);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-
-  .swiper-slide > div {
-    margin: 0 auto;
-  }
-`
-
 const PokemonImageCompoment = () => {
   const {
     pokemonBaseInfo,
@@ -99,7 +84,14 @@ const PokemonImageCompoment = () => {
   }
 
   return (
-    <Div>
+    <Div
+      aria-labelledby="pokemon-image-slide"
+      role="region"
+      aria-roledescription="carousel"
+    >
+      <p className="visually-hidden" id="pokemon-image-slide">
+        포켓몬 이미지 정보
+      </p>
       {imageList && (
         <Swiper
           key={`pokemon-id-${pokemonBaseInfo?.number}`}
@@ -137,3 +129,18 @@ const PokemonImageCompoment = () => {
 }
 
 export default PokemonImageCompoment
+
+const Div = styled.div`
+  width: 27rem;
+  height: 18rem;
+  filter: drop-shadow(0px 5px 5px #000000);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+
+  .swiper-slide > div {
+    margin: 0 auto;
+  }
+`

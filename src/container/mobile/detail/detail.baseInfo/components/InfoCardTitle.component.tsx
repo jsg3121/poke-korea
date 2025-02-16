@@ -2,10 +2,11 @@ import styled from 'styled-components'
 
 interface InfoCardTitleComponentProps {
   title: string
+  id?: string
 }
 
-const InfoCardTitleComponent = ({ title }: InfoCardTitleComponentProps) => {
-  return <H2>{title}</H2>
+const InfoCardTitleComponent = ({ id, title }: InfoCardTitleComponentProps) => {
+  return <H2 id={id}>{title}</H2>
 }
 
 export default InfoCardTitleComponent

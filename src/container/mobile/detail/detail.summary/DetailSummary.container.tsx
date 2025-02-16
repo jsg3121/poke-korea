@@ -15,7 +15,74 @@ import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/Sh
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
-const Div = styled.div<TStyledProps>`
+const DetailSummaryContainer = () => {
+  const {
+    pokemonBaseInfo,
+    megaEvolutions,
+    regionFormInfo,
+    normalForm,
+    activeType,
+  } = useContext(DetailContext)
+  const router = useRouter()
+
+  const newColor = changeColor(pokemonBaseInfo?.types ?? [])
+  const indexQuery = parseInt(router.query.activeIndex as string, 10)
+  const activeIndex = router.query.activeIndex ? indexQuery : 0
+  const isShiny = router.query.shinyMode === 'shiny'
+
+  const pokemonInfo = (() => {
+    switch (activeType) {
+      case 'mega':
+        return {
+          name: megaEvolutions?.[activeIndex].name,
+          stats: megaEvolutions?.[activeIndex].megaEvolutionStats,
+        }
+      case 'region':
+        return {
+          name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습 ${regionFormInfo?.[activeIndex].name && `(${regionFormInfo?.[activeIndex].name})`}`,
+          stats:
+            regionFormInfo?.[activeIndex].regionFormStats ??
+            pokemonBaseInfo?.pokemonStats,
+        }
+      default:
+        return {
+          name:
+            normalForm?.[activeIndex]?.name.replace('_', ' ') ??
+            pokemonBaseInfo?.name,
+          stats:
+            normalForm?.[activeIndex]?.normalFormStats ??
+            pokemonBaseInfo?.pokemonStats,
+        }
+    }
+  })()
+
+  return (
+    <Section gradient={newColor} aria-label="포켓몬 이미지 및 능력치 정보">
+      <section className="image-wrapper">
+        <PokemonImageCompoment />
+      </section>
+      <InfoTitleComponent name={pokemonInfo.name ?? ''} />
+      {isShiny && (
+        <div className="shiny-buttons">
+          <ShinyTooltipComponent />
+          <ShinyRateComponent />
+        </div>
+      )}
+      <ul className="switch-list" aria-label="포켓몬 상대 변환 스위치 리스트">
+        <ShinySwitchComponent />
+        {pokemonBaseInfo?.isMegaEvolution && <MegaSwitchComponent />}
+        {pokemonBaseInfo?.isRegionForm && <RegionSwitchComponent />}
+      </ul>
+      {pokemonBaseInfo && pokemonInfo.stats && (
+        <StatsComponent {...pokemonInfo.stats} />
+      )}
+    </Section>
+  )
+}
+
+export default DetailSummaryContainer
+
+const Section = styled.section<TStyledProps>`
   width: 100%;
 
   & > .image-wrapper {
@@ -69,70 +136,3 @@ const Div = styled.div<TStyledProps>`
     padding: 0 20px;
   }
 `
-
-const DetailSummaryContainer = () => {
-  const {
-    pokemonBaseInfo,
-    megaEvolutions,
-    regionFormInfo,
-    normalForm,
-    activeType,
-  } = useContext(DetailContext)
-  const router = useRouter()
-
-  const newColor = changeColor(pokemonBaseInfo?.types ?? [])
-  const indexQuery = parseInt(router.query.activeIndex as string, 10)
-  const activeIndex = router.query.activeIndex ? indexQuery : 0
-  const isShiny = router.query.shinyMode === 'shiny'
-
-  const pokemonInfo = (() => {
-    switch (activeType) {
-      case 'mega':
-        return {
-          name: megaEvolutions?.[activeIndex].name,
-          stats: megaEvolutions?.[activeIndex].megaEvolutionStats,
-        }
-      case 'region':
-        return {
-          name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex].region}의 모습 ${regionFormInfo?.[activeIndex].name && `(${regionFormInfo?.[activeIndex].name})`}`,
-          stats:
-            regionFormInfo?.[activeIndex].regionFormStats ??
-            pokemonBaseInfo?.pokemonStats,
-        }
-      default:
-        return {
-          name:
-            normalForm?.[activeIndex]?.name.replace('_', ' ') ??
-            pokemonBaseInfo?.name,
-          stats:
-            normalForm?.[activeIndex]?.normalFormStats ??
-            pokemonBaseInfo?.pokemonStats,
-        }
-    }
-  })()
-
-  return (
-    <Div gradient={newColor}>
-      <div className="image-wrapper">
-        <PokemonImageCompoment />
-      </div>
-      <InfoTitleComponent name={pokemonInfo.name ?? ''} />
-      {isShiny && (
-        <div className="shiny-buttons">
-          <ShinyTooltipComponent />
-          <ShinyRateComponent />
-        </div>
-      )}
-      <ul className="switch-list">
-        <ShinySwitchComponent />
-        {pokemonBaseInfo?.isMegaEvolution && <MegaSwitchComponent />}
-        {pokemonBaseInfo?.isRegionForm && <RegionSwitchComponent />}
-      </ul>
-      {pokemonBaseInfo && pokemonInfo.stats && (
-        <StatsComponent {...pokemonInfo.stats} />
-      )}
-    </Div>
-  )
-}
-
-export default DetailSummaryContainer

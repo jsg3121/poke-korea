@@ -38,7 +38,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
           약점
         </button>
       </div>
-      <div className="info-description">
+      <dl className="info-description">
         {activeTab === 'strong' && (
           <>
             {relationType.half.length > 0 && (
@@ -82,7 +82,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
             )}
           </>
         )}
-      </div>
+      </dl>
     </Article>
   )
 }

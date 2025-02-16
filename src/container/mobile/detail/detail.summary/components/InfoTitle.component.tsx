@@ -4,7 +4,7 @@ interface InfoTitleComponentProps {
   name: string
 }
 
-const H1 = styled.h1`
+const H2 = styled.h2`
   width: 30rem;
   height: 7rem;
   line-height: 7rem;
@@ -30,7 +30,7 @@ const InfoTitleComponent = ({ name }: InfoTitleComponentProps) => {
   const fontSize =
     name.length > 14 ? 'small' : name.length > 6 ? 'medium' : 'large'
 
-  return <H1 data-name-size={fontSize}>{name}</H1>
+  return <H2 data-name-size={fontSize}>{name}</H2>
 }
 
 export default InfoTitleComponent
