@@ -57,7 +57,7 @@ const DetailSummaryContainer = () => {
   })()
 
   return (
-    <Div gradient={newColor}>
+    <Section gradient={newColor}>
       <div className="detail-profile">
         {isShiny && (
           <div className="shiny-buttons">
@@ -83,13 +83,13 @@ const DetailSummaryContainer = () => {
           )}
         </section>
       </div>
-    </Div>
+    </Section>
   )
 }
 
 export default DetailSummaryContainer
 
-const Div = styled.div<TStyledProps>`
+const Section = styled.section<TStyledProps>`
   width: 100%;
   height: 40rem;
   margin: 0 auto;

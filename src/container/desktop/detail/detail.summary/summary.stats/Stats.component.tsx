@@ -40,7 +40,7 @@ const Article = styled.article`
 
 const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
   return (
-    <Article>
+    <Article aria-label="포켓몬 능력치 정보">
       <header>
         <h2>능력치</h2>
         <strong>총 합: {total}</strong>
