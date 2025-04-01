@@ -12,14 +12,14 @@ type SearchFormType = {
 
 const Search = styled.div`
   width: 100%;
-  height: 5rem;
-  margin: 2.5rem auto;
+  height: 4rem;
+  margin: 2rem auto;
   position: relative;
 
   &::before {
     content: '';
     width: 100%;
-    height: 5rem;
+    height: 4rem;
     display: block;
   }
 
@@ -50,7 +50,7 @@ const Search = styled.div`
 
   & > .form__search--name {
     width: calc(100% - 3rem);
-    height: 5rem;
+    height: 4rem;
     background-color: #ffffff;
     border-radius: 2.5rem;
     display: flex;

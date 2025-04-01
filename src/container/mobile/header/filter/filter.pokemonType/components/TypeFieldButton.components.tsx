@@ -34,7 +34,7 @@ const TypeFieldButton = styled.div`
       width: 2rem;
       height: 2rem;
       opacity: 0.6;
-      filter: grayscale(1) drop-shadow(1px 2px 0px var(--color-black-1));
+      filter: grayscale(100%) drop-shadow(1px 2px 0px var(--color-black-1));
       display: block;
       margin: 0 auto 0.5rem;
     }
@@ -48,7 +48,7 @@ const TypeFieldButton = styled.div`
     opacity: 1;
 
     & > .icon-type {
-      filter: grayscale(0) drop-shadow(1px 2px 0px var(--color-black-1));
+      filter: grayscale(0%) drop-shadow(1px 2px 0px var(--color-black-1));
     }
 
     & > span {

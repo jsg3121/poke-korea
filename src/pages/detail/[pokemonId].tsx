@@ -1,4 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
+import Head from 'next/head'
+import { Fragment } from 'react'
 import { DetailProvider } from '~/context/Detail.context'
 import { useDevice } from '~/context/Device.context'
 import {
@@ -20,21 +22,36 @@ import {
 import { initializeApollo } from '~/module/apolloClient'
 import DetailDesktop from '~/views/desktop/Detail.desktop'
 import DetailMobile from '~/views/mobile/Detail.mobile'
+import { SHINY_QNA_JSON_LD } from './constants/shinyJsonLd'
 
 interface IFDetailPokemonInfo {
   pokemonBaseInfo: PokemonDetail
   normalForm: Array<PokemonNormalForm>
   megaEvolutionData?: Array<PokemonMegaEvolution>
   regionFormData?: Array<PokemonRegionForm>
+  isShinyInfo: boolean
 }
 
 const PokemonId: NextPage<IFDetailPokemonInfo> = (props) => {
+  const { isShinyInfo } = props
   const { isMobile } = useDevice()
 
   return (
-    <DetailProvider {...props}>
-      {isMobile ? <DetailMobile /> : <DetailDesktop />}
-    </DetailProvider>
+    <Fragment>
+      {isShinyInfo && (
+        <Head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(SHINY_QNA_JSON_LD),
+            }}
+          />
+        </Head>
+      )}
+      <DetailProvider {...props}>
+        {isMobile ? <DetailMobile /> : <DetailDesktop />}
+      </DetailProvider>
+    </Fragment>
   )
 }
 
@@ -125,11 +142,14 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     }
   }
 
+  const isShinyInfo = query.shinyMode === 'shiny'
+
   return {
     redirect: redirectOption,
     props: {
       pokemonBaseInfo: defaultPokemonData.getPokemonDetail,
       normalForm: normalFormData.getPokemonNormalForm,
+      isShinyInfo,
     },
   }
 }

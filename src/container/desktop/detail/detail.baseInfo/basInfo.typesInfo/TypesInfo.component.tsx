@@ -25,6 +25,6 @@ const Section = styled.section`
   background-color: var(--color-primary-4);
   border: 3px solid var(--color-primary-1);
   border-radius: 1rem;
-  outline: 3px solid var(--color-primary-4);
+  box-shadow: 0 0 0px 3px var(--color-primary-4);
   padding: 1rem;
 `
