@@ -16,6 +16,7 @@ const Ball = styled.span<{ value: boolean }>`
     transform 0.3s,
     rotate 0.3s;
   will-change: transform;
+  overflow: hidden;
 
   .ball--top {
     width: 100%;

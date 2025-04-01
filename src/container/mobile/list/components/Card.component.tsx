@@ -23,10 +23,11 @@ const Card = styled.article<CardType>`
     border: 1px solid #333333;
     border-radius: 10px;
     padding: 0.83333333rem 0.55555556rem;
-    outline: 0.25rem solid #ffffff;
     position: relative;
     overflow: hidden;
-    box-shadow: inset 10px 0 0 0 #334150;
+    box-shadow:
+      inset 10px 0 0 0 #334150,
+      0 0 0px 0.25rem #ffffff;
     cursor: pointer;
     background: ${() => {
       if (background.length === 1) {
