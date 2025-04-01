@@ -14,7 +14,7 @@ const Div = styled.div`
 
   & > .select-types-wrapper {
     width: 100%;
-    height: 8rem;
+    height: 6rem;
     background-color: var(--color-primary-4);
     border-radius: 2rem;
     display: flex;
@@ -30,20 +30,24 @@ const Div = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding-bottom: 1rem;
 
     & > .button--filter {
       height: 2.5rem;
-      font-size: 1.125rem;
-      line-height: 2.5rem;
-      color: var(--color-primary-1);
       display: flex;
       align-items: center;
       gap: 0.25rem;
       background-color: var(--color-primary-4);
       border-radius: 3rem;
       padding: 0 1rem;
+
+      & > span {
+        height: 2.5rem;
+        font-size: 1.125rem;
+        line-height: calc(2.5rem + 2px);
+        color: var(--color-primary-1);
+      }
     }
 
     & > .button--reset {
@@ -131,7 +135,7 @@ const FilterPokemonTypeComponent = () => {
             height="1.5rem"
             width="1.5rem"
           />
-          필터
+          <span>필터</span>
         </button>
         <button
           className="button--reset"

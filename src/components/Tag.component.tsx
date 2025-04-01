@@ -21,7 +21,7 @@ const Tag = styled.p<{ color: TypesColor }>`
     height: 1.3rem;
     font-size: 0.85rem;
     text-align: center;
-    line-height: calc(1.3rem + 2px);
+    line-height: calc(1.3rem + 3px);
     color: #ffffff;
     filter: drop-shadow(0px 0px 1px #000000);
     margin: 0;

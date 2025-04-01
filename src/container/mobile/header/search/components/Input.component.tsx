@@ -17,8 +17,13 @@ const Input = styled.input`
   height: 100%;
   border-radius: 2.5rem;
   font-size: 14px;
+  line-height: calc(3rem - 2px);
   border: 0;
   padding: 0 10px;
+
+  &::placeholder {
+    color: var(--color-primary-2);
+  }
 `
 
 const InputComponents = forwardRef<HTMLInputElement, InputComponentsProps>(

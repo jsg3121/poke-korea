@@ -6,7 +6,7 @@ import FilterComponents from './filter/Filter.components'
 const Header = styled.header`
   width: 100%;
   min-height: 15rem;
-  padding-top: 5rem;
+  padding-top: 3rem;
 `
 
 const HeaderContainer = () => {
