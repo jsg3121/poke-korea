@@ -22,7 +22,7 @@ import {
 import { initializeApollo } from '~/module/apolloClient'
 import DetailDesktop from '~/views/desktop/Detail.desktop'
 import DetailMobile from '~/views/mobile/Detail.mobile'
-import { SHINY_QNA_JSON_LD } from './constants/shinyJsonLd'
+import { SHINY_QNA_JSON_LD } from '../../constants/shinyJsonLd'
 
 interface IFDetailPokemonInfo {
   pokemonBaseInfo: PokemonDetail
