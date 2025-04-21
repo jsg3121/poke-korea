@@ -38,7 +38,6 @@ const Div = styled.div`
   width: 100%;
   max-width: 1280px;
   height: fit-content;
-  background-color: #666666;
   margin: 2rem auto 0;
 
   & > ins {
