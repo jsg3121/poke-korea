@@ -42,9 +42,14 @@ const Div = styled.div`
 
   & > ins {
     width: 100%;
-    height: 140px;
+    height: fit-content;
     display: block;
     margin: 0 auto;
     text-align: center;
+
+    iframe {
+      height: fit-content;
+      max-width: 140px;
+    }
   }
 `
