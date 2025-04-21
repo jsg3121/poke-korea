@@ -2,6 +2,7 @@ import { ApolloProvider } from '@apollo/client'
 import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import App from 'next/app'
 import Head from 'next/head'
+import Script from 'next/script'
 import { DeviceProvider } from '~/context/Device.context'
 import { useApollo } from '~/module/apolloClient'
 import { GlobalStyle } from '~/styles/Global'
@@ -17,6 +18,13 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
   return (
     <>
       <GlobalStyle />
+      <Script
+        id="adsbygoogle-init"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+        crossOrigin="anonymous"
+        strategy="beforeInteractive"
+      />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

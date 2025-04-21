@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
 import styled from 'styled-components'
+import ListTopBanner from '~/components/adSlot/ListTopBanner'
 import HeaderContainer from '~/container/desktop/Header/Header.container'
 import ListContainer from '~/container/desktop/List/List.container'
 import { ListProvider } from '~/context/List.context'
@@ -49,6 +50,7 @@ const MainDesktop = ({ pokemonList }: ManinViewsProps) => {
       >
         <HeaderContainer />
       </Div>
+      <ListTopBanner />
       <ListContainer />
     </ListProvider>
   )
