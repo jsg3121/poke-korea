@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-const ListTopBanner = () => {
+const DesktopListTopBanner = () => {
   const listBannerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const ListTopBanner = () => {
   )
 }
 
-export default ListTopBanner
+export default DesktopListTopBanner
 
 const Div = styled.div`
   width: 100%;

@@ -79,6 +79,10 @@ export default class MyDocument extends Document {
             name="google-adsense-account"
             content="ca-pub-6481622724376761"
           ></meta>
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+          ></script>
         </Head>
         <body>
           <Main />

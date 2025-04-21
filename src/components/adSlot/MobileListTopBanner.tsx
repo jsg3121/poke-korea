@@ -1,0 +1,49 @@
+import { useEffect, useRef } from 'react'
+import styled from 'styled-components'
+
+const MobileListTopBanner = () => {
+  const listBannerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const bannerElement =
+      listBannerRef.current?.querySelector<HTMLDivElement>('.adsbygoogle')
+
+    if (
+      typeof window !== 'undefined' &&
+      bannerElement &&
+      bannerElement.getAttribute('data-adsbygoogle-status') !== 'done'
+    ) {
+      try {
+        ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+      } catch (e) {
+        console.error('AdSense push error:', e)
+      }
+    }
+  }, [])
+
+  return (
+    <Div ref={listBannerRef}>
+      <ins
+        className="adsbygoogle"
+        data-ad-client="ca-pub-6481622724376761"
+        data-ad-slot="1410249585"
+      ></ins>
+    </Div>
+  )
+}
+
+export default MobileListTopBanner
+
+const Div = styled.div`
+  width: 100%;
+  height: fit-content;
+  margin: 2rem auto 0;
+
+  & > ins {
+    width: calc(100% - 3rem);
+    height: 90px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+  }
+`
