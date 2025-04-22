@@ -1,28 +1,11 @@
-import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 const MobileListTopBanner = () => {
-  const listBannerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const bannerElement =
-      listBannerRef.current?.querySelector<HTMLDivElement>('.adsbygoogle')
-
-    if (
-      typeof window !== 'undefined' &&
-      bannerElement &&
-      bannerElement.getAttribute('data-adsbygoogle-status') !== 'done'
-    ) {
-      try {
-        ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-      } catch (e) {
-        console.error('AdSense push error:', e)
-      }
-    }
-  }, [])
+  const { slotRef } = useAdSlotEffect()
 
   return (
-    <Div ref={listBannerRef}>
+    <Div ref={slotRef}>
       <ins
         className="adsbygoogle"
         data-ad-client="ca-pub-6481622724376761"
