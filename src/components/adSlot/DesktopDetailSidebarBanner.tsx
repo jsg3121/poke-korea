@@ -19,25 +19,23 @@ const DesktopDetailSidebarBanner = () => {
 export default DesktopDetailSidebarBanner
 
 const Div = styled.div`
-  width: 160px;
-  max-height: 600px;
+  max-width: 160px;
+  max-height: fit-content;
   position: absolute;
   right: -200px;
 
   @media screen and (min-width: 1281px) and (max-width: 1649px) {
-    max-height: 600px;
     position: unset;
     right: 0;
   }
 
   @media screen and (max-width: 1280px) {
     width: 0;
-    height: 0;
     display: none;
   }
 
   & > ins {
-    width: 100%;
+    width: 160px;
     max-height: 600px;
     display: block;
   }

@@ -20,13 +20,13 @@ export default DesktopDetailCardBanner
 
 const Div = styled.div`
   width: 100%;
+  height: fit-content;
   max-width: 1280px;
-  height: 160px;
   margin: -1rem 0;
 
   & > ins {
     width: 100%;
-    height: 100%;
+    height: 160px;
     display: block;
     text-align: center;
   }
