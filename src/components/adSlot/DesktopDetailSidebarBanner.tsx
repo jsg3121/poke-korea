@@ -23,7 +23,6 @@ const Div = styled.div`
   max-height: 600px;
   position: absolute;
   right: -200px;
-  background-color: red;
 
   @media screen and (min-width: 1281px) and (max-width: 1649px) {
     max-height: 600px;
