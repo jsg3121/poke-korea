@@ -86,12 +86,10 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     ...(generation && {
       generation: getGenerationParams(generation),
     }),
-    ...(isMega && { isMegaEvolution: toBooleanOrUndefined(isMega as string) }),
-    ...(isRegion && { isRegionForm: toBooleanOrUndefined(isRegion as string) }),
-    ...(isEvolution && {
-      isEvolution: toBooleanOrUndefined(isEvolution as string),
-    }),
     ...(type && { types: changeTypeArrayToString(type as string) }),
+    isMegaEvolution: toBooleanOrUndefined(isMega as string),
+    isRegionForm: toBooleanOrUndefined(isRegion as string),
+    isEvolution: toBooleanOrUndefined(isEvolution as string),
   }
 
   const { data, loading } = await apolloClient.query({

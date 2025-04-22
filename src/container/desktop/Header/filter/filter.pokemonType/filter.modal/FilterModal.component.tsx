@@ -142,7 +142,7 @@ const FilterModalComponent = ({
   }
 
   const handleChangeGeneration = (e: ChangeEvent<HTMLInputElement>) => {
-    const prevList = getValues('generation')
+    const prevList = [...getValues('generation')]
     const checked = e.target.checked
     const gen = e.target.value
 

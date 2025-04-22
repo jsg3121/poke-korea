@@ -12,6 +12,7 @@ import PokemonImageCompoment from './summary.pokemonImage/PokemonImage.compoment
 import StatsComponent from './summary.stats/Stats.component'
 import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
 import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
+import DesktopDetailCardBanner from '~/components/adSlot/DesktopDetailCardBanner'
 
 type TStyledProps = { gradient: Array<TypesColor> }
 
@@ -81,6 +82,7 @@ const DetailSummaryContainer = () => {
           {pokemonBaseInfo && pokemonInfo.stats && (
             <StatsComponent {...pokemonInfo.stats} />
           )}
+          <DesktopDetailCardBanner />
         </section>
       </div>
     </Section>
@@ -125,6 +127,7 @@ const Section = styled.section<TStyledProps>`
 
   & > .detail-profile {
     width: 100%;
+    height: 32.375rem;
     max-width: 1280px;
     display: flex;
     align-items: center;
@@ -152,6 +155,7 @@ const Section = styled.section<TStyledProps>`
     }
 
     & > .profile-description {
+      height: 100%;
       display: flex;
       align-items: flex-start;
       gap: 1rem;

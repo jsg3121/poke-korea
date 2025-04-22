@@ -1,33 +1,33 @@
 import styled from 'styled-components'
 import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
-const DesktopListTopBanner = () => {
+const DesktopDetailRightBanner = () => {
   const { slotRef } = useAdSlotEffect()
-
   return (
     <Div ref={slotRef}>
       <ins
         className="adsbygoogle"
         data-ad-client="ca-pub-6481622724376761"
-        data-ad-slot="9835534510"
+        data-ad-slot="5945596249"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
       ></ins>
     </Div>
   )
 }
 
-export default DesktopListTopBanner
+export default DesktopDetailRightBanner
 
 const Div = styled.div`
   width: 100%;
   max-width: 1280px;
-  height: fit-content;
-  margin: 2rem auto 0;
+  height: 160px;
+  margin: -1rem 0;
 
   & > ins {
     width: 100%;
-    height: 140px;
+    height: 100%;
     display: block;
-    margin: 0 auto;
     text-align: center;
   }
 `
