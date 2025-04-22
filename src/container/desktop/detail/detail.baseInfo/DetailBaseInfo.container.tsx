@@ -5,7 +5,7 @@ import DescriptionComponent from './baseInfo.description/Description.component'
 import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
 import AbilitiesInfoComponent from './baseInfo.abilities/AbilitiesInfo.component'
 import { useContext } from 'react'
-import DesktopDetailRightBanner from '~/components/adSlot/DesktopDetailRightBanner'
+import DesktopDetailCardBanner from '~/components/adSlot/DesktopDetailCardBanner'
 
 const DetailBaseInfoContainer = () => {
   const { pokemonBaseInfo, activeTypeInfo } = useContext(DetailContext)
@@ -23,7 +23,7 @@ const DetailBaseInfoContainer = () => {
           />
         )}
       </div>
-      <DesktopDetailRightBanner />
+      <DesktopDetailCardBanner />
       <AbilitiesInfoComponent />
       <TypesInfo type={activeTypeInfo.types} />
     </Section>

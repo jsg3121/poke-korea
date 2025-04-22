@@ -8,7 +8,7 @@ const DesktopDetailCardBanner = () => {
       <ins
         className="adsbygoogle"
         data-ad-client="ca-pub-6481622724376761"
-        data-ad-slot="9075172521"
+        data-ad-slot="5945596249"
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>
@@ -19,22 +19,10 @@ const DesktopDetailCardBanner = () => {
 export default DesktopDetailCardBanner
 
 const Div = styled.div`
-  width: 160px;
-  height: 100%;
-  max-height: 600px;
-  position: absolute;
-  right: -200px;
-
-  @media screen and (min-width: 1281px) and (max-width: 1649px) {
-    position: relative;
-    right: 0;
-  }
-
-  @media screen and (max-width: 1280px) {
-    width: 0;
-    height: 0;
-    display: none;
-  }
+  width: 100%;
+  max-width: 1280px;
+  height: 160px;
+  margin: -1rem 0;
 
   & > ins {
     width: 100%;
