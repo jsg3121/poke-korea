@@ -12,9 +12,9 @@ const Div = styled.div`
   width: 160px;
   height: 100%;
   max-height: 600px;
-  background-color: #666666;
   position: absolute;
   right: -200px;
+  background-color: #666666;
 
   @media screen and (min-width: 1281px) and (max-width: 1649px) {
     position: relative;
