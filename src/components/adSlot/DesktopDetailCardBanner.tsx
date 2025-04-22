@@ -22,12 +22,12 @@ const Div = styled.div`
   width: 100%;
   height: fit-content;
   max-width: 1280px;
-  margin: -1rem 0;
 
   & > ins {
     width: 100%;
     height: 160px;
     display: block;
     text-align: center;
+    margin: -1rem 0;
   }
 `
