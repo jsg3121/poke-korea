@@ -3,14 +3,31 @@ import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 const DesktopDetailRightBanner = () => {
   const { slotRef } = useAdSlotEffect()
-  return <Div ref={slotRef}></Div>
+  return (
+    <Div ref={slotRef}>
+      <ins
+        className="adsbygoogle"
+        data-ad-client="ca-pub-6481622724376761"
+        data-ad-slot="5945596249"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+    </Div>
+  )
 }
 
 export default DesktopDetailRightBanner
 
 const Div = styled.div`
   width: 100%;
+  max-width: 1280px;
   height: 160px;
-  background-color: #666666;
   margin: -1rem 0;
+
+  & > ins {
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+  }
 `
