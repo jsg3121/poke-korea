@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
+import MobileDetailCardBottomBanner from '~/components/adSlot/MobileDetailCardBottomBanner'
+import MobileDetailCardTopBanner from '~/components/adSlot/MobileDetailCardTopBanner'
 import DetailBaseInfoContainer from '~/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container'
 import DetailSummaryContainer from '~/container/mobile/detail/detail.summary/DetailSummary.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -23,8 +25,10 @@ const DetailMobile = () => {
           포켓몬 능력치 및 상세 정보
         </h1>
         <DetailSummaryContainer />
+        <MobileDetailCardTopBanner />
         <DetailBaseInfoContainer />
       </section>
+      <MobileDetailCardBottomBanner />
       <FooterContainer />
     </Main>
   )
