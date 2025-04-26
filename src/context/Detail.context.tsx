@@ -62,7 +62,7 @@ const DetailProvider = ({
     : 0
   const isShiny = router.query.shinyMode === 'shiny'
 
-  const types = (() => {
+  const getTypes = () => {
     switch (activeType) {
       case 'mega': {
         return megaEvolutionData?.[activeIndex].types ?? []
@@ -81,9 +81,9 @@ const DetailProvider = ({
         )
       }
     }
-  })()
+  }
 
-  const abilities = (() => {
+  const getAbilities = () => {
     switch (activeType) {
       case 'mega': {
         return megaEvolutionData?.[activeIndex].megaEvolutionAbilityList ?? []
@@ -98,7 +98,7 @@ const DetailProvider = ({
         )
       }
     }
-  })()
+  }
 
   const getActiveTypeInfo = () => {
     return {
@@ -114,6 +114,8 @@ const DetailProvider = ({
     }
   }
 
+  const types = getTypes()
+  const abilities = getAbilities()
   const activeTypeInfo: TActiveTypeInfo = getActiveTypeInfo()
 
   const initialValue: IFDetailProps = {
