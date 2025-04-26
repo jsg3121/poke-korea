@@ -30,7 +30,7 @@ const DetailSummaryContainer = () => {
   const activeIndex = router.query.activeIndex ? indexQuery : 0
   const isShiny = router.query.shinyMode === 'shiny'
 
-  const pokemonInfo = (() => {
+  const getPokemonInfo = () => {
     switch (activeType) {
       case 'mega':
         return {
@@ -54,7 +54,9 @@ const DetailSummaryContainer = () => {
             pokemonBaseInfo?.pokemonStats,
         }
     }
-  })()
+  }
+
+  const pokemonInfo = getPokemonInfo()
 
   return (
     <Section gradient={newColor} aria-label="포켓몬 이미지 및 능력치 정보">
