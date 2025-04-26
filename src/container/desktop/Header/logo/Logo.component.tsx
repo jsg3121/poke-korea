@@ -7,7 +7,7 @@ import { memo, useContext } from 'react'
 const Article = styled.article`
   width: 100%;
   max-width: 1280px;
-  height: 8.44444444rem;
+  height: 6rem;
   position: relative;
   transition: height 0.3s;
   will-change: height;
@@ -18,10 +18,11 @@ const Article = styled.article`
     height: 0;
 
     & > .logo {
-      top: -5.5rem;
+      max-width: 30rem;
+      top: -1.5rem;
       left: 0;
       transform-origin: left;
-      transform: translate3d(0, 0, 0) scale(0.4);
+      transform: translate3d(0, 0, 0) scale(0.5);
     }
   }
 
@@ -37,7 +38,7 @@ const Article = styled.article`
 
   & > .logo {
     width: 100%;
-    max-width: 41.66666667rem;
+    max-width: 30rem;
     position: absolute;
     top: 0;
     left: 50%;
@@ -47,9 +48,7 @@ const Article = styled.article`
       top 0.3s,
       left 0.3s,
       transform 0.3s;
-    will-change:
-      top left,
-      transform;
+    will-change: top, left, transform;
   }
 `
 

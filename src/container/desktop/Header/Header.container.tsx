@@ -1,14 +1,13 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
-import HeaderNav from './nav/header.nav'
 import { ListContext } from '~/context/List.context'
+import FilterComponents from './filter/Filter.components'
 import LogoComponent from './logo/Logo.component'
 import SearchComponent from './search/Search.component'
-import FilterComponents from './filter/Filter.components'
-import { useContext } from 'react'
 
 const Header = styled.header`
   width: 100%;
-  height: 31rem;
+  height: 20rem;
   background-color: var(--color-primary-2);
   transition: height 0.3s;
   will-change: height;
@@ -40,7 +39,6 @@ const HeaderContainer = () => {
       data-scrolling={scrolling}
       data-searching={searching ? 'has-query' : ''}
     >
-      <HeaderNav />
       <div className="header-wrapper">
         <LogoComponent />
         <SearchComponent />

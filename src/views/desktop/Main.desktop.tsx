@@ -13,7 +13,7 @@ interface ManinViewsProps {
 }
 
 const Div = styled.div`
-  padding-bottom: 31rem;
+  padding-bottom: 20rem;
   transition: padding-bottom 0.3s;
   will-change: padding-bottom;
 
