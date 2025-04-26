@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
+import TypeEffectivenessContainer from '~/container/desktop/typeEffectiveness/asd'
 
 const TypeEffectivenessDesktop = () => {
   return (
@@ -12,7 +13,10 @@ const TypeEffectivenessDesktop = () => {
           </i>
         </Link>
       </header>
-      <section></section>
+      <section aria-labelledby="pokemon-type-effectiveness-calculator">
+        <h1 id="pokemon-type-effectiveness-calculator">타입 상성 계산기</h1>
+        <TypeEffectivenessContainer />
+      </section>
     </Main>
   )
 }
@@ -39,9 +43,19 @@ const Main = styled.main`
 
   & > section {
     width: 100%;
+    max-width: 1280px;
     height: 100%;
-    padding: 0;
-    margin: 0;
+    padding: 0 20px;
+    margin: 0 auto;
     position: relative;
+
+    & > h1 {
+      width: 100%;
+      height: 3rem;
+      font-size: 2.5rem;
+      text-align: center;
+      line-height: 3rem;
+      color: var(--color-primary-4);
+    }
   }
 `
