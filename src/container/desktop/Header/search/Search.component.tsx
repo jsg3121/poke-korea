@@ -17,7 +17,7 @@ const Search = styled.div`
   border-radius: 2.22222222rem;
   background-color: #ffffff;
   position: relative;
-  top: 3.33333333rem;
+  top: 2rem;
   left: 50%;
   transform: translateX(-50%);
   transition:
@@ -30,7 +30,7 @@ const Search = styled.div`
   &[data-searching='has-query'] {
     width: 40%;
     max-width: 600px;
-    top: -3.33333333rem;
+    top: 0;
 
     @media screen and (max-width: 890px) {
       left: 80%;
