@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
-import TypeEffectivenessContainer from '~/container/desktop/typeEffectiveness/asd'
+import TypeEffectivenessContainer from '~/container/desktop/typeEffectiveness/TypeEffectiveness.container'
 
 const TypeEffectivenessDesktop = () => {
   return (
