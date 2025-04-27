@@ -41,6 +41,7 @@ export const GlobalStyle = createGlobalStyle`
         -ms-overflow-style: none;
         scrollbar-width: none;
         width: 100%;
+        min-width: 845px;
         height: 100%;
         background-color: var(--color-primary-1);
         scroll-behavior: smooth;
@@ -51,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         height: 100%;
     }
+
 
     button {
         background: none;
