@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const TypeEffectivenessTableComponent = () => {
   return (
@@ -10,29 +11,18 @@ const TypeEffectivenessTableComponent = () => {
         <thead>
           <tr>
             <th></th>
-            <th scope="col">Normal</th>
-            <th scope="col">Fire</th>
-            <th scope="col">Water</th>
-            <th scope="col">Grass</th>
-            <th scope="col">Electric</th>
-            <th scope="col">Ice</th>
-            <th scope="col">Fighting</th>
-            <th scope="col">Poison</th>
-            <th scope="col">Ground</th>
-            <th scope="col">Flying</th>
-            <th scope="col">Psychic</th>
-            <th scope="col">Bug</th>
-            <th scope="col">Rock</th>
-            <th scope="col">Ghost</th>
-            <th scope="col">Dragon</th>
-            <th scope="col">Dark</th>
-            <th scope="col">Steel</th>
-            <th scope="col">Fairy</th>
+            {Object.entries(PokemonTypes).map(([key, value]) => {
+              return (
+                <th key={`type-effective-table-key-${key}`} scope="col">
+                  {value}
+                </th>
+              )
+            })}
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Normal</th>
+            <th scope="row">{PokemonTypes.NORMAL}</th>
             <td></td>
             <td></td>
             <td></td>
@@ -45,367 +35,367 @@ const TypeEffectivenessTableComponent = () => {
             <td></td>
             <td></td>
             <td></td>
-            <td>△</td>
-            <td>x</td>
+            <td className="half-type">0.5배</td>
+            <td className="zero-type">0배</td>
             <td></td>
             <td></td>
-            <td>△</td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">Fire</th>
-            <td></td>
-            <td>△</td>
-            <td>△</td>
-            <td>◎</td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td>△</td>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td>◎</td>
+            <td className="half-type">0.5배</td>
             <td></td>
           </tr>
           <tr>
-            <th scope="row">Water</th>
+            <th scope="row">{PokemonTypes.FIRE}</th>
             <td></td>
-            <td>◎</td>
-            <td>△</td>
-            <td>△</td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
             <td></td>
-            <td>◎</td>
-            <td></td>
-            <td>△</td>
             <td></td>
             <td></td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
-          </tr>
-          <tr>
-            <th scope="row">Grass</th>
+            <td className="half-type">0.5배</td>
             <td></td>
-            <td>△</td>
-            <td>◎</td>
-            <td>△</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>△</td>
-            <td>◎</td>
-            <td>△</td>
-            <td></td>
-            <td>△</td>
-            <td>◎</td>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td>△</td>
+            <td className="strong-type">2배</td>
             <td></td>
           </tr>
           <tr>
-            <th scope="row">Electric</th>
+            <th scope="row">{PokemonTypes.WATER}</th>
             <td></td>
-            <td></td>
-            <td>◎</td>
-            <td>△</td>
-            <td>△</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>x</td>
-            <td>◎</td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td>△</td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
           <tr>
-            <th scope="row">Ice</th>
+            <th scope="row">{PokemonTypes.GRASS}</th>
             <td></td>
-            <td>△</td>
-            <td>△</td>
-            <td>◎</td>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td>◎</td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
             <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
-            <td>◎</td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
             <td></td>
-            <td>△</td>
+            <td className="half-type">0.5배</td>
             <td></td>
-          </tr>
-          <tr>
-            <th scope="row">Fighting</th>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td>△</td>
-            <td>△</td>
-            <td>△</td>
-            <td>◎</td>
-            <td>x</td>
-            <td></td>
-            <td>◎</td>
-            <td>◎</td>
-            <td>△</td>
-          </tr>
-          <tr>
-            <th scope="row">Poison</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>△</td>
-            <td>△</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>△</td>
-            <td>△</td>
-            <td></td>
-            <td></td>
-            <td>x</td>
-            <td>◎</td>
-          </tr>
-          <tr>
-            <th scope="row">Ground</th>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td>△</td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td>x</td>
-            <td></td>
-            <td>△</td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
+            <td className="half-type">0.5배</td>
             <td></td>
           </tr>
           <tr>
-            <th scope="row">Flying</th>
+            <th scope="row">{PokemonTypes.ELECTRIC}</th>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
             <td></td>
-            <td>◎</td>
-            <td>△</td>
-            <td></td>
-            <td>◎</td>
+            <td className="zero-type">0배</td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td>◎</td>
-            <td>△</td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
-            <td></td>
-            <td>△</td>
             <td></td>
           </tr>
           <tr>
-            <th scope="row">Psychic</th>
+            <th scope="row">{PokemonTypes.ICE}</th>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
+            <td className="strong-type">2배</td>
             <td></td>
-            <td></td>
-            <td>◎</td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>x</td>
-            <td>△</td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">Bug</th>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td>△</td>
-            <td>△</td>
-            <td></td>
-            <td>△</td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td>◎</td>
-            <td>△</td>
-            <td>△</td>
-          </tr>
-          <tr>
-            <th scope="row">Rock</th>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td>△</td>
-            <td></td>
-            <td>△</td>
-            <td>◎</td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>△</td>
+            <td className="half-type">0.5배</td>
             <td></td>
           </tr>
           <tr>
-            <th scope="row">Ghost</th>
-            <td>x</td>
+            <th scope="row">{PokemonTypes.FIGHTING}</th>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td className="zero-type">0배</td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
+          </tr>
+          <tr>
+            <th scope="row">{PokemonTypes.POISON}</th>
             <td></td>
             <td></td>
             <td></td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
-            <td>◎</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
-            <td>◎</td>
             <td></td>
-            <td>△</td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td></td>
+            <td className="zero-type">0배</td>
+            <td className="strong-type">2배</td>
+          </tr>
+          <tr>
+            <th scope="row">{PokemonTypes.GROUND}</th>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="zero-type">0배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
             <td></td>
           </tr>
           <tr>
-            <th scope="row">Dragon</th>
+            <th scope="row">{PokemonTypes.FLYING}</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
             <td></td>
+            <td className="half-type">0.5배</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td>△</td>
-            <td>x</td>
           </tr>
           <tr>
-            <th scope="row">Dark</th>
+            <th scope="row">{PokemonTypes.PSYCHIC}</th>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td>△</td>
+            <td className="strong-type">2배</td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td className="half-type">0.5배</td>
             <td></td>
             <td></td>
             <td></td>
-            <td>◎</td>
             <td></td>
+            <td className="zero-type">0배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
-            <td>◎</td>
-            <td></td>
-            <td>△</td>
-            <td></td>
-            <td>△</td>
           </tr>
           <tr>
-            <th scope="row">Steel</th>
+            <th scope="row">{PokemonTypes.BUG}</th>
             <td></td>
-            <td>△</td>
-            <td>△</td>
+            <td className="half-type">0.5배</td>
             <td></td>
-            <td>△</td>
-            <td>◎</td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
+            <td className="half-type">0.5배</td>
             <td></td>
-            <td></td>
-            <td>◎</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>△</td>
-            <td>◎</td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
           </tr>
           <tr>
-            <th scope="row">Fairy</th>
+            <th scope="row">{PokemonTypes.ROCK}</th>
             <td></td>
-            <td>△</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>◎</td>
-            <td>△</td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
             <td></td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="strong-type">2배</td>
             <td></td>
             <td></td>
             <td></td>
-            <td>◎</td>
-            <td>◎</td>
-            <td>△</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">{PokemonTypes.GHOST}</th>
+            <td className="zero-type">0배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">{PokemonTypes.DRAGON}</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="zero-type">0배</td>
+          </tr>
+          <tr>
+            <th scope="row">{PokemonTypes.DARK}</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+          </tr>
+          <tr>
+            <th scope="row">{PokemonTypes.STEEL}</th>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td className="strong-type">2배</td>
+          </tr>
+          <tr>
+            <th scope="row">{PokemonTypes.FAIRY}</th>
+            <td></td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="strong-type">2배</td>
+            <td className="strong-type">2배</td>
+            <td className="half-type">0.5배</td>
             <td></td>
           </tr>
         </tbody>
@@ -421,17 +411,18 @@ const Article = styled.div`
   height: 100%;
 
   & > table {
-    width: 100%;
+    width: calc(100% - 3rem);
     height: 100%;
     background-color: var(--color-primary-4);
+    table-layout: fixed;
 
     & > caption {
       width: 100%;
-      font-size: 0.75rem;
-      text-align: right;
-      color: var(--color-primary-2);
-      caption-side: bottom;
-      margin: 0.25rem 0 0;
+      font-size: 1.5rem;
+      text-align: left;
+      color: var(--color-primary-4);
+      caption-side: top;
+      margin: 0 0 0.5rem;
     }
 
     & > thead {
@@ -441,16 +432,21 @@ const Article = styled.div`
         width: 100%;
         height: 3.5rem;
         background-color: var(--color-primary-3);
+        border: 1px solid var(--color-primary-3);
 
         & > th {
+          width: 100%;
+          height: 100%;
+          font-size: 1rem;
           text-align: center;
+          font-weight: 600;
+          letter-spacing: 1px;
+          color: #000000;
           vertical-align: middle;
+          border-right: 1px solid var(--color-primary-2);
 
-          & > p {
-            width: 100%;
-            height: 100%;
-            font-size: 0.9rem;
-            color: #000000;
+          &:last-child {
+            border-right: 0;
           }
         }
       }
@@ -458,25 +454,34 @@ const Article = styled.div`
 
     & > tbody {
       width: 100%;
-      border-bottom: 1px solid var(--color-primary-1);
 
       & > tr {
         height: 3rem;
 
+        & > th {
+          font-weight: 600;
+          letter-spacing: 1px;
+          color: #000000;
+        }
+
         & > th,
         & > td {
+          width: calc(100% / 19);
           vertical-align: middle;
           text-align: center;
+          border: 1px solid var(--color-primary-3);
+          font-size: 1rem;
 
-          & > p {
-            width: 100%;
-            font-size: 0.9rem;
-            color: var(--color-primary-1);
+          &.strong-type {
+            color: #28b448;
+          }
 
-            & > span {
-              font-size: 0.75rem;
-              color: var(--color-primary-2);
-            }
+          &.half-type {
+            color: #c78e23;
+          }
+
+          &.zero-type {
+            color: #888888;
           }
         }
       }
