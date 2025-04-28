@@ -1,9 +1,11 @@
 import styled from 'styled-components'
-import TypeEffectivenessTableComponent from './typeEffectivenessTable/TypeEffectivenessTable.component'
+import TypeEffectivenessTableComponent from './typeEffectiveness.table/TypeEffectivenessTable.component'
+import TypeEffectivenessCaculatorComponent from './typeEffectiveness.calculator/TypeEffectivenessCaculator.component'
 
 const TypeEffectivenessContainer = () => {
   return (
     <Div>
+      <TypeEffectivenessCaculatorComponent />
       <TypeEffectivenessTableComponent />
     </Div>
   )
