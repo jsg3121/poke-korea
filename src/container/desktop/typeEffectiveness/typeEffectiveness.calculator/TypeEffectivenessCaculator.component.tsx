@@ -1,19 +1,48 @@
+import { MouseEvent, useContext } from 'react'
 import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
+import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { PokemonType } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const TypeEffectivenessCaculatorComponent = () => {
+  const { isMaxSelectType, selectTypeList, handleChangeTypes } = useContext(
+    TypeEffectivenessContext,
+  )
+
+  const handleClickType = (e: MouseEvent<HTMLButtonElement>) => {
+    const value = e.currentTarget.value as PokemonType
+    handleChangeTypes(value)
+  }
+
   return (
     <Section aria-labelledby="select-type-pokemon">
       <header>
         <h2 id="select-type-pokemon">상대 포켓몬 약점 찾기</h2>
-        <strong>상대하려는 포켓몬의 타입을 선택해주세요!</strong>
+        {isMaxSelectType ? (
+          <strong>포켓몬 타입은 최대 2개까지 선택 가능합니다</strong>
+        ) : (
+          <strong>상대하려는 포켓몬의 타입을 선택해주세요!</strong>
+        )}
       </header>
       <ul className="select-type-list">
         {Object.entries(PokemonTypes).map(([types, typeName]) => {
           return (
             <li key={`pokemon-type-key-${types}`}>
-              <button>
+              <button
+                type="button"
+                value={types}
+                data-active={
+                  selectTypeList.includes(types as PokemonType) ? 'active' : ''
+                }
+                disabled={
+                  selectTypeList.length === 2 &&
+                  selectTypeList.indexOf(types as PokemonType) < 0
+                    ? true
+                    : false
+                }
+                onClick={handleClickType}
+              >
                 <ImageComponent
                   alt={`${typeName} 타입 필터 선택`}
                   height="2rem"
@@ -85,7 +114,15 @@ const Section = styled.section`
         opacity: 0.6;
         padding-left: 0.5rem;
 
-        &:hover {
+        &:disabled {
+          filter: grayscale(1);
+        }
+
+        &:not(:disabled):hover {
+          opacity: 1;
+        }
+
+        &[data-active='active'] {
           opacity: 1;
         }
 
