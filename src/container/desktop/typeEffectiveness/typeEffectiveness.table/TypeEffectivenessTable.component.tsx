@@ -1,20 +1,18 @@
-import { MouseEvent, useState } from 'react'
+import { useState } from 'react'
 import styled, { css } from 'styled-components'
-import ResetIcon from '~/assets/icons/button-reset.svg'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-
-type ActiveTableType = 'double' | 'half' | 'zero' | undefined
+import TableActivePointerComponent, {
+  ActivePointerType,
+} from './table.activePointer/TableActivePointer.component'
 
 type StyledType = {
-  activeType: ActiveTableType
+  activeType: ActivePointerType
 }
 
 const TypeEffectivenessTableComponent = () => {
-  const [activeType, setActiveType] = useState<ActiveTableType>(undefined)
+  const [activeType, setActiveType] = useState<ActivePointerType>(undefined)
 
-  const handleClickActiveEffective = (e: MouseEvent<HTMLButtonElement>) => {
-    const effectiveType = e.currentTarget.dataset.effective as ActiveTableType
-
+  const handleClickActiveEffective = (effectiveType: ActivePointerType) => {
     if (effectiveType === activeType) {
       setActiveType(() => undefined)
     } else {
@@ -31,43 +29,11 @@ const TypeEffectivenessTableComponent = () => {
       <table aria-labelledby="pokemon-type-effectiveness-table">
         <caption>
           <h2 id="pokemon-type-effectiveness-table">포켓몬 타입별 상성 표</h2>
-          <div className="view-pointer-text">
-            <button
-              type="button"
-              data-effective="double"
-              className={activeType === 'double' ? 'active-pointer' : ''}
-              aria-pressed={activeType === 'double'}
-              onClick={handleClickActiveEffective}
-            >
-              2배만 보기
-            </button>
-            <button
-              type="button"
-              data-effective="half"
-              className={activeType === 'half' ? 'active-pointer' : ''}
-              aria-pressed={activeType === 'half'}
-              onClick={handleClickActiveEffective}
-            >
-              0.5배만 보기
-            </button>
-            <button
-              type="button"
-              data-effective="zero"
-              className={activeType === 'zero' ? 'active-pointer' : ''}
-              aria-pressed={activeType === 'zero'}
-              onClick={handleClickActiveEffective}
-            >
-              0배만 보기
-            </button>
-            <button
-              type="button"
-              className="button-reset"
-              aria-label="초기화"
-              onClick={handleClickResetActiveEffective}
-            >
-              <ResetIcon width="1rem" height="1rem" alt="선택 배율 초기화" />
-            </button>
-          </div>
+          <TableActivePointerComponent
+            activeType={activeType}
+            onClickPointer={handleClickActiveEffective}
+            onClickResetEffective={handleClickResetActiveEffective}
+          />
         </caption>
         <colgroup>
           <col width="5%" />
@@ -511,45 +477,6 @@ const Article = styled.div<StyledType>`
           line-height: 2rem;
           float: left;
           color: var(--color-primary-4);
-        }
-
-        & > .view-pointer-text {
-          height: 16.5rem;
-          height: 2rem;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          float: right;
-
-          & > button {
-            height: 2rem;
-            font-size: 1rem;
-            line-height: calc(2rem + 2px);
-            color: var(--color-primary-3);
-            display: flex;
-            align-items: baseline;
-            cursor: pointer;
-
-            &:hover,
-            &.active-pointer {
-              color: var(--color-primary-4);
-            }
-
-            &.button-reset {
-              width: 1rem;
-              height: 1rem;
-
-              svg {
-                fill: var(--color-primary-3);
-              }
-
-              &:hover {
-                svg {
-                  fill: var(--color-primary-4);
-                }
-              }
-            }
-          }
         }
       }
 
