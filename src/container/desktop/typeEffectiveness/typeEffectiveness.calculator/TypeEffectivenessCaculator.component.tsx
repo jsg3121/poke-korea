@@ -119,7 +119,12 @@ const Section = styled.section`
         }
 
         &:not(:disabled):hover {
+          transform: scale(1.1);
           opacity: 1;
+        }
+
+        &:not(:disabled):active {
+          transform: scale(1.05);
         }
 
         &[data-active='active'] {
