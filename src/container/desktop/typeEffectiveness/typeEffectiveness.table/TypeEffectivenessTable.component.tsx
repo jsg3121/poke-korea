@@ -6,7 +6,7 @@ import TableActivePointerComponent, {
 } from './table.activePointer/TableActivePointer.component'
 
 type StyledType = {
-  activeType: ActivePointerType
+  activetype: ActivePointerType
 }
 
 const TypeEffectivenessTableComponent = () => {
@@ -25,7 +25,7 @@ const TypeEffectivenessTableComponent = () => {
   }
 
   return (
-    <Article activeType={activeType} aria-label="포켓몬 타입 상성표">
+    <Article activetype={activeType} aria-label="포켓몬 타입 상성표">
       <table aria-labelledby="pokemon-type-effectiveness-table">
         <caption>
           <h2 id="pokemon-type-effectiveness-table">포켓몬 타입별 상성 표</h2>
@@ -455,7 +455,7 @@ const TypeEffectivenessTableComponent = () => {
 export default TypeEffectivenessTableComponent
 
 const Article = styled.div<StyledType>`
-  ${({ activeType }) => css`
+  ${({ activetype }) => css`
     width: 100%;
     height: 100%;
 
@@ -544,7 +544,7 @@ const Article = styled.div<StyledType>`
               color: #888888;
             }
 
-            ${activeType === 'double' &&
+            ${activetype === 'double' &&
             css`
               &.zero-type,
               &.half-type {
@@ -557,7 +557,7 @@ const Article = styled.div<StyledType>`
               }
             `}
 
-            ${activeType === 'half' &&
+            ${activetype === 'half' &&
             css`
               &.zero-type,
               &.double-type {
@@ -570,7 +570,7 @@ const Article = styled.div<StyledType>`
               }
             `}
 
-             ${activeType === 'zero' &&
+             ${activetype === 'zero' &&
             css`
               &.double-type,
               &.half-type {
