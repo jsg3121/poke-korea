@@ -45,8 +45,8 @@ const TypeEffectivenessCaculatorComponent = () => {
               >
                 <ImageComponent
                   alt={`${typeName} 타입 필터 선택`}
-                  height="2rem"
-                  width="2rem"
+                  height="1.5rem"
+                  width="1.5rem"
                   src={`/assets/type/${types}.svg`}
                 />
                 <p>{typeName}</p>
@@ -92,27 +92,27 @@ const Section = styled.section`
 
   & > ul {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
 
     & > li {
-      width: 100%;
+      min-width: 4rem;
       height: 3rem;
 
       & > button {
         width: 100%;
         height: 3rem;
         border: 0;
-        border-radius: 2.5rem;
+        border-radius: 1rem;
         background-color: var(--color-primary-4);
         display: flex;
+        justify-content: center;
         align-items: center;
-        gap: 0.375rem;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem 0.75rem 0.75rem;
         opacity: 0.6;
-        padding-left: 0.5rem;
 
         &:disabled {
           filter: grayscale(1);
@@ -133,7 +133,7 @@ const Section = styled.section`
 
         & > p {
           height: 2rem;
-          font-size: 0.875rem;
+          font-size: 1rem;
           line-height: calc(2rem + 2px);
         }
       }

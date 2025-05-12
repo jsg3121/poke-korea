@@ -2,7 +2,7 @@ import { Fragment, useContext } from 'react'
 import styled from 'styled-components'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { calculateRelationType } from '~/module/calculateRelationType'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+import ResultListComponents from './result.list/ResultList.components'
 
 const TypeEffectivenessResultComponent = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
@@ -10,88 +10,59 @@ const TypeEffectivenessResultComponent = () => {
   const { double, half, quad, quarter, zero } =
     calculateRelationType(selectTypeList)
 
+  const isShowStrong = half.length > 0 || quarter.length > 0 || zero.length > 0
+  const isShowWeak = quad.length > 0 || double.length > 0
+
   return (
     <Fragment>
       <Section aria-labelledby="calculate-result-type">
         <article>
-          <h3 id="calculate-result-type">이런 타입에 강해요!!</h3>
-          <dl>
-            {half.length > 0 && (
-              <>
-                <dt>0.5배</dt>
-                <dd>
-                  {half.map((type) => {
-                    return (
-                      <span key={`type-half-id-${type}`}>
-                        {PokemonTypes[type]}
-                      </span>
-                    )
-                  })}
-                </dd>
-              </>
-            )}
-            {quarter.length > 0 && (
-              <>
-                <dt>0.25배</dt>
-                <dd>
-                  {quarter.map((type) => {
-                    return (
-                      <span key={`type-quarter-id-${type}`}>
-                        {PokemonTypes[type]}
-                      </span>
-                    )
-                  })}
-                </dd>
-              </>
-            )}
-            {zero.length > 0 && (
-              <>
-                <dt>데미지를 받지 않아요</dt>
-                <dd>
-                  {zero.map((type) => {
-                    return (
-                      <span key={`type-zero-id-${type}`}>
-                        {PokemonTypes[type]}
-                      </span>
-                    )
-                  })}
-                </dd>
-              </>
-            )}
-          </dl>
+          {isShowWeak && (
+            <>
+              <h3 id="calculate-result-type">이런 타입을 쓰면 좋아요!</h3>
+              <dl>
+                {quad.length > 0 && (
+                  <ResultListComponents
+                    title="4배의 데미지를 줄 수 있어요."
+                    dataList={quad}
+                  />
+                )}
+                {double.length > 0 && (
+                  <ResultListComponents
+                    title="2배의 데미지를 줄 수 있어요."
+                    dataList={double}
+                  />
+                )}
+              </dl>
+            </>
+          )}
         </article>
         <article>
-          <h3 id="calculate-result-type">이런 타입에 약해요..</h3>
-          <dl>
-            {quad.length > 0 && (
-              <>
-                <dt>4배</dt>
-                <dd>
-                  {quad.map((type) => {
-                    return (
-                      <span key={`type-quad-id-${type}`}>
-                        {PokemonTypes[type]}
-                      </span>
-                    )
-                  })}
-                </dd>
-              </>
-            )}
-            {double.length > 0 && (
-              <>
-                <dt>2배</dt>
-                <dd>
-                  {double.map((type) => {
-                    return (
-                      <span key={`type-double-id-${type}`}>
-                        {PokemonTypes[type]}
-                      </span>
-                    )
-                  })}
-                </dd>
-              </>
-            )}
-          </dl>
+          {isShowStrong && (
+            <>
+              <h3 id="calculate-result-type">이런 타입은 조심 해야해요</h3>
+              <dl>
+                {half.length > 0 && (
+                  <ResultListComponents
+                    title="0.5배의 데미지를 받아요."
+                    dataList={half}
+                  />
+                )}
+                {quarter.length > 0 && (
+                  <ResultListComponents
+                    title="0.25배의 데미지를 받아요."
+                    dataList={quarter}
+                  />
+                )}
+                {zero.length > 0 && (
+                  <ResultListComponents
+                    title="데미지를 받지 않아요."
+                    dataList={zero}
+                  />
+                )}
+              </dl>
+            </>
+          )}
         </article>
       </Section>
     </Fragment>
@@ -131,32 +102,6 @@ const Section = styled.section`
 
     & > dl {
       width: 100%;
-
-      & > dt {
-        width: 100%;
-        height: 1.5rem;
-        font-size: 1.25rem;
-        line-height: 1.5rem;
-        text-align: left;
-        background-color: var(--color-primary-3);
-      }
-
-      & > dd {
-        width: 100%;
-        padding: 1rem 0;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        & > span {
-          width: fit-content;
-          height: 3rem;
-          font-size: 1rem;
-          line-height: calc(2rem + 2px);
-          background-color: var(--color-primary-4);
-          padding: 0.5rem;
-        }
-      }
     }
   }
 `
