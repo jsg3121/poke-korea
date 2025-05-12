@@ -2,6 +2,7 @@ import { Fragment, useContext } from 'react'
 import styled from 'styled-components'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { calculateRelationType } from '~/module/calculateRelationType'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import ResultListComponents from './result.list/ResultList.components'
 
 const TypeEffectivenessResultComponent = () => {
@@ -12,10 +13,20 @@ const TypeEffectivenessResultComponent = () => {
 
   const isShowStrong = half.length > 0 || quarter.length > 0 || zero.length > 0
   const isShowWeak = quad.length > 0 || double.length > 0
+  const selectTypeListKo = selectTypeList
+    .map((type) => {
+      return PokemonTypes[type]
+    })
+    .join(' + ')
 
   return (
     <Fragment>
       <Section aria-labelledby="calculate-result-type">
+        {selectTypeList.length > 0 ? (
+          <h2>{selectTypeListKo} 타입은 이런 이렇게 상대하세요.</h2>
+        ) : (
+          <strong>선택한 타입의 상성을 볼 수 있어요!</strong>
+        )}
         <article>
           {isShowWeak && (
             <>
@@ -25,12 +36,14 @@ const TypeEffectivenessResultComponent = () => {
                   <ResultListComponents
                     title="4배의 데미지를 줄 수 있어요."
                     dataList={quad}
+                    importantPoint={1}
                   />
                 )}
                 {double.length > 0 && (
                   <ResultListComponents
                     title="2배의 데미지를 줄 수 있어요."
                     dataList={double}
+                    importantPoint={2}
                   />
                 )}
               </dl>
@@ -46,18 +59,21 @@ const TypeEffectivenessResultComponent = () => {
                   <ResultListComponents
                     title="0.5배의 데미지를 받아요."
                     dataList={half}
+                    importantPoint={3}
                   />
                 )}
                 {quarter.length > 0 && (
                   <ResultListComponents
                     title="0.25배의 데미지를 받아요."
                     dataList={quarter}
+                    importantPoint={4}
                   />
                 )}
                 {zero.length > 0 && (
                   <ResultListComponents
                     title="데미지를 받지 않아요."
                     dataList={zero}
+                    importantPoint={5}
                   />
                 )}
               </dl>
@@ -72,9 +88,25 @@ const TypeEffectivenessResultComponent = () => {
 export default TypeEffectivenessResultComponent
 
 const Section = styled.section`
-  width: 50%;
+  width: 100%;
   height: 100%;
   margin: 1rem 0 3rem;
+
+  & > h2,
+  & > strong {
+    width: 100%;
+    height: 4rem;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+    color: var(--color-primary-4);
+    display: block;
+  }
+
+  & > h2 {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-primary-4);
+  }
 
   & > article {
     width: 100%;
@@ -95,9 +127,8 @@ const Section = styled.section`
       text-align: left;
       color: var(--color-primary-4);
       margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
       padding-top: 0.5rem;
-      border-top: 1px solid var(--color-primary-4);
     }
 
     & > dl {

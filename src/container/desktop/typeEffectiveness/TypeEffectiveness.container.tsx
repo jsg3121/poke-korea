@@ -26,8 +26,5 @@ const Div = styled.div`
 
   & > .type-calculator {
     width: 100%;
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
   }
 `

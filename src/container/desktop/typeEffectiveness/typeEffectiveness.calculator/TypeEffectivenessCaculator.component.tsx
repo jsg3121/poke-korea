@@ -62,8 +62,10 @@ const TypeEffectivenessCaculatorComponent = () => {
 export default TypeEffectivenessCaculatorComponent
 
 const Section = styled.section`
-  width: 50%;
-  margin: 1rem 0 3rem;
+  width: 100%;
+  border-bottom: 1px solid var(--color-primary-4);
+  margin: 1rem 0 2rem;
+  padding-bottom: 2rem;
 
   & > header {
     width: 100%;
