@@ -3,6 +3,7 @@ import { TypeEffectivenessProvider } from '~/context/TypeEffectiveness.context'
 import TypeEffectivenessCaculatorComponent from './typeEffectiveness.calculator/TypeEffectivenessCaculator.component'
 import TypeEffectivenessResultComponent from './typeEffectiveness.result/TypeEffectivenessResult.component'
 import TypeEffectivenessTableComponent from './typeEffectiveness.table/TypeEffectivenessTable.component'
+import TypeEffectivenessDescription from './typeEffectiveness.description/TypeEffectivenessDescription'
 
 const TypeEffectivenessContainer = () => {
   return (
@@ -14,6 +15,7 @@ const TypeEffectivenessContainer = () => {
         </div>
       </TypeEffectivenessProvider>
       <TypeEffectivenessTableComponent />
+      <TypeEffectivenessDescription />
     </Div>
   )
 }
