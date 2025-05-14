@@ -40,11 +40,11 @@ const Span = styled.span`
   font-size: 1rem;
   line-height: calc(1.5rem + 2px);
   text-align: center;
-  background-color: var(--color-primary-4);
+  text-shadow: 1px 1px 1px var(--color-primary-3);
+  box-shadow: 1px 2px 6px 0 var(--color-primary-1);
   display: flex;
   gap: 0.25rem;
   padding: 0.75rem 1rem 0.75rem 0.75rem;
-  text-shadow: 1px 1px 1px var(--color-primary-3);
 
   & > i {
     width: 1.5rem;

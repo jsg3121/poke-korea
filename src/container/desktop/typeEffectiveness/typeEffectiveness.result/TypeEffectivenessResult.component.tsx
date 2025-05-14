@@ -25,10 +25,10 @@ const TypeEffectivenessResultComponent = () => {
         {selectTypeList.length > 0 ? (
           <h2>{selectTypeListKo} 타입은 이런 이렇게 상대하세요.</h2>
         ) : (
-          <strong>선택한 타입의 상성을 볼 수 있어요!</strong>
+          <strong>타입을 선택하면 상성을 볼 수 있어요!</strong>
         )}
-        <article>
-          {isShowWeak && (
+        {isShowWeak && (
+          <article>
             <>
               <h3 id="calculate-result-type">이런 타입을 쓰면 좋아요!</h3>
               <dl>
@@ -48,12 +48,12 @@ const TypeEffectivenessResultComponent = () => {
                 )}
               </dl>
             </>
-          )}
-        </article>
-        <article>
-          {isShowStrong && (
+          </article>
+        )}
+        {isShowStrong && (
+          <article>
             <>
-              <h3 id="calculate-result-type">이런 타입은 조심 해야해요</h3>
+              <h3 id="calculate-result-type">이런 타입은 조심 해야해요!</h3>
               <dl>
                 {half.length > 0 && (
                   <ResultListComponents
@@ -78,8 +78,8 @@ const TypeEffectivenessResultComponent = () => {
                 )}
               </dl>
             </>
-          )}
-        </article>
+          </article>
+        )}
       </Section>
     </Fragment>
   )
@@ -110,25 +110,20 @@ const Section = styled.section`
 
   & > article {
     width: 100%;
-
-    &:first-child {
-      & > h3 {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: 0;
-      }
-    }
+    height: fit-content;
+    padding: 2rem 1rem;
+    background-color: var(--color-primary-2);
+    border-radius: 1rem;
+    margin: 2rem 0;
 
     & > h3 {
       width: 100%;
       height: 2rem;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       line-height: 2rem;
       text-align: left;
       color: var(--color-primary-4);
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-      padding-top: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
     & > dl {

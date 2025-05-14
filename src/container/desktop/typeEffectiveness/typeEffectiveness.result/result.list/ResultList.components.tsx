@@ -41,28 +41,31 @@ export default ResultListComponents
 
 const Dt = styled.dt<StyledProps>`
   ${({ importantpoint }) => css`
-    width: 100%;
-    height: 1.5rem;
+    width: fit-content;
+    height: 2rem;
     font-size: 1.25rem;
-    line-height: 1.5rem;
+    line-height: calc(2rem + 2px);
     text-align: left;
+    box-shadow: 1px 2px 6px 0 var(--color-primary-1);
+    padding: 0 1rem;
+    border-radius: 1rem;
     background-color: ${() => {
       switch (importantpoint) {
         case 5: {
-          return '#ff5f42'
+          return '#feb0b0'
         }
         case 4: {
-          return '#f9bd3d'
+          return '#ffae76'
         }
         case 3: {
-          return '#59a0f5'
+          return '#ffdf61'
         }
         case 2: {
-          return '#5ce9ff'
+          return '#84efff'
         }
         case 1:
         default: {
-          return '#6af073'
+          return '#80f7ac'
         }
       }
     }};
@@ -71,9 +74,13 @@ const Dt = styled.dt<StyledProps>`
 
 const Dd = styled.dd<StyledProps>`
   width: 100%;
-  padding: 1rem 0;
+  padding: 1rem 0 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+
+  &:last-child {
+    padding: 1rem 0 0;
+  }
 `
