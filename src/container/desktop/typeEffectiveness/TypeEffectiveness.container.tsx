@@ -26,5 +26,6 @@ const Div = styled.div`
 
   & > .type-calculator {
     width: 100%;
+    margin-bottom: 3rem;
   }
 `

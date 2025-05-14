@@ -29,55 +29,51 @@ const TypeEffectivenessResultComponent = () => {
         )}
         {isShowWeak && (
           <article>
-            <>
-              <h3 id="calculate-result-type">이런 타입을 쓰면 좋아요!</h3>
-              <dl>
-                {quad.length > 0 && (
-                  <ResultListComponents
-                    title="4배의 데미지를 줄 수 있어요."
-                    dataList={quad}
-                    importantPoint={1}
-                  />
-                )}
-                {double.length > 0 && (
-                  <ResultListComponents
-                    title="2배의 데미지를 줄 수 있어요."
-                    dataList={double}
-                    importantPoint={2}
-                  />
-                )}
-              </dl>
-            </>
+            <h3 id="calculate-result-type">이런 타입을 쓰면 좋아요!</h3>
+            <dl>
+              {quad.length > 0 && (
+                <ResultListComponents
+                  title="4배의 데미지를 줄 수 있어요."
+                  dataList={quad}
+                  importantPoint={1}
+                />
+              )}
+              {double.length > 0 && (
+                <ResultListComponents
+                  title="2배의 데미지를 줄 수 있어요."
+                  dataList={double}
+                  importantPoint={2}
+                />
+              )}
+            </dl>
           </article>
         )}
         {isShowStrong && (
           <article>
-            <>
-              <h3 id="calculate-result-type">이런 타입은 조심 해야해요!</h3>
-              <dl>
-                {half.length > 0 && (
-                  <ResultListComponents
-                    title="0.5배의 데미지를 받아요."
-                    dataList={half}
-                    importantPoint={3}
-                  />
-                )}
-                {quarter.length > 0 && (
-                  <ResultListComponents
-                    title="0.25배의 데미지를 받아요."
-                    dataList={quarter}
-                    importantPoint={4}
-                  />
-                )}
-                {zero.length > 0 && (
-                  <ResultListComponents
-                    title="데미지를 받지 않아요."
-                    dataList={zero}
-                    importantPoint={5}
-                  />
-                )}
-              </dl>
-            </>
+            <h3 id="calculate-result-type">이런 타입은 조심 해야해요!</h3>
+            <dl>
+              {half.length > 0 && (
+                <ResultListComponents
+                  title="0.5배의 데미지를 받아요."
+                  dataList={half}
+                  importantPoint={3}
+                />
+              )}
+              {quarter.length > 0 && (
+                <ResultListComponents
+                  title="0.25배의 데미지를 받아요."
+                  dataList={quarter}
+                  importantPoint={4}
+                />
+              )}
+              {zero.length > 0 && (
+                <ResultListComponents
+                  title="데미지를 받지 않아요."
+                  dataList={zero}
+                  importantPoint={5}
+                />
+              )}
+            </dl>
           </article>
         )}
       </Section>
@@ -90,12 +86,11 @@ export default TypeEffectivenessResultComponent
 const Section = styled.section`
   width: 100%;
   height: 100%;
-  margin: 1rem 0 3rem;
+  margin: 1rem 0 0;
 
   & > h2,
   & > strong {
     width: 100%;
-    height: 4rem;
     font-size: 2rem;
     line-height: 2.5rem;
     font-weight: 600;
@@ -104,6 +99,7 @@ const Section = styled.section`
   }
 
   & > h2 {
+    height: 4rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--color-primary-4);
   }

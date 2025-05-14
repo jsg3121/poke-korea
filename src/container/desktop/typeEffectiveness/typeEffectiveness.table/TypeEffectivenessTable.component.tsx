@@ -473,8 +473,9 @@ const Article = styled.div<StyledType>`
 
         & > h2 {
           height: 2rem;
-          font-size: 1.5rem;
-          line-height: 2rem;
+          font-size: 2rem;
+          font-weight: 600;
+          line-height: calc(2rem + 2px);
           float: left;
           color: var(--color-primary-4);
         }
@@ -487,14 +488,12 @@ const Article = styled.div<StyledType>`
           width: 100%;
           height: 3.5rem;
           background-color: var(--color-primary-3);
-          border: 1px solid var(--color-primary-3);
 
           & > th {
             width: 5%;
             height: 100%;
             font-size: 1rem;
             text-align: center;
-            font-weight: 600;
             letter-spacing: 1px;
             color: #000000;
             vertical-align: middle;
@@ -518,9 +517,15 @@ const Article = styled.div<StyledType>`
           height: 3rem;
 
           & > th {
-            font-weight: 600;
             letter-spacing: 1px;
-            color: #000000;
+            color: #ffffff;
+            background-color: var(--color-primary-2);
+            border-top: 1px solid var(--color-primary-3);
+            border-right: 1px solid var(--color-primary-3);
+          }
+
+          & > td {
+            border: 1px solid var(--color-primary-3);
           }
 
           & > th,
@@ -528,7 +533,6 @@ const Article = styled.div<StyledType>`
             width: 5%;
             vertical-align: middle;
             text-align: center;
-            border: 1px solid var(--color-primary-3);
             font-size: 1rem;
             line-height: 1.1rem;
 

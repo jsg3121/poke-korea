@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
+import FooterContainer from '~/container/desktop/footer/Footer.container'
 import TypeEffectivenessContainer from '~/container/desktop/typeEffectiveness/TypeEffectiveness.container'
 
 const TypeEffectivenessDesktop = () => {
@@ -22,6 +23,7 @@ const TypeEffectivenessDesktop = () => {
         </h1>
         <TypeEffectivenessContainer />
       </section>
+      <FooterContainer />
     </Main>
   )
 }
