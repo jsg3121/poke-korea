@@ -23,7 +23,7 @@ const TypeEffectivenessResultComponent = () => {
     <Fragment>
       <Section aria-labelledby="calculate-result-type">
         {selectTypeList.length > 0 ? (
-          <h2>{selectTypeListKo} 타입은 이런 이렇게 상대하세요.</h2>
+          <h2>{selectTypeListKo} 타입은 이렇게 상대하세요.</h2>
         ) : (
           <strong>타입을 선택하면 상성을 볼 수 있어요!</strong>
         )}

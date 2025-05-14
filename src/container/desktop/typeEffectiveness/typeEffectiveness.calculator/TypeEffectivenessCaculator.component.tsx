@@ -6,13 +6,20 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const TypeEffectivenessCaculatorComponent = () => {
-  const { isMaxSelectType, selectTypeList, handleChangeTypes } = useContext(
-    TypeEffectivenessContext,
-  )
+  const {
+    isMaxSelectType,
+    selectTypeList,
+    handleChangeTypes,
+    handleResetSelectTypes,
+  } = useContext(TypeEffectivenessContext)
 
   const handleClickType = (e: MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.value as PokemonType
     handleChangeTypes(value)
+  }
+
+  const handleClickResetType = () => {
+    handleResetSelectTypes()
   }
 
   return (
@@ -54,6 +61,16 @@ const TypeEffectivenessCaculatorComponent = () => {
             </li>
           )
         })}
+        <li>
+          <button
+            type="button"
+            className="button-type-reset"
+            disabled={selectTypeList.length === 0}
+            onClick={handleClickResetType}
+          >
+            <p>초기화</p>
+          </button>
+        </li>
       </ul>
     </Section>
   )
@@ -137,6 +154,16 @@ const Section = styled.section`
           height: 2rem;
           font-size: 1rem;
           line-height: calc(2rem + 2px);
+        }
+
+        &.button-type-reset {
+          text-align: center;
+          padding: 0.75rem 1rem;
+          opacity: 0.75;
+
+          & > p {
+            font-size: 0.875rem;
+          }
         }
       }
     }
