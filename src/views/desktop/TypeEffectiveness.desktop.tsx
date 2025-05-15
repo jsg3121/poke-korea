@@ -1,9 +1,8 @@
 import { NextSeo } from 'next-seo'
-import Link from 'next/link'
 import styled from 'styled-components'
-import LogoIcon from '~/assets/logo.svg'
 import { TYPE_EFFECTIVNESS_SEO_META } from '~/constants/seoMetaData'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
+import HeaderContainer from '~/container/desktop/header/Header.container'
 import TypeEffectivenessContainer from '~/container/desktop/typeEffectiveness/TypeEffectiveness.container'
 
 const TypeEffectivenessDesktop = () => {
@@ -37,13 +36,7 @@ const TypeEffectivenessDesktop = () => {
           siteName: '포케 코리아',
         }}
       />
-      <header>
-        <Link href="/">
-          <i className="icon-logo-link">
-            <LogoIcon />
-          </i>
-        </Link>
-      </header>
+      <HeaderContainer />
       <section aria-labelledby="pokemon-type-effectiveness-calculator">
         <h1
           id="pokemon-type-effectiveness-calculator"
@@ -63,20 +56,6 @@ export default TypeEffectivenessDesktop
 const Main = styled.main`
   width: 100%;
   min-height: 100vh;
-
-  & > header {
-    height: 5rem;
-    background-color: var(--color-primary-2);
-    display: flex;
-    align-items: center;
-    padding: 0 2rem;
-
-    & > a {
-      width: 15rem;
-      height: 3rem;
-      display: block;
-    }
-  }
 
   & > section {
     width: 100%;
