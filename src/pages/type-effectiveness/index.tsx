@@ -1,11 +1,15 @@
 import { GetStaticProps } from 'next'
 import { Fragment } from 'react'
+import { useDevice } from '~/context/Device.context'
 import TypeEffectivenessDesktop from '~/views/desktop/TypeEffectiveness.desktop'
+import TypeEffectivenessMobile from '~/views/mobile/TypeEffectiveness.mobile'
 
 const TypeEffectivenessPage = () => {
+  const { isMobile } = useDevice()
+
   return (
     <Fragment>
-      <TypeEffectivenessDesktop />
+      {isMobile ? <TypeEffectivenessMobile /> : <TypeEffectivenessDesktop />}
     </Fragment>
   )
 }

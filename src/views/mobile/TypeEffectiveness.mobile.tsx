@@ -3,10 +3,10 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
 import { TYPE_EFFECTIVNESS_SEO_META } from '~/constants/seoMetaData'
-import FooterContainer from '~/container/desktop/footer/Footer.container'
-import TypeEffectivenessContainer from '~/container/desktop/typeEffectiveness/TypeEffectiveness.container'
+import FooterContainer from '~/container/mobile/footer/Footer.container'
+import TypeEffectivenessContainer from '~/container/mobile/typeEffectiveness/TypeEffectiveness.container'
 
-const TypeEffectivenessDesktop = () => {
+const TypeEffectivenessMobile = () => {
   return (
     <Main>
       <NextSeo
@@ -58,7 +58,7 @@ const TypeEffectivenessDesktop = () => {
   )
 }
 
-export default TypeEffectivenessDesktop
+export default TypeEffectivenessMobile
 
 const Main = styled.main`
   width: 100%;
