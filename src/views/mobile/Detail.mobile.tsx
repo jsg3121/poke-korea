@@ -41,7 +41,7 @@ const Main = styled.main`
   min-height: 100vh;
 
   & > header {
-    height: 5rem;
+    height: 4rem;
     background-color: var(--color-primary-2);
     display: flex;
     align-items: center;
