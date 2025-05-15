@@ -115,7 +115,7 @@ const Section = styled.section`
 
     & > li {
       width: 100%;
-      height: 1.25rem;
+      min-height: 1.25rem;
       color: var(--color-primary-4);
 
       & > strong {
