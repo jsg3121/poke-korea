@@ -51,15 +51,15 @@ const TypeEffectivenessDescription = () => {
         </li>
         <li>
           <strong>
-            <b className="type-color-ground">땅 타입</b>의 포켓몬은 전기자석파의
-            효과를 받지 않고, 모래바람의 데미지를 받지 않아요.
+            <b className="type-color-flying">비행 타입</b>의 포켓몬은
+            압정뿌리기의 데미지를 받지 않고, 독압정을 통한 독, 맹독 상태가 되지
+            않아요.
           </strong>
         </li>
         <li>
           <strong>
-            <b className="type-color-flying">비행 타입</b>의 포켓몬은
-            압정뿌리기의 데미지를 받지 않고, 독압정을 통한 독, 맹독 상태가 되지
-            않아요.
+            <b className="type-color-ground">땅 타입</b>의 포켓몬은 전기자석파의
+            효과를 받지 않고, 모래바람의 데미지를 받지 않아요.
           </strong>
         </li>
         <li>

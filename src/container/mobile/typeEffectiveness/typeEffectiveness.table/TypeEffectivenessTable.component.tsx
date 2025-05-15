@@ -83,51 +83,51 @@ const TypeEffectivenessTableComponent = () => {
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="zero-type">0배</td>
+            <td className="half-type">½</td>
+            <td className="zero-type">0</td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.FIRE}</th>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td></td>
-            <td></td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
             <td></td>
-            <td className="half-type">0.5배</td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
+            <td></td>
+            <td className="half-type">½</td>
+            <td></td>
+            <td className="double-type">2</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.WATER}</th>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
@@ -135,41 +135,41 @@ const TypeEffectivenessTableComponent = () => {
           <tr>
             <th scope="row">{PokemonTypes.GRASS}</th>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.ELECTRIC}</th>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="zero-type">0배</td>
-            <td className="double-type">2배</td>
+            <td className="zero-type">0</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
@@ -177,85 +177,85 @@ const TypeEffectivenessTableComponent = () => {
           <tr>
             <th scope="row">{PokemonTypes.ICE}</th>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td></td>
-            <td></td>
-            <td className="double-type">2배</td>
-            <td className="double-type">2배</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
+            <td className="double-type">2</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="double-type">2</td>
+            <td></td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.FIGHTING}</th>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
-            <td className="zero-type">0배</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
+            <td className="zero-type">0</td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.POISON}</th>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
-            <td className="zero-type">0배</td>
-            <td className="double-type">2배</td>
+            <td className="zero-type">0</td>
+            <td className="double-type">2</td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.GROUND}</th>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
-            <td></td>
-            <td></td>
-            <td className="double-type">2배</td>
-            <td></td>
-            <td className="zero-type">0배</td>
-            <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="zero-type">0</td>
+            <td></td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="double-type">2</td>
             <td></td>
           </tr>
           <tr>
@@ -263,20 +263,20 @@ const TypeEffectivenessTableComponent = () => {
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td></td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
           <tr>
@@ -287,64 +287,64 @@ const TypeEffectivenessTableComponent = () => {
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="zero-type">0배</td>
-            <td className="half-type">0.5배</td>
+            <td className="zero-type">0</td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.BUG}</th>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td></td>
-            <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
-            <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
+            <td></td>
+            <td></td>
+            <td className="half-type">½</td>
+            <td></td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.ROCK}</th>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td></td>
-            <td></td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td></td>
+            <td></td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.GHOST}</th>
-            <td className="zero-type">0배</td>
+            <td className="zero-type">0</td>
             <td></td>
             <td></td>
             <td></td>
@@ -354,12 +354,12 @@ const TypeEffectivenessTableComponent = () => {
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
           <tr>
@@ -378,10 +378,10 @@ const TypeEffectivenessTableComponent = () => {
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="zero-type">0배</td>
+            <td className="half-type">½</td>
+            <td className="zero-type">0</td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.DARK}</th>
@@ -391,59 +391,59 @@ const TypeEffectivenessTableComponent = () => {
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td className="double-type">2</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.STEEL}</th>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
+            <td className="half-type">½</td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
-            <td></td>
-            <td></td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
+            <td></td>
+            <td></td>
+            <td className="double-type">2</td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="half-type">0.5배</td>
-            <td className="double-type">2배</td>
+            <td className="half-type">½</td>
+            <td className="double-type">2</td>
           </tr>
           <tr>
             <th scope="row">{PokemonTypes.FAIRY}</th>
             <td></td>
-            <td className="half-type">0.5배</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td className="double-type">2배</td>
-            <td className="double-type">2배</td>
-            <td className="half-type">0.5배</td>
+            <td className="double-type">2</td>
+            <td className="double-type">2</td>
+            <td className="half-type">½</td>
             <td></td>
           </tr>
         </tbody>
@@ -469,13 +469,13 @@ const Article = styled.div<StyledType>`
         width: 100%;
         height: 2rem;
         caption-side: top;
-        margin: 0 0 0.5rem;
+        margin: 0 0 0½rem;
 
         & > h2 {
-          height: 2rem;
-          font-size: 2rem;
+          height: 1.5rem;
+          font-size: 1.375rem;
           font-weight: 600;
-          line-height: calc(2rem + 2px);
+          line-height: calc(1.5rem + 2px);
           float: left;
           color: var(--color-primary-4);
         }

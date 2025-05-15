@@ -33,7 +33,7 @@ const TableActivePointerComponent = ({
         aria-pressed={activeType === 'double'}
         onClick={handleClickPointer}
       >
-        2배만 보기
+        2배 보기
       </button>
       <button
         type="button"
@@ -42,7 +42,7 @@ const TableActivePointerComponent = ({
         aria-pressed={activeType === 'half'}
         onClick={handleClickPointer}
       >
-        0.5배만 보기
+        0.5배 보기
       </button>
       <button
         type="button"
@@ -51,7 +51,7 @@ const TableActivePointerComponent = ({
         aria-pressed={activeType === 'zero'}
         onClick={handleClickPointer}
       >
-        0배만 보기
+        0배 보기
       </button>
       <button
         type="button"
@@ -59,7 +59,7 @@ const TableActivePointerComponent = ({
         aria-label="초기화"
         onClick={handleClickResetEffective}
       >
-        <ResetIcon width="1rem" height="1rem" alt="선택 배율 초기화" />
+        <ResetIcon width="0.875rem" height="0.875rem" alt="선택 배율 초기화" />
       </button>
     </Div>
   )
@@ -68,7 +68,6 @@ const TableActivePointerComponent = ({
 export default TableActivePointerComponent
 
 const Div = styled.div`
-  height: 16.5rem;
   height: 2rem;
   display: flex;
   align-items: center;
@@ -76,31 +75,24 @@ const Div = styled.div`
   float: right;
 
   & > button {
-    height: 2rem;
-    font-size: 1rem;
-    line-height: calc(2rem + 2px);
+    height: 1rem;
+    font-size: 0.875rem;
+    line-height: calc(1rem + 2px);
     color: var(--color-primary-3);
     display: flex;
     align-items: baseline;
     cursor: pointer;
 
-    &:hover,
     &.active-pointer {
       color: var(--color-primary-4);
     }
 
     &.button-reset {
-      width: 1rem;
-      height: 1rem;
+      width: 0.875rem;
+      height: 0.875rem;
 
       svg {
         fill: var(--color-primary-3);
-      }
-
-      &:hover {
-        svg {
-          fill: var(--color-primary-4);
-        }
       }
     }
   }

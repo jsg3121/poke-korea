@@ -9,8 +9,10 @@ const TypeEffectivenessContainer = () => {
   return (
     <Div>
       <TypeEffectivenessProvider>
-        <TypeEffectivenessCaculatorComponent />
-        <TypeEffectivenessResultComponent />
+        <div className="type-calculator">
+          <TypeEffectivenessCaculatorComponent />
+          <TypeEffectivenessResultComponent />
+        </div>
       </TypeEffectivenessProvider>
       <TypeEffectivenessTableComponent />
       <TypeEffectivenessDescription />
@@ -23,4 +25,9 @@ export default TypeEffectivenessContainer
 const Div = styled.div`
   width: 100%;
   height: 100%;
+
+  & > .type-calculator {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
 `

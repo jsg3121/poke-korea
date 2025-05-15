@@ -41,7 +41,6 @@ export const GlobalStyle = createGlobalStyle`
         -ms-overflow-style: none;
         scrollbar-width: none;
         width: 100%;
-        min-width: 845px;
         height: 100%;
         background-color: var(--color-primary-1);
         scroll-behavior: smooth;
@@ -100,6 +99,13 @@ export const GlobalStyle = createGlobalStyle`
         html,
         body {
             font-size: 16px;
+        }
+    }
+    
+    @media screen and (min-width: 680px){
+        html,
+        body {
+            min-width: 845px;
         }
     }
     @media screen and (min-width: 680px) and (max-width: 959px) {

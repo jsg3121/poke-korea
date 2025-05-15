@@ -22,10 +22,8 @@ const TypeEffectivenessResultComponent = () => {
   return (
     <Fragment>
       <Section aria-labelledby="calculate-result-type">
-        {selectTypeList.length > 0 ? (
-          <h2>{selectTypeListKo} 타입은 이렇게 상대하세요.</h2>
-        ) : (
-          <strong>타입을 선택하면 상성을 볼 수 있어요!</strong>
+        {selectTypeList.length > 0 && (
+          <h2>{selectTypeListKo} 타입은 이렇게 상대하세요!</h2>
         )}
         {isShowWeak && (
           <article>
@@ -88,20 +86,16 @@ const Section = styled.section`
   height: 100%;
   margin: 1rem 0 0;
 
-  & > h2,
-  & > strong {
+  & > h2 {
     width: 100%;
+    height: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-primary-4);
     font-size: 2rem;
     line-height: 2.5rem;
     font-weight: 600;
     color: var(--color-primary-4);
     display: block;
-  }
-
-  & > h2 {
-    height: 4rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--color-primary-4);
   }
 
   & > article {

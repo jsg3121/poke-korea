@@ -35,7 +35,7 @@ export default TypeResultChipComponents
 
 const Span = styled.span`
   min-width: 4rem;
-  height: 3rem;
+  height: 2.5rem;
   border-radius: 1rem;
   font-size: 1rem;
   line-height: calc(1.5rem + 2px);
@@ -44,7 +44,7 @@ const Span = styled.span`
   box-shadow: 1px 2px 6px 0 var(--color-primary-1);
   display: flex;
   gap: 0.25rem;
-  padding: 0.75rem 1rem 0.75rem 0.75rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
 
   & > i {
     width: 1.5rem;

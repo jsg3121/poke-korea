@@ -68,7 +68,6 @@ const TableActivePointerComponent = ({
 export default TableActivePointerComponent
 
 const Div = styled.div`
-  height: 16.5rem;
   height: 2rem;
   display: flex;
   align-items: center;

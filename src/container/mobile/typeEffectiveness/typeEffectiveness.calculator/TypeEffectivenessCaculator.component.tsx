@@ -27,7 +27,7 @@ const TypeEffectivenessCaculatorComponent = () => {
       <header>
         <h2 id="select-type-pokemon">상대 포켓몬 약점 찾기</h2>
         {isMaxSelectType ? (
-          <strong>포켓몬 타입은 최대 2개까지 선택 가능합니다</strong>
+          <strong>포켓몬 타입은 최대 2개까지 선택 가능합니다.</strong>
         ) : (
           <strong>상대하려는 포켓몬의 타입을 선택해주세요!</strong>
         )}
@@ -102,7 +102,7 @@ const Section = styled.section`
       width: 100%;
       height: 2rem;
       display: block;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       line-height: 2rem;
       color: var(--color-primary-4);
       margin-bottom: 1rem;
@@ -135,15 +135,6 @@ const Section = styled.section`
 
         &:disabled {
           filter: grayscale(1);
-        }
-
-        &:not(:disabled):hover {
-          transform: scale(1.1);
-          opacity: 1;
-        }
-
-        &:not(:disabled):active {
-          transform: scale(1.05);
         }
 
         &[data-active='active'] {

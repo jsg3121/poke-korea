@@ -42,13 +42,13 @@ export default ResultListComponents
 const Dt = styled.dt<StyledProps>`
   ${({ importantpoint }) => css`
     width: fit-content;
-    height: 2rem;
-    font-size: 1.25rem;
-    line-height: calc(2rem + 2px);
+    height: 1.75rem;
+    font-size: 1rem;
+    line-height: calc(1.75rem + 2px);
     text-align: left;
     box-shadow: 1px 2px 6px 0 var(--color-primary-1);
-    padding: 0 1rem;
     border-radius: 1rem;
+    padding: 0 0.75rem;
     background-color: ${() => {
       switch (importantpoint) {
         case 5: {
