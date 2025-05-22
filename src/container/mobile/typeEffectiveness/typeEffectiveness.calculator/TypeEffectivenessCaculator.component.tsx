@@ -145,6 +145,7 @@ const Section = styled.section`
           height: 2rem;
           font-size: 1rem;
           line-height: calc(2rem + 2px);
+          color: #333333;
         }
 
         &.button-type-reset {

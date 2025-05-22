@@ -469,6 +469,7 @@ const Article = styled.div<StyledType>`
         width: 100%;
         height: 2rem;
         caption-side: top;
+        position: relative;
         margin: 0 0 0½rem;
 
         & > h2 {
@@ -476,8 +477,9 @@ const Article = styled.div<StyledType>`
           font-size: 1.375rem;
           font-weight: 600;
           line-height: calc(1.5rem + 2px);
-          float: left;
           color: var(--color-primary-4);
+          position: absolute;
+          left: 0;
         }
       }
 
@@ -486,12 +488,17 @@ const Article = styled.div<StyledType>`
 
         & > tr {
           width: 100%;
-          height: 3.5rem;
           background-color: var(--color-primary-3);
+
+          &:first-child {
+            & > th {
+              height: 2rem;
+            }
+          }
 
           & > th {
             width: 5%;
-            height: 100%;
+            height: 4rem;
             font-size: 1rem;
             text-align: center;
             letter-spacing: 1px;
@@ -531,6 +538,7 @@ const Article = styled.div<StyledType>`
           & > th,
           & > td {
             width: 5%;
+            height: 4rem;
             vertical-align: middle;
             text-align: center;
             font-size: 1rem;

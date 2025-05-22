@@ -71,13 +71,16 @@ const Div = styled.div`
   height: 2rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  float: right;
+  gap: 0.25rem;
+  position: absolute;
+  right: 0;
+  color: #ffffff;
 
   & > button {
     height: 1rem;
     font-size: 0.875rem;
     line-height: calc(1rem + 2px);
+    letter-spacing: -0.2px;
     color: var(--color-primary-3);
     display: flex;
     align-items: baseline;

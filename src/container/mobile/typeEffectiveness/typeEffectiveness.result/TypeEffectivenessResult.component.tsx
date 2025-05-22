@@ -112,7 +112,7 @@ const Section = styled.section`
       font-size: 1.25rem;
       line-height: 2rem;
       text-align: left;
-      color: var(--color-primary-4);
+      color: #ffffff;
       margin-bottom: 1rem;
     }
 
