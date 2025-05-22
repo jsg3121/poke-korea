@@ -1,15 +1,17 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
+import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 
 const HeaderContainer = () => {
   return (
     <Header>
-      <Link href="/">
+      <Link href="/" aria-label="메인 화면으로 돌아가기">
         <i className="icon-logo-link">
           <LogoIcon />
         </i>
       </Link>
+      <HeaderSearchContainer />
     </Header>
   )
 }
@@ -21,6 +23,7 @@ const Header = styled.header`
   background-color: var(--color-primary-2);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 20px;
 
   & > a {
