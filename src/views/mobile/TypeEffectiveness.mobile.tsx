@@ -58,18 +58,9 @@ const Main = styled.main`
   min-height: 100vh;
 
   & > section {
-    width: calc(100% - 40px);
+    width: 100%;
     height: 100%;
-    margin: 0 auto;
+    padding: 0 20px;
     position: relative;
-
-    & > h1 {
-      width: 100%;
-      height: 3rem;
-      font-size: 2.5rem;
-      text-align: center;
-      line-height: 3rem;
-      color: var(--color-primary-4);
-    }
   }
 `

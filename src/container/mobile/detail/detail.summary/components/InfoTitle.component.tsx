@@ -5,7 +5,7 @@ interface InfoTitleComponentProps {
 }
 
 const H2 = styled.h2`
-  width: 30rem;
+  width: 100%;
   height: 7rem;
   line-height: 7rem;
   font-weight: 500;

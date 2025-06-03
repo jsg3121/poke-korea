@@ -28,7 +28,7 @@ const TypeEffectivenessTableComponent = () => {
     <Article activetype={activeType} aria-label="포켓몬 타입 상성표">
       <table aria-labelledby="pokemon-type-effectiveness-table">
         <caption>
-          <h2 id="pokemon-type-effectiveness-table">포켓몬 타입별 상성 표</h2>
+          <h2 id="pokemon-type-effectiveness-table">타입별 상성 표</h2>
           <TableActivePointerComponent
             activeType={activeType}
             onClickPointer={handleClickActiveEffective}

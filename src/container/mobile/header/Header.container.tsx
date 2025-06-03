@@ -27,11 +27,12 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 500;
 
   & > a {
-    width: 10rem;
-    height: 2rem;
+    width: 8rem;
     display: block;
 
     & > i {
