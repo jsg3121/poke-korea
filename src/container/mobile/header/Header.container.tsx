@@ -2,6 +2,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
+import HeaderHamburgerNavigation from './header.hamburgerNavigation/HeaderHamburgerNavigation'
 
 const HeaderContainer = () => {
   return (
@@ -12,6 +13,7 @@ const HeaderContainer = () => {
         </i>
       </Link>
       <HeaderSearchContainer />
+      <HeaderHamburgerNavigation />
     </Header>
   )
 }
@@ -25,6 +27,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  position: relative;
 
   & > a {
     width: 10rem;
