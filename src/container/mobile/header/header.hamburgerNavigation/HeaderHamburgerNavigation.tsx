@@ -6,8 +6,8 @@ import GmailIcon from '~/assets/icons/gmail.svg'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 
 type StyleProps = {
-  isAnimating: boolean
-  isOpenHamburger: boolean
+  isanimating: 'stop' | 'animate'
+  isopenhamburger: 'open' | 'close'
 }
 
 const HeaderHamburgerNavigation = () => {
@@ -33,8 +33,8 @@ const HeaderHamburgerNavigation = () => {
         <i></i>
       </Button>
       <Aside
-        isAnimating={isAnimating}
-        isOpenHamburger={isOpenHamburger}
+        isanimating={isAnimating ? 'animate' : 'stop'}
+        isopenhamburger={isOpenHamburger ? 'open' : 'close'}
         data-is-open={isOpenHamburger ? 'open' : 'close'}
       >
         <div>
@@ -113,13 +113,15 @@ const Aside = styled.aside<StyleProps>`
     }
   }
 
-  ${({ isAnimating, isOpenHamburger }) => css`
+  ${({ isanimating, isopenhamburger }) => css`
     width: 100vw;
     height: calc(100vh - 4rem);
     position: absolute;
     top: 4rem;
     right: 0;
-    ${isOpenHamburger || isAnimating ? 'display: block;' : 'display: none;'}
+    ${isopenhamburger === 'open' || isanimating === 'animate'
+      ? 'display: block;'
+      : 'display: none;'}
 
     & > div {
       width: 12rem;
@@ -132,7 +134,7 @@ const Aside = styled.aside<StyleProps>`
       top: 4rem;
       right: -12rem;
       animation: 0.3s ease 0s 1 forwards
-        ${isOpenHamburger ? 'slideIn' : 'slideOut'};
+        ${isopenhamburger === 'open' ? 'slideIn' : 'slideOut'};
       z-index: 1000;
 
       & > nav {
