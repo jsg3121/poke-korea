@@ -1,5 +1,4 @@
 import { forwardRef } from 'react'
-import styled from 'styled-components'
 
 interface InputComponentsProps {
   /**
@@ -12,28 +11,15 @@ interface InputComponentsProps {
   dataLabel: string
 }
 
-const Input = styled.input`
-  width: 100%;
-  height: 100%;
-  border-radius: 2.5rem;
-  font-size: 14px;
-  line-height: calc(3rem - 2px);
-  border: 0;
-  padding: 0 10px;
-
-  &::placeholder {
-    color: var(--color-primary-2);
-  }
-`
-
 const InputComponents = forwardRef<HTMLInputElement, InputComponentsProps>(
   ({ dataLabel, ...restProps }, ref) => {
     return (
-      <Input
+      <input
         id={dataLabel}
         ref={ref}
         type="text"
         placeholder="포켓몬의 이름을 입력해주세요"
+        className="w-full h-full rounded-[2.5rem] text-[14px] leading-[calc(3rem-2px)] border-0 px-[10px] placeholder:text-primary-2"
         {...restProps}
       />
     )
