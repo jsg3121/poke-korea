@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { Fragment, useState } from 'react'
 import styled from 'styled-components'
+import GithubIcon from '~/assets/icons/github.svg'
+import GmailIcon from '~/assets/icons/gmail.svg'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 
 const HeaderHamburgerNavigation = () => {
@@ -29,8 +31,18 @@ const HeaderHamburgerNavigation = () => {
             </ul>
           </nav>
           <div>
-            <button>깃헙 프로필</button>
-            <button>gmail</button>
+            <a
+              href="https://github.com/jsg3121"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <GithubIcon />
+              GitHub 프로필
+            </a>
+            <a href="mailto:xodm95@gmail.com">
+              <GmailIcon />
+              Gmail
+            </a>
           </div>
         </div>
       </Aside>
@@ -114,6 +126,12 @@ const Aside = styled.aside`
       align-items: center;
       justify-content: center;
       gap: 1rem;
+
+      & > a {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0;
+      }
     }
   }
 
