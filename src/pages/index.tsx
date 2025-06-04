@@ -1,6 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import styled from 'styled-components'
 import { useDevice } from '~/context/Device.context'
 import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
 import { PokemonList } from '~/graphql/typeGenerated'
@@ -17,11 +16,6 @@ interface HomeProps {
   loading: boolean
   pokemonList: Array<PokemonList>
 }
-
-const Main = styled.main`
-  width: 100%;
-  min-height: 100vh;
-`
 
 const Home: NextPage<HomeProps> = ({ pokemonList }) => {
   const { isMobile } = useDevice()
@@ -61,13 +55,13 @@ const Home: NextPage<HomeProps> = ({ pokemonList }) => {
           siteName: '포케 코리아',
         }}
       />
-      <Main>
+      <main className="w-full min-h-screen">
         {isMobile ? (
           <MainMobile pokemonList={pokemonList} />
         ) : (
           <MainDesktop pokemonList={pokemonList} />
         )}
-      </Main>
+      </main>
     </>
   )
 }
