@@ -1,11 +1,14 @@
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { useGetPokemonListLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
+import { useOutSideClick } from '~/hook/useOutSideClick'
 import SearchResultList from './search.result/SearchResultList'
 
 const HeaderSearchContainer = () => {
+  const searchRef = useRef<HTMLDivElement>(null)
+  const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)
   const [searchKeyword, debounce] = useDebounce()
 
   const [getPokemonList, { data, loading }] = useGetPokemonListLazyQuery({
@@ -24,7 +27,15 @@ const HeaderSearchContainer = () => {
           name: searchKeyword,
         },
       },
+      onCompleted: (data) => {
+        setIsShowSearchResult(() => true)
+        return data
+      },
     })
+  }
+
+  const handleHideSearchResult = () => {
+    setIsShowSearchResult(() => false)
   }
 
   const pokemonList = (data && data.getPokemonList) || []
@@ -35,8 +46,14 @@ const HeaderSearchContainer = () => {
     }
   }, [searchKeyword])
 
+  useOutSideClick({
+    ref: searchRef,
+    isActive: isShowSearchResult,
+    onOutsideClick: handleHideSearchResult,
+  })
+
   return (
-    <Div aria-labelledby="pokemon-search" role="search">
+    <Div ref={searchRef} aria-labelledby="pokemon-search" role="search">
       <p id="pokemon-search" className="visually-hidden">
         포켓몬 검색하기
       </p>
@@ -56,7 +73,7 @@ const HeaderSearchContainer = () => {
           className="icon-search"
         />
       </div>
-      {searchKeyword !== '' && (
+      {isShowSearchResult && (
         <SearchResultList pokemonList={pokemonList} loading={loading} />
       )}
     </Div>

@@ -48,7 +48,7 @@ const Div = styled.div`
   border-radius: 1.125rem;
   position: absolute;
   top: 3rem;
-  z-index: 100;
+  z-index: 600;
 
   & > ul {
     width: 100%;

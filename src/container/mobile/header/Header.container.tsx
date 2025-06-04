@@ -3,8 +3,11 @@ import styled from 'styled-components'
 import LogoIcon from '~/assets/logo.svg'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 import HeaderHamburgerNavigation from './header.hamburgerNavigation/HeaderHamburgerNavigation'
+import { useRouter } from 'next/router'
 
 const HeaderContainer = () => {
+  const router = useRouter()
+
   return (
     <Header>
       <Link href="/" aria-label="메인 화면으로 돌아가기">
@@ -12,7 +15,7 @@ const HeaderContainer = () => {
           <LogoIcon />
         </i>
       </Link>
-      <HeaderSearchContainer />
+      <HeaderSearchContainer key={`search-key-${router.asPath}`} />
       <HeaderHamburgerNavigation />
     </Header>
   )

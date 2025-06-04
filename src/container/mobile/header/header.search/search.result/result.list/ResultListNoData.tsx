@@ -17,7 +17,7 @@ const Li = styled.li`
   & > p {
     width: 100%;
     height: 2.75rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 2.75rem;
     font-weight: 700;
     color: var(--color-black-2);

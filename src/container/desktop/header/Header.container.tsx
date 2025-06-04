@@ -4,8 +4,11 @@ import GithubIcon from '~/assets/icons/github.svg'
 import GmailIcon from '~/assets/icons/gmail.svg'
 import LogoIcon from '~/assets/logo.svg'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
+import { useRouter } from 'next/router'
 
 const HeaderContainer = () => {
+  const router = useRouter()
+
   return (
     <Header>
       <Link href="/">
@@ -14,7 +17,7 @@ const HeaderContainer = () => {
         </i>
       </Link>
       <div className="search-creater-wrapper">
-        <HeaderSearchContainer />
+        <HeaderSearchContainer key={`search-key-${router.asPath}`} />
         <a href="https://github.com/jsg3121" target="_blank" rel="noreferrer">
           <GithubIcon />
           GitHub 프로필
