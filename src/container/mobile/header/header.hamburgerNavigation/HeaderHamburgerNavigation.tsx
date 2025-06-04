@@ -179,8 +179,6 @@ const Aside = styled.aside<StyleProps>`
     }
 
     &[data-is-open='open'] {
-      display: block;
-
       &::before {
         content: '';
         width: 100%;
