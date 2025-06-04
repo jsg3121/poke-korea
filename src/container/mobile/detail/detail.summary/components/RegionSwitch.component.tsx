@@ -1,55 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import styled from 'styled-components'
 import RegionIcon from '~/assets/icons/region.svg'
-
-const Li = styled.li`
-  & > .switch-region {
-    width: 6.5rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
-    border-radius: 1rem;
-    background-color: var(--color-primary-4);
-    opacity: 0.65;
-
-    &:active {
-      color: #333333;
-      background-color: var(--color-primary-3);
-    }
-
-    &.active-region {
-      opacity: 1;
-
-      & > .icon-region > svg {
-        filter: grayscale(0);
-      }
-    }
-
-    & > span {
-      height: 2rem;
-      font-size: 1rem;
-      font-weight: normal;
-      line-height: calc(2rem + 2px);
-      color: #000000;
-      flex-shrink: 0;
-      padding: 0 0.25rem;
-    }
-
-    & > .icon-region {
-      width: 2rem;
-      height: 2rem;
-      flex-shrink: 0;
-      display: block;
-
-      svg {
-        filter: grayscale(1);
-      }
-    }
-  }
-`
 
 const RegionSwitchComponent = () => {
   const router = useRouter()
@@ -64,19 +15,23 @@ const RegionSwitchComponent = () => {
   }
 
   return (
-    <Li role="button">
+    <li role="button">
       <Link
         href={regionHref}
-        className={`switch-region ${isRegion ? 'active-region' : ''}`}
+        className={`w-26 h-8 flex items-center justify-center px-2 rounded-2xl bg-primary-4 opacity-65 active:text-[#333333] active:bg-primary-3 ${isRegion ? 'opacity-100' : ''}`}
         aria-label="리전폼 변환 스위치"
         replace
       >
-        <i className="icon-region">
+        <i
+          className={`w-8 h-8 flex-shrink-0 block ${isRegion ? '[&>svg]:grayscale-0' : '[&>svg]:grayscale'}`}
+        >
           <RegionIcon />
         </i>
-        <span>리전폼</span>
+        <span className="h-8 text-base font-normal leading-[calc(2rem+2px)] text-black flex-shrink-0 px-1">
+          리전폼
+        </span>
       </Link>
-    </Li>
+    </li>
   )
 }
 
