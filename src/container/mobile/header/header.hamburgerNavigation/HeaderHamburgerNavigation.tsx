@@ -41,7 +41,7 @@ const HeaderHamburgerNavigation = () => {
           <nav>
             <ul>
               <li>
-                <Link href="/">메인 화면</Link>
+                <Link href="/">홈 화면</Link>
               </li>
               <li>
                 <Link href="/type-effectiveness">상성 계산기</Link>
