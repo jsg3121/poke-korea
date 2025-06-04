@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import Ball from './Ball.component'
 import { forwardRef, InputHTMLAttributes } from 'react'
 
@@ -6,114 +5,39 @@ interface CheckboxComponentProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 
-const Checkbox = styled.div`
-  width: fit-content;
-
-  input {
-    display: none;
-  }
-
-  label {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 1.3rem;
-    cursor: pointer;
-
-    .check__icon {
-      width: 1rem;
-      height: 1rem;
-      position: relative;
-
-      .ball {
-        width: 1em;
-        height: 1rem;
-        position: absolute;
-        transform-origin: top left;
-        transform: scale(0) translate(-50%, -50%);
-        top: 50%;
-        left: 50%;
-      }
-
-      .checkbox__unchecked {
-        width: 1rem;
-        height: 1rem;
-        border-radius: 0.3rem;
-        border: 1px solid black;
-        background-color: var(--color-white-2);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 10;
-        transform: scale(1) translate(-50%, -50%);
-        transform-origin: top left;
-        transition: transform 0.3s;
-        will-change: transform;
-      }
-    }
-
-    & > .checkbox__text {
-      height: 100%;
-      margin-left: 0.3rem;
-      font-size: 1rem;
-      line-height: 1.5;
-      color: var(--color-primary-3);
-    }
-  }
-
-  input:checked + label {
-    .ball {
-      transform: scale(1) translate(-50%, -50%);
-    }
-    .checkbox__unchecked {
-      transform: scale(0) translate(-50%, -50%);
-    }
-
-    & > .checkbox__text {
-      color: var(--color-primary-4);
-    }
-  }
-
-  input:disabled + label {
-    .ball {
-      &::after {
-        content: '';
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.35);
-        z-index: 10;
-      }
-    }
-
-    .checkbox__text {
-      color: rgba(0, 0, 0, 0.35);
-    }
-  }
-`
-
 const CheckboxComponent = forwardRef<HTMLInputElement, CheckboxComponentProps>(
   ({ id, label, defaultChecked = false, ...restProps }, inputRef) => {
     return (
-      <Checkbox>
+      <label
+        htmlFor={id}
+        className="w-fit flex items-center relative h-[1.3rem] cursor-pointer"
+      >
         <input
           id={id}
           ref={inputRef}
           type="checkbox"
           defaultChecked={defaultChecked}
+          className="sr-only peer"
           {...restProps}
         />
-        <label htmlFor={id}>
-          <div className="check__icon">
-            <i className="checkbox__unchecked" />
+
+        <div className="w-4 h-4 relative">
+          {/* Unchecked state - 체크되지 않았을 때 보이는 박스 */}
+          <div className="w-4 h-4 rounded-[0.3rem] border border-black-1 bg-white-2 absolute top-1/2 left-1/2 z-10 scale-100 -translate-x-1/2 -translate-y-1/2 origin-top-left transition-transform duration-300 will-change-transform peer-checked:scale-0" />
+
+          {/* Ball - 체크되었을 때 보이는 포켓볼 */}
+          <div className="w-4 h-4 absolute top-1/2 left-1/2 scale-0 -translate-x-1/2 -translate-y-1/2 origin-top-left transition-transform duration-300 will-change-transform peer-checked:scale-100">
             <Ball value={defaultChecked} />
           </div>
-          <span className="checkbox__text">{label}</span>
-        </label>
-      </Checkbox>
+
+          {/* Disabled overlay */}
+          <div className="w-4 h-4 rounded-full absolute top-0 left-0 bg-black/35 z-10 hidden peer-disabled:block" />
+        </div>
+
+        <span className="h-full ml-[0.3rem] text-base leading-[1.5] text-primary-3 peer-checked:text-primary-4 peer-disabled:text-black/35">
+          {label}
+        </span>
+      </label>
     )
   },
 )

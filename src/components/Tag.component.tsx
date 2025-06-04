@@ -1,38 +1,63 @@
-import styled from 'styled-components'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { PokemonTypes, TypesColor } from '~/types/pokemonTypes.types'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 interface TagComponentProps {
   type: PokemonType
 }
 
-const Tag = styled.p<{ color: TypesColor }>`
-  width: 3.6rem;
-  height: 1.5rem;
-  padding: 0 0.5rem;
-  border-radius: 0.625rem;
-  background-color: ${(props) => props.color};
-  text-align: center;
-  display: flex;
-  align-items: center;
+const getTypeClasses = (type: PokemonType): string => {
+  const baseClasses =
+    'w-[3.6rem] h-6 px-2 rounded-[0.625rem] text-center flex items-center'
 
-  & > span {
-    width: 100%;
-    height: 1.3rem;
-    font-size: 0.85rem;
-    text-align: center;
-    line-height: calc(1.3rem + 3px);
-    color: #ffffff;
-    filter: drop-shadow(0px 0px 1px #000000);
-    margin: 0;
+  switch (type) {
+    case 'NORMAL':
+      return `${baseClasses} bg-type-normal`
+    case 'FIRE':
+      return `${baseClasses} bg-type-fire`
+    case 'WATER':
+      return `${baseClasses} bg-type-water`
+    case 'GRASS':
+      return `${baseClasses} bg-type-grass`
+    case 'ELECTRIC':
+      return `${baseClasses} bg-type-electric`
+    case 'ICE':
+      return `${baseClasses} bg-type-ice`
+    case 'FIGHTING':
+      return `${baseClasses} bg-type-fighting`
+    case 'POISON':
+      return `${baseClasses} bg-type-poison`
+    case 'GROUND':
+      return `${baseClasses} bg-type-ground`
+    case 'FLYING':
+      return `${baseClasses} bg-type-flying`
+    case 'PSYCHIC':
+      return `${baseClasses} bg-type-psychic`
+    case 'BUG':
+      return `${baseClasses} bg-type-bug`
+    case 'ROCK':
+      return `${baseClasses} bg-type-rock`
+    case 'GHOST':
+      return `${baseClasses} bg-type-ghost`
+    case 'DRAGON':
+      return `${baseClasses} bg-type-dragon`
+    case 'DARK':
+      return `${baseClasses} bg-type-dark`
+    case 'STEEL':
+      return `${baseClasses} bg-type-steel`
+    case 'FAIRY':
+      return `${baseClasses} bg-type-fairy`
+    default:
+      return `${baseClasses} bg-type-normal`
   }
-`
+}
 
 const TagComponent = ({ type }: TagComponentProps) => {
   return (
-    <Tag color={TypesColor[type]}>
-      <span>{PokemonTypes[type]}</span>
-    </Tag>
+    <p className={getTypeClasses(type)}>
+      <span className="w-full h-[1.3rem] text-[0.85rem] text-center leading-[calc(1.3rem+3px)] text-white m-0 drop-shadow-[0_0_1px_#000000]">
+        {PokemonTypes[type]}
+      </span>
+    </p>
   )
 }
 
