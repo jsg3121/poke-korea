@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { Fragment } from 'react'
 import { useDevice } from '~/context/Device.context'
 import TypeEffectivenessDesktop from '~/views/desktop/TypeEffectiveness.desktop'
@@ -16,7 +16,7 @@ const TypeEffectivenessPage = () => {
 
 export default TypeEffectivenessPage
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {},
   }
