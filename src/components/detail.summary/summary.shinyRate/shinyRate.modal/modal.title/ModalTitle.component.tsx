@@ -1,5 +1,4 @@
 import CloseIcon from '~/assets/close.svg'
-import styled from 'styled-components'
 
 interface ModalTitleComponentProps {
   onClickClose: () => void
@@ -11,49 +10,22 @@ const ModalTitleComponent = ({ onClickClose }: ModalTitleComponentProps) => {
   }
 
   return (
-    <Header>
-      <h2 id="shiny-rate-title">이로치 포획률</h2>
-      <button aria-label="이로치 포획률 팝업 닫기" onClick={handleClickClose}>
-        <CloseIcon
-          width="1.5rem"
-          height="1.5rem"
-          fill="var(--color-primary-1)"
-        />
+    <header className="w-full h-[4.5rem] border-b border-solid border-[#333333] bg-primary-4 flex items-center justify-between pt-6 pb-3 sticky top-0">
+      <h2
+        id="shiny-rate-title"
+        className="h-12 text-[1.75rem] font-medium leading-[3rem]"
+      >
+        이로치 포획률
+      </h2>
+      <button
+        aria-label="이로치 포획률 팝업 닫기"
+        onClick={handleClickClose}
+        className="w-8 h-8 p-1"
+      >
+        <CloseIcon width="1.5rem" height="1.5rem" className="fill-primary-1" />
       </button>
-    </Header>
+    </header>
   )
 }
 
 export default ModalTitleComponent
-
-const Header = styled.header`
-  width: 100%;
-  height: 4.5rem;
-  border-bottom: 1px solid #333333;
-  background-color: var(--color-primary-4);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 1.5rem;
-  padding-bottom: 0.75rem;
-  position: sticky;
-  top: 0;
-
-  & > h2 {
-    height: 3rem;
-    font-size: 1.75rem;
-    font-weight: 500;
-    line-height: 3rem;
-
-    > b {
-      font-size: 1.3rem;
-      color: var(--color-primary-2);
-    }
-  }
-
-  & > button {
-    width: 2rem;
-    height: 2rem;
-    padding: 0.25rem;
-  }
-`

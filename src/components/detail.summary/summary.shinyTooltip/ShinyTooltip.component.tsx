@@ -1,6 +1,5 @@
 import 'dialog-polyfill/dist/dialog-polyfill.css'
 import { Fragment, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import ShinyTooltipModalComponent from './shinyTooltip.modal/ShinyTooltipModal.component'
 
@@ -41,7 +40,12 @@ const ShinyTooltipComponent = () => {
 
   return (
     <Fragment>
-      <Button onClick={handleClickOpenModal}>이로치란?</Button>
+      <button
+        onClick={handleClickOpenModal}
+        className="w-[4.5rem] h-6 text-xs leading-[calc(1.5rem+2px)] text-center text-primary-1 bg-primary-4 rounded-xl"
+      >
+        이로치란?
+      </button>
       <ShinyTooltipModalComponent
         ref={dialogRef}
         onClickCloseModal={handleClickCloseModal}
@@ -51,14 +55,3 @@ const ShinyTooltipComponent = () => {
 }
 
 export default ShinyTooltipComponent
-
-const Button = styled.button`
-  width: 4.5rem;
-  height: 1.5rem;
-  font-size: 0.75rem;
-  line-height: calc(1.5rem + 2px);
-  text-align: center;
-  color: var(--color-primary-1);
-  background-color: var(--color-primary-4);
-  border-radius: 0.75rem;
-`
