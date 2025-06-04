@@ -8,14 +8,21 @@ type UseBodyScrollLockFn = (isLock: boolean) => void
  */
 export const useBodyScrollLock: UseBodyScrollLockFn = (isLock) => {
   useEffect(() => {
+    const preventTouch = (e: TouchEvent) => {
+      e.preventDefault()
+    }
+
     if (isLock) {
       document.body.style.overflow = 'hidden'
+      document.addEventListener('touchmove', preventTouch, { passive: false })
     } else {
       document.body.style.overflow = ''
+      document.removeEventListener('touchmove', preventTouch)
     }
 
     return () => {
       document.body.style.overflow = ''
+      document.removeEventListener('touchmove', preventTouch)
     }
   }, [isLock])
 }

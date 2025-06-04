@@ -52,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
         height: 100%;
     }
 
+
     button {
         background: none;
         padding: 0;
@@ -100,6 +101,13 @@ export const GlobalStyle = createGlobalStyle`
             font-size: 16px;
         }
     }
+    
+    @media screen and (min-width: 680px){
+        html,
+        body {
+            min-width: 845px;
+        }
+    }
     @media screen and (min-width: 680px) and (max-width: 959px) {
         html,
         body {
@@ -111,5 +119,60 @@ export const GlobalStyle = createGlobalStyle`
         body {
             font-size: 12px;
         }
+    }
+
+    .type-color-normal {
+        color:#A8A878;
+    }
+    .type-color-fire {
+        color:#F08030;
+    }
+    .type-color-water {
+        color:#6890F0;
+    }
+    .type-color-grass {
+        color:#78C850;
+    }
+    .type-color-electric {
+        color:#F8D030;
+    }
+    .type-color-ice {
+        color:#98D8D8;
+    }
+    .type-color-fighting {
+        color:#C03028;
+    }
+    .type-color-poison {
+        color:#A040A0;
+    }
+    .type-color-ground {
+        color:#E0C068;
+    }
+    .type-color-flying {
+        color:#A890F0;
+    }
+    .type-color-psychic {
+        color:#F85888;
+    }
+    .type-color-bug {
+        color:#A8B820;
+    }
+    .type-color-rock {
+        color:#a0783f;
+    }
+    .type-color-ghost {
+        color:#705898;
+    }
+    .type-color-dragon {
+        color:#7038F8;
+    }
+    .type-color-dark {
+        color:#656160;
+    }
+    .type-color-steel {
+        color:#B8B8D0;
+    }
+    .type-color-fairy {
+        color:#EE99AC;
     }
 `

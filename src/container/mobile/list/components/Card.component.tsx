@@ -175,7 +175,7 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
           <ImageComponent
             height="10rem"
             width="10rem"
-            alt={`pokemon_id_${pokemonData.number}`}
+            alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
             src={`${imageMode}/${pokemonData.number}.webp`}
             sizes="10rem"
             unoptimized

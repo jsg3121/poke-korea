@@ -10,8 +10,8 @@ import {
   getGenerationParams,
   toBooleanOrUndefined,
 } from '~/module/filter.module'
-import MainDesktop from '~/views/desktop/Main.desktop'
-import MainMobile from '~/views/mobile/Main.mobile'
+import MainDesktop from '~/views/desktop/main/Main.desktop'
+import MainMobile from '~/views/mobile/main/Main.mobile'
 
 interface HomeProps {
   loading: boolean
