@@ -1,5 +1,3 @@
-import styled from 'styled-components'
-
 interface InfoTitleProps {
   name: string
 }
@@ -8,28 +6,14 @@ const InfoTitle = ({ name }: InfoTitleProps) => {
   const fontSize =
     name.length > 14 ? 'small' : name.length > 6 ? 'medium' : 'large'
 
-  return <StyledWrapper data-name-size={fontSize}>{name}</StyledWrapper>
+  return (
+    <h2
+      data-name-size={fontSize}
+      className="w-[30rem] h-28 leading-[7rem] font-medium text-white-1 text-center data-[name-size=large]:text-[3rem] data-[name-size=medium]:text-[2.5rem] data-[name-size=small]:text-[1.8rem]"
+    >
+      {name}
+    </h2>
+  )
 }
 
 export default InfoTitle
-
-const StyledWrapper = styled.h2`
-  width: 30rem;
-  height: 7rem;
-  line-height: 7rem;
-  font-weight: 500;
-  color: var(--color-white-1);
-  text-align: center;
-
-  &[data-name-size='large'] {
-    font-size: 3rem;
-  }
-
-  &[data-name-size='medium'] {
-    font-size: 2.5rem;
-  }
-
-  &[data-name-size='small'] {
-    font-size: 1.8rem;
-  }
-`

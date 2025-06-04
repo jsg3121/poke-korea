@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { CardColor, PokemonTypes } from '~/types/pokemonTypes.types'
@@ -13,12 +12,13 @@ const TypeResultChipComponents = ({
   typeValue,
 }: TypeResultChipComponentsProps) => {
   return (
-    <Span
+    <span
       style={{
         backgroundColor: CardColor[typeValue],
       }}
+      className="min-w-16 h-10 rounded-2xl text-base leading-[calc(1.5rem+2px)] text-center shadow-[1px_1px_1px_var(--color-primary-3)] drop-shadow-[1px_2px_6px_var(--color-primary-1)] flex gap-1 py-2 pr-3 pl-2"
     >
-      <i className="icon-type">
+      <i className="w-6 h-6 block drop-shadow-[1px_1px_1px_var(--color-primary-2)]">
         <ImageComponent
           alt={`${typeLabel} 타입 필터 선택`}
           height="1.5rem"
@@ -27,29 +27,8 @@ const TypeResultChipComponents = ({
         />
       </i>
       {typeLabel}
-    </Span>
+    </span>
   )
 }
 
 export default TypeResultChipComponents
-
-const Span = styled.span`
-  min-width: 4rem;
-  height: 2.5rem;
-  border-radius: 1rem;
-  font-size: 1rem;
-  line-height: calc(1.5rem + 2px);
-  text-align: center;
-  text-shadow: 1px 1px 1px var(--color-primary-3);
-  box-shadow: 1px 2px 6px 0 var(--color-primary-1);
-  display: flex;
-  gap: 0.25rem;
-  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
-
-  & > i {
-    width: 1.5rem;
-    height: 1.5rem;
-    display: block;
-    filter: drop-shadow(1px 1px 1px var(--color-primary-2));
-  }
-`
