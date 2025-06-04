@@ -35,6 +35,7 @@ const Search = styled.div`
       position: fixed;
       top: 0;
       z-index: 10;
+      box-sizing: content-box;
     }
 
     & > .form__search--name {
@@ -42,9 +43,6 @@ const Search = styled.div`
       position: fixed;
       top: 1rem;
       z-index: 100;
-
-      & > .search__button--icon {
-      }
     }
   }
 
