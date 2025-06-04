@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { PokemonList } from '~/graphql/typeGenerated'
 import ResultListLoading from './result.list/ResultListLoading'
 import { Fragment } from 'react'
@@ -12,8 +11,8 @@ interface SearchResultListProps {
 
 const SearchResultList = ({ pokemonList, loading }: SearchResultListProps) => {
   return (
-    <Div>
-      <ul>
+    <div className="w-full min-h-10 bg-white p-4 px-2 rounded-[1.125rem] absolute top-12 z-[600]">
+      <ul className="w-full max-h-60 overflow-y-auto [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:w-[7px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-sm [&::-webkit-scrollbar-track]:p-[2px]">
         {loading ? (
           <ResultListLoading />
         ) : (
@@ -34,41 +33,8 @@ const SearchResultList = ({ pokemonList, loading }: SearchResultListProps) => {
           </Fragment>
         )}
       </ul>
-    </Div>
+    </div>
   )
 }
 
 export default SearchResultList
-
-const Div = styled.div`
-  width: 100%;
-  min-height: 2.5rem;
-  background-color: #ffffff;
-  padding: 1rem 0.5rem;
-  border-radius: 1.125rem;
-  position: absolute;
-  top: 3rem;
-  z-index: 600;
-
-  & > ul {
-    width: 100%;
-    max-height: 15rem;
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-      display: block;
-      width: 7px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--color-primary-2);
-      border-radius: 12px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--color-primary-3);
-      border-radius: 3px;
-      padding: 2px;
-    }
-  }
-`

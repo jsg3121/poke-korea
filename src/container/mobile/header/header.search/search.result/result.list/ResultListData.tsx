@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { imageMode } from '~/module/buildMode'
 
@@ -10,9 +9,11 @@ interface ResultListDataProps {
 
 const ResultListData = ({ name, number }: ResultListDataProps) => {
   return (
-    <Li>
-      <Link href={`/detail/${number}`}>
-        <p>{name}</p>
+    <li className="w-full h-11">
+      <Link href={`/detail/${number}`} className="w-full h-full flex items-center justify-between text-black-2 visited:text-black-2 active:text-black-2">
+        <p className="h-11 text-base leading-[2.75rem] text-black-2">
+          {name}
+        </p>
         <ImageComponent
           height="2rem"
           width="2rem"
@@ -21,34 +22,8 @@ const ResultListData = ({ name, number }: ResultListDataProps) => {
           unoptimized
         />
       </Link>
-    </Li>
+    </li>
   )
 }
 
 export default ResultListData
-
-const Li = styled.li`
-  width: 100%;
-  height: 2.75rem;
-
-  a {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--color-black-2);
-
-    &:visited,
-    &:active {
-      color: var(--color-black-2);
-    }
-
-    & > p {
-      height: 2.75rem;
-      font-size: 1rem;
-      line-height: 2.75rem;
-      color: var(--color-black-2);
-    }
-  }
-`
