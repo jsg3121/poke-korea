@@ -1,32 +1,17 @@
-import styled from 'styled-components'
 import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 const MobileListTopBanner = () => {
   const { slotRef } = useAdSlotEffect()
 
   return (
-    <Div ref={slotRef}>
+    <div ref={slotRef} className="w-full h-fit mt-8 mx-auto">
       <ins
-        className="adsbygoogle"
+        className="adsbygoogle w-[calc(100%-3rem)] block mx-auto text-center"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="1410249585"
       ></ins>
-    </Div>
+    </div>
   )
 }
 
 export default MobileListTopBanner
-
-const Div = styled.div`
-  width: 100%;
-  height: fit-content;
-  margin: 2rem auto 0;
-
-  & > ins {
-    width: calc(100% - 3rem);
-    height: 90px;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-  }
-`
