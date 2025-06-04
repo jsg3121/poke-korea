@@ -21,7 +21,7 @@ const PokemonImageCompoment = () => {
 
   const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
 
-  const imageList = (() => {
+  const getImageList = () => {
     switch (activeType) {
       case 'mega': {
         const megaImages = megaEvolutions?.map((mega, index) => {
@@ -65,7 +65,9 @@ const PokemonImageCompoment = () => {
         }
       }
     }
-  })()
+  }
+
+  const imageList = getImageList()
 
   const handleSlideChange = (data: SwiperClass) => {
     const activeIndex = data.activeIndex

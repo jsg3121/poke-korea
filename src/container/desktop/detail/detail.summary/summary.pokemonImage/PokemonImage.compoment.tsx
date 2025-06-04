@@ -19,9 +19,22 @@ const PokemonImageCompoment = () => {
   } = useContext(DetailContext)
   const router = useRouter()
 
-  const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
-
-  const imageList = (() => {
+  const handleSlideChange = (data: SwiperClass) => {
+    const activeIndex = data.activeIndex
+    router.replace(
+      {
+        query: {
+          ...router.query,
+          activeIndex,
+        },
+      },
+      undefined,
+      {
+        scroll: false,
+      },
+    )
+  }
+  const getImageList = () => {
     switch (activeType) {
       case 'mega': {
         const megaImages = megaEvolutions?.map((mega, index) => {
@@ -65,23 +78,10 @@ const PokemonImageCompoment = () => {
         }
       }
     }
-  })()
-
-  const handleSlideChange = (data: SwiperClass) => {
-    const activeIndex = data.activeIndex
-    router.replace(
-      {
-        query: {
-          ...router.query,
-          activeIndex,
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
   }
+
+  const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
+  const imageList = getImageList()
 
   return (
     <Div

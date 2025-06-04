@@ -73,16 +73,16 @@ export default class MyDocument extends Document {
                 name="naver-site-verification"
                 content="28fbf8b85e4e80ff37d5a2338991716ae74de83f"
               />
+              <meta
+                name="google-adsense-account"
+                content="ca-pub-6481622724376761"
+              ></meta>
+              <script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+              ></script>
             </>
           )}
-          <meta
-            name="google-adsense-account"
-            content="ca-pub-6481622724376761"
-          ></meta>
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-          ></script>
         </Head>
         <body>
           <Main />

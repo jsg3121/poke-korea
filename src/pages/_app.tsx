@@ -18,15 +18,20 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
   return (
     <>
       <GlobalStyle />
-      <Script
-        id="adsbygoogle-init"
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-        crossOrigin="anonymous"
-        strategy="beforeInteractive"
-      />
+      {process.env.NODE_ENV === 'production' && (
+        <Script
+          id="adsbygoogle-init"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
+      )}
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ApolloProvider client={apolloClient}>

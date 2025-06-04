@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
 import styled from 'styled-components'
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
-import HeaderContainer from '~/container/desktop/Header/Header.container'
+import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 import ListContainer from '~/container/desktop/List/List.container'
 import { ListProvider } from '~/context/List.context'
 import { PokemonList } from '~/graphql/typeGenerated'
@@ -13,7 +13,7 @@ interface ManinViewsProps {
 }
 
 const Div = styled.div`
-  padding-bottom: 31rem;
+  padding-bottom: 20rem;
   transition: padding-bottom 0.3s;
   will-change: padding-bottom;
 
