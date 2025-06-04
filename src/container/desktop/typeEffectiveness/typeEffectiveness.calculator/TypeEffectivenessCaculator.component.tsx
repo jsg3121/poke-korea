@@ -54,7 +54,7 @@ const TypeEffectivenessCaculatorComponent = () => {
                   alt={`${typeName} 타입 필터 선택`}
                   height="1.5rem"
                   width="1.5rem"
-                  src={`/assets/type/${types}.svg`}
+                  src={`/assets/type/${types.toLowerCase()}.svg`}
                 />
                 <p>{typeName}</p>
               </button>
