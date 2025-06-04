@@ -135,7 +135,7 @@ const Aside = styled.aside<StyleProps>`
       right: -12rem;
       animation: 0.3s ease 0s 1 forwards
         ${isopenhamburger === 'open' ? 'slideIn' : 'slideOut'};
-      z-index: 1000;
+      z-index: 500;
 
       & > nav {
         width: 100%;
@@ -188,7 +188,7 @@ const Aside = styled.aside<StyleProps>`
         position: absolute;
         top: 0;
         right: 0;
-        z-index: 900;
+        z-index: 400;
       }
     }
   `}
