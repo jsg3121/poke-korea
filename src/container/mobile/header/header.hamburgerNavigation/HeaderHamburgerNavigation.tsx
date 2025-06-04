@@ -85,7 +85,7 @@ const Aside = styled.aside`
     & > nav {
       width: 100%;
       margin-top: 1rem;
-      padding-left: 0.5rem;
+      padding: 0 1.25rem;
 
       & > ul {
         width: 100%;
@@ -98,9 +98,9 @@ const Aside = styled.aside`
 
           & > a {
             width: 100%;
-            height: 2rem;
-            font-size: 1.25rem;
-            line-height: calc(2rem + 2px);
+            height: 1.5rem;
+            font-size: 1rem;
+            line-height: calc(1.5rem + 2px);
             color: var(--color-primary-4);
           }
         }
