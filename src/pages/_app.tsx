@@ -7,6 +7,7 @@ import { DeviceProvider } from '~/context/Device.context'
 import { useApollo } from '~/module/apolloClient'
 import { GlobalStyle } from '~/styles/Global'
 import '~/styles/common.css'
+import '~/styles/globals.css'
 
 type AppType = AppProps & {
   userAgent: string

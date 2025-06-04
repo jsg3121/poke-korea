@@ -1,0 +1,56 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/container/**/*.{js,ts,jsx,tsx}',
+    './src/views/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // 기본 프로젝트 색상
+        'primary-1': '#27374D',
+        'primary-2': '#526D82', 
+        'primary-3': '#9DB2BF',
+        'primary-4': '#DDE6ED',
+        'white-1': '#ffffff',
+        'white-2': '#dddddd',
+        'white-3': '#f2f3f4',
+        'black-1': '#000000',
+        'black-2': '#333333',
+        'shadow-1': '#eeeeee',
+        'shadow-2': '#dddddd',
+        'shadow-3': '#838383',
+        // 포켓몬 타입 색상들
+        'type-normal': '#A8A878',
+        'type-fire': '#F08030',
+        'type-water': '#6890F0',
+        'type-electric': '#F8D030',
+        'type-grass': '#78C850',
+        'type-ice': '#98D8D8',
+        'type-fighting': '#C03028',
+        'type-poison': '#A040A0',
+        'type-ground': '#E0C068',
+        'type-flying': '#A890F0',
+        'type-psychic': '#F85888',
+        'type-bug': '#A8B820',
+        'type-rock': '#B8A038',
+        'type-ghost': '#705898',
+        'type-dragon': '#7038F8',
+        'type-dark': '#705848',
+        'type-steel': '#B8B8D0',
+        'type-fairy': '#EE99AC',
+      },
+      fontFamily: {
+        'gmarket-sans': ['GmarketSans', 'sans-serif'],
+      },
+      screens: {
+        'mobile': {'max': '768px'},
+        'desktop': {'min': '769px'},
+      },
+    },
+  },
+  plugins: [],
+}
+
