@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
 import InputComponents from './components/Input.component'
@@ -9,67 +8,6 @@ import { useEffect } from 'react'
 type SearchFormType = {
   name: string | null
 }
-
-const Search = styled.div`
-  width: 100%;
-  height: 4rem;
-  margin: 2rem auto;
-  position: relative;
-
-  &::before {
-    content: '';
-    width: 100%;
-    height: 4rem;
-    display: block;
-  }
-
-  &[data-is-scroll='scroll'] {
-    &::after {
-      content: '';
-      width: 100%;
-      height: 4rem;
-      background-color: var(--color-primary-1);
-      border-bottom: 1px solid var(--color-primary-4);
-      padding: 1rem 0;
-      display: block;
-      position: fixed;
-      top: 0;
-      z-index: 10;
-      box-sizing: content-box;
-    }
-
-    & > .form__search--name {
-      height: 4rem;
-      position: fixed;
-      top: 1rem;
-      z-index: 100;
-    }
-  }
-
-  & > .form__search--name {
-    width: calc(100% - 3rem);
-    height: 4rem;
-    background-color: #ffffff;
-    border-radius: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    transition: height 0.2s;
-    padding: 0 1.5rem;
-
-    & > .search__button--icon {
-      width: 2rem;
-      height: 2rem;
-      flex-shrink: 0;
-      display: block;
-    }
-  }
-`
 
 const SearchComponent = () => {
   const { observerRef, isScroll } = useHeaderScroll('mobile')
@@ -104,18 +42,27 @@ const SearchComponent = () => {
   }, [router.query])
 
   return (
-    <Search ref={observerRef} data-is-scroll={isScroll ? 'scroll' : ''}>
+    <div
+      ref={observerRef}
+      className={`w-full h-16 my-8 relative before:content-[''] before:w-full before:h-16 before:block ${
+        isScroll
+          ? 'fixed after:content-[""] after:w-full after:h-16 after:bg-primary-1 after:border-b after:border-primary-4 after:py-4 after:block after:fixed after:top-0 after:z-10 after:box-content'
+          : ''
+      }`}
+    >
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}
-          className="form__search--name"
+          className={`w-[calc(100%-3rem)] h-16 bg-white rounded-[2.5rem] flex items-center justify-between gap-4 top-0 left-1/2 -translate-x-1/2 transition-[height] duration-200 px-6 ${
+            isScroll ? 'h-16 fixed top-4 z-[100]' : 'absolute'
+          }`}
           role="search"
         >
           <InputComponents
             dataLabel="search-input-name"
             {...register('name')}
           />
-          <button type="submit" className="search__button--icon">
+          <button type="submit" className="w-8 h-8 flex-shrink-0 block">
             <ImageComponent
               src="/assets/image/search.svg"
               width="2rem"
@@ -125,7 +72,7 @@ const SearchComponent = () => {
           </button>
         </form>
       </FormProvider>
-    </Search>
+    </div>
   )
 }
 

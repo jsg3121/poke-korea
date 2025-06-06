@@ -26,9 +26,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
       <div className="w-full h-12 bg-primary-1 rounded-2xl flex items-center gap-4 p-2">
         <button
           className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-primary-2 text-center ${
-            activeTab === 'strong' 
-              ? 'bg-primary-4 text-primary-1 font-bold' 
-              : 'hover:bg-primary-3 hover:text-primary-2'
+            activeTab === 'strong' && 'bg-primary-4 text-primary-1 font-bold'
           }`}
           onClick={handleClickChangeStrong}
         >
@@ -36,9 +34,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
         </button>
         <button
           className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-primary-2 text-center ${
-            activeTab === 'weak' 
-              ? 'bg-primary-4 text-primary-1 font-bold' 
-              : 'hover:bg-primary-3 hover:text-primary-2'
+            activeTab === 'weak' && 'bg-primary-4 text-primary-1 font-bold'
           }`}
           onClick={handleClickChangeWeak}
         >
