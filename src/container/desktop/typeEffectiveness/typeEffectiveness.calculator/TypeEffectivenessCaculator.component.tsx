@@ -1,5 +1,4 @@
 import { MouseEvent, useContext } from 'react'
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { PokemonType } from '~/graphql/typeGenerated'
@@ -23,31 +22,40 @@ const TypeEffectivenessCaculatorComponent = () => {
   }
 
   return (
-    <Section aria-labelledby="select-type-pokemon">
-      <header>
-        <h2 id="select-type-pokemon">상대 포켓몬 약점 찾기</h2>
+    <section
+      className="w-full border-b border-solid border-primary-4 my-4 mb-8 pb-8"
+      aria-labelledby="select-type-pokemon"
+    >
+      <header className="w-full h-24">
+        <h2
+          id="select-type-pokemon"
+          className="w-full h-10 text-[2rem] leading-10 font-semibold text-primary-4 mb-2"
+        >
+          상대 포켓몬 약점 찾기
+        </h2>
         {isMaxSelectType ? (
-          <strong>포켓몬 타입은 최대 2개까지 선택 가능합니다.</strong>
+          <strong className="w-full h-8 block text-2xl leading-8 text-primary-4 mb-4">
+            포켓몬 타입은 최대 2개까지 선택 가능합니다.
+          </strong>
         ) : (
-          <strong>상대하려는 포켓몬의 타입을 선택해주세요!</strong>
+          <strong className="w-full h-8 block text-2xl leading-8 text-primary-4 mb-4">
+            상대하려는 포켓몬의 타입을 선택해주세요!
+          </strong>
         )}
       </header>
-      <ul className="select-type-list">
+      <ul className="w-full flex flex-wrap items-center gap-2">
         {Object.entries(PokemonTypes).map(([types, typeName]) => {
+          const isActive = selectTypeList.includes(types as PokemonType)
+          const isDisabled =
+            selectTypeList.length === 2 &&
+            selectTypeList.indexOf(types as PokemonType) < 0
           return (
-            <li key={`pokemon-type-key-${types}`}>
+            <li key={`pokemon-type-key-${types}`} className="min-w-16 h-12">
               <button
                 type="button"
                 value={types}
-                data-active={
-                  selectTypeList.includes(types as PokemonType) ? 'active' : ''
-                }
-                disabled={
-                  selectTypeList.length === 2 &&
-                  selectTypeList.indexOf(types as PokemonType) < 0
-                    ? true
-                    : false
-                }
+                className={`group w-full h-12 border-0 rounded-2xl bg-primary-4 flex justify-center items-center gap-2 px-3 pl-3 pr-4 disabled:grayscale hover:scale-110 hover:opacity-100 active:scale-105 ${isActive ? 'opacity-100' : 'opacity-60'}`}
+                disabled={isDisabled}
                 onClick={handleClickType}
               >
                 <ImageComponent
@@ -56,116 +64,28 @@ const TypeEffectivenessCaculatorComponent = () => {
                   width="1.5rem"
                   src={`/assets/type/${types.toLowerCase()}.svg`}
                 />
-                <p>{typeName}</p>
+                <p className="h-8 text-base leading-[calc(2rem+2px)] group-disabled:text-[#8b8b8b]">
+                  {typeName}
+                </p>
               </button>
             </li>
           )
         })}
-        <li>
+        <li className="min-w-16 h-12">
           <button
             type="button"
-            className="button-type-reset"
+            className="group/reset w-full h-12 border-0 rounded-2xl bg-primary-4 flex justify-center items-center text-center px-4 py-[0.75rem] opacity-75 disabled:grayscale"
             disabled={selectTypeList.length === 0}
             onClick={handleClickResetType}
           >
-            <p>초기화</p>
+            <p className="text-sm text-[#333333] group-disabled:text-[#8b8b8b]">
+              초기화
+            </p>
           </button>
         </li>
       </ul>
-    </Section>
+    </section>
   )
 }
 
 export default TypeEffectivenessCaculatorComponent
-
-const Section = styled.section`
-  width: 100%;
-  border-bottom: 1px solid var(--color-primary-4);
-  margin: 1rem 0 2rem;
-  padding-bottom: 2rem;
-
-  & > header {
-    width: 100%;
-    height: 6rem;
-
-    & > h2 {
-      width: 100%;
-      height: 2.5rem;
-      font-size: 2rem;
-      line-height: 2.5rem;
-      font-weight: 600;
-      color: var(--color-primary-4);
-      margin-bottom: 0.5rem;
-    }
-
-    & > strong {
-      width: 100%;
-      height: 2rem;
-      display: block;
-      font-size: 1.5rem;
-      line-height: 2rem;
-      color: var(--color-primary-4);
-      margin-bottom: 1rem;
-    }
-  }
-
-  & > ul {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-
-    & > li {
-      min-width: 4rem;
-      height: 3rem;
-
-      & > button {
-        width: 100%;
-        height: 3rem;
-        border: 0;
-        border-radius: 1rem;
-        background-color: var(--color-primary-4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1rem 0.75rem 0.75rem;
-        opacity: 0.6;
-
-        &:disabled {
-          filter: grayscale(1);
-        }
-
-        &:not(:disabled):hover {
-          transform: scale(1.1);
-          opacity: 1;
-        }
-
-        &:not(:disabled):active {
-          transform: scale(1.05);
-        }
-
-        &[data-active='active'] {
-          opacity: 1;
-        }
-
-        & > p {
-          height: 2rem;
-          font-size: 1rem;
-          line-height: calc(2rem + 2px);
-        }
-
-        &.button-type-reset {
-          text-align: center;
-          padding: 0.75rem 1rem;
-          opacity: 0.75;
-
-          & > p {
-            font-size: 0.875rem;
-          }
-        }
-      }
-    }
-  }
-`
