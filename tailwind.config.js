@@ -11,7 +11,7 @@ module.exports = {
       colors: {
         // 기본 프로젝트 색상
         'primary-1': '#27374D',
-        'primary-2': '#526D82', 
+        'primary-2': '#526D82',
         'primary-3': '#9DB2BF',
         'primary-4': '#DDE6ED',
         'white-1': '#ffffff',
@@ -46,11 +46,12 @@ module.exports = {
         'gmarket-sans': ['GmarketSans', 'sans-serif'],
       },
       screens: {
-        'mobile': {'max': '768px'},
-        'desktop': {'min': '769px'},
+        mobile: { max: '768px' },
+        desktop: { min: '769px' },
+        'desktop-890': { max: '890px' },
+        'desktop-639': { max: '639px' },
       },
     },
   },
   plugins: [],
 }
-
