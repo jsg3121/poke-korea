@@ -51,6 +51,24 @@ module.exports = {
         'desktop-890': { max: '890px' },
         'desktop-639': { max: '639px' },
       },
+      keyframes: {
+        'slide-in': {
+          '0%': {
+            right: '-12rem',
+          },
+          '100%': {
+            right: '0',
+          },
+        },
+        'slide-out': {
+          '0%': {
+            right: '0',
+          },
+          '100%': {
+            right: '-12rem',
+          },
+        },
+      },
     },
   },
   plugins: [],

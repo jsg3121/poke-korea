@@ -1,5 +1,4 @@
 import { MouseEvent } from 'react'
-import styled from 'styled-components'
 import ResetIcon from '~/assets/icons/button-reset.svg'
 
 export type ActivePointerType = 'double' | 'half' | 'zero' | undefined
@@ -25,11 +24,13 @@ const TableActivePointerComponent = ({
   }
 
   return (
-    <Div>
+    <div className="h-8 flex items-center gap-1 absolute right-0 text-white">
       <button
         type="button"
         data-effective="double"
-        className={activeType === 'double' ? 'active-pointer' : ''}
+        className={`h-4 text-sm leading-[calc(1rem+2px)] tracking-[-0.2px] flex items-baseline cursor-pointer ${
+          activeType === 'double' ? 'text-primary-4' : 'text-primary-3'
+        }`}
         aria-pressed={activeType === 'double'}
         onClick={handleClickPointer}
       >
@@ -38,7 +39,9 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="half"
-        className={activeType === 'half' ? 'active-pointer' : ''}
+        className={`h-4 text-sm leading-[calc(1rem+2px)] tracking-[-0.2px] flex items-baseline cursor-pointer ${
+          activeType === 'half' ? 'text-primary-4' : 'text-primary-3'
+        }`}
         aria-pressed={activeType === 'half'}
         onClick={handleClickPointer}
       >
@@ -47,7 +50,9 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="zero"
-        className={activeType === 'zero' ? 'active-pointer' : ''}
+        className={`h-4 text-sm leading-[calc(1rem+2px)] tracking-[-0.2px] flex items-baseline cursor-pointer ${
+          activeType === 'zero' ? 'text-primary-4' : 'text-primary-3'
+        }`}
         aria-pressed={activeType === 'zero'}
         onClick={handleClickPointer}
       >
@@ -55,48 +60,19 @@ const TableActivePointerComponent = ({
       </button>
       <button
         type="button"
-        className="button-reset"
+        className="w-3.5 h-3.5 cursor-pointer"
         aria-label="초기화"
         onClick={handleClickResetEffective}
       >
-        <ResetIcon width="0.875rem" height="0.875rem" alt="선택 배율 초기화" />
+        <ResetIcon
+          width="0.875rem"
+          height="0.875rem"
+          alt="선택 배율 초기화"
+          className="fill-primary-3"
+        />
       </button>
-    </Div>
+    </div>
   )
 }
 
 export default TableActivePointerComponent
-
-const Div = styled.div`
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  position: absolute;
-  right: 0;
-  color: #ffffff;
-
-  & > button {
-    height: 1rem;
-    font-size: 0.875rem;
-    line-height: calc(1rem + 2px);
-    letter-spacing: -0.2px;
-    color: var(--color-primary-3);
-    display: flex;
-    align-items: baseline;
-    cursor: pointer;
-
-    &.active-pointer {
-      color: var(--color-primary-4);
-    }
-
-    &.button-reset {
-      width: 0.875rem;
-      height: 0.875rem;
-
-      svg {
-        fill: var(--color-primary-3);
-      }
-    }
-  }
-`
