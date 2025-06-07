@@ -5,7 +5,6 @@ import Head from 'next/head'
 import Script from 'next/script'
 import { DeviceProvider } from '~/context/Device.context'
 import { useApollo } from '~/module/apolloClient'
-import { GlobalStyle } from '~/styles/Global'
 import '~/styles/common.css'
 import '~/styles/globals.css'
 
@@ -18,7 +17,6 @@ const MyApp = ({ Component, pageProps, userAgent }: AppType) => {
 
   return (
     <>
-      <GlobalStyle />
       {process.env.NODE_ENV === 'production' && (
         <Script
           id="adsbygoogle-init"

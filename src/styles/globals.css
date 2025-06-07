@@ -147,10 +147,10 @@ html.project__detail--show {
   .type-color-flying { @apply text-type-flying; }
   .type-color-psychic { @apply text-type-psychic; }
   .type-color-bug { @apply text-type-bug; }
-  .type-color-rock { color: #a0783f; }
+  .type-color-rock { @apply text-type-rock; }
   .type-color-ghost { @apply text-type-ghost; }
   .type-color-dragon { @apply text-type-dragon; }
-  .type-color-dark { color: #656160; }
+  .type-color-dark { @apply text-type-dark; }
   .type-color-steel { @apply text-type-steel; }
   .type-color-fairy { @apply text-type-fairy; }
 }

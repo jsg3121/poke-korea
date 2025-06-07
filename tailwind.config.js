@@ -45,6 +45,10 @@ module.exports = {
       fontFamily: {
         'gmarket-sans': ['GmarketSans', 'sans-serif'],
       },
+      spacing: {
+        '30': '7.5rem',  // 120px
+        '128': '32rem',  // 512px
+      },
       screens: {
         mobile: { max: '768px' },
         desktop: { min: '769px' },
