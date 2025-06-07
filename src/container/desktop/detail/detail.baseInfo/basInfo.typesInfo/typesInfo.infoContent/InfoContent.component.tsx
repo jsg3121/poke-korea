@@ -28,10 +28,10 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
         aria-label="타입 강점, 약점 변환 버튼"
       >
         <button
-          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-primary-2 text-center ${
+          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-center ${
             activeTab === 'strong'
               ? 'bg-primary-4 text-primary-1 font-bold'
-              : 'hover:bg-primary-3 hover:text-primary-2'
+              : 'hover:bg-primary-3 text-primary-2'
           }`}
           aria-label="강점 타입 확인하기"
           onClick={handleClickChangeStrong}
@@ -39,10 +39,10 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
           강점
         </button>
         <button
-          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-primary-2 text-center ${
+          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-center ${
             activeTab === 'weak'
               ? 'bg-primary-4 text-primary-1 font-bold'
-              : 'hover:bg-primary-3 hover:text-primary-2'
+              : 'hover:bg-primary-3 text-primary-2'
           }`}
           aria-label="약점 타입 확인하기"
           onClick={handleClickChangeWeak}
