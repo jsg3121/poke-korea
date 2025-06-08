@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import ImageComponent from '~/components/Image.component'

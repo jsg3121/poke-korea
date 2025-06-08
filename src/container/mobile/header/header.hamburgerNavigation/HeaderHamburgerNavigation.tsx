@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { Fragment, useState } from 'react'
 import GithubIcon from '~/assets/icons/github.svg'
