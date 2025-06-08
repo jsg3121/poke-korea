@@ -1,3 +1,4 @@
+'use client'
 import { useEffect } from 'react'
 
 type UseBodyScrollLockFn = (isLock: boolean) => void

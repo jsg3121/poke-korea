@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ListContext } from '~/context/List.context'
