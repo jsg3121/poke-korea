@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
-import styled from 'styled-components'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
@@ -84,7 +83,8 @@ const PokemonImageCompoment = () => {
   const imageList = getImageList()
 
   return (
-    <Div
+    <div
+      className="w-[30rem] h-[25rem] [filter:drop-shadow(0px_-3px_3px_#000000)] [&_.swiper-slide>div]:mx-auto"
       aria-labelledby="pokemon-image-slide"
       role="region"
       aria-roledescription="carousel"
@@ -124,18 +124,8 @@ const PokemonImageCompoment = () => {
           })}
         </Swiper>
       )}
-    </Div>
+    </div>
   )
 }
 
 export default PokemonImageCompoment
-
-const Div = styled.div`
-  width: 30rem;
-  height: 25rem;
-  filter: drop-shadow(0px -3px 3px #000000);
-
-  .swiper-slide > div {
-    margin: 0 auto;
-  }
-`

@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { DetailContext } from '~/context/Detail.context'
 import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
 import DescriptionComponent from './baseInfo.description/Description.component'
@@ -13,8 +12,11 @@ const DetailBaseInfoContainer = () => {
   if (!pokemonBaseInfo) return <></> // TODO : 에러 페이지 및 잘못된 페이지로 처리하기
 
   return (
-    <Section aria-label="포켓몬 상세 정보">
-      <div className="grid-wrapper">
+    <section
+      className="w-full max-w-[1280px] flex flex-col gap-12 py-8 px-5 mx-auto"
+      aria-label="포켓몬 상세 정보"
+    >
+      <div className="w-full h-[27.625rem] grid gap-8 grid-cols-[repeat(auto-fit,minmax(calc(50%-1rem),1fr))]">
         <DescriptionComponent />
         {pokemonBaseInfo.evolutionId.length > 0 && (
           <RelationPokemonComponent
@@ -26,26 +28,8 @@ const DetailBaseInfoContainer = () => {
       <DesktopDetailCardBanner />
       <AbilitiesInfoComponent />
       <TypesInfo type={activeTypeInfo.types} />
-    </Section>
+    </section>
   )
 }
 
 export default DetailBaseInfoContainer
-
-const Section = styled.section`
-  width: 100%;
-  max-width: 1280px;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding: 2rem 20px;
-  margin: 0 auto;
-
-  & > .grid-wrapper {
-    width: 100%;
-    height: 27.625rem;
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 1rem), 1fr));
-  }
-`
