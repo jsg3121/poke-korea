@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'

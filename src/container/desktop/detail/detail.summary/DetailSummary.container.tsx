@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import DesktopDetailSidebarBanner from '~/components/adSlot/DesktopDetailSidebarBanner'

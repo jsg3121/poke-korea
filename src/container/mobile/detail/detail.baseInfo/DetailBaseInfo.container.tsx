@@ -1,3 +1,4 @@
+'use client'
 import { DetailContext } from '~/context/Detail.context'
 import AbilitiesInfoComponent from './baseInfo.abilities/AbilitiesInfo.component'
 import DescriptionComponent from './baseInfo.description/Description.component'

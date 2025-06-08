@@ -1,3 +1,4 @@
+'use client'
 import { useContext } from 'react'
 import { ListContext } from '~/context/List.context'
 import FilterComponents from './filter/Filter.components'

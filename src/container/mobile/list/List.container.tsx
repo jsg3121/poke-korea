@@ -1,3 +1,4 @@
+'use client'
 import { VirtuosoGrid } from 'react-virtuoso'
 import dynamic from 'next/dynamic'
 import { ListContext } from '~/context/List.context'
