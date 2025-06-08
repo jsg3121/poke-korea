@@ -3,8 +3,8 @@ import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 const DesktopDetailSidebarBanner = () => {
   const { slotRef } = useAdSlotEffect()
   return (
-    <div 
-      ref={slotRef} 
+    <div
+      ref={slotRef}
       className="max-w-40 max-h-fit absolute -right-[200px] xl:static xl:right-0 max-xl:w-0 max-xl:hidden"
     >
       <ins

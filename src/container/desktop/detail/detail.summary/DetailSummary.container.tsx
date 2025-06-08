@@ -87,7 +87,7 @@ const DetailSummaryContainer = () => {
           <PokemonImageCompoment />
           <InfoTitle name={pokemonInfo.name ?? ''} />
         </section>
-        <section className="h-[32.375rem] flex items-start gap-4 relative z-10">
+        <section className="h-[32.375rem] flex items-start relative z-10">
           <ul
             className="flex flex-col gap-2 absolute top-4 -z-[1]"
             aria-label="포켓몬 상대 변환 스위치 리스트"

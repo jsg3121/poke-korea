@@ -31,7 +31,7 @@ const HeaderContainer = () => {
           Gmail
         </a>
       </div>
-      <nav className="w-screen h-12 flex-shrink-0 self-end bg-primary-3 px-8">
+      <nav className="w-full h-12 flex-shrink-0 self-end bg-primary-3 px-8">
         <ul className="w-full h-full flex items-center flex-row gap-4">
           <li className="min-w-fit h-full px-4">
             <Link
