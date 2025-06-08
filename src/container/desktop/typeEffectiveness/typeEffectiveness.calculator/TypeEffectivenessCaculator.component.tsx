@@ -74,7 +74,7 @@ const TypeEffectivenessCaculatorComponent = () => {
         <li className="min-w-16 h-12">
           <button
             type="button"
-            className="group/reset w-full h-12 border-0 rounded-2xl bg-primary-4 flex justify-center items-center text-center px-4 py-[0.75rem] opacity-75 disabled:grayscale"
+            className="group w-full h-12 border-0 rounded-2xl bg-primary-4 flex justify-center items-center text-center px-4 py-[0.75rem] opacity-75 disabled:grayscale"
             disabled={selectTypeList.length === 0}
             onClick={handleClickResetType}
           >

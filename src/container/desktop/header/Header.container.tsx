@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import styled from 'styled-components'
 import GithubIcon from '~/assets/icons/github.svg'
 import GmailIcon from '~/assets/icons/gmail.svg'
 import LogoIcon from '~/assets/logo.svg'
@@ -10,103 +9,50 @@ const HeaderContainer = () => {
   const router = useRouter()
 
   return (
-    <Header>
-      <Link href="/">
+    <header className="h-30 bg-primary-2 flex items-center justify-between flex-wrap sticky top-0 left-0 z-[500]">
+      <Link href="/" className="w-56 h-8 block ml-8">
         <i className="icon-logo-link">
           <LogoIcon />
         </i>
       </Link>
-      <div className="search-creater-wrapper">
+      <div className="w-128 h-16 flex items-center justify-center gap-4 mr-8">
         <HeaderSearchContainer key={`search-key-${router.asPath}`} />
-        <a href="https://github.com/jsg3121" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/jsg3121"
+          target="_blank"
+          rel="noreferrer"
+          className="w-8 h-8 text-[0px]"
+        >
           <GithubIcon />
           GitHub 프로필
         </a>
-        <a href="mailto:xodm95@gmail.com">
+        <a href="mailto:xodm95@gmail.com" className="w-8 h-8 text-[0px]">
           <GmailIcon />
           Gmail
         </a>
       </div>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">홈 화면</Link>
+      <nav className="w-screen h-12 flex-shrink-0 self-end bg-primary-3 px-8">
+        <ul className="w-full h-full flex items-center flex-row gap-4">
+          <li className="min-w-fit h-full px-4">
+            <Link
+              href="/"
+              className="w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-1"
+            >
+              홈 화면
+            </Link>
           </li>
-          <li>
-            <Link href="/type-effectiveness">상성 계산기</Link>
+          <li className="min-w-fit h-full px-4">
+            <Link
+              href="/type-effectiveness"
+              className="w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-1"
+            >
+              상성 계산기
+            </Link>
           </li>
         </ul>
       </nav>
-    </Header>
+    </header>
   )
 }
 
 export default HeaderContainer
-
-const Header = styled.header`
-  height: 7.5rem;
-  background-color: var(--color-primary-2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 500;
-
-  & > a {
-    width: 14rem;
-    height: 2rem;
-    display: block;
-    margin-left: 2rem;
-  }
-
-  & > .search-creater-wrapper {
-    width: 32rem;
-    height: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-right: 2rem;
-
-    & > a {
-      width: 2rem;
-      height: 2rem;
-      font-size: 0;
-    }
-  }
-
-  & > nav {
-    width: 100vw;
-    height: 3rem;
-    flex-shrink: 0;
-    align-self: flex-end;
-    background-color: var(--color-primary-3);
-    padding: 0 2rem;
-
-    & > ul {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      gap: 1rem;
-
-      & > li {
-        min-width: fit-content;
-        height: 100%;
-        padding: 0 1rem;
-
-        & > a {
-          width: 100%;
-          height: 3rem;
-          font-size: 1rem;
-          line-height: calc(3rem + 2px);
-          color: var(--color-primary-1);
-        }
-      }
-    }
-  }
-`

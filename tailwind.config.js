@@ -35,7 +35,7 @@ module.exports = {
         'type-flying': '#A890F0',
         'type-psychic': '#F85888',
         'type-bug': '#A8B820',
-        'type-rock': '#B8A038',
+        'type-rock': '#a0783f',
         'type-ghost': '#705898',
         'type-dragon': '#7038F8',
         'type-dark': '#705848',
@@ -46,8 +46,8 @@ module.exports = {
         'gmarket-sans': ['GmarketSans', 'sans-serif'],
       },
       spacing: {
-        '30': '7.5rem',  // 120px
-        '128': '32rem',  // 512px
+        30: '7.5rem', // 120px
+        128: '32rem', // 512px
       },
       screens: {
         mobile: { max: '768px' },
