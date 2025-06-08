@@ -1,47 +1,11 @@
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import { getChangeTypeList } from '~/module/getChangeTypeList'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TypeFieldButtonComponents from './components/TypeFieldButton.components'
 import FilterModalComponent from './filter.modal/FilterModal.component'
-
-const FieldTypeInput = styled.div`
-  width: 100%;
-  max-width: 1280px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  margin: 0 auto;
-  padding: 0 20px;
-
-  .button--filter {
-    width: 6rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background-color: #b8bfc9;
-    border-radius: 1rem;
-    color: #142129;
-    font-weight: 500;
-    line-height: 2rem;
-    cursor: pointer;
-  }
-
-  .button--reset {
-    color: var(--color-primary-4);
-
-    &:disabled {
-      color: var(--color-primary-2);
-    }
-  }
-`
 
 const isEmptyQueryCheck = (obj: object): boolean =>
   Object.keys(obj).length === 0
@@ -85,7 +49,11 @@ const FilterPokemonTypeComponent = () => {
   const isEmptyQuery = isEmptyQueryCheck(router.query)
 
   return (
-    <FieldTypeInput role="searchbox" aria-label="타입별 포켓몬 필터 검색">
+    <div
+      role="searchbox"
+      aria-label="타입별 포켓몬 필터 검색"
+      className="w-full max-w-[1280px] h-full flex items-center justify-between relative mx-auto px-5"
+    >
       {Object.entries(PokemonTypes).map(([types, typeName]) => {
         return (
           <TypeFieldButtonComponents
@@ -102,7 +70,10 @@ const FilterPokemonTypeComponent = () => {
           />
         )
       })}
-      <button className="button--filter" onClick={handleClickOpenFilter}>
+      <button
+        className="w-24 h-8 flex items-center justify-center gap-2 bg-[#b8bfc9] rounded-2xl text-[#142129] font-medium leading-8 cursor-pointer"
+        onClick={handleClickOpenFilter}
+      >
         <ImageComponent
           alt="다른 필터 조건 추가"
           src="/assets/image/filter.svg"
@@ -112,7 +83,7 @@ const FilterPokemonTypeComponent = () => {
         필터
       </button>
       <button
-        className="button--reset"
+        className="text-primary-4 disabled:text-primary-2"
         onClick={handleClickReset}
         disabled={isEmptyQuery}
       >
@@ -121,7 +92,7 @@ const FilterPokemonTypeComponent = () => {
       {isOpenModal && (
         <FilterModalComponent onClickCloseModal={handleClickCloseModal} />
       )}
-    </FieldTypeInput>
+    </div>
   )
 }
 

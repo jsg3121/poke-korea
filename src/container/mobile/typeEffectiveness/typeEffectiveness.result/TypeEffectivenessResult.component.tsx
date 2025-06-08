@@ -1,5 +1,4 @@
 import { Fragment, useContext } from 'react'
-import styled from 'styled-components'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { calculateRelationType } from '~/module/calculateRelationType'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
@@ -21,14 +20,24 @@ const TypeEffectivenessResultComponent = () => {
 
   return (
     <Fragment>
-      <Section aria-labelledby="calculate-result-type">
+      <section
+        aria-labelledby="calculate-result-type"
+        className="w-full h-full mt-4"
+      >
         {selectTypeList.length > 0 && (
-          <h2>{selectTypeListKo} 타입은 이렇게 상대하세요!</h2>
+          <h2 className="w-full min-h-12 border-b border-solid border-primary-4 text-[1.375rem] leading-8 font-semibold text-primary-4 block pb-4">
+            {selectTypeListKo} 타입은 이렇게 상대하세요!
+          </h2>
         )}
         {isShowWeak && (
-          <article>
-            <h3 id="calculate-result-type">이런 타입을 쓰면 좋아요!</h3>
-            <dl>
+          <article className="w-full h-fit py-5 px-4 bg-primary-2 rounded-2xl my-8">
+            <h3
+              id="calculate-result-type"
+              className="w-full h-8 text-xl leading-8 text-left text-white mb-4"
+            >
+              이런 타입을 쓰면 좋아요!
+            </h3>
+            <dl className="w-full">
               {quad.length > 0 && (
                 <ResultListComponents
                   title="4배의 데미지를 줄 수 있어요."
@@ -47,9 +56,14 @@ const TypeEffectivenessResultComponent = () => {
           </article>
         )}
         {isShowStrong && (
-          <article>
-            <h3 id="calculate-result-type">이런 타입은 조심 해야해요!</h3>
-            <dl>
+          <article className="w-full h-fit py-5 px-4 bg-primary-2 rounded-2xl my-8">
+            <h3
+              id="calculate-result-type"
+              className="w-full h-8 text-xl leading-8 text-left text-white mb-4"
+            >
+              이런 타입은 조심 해야해요!
+            </h3>
+            <dl className="w-full">
               {half.length > 0 && (
                 <ResultListComponents
                   title="0.5배의 데미지를 받아요."
@@ -74,50 +88,9 @@ const TypeEffectivenessResultComponent = () => {
             </dl>
           </article>
         )}
-      </Section>
+      </section>
     </Fragment>
   )
 }
 
 export default TypeEffectivenessResultComponent
-
-const Section = styled.section`
-  width: 100%;
-  height: 100%;
-  margin: 1rem 0 0;
-
-  & > h2 {
-    width: 100%;
-    height: 3rem;
-    border-bottom: 1px solid var(--color-primary-4);
-    font-size: 1.375rem;
-    line-height: 2.5rem;
-    font-weight: 600;
-    color: var(--color-primary-4);
-    display: block;
-    padding-bottom: 1rem;
-  }
-
-  & > article {
-    width: 100%;
-    height: fit-content;
-    padding: 1.25rem 1rem;
-    background-color: var(--color-primary-2);
-    border-radius: 1rem;
-    margin: 2rem 0;
-
-    & > h3 {
-      width: 100%;
-      height: 2rem;
-      font-size: 1.25rem;
-      line-height: 2rem;
-      text-align: left;
-      color: #ffffff;
-      margin-bottom: 1rem;
-    }
-
-    & > dl {
-      width: 100%;
-    }
-  }
-`
