@@ -24,7 +24,7 @@ const CheckboxComponent = forwardRef<HTMLInputElement, CheckboxComponentProps>(
         <div className="w-4 h-4 rounded-[0.3rem] border border-black-1 bg-white-3 absolute left-0 z-10 scale-100 transition-transform duration-300 will-change-transform peer-checked:scale-0" />
         {/* Ball - 체크되었을 때 보이는 포켓볼 */}
         <div className="w-4 h-4 absolute left-0 scale-0 transition-transform duration-300 will-change-transform peer-checked:scale-100">
-          <Ball value={defaultChecked} />
+          <Ball />
         </div>
         <span className="h-full ml-5 text-base leading-[1.5] text-primary-3 peer-checked:text-primary-4 peer-disabled:text-black/35">
           {label}

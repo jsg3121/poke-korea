@@ -1,5 +1,4 @@
 import { MouseEvent } from 'react'
-import styled from 'styled-components'
 import ResetIcon from '~/assets/icons/button-reset.svg'
 
 export type ActivePointerType = 'double' | 'half' | 'zero' | undefined
@@ -25,11 +24,13 @@ const TableActivePointerComponent = ({
   }
 
   return (
-    <Div>
+    <div className="h-8 flex items-center gap-2 float-right">
       <button
         type="button"
         data-effective="double"
-        className={activeType === 'double' ? 'active-pointer' : ''}
+        className={`h-8 text-base leading-[calc(2rem+2px)] text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
+          activeType === 'double' ? 'text-primary-4' : ''
+        }`}
         aria-pressed={activeType === 'double'}
         onClick={handleClickPointer}
       >
@@ -38,7 +39,9 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="half"
-        className={activeType === 'half' ? 'active-pointer' : ''}
+        className={`h-8 text-base leading-[calc(2rem+2px)] text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
+          activeType === 'half' ? 'text-primary-4' : ''
+        }`}
         aria-pressed={activeType === 'half'}
         onClick={handleClickPointer}
       >
@@ -47,7 +50,9 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="zero"
-        className={activeType === 'zero' ? 'active-pointer' : ''}
+        className={`h-8 text-base leading-[calc(2rem+2px)] text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
+          activeType === 'zero' ? 'text-primary-4' : ''
+        }`}
         aria-pressed={activeType === 'zero'}
         onClick={handleClickPointer}
       >
@@ -55,52 +60,14 @@ const TableActivePointerComponent = ({
       </button>
       <button
         type="button"
-        className="button-reset"
+        className="w-4 h-4 [&>svg]:fill-primary-3 hover:[&>svg]:fill-primary-4"
         aria-label="초기화"
         onClick={handleClickResetEffective}
       >
         <ResetIcon width="1rem" height="1rem" alt="선택 배율 초기화" />
       </button>
-    </Div>
+    </div>
   )
 }
 
 export default TableActivePointerComponent
-
-const Div = styled.div`
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  float: right;
-
-  & > button {
-    height: 2rem;
-    font-size: 1rem;
-    line-height: calc(2rem + 2px);
-    color: var(--color-primary-3);
-    display: flex;
-    align-items: baseline;
-    cursor: pointer;
-
-    &:hover,
-    &.active-pointer {
-      color: var(--color-primary-4);
-    }
-
-    &.button-reset {
-      width: 1rem;
-      height: 1rem;
-
-      svg {
-        fill: var(--color-primary-3);
-      }
-
-      &:hover {
-        svg {
-          fill: var(--color-primary-4);
-        }
-      }
-    }
-  }
-`
