@@ -1,4 +1,3 @@
-'use client'
 import { RefObject, useEffect, useRef, useState } from 'react'
 
 type UseHeaderScrollType = (mode?: 'desktop' | 'mobile') => {

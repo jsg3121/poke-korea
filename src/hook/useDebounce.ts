@@ -1,4 +1,3 @@
-'use client'
 import { useEffect, useState } from 'react'
 
 type DebounceType = (str: string) => void

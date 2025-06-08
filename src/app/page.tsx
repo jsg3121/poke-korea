@@ -56,7 +56,7 @@ interface HomeProps {
 }
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
@@ -76,7 +76,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
     isEvolution: toBooleanOrUndefined(isEvolution as string),
   }
 
-  const { data, loading } = await apolloClient.query({
+  const { data } = await apolloClient.query({
     query: GetPokemonListDocument,
     variables: {
       filter: filterInput,

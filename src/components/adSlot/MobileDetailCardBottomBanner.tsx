@@ -1,3 +1,5 @@
+'use client'
+
 import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 const MobileDetailCardBottomBanner = () => {

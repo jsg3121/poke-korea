@@ -11,18 +11,16 @@ interface ProvidersProps {
   initialApolloState?: any
 }
 
-export default function Providers({ 
-  children, 
-  userAgent, 
-  initialApolloState 
+export default function Providers({
+  children,
+  userAgent,
+  initialApolloState,
 }: ProvidersProps) {
   const { client: apolloClient } = useApollo(initialApolloState)
 
   return (
     <ApolloProvider client={apolloClient}>
-      <DeviceProvider userAgent={userAgent}>
-        {children}
-      </DeviceProvider>
+      <DeviceProvider userAgent={userAgent}>{children}</DeviceProvider>
     </ApolloProvider>
   )
 }

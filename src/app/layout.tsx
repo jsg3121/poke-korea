@@ -10,7 +10,8 @@ export const metadata = {
     default: '포켓몬의 모든 정보 포케 코리아',
     template: '%s - 포케 코리아',
   },
-  description: '언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.',
+  description:
+    '언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.',
   viewport: 'width=device-width, initial-scale=1, user-scalable=no',
   icons: {
     icon: '/favicon.ico',
@@ -21,8 +22,8 @@ interface RootLayoutProps {
   children: ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
-  const headersList = headers()
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
 
   return (
@@ -86,9 +87,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             strategy="beforeInteractive"
           />
         )}
-        <Providers userAgent={userAgent}>
-          {children}
-        </Providers>
+        <Providers userAgent={userAgent}>{children}</Providers>
       </body>
     </html>
   )
