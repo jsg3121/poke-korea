@@ -1,0 +1,99 @@
+import { Metadata } from 'next'
+import { headers } from 'next/headers'
+import { detectUserAgent } from '~/module/device.module'
+import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
+import { PokemonList } from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
+import {
+  changeTypeArrayToString,
+  getGenerationParams,
+  toBooleanOrUndefined,
+} from '~/module/filter.module'
+import MainDesktop from '~/views/desktop/main/Main.desktop'
+import MainMobile from '~/views/mobile/main/Main.mobile'
+
+export const metadata: Metadata = {
+  title: '포켓몬의 모든 정보 포케 코리아',
+  description: `
+    언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.
+    카드형식을 통해 포켓몬의 능력치를 확인할 수 있고 타입 또는 진화 여부 등으로 원하는 포켓몬을 빠르게 찾아보세요.
+    간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색해 확인해보세요.
+  `,
+  openGraph: {
+    type: 'website',
+    url: 'https://poke-korea.com/',
+    title: '포켓몬의 모든 정보 포케 코리아',
+    description:
+      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+    images: [
+      {
+        url: 'https://poke-korea.com/assets/image/ogImage.png',
+        width: 1200,
+        height: 630,
+        alt: 'poke-korea',
+        type: 'image/png',
+      },
+      {
+        url: 'https://poke-korea.com/assets/image/kakaoOg.png',
+        width: 800,
+        height: 800,
+        alt: 'poke-korea',
+        type: 'image/png',
+      },
+    ],
+    siteName: '포케 코리아',
+  },
+  canonical: 'https://poke-korea.com/',
+}
+
+interface HomePageProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+interface HomeProps {
+  pokemonList: Array<PokemonList>
+  isMobile: boolean
+}
+
+const HomePage = async ({ searchParams }: HomePageProps) => {
+  const headersList = headers()
+  const userAgent = headersList.get('user-agent') || ''
+  const isMobile = detectUserAgent(userAgent)
+
+  const apolloClient = initializeApollo()
+
+  const { type, isMega, isRegion, isEvolution, generation, ...restQuery } =
+    searchParams
+
+  const filterInput = {
+    ...restQuery,
+    ...(generation && {
+      generation: getGenerationParams(generation),
+    }),
+    ...(type && { types: changeTypeArrayToString(type as string) }),
+    isMegaEvolution: toBooleanOrUndefined(isMega as string),
+    isRegionForm: toBooleanOrUndefined(isRegion as string),
+    isEvolution: toBooleanOrUndefined(isEvolution as string),
+  }
+
+  const { data, loading } = await apolloClient.query({
+    query: GetPokemonListDocument,
+    variables: {
+      filter: filterInput,
+    },
+  })
+
+  const pokemonList = data?.getPokemonList || []
+
+  return (
+    <main className="w-full min-h-screen">
+      {isMobile ? (
+        <MainMobile pokemonList={pokemonList} />
+      ) : (
+        <MainDesktop pokemonList={pokemonList} />
+      )}
+    </main>
+  )
+}
+
+export default HomePage

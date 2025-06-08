@@ -1,3 +1,5 @@
+'use client'
+
 import MobileDetailCardBottomBanner from '~/components/adSlot/MobileDetailCardBottomBanner'
 import MobileDetailCardTopBanner from '~/components/adSlot/MobileDetailCardTopBanner'
 import DetailBaseInfoContainer from '~/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container'

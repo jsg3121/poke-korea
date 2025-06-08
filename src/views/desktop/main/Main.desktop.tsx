@@ -1,5 +1,6 @@
-import { useRouter } from 'next/router'
-import { ParsedUrlQuery } from 'querystring'
+'use client'
+
+import { useSearchParams } from 'next/navigation'
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
 import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 import ListContainer from '~/container/desktop/List/List.container'
@@ -11,8 +12,8 @@ interface ManinViewsProps {
   pokemonList: Array<PokemonList>
 }
 
-const checkRouteQuery = (query: ParsedUrlQuery) => {
-  const values = Object.values(query)
+const checkSearchParams = (searchParams: URLSearchParams) => {
+  const values = Array.from(searchParams.values())
   return (
     values.some((value) => value !== '') &&
     !values.every((value) => value === '')
@@ -20,10 +21,10 @@ const checkRouteQuery = (query: ParsedUrlQuery) => {
 }
 
 const MainDesktop = ({ pokemonList }: ManinViewsProps) => {
-  const router = useRouter()
+  const searchParams = useSearchParams()
   const { observerRef, isScroll } = useHeaderScroll()
 
-  const hasSearchQuery = checkRouteQuery(router.query ?? {})
+  const hasSearchQuery = checkSearchParams(searchParams)
 
   return (
     <ListProvider

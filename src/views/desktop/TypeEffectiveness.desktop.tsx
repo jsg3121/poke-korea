@@ -1,3 +1,5 @@
+'use client'
+
 import { NextSeo } from 'next-seo'
 import { TYPE_EFFECTIVNESS_SEO_META } from '~/constants/seoMetaData'
 import FooterContainer from '~/container/desktop/footer/Footer.container'

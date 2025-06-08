@@ -1,5 +1,7 @@
+'use client'
+
 import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { ReactNode, createContext } from 'react'
 import {
   PokemonDetail,
