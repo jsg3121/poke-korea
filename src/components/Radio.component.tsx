@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import Ball from './Ball.component'
 import { forwardRef, InputHTMLAttributes } from 'react'
 
@@ -6,87 +5,16 @@ interface RadioComponentProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 
-const Radio = styled.div`
-  input {
-    display: none;
-  }
-
-  label {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 1.3rem;
-    cursor: pointer;
-
-    .ball {
-      width: 1.2rem;
-      height: 1.2rem;
-      position: absolute;
-      transform: scale(0);
-      left: 0;
-    }
-
-    .radio__unchecked {
-      width: 1.2rem;
-      height: 1.2rem;
-      border-radius: 50%;
-      border: 1px solid black;
-      background-color: var(--color-white-3);
-      position: absolute;
-      left: 0;
-      z-index: 10;
-      transform: scale(1);
-      transition: transform 0.3s;
-      will-change: transform;
-    }
-
-    & > .radio__text {
-      margin-left: 1.5rem;
-      font-size: 1rem;
-      color: var(--color-primary-3);
-    }
-  }
-
-  input:checked + label {
-    .ball {
-      transform: scale(1);
-    }
-    .radio__unchecked {
-      transform: scale(0);
-    }
-    & > .radio__text {
-      color: var(--color-primary-4);
-    }
-  }
-
-  input:disabled + label {
-    .ball {
-      &::after {
-        content: '';
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.35);
-        z-index: 10;
-      }
-    }
-
-    .radio__text {
-      color: rgba(0, 0, 0, 0.35);
-    }
-  }
-`
-
 const RadioComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
   (
     { name, label, value, defaultChecked = false, disabled, ...restInputProps },
     ref,
   ) => {
     return (
-      <Radio>
+      <label
+        htmlFor={`${name}__${value}`}
+        className="flex items-center relative h-[1.3rem] cursor-pointer"
+      >
         <input
           ref={ref}
           type="radio"
@@ -95,14 +23,19 @@ const RadioComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
           id={`${name}__${value}`}
           value={value}
           defaultChecked={defaultChecked}
+          className="sr-only peer"
           {...restInputProps}
         />
-        <label htmlFor={`${name}__${value}`}>
-          <i className="radio__unchecked" />
+        {/* Unchecked state - 라디오가 선택되지 않았을 때 보이는 원 */}
+        <div className="w-[1.2rem] h-[1.2rem] rounded-full border border-black-1 bg-white-3 absolute left-0 z-10 scale-100 transition-transform duration-300 will-change-transform peer-checked:scale-0" />
+        {/* Ball - 선택되었을 때 보이는 포켓볼 */}
+        <div className="w-[1.2rem] h-[1.2rem] absolute left-0 scale-0 transition-transform duration-300 will-change-transform peer-checked:scale-100">
           <Ball value={defaultChecked} />
-          <span className="radio__text">{label}</span>
-        </label>
-      </Radio>
+        </div>
+        <span className="ml-6 h-[1.3rem] text-base text-primary-3 peer-checked:text-primary-4 peer-disabled:text-black/35">
+          {label}
+        </span>
+      </label>
     )
   },
 )

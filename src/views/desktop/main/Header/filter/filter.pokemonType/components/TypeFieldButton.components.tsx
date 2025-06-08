@@ -1,6 +1,5 @@
 import isEqual from 'fast-deep-equal'
 import { InputHTMLAttributes, memo } from 'react'
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
@@ -10,79 +9,6 @@ interface TypeFieldButtonComponentsProps
   typeName: PokemonTypes
 }
 
-const TypeFieldButton = styled.div`
-  width: 2rem;
-  text-align: center;
-  transition: transform 0.2s ease-out;
-  will-change: transform;
-  cursor: pointer;
-
-  input {
-    display: none;
-  }
-
-  label {
-    width: 2rem;
-    height: 2rem;
-    opacity: 0.6;
-    filter: grayscale(1) drop-shadow(1px 2px 0px var(--color-black-1));
-    display: block;
-  }
-
-  input:checked + label {
-    opacity: 1;
-    filter: grayscale(0) drop-shadow(1px 2px 0px var(--color-black-1));
-  }
-
-  input:disabled + label {
-    opacity: 0.2;
-  }
-
-  .field__tooltip {
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    font-size: 0.75rem;
-    line-height: 1.25rem;
-    text-align: center;
-    color: #142129;
-    background-color: #f3f6f7;
-    border-radius: 0.5rem;
-    position: absolute;
-    left: 50%;
-    top: 2.5rem;
-    transform: translate(-50%, 0);
-  }
-
-  &:hover {
-    transform: scale(1.4);
-
-    label {
-      opacity: 1;
-    }
-
-    .field__tooltip {
-      width: 3rem;
-      height: 1.25rem;
-      opacity: 1;
-    }
-  }
-
-  &:active {
-    transform: scale(1.2);
-  }
-
-  @media screen and (max-width: 639px) {
-    width: 1.5rem;
-    height: 1.5rem;
-
-    label {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  }
-`
-
 const TypeFieldButtonComponents = ({
   typeName,
   typeValue,
@@ -91,20 +17,24 @@ const TypeFieldButtonComponents = ({
   ...restProps
 }: TypeFieldButtonComponentsProps) => {
   return (
-    <TypeFieldButton
-      className="button__field--type"
+    <div
+      className="group w-8 text-center duration-200 ease-out cursor-pointer hover:scale-[1.4] active:scale-120 max-sm:w-6 max-sm:h-6 desktop-639:w-[1.5rem] desktop-639:h-[1.5rem]"
       role="button"
       aria-label={`포켓몬 필터 ${typeName}타입`}
     >
-      <input
-        type="checkbox"
-        id={`field-type-${typeValue}`}
-        disabled={disabled}
-        value={typeValue}
-        checked={defaultChecked}
-        {...restProps}
-      />
-      <label htmlFor={`field-type-${typeValue}`}>
+      <label
+        htmlFor={`field-type-${typeValue}`}
+        className="w-8 h-8 opacity-60 grayscale drop-shadow-[1px_2px_0px_var(--color-black-1)] block has-[:checked]:opacity-100 has-[:checked]:grayscale-0 has-[:disabled]:opacity-20 max-sm:w-6 max-sm:h-6 desktop-639:w-[1.5rem] desktop-639:h-[1.5rem] cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          id={`field-type-${typeValue}`}
+          disabled={disabled}
+          value={typeValue}
+          checked={defaultChecked}
+          className="hidden"
+          {...restProps}
+        />
         <ImageComponent
           alt={`${typeName} 타입 필터 선택`}
           height="100%"
@@ -113,10 +43,13 @@ const TypeFieldButtonComponents = ({
           loading="lazy"
         />
       </label>
-      <span className="field__tooltip" role="tooltip">
+      <span
+        className="field__tooltip w-0 h-0 overflow-hidden text-xs leading-5 text-center text-[#142129] bg-[#f3f6f7] rounded-lg absolute left-1/2 top-10 -translate-x-1/2 group-hover:w-12 group-hover:h-5 group-hover:opacity-100"
+        role="tooltip"
+      >
         {typeName}
       </span>
-    </TypeFieldButton>
+    </div>
   )
 }
 

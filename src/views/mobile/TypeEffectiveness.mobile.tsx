@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo'
-import styled from 'styled-components'
 import { TYPE_EFFECTIVNESS_SEO_META } from '~/constants/seoMetaData'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
@@ -7,7 +6,7 @@ import TypeEffectivenessContainer from '~/container/mobile/typeEffectiveness/Typ
 
 const TypeEffectivenessMobile = () => {
   return (
-    <Main>
+    <main className="w-full min-h-screen">
       <NextSeo
         title={TYPE_EFFECTIVNESS_SEO_META.title}
         description={TYPE_EFFECTIVNESS_SEO_META.description}
@@ -37,7 +36,10 @@ const TypeEffectivenessMobile = () => {
         }}
       />
       <HeaderContainer />
-      <section aria-labelledby="pokemon-type-effectiveness-calculator">
+      <section
+        aria-labelledby="pokemon-type-effectiveness-calculator"
+        className="w-full h-full px-5 relative"
+      >
         <h1
           id="pokemon-type-effectiveness-calculator"
           className="visually-hidden"
@@ -47,20 +49,8 @@ const TypeEffectivenessMobile = () => {
         <TypeEffectivenessContainer />
       </section>
       <FooterContainer />
-    </Main>
+    </main>
   )
 }
 
 export default TypeEffectivenessMobile
-
-const Main = styled.main`
-  width: 100%;
-  min-height: 100vh;
-
-  & > section {
-    width: 100%;
-    height: 100%;
-    padding: 0 20px;
-    position: relative;
-  }
-`

@@ -1,9 +1,9 @@
-import styled from 'styled-components'
-
 const ModalTableComponent = () => {
   return (
-    <Table aria-label="이로치 포획률">
-      <caption>포켓몬 세대별 이로치 포획률</caption>
+    <table aria-label="이로치 포획률" className="w-full">
+      <caption className="w-full text-xs text-right text-primary-2 caption-bottom mt-1">
+        포켓몬 세대별 이로치 포획률
+      </caption>
       <colgroup>
         <col width={'10%'} />
         <col width={'22.5%'} />
@@ -11,214 +11,177 @@ const ModalTableComponent = () => {
         <col width={'22.5%'} />
         <col width={'22.5%'} />
       </colgroup>
-      <thead>
-        <tr>
-          <th>
-            <p>세대</p>
+      <thead className="border-b border-solid border-primary-1">
+        <tr className="w-full h-14 bg-primary-3">
+          <th className="text-center align-middle">
+            <p className="w-full h-full text-[0.9rem] text-black">세대</p>
           </th>
-          <th>
-            <p>기본 출현률</p>
+          <th className="text-center align-middle">
+            <p className="w-full h-full text-[0.9rem] text-black">
+              기본 출현률
+            </p>
           </th>
-          <th>
-            <p>국제 교배*</p>
+          <th className="text-center align-middle">
+            <p className="w-full h-full text-[0.9rem] text-black">국제 교배*</p>
           </th>
-          <th>
-            <p>빛나는 부적*</p>
+          <th className="text-center align-middle">
+            <p className="w-full h-full text-[0.9rem] text-black">
+              빛나는 부적*
+            </p>
           </th>
-          <th>
-            <p>
+          <th className="text-center align-middle">
+            <p className="w-full h-full text-[0.9rem] text-black">
               국제 교배 <br />+ <br />
               빛나는 부적
             </p>
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <th scope="row" role="columnheader">
-            <p>2세대</p>
+      <tbody className="w-full border-b border-solid border-primary-1">
+        <tr className="h-12">
+          <th
+            scope="row"
+            role="columnheader"
+            className="align-middle text-center"
+          >
+            <p className="w-full text-[0.9rem] text-primary-1">2세대</p>
           </th>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/8192 <br />
-              <span>(0.012%)</span>
+              <span className="text-xs text-primary-2">(0.012%)</span>
             </p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
         </tr>
-        <tr>
-          <th scope="row" role="columnheader">
-            <p>3세대</p>
+        <tr className="h-12">
+          <th
+            scope="row"
+            role="columnheader"
+            className="align-middle text-center"
+          >
+            <p className="w-full text-[0.9rem] text-primary-1">3세대</p>
           </th>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/8192 <br />
-              <span>(0.012%)</span>
+              <span className="text-xs text-primary-2">(0.012%)</span>
             </p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
         </tr>
-        <tr>
-          <th scope="row" role="columnheader">
-            <p>4세대</p>
+        <tr className="h-12">
+          <th
+            scope="row"
+            role="columnheader"
+            className="align-middle text-center"
+          >
+            <p className="w-full text-[0.9rem] text-primary-1">4세대</p>
           </th>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/8192
-              <br /> <span>(0.012%)</span>
+              <br /> <span className="text-xs text-primary-2">(0.012%)</span>
             </p>
           </td>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/2048 <br />
-              <span>(0.048%)</span>
+              <span className="text-xs text-primary-2">(0.048%)</span>
             </p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
-          <td>
-            <p>-</p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">-</p>
           </td>
         </tr>
-        <tr>
-          <th scope="row" role="columnheader">
-            <p>5세대</p>
+        <tr className="h-12">
+          <th
+            scope="row"
+            role="columnheader"
+            className="align-middle text-center"
+          >
+            <p className="w-full text-[0.9rem] text-primary-1">5세대</p>
           </th>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/8192 <br />
-              <span>(0.012%)</span>
+              <span className="text-xs text-primary-2">(0.012%)</span>
             </p>
           </td>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/1365 <br />
-              <span>(0.073%)</span>
+              <span className="text-xs text-primary-2">(0.073%)</span>
             </p>
           </td>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/2730 <br />
-              <span>(0.037%)</span>
+              <span className="text-xs text-primary-2">(0.037%)</span>
             </p>
           </td>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/1024 <br />
-              <span>(0.098%)</span>
+              <span className="text-xs text-primary-2">(0.098%)</span>
             </p>
           </td>
         </tr>
-        <tr>
-          <th scope="row" role="columnheader">
-            <p>6세대~</p>
+        <tr className="h-12">
+          <th
+            scope="row"
+            role="columnheader"
+            className="align-middle text-center"
+          >
+            <p className="w-full text-[0.9rem] text-primary-1">6세대~</p>
           </th>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/4096 <br />
-              <span>(0.024%)</span>
+              <span className="text-xs text-primary-2">(0.024%)</span>
             </p>
           </td>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/682 <br />
-              <span>(0.147%)</span>
+              <span className="text-xs text-primary-2">(0.147%)</span>
             </p>
           </td>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/1365
-              <br /> <span>(0.073%)</span>
+              <br /> <span className="text-xs text-primary-2">(0.073%)</span>
             </p>
           </td>
-          <td>
-            <p>
+          <td className="align-middle text-center">
+            <p className="w-full text-[0.9rem] text-primary-1">
               1/512 <br />
-              <span>(0.195%)</span>
+              <span className="text-xs text-primary-2">(0.195%)</span>
             </p>
           </td>
         </tr>
       </tbody>
-    </Table>
+    </table>
   )
 }
 
 export default ModalTableComponent
-
-const Table = styled.table`
-  width: 100%;
-
-  & > caption {
-    width: 100%;
-    font-size: 0.75rem;
-    text-align: right;
-    color: var(--color-primary-2);
-    caption-side: bottom;
-    margin: 0.25rem 0 0;
-  }
-
-  & > thead {
-    border-bottom: 1px solid var(--color-primary-1);
-
-    & > tr {
-      width: 100%;
-      height: 3.5rem;
-      background-color: var(--color-primary-3);
-
-      & > th {
-        text-align: center;
-        vertical-align: middle;
-
-        & > p {
-          width: 100%;
-          height: 100%;
-          font-size: 0.9rem;
-          color: #000000;
-        }
-      }
-    }
-  }
-
-  & > tbody {
-    width: 100%;
-    border-bottom: 1px solid var(--color-primary-1);
-
-    & > tr {
-      height: 3rem;
-
-      & > th,
-      & > td {
-        vertical-align: middle;
-        text-align: center;
-
-        & > p {
-          width: 100%;
-          font-size: 0.9rem;
-          color: var(--color-primary-1);
-
-          & > span {
-            font-size: 0.75rem;
-            color: var(--color-primary-2);
-          }
-        }
-      }
-    }
-  }
-`

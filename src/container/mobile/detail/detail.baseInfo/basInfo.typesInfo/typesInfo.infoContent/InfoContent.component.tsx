@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import styled from 'styled-components'
 import { UseRelationType } from '~/module/calculateRelationType'
 import TypeListComponent from './components/TypeList.component'
 
@@ -23,22 +22,30 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
   }
 
   return (
-    <Article>
-      <div className="type-tabs">
+    <article className="w-full">
+      <div className="w-full h-12 bg-primary-1 rounded-2xl flex items-center gap-4 p-2">
         <button
-          data-active={activeTab === 'strong' ? 'active' : ''}
+          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-center ${
+            activeTab === 'strong'
+              ? 'bg-primary-4 text-primary-1 font-bold'
+              : 'text-primary-2'
+          }`}
           onClick={handleClickChangeStrong}
         >
           강점
         </button>
         <button
-          data-active={activeTab === 'weak' ? 'active' : ''}
+          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-center ${
+            activeTab === 'weak'
+              ? 'bg-primary-4 text-primary-1 font-bold'
+              : 'text-primary-2'
+          }`}
           onClick={handleClickChangeWeak}
         >
           약점
         </button>
       </div>
-      <dl className="info-description">
+      <dl className="w-full h-[calc(100%-2rem)] flex flex-col gap-4 mt-6">
         {activeTab === 'strong' && (
           <>
             {relationType.half.length > 0 && (
@@ -83,54 +90,8 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
           </>
         )}
       </dl>
-    </Article>
+    </article>
   )
 }
 
 export default InfoContentComponent
-
-const Article = styled.article`
-  width: 100%;
-
-  & > .type-tabs {
-    width: 100%;
-    height: 3rem;
-    background-color: var(--color-primary-1);
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem;
-
-    & > button {
-      width: calc(50% - 0.5rem);
-      height: 2rem;
-      border-radius: 0.725rem;
-      font-size: 1.125rem;
-      line-height: calc(2rem + 2px);
-      color: var(--color-primary-2);
-      text-align: center;
-
-      &:not([data-active='active']):hover {
-        background-color: var(--color-primary-3);
-        color: var(--color-primary-2);
-      }
-
-      &[data-active='active'] {
-        height: 2rem;
-        background-color: var(--color-primary-4);
-        color: var(--color-primary-1);
-        font-weight: 700;
-      }
-    }
-  }
-
-  & > .info-description {
-    width: 100%;
-    height: calc(100% - 2rem);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-`

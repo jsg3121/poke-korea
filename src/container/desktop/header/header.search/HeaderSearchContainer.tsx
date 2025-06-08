@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { useGetPokemonListLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
@@ -53,17 +52,23 @@ const HeaderSearchContainer = () => {
   })
 
   return (
-    <Div ref={searchRef} aria-labelledby="pokemon-search" role="search">
+    <div
+      ref={searchRef}
+      className="w-[25rem] relative"
+      aria-labelledby="pokemon-search"
+      role="search"
+    >
       <p id="pokemon-search" className="visually-hidden">
         포켓몬 검색하기
       </p>
-      <div className="search-pokemon">
+      <div className="w-full h-12 flex items-center relative bg-white rounded-3xl px-[7px] overflow-hidden">
         <input
           type="text"
           name="search-pokemon"
           placeholder="포켓몬 검색"
-          autoComplete="none"
+          autoComplete="off"
           onChange={handleChangeKeyword}
+          className="w-full h-full text-base text-[#333333] bg-white border-0 px-[3px] py-[5px]"
         />
         <ImageComponent
           src="/assets/image/search.svg"
@@ -76,35 +81,8 @@ const HeaderSearchContainer = () => {
       {isShowSearchResult && (
         <SearchResultList pokemonList={pokemonList} loading={loading} />
       )}
-    </Div>
+    </div>
   )
 }
 
 export default HeaderSearchContainer
-
-const Div = styled.div`
-  width: 25rem;
-  position: relative;
-
-  & > .search-pokemon {
-    width: 100%;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    position: relative;
-    background-color: #ffffff;
-    border-radius: 1.5rem;
-    padding: 0 7px;
-    overflow: hidden;
-
-    & > input {
-      width: 100%;
-      height: 100%;
-      font-size: 1rem;
-      color: #333333;
-      background-color: #ffffff;
-      border: 0;
-      padding: 5px 3px 4px;
-    }
-  }
-`

@@ -1,65 +1,9 @@
 import { useRouter } from 'next/router'
-import styled from 'styled-components'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ListContext } from '~/context/List.context'
 import InputComponents from './components/Input.component'
 import ImageComponent from '~/components/Image.component'
 import { useContext, useEffect } from 'react'
-
-const Search = styled.div`
-  width: 100%;
-  max-width: 41.66666667rem;
-  height: 3.33333333rem;
-  border: 1px solid #dddddd;
-  box-shadow:
-    0 3px 12px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.08);
-  border-radius: 2.22222222rem;
-  background-color: #ffffff;
-  position: relative;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  transition:
-    top 0.3s,
-    width 0.3s,
-    max-width 0.3s;
-  will-change: top, width, max-width;
-
-  &[data-scrolling='true'],
-  &[data-searching='has-query'] {
-    width: 40%;
-    max-width: 600px;
-    top: 0;
-
-    @media screen and (max-width: 890px) {
-      left: 80%;
-    }
-  }
-
-  &:hover {
-    background-color: #ebebeb;
-    border-radius: 2.22222222rem;
-  }
-
-  .search__input {
-    width: calc(100% - 3.5rem);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .search__button--icon {
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    top: 50%;
-    right: 1rem;
-    transform: translate(0, -50%);
-    cursor: pointer;
-  }
-`
 
 type SearchFormType = {
   name: string | null
@@ -97,14 +41,17 @@ const SearchComponent = () => {
   }, [router.query])
 
   return (
-    <Search
-      data-scrolling={scrolling}
-      data-searching={searching ? 'has-query' : ''}
+    <div
+      className={`max-w-[41.66666667rem] h-[3.33333333rem] border border-[#dddddd] shadow-[0_3px_12px_0_rgba(0,0,0,0.1),0_1px_2px_0_rgba(0,0,0,0.08)] rounded-[2.22222222rem] bg-white relative  left-1/2 -translate-x-1/2 transition-[top,width,max-width] duration-300 will-change-[top,width,max-width] hover:bg-[#ebebeb] hover:rounded-[2.22222222rem] ${
+        scrolling || searching
+          ? 'desktop-890:left-[80%] max-[890px]:left-[80%] w-[40%] max-w-[600px] top-0 '
+          : 'top-8 w-full'
+      }`}
     >
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}
-          className="search__input"
+          className="w-[calc(100%-3.5rem)] h-full flex items-center justify-between"
           role="search"
         >
           <InputComponents
@@ -113,7 +60,10 @@ const SearchComponent = () => {
             label="포켓몬 검색"
             {...register('name')}
           />
-          <button type="submit" className="search__button--icon">
+          <button
+            type="submit"
+            className="w-8 h-8 absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer"
+          >
             <ImageComponent
               src="/assets/image/search.svg"
               width="2rem"
@@ -123,7 +73,7 @@ const SearchComponent = () => {
           </button>
         </form>
       </FormProvider>
-    </Search>
+    </div>
   )
 }
 

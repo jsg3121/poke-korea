@@ -1,66 +1,11 @@
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
-import styled from 'styled-components'
 import ImageComponent from '~/components/Image.component'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import { getChangeTypeList } from '~/module/getChangeTypeList'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TypeFieldButtonComponents from './components/TypeFieldButton.components'
 import FilterModalComponent from './filter.modal/FilterModal.component'
-
-const Div = styled.div`
-  width: calc(100% - 3rem);
-  margin: 1rem auto 0;
-
-  & > .select-types-wrapper {
-    width: 100%;
-    height: 6rem;
-    background-color: var(--color-primary-4);
-    border-radius: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    overflow-x: scroll;
-    padding: 0 1.5rem;
-  }
-
-  & > .select-filter-wrapper {
-    width: 100%;
-    border-bottom: 1px solid var(--color-primary-4);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 1rem;
-    padding-bottom: 1rem;
-
-    & > .button--filter {
-      height: 2.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      background-color: var(--color-primary-4);
-      border-radius: 3rem;
-      padding: 0 1rem;
-
-      & > span {
-        height: 2.5rem;
-        font-size: 1.125rem;
-        line-height: calc(2.5rem + 2px);
-        color: var(--color-primary-1);
-      }
-    }
-
-    & > .button--reset {
-      font-size: 1.125rem;
-      line-height: 2.5rem;
-      color: var(--color-primary-4);
-
-      &:disabled {
-        color: var(--color-primary-2);
-      }
-    }
-  }
-`
 
 const isEmptyQueryCheck = (obj: object): boolean =>
   Object.keys(obj).length === 0
@@ -104,9 +49,9 @@ const FilterPokemonTypeComponent = () => {
   const isEmptyQuery = isEmptyQueryCheck(router.query)
 
   return (
-    <Div>
+    <div className="w-[calc(100%-3rem)] mt-4 mx-auto">
       <div
-        className="select-types-wrapper"
+        className="w-full h-24 bg-primary-4 rounded-[2rem] flex items-center gap-4 overflow-x-scroll px-6"
         role="searchbox"
         aria-label="타입별 포켓몬 필터 검색"
       >
@@ -127,18 +72,25 @@ const FilterPokemonTypeComponent = () => {
           )
         })}
       </div>
-      <div className="select-filter-wrapper">
-        <button className="button--filter" onClick={handleClickOpenFilter}>
+      <div className="w-full border-b border-solid border-primary-4 flex items-center justify-between mt-4 pb-4">
+        <button
+          className="h-10 flex items-center gap-1 bg-primary-4 rounded-[3rem] px-4"
+          onClick={handleClickOpenFilter}
+        >
           <ImageComponent
             alt="다른 필터 조건 추가"
             src="/assets/image/filter.svg"
             height="1.5rem"
             width="1.5rem"
           />
-          <span>필터</span>
+          <span className="h-10 text-lg leading-[calc(2.5rem+2px)] text-primary-1">
+            필터
+          </span>
         </button>
         <button
-          className="button--reset"
+          className={`text-lg leading-10 ${
+            isEmptyQuery ? 'text-primary-2' : 'text-primary-4'
+          }`}
           onClick={handleClickReset}
           disabled={isEmptyQuery}
         >
@@ -148,7 +100,7 @@ const FilterPokemonTypeComponent = () => {
           <FilterModalComponent onClickCloseModal={handleClickCloseModal} />
         )}
       </div>
-    </Div>
+    </div>
   )
 }
 

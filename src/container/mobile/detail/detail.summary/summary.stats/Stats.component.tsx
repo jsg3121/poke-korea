@@ -1,56 +1,22 @@
-import styled from 'styled-components'
 import { PokemonStats } from '~/graphql/typeGenerated'
 import StatChartComponent from './components/StatChart.component'
 
-const Article = styled.article`
-  width: calc(100% - 40px);
-  height: 100%;
-  background-color: var(--color-primary-4);
-  border: 3px solid var(--color-primary-1);
-  border-radius: 1rem;
-  box-shadow: 0 0 0px 3px var(--color-primary-4);
-  padding: 1rem;
-  margin: 0 auto;
-
-  & > header {
-    width: 100%;
-    height: 4rem;
-    border-bottom: 1px solid var(--color-primary-1);
-
-    & > h2 {
-      height: 2rem;
-      font-size: 1.5rem;
-      line-height: 2rem;
-      color: var(--color-primary-1);
-    }
-
-    & > strong {
-      height: 1.5rem;
-      font-size: 1rem;
-      line-height: 1.5rem;
-      color: var(--color-primary-2);
-    }
-  }
-
-  & > .stat-chart {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1 / 1;
-    margin: 1rem auto 0;
-  }
-`
-
 const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
   return (
-    <Article aria-label="포켓몬 능력치 정보">
-      <header>
-        <h2>능력치</h2>
-        <strong>총 합: {total}</strong>
+    <article
+      className="w-[calc(100%-40px)] h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 mx-auto"
+      aria-label="포켓몬 능력치 정보"
+    >
+      <header className="w-full h-16 border-b border-solid border-primary-1">
+        <h2 className="h-8 text-2xl leading-8 text-primary-1">능력치</h2>
+        <strong className="h-6 text-base leading-6 text-primary-2">
+          총 합: {total}
+        </strong>
       </header>
-      <div className="stat-chart">
+      <div className="w-full h-full aspect-square mt-4 mx-auto">
         <StatChartComponent {...restProps} />
       </div>
-    </Article>
+    </article>
   )
 }
 

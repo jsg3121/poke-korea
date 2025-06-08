@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import MobileDetailCardBottomBanner from '~/components/adSlot/MobileDetailCardBottomBanner'
 import MobileDetailCardTopBanner from '~/components/adSlot/MobileDetailCardTopBanner'
 import DetailBaseInfoContainer from '~/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container'
@@ -8,10 +7,10 @@ import HeaderContainer from '~/container/mobile/header/Header.container'
 
 const DetailMobile = () => {
   return (
-    <Main>
+    <main className="w-full min-h-screen">
       <HeaderContainer />
       <section
-        className="pokemon-detail-content"
+        className="w-full h-full p-0 mx-auto relative"
         aria-labelledby="pokemon-detail-info"
       >
         <h1 className="visually-hidden" id="pokemon-detail-info">
@@ -23,21 +22,8 @@ const DetailMobile = () => {
       </section>
       <MobileDetailCardBottomBanner />
       <FooterContainer />
-    </Main>
+    </main>
   )
 }
 
 export default DetailMobile
-
-const Main = styled.main`
-  width: 100%;
-  min-height: 100vh;
-
-  & > .pokemon-detail-content {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0 auto;
-    position: relative;
-  }
-`

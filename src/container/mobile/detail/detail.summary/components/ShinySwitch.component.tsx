@@ -1,54 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import styled from 'styled-components'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
-
-const Li = styled.li`
-  & > .switch-shiny {
-    width: 6.5rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
-    border-radius: 1rem;
-    background-color: var(--color-primary-4);
-    opacity: 0.65;
-
-    &:active {
-      background-color: var(--color-primary-3);
-    }
-
-    &.active-shiny {
-      opacity: 1;
-
-      & > .icon-shiny > svg {
-        fill: #f5b62e;
-      }
-    }
-
-    & > span {
-      height: 2rem;
-      flex-shrink: 0;
-      font-size: 1rem;
-      line-height: calc(2rem + 2px);
-      font-weight: normal;
-      color: #000000;
-      padding: 0 0.25rem;
-    }
-
-    & > .icon-shiny {
-      width: 2rem;
-      height: 2rem;
-      flex-shrink: 0;
-      display: block;
-
-      svg {
-        fill: transparent;
-      }
-    }
-  }
-`
 
 const ShinySwitchComponent = () => {
   const router = useRouter()
@@ -63,19 +15,24 @@ const ShinySwitchComponent = () => {
   }
 
   return (
-    <Li>
+    <li>
       <Link
         href={switchHref}
-        className={`switch-shiny ${isShiny ? 'active-shiny' : ''}`}
+        className={`w-26 h-8 flex items-center justify-center px-2 rounded-2xl bg-primary-4 opacity-65 active:bg-primary-3 ${isShiny ? 'opacity-100' : ''}`}
         aria-label="이로치 상태 변환"
         replace
       >
-        <i className="icon-shiny" aria-hidden>
+        <i
+          className={`w-8 h-8 flex-shrink-0 block ${isShiny ? '[&>svg]:fill-[#f5b62e]' : '[&>svg]:fill-transparent'}`}
+          aria-hidden
+        >
           <ShinyIcon />
         </i>
-        <span>이로치</span>
+        <span className="h-8 flex-shrink-0 text-base leading-[calc(2rem+2px)] font-normal text-black px-1">
+          이로치
+        </span>
       </Link>
-    </Li>
+    </li>
   )
 }
 
