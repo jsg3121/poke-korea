@@ -22,7 +22,10 @@ const ShinySwitchComponent = () => {
         aria-label="이로치 상태 변환"
         replace
       >
-        <i className={`w-8 h-8 flex-shrink-0 block ${isShiny ? '[&>svg]:fill-[#f5b62e]' : '[&>svg]:fill-transparent'}`} aria-hidden>
+        <i
+          className={`w-8 h-8 flex-shrink-0 block ${isShiny ? '[&>svg]:fill-[#f5b62e]' : '[&>svg]:fill-transparent'}`}
+          aria-hidden
+        >
           <ShinyIcon />
         </i>
         <span className="h-8 flex-shrink-0 text-base leading-[calc(2rem+2px)] font-normal text-black px-1">

@@ -20,4 +20,3 @@ const TypeEffectivenessContainer = () => {
 }
 
 export default TypeEffectivenessContainer
-
