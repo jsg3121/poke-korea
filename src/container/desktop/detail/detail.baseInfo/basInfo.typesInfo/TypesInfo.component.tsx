@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/module/calculateRelationType'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
@@ -12,19 +11,12 @@ export const TypesInfo = ({ type }: TypesInfoProps) => {
   const relationType = calculateRelationType(type)
 
   return (
-    <Section aria-labelledby="pokemon-type-relation">
+    <section
+      className="w-full h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      aria-labelledby="pokemon-type-relation"
+    >
       <InfoCardTitleComponent title="타입 상성" id="pokemon-type-relation" />
       <InfoContentComponent relationType={relationType} />
-    </Section>
+    </section>
   )
 }
-
-const Section = styled.section`
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-primary-4);
-  border: 3px solid var(--color-primary-1);
-  border-radius: 1rem;
-  box-shadow: 0 0 0px 3px var(--color-primary-4);
-  padding: 1rem;
-`
