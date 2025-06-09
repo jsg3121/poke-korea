@@ -8,9 +8,6 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TypeFieldButtonComponents from './components/TypeFieldButton.components'
 import FilterModalComponent from './filter.modal/FilterModal.component'
 
-const isEmptyQueryCheck = (obj: object): boolean =>
-  Object.keys(obj).length === 0
-
 const FilterPokemonTypeComponent = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const router = useRouter()
@@ -47,7 +44,7 @@ const FilterPokemonTypeComponent = () => {
     router.replace(pathname)
   }
 
-  const isEmptyQuery = isEmptyQueryCheck(routerQuery)
+  const isEmptyQuery = routerQuery.size === 0
 
   return (
     <div

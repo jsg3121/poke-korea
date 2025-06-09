@@ -43,14 +43,16 @@ const SearchComponent = () => {
   const hasValue = name.length > 0
 
   useEffect(() => {
-    const name =
-      routerQuery.get('name') === undefined ? '' : `${routerQuery.get('name')}`
-    setValue('name', name)
+    if (routerQuery.get('name')) {
+      setValue('name', routerQuery.get('name'))
+    } else {
+      setValue('name', null)
+    }
   }, [routerQuery.get('name')])
 
   return (
     <div
-      className={`max-w-[41.66666667rem] h-[3.33333333rem] border border-[#dddddd] shadow-[0_3px_12px_0_rgba(0,0,0,0.1),0_1px_2px_0_rgba(0,0,0,0.08)] rounded-[2.22222222rem] bg-white relative  left-1/2 -translate-x-1/2 transition-[top,width,max-width] duration-300 will-change-[top,width,max-width] hover:bg-[#ebebeb] hover:rounded-[2.22222222rem] ${
+      className={`max-w-[41.66666667rem] h-[3.33333333rem] border border-[#dddddd] shadow-[0_3px_12px_0_rgba(0,0,0,0.1),0_1px_2px_0_rgba(0,0,0,0.08)] rounded-[2.22222222rem] bg-white relative left-1/2 -translate-x-1/2 transition-[top,width,max-width] duration-300 will-change-[top,width,max-width] hover:bg-[#ebebeb] hover:rounded-[2.22222222rem] ${
         scrolling || searching
           ? 'desktop-890:left-[80%] max-[890px]:left-[80%] w-[40%] max-w-[600px] top-0 '
           : 'top-8 w-full'

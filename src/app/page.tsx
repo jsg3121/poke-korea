@@ -56,9 +56,9 @@ type searchParamsKey =
   | 'generation'
 
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     [key in searchParamsKey]: string
-  }
+  }>
 }
 
 const HomePage = async ({ searchParams }: PageProps) => {
