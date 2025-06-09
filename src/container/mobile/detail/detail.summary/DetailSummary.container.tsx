@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
 import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'

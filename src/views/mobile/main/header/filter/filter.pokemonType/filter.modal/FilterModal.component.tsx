@@ -1,5 +1,5 @@
 import isEqual from 'fast-deep-equal'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { ChangeEvent, memo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import CloseIcon from '~/assets/close.svg'

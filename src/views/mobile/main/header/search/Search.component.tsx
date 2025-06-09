@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import ImageComponent from '~/components/Image.component'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'

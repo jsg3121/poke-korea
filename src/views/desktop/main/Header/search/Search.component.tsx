@@ -1,22 +1,25 @@
 'use client'
-import { useRouter } from 'next/router'
+
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import ImageComponent from '~/components/Image.component'
 import { ListContext } from '~/context/List.context'
 import InputComponents from './components/Input.component'
-import ImageComponent from '~/components/Image.component'
-import { useContext, useEffect } from 'react'
 
 type SearchFormType = {
   name: string | null
 }
 
 const SearchComponent = () => {
-  const { scrolling, searching } = useContext(ListContext)
   const router = useRouter()
+  const routerQuery = useSearchParams()
+  const pathname = usePathname()
+  const { scrolling, searching } = useContext(ListContext)
 
   const searchFormMethods = useForm<SearchFormType>({
     defaultValues: {
-      name: (router.query.name as string) ?? null,
+      name: routerQuery.get('name') ?? null,
     },
   })
 
@@ -24,22 +27,26 @@ const SearchComponent = () => {
 
   const onSubmitSearch = (form: SearchFormType) => {
     const { name } = form
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        ...(name && { name: name.trim() }),
-      },
-    })
+    const params = new URLSearchParams(routerQuery)
+
+    if (name?.trim()) {
+      params.set('name', name.trim())
+    } else {
+      params.delete('name')
+    }
+
+    // 새 쿼리 문자열로 이동
+    router.push(`${pathname}?${params.toString()}`)
   }
 
   const name = watch('name') || ''
   const hasValue = name.length > 0
 
   useEffect(() => {
-    const name = router.query.name === undefined ? '' : `${router.query.name}`
+    const name =
+      routerQuery.get('name') === undefined ? '' : `${routerQuery.get('name')}`
     setValue('name', name)
-  }, [router.query])
+  }, [routerQuery.get('name')])
 
   return (
     <div

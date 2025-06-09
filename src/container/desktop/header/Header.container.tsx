@@ -3,7 +3,7 @@ import GithubIcon from '~/assets/icons/github.svg'
 import GmailIcon from '~/assets/icons/gmail.svg'
 import LogoIcon from '~/assets/logo.svg'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 const HeaderContainer = () => {
   const router = useRouter()

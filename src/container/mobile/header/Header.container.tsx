@@ -2,7 +2,7 @@ import Link from 'next/link'
 import LogoIcon from '~/assets/logo.svg'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 import HeaderHamburgerNavigation from './header.hamburgerNavigation/HeaderHamburgerNavigation'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 const HeaderContainer = () => {
   const router = useRouter()

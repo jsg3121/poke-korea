@@ -1,9 +1,8 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { detectUserAgent } from '~/module/device.module'
 import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
-import { PokemonList } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
+import { detectUserAgent } from '~/module/device.module'
 import {
   changeTypeArrayToString,
   getGenerationParams,
@@ -43,30 +42,39 @@ export const metadata: Metadata = {
     ],
     siteName: '포케 코리아',
   },
-  canonical: 'https://poke-korea.com/',
+  alternates: {
+    canonical: 'https://poke-korea.com/',
+  },
 }
 
-interface HomePageProps {
-  searchParams: { [key: string]: string | string[] | undefined }
+type searchParamsKey =
+  | 'name'
+  | 'type'
+  | 'isMega'
+  | 'isRegion'
+  | 'isEvolution'
+  | 'generation'
+
+type PageProps = {
+  searchParams: {
+    [key in searchParamsKey]: string
+  }
 }
 
-interface HomeProps {
-  pokemonList: Array<PokemonList>
-  isMobile: boolean
-}
-
-const HomePage = async ({ searchParams }: HomePageProps) => {
+const HomePage = async ({ searchParams }: PageProps) => {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
   const apolloClient = initializeApollo()
 
-  const { type, isMega, isRegion, isEvolution, generation, ...restQuery } =
-    searchParams
+  const { type, isMega, isRegion, isEvolution, generation, name } =
+    await searchParams
 
   const filterInput = {
-    ...restQuery,
+    ...(name && {
+      name,
+    }),
     ...(generation && {
       generation: getGenerationParams(generation),
     }),
