@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import ImageComponent from '~/components/Image.component'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
@@ -12,12 +12,13 @@ type SearchFormType = {
 
 const SearchComponent = () => {
   const { observerRef, isScroll } = useHeaderScroll('mobile')
-
   const router = useRouter()
+  const routerQuery = useSearchParams()
+  const pathname = usePathname()
 
   const searchFormMethods = useForm<SearchFormType>({
     defaultValues: {
-      name: (router.query.name as string) ?? null,
+      name: routerQuery.get('name') ?? null,
     },
   })
 
@@ -25,22 +26,27 @@ const SearchComponent = () => {
 
   const onSubmitSearch = (form: SearchFormType) => {
     const { name } = form
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        ...(name && { name: name.trim() }),
-      },
-    })
+    const params = new URLSearchParams(routerQuery)
+
+    if (name?.trim()) {
+      params.set('name', name.trim())
+    } else {
+      params.delete('name')
+    }
+
+    router.push(`${pathname}?${params.toString()}`)
 
     const activeElement = document.activeElement as HTMLElement
     activeElement.blur()
   }
 
   useEffect(() => {
-    const name = router.query.name === undefined ? '' : `${router.query.name}`
-    setValue('name', name)
-  }, [router.query])
+    if (routerQuery.get('name')) {
+      setValue('name', routerQuery.get('name'))
+    } else {
+      setValue('name', null)
+    }
+  }, [routerQuery.get('name')])
 
   return (
     <div

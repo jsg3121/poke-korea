@@ -35,7 +35,6 @@ const SearchComponent = () => {
       params.delete('name')
     }
 
-    // 새 쿼리 문자열로 이동
     router.push(`${pathname}?${params.toString()}`)
   }
 
