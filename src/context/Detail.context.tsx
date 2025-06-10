@@ -1,7 +1,6 @@
 'use client'
 
-import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { ReactNode, createContext } from 'react'
 import {
   PokemonDetail,
@@ -9,13 +8,7 @@ import {
   PokemonNormalForm,
   PokemonRegionForm,
 } from '~/graphql/typeGenerated'
-import {
-  getPokemonNameByType,
-  getSeoCanonicalUrl,
-  getSeoDescription,
-  getSeoTitle,
-} from './module/generateSeoMetaData'
-import { TActiveType, TActiveTypeInfo } from './type/detailContext.type'
+import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.type'
 
 interface IFDetailProviderProps {
   pokemonBaseInfo: PokemonDetail
@@ -56,13 +49,12 @@ const DetailProvider = ({
   megaEvolutionData,
   regionFormData,
 }: IFDetailProviderProps) => {
-  const router = useRouter()
+  const routerQuery = useSearchParams()
 
-  const activeType = router.query.activeType as TActiveType
-  const activeIndex = router.query.activeIndex
-    ? parseInt(router.query.activeIndex as string, 10)
+  const activeType = routerQuery.get('activeType') as TActiveType
+  const activeIndex = routerQuery.get('activeIndex')
+    ? parseInt(routerQuery.get('activeIndex') as string, 10)
     : 0
-  const isShiny = router.query.shinyMode === 'shiny'
 
   const getTypes = () => {
     switch (activeType) {
@@ -101,6 +93,8 @@ const DetailProvider = ({
       }
     }
   }
+  const types = getTypes()
+  const abilities = getAbilities()
 
   const getActiveTypeInfo = () => {
     return {
@@ -116,8 +110,6 @@ const DetailProvider = ({
     }
   }
 
-  const types = getTypes()
-  const abilities = getAbilities()
   const activeTypeInfo: TActiveTypeInfo = getActiveTypeInfo()
 
   const initialValue: IFDetailProps = {
@@ -129,69 +121,10 @@ const DetailProvider = ({
     regionFormInfo: regionFormData,
   }
 
-  const pokemonNameByType = getPokemonNameByType({
-    activeType,
-    megaEvolutionName: megaEvolutionData
-      ? megaEvolutionData[activeIndex].name
-      : '',
-    regionFormPlace: regionFormData ? regionFormData[activeIndex].region : '',
-    pokemonBaseInfoName: pokemonBaseInfo.name,
-    isShiny,
-  })
-
-  const title = getSeoTitle({
-    pokemonName: pokemonNameByType,
-    pokemonNumber: pokemonBaseInfo.number,
-  })
-
-  const description = getSeoDescription({
-    generation: pokemonBaseInfo.generation,
-    pokemonNumber: pokemonBaseInfo.number,
-    pokemonName: pokemonNameByType,
-    types,
-  })
-
-  const caninicalUrl = getSeoCanonicalUrl({
-    activeType,
-    activeIndex,
-    pokemonNumber: pokemonBaseInfo.number,
-    isShiny,
-  })
-
   return (
-    <>
-      <NextSeo
-        title={title}
-        description={description}
-        canonical={caninicalUrl}
-        openGraph={{
-          type: 'website',
-          url: caninicalUrl,
-          title,
-          description,
-          images: [
-            {
-              url: 'https://poke-korea.com/assets/image/ogImage.png',
-              width: 1200,
-              height: 630,
-              alt: 'poke-korea',
-              type: 'image/png',
-            },
-            {
-              url: 'https://poke-korea.com/assets/image/kakaoOg.png',
-              width: 800,
-              height: 800,
-              alt: 'poke-korea',
-              type: 'image/png',
-            },
-          ],
-          siteName: '포케 코리아',
-        }}
-      />
-      <DetailContext.Provider value={initialValue}>
-        {children}
-      </DetailContext.Provider>
-    </>
+    <DetailContext.Provider value={initialValue}>
+      {children}
+    </DetailContext.Provider>
   )
 }
 

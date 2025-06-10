@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: {
     default: '포켓몬의 모든 정보 포케 코리아',
-    template: '%s - 포케 코리아',
+    template: '%s',
   },
   description:
     '언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.',
@@ -82,8 +82,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             />
           </>
         )}
-      </head>
-      <body>
         {process.env.NODE_ENV === 'production' && (
           <Script
             id="adsbygoogle-init"
@@ -93,6 +91,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             strategy="beforeInteractive"
           />
         )}
+      </head>
+      <body>
         <Providers userAgent={userAgent}>{children}</Providers>
       </body>
     </html>
