@@ -1,3 +1,4 @@
+'use client'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { useGetPokemonListLazyQuery } from '~/graphql/gqlGenerated'

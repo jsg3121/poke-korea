@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TableActivePointerComponent, {

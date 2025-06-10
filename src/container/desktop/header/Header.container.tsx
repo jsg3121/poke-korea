@@ -1,12 +1,12 @@
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import GithubIcon from '~/assets/icons/github.svg'
 import GmailIcon from '~/assets/icons/gmail.svg'
 import LogoIcon from '~/assets/logo.svg'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
-import { useRouter } from 'next/router'
 
 const HeaderContainer = () => {
-  const router = useRouter()
+  const pathname = usePathname()
 
   return (
     <header className="h-30 bg-primary-2 flex items-center justify-between flex-wrap sticky top-0 left-0 z-[500]">
@@ -16,7 +16,7 @@ const HeaderContainer = () => {
         </i>
       </Link>
       <div className="w-128 h-16 flex items-center justify-center gap-4 mr-8">
-        <HeaderSearchContainer key={`search-key-${router.asPath}`} />
+        <HeaderSearchContainer key={`search-key-${pathname}`} />
         <a
           href="https://github.com/jsg3121"
           target="_blank"

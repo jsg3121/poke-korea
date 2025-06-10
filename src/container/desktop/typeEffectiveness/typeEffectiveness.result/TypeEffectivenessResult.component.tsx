@@ -1,3 +1,4 @@
+'use client'
 import { Fragment, useContext } from 'react'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { calculateRelationType } from '~/module/calculateRelationType'

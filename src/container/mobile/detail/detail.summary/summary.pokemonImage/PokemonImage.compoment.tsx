@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router'
+'use client'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -17,8 +18,8 @@ const PokemonImageCompoment = () => {
     activeType,
   } = useContext(DetailContext)
   const router = useRouter()
-
-  const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
+  const routerQuery = useSearchParams()
+  const pathname = usePathname()
 
   const getImageList = () => {
     switch (activeType) {
@@ -66,23 +67,18 @@ const PokemonImageCompoment = () => {
     }
   }
 
-  const imageList = getImageList()
-
   const handleSlideChange = (data: SwiperClass) => {
+    const params = new URLSearchParams(routerQuery)
+
     const activeIndex = data.activeIndex
-    router.replace(
-      {
-        query: {
-          ...router.query,
-          activeIndex,
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
+    params.set('activeIndex', activeIndex.toString())
+
+    router.replace(`${pathname}?${params.toString()}`)
   }
+
+  const defaultIndex =
+    parseInt(routerQuery.get('activeIndex') as string, 10) ?? 0
+  const imageList = getImageList()
 
   return (
     <div
@@ -107,17 +103,16 @@ const PokemonImageCompoment = () => {
         >
           {imageList.map((item) => {
             const imageSrc =
-              router.query.shinyMode === 'shiny'
+              routerQuery.get('shinyMode') === 'shiny'
                 ? `${imageMode}/shiny/${item.imageCode}.webp`
                 : `${imageMode}/${item.imageCode}.webp`
-
             return (
               <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
                 <ImageComponent
                   src={imageSrc}
                   width="18rem"
                   height="18rem"
-                  alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${router.query.shinyMode === 'shiny' ? '이로치' : ''}`}
+                  alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? '이로치' : ''}`}
                   className="pokemon-main"
                   unoptimized
                 />

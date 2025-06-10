@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router'
+'use client'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
@@ -7,29 +8,28 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TypeFieldButtonComponents from './components/TypeFieldButton.components'
 import FilterModalComponent from './filter.modal/FilterModal.component'
 
-const isEmptyQueryCheck = (obj: object): boolean =>
-  Object.keys(obj).length === 0
-
 const FilterPokemonTypeComponent = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const router = useRouter()
+  const routerQuery = useSearchParams()
+  const pathname = usePathname()
+
   useBodyScrollLock(isOpenModal)
 
-  const typeList = router.query.type
-    ? (router.query.type as string).split(',')
-    : []
+  const typeList = routerQuery.get('type')?.split(',') ?? []
 
   const handleClickTypeFilter = (e: ChangeEvent<HTMLInputElement>) => {
     const type = e.target.value
     const changeList = getChangeTypeList(typeList, type)
+    const params = new URLSearchParams(routerQuery)
 
-    router.replace({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        type: changeList !== '' ? changeList : [],
-      },
-    })
+    if (changeList.length > 0) {
+      params.set('type', changeList)
+    } else {
+      params.delete('type')
+    }
+
+    router.replace(`${pathname}?${params.toString()}`)
   }
 
   const handleClickOpenFilter = () => {
@@ -41,12 +41,10 @@ const FilterPokemonTypeComponent = () => {
   }
 
   const handleClickReset = () => {
-    router.replace({
-      pathname: router.pathname,
-    })
+    router.replace(pathname)
   }
 
-  const isEmptyQuery = isEmptyQueryCheck(router.query)
+  const isEmptyQuery = routerQuery.size === 0
 
   return (
     <div

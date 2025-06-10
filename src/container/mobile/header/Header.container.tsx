@@ -1,11 +1,11 @@
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import LogoIcon from '~/assets/logo.svg'
-import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 import HeaderHamburgerNavigation from './header.hamburgerNavigation/HeaderHamburgerNavigation'
-import { useRouter } from 'next/router'
+import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 
 const HeaderContainer = () => {
-  const router = useRouter()
+  const pathname = usePathname()
 
   return (
     <header className="h-16 bg-primary-2 flex items-center justify-between px-5 sticky top-0 z-[500]">
@@ -14,7 +14,7 @@ const HeaderContainer = () => {
           <LogoIcon />
         </i>
       </Link>
-      <HeaderSearchContainer key={`search-key-${router.asPath}`} />
+      <HeaderSearchContainer key={`search-key-${pathname}`} />
       <HeaderHamburgerNavigation />
     </header>
   )

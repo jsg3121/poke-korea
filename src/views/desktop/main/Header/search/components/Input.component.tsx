@@ -34,8 +34,8 @@ const InputComponents = forwardRef<HTMLInputElement, InputComponentsProps>(
           type="text"
           placeholder="포켓몬의 이름을 입력해주세요"
           className={`
-            w-full h-8 text-base font-normal leading-8 border-0 p-0 cursor-text bg-transparent absolute top-[1.125rem] left-[1.38888889rem] transition-[top] duration-300 placeholder:text-[#999999] placeholder:text-[0.83333333rem]
-            ${hasValue && 'top-[0.6rem]'}
+            w-full h-8 text-base font-normal leading-8 border-0 p-0 cursor-text bg-transparent absolute left-[1.38888889rem] transition-[top] duration-300 placeholder:text-[#999999] placeholder:text-[0.83333333rem]
+            ${hasValue ? 'top-[0.6rem]' : 'top-[1.125rem]'}
             `}
           {...restProps}
         />

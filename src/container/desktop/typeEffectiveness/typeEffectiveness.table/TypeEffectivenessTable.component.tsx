@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TableActivePointerComponent, {
@@ -49,16 +50,16 @@ const TypeEffectivenessTableComponent = () => {
             />
           ))}
         </colgroup>
-        <thead className="border-b border-solid border-gray-200">
+        <thead className="h-28 border-b border-solid border-gray-200">
           <tr className="w-full h-14 bg-primary-3">
             <th
               colSpan={2}
               rowSpan={2}
-              className="w-[5%] h-full text-base leading-none text-center tracking-wide text-black align-middle border-t border-solid border-primary-2 relative"
+              className="w-[5%] h-28 text-base leading-none text-center tracking-wide text-black align-middle border-t border-solid border-primary-2 relative"
             ></th>
             <th
               colSpan={18}
-              className="w-[5%] h-full text-base leading-none text-center tracking-wide text-black align-middle border-l border-t border-solid border-primary-2"
+              className="w-[5%] h-14 text-base leading-none text-center tracking-wide text-black align-middle border-l border-t border-solid border-primary-2"
             >
               공격 받는 포켓몬
             </th>
@@ -69,7 +70,7 @@ const TypeEffectivenessTableComponent = () => {
                 <th
                   key={`type-effective-table-key-${key}`}
                   scope="col"
-                  className="w-[5%] h-full text-base text-center leading-none tracking-wide text-black align-middle border-l border-t border-solid border-primary-2"
+                  className="w-[5%] h-14 text-base text-center leading-none tracking-wide text-black align-middle border-l border-t border-solid border-primary-2"
                 >
                   {value}
                 </th>

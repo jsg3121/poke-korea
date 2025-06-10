@@ -1,14 +1,16 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useSearchParams } from 'next/navigation'
 import ImageComponent from '~/components/Image.component'
 
 const MegaSwitch = () => {
-  const router = useRouter()
-  const isMega = router.query.activeType === 'mega' ? true : false
+  const routerQuery = useSearchParams()
+
+  const isMega = routerQuery.get('activeType') === 'mega' ? true : false
+  const currentQuery = Object.fromEntries(routerQuery.entries())
 
   const megaHref = {
     query: {
-      ...router.query,
+      ...currentQuery,
       activeType: isMega ? 'normal' : 'mega',
     },
   }

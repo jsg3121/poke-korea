@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router'
+'use client'
+import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import DesktopDetailSidebarBanner from '~/components/adSlot/DesktopDetailSidebarBanner'
 import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
@@ -20,12 +21,12 @@ const DetailSummaryContainer = () => {
     normalForm,
     activeType,
   } = useContext(DetailContext)
-  const router = useRouter()
+  const routerQuery = useSearchParams()
 
   const newColor = changeColor(pokemonBaseInfo?.types ?? [])
-  const indexQuery = parseInt(router.query.activeIndex as string, 10)
-  const activeIndex = router.query.activeIndex ? indexQuery : 0
-  const isShiny = router.query.shinyMode === 'shiny'
+  const indexQuery = parseInt(routerQuery.get('activeIndex') as string, 10)
+  const activeIndex = routerQuery.get('activeIndex') ? indexQuery : 0
+  const isShiny = routerQuery.get('shinyMode') === 'shiny'
 
   const getPokemonInfo = () => {
     switch (activeType) {

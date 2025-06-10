@@ -1,3 +1,4 @@
+'use client'
 import isEqual from 'fast-deep-equal'
 import LogoIcon from '~/assets/logo.svg'
 import { ListContext } from '~/context/List.context'

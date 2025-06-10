@@ -3,7 +3,9 @@
     "allow": [
       "Bash(rg:*)",
       "Bash(grep:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run build:*)"
     ]
   },
   "enableAllProjectMcpServers": false

@@ -5,8 +5,9 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['localhost', '*', 'image.poke-korea.com'],
+    remotePatterns: [new URL('https://image.poke-korea.com/image/*')],
   },
+  allowedDevOrigins: ['local.poke-korea.com'],
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
   webpack(config) {

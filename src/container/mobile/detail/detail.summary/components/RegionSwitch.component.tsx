@@ -1,15 +1,16 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useSearchParams } from 'next/navigation'
 import RegionIcon from '~/assets/icons/region.svg'
 
 const RegionSwitchComponent = () => {
-  const router = useRouter()
+  const routerQuery = useSearchParams()
 
-  const isRegion = router.query.activeType === 'region' ? true : false
+  const isRegion = routerQuery.get('activeType') === 'region' ? true : false
+  const currentQuery = Object.fromEntries(routerQuery.entries())
 
   const regionHref = {
     query: {
-      ...router.query,
+      ...currentQuery,
       activeType: isRegion ? 'normal' : 'region',
     },
   }

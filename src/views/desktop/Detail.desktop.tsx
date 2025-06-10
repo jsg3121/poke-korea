@@ -1,3 +1,5 @@
+'use client'
+
 import DetailBaseInfoContainer from '~/container/desktop/detail/detail.baseInfo/DetailBaseInfo.container'
 import DetailSummaryContainer from '~/container/desktop/detail/detail.summary/DetailSummary.container'
 import FooterContainer from '~/container/desktop/footer/Footer.container'

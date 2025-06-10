@@ -1,3 +1,5 @@
+'use client'
+
 import MobileListTopBanner from '~/components/adSlot/MobileListTopBanner'
 import ListContainer from '~/container/mobile/list/List.container'
 import { ListProvider } from '~/context/List.context'

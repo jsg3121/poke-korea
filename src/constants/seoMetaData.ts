@@ -1,5 +1,5 @@
 export const TYPE_EFFECTIVNESS_SEO_META = {
-  title: '포켓몬의 모든 정보 포케 코리아',
+  title: '포켓몬의 상성 계산기 - 포케 코리아',
   description: `
     포켓몬 타입 상성표와 계산기로 상대의 약점을 빠르게 찾으세요!
     포켓몬 타입 상성표와 계산기를 통해 불꽃, 물, 풀 등 각 타입의 약점과 강점을 한눈에 확인하고,

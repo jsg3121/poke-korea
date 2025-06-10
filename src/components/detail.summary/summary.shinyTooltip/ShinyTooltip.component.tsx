@@ -1,3 +1,4 @@
+'use client'
 import 'dialog-polyfill/dist/dialog-polyfill.css'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'

@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { UseRelationType } from '~/module/calculateRelationType'
 import TypeListComponent from './components/TypeList.component'

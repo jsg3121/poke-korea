@@ -1,5 +1,5 @@
 import isEqual from 'fast-deep-equal'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent, memo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import CloseIcon from '~/assets/close.svg'
@@ -21,12 +21,15 @@ const FilterModalComponent = ({
   onClickCloseModal,
 }: FilterModalComponentProps) => {
   const router = useRouter()
+  const routerQuery = useSearchParams()
+  const pathname = usePathname()
+
   const formMethods = useForm<FilterFormType>({
     defaultValues: {
-      generation: (router.query.generation as Array<string>) ?? [],
-      isEvolution: (router.query.isEvolution as string) ?? null,
-      isMega: (router.query.isMega as string) ?? null,
-      isRegion: (router.query.isRegion as string) ?? null,
+      generation: routerQuery.getAll('generation') ?? [],
+      isEvolution: routerQuery.get('isEvolution') ?? null,
+      isMega: routerQuery.get('isMega') ?? null,
+      isRegion: routerQuery.get('isRegion') ?? null,
     },
   })
 
@@ -51,31 +54,23 @@ const FilterModalComponent = ({
   }
 
   const onSubmitFilter = (filterData: FilterFormType) => {
-    const { query, pathname } = router
+    const queryString = new URLSearchParams(routerQuery)
 
-    const filter = {
-      ...(filterData.generation && {
-        generation: filterData.generation,
-      }),
-      ...(filterData.isMega && {
-        isMega: filterData.isMega,
-      }),
-      ...(filterData.isEvolution && {
-        isEvolution: filterData.isEvolution,
-      }),
-      ...(filterData.isRegion && {
-        isRegion: filterData.isRegion,
-      }),
-    }
+    Object.entries(filterData).forEach(([key, value]) => {
+      if (!value || (Array.isArray(value) && value.length === 0)) {
+        queryString.delete(key)
+        return
+      }
 
-    router.replace({
-      pathname,
-      query: {
-        ...query,
-        ...filter,
-      },
+      if (Array.isArray(value)) {
+        queryString.delete(key)
+        value.forEach((v) => queryString.append(key, v))
+      } else {
+        queryString.set(key, value.toString())
+      }
     })
 
+    router.replace(`${pathname}?${queryString}`)
     onClickCloseModal()
   }
 

@@ -1,3 +1,4 @@
+'use client'
 import { MouseEvent, useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
