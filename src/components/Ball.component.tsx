@@ -1,80 +1,12 @@
-import styled from 'styled-components'
+import React from 'react'
 
-interface BallComponentProps {
-  value?: boolean
-}
-
-const Ball = styled.span<{ value: boolean }>`
-  width: 100%;
-  height: 100%;
-  display: block;
-  border-radius: 50%;
-  background-color: #ffffff;
-  border: 1px solid #aaaaaa;
-  position: relative;
-  transition:
-    transform 0.3s,
-    rotate 0.3s;
-  will-change: transform;
-  overflow: hidden;
-
-  .ball--top {
-    width: 100%;
-    height: 50%;
-    background-color: #ff0000;
-    border-top-left-radius: 10rem;
-    border-top-right-radius: 10rem;
-    border-bottom: 1px solid #000000;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    box-sizing: border-box;
-    box-shadow:
-      inset 3px 3px 0px -2px #ff7373,
-      inset -2px 0 0px 0px #aa3333;
-    z-index: 1;
-  }
-
-  .ball--bottom {
-    width: 100%;
-    height: 50%;
-    background-color: #ffffff;
-    border-bottom-left-radius: 10rem;
-    border-bottom-right-radius: 10rem;
-    border-top: 1px solid #000000;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    box-sizing: border-box;
-    box-shadow: inset -2px -1.5px 0px 0px #d9d9d9;
-    z-index: 2;
-  }
-
-  .ball--center {
-    width: 50%;
-    height: 50%;
-    background-color: #ffffff;
-    border: 2px solid #000000;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    box-sizing: border-box;
-    box-shadow: inset -1.3px -1.2px 0px 0px #d9d9d9;
-  }
-`
-
-const BallComponent = ({ value }: BallComponentProps) => {
+const BallComponent = () => {
   return (
-    <Ball value={value ?? false} className="ball">
-      <i className="ball--top" />
-      <i className="ball--center" />
-      <i className="ball--bottom" />
-    </Ball>
+    <span className="relative block w-full h-full rounded-full border border-solid border-[#aaaaaa] overflow-hidden transition-transform will-change-transform">
+      <i className="absolute top-0 left-1/2 w-full h-1/2 bg-[#ff0000] rounded-t-[10rem] border-b border-solid border-black transform -translate-x-1/2 z-[1] box-border shadow-[inset_3px_3px_0px_-2px_#ff7373,inset_-2px_0_0px_0px_#aa3333]" />
+      <i className="absolute bottom-0 left-1/2 w-full h-1/2 bg-white rounded-b-[10rem] border-t border-solid border-black transform -translate-x-1/2 z-[2] box-border shadow-[inset_-2px_-1.5px_0px_0px_#d9d9d9]" />
+      <i className="absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-white border-2 border-solid border-black rounded-full transform -translate-x-1/2 -translate-y-1/2 z-[3] box-border shadow-[inset_-1.3px_-1.2px_0px_0px_#d9d9d9]" />
+    </span>
   )
 }
 

@@ -1,5 +1,5 @@
+'use client'
 import { useContext } from 'react'
-import styled from 'styled-components'
 import TagComponent from '~/components/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
@@ -19,12 +19,17 @@ const DescriptionComponent = () => {
   } = activeTypeInfo
 
   return (
-    <Section aria-labelledby="pokemon-base-info">
+    <section
+      aria-labelledby="pokemon-base-info"
+      className="h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] grid p-4"
+    >
       <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
-      <dl>
-        <div>
-          <dt>이름</dt>
-          <dd className="pokemon-name">
+      <dl className="w-full">
+        <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">
+          <dt className="w-48 h-10 text-xl leading-[calc(2.5rem+2px)] after:content-[':'] after:float-right">
+            이름
+          </dt>
+          <dd className="h-10 text-xl leading-[calc(2.5rem+2px)] font-semibold flex items-center gap-2 pokemon-name">
             {name}&nbsp;
             {activeType === 'mega'
               ? '(메가진화)'
@@ -33,94 +38,66 @@ const DescriptionComponent = () => {
                 : ''}
           </dd>
         </div>
-        <div>
-          <dt>전국도감번호</dt>
-          <dd>No. {pokemonNumber.toString().padStart(3, '0')}</dd>
+        <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">
+          <dt className="w-48 h-10 text-xl leading-[calc(2.5rem+2px)] after:content-[':'] after:float-right">
+            전국도감번호
+          </dt>
+          <dd className="h-10 text-xl leading-[calc(2.5rem+2px)] font-semibold flex items-center gap-2">
+            No. {pokemonNumber.toString().padStart(3, '0')}
+          </dd>
         </div>
-        <div>
-          <dt>등장 세대</dt>
-          <dd>{generation} 세대</dd>
+        <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">
+          <dt className="w-48 h-10 text-xl leading-[calc(2.5rem+2px)] after:content-[':'] after:float-right">
+            등장 세대
+          </dt>
+          <dd className="h-10 text-xl leading-[calc(2.5rem+2px)] font-semibold flex items-center gap-2">
+            {generation} 세대
+          </dd>
         </div>
-        <div>
-          <dt>타입</dt>
-          <dd aria-label={types.map((type) => PokemonTypes[type]).join(',')}>
+        <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">
+          <dt className="w-48 h-10 text-xl leading-[calc(2.5rem+2px)] after:content-[':'] after:float-right">
+            타입
+          </dt>
+          <dd
+            className="h-10 text-xl leading-[calc(2.5rem+2px)] font-semibold flex items-center gap-2"
+            aria-label={types.map((type) => PokemonTypes[type]).join(',')}
+          >
             {types.map((type) => {
               return <TagComponent key={type} type={type} />
             })}
           </dd>
         </div>
-        <div>
-          <dt>진화체</dt>
-          <dd>{isEvolution ? '진화체 있음' : '진화 불가'}</dd>
+        <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">
+          <dt className="w-48 h-10 text-xl leading-[calc(2.5rem+2px)] after:content-[':'] after:float-right">
+            진화체
+          </dt>
+          <dd className="h-10 text-xl leading-[calc(2.5rem+2px)] font-semibold flex items-center gap-2">
+            {isEvolution ? '진화체 있음' : '진화 불가'}
+          </dd>
         </div>
         {isRegion && (
-          <div>
-            <dt>리전폼</dt>
-            <dd>리전폼 존재</dd>
+          <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">
+            <dt className="w-48 h-10 text-xl leading-[calc(2.5rem+2px)] after:content-[':'] after:float-right">
+              리전폼
+            </dt>
+            <dd className="h-10 text-xl leading-[calc(2.5rem+2px)] font-semibold flex items-center gap-2">
+              리전폼 존재
+            </dd>
           </div>
         )}
         {isMega && (
-          <div>
-            <dt>메가진화</dt>
-            <dd>메가진화 가능</dd>
+          <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">
+            <dt className="w-48 h-10 text-xl leading-[calc(2.5rem+2px)] after:content-[':'] after:float-right">
+              메가진화
+            </dt>
+            <dd className="h-10 text-xl leading-[calc(2.5rem+2px)] font-semibold flex items-center gap-2">
+              메가진화 가능
+            </dd>
           </div>
         )}
       </dl>
-    </Section>
+    </section>
   )
 }
 
 export default DescriptionComponent
-
-const Section = styled.section`
-  height: 100%;
-  background-color: var(--color-primary-4);
-  border: 3px solid var(--color-primary-1);
-  border-radius: 1rem;
-  box-shadow: 0 0 0px 3px var(--color-primary-4);
-  display: grid;
-  padding: 1rem;
-
-  & > dl {
-    width: 100%;
-
-    & > div {
-      width: 100%;
-      height: 3rem;
-      width: 100%;
-      border-bottom: 1px solid var(--color-primary-3);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0;
-
-      &:last-child {
-        border-bottom: 0;
-        padding: 0;
-      }
-
-      & > dt,
-      & > dd {
-        height: 2.5rem;
-        font-size: 1.25rem;
-        line-height: calc(2.5rem + 2px);
-      }
-
-      & > dt {
-        width: 12rem;
-
-        &::after {
-          content: ':';
-          float: right;
-        }
-      }
-
-      & > dd {
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-    }
-  }
-`

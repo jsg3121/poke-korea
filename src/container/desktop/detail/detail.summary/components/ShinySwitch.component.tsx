@@ -1,97 +1,44 @@
+'use client'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import styled from 'styled-components'
+import { useSearchParams } from 'next/navigation'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
 
 const ShinySwitch = () => {
-  const router = useRouter()
+  const routerQuery = useSearchParams()
 
-  const isShiny = router.query.shinyMode === 'shiny' ? true : false
+  const isShiny = routerQuery.get('shinyMode') === 'shiny' ? true : false
+  const currentQuery = Object.fromEntries(routerQuery.entries())
 
   const switchHref = {
     query: {
-      ...router.query,
+      ...currentQuery,
       shinyMode: isShiny ? 'normal' : 'shiny',
     },
   }
 
   return (
-    <Li className={isShiny ? 'active-shiny' : ''}>
+    <li
+      className={`relative -left-11 transition-[left] duration-200 ease-out hover:-left-28 ${isShiny ? '-left-28' : ''}`}
+    >
       <Link
         href={switchHref}
-        className="switch-shiny"
+        className="w-28 h-8 flex items-center justify-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
         aria-label="이로치 상태 변환"
         replace
       >
-        <i className="icon-shiny" aria-hidden>
-          <ShinyIcon />
+        <i className="icon-shiny w-8 h-8 flex-shrink-0 block" aria-hidden>
+          <ShinyIcon
+            className={isShiny ? 'fill-[#f5b62e]' : 'fill-transparent'}
+          />
         </i>
-        <span>이로치</span>
+        <span
+          className={`h-8 text-base font-normal leading-[calc(2rem+2px)] ${isShiny ? 'text-[#333333]' : 'text-[#888888]'}`}
+        >
+          이로치
+        </span>
       </Link>
-    </Li>
+    </li>
   )
 }
 
 export default ShinySwitch
-
-const Li = styled.li`
-  position: relative;
-  left: -2.75rem;
-  transition: left 0.2s ease-out;
-
-  &:hover {
-    left: -7rem;
-  }
-
-  &.active-shiny {
-    left: -7rem;
-
-    & > .switch-shiny {
-      & > span {
-        color: #333333;
-      }
-
-      & > .icon-shiny > svg {
-        fill: #f5b62e;
-      }
-    }
-  }
-
-  & > .switch-shiny {
-    width: 7rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    padding: 0 1rem 0 0.5rem;
-    border-top-left-radius: 9999px;
-    border-bottom-left-radius: 9999px;
-    background-color: var(--color-primary-4);
-    cursor: pointer;
-
-    &:active {
-      color: #333333;
-      background-color: var(--color-primary-3);
-    }
-
-    & > span {
-      height: 2rem;
-      font-size: 1rem;
-      font-weight: normal;
-      line-height: calc(2rem + 2px);
-      color: #888888;
-    }
-
-    & > .icon-shiny {
-      width: 2rem;
-      height: 2rem;
-      flex-shrink: 0;
-      display: block;
-
-      svg {
-        fill: transparent;
-      }
-    }
-  }
-`

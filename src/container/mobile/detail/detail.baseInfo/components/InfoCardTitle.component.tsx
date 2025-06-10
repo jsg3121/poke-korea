@@ -1,23 +1,17 @@
-import styled from 'styled-components'
-
 interface InfoCardTitleComponentProps {
   title: string
   id?: string
 }
 
 const InfoCardTitleComponent = ({ id, title }: InfoCardTitleComponentProps) => {
-  return <H2 id={id}>{title}</H2>
+  return (
+    <h2
+      id={id}
+      className="w-full h-11 text-[1.75rem] leading-[2.75rem] font-bold text-left border-b border-solid border-primary-1 mb-6"
+    >
+      {title}
+    </h2>
+  )
 }
 
 export default InfoCardTitleComponent
-
-const H2 = styled.h2`
-  width: 100%;
-  height: 2.75rem;
-  font-size: 1.75rem;
-  line-height: 2.75rem;
-  font-weight: bold;
-  text-align: left;
-  border-bottom: 1px solid var(--color-primary-1);
-  margin-bottom: 1.5rem;
-`

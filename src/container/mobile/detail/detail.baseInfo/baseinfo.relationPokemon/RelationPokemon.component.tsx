@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import styled from 'styled-components'
 import { imageMode } from '~/module/buildMode'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 import ImageComponent from '~/components/Image.component'
@@ -14,10 +13,13 @@ const RelationPokemonComponent = ({
   evolutionId,
 }: RelationPokemonComponentProps) => {
   return (
-    <Section aria-labelledby="pokemon-evelotion-chain">
+    <section
+      className="w-full h-80 bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 mx-auto"
+      aria-labelledby="pokemon-evelotion-chain"
+    >
       <InfoCardTitleComponent title="진화 체인" id="pokemon-evelotion-chain" />
       <ul
-        className="relation-pokemon-list"
+        className="w-fit max-w-full h-[calc(100%-4.25rem)] flex items-center gap-4 p-0 overflow-x-auto mx-auto [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
         aria-label="진화 체인 포켓몬 리스트"
       >
         {evolutionId.map((id) => {
@@ -39,46 +41,8 @@ const RelationPokemonComponent = ({
           )
         })}
       </ul>
-    </Section>
+    </section>
   )
 }
 
 export default RelationPokemonComponent
-
-const Section = styled.section`
-  width: 100%;
-  height: 20rem;
-  background-color: var(--color-primary-4);
-  border: 3px solid var(--color-primary-1);
-  border-radius: 1rem;
-  box-shadow: 0 0 0px 3px var(--color-primary-4);
-  padding: 1rem;
-  margin: 0 auto;
-
-  & > .relation-pokemon-list {
-    width: fit-content;
-    max-width: 100%;
-    height: calc(100% - 4.25rem);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0;
-    overflow-x: auto;
-    margin: 0 auto;
-
-    &::-webkit-scrollbar {
-      display: block;
-      height: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--color-primary-2);
-      border-radius: 12px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--color-primary-3);
-      border-radius: 12px;
-    }
-  }
-`

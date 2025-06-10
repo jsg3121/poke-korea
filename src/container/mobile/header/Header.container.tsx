@@ -1,47 +1,23 @@
 import Link from 'next/link'
-import styled from 'styled-components'
+import { usePathname } from 'next/navigation'
 import LogoIcon from '~/assets/logo.svg'
-import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 import HeaderHamburgerNavigation from './header.hamburgerNavigation/HeaderHamburgerNavigation'
-import { useRouter } from 'next/router'
+import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 
 const HeaderContainer = () => {
-  const router = useRouter()
+  const pathname = usePathname()
 
   return (
-    <Header>
-      <Link href="/" aria-label="메인 화면으로 돌아가기">
-        <i className="icon-logo-link">
+    <header className="h-16 bg-primary-2 flex items-center justify-between px-5 sticky top-0 z-[500]">
+      <Link href="/" aria-label="메인 화면으로 돌아가기" className="w-32 block">
+        <i className="w-full h-full block icon-logo-link">
           <LogoIcon />
         </i>
       </Link>
-      <HeaderSearchContainer key={`search-key-${router.asPath}`} />
+      <HeaderSearchContainer key={`search-key-${pathname}`} />
       <HeaderHamburgerNavigation />
-    </Header>
+    </header>
   )
 }
 
 export default HeaderContainer
-
-const Header = styled.header`
-  height: 4rem;
-  background-color: var(--color-primary-2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  position: sticky;
-  top: 0;
-  z-index: 500;
-
-  & > a {
-    width: 8rem;
-    display: block;
-
-    & > i {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-  }
-`

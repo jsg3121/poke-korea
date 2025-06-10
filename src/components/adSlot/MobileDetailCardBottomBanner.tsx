@@ -1,35 +1,24 @@
-import styled from 'styled-components'
+'use client'
+
 import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 const MobileDetailCardBottomBanner = () => {
   const { slotRef } = useAdSlotEffect()
 
   return (
-    <Div ref={slotRef}>
+    <div
+      ref={slotRef}
+      className="w-[calc(100%-3rem)] h-fit text-center mx-auto"
+    >
       <ins
-        className="adsbygoogle"
+        className="adsbygoogle w-full block mx-auto text-center"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="5619127337"
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>
-    </Div>
+    </div>
   )
 }
 
 export default MobileDetailCardBottomBanner
-
-const Div = styled.div`
-  width: calc(100% - 3rem);
-  height: fit-content;
-  text-align: center;
-  margin: 0 auto;
-
-  & > ins {
-    width: 100%;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    margin: 0 auto 0;
-  }
-`

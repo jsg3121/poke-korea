@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router'
+'use client'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
-import styled from 'styled-components'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
@@ -18,8 +18,8 @@ const PokemonImageCompoment = () => {
     activeType,
   } = useContext(DetailContext)
   const router = useRouter()
-
-  const defaultIndex = parseInt(router.query.activeIndex as string, 10) ?? 0
+  const routerQuery = useSearchParams()
+  const pathname = usePathname()
 
   const getImageList = () => {
     switch (activeType) {
@@ -67,26 +67,22 @@ const PokemonImageCompoment = () => {
     }
   }
 
-  const imageList = getImageList()
-
   const handleSlideChange = (data: SwiperClass) => {
+    const params = new URLSearchParams(routerQuery)
+
     const activeIndex = data.activeIndex
-    router.replace(
-      {
-        query: {
-          ...router.query,
-          activeIndex,
-        },
-      },
-      undefined,
-      {
-        scroll: false,
-      },
-    )
+    params.set('activeIndex', activeIndex.toString())
+
+    router.replace(`${pathname}?${params.toString()}`)
   }
 
+  const defaultIndex =
+    parseInt(routerQuery.get('activeIndex') as string, 10) ?? 0
+  const imageList = getImageList()
+
   return (
-    <Div
+    <div
+      className="w-[27rem] h-72 [filter:drop-shadow(0px_5px_5px_#000000)] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] [&_.swiper-slide>div]:mx-auto"
       aria-labelledby="pokemon-image-slide"
       role="region"
       aria-roledescription="carousel"
@@ -107,17 +103,16 @@ const PokemonImageCompoment = () => {
         >
           {imageList.map((item) => {
             const imageSrc =
-              router.query.shinyMode === 'shiny'
+              routerQuery.get('shinyMode') === 'shiny'
                 ? `${imageMode}/shiny/${item.imageCode}.webp`
                 : `${imageMode}/${item.imageCode}.webp`
-
             return (
               <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
                 <ImageComponent
                   src={imageSrc}
                   width="18rem"
                   height="18rem"
-                  alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${router.query.shinyMode === 'shiny' ? '이로치' : ''}`}
+                  alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? '이로치' : ''}`}
                   className="pokemon-main"
                   unoptimized
                 />
@@ -126,23 +121,8 @@ const PokemonImageCompoment = () => {
           })}
         </Swiper>
       )}
-    </Div>
+    </div>
   )
 }
 
 export default PokemonImageCompoment
-
-const Div = styled.div`
-  width: 27rem;
-  height: 18rem;
-  filter: drop-shadow(0px 5px 5px #000000);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-
-  .swiper-slide > div {
-    margin: 0 auto;
-  }
-`

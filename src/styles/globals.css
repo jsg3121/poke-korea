@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 폰트 정의 */
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('../assets/font/GmarketSansLight.woff2') format('woff2');
+  font-weight: 300;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('../assets/font/GmarketSansMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('../assets/font/GmarketSansBold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: fallback;
+}
+
+/* CSS 커스텀 속성 (CSS Variables) */
+:root {
+  --color-primary-1: #27374d;
+  --color-primary-2: #526d82;
+  --color-primary-3: #9db2bf;
+  --color-primary-4: #dde6ed;
+  --color-white-1: #ffffff;
+  --color-white-2: #dddddd;
+  --color-white-3: #f2f3f4;
+  --color-black-1: #000000;
+  --color-black-2: #333333;
+  --color-shadow-1: #eeeeee;
+  --color-shadow-2: #dddddd;
+  --color-shadow-3: #838383;
+}
+
+/* 기본 스타일 재설정 */
+@layer base {
+  * {
+    @apply box-border font-gmarket-sans;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  menu,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  main,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0px;
+    padding: 0px;
+    font: inherit;
+    border: 0;
+    vertical-align: baseline;
+  }
+
+  html,
+  body {
+    @apply w-full h-full font-gmarket-sans;
+    font-size: 18px;
+    -webkit-text-size-adjust: none;
+    font-display: fallback;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    background-color: var(--color-primary-1);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply relative w-full h-full;
+  }
+
+  :focus {
+    @apply outline-none border-none;
+  }
+
+  ::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  img,
+  svg {
+    pointer-events: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  button {
+    @apply bg-none p-0 border-none cursor-pointer box-border;
+  }
+
+  button:disabled {
+    @apply cursor-default;
+    fill: var(--color-white-3);
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  figure {
+    @apply w-full h-full relative;
+  }
+
+  /* 접근성 - 시각적으로 숨김 */
+  .visually-hidden {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden border-0;
+    clip: rect(0, 0, 0, 0);
+  }
+}
+
+/* 반응형 폰트 크기 */
+@media screen and (min-width: 960px) {
+  html,
+  body {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 680px) {
+  html,
+  body {
+    min-width: 845px;
+  }
+}
+
+@media screen and (min-width: 680px) and (max-width: 959px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 679px) {
+  html,
+  body {
+    font-size: 12px;
+  }
+}
+
+/* 모달 스크롤 방지 */
+html.project__detail--show {
+  overflow: hidden !important;
+}
+
+/* 포켓몬 타입 색상 유틸리티 클래스 */
+@layer utilities {
+  .type-color-normal {
+    @apply text-type-normal;
+  }
+  .type-color-fire {
+    @apply text-type-fire;
+  }
+  .type-color-water {
+    @apply text-type-water;
+  }
+  .type-color-grass {
+    @apply text-type-grass;
+  }
+  .type-color-electric {
+    @apply text-type-electric;
+  }
+  .type-color-ice {
+    @apply text-type-ice;
+  }
+  .type-color-fighting {
+    @apply text-type-fighting;
+  }
+  .type-color-poison {
+    @apply text-type-poison;
+  }
+  .type-color-ground {
+    @apply text-type-ground;
+  }
+  .type-color-flying {
+    @apply text-type-flying;
+  }
+  .type-color-psychic {
+    @apply text-type-psychic;
+  }
+  .type-color-bug {
+    @apply text-type-bug;
+  }
+  .type-color-rock {
+    @apply text-type-rock;
+  }
+  .type-color-ghost {
+    @apply text-type-ghost;
+  }
+  .type-color-dragon {
+    @apply text-type-dragon;
+  }
+  .type-color-dark {
+    @apply text-type-dark;
+  }
+  .type-color-steel {
+    @apply text-type-steel;
+  }
+  .type-color-fairy {
+    @apply text-type-fairy;
+  }
+}

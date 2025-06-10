@@ -1,8 +1,7 @@
 import isEqual from 'fast-deep-equal'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent, memo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import styled from 'styled-components'
 import CloseIcon from '~/assets/close.svg'
 import CheckboxComponent from '~/components/Checkbox.component'
 import RadioGroupComponent from '~/components/RadioGroup.component'
@@ -18,120 +17,19 @@ const RadioOptions = [
   { label: '모두', value: 'all' },
 ]
 
-const FilterModal = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-
-  .modal-section {
-    width: 30rem;
-    height: 40rem;
-    border-radius: 1rem;
-    background-color: var(--color-primary-1);
-    padding: 2rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    .modal__header {
-      height: 3rem;
-      border-bottom: 1px solid #e2e2e2;
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-
-      .modal__header--title {
-        height: 2rem;
-        font-size: 1.5rem;
-        font-weight: 600;
-        line-height: 2rem;
-        color: var(--color-primary-4);
-      }
-
-      & > button {
-        width: 1.5rem;
-        height: 1.5rem;
-      }
-    }
-  }
-
-  .modal-content {
-    width: 100%;
-    height: calc(100% - 3rem);
-    position: relative;
-
-    & > div {
-      margin-bottom: 2rem;
-      width: 100%;
-
-      .filter-option__title {
-        width: 100%;
-
-        p {
-          font-size: 1.125rem;
-          font-weight: 500;
-          line-height: 1.125rem;
-          color: var(--color-primary-3);
-        }
-      }
-
-      .filter-option__wrapper {
-        width: 100%;
-        padding: 1rem 0;
-
-        .filter-option__list {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          gap: 0.5rem;
-
-          .filter-option__item {
-            width: 30%;
-            height: 1.3rem;
-          }
-        }
-      }
-
-      .filter-option__options {
-        margin-top: 0.5rem;
-      }
-    }
-
-    .button__search-filter {
-      width: 100%;
-      height: 3rem;
-      background-color: var(--color-primary-4);
-      border-radius: 0.5rem;
-      color: var(--color-black-2);
-      font-weight: 500;
-      font-size: 1rem;
-      cursor: pointer;
-      position: absolute;
-      bottom: 1rem;
-      left: 0;
-    }
-  }
-`
-
 const FilterModalComponent = ({
   onClickCloseModal,
 }: FilterModalComponentProps) => {
   const router = useRouter()
+  const routerQuery = useSearchParams()
+  const pathname = usePathname()
+
   const formMethods = useForm<FilterFormType>({
     defaultValues: {
-      generation: (router.query.generation as Array<string>) ?? [],
-      isEvolution: (router.query.isEvolution as string) ?? null,
-      isMega: (router.query.isMega as string) ?? null,
-      isRegion: (router.query.isRegion as string) ?? null,
+      generation: routerQuery.getAll('generation') ?? [],
+      isEvolution: routerQuery.get('isEvolution') ?? null,
+      isMega: routerQuery.get('isMega') ?? null,
+      isRegion: routerQuery.get('isRegion') ?? null,
     },
   })
 
@@ -156,45 +54,39 @@ const FilterModalComponent = ({
   }
 
   const onSubmitFilter = (filterData: FilterFormType) => {
-    const { query, pathname } = router
+    const queryString = new URLSearchParams(routerQuery)
 
-    const filter = {
-      ...(filterData.generation && {
-        generation: filterData.generation,
-      }),
-      ...(filterData.isMega && {
-        isMega: filterData.isMega,
-      }),
-      ...(filterData.isEvolution && {
-        isEvolution: filterData.isEvolution,
-      }),
-      ...(filterData.isRegion && {
-        isRegion: filterData.isRegion,
-      }),
-    }
+    Object.entries(filterData).forEach(([key, value]) => {
+      if (!value || (Array.isArray(value) && value.length === 0)) {
+        queryString.delete(key)
+        return
+      }
 
-    router.replace({
-      pathname,
-      query: {
-        ...query,
-        ...filter,
-      },
+      if (Array.isArray(value)) {
+        queryString.delete(key)
+        value.forEach((v) => queryString.append(key, v))
+      } else {
+        queryString.set(key, value.toString())
+      }
     })
 
+    router.replace(`${pathname}?${queryString}`)
     onClickCloseModal()
   }
 
   const generation = watch('generation')
 
   return (
-    <FilterModal>
+    <div className="w-screen h-screen bg-black/70 fixed top-0 left-0 z-[100]">
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmitFilter)}>
-          <section className="modal-section">
-            <header className="modal__header">
-              <p className="modal__header--title">추가 필터 검색</p>
+          <section className="w-[30rem] h-[40rem] rounded-2xl bg-primary-1 p-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <header className="h-12 border-b border-solid border-[#e2e2e2] mb-4 pb-4 flex items-start justify-between">
+              <p className="h-8 text-2xl font-semibold leading-8 text-primary-4">
+                추가 필터 검색
+              </p>
               <button
-                className="modal__button--close"
+                className="w-6 h-6"
                 type="button"
                 onClick={handleClickCloseModal}
               >
@@ -205,18 +97,20 @@ const FilterModalComponent = ({
                 />
               </button>
             </header>
-            <div className="modal-content">
-              <div className="content__filter-option--generation">
-                <div className="filter-option__title">
-                  <p>포켓몬 세대</p>
+            <div className="w-full h-[calc(100%-3rem)] relative">
+              <div className="mb-8 w-full">
+                <div className="w-full">
+                  <p className="text-lg font-medium leading-[1.125rem] text-primary-3">
+                    포켓몬 세대
+                  </p>
                 </div>
-                <div className="filter-option__wrapper">
-                  <ul className="filter-option__list">
+                <div className="w-full py-4">
+                  <ul className="w-full flex items-center flex-wrap justify-between gap-2">
                     {new Array(9).fill(null).map((_, index: number) => {
                       const gen = index + 1
                       return (
                         <li
-                          className="filter-option__item"
+                          className="w-[30%] h-[1.3rem]"
                           key={`pokemon-generation-id-${index}`}
                         >
                           <CheckboxComponent
@@ -232,47 +126,56 @@ const FilterModalComponent = ({
                   </ul>
                 </div>
               </div>
-              <div className="content__filter-option--mega">
-                <div className="filter-option__title">
-                  <p>메가진화 가능 포켓몬 포함</p>
+              <div className="mb-8 w-full">
+                <div className="w-full">
+                  <p className="text-lg font-medium leading-[1.125rem] text-primary-3">
+                    메가진화 가능 포켓몬 포함
+                  </p>
                 </div>
-                <div className="filter-option__options">
+                <div className="mt-2">
                   <RadioGroupComponent
                     options={RadioOptions}
                     {...register('isMega')}
                   />
                 </div>
               </div>
-              <div className="content__filter-option--region">
-                <div className="filter-option__title">
-                  <p>리전폼 존재 포켓몬 포함</p>
+              <div className="mb-8 w-full">
+                <div className="w-full">
+                  <p className="text-lg font-medium leading-[1.125rem] text-primary-3">
+                    리전폼 존재 포켓몬 포함
+                  </p>
                 </div>
-                <div className="filter-option__options">
+                <div className="mt-2">
                   <RadioGroupComponent
                     options={RadioOptions}
                     {...register('isRegion')}
                   />
                 </div>
               </div>
-              <div className="content__filter-option--evolution">
-                <div className="filter-option__title">
-                  <p>진화 가능 포켓몬 포함</p>
+              <div className="mb-8 w-full">
+                <div className="w-full">
+                  <p className="text-lg font-medium leading-[1.125rem] text-primary-3">
+                    진화 가능 포켓몬 포함
+                  </p>
                 </div>
-                <div className="filter-option__options">
+                <div className="mt-2">
                   <RadioGroupComponent
                     options={RadioOptions}
                     {...register('isEvolution')}
                   />
                 </div>
               </div>
-              <button className="button__search-filter" type="submit">
+              <button
+                className="w-full h-12 bg-primary-4 rounded-lg text-black-2 font-medium text-base cursor-pointer absolute bottom-4 left-0"
+                type="submit"
+              >
                 필터 조건으로 검색하기
               </button>
             </div>
           </section>
         </form>
       </FormProvider>
-    </FilterModal>
+    </div>
   )
 }
 

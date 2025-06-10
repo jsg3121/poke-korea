@@ -1,97 +1,41 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import styled from 'styled-components'
+import { useSearchParams } from 'next/navigation'
 import RegionIcon from '~/assets/icons/region.svg'
 
 const RegionSwitch = () => {
-  const router = useRouter()
+  const routerQuery = useSearchParams()
 
-  const isRegion = router.query.activeType === 'region' ? true : false
+  const isRegion = routerQuery.get('activeType') === 'region' ? true : false
+  const currentQuery = Object.fromEntries(routerQuery.entries())
 
   const regionHref = {
     query: {
-      ...router.query,
+      ...currentQuery,
       activeType: isRegion ? 'normal' : 'region',
     },
   }
 
   return (
-    <Li className={isRegion ? 'active-region' : ''}>
+    <li
+      className={`relative -left-11 transition-[left] duration-200 ease-out hover:-left-28 ${isRegion && '-left-28'}`}
+    >
       <Link
         href={regionHref}
-        className="switch-region"
+        className="w-28 h-8 flex items-center justify-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
         aria-label="리전폼 변환 스위치"
         replace
       >
-        <i className="icon-region" aria-hidden>
-          <RegionIcon />
+        <i className="icon-region w-8 h-8 flex-shrink-0 block" aria-hidden>
+          <RegionIcon className={isRegion ? 'grayscale-0' : 'grayscale'} />
         </i>
-        <span>리전폼</span>
+        <span
+          className={`h-8 text-base font-normal leading-[calc(2rem+2px)] ${isRegion ? 'text-[#333333]' : 'text-[#888888]'}`}
+        >
+          리전폼
+        </span>
       </Link>
-    </Li>
+    </li>
   )
 }
 
 export default RegionSwitch
-
-const Li = styled.li`
-  position: relative;
-  left: -2.75rem;
-  transition: left 0.2s ease-out;
-
-  &:hover {
-    left: -7rem;
-  }
-
-  &.active-region {
-    left: -7rem;
-
-    & > .switch-region {
-      & > span {
-        color: #333333;
-      }
-
-      & > .icon-region > svg {
-        filter: grayscale(0);
-      }
-    }
-  }
-
-  & > .switch-region {
-    width: 7rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    padding: 0 1rem 0 0.5rem;
-    border-top-left-radius: 9999px;
-    border-bottom-left-radius: 9999px;
-    background-color: var(--color-primary-4);
-    cursor: pointer;
-
-    &:active {
-      color: #333333;
-      background-color: var(--color-primary-3);
-    }
-
-    & > span {
-      height: 2rem;
-      font-size: 1rem;
-      font-weight: normal;
-      line-height: calc(2rem + 2px);
-      color: #888888;
-    }
-
-    & > .icon-region {
-      width: 2rem;
-      height: 2rem;
-      flex-shrink: 0;
-      display: block;
-
-      svg {
-        filter: grayscale(1);
-      }
-    }
-  }
-`

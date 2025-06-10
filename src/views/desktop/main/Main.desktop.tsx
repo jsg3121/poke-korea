@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router'
-import { ParsedUrlQuery } from 'querystring'
-import styled from 'styled-components'
+'use client'
+
+import { useSearchParams } from 'next/navigation'
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
 import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 import ListContainer from '~/container/desktop/List/List.container'
@@ -12,19 +12,8 @@ interface ManinViewsProps {
   pokemonList: Array<PokemonList>
 }
 
-const Div = styled.div`
-  padding-bottom: 20rem;
-  transition: padding-bottom 0.3s;
-  will-change: padding-bottom;
-
-  &[data-scrolling='true'],
-  &[data-searching='has-query'] {
-    padding-bottom: 11rem;
-  }
-`
-
-const checkRouteQuery = (query: ParsedUrlQuery) => {
-  const values = Object.values(query)
+const checkSearchParams = (searchParams: URLSearchParams) => {
+  const values = Array.from(searchParams.values())
   return (
     values.some((value) => value !== '') &&
     !values.every((value) => value === '')
@@ -32,10 +21,10 @@ const checkRouteQuery = (query: ParsedUrlQuery) => {
 }
 
 const MainDesktop = ({ pokemonList }: ManinViewsProps) => {
-  const router = useRouter()
+  const searchParams = useSearchParams()
   const { observerRef, isScroll } = useHeaderScroll()
 
-  const hasSearchQuery = checkRouteQuery(router.query ?? {})
+  const hasSearchQuery = checkSearchParams(searchParams)
 
   return (
     <ListProvider
@@ -43,13 +32,14 @@ const MainDesktop = ({ pokemonList }: ManinViewsProps) => {
       scrolling={isScroll}
       searching={hasSearchQuery}
     >
-      <Div
+      <div
         ref={observerRef}
+        className="pb-80 transition-[padding-bottom] duration-300 will-change-[padding-bottom] data-[scrolling=true]:pb-44 data-[searching=has-query]:pb-44"
         data-scrolling={isScroll}
         data-searching={hasSearchQuery ? 'has-query' : ''}
       >
         <HeaderContainer />
-      </Div>
+      </div>
       <DesktopListTopBanner />
       <ListContainer />
     </ListProvider>

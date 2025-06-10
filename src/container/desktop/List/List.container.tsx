@@ -1,38 +1,12 @@
+'use client'
 import dynamic from 'next/dynamic'
 import { useContext, useMemo } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
-import styled from 'styled-components'
 import { ListContext } from '~/context/List.context'
 
 const PokemonCard = dynamic(
   () => import('./list.pokemonCard/PokemonCard.component'),
 )
-
-const List = styled.section`
-  width: 100%;
-  max-width: 1280px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 3rem 0 2rem;
-  position: relative;
-
-  & > h2 {
-    position: absolute;
-    top: 0;
-    color: var(--color-primary-1);
-    user-select: none;
-  }
-
-  .virtuoso-grid-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(calc(14rem - 10px), auto));
-    grid-column-gap: 1rem;
-    grid-row-gap: 1.5rem;
-    justify-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-  }
-`
 
 const ListContainer = () => {
   const { pokemonList } = useContext(ListContext)
@@ -50,10 +24,10 @@ const ListContainer = () => {
   }, [pokemonList])
 
   return (
-    <List>
+    <section className="w-full max-w-[1280px] h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none [&_.virtuoso-grid-list]:grid [&_.virtuoso-grid-list]:grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] [&_.virtuoso-grid-list]:gap-x-4 [&_.virtuoso-grid-list]:gap-y-6 [&_.virtuoso-grid-list]:justify-items-center [&_.virtuoso-grid-list]:justify-between [&_.virtuoso-grid-list]:px-5">
       <h2>포켓몬 리스트</h2>
       {list}
-    </List>
+    </section>
   )
 }
 

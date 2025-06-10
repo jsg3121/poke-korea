@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import styled, { css } from 'styled-components'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TypeResultChipComponents from './components/TypeResultChip.components'
@@ -10,8 +9,20 @@ interface ResultListComponentsProps {
   importantPoint: 1 | 2 | 3 | 4 | 5
 }
 
-type StyledProps = {
-  importantpoint: 1 | 2 | 3 | 4 | 5
+const getBackgroundColor = (importantPoint: 1 | 2 | 3 | 4 | 5) => {
+  switch (importantPoint) {
+    case 5:
+      return 'bg-[#feb0b0]'
+    case 4:
+      return 'bg-[#ffae76]'
+    case 3:
+      return 'bg-[#ffdf61]'
+    case 2:
+      return 'bg-[#84efff]'
+    case 1:
+    default:
+      return 'bg-[#80f7ac]'
+  }
 }
 
 const ResultListComponents = ({
@@ -21,8 +32,12 @@ const ResultListComponents = ({
 }: ResultListComponentsProps) => {
   return (
     <Fragment>
-      <Dt importantpoint={importantPoint}>{title}</Dt>
-      <Dd importantpoint={importantPoint}>
+      <dt
+        className={`w-fit h-8 text-xl leading-[calc(2rem+2px)] text-left shadow-[1px_2px_6px_0_var(--color-primary-1)] px-4 rounded-2xl ${getBackgroundColor(importantPoint)}`}
+      >
+        {title}
+      </dt>
+      <dd className="w-full py-4 pb-8 flex flex-wrap items-center gap-4 last:pb-0">
         {dataList.map((type) => {
           return (
             <TypeResultChipComponents
@@ -32,55 +47,9 @@ const ResultListComponents = ({
             />
           )
         })}
-      </Dd>
+      </dd>
     </Fragment>
   )
 }
 
 export default ResultListComponents
-
-const Dt = styled.dt<StyledProps>`
-  ${({ importantpoint }) => css`
-    width: fit-content;
-    height: 2rem;
-    font-size: 1.25rem;
-    line-height: calc(2rem + 2px);
-    text-align: left;
-    box-shadow: 1px 2px 6px 0 var(--color-primary-1);
-    padding: 0 1rem;
-    border-radius: 1rem;
-    background-color: ${() => {
-      switch (importantpoint) {
-        case 5: {
-          return '#feb0b0'
-        }
-        case 4: {
-          return '#ffae76'
-        }
-        case 3: {
-          return '#ffdf61'
-        }
-        case 2: {
-          return '#84efff'
-        }
-        case 1:
-        default: {
-          return '#80f7ac'
-        }
-      }
-    }};
-  `}
-`
-
-const Dd = styled.dd<StyledProps>`
-  width: 100%;
-  padding: 1rem 0 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-
-  &:last-child {
-    padding: 1rem 0 0;
-  }
-`
