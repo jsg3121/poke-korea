@@ -163,7 +163,7 @@ export const generateMetadata = async ({
       type: 'website',
       url: caninicalUrl,
       title,
-      description: '',
+      description,
       images: [
         {
           url: 'https://poke-korea.com/assets/image/ogImage.png',
@@ -181,10 +181,6 @@ export const generateMetadata = async ({
         },
       ],
       siteName: '포케 코리아',
-    },
-    robots: {
-      index: true,
-      follow: true,
     },
     alternates: {
       canonical: caninicalUrl,
