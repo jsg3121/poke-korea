@@ -99,36 +99,6 @@ export const generateMetadata = async ({
 
   const dataIndex = activeIndex ? parseInt(activeIndex, 10) : 0
 
-  const getPokemonInfo = () => {
-    switch (activeType) {
-      case 'mega':
-        return {
-          name: megaData.data?.getPokemonMegaEvolution?.[dataIndex].name,
-          stats:
-            megaData.data?.getPokemonMegaEvolution?.[dataIndex]
-              .megaEvolutionStats,
-        }
-      case 'region':
-        return {
-          name: `${pokemonDetail.name} ${regionData.data?.getPokemonRegionForm?.[dataIndex].region}의 모습 ${regionData.data?.getPokemonRegionForm?.[dataIndex].name && `(${regionData.data?.getPokemonRegionForm?.[dataIndex].name})`}`,
-          stats:
-            regionData.data?.getPokemonRegionForm?.[dataIndex]
-              .regionFormStats ?? pokemonDetail.pokemonStats,
-        }
-      default:
-        return {
-          name:
-            normalFormData?.getPokemonNormalForm?.[dataIndex]?.name.replace(
-              '_',
-              ' ',
-            ) ?? pokemonDetail.name,
-          stats:
-            normalFormData?.getPokemonNormalForm?.[dataIndex]
-              ?.normalFormStats ?? pokemonDetail.pokemonStats,
-        }
-    }
-  }
-
   const getTypes = () => {
     switch (activeType) {
       case 'mega': {
@@ -152,17 +122,16 @@ export const generateMetadata = async ({
       }
     }
   }
-  const pokemonInfo = getPokemonInfo()
 
   const pokemonNameByType = getPokemonNameByType({
     activeType,
     megaEvolutionName: megaData.data?.getPokemonMegaEvolution
-      ? megaData.data?.getPokemonMegaEvolution[parseInt(activeIndex, 10)]?.name
+      ? megaData.data?.getPokemonMegaEvolution[dataIndex]?.name
       : '',
     regionFormPlace: regionData.data?.getPokemonRegionForm
-      ? regionData.data?.getPokemonRegionForm[parseInt(activeIndex, 10)]?.region
+      ? regionData.data?.getPokemonRegionForm[dataIndex]?.region
       : '',
-    pokemonBaseInfoName: pokemonInfo.name ?? pokemonDetail.name,
+    pokemonBaseInfoName: pokemonDetail.name,
     isShiny,
   })
 
@@ -173,7 +142,7 @@ export const generateMetadata = async ({
 
   const caninicalUrl = getSeoCanonicalUrl({
     activeType,
-    activeIndex: parseInt(activeIndex, 10),
+    activeIndex: dataIndex,
     pokemonNumber: pokemonDetail.number,
     isShiny,
   })
