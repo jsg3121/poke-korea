@@ -11,6 +11,8 @@ import {
 import MainDesktop from '~/views/desktop/main/Main.desktop'
 import MainMobile from '~/views/mobile/main/Main.mobile'
 
+export const revalidate = 3600 // 1시간마다 재생성
+
 export const metadata: Metadata = {
   title: '포켓몬의 모든 정보 포케 코리아',
   description: `
@@ -84,11 +86,16 @@ const HomePage = async ({ searchParams }: PageProps) => {
     isEvolution: toBooleanOrUndefined(isEvolution as string),
   }
 
+  // 필터가 없는 경우에만 캐싱된 데이터 사용
+  const hasFilters =
+    name || type || isMega || isRegion || isEvolution || generation
+
   const { data } = await apolloClient.query({
     query: GetPokemonListDocument,
     variables: {
       filter: filterInput,
     },
+    fetchPolicy: hasFilters ? 'no-cache' : 'cache-first',
   })
 
   const pokemonList = data?.getPokemonList || []
