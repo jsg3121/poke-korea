@@ -5,7 +5,10 @@ const DesktopListTopBanner = () => {
   const { slotRef } = useAdSlotEffect()
 
   return (
-    <div ref={slotRef} className="w-full max-w-[1280px] max-h-fit mt-8 mx-auto">
+    <div
+      ref={slotRef}
+      className="w-full max-w-[1280px] max-h-[140px] mt-8 mx-auto"
+    >
       <ins
         className="adsbygoogle w-full max-h-[140px] block mx-auto text-center"
         data-ad-client="ca-pub-6481622724376761"

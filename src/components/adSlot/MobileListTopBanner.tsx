@@ -5,7 +5,7 @@ const MobileListTopBanner = () => {
   const { slotRef } = useAdSlotEffect()
 
   return (
-    <div ref={slotRef} className="w-full h-fit mt-8 mx-auto">
+    <div ref={slotRef} className="w-full max-h-[90px] mt-8 mx-auto">
       <ins
         className="adsbygoogle w-[calc(100%-3rem)] max-h-[90px] block mx-auto text-center"
         data-ad-client="ca-pub-6481622724376761"
