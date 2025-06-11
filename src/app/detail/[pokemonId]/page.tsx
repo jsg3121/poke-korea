@@ -33,6 +33,8 @@ import DetailDesktop from '~/views/desktop/Detail.desktop'
 import DetailMobile from '~/views/mobile/Detail.mobile'
 import { SHINY_QNA_JSON_LD } from '../../../constants/shinyJsonLd'
 
+export const revalidate = 86400 // 24시간마다 재생성
+
 interface DetailPageProps {
   params: Promise<{ pokemonId: string }>
   searchParams: Promise<{
