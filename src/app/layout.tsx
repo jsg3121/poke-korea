@@ -36,17 +36,37 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
 
+  const isProduction = process.env.NODE_ENV === 'production'
+
   return (
     <html lang="ko">
       <head>
-        {process.env.NODE_ENV === 'production' && (
+        {isProduction && (
+          <>
+            <meta
+              name="naver-site-verification"
+              content="28fbf8b85e4e80ff37d5a2338991716ae74de83f"
+            />
+            <meta
+              name="google-adsense-account"
+              content="ca-pub-6481622724376761"
+            />
+          </>
+        )}
+      </head>
+      <body>
+        <Providers userAgent={userAgent}>{children}</Providers>
+        {isProduction && (
           <>
             {/* Google Analytics */}
-            <script
-              async
+            <Script
+              id="gtag-base"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
+              strategy="beforeInteractive"
             />
-            <script
+            <Script
+              id="gtag-init"
+              strategy="beforeInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -57,9 +77,14 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               }}
             />
             {/* Naver Analytics */}
-            <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
-            <script
-              type="text/javascript"
+            <Script
+              id="naver-analytics"
+              src="//wcs.naver.net/wcslog.js"
+              strategy="beforeInteractive"
+            />
+            <Script
+              id="naver-analytics-init"
+              strategy="beforeInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   if(!wcs_add) var wcs_add = {};
@@ -71,33 +96,14 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               }}
             />
             {/* Google AdSense */}
-            <meta
-              name="naver-site-verification"
-              content="28fbf8b85e4e80ff37d5a2338991716ae74de83f"
-            />
-            <meta
-              name="google-adsense-account"
-              content="ca-pub-6481622724376761"
-            />
-            <script
-              async
+            <Script
+              id="adsbygoogle-init"
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
               crossOrigin="anonymous"
+              strategy="beforeInteractive"
             />
           </>
         )}
-      </head>
-      <body>
-        {process.env.NODE_ENV === 'production' && (
-          <Script
-            id="adsbygoogle-init"
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-            crossOrigin="anonymous"
-            strategy="beforeInteractive"
-          />
-        )}
-        <Providers userAgent={userAgent}>{children}</Providers>
       </body>
     </html>
   )
