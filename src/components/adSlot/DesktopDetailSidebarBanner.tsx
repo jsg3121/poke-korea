@@ -1,3 +1,4 @@
+'use client'
 import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 const DesktopDetailSidebarBanner = () => {
@@ -8,7 +9,7 @@ const DesktopDetailSidebarBanner = () => {
       className="max-w-40 max-h-fit absolute -right-[200px] xl:static xl:right-0 max-xl:w-0 max-xl:hidden"
     >
       <ins
-        className="adsbygoogle w-40 max-h-[600px] block"
+        className="adsbygoogle w-40 max-h-[600px] block ml-4"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="9075172521"
         data-ad-format="auto"

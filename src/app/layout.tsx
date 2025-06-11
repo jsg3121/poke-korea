@@ -86,17 +86,17 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             />
           </>
         )}
-        {process.env.NODE_ENV === 'production' && (
-          <Script
-            id="adsbygoogle-init"
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-            crossOrigin="anonymous"
-            strategy="beforeInteractive"
-          />
-        )}
       </head>
       <body>
+        {/* {process.env.NODE_ENV === 'production' && ( */}
+        <Script
+          id="adsbygoogle-init"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
+        {/* )} */}
         <Providers userAgent={userAgent}>{children}</Providers>
       </body>
     </html>
