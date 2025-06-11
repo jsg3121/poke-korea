@@ -86,6 +86,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             />
           </>
         )}
+      </head>
+      <body>
         {process.env.NODE_ENV === 'production' && (
           <Script
             id="adsbygoogle-init"
@@ -95,8 +97,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             strategy="beforeInteractive"
           />
         )}
-      </head>
-      <body>
         <Providers userAgent={userAgent}>{children}</Providers>
       </body>
     </html>
