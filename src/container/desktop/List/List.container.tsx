@@ -25,7 +25,7 @@ const ListContainer = () => {
 
   return (
     <section className="w-full max-w-[1280px] h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none [&_.virtuoso-grid-list]:grid [&_.virtuoso-grid-list]:grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] [&_.virtuoso-grid-list]:gap-x-4 [&_.virtuoso-grid-list]:gap-y-6 [&_.virtuoso-grid-list]:justify-items-center [&_.virtuoso-grid-list]:justify-between [&_.virtuoso-grid-list]:px-5">
-      <h2>포켓몬 리스트</h2>
+      <h2 className="visually-hidden">포켓몬 리스트</h2>
       {list}
     </section>
   )
