@@ -10,8 +10,6 @@ const DesktopListTopBanner = () => {
         className="adsbygoogle w-full h-[140px] block mx-auto text-center"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="9835534510"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
       ></ins>
     </div>
   )
