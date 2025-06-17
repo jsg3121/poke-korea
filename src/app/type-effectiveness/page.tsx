@@ -6,7 +6,7 @@ import TypeEffectivenessDesktop from '~/views/desktop/TypeEffectiveness.desktop'
 import TypeEffectivenessMobile from '~/views/mobile/TypeEffectiveness.mobile'
 import { TYPE_EFFECTIVNESS_SEO_META } from '~/constants/seoMetaData'
 
-export const revalidate = 86400 // 24시간마다 재생성
+export const revalidate = 31536000 // 24시간마다 재생성
 
 export const metadata: Metadata = {
   title: TYPE_EFFECTIVNESS_SEO_META.title,

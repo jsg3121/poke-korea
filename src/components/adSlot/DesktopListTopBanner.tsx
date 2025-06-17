@@ -7,7 +7,7 @@ const DesktopListTopBanner = () => {
   return (
     <div
       ref={slotRef}
-      className="w-full max-w-[1280px] max-h-[140px] mt-8 mx-auto"
+      className="w-full max-w-[1280px] max-h-[140px] h-fit mt-8 mx-auto"
     >
       <ins
         className="adsbygoogle w-full max-h-[140px] block mx-auto text-center"
