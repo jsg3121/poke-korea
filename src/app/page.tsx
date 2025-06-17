@@ -11,7 +11,7 @@ import {
 import MainDesktop from '~/views/desktop/main/Main.desktop'
 import MainMobile from '~/views/mobile/main/Main.mobile'
 
-export const revalidate = 3600 // 1시간마다 재생성
+export const revalidate = 31536000 // 1년
 
 export const metadata: Metadata = {
   title: '포켓몬의 모든 정보 포케 코리아',
