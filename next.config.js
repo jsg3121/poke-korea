@@ -33,7 +33,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/assets/image/:all*\\.(svg)',
+        source: '/assets/:all*\\.(svg|png)',
         headers: [
           {
             key: 'Cache-Control',
