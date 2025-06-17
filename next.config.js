@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    https: true,
+    httpsKey: './local.poke-korea.com-key.pem',
+    httpsCert: './local.poke-korea.com.pem',
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
