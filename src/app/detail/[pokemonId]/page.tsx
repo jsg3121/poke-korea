@@ -1,8 +1,6 @@
 import { Metadata } from 'next'
-import Head from 'next/head'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { Fragment } from 'react'
 import { DetailProvider } from '~/context/Detail.context'
 import {
   GetPokemonMegaEvolutionDocument,
@@ -158,7 +156,7 @@ export const generateMetadata = async ({
     types,
   })
 
-  return {
+  const metadata: Metadata = {
     title,
     description,
     openGraph: {
@@ -188,6 +186,15 @@ export const generateMetadata = async ({
       canonical: caninicalUrl,
     },
   }
+
+  // Shiny 모드일 때 JSON-LD 추가
+  if (isShiny) {
+    metadata.other = {
+      'script:ld+json': JSON.stringify(SHINY_QNA_JSON_LD),
+    }
+  }
+
+  return metadata
 }
 
 const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
@@ -260,21 +267,9 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   }
 
   return (
-    <Fragment>
-      {props.isShinyInfo && (
-        <Head>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(SHINY_QNA_JSON_LD),
-            }}
-          />
-        </Head>
-      )}
-      <DetailProvider {...props}>
-        {isMobile ? <DetailMobile /> : <DetailDesktop />}
-      </DetailProvider>
-    </Fragment>
+    <DetailProvider {...props}>
+      {isMobile ? <DetailMobile /> : <DetailDesktop />}
+    </DetailProvider>
   )
 }
 

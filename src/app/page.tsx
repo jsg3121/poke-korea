@@ -89,7 +89,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
   // 필터가 없는 경우에만 캐싱된 데이터 사용
   const hasFilters =
     name || type || isMega || isRegion || isEvolution || generation
-
   const { data } = await apolloClient.query({
     query: GetPokemonListDocument,
     variables: {
