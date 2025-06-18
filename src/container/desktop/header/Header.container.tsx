@@ -14,6 +14,7 @@ const HeaderContainer = () => {
         <i className="icon-logo-link">
           <LogoIcon />
         </i>
+        <p className="visually-hidden">메인 화면으로 돌아가기</p>
       </Link>
       <div className="w-128 h-16 flex items-center justify-center gap-4 mr-8">
         <HeaderSearchContainer key={`search-key-${pathname}`} />

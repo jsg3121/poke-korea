@@ -8,7 +8,6 @@ import { Metadata, Viewport } from 'next'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
-  userScalable: false,
   width: 'device-width',
 }
 
