@@ -187,13 +187,6 @@ export const generateMetadata = async ({
     },
   }
 
-  // Shiny 모드일 때 JSON-LD 추가
-  if (isShiny) {
-    metadata.other = {
-      'script:ld+json': JSON.stringify(SHINY_QNA_JSON_LD),
-    }
-  }
-
   return metadata
 }
 
@@ -258,9 +251,11 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
       : Promise.resolve({ data: null }),
   ])
 
+  const isShiny = shinyMode === 'shiny'
+
   const props: DetailPokemonInfo = {
     pokemonBaseInfo: pokemonDetail,
-    isShinyInfo: shinyMode === 'shiny',
+    isShinyInfo: isShiny,
     normalForm: normalFormData.getPokemonNormalForm ?? [],
     megaEvolutionData: megaData.data?.getPokemonMegaEvolution ?? [],
     regionFormData: regionData.data?.getPokemonRegionForm ?? [],
@@ -269,6 +264,14 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   return (
     <DetailProvider {...props}>
       {isMobile ? <DetailMobile /> : <DetailDesktop />}
+      {isShiny && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(SHINY_QNA_JSON_LD),
+          }}
+        />
+      )}
     </DetailProvider>
   )
 }

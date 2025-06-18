@@ -6,6 +6,8 @@ const nextConfig = {
     httpsKey: './local.poke-korea.com-key.pem',
     httpsCert: './local.poke-korea.com.pem',
   },
+  htmlLimitedBots:
+    'googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora|showyoubot|outbrain|pinterest|developers\\.google\\.com',
   eslint: {
     ignoreDuringBuilds: true,
   },
