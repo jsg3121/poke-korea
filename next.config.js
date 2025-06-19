@@ -1,18 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    https: true,
-    httpsKey: './local.poke-korea.com-key.pem',
-    httpsCert: './local.poke-korea.com.pem',
-  },
-  htmlLimitedBots:
-    'googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora|showyoubot|outbrain|pinterest|developers\\.google\\.com',
+  experimental: {},
   eslint: {
     ignoreDuringBuilds: true,
   },
   images: {
-    remotePatterns: [new URL('https://image.poke-korea.com/image/*')],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.poke-korea.com',
+        pathname: '/image/**',
+      },
+    ],
   },
   allowedDevOrigins: ['local.poke-korea.com'],
   productionBrowserSourceMaps: false,

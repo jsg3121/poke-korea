@@ -185,6 +185,11 @@ export const generateMetadata = async ({
     alternates: {
       canonical: caninicalUrl,
     },
+    ...(isShiny && {
+      other: {
+        'application/ld+json': JSON.stringify(SHINY_QNA_JSON_LD),
+      },
+    }),
   }
 
   return metadata
@@ -264,14 +269,6 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   return (
     <DetailProvider {...props}>
       {isMobile ? <DetailMobile /> : <DetailDesktop />}
-      {isShiny && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(SHINY_QNA_JSON_LD),
-          }}
-        />
-      )}
     </DetailProvider>
   )
 }
