@@ -2,11 +2,11 @@
 
 import { useSearchParams } from 'next/navigation'
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
-import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 import ListContainer from '~/container/desktop/List/List.container'
 import { ListProvider } from '~/context/List.context'
 import { PokemonList } from '~/graphql/typeGenerated'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
+import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 
 interface ManinViewsProps {
   pokemonList: Array<PokemonList>

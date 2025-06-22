@@ -20,7 +20,7 @@ const HeaderContainer = () => {
         <LogoComponent />
         <SearchComponent />
       </div>
-      <FilterComponents />
+      {/* <FilterComponents /> */}
     </header>
   )
 }

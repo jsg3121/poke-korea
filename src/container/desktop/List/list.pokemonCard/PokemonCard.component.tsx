@@ -1,12 +1,13 @@
 import Link from 'next/link'
-import { useMemo } from 'react'
 import BallComponent from '~/components/Ball.component'
-import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
+import {
+  getbackgroundColor,
+  pokemonNumberFormat,
+} from './modules/pokemonCardModules'
+import ImageComponent from '~/components/Image.component'
 import { imageMode } from '~/module/buildMode'
-import { CardColor } from '~/types/pokemonTypes.types'
-import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -14,14 +15,7 @@ interface CardComponentProps {
 
 const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
-
-  const backgroundColor = useMemo(() => {
-    const background: Array<CardColor> = []
-    pokemonData.types.map((item) => {
-      return background.push(CardColor[item])
-    })
-    return background
-  }, [pokemonData])
+  const backgroundColor = getbackgroundColor(pokemonData.types)
 
   const gradientStyle =
     backgroundColor.length === 1
@@ -31,7 +25,7 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
         }
 
   return (
-    <Link href={`/detail/${pokemonData.number}`}>
+    <Link href={`/detail/${pokemonData.number}`} className="w-56">
       <article
         className="w-56 h-80 text-[#333333] border border-solid border-[#333333] rounded-[10px] block p-[0.83333333rem_0.55555556rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_#334150] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-[1.2] hover:z-10 before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
         style={gradientStyle}
