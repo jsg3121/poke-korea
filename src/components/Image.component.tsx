@@ -1,7 +1,6 @@
-import Image, { ImageProps } from 'next/image'
-import { HTMLAttributes, ImgHTMLAttributes, ReactElement } from 'react'
+import { ImgHTMLAttributes } from 'react'
 
-interface ImageComponentProps extends any {
+interface ImageComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
   width: string
   height: string
 }
@@ -16,7 +15,6 @@ const ImageComponent = ({
       <picture className="w-full h-full block">
         <figure className="w-full h-full relative">
           <img {...imageProps} />
-          {/* <Image {...imageProps} fill /> */}
         </figure>
       </picture>
     </div>

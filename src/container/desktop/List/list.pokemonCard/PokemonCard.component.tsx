@@ -54,7 +54,6 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
             alt={`pokemon_id_${pokemonData.number}`}
             src={`${imageMode}/${pokemonData.number}.webp`}
             sizes="10rem"
-            unoptimized
           />
         </div>
         <div
