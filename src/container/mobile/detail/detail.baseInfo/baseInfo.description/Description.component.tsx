@@ -1,4 +1,3 @@
-'use client'
 import { useContext } from 'react'
 import TagComponent from '~/components/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
