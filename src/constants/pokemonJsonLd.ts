@@ -92,7 +92,6 @@ export const generatePokemonJsonLd = ({
   const pokemonTypes = getPokemonTypes(commonParams)
   const stats = getPokemonStats(commonParams)
 
-  // 메타데이터와 동일한 네이밍 로직 사용
   const displayName = getPokemonNameByType({
     activeType,
     pokemonBaseInfoName: pokemonDetail.name,
@@ -101,13 +100,29 @@ export const generatePokemonJsonLd = ({
     isShiny,
   })
 
-  // 메타데이터와 동일한 URL 생성 로직 사용
   const canonicalUrl = getSeoCanonicalUrl({
     activeType,
     activeIndex,
     pokemonNumber: pokemonDetail.number,
     isShiny,
   })
+
+  const getAbilities = () => {
+    switch (activeType) {
+      case 'mega': {
+        return megaEvolutionData?.[activeIndex].megaEvolutionAbilityList ?? []
+      }
+      case 'region': {
+        return regionFormData?.[activeIndex].regionFormAbilityList ?? []
+      }
+      default: {
+        return (
+          normalForm?.[activeIndex]?.normalFormAbilityList ??
+          pokemonDetail.pokemonAbilityList
+        )
+      }
+    }
+  }
 
   const typeList = pokemonTypes
     .map((type) => {
@@ -118,82 +133,119 @@ export const generatePokemonJsonLd = ({
   const imageList = getImageList()
 
   const imageSrc = isShiny
-    ? `${imageMode}/shiny/${imageList?.[activeIndex].imageCode}.webp`
-    : `${imageMode}/${imageList?.[activeIndex].imageCode}.webp`
+    ? `${imageMode}/shiny/${imageList?.[activeIndex]?.imageCode}.webp`
+    : `${imageMode}/${imageList?.[activeIndex]?.imageCode}.webp`
+
+  const abilities = getAbilities()
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'VideoGameCharacter',
+    '@type': 'WebPage',
     name: `No. ${pokemonDetail.number} ${displayName}`,
-    description: `포켓몬 도감 번호 ${pokemonDetail.number}번. ${typeList} 타입의 포켓몬입니다. ${pokemonDetail.generation}세대에 등장하는 포켓몬으로 다양한 능력치와 특성을 가지고 있습니다.`,
-    identifier: pokemonDetail.number.toString(),
+    description: `포켓몬 도감 번호 ${pokemonDetail.number}번 ${displayName} ${typeList} 타입의 포켓몬 ${pokemonDetail.generation}세대에 첫 등장.`,
     url: canonicalUrl,
-    characterAttribute: typeList.split(','),
-    gameLocation: `포켓몬 ${pokemonDetail.generation}세대`,
-    additionalProperty: [
-      {
-        '@type': 'PropertyValue',
-        name: '도감 번호',
-        value: pokemonDetail.number,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '세대',
-        value: `${pokemonDetail.generation}세대`,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '타입',
-        value: typeList.split(','),
-      },
-
-      {
-        '@type': 'PropertyValue',
-        name: 'HP',
-        value: stats?.hp ?? 0,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '공격',
-        value: stats?.attack ?? 0,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '방어',
-        value: stats?.defense ?? 0,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '특수공격',
-        value: stats?.specialAttack ?? 0,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '특수방어',
-        value: stats?.specialDefense ?? 0,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '스피드',
-        value: stats?.speed ?? 0,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: '종족값 총합',
-        value: stats?.total ?? 0,
-      },
-      ...(pokemonDetail.pokemonAbilityList?.map((ability) => ({
-        '@type': 'PropertyValue',
-        name: '특성',
-        value: ability.name,
-      })) || []),
-    ],
+    inLanguage: 'ko-KR',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: '포케 코리아',
+      url: 'https://poke-korea.com',
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: '홈',
+          item: 'https://poke-korea.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: '포켓몬 도감',
+          item: 'https://poke-korea.com/detail',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: `No. ${pokemonDetail.number} ${displayName}`,
+          item: canonicalUrl,
+        },
+      ],
+    },
     image: imageSrc,
-    gameItem: {
-      '@type': 'VideoGame',
-      name: '포켓몬스터 시리즈',
-      genre: 'RPG',
-      gamePlatform: 'Nintendo',
+    mainEntity: {
+      '@type': 'VideoGameCharacter',
+      name: `No. ${pokemonDetail.number} ${displayName}`,
+      description: `포켓몬 도감 번호 ${pokemonDetail.number}번. ${typeList} 타입의 포켓몬입니다. ${pokemonDetail.generation}세대에 등장하는 포켓몬으로 다양한 능력치와 특성을 가지고 있습니다.`,
+      identifier: pokemonDetail.number.toString(),
+      characterAttribute: typeList.split(','),
+      gameLocation: `포켓몬 ${pokemonDetail.generation}세대`,
+      additionalProperty: [
+        {
+          '@type': 'PropertyValue',
+          name: '도감 번호',
+          value: pokemonDetail.number,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '세대',
+          value: `${pokemonDetail.generation}세대`,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '타입',
+          value: typeList.split(','),
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'HP',
+          value: stats?.hp ?? 0,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '공격',
+          value: stats?.attack ?? 0,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '방어',
+          value: stats?.defense ?? 0,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '특수공격',
+          value: stats?.specialAttack ?? 0,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '특수방어',
+          value: stats?.specialDefense ?? 0,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '스피드',
+          value: stats?.speed ?? 0,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '능력치 총합',
+          value: stats?.total ?? 0,
+        },
+        ...(abilities?.map((ability) => ({
+          '@type': 'PropertyValue',
+          name: '특성',
+          value: ability.name,
+          description: ability.description,
+        })) || []),
+      ],
+      image: imageSrc,
+      gameItem: {
+        '@type': 'VideoGame',
+        name: '포켓몬스터 시리즈',
+        genre: 'RPG',
+        gamePlatform: 'Nintendo',
+      },
     },
   }
 }
