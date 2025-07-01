@@ -34,7 +34,6 @@ const RelationPokemonComponent = ({
                   width="11.5rem"
                   height="11.5rem"
                   alt={`포켓몬 ${name} 연관 포켓몬 ${id}`}
-                  unoptimized
                 />
               </Link>
             </li>

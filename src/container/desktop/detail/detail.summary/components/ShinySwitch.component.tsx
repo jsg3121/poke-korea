@@ -1,17 +1,16 @@
-'use client'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
 
-const ShinySwitch = () => {
-  const routerQuery = useSearchParams()
+interface ShinySwitchProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
-  const isShiny = routerQuery.get('shinyMode') === 'shiny' ? true : false
-  const currentQuery = Object.fromEntries(routerQuery.entries())
+const ShinySwitch = ({ searchParams }: ShinySwitchProps) => {
+  const isShiny = searchParams.shinyMode === 'shiny'
 
   const switchHref = {
     query: {
-      ...currentQuery,
+      ...searchParams,
       shinyMode: isShiny ? 'normal' : 'shiny',
     },
   }

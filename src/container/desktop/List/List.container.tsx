@@ -1,12 +1,8 @@
 'use client'
-import dynamic from 'next/dynamic'
 import { useContext, useMemo } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 import { ListContext } from '~/context/List.context'
-
-const PokemonCard = dynamic(
-  () => import('./list.pokemonCard/PokemonCard.component'),
-)
+import PokemonCardComponent from './list.pokemonCard/PokemonCard.component'
 
 const ListContainer = () => {
   const { pokemonList } = useContext(ListContext)
@@ -17,7 +13,7 @@ const ListContainer = () => {
         useWindowScroll
         totalCount={pokemonList.length}
         itemContent={(index) => {
-          return <PokemonCard pokemonData={pokemonList[index]} />
+          return <PokemonCardComponent pokemonData={pokemonList[index]} />
         }}
       />
     )

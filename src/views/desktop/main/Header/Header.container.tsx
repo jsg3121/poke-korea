@@ -1,4 +1,3 @@
-'use client'
 import { useContext } from 'react'
 import { ListContext } from '~/context/List.context'
 import FilterComponents from './filter/Filter.components'
@@ -17,7 +16,7 @@ const HeaderContainer = () => {
       data-searching={searching ? 'has-query' : ''}
     >
       <div className="w-full max-w-[1280px] absolute left-1/2 -translate-x-1/2 translate-y-0 px-5">
-        <LogoComponent />
+        <LogoComponent scrolling={scrolling} searching={searching} />
         <SearchComponent />
       </div>
       <FilterComponents />

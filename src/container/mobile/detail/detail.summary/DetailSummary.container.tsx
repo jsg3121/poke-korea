@@ -1,4 +1,3 @@
-'use client'
 import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
@@ -87,7 +86,9 @@ const DetailSummaryContainer = () => {
         className="w-full h-12 flex items-center gap-4 mb-4 px-5"
         aria-label="포켓몬 상대 변환 스위치 리스트"
       >
-        <ShinySwitchComponent />
+        <ShinySwitchComponent
+          searchParams={Object.fromEntries(routerQuery.entries())}
+        />
         {pokemonBaseInfo?.isMegaEvolution && <MegaSwitchComponent />}
         {pokemonBaseInfo?.isRegionForm && <RegionSwitchComponent />}
       </ul>

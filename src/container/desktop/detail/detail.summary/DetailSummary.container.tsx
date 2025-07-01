@@ -1,4 +1,3 @@
-'use client'
 import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import DesktopDetailSidebarBanner from '~/components/adSlot/DesktopDetailSidebarBanner'
@@ -93,7 +92,9 @@ const DetailSummaryContainer = () => {
             className="flex flex-col gap-2 absolute top-4 -z-[1]"
             aria-label="포켓몬 상대 변환 스위치 리스트"
           >
-            <ShinySwitch />
+            <ShinySwitch
+              searchParams={Object.fromEntries(routerQuery.entries())}
+            />
             {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
             {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
           </ul>

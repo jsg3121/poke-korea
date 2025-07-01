@@ -185,11 +185,6 @@ export const generateMetadata = async ({
     alternates: {
       canonical: caninicalUrl,
     },
-    ...(isShiny && {
-      other: {
-        'application/ld+json': JSON.stringify(SHINY_QNA_JSON_LD),
-      },
-    }),
   }
 
   return metadata
@@ -198,7 +193,7 @@ export const generateMetadata = async ({
 const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const { pokemonId } = await params
   const { activeType, shinyMode } = await searchParams
-  const headersList = await headers()
+  const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
@@ -269,6 +264,15 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   return (
     <DetailProvider {...props}>
       {isMobile ? <DetailMobile /> : <DetailDesktop />}
+      {isShiny && (
+        <script
+          id="shiny-jsonLd"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(SHINY_QNA_JSON_LD),
+          }}
+        />
+      )}
     </DetailProvider>
   )
 }

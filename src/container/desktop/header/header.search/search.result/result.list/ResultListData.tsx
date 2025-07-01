@@ -20,7 +20,6 @@ const ResultListData = ({ name, number }: ResultListDataProps) => {
           width="2rem"
           alt={`pokemon_id_${number} ${name}`}
           src={`${imageMode}/${number}.webp`}
-          unoptimized
         />
       </Link>
     </li>

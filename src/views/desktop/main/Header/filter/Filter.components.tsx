@@ -1,6 +1,4 @@
-import isEqual from 'fast-deep-equal'
 import FilterPokemonTypeComponent from './filter.pokemonType/FilterPokemonType.component'
-import { memo } from 'react'
 
 const FilterComponents = () => {
   return (
@@ -10,4 +8,4 @@ const FilterComponents = () => {
   )
 }
 
-export default memo(FilterComponents, isEqual)
+export default FilterComponents

@@ -1,5 +1,3 @@
-'use client'
-
 import { useContext } from 'react'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
