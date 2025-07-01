@@ -142,7 +142,7 @@ export const generatePokemonJsonLd = ({
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: `No. ${pokemonDetail.number} ${displayName}`,
-    description: `포켓몬 도감 번호 ${pokemonDetail.number}번 ${displayName} ${typeList} 타입의 포켓몬 ${pokemonDetail.generation}세대에 첫 등장.`,
+    description: `${displayName} 도감 번호 ${pokemonDetail.number}번 ${typeList} 타입의 포켓몬 ${pokemonDetail.generation}세대에 첫 등장.`,
     url: canonicalUrl,
     inLanguage: 'ko-KR',
     isPartOf: {
@@ -175,12 +175,23 @@ export const generatePokemonJsonLd = ({
     },
     image: imageSrc,
     mainEntity: {
-      '@type': 'VideoGameCharacter',
+      '@type': 'CreativeWork',
       name: `No. ${pokemonDetail.number} ${displayName}`,
-      description: `포켓몬 도감 번호 ${pokemonDetail.number}번. ${typeList} 타입의 포켓몬입니다. ${pokemonDetail.generation}세대에 등장하는 포켓몬으로 다양한 능력치와 특성을 가지고 있습니다.`,
+      description: `${displayName} 도감 번호 ${pokemonDetail.number}번 ${typeList} 타입의 포켓몬 ${pokemonDetail.generation}세대에 첫 등장.`,
       identifier: pokemonDetail.number.toString(),
-      characterAttribute: typeList.split(','),
-      gameLocation: `포켓몬 ${pokemonDetail.generation}세대`,
+      image: imageSrc,
+      about: [
+        {
+          '@type': 'Thing',
+          name: '타입',
+          description: typeList,
+        },
+        {
+          '@type': 'Thing',
+          name: '첫 등장 세대',
+          description: `${pokemonDetail.generation}세대`,
+        },
+      ],
       additionalProperty: [
         {
           '@type': 'PropertyValue',
@@ -189,14 +200,16 @@ export const generatePokemonJsonLd = ({
         },
         {
           '@type': 'PropertyValue',
-          name: '세대',
+          name: '첫 등장 세대',
           value: `${pokemonDetail.generation}세대`,
         },
-        {
-          '@type': 'PropertyValue',
-          name: '타입',
-          value: typeList.split(','),
-        },
+        ...typeList.split(',').map((type) => {
+          return {
+            '@type': 'PropertyValue',
+            name: '타입',
+            value: type,
+          }
+        }),
         {
           '@type': 'PropertyValue',
           name: 'HP',
@@ -237,14 +250,13 @@ export const generatePokemonJsonLd = ({
           name: '특성',
           value: ability.name,
           description: ability.description,
-        })) || []),
+        })) ?? []),
       ],
-      image: imageSrc,
-      gameItem: {
-        '@type': 'VideoGame',
+      genre: 'RPG',
+      gamePlatform: 'Nintendo',
+      publisher: {
+        '@type': 'Organization',
         name: '포켓몬스터 시리즈',
-        genre: 'RPG',
-        gamePlatform: 'Nintendo',
       },
     },
   }
