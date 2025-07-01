@@ -25,10 +25,12 @@ import {
   getSeoCanonicalUrl,
   getSeoDescription,
   getSeoTitle,
+  getPokemonTypes,
 } from '~/module/generateDetailSeoMetaData'
 import { TActiveType } from '~/types/detailContext.type'
 import DetailDesktop from '~/views/desktop/Detail.desktop'
 import DetailMobile from '~/views/mobile/Detail.mobile'
+import { generatePokemonJsonLd } from '../../../constants/pokemonJsonLd'
 import { SHINY_QNA_JSON_LD } from '../../../constants/shinyJsonLd'
 
 export const revalidate = 31536000 // 24시간마다 재생성
@@ -99,29 +101,17 @@ export const generateMetadata = async ({
 
   const dataIndex = activeIndex ? parseInt(activeIndex, 10) : 0
 
-  const getTypes = () => {
-    switch (activeType) {
-      case 'mega': {
-        return megaData.data?.getPokemonMegaEvolution?.[dataIndex].types ?? []
-      }
-      case 'region': {
-        return regionData.data?.getPokemonRegionForm?.[dataIndex].types ?? []
-      }
-      default: {
-        if (
-          pokemonDetail.isFormChange &&
-          normalFormData?.getPokemonNormalForm
-        ) {
-          const { types } = normalFormData.getPokemonNormalForm[dataIndex]
-          return types
-        }
-
-        return pokemonDetail.types.map((type) => {
-          return type
-        })
-      }
-    }
+  // 공통 함수 사용
+  const commonParams = {
+    pokemonDetail,
+    activeType,
+    activeIndex: dataIndex,
+    normalForm: normalFormData?.getPokemonNormalForm ?? [],
+    megaEvolutionData: megaData.data?.getPokemonMegaEvolution ?? [],
+    regionFormData: regionData.data?.getPokemonRegionForm ?? [],
   }
+
+  const types = getPokemonTypes(commonParams)
 
   const pokemonNameByType = getPokemonNameByType({
     activeType,
@@ -147,8 +137,6 @@ export const generateMetadata = async ({
     isShiny,
   })
 
-  const types = getTypes()
-
   const description = getSeoDescription({
     generation: pokemonDetail.generation,
     pokemonNumber: pokemonDetail.number,
@@ -169,14 +157,7 @@ export const generateMetadata = async ({
           url: 'https://poke-korea.com/assets/image/ogImage.png',
           width: 1200,
           height: 630,
-          alt: 'poke-korea',
-          type: 'image/png',
-        },
-        {
-          url: 'https://poke-korea.com/assets/image/kakaoOg.png',
-          width: 800,
-          height: 800,
-          alt: 'poke-korea',
+          alt: title,
           type: 'image/png',
         },
       ],
@@ -192,7 +173,7 @@ export const generateMetadata = async ({
 
 const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const { pokemonId } = await params
-  const { activeType, shinyMode } = await searchParams
+  const { activeType = 'normal', shinyMode, activeIndex } = await searchParams
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
@@ -252,6 +233,7 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   ])
 
   const isShiny = shinyMode === 'shiny'
+  const dataIndex = activeIndex ? parseInt(activeIndex, 10) : 0
 
   const props: DetailPokemonInfo = {
     pokemonBaseInfo: pokemonDetail,
@@ -260,13 +242,29 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     megaEvolutionData: megaData.data?.getPokemonMegaEvolution ?? [],
     regionFormData: regionData.data?.getPokemonRegionForm ?? [],
   }
+  const pokemonJsonLd = generatePokemonJsonLd({
+    pokemonDetail,
+    activeType,
+    activeIndex: dataIndex,
+    isShiny,
+    normalForm: normalFormData.getPokemonNormalForm ?? [],
+    megaEvolutionData: megaData.data?.getPokemonMegaEvolution ?? [],
+    regionFormData: regionData.data?.getPokemonRegionForm ?? [],
+  })
 
   return (
     <DetailProvider {...props}>
       {isMobile ? <DetailMobile /> : <DetailDesktop />}
+      <script
+        id="pokemon-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(pokemonJsonLd),
+        }}
+      />
       {isShiny && (
         <script
-          id="shiny-jsonLd"
+          id="shiny-faq-jsonLd"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(SHINY_QNA_JSON_LD),
