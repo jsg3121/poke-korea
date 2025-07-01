@@ -43,11 +43,7 @@ const TypeEffectivenessTableComponent = () => {
           <col width="5%" />
           <col width="5%" />
           {Object.keys(PokemonTypes).map((typeKey) => (
-            <col
-              key={`col-${typeKey}`}
-              width="5%"
-              aria-label={`${PokemonTypes[typeKey as keyof typeof PokemonTypes]} 타입이 공격 받을 때`}
-            />
+            <col key={`col-${typeKey}`} width="5%" />
           ))}
         </colgroup>
         <thead className="border-b border-solid border-primary-1">
