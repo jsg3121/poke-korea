@@ -1,4 +1,10 @@
-import { PokemonType } from '~/graphql/typeGenerated'
+import {
+  PokemonType,
+  PokemonDetail,
+  PokemonMegaEvolution,
+  PokemonNormalForm,
+  PokemonRegionForm,
+} from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TActiveType } from '../types/detailContext.type'
 
@@ -33,6 +39,21 @@ type GetSeoCanonicalUrlParams = {
   isShiny: boolean
 }
 type GetSeoCanonicalUrlFn = (params: GetSeoCanonicalUrlParams) => string
+
+// JSON-LD와 메타데이터에서 공통으로 사용할 데이터 구조
+interface PokemonDataParams {
+  pokemonDetail: PokemonDetail
+  activeType: TActiveType
+  activeIndex: number
+  normalForm?: PokemonNormalForm[]
+  megaEvolutionData?: PokemonMegaEvolution[]
+  regionFormData?: PokemonRegionForm[]
+}
+
+// 공통 함수들
+type GetPokemonNameFn = (params: PokemonDataParams) => string
+type GetPokemonTypesFn = (params: PokemonDataParams) => PokemonType[]
+type GetPokemonStatsFn = (params: PokemonDataParams) => any
 
 /**
  * @description 타입별 포켓몬 명
@@ -133,4 +154,75 @@ export const getSeoCanonicalUrl: GetSeoCanonicalUrlFn = ({
     .join('&')
 
   return queryParams ? `${baseUrl}?${queryParams}` : baseUrl
+}
+
+/**
+ * @description 현재 활성화된 포켓몬의 이름을 반환 (공통 함수)
+ * @param params 포켓몬 데이터 파라미터
+ */
+export const getPokemonName: GetPokemonNameFn = ({
+  pokemonDetail,
+  activeType,
+  activeIndex,
+  normalForm,
+  megaEvolutionData,
+  regionFormData,
+}) => {
+  switch (activeType) {
+    case 'mega':
+      return megaEvolutionData?.[activeIndex]?.name || pokemonDetail.name
+    case 'region':
+      return `${pokemonDetail.name} ${regionFormData?.[activeIndex]?.region}의 모습`
+    default:
+      return normalForm?.[activeIndex]?.name || pokemonDetail.name
+  }
+}
+
+/**
+ * @description 현재 활성화된 포켓몬의 타입을 반환 (공통 함수)
+ * @param params 포켓몬 데이터 파라미터
+ */
+export const getPokemonTypes: GetPokemonTypesFn = ({
+  pokemonDetail,
+  activeType,
+  activeIndex,
+  normalForm,
+  megaEvolutionData,
+  regionFormData,
+}) => {
+  switch (activeType) {
+    case 'mega':
+      return megaEvolutionData?.[activeIndex]?.types || pokemonDetail.types
+    case 'region':
+      return regionFormData?.[activeIndex]?.types || pokemonDetail.types
+    default:
+      return normalForm?.[activeIndex]?.types || pokemonDetail.types
+  }
+}
+
+/**
+ * @description 현재 활성화된 포켓몬의 능력치를 반환 (공통 함수)
+ * @param params 포켓몬 데이터 파라미터
+ */
+export const getPokemonStats: GetPokemonStatsFn = ({
+  pokemonDetail,
+  activeType,
+  activeIndex,
+  normalForm,
+  megaEvolutionData,
+  regionFormData,
+}) => {
+  switch (activeType) {
+    case 'mega':
+      return megaEvolutionData?.[activeIndex]?.megaEvolutionStats
+    case 'region':
+      return (
+        regionFormData?.[activeIndex]?.regionFormStats ||
+        pokemonDetail.pokemonStats
+      )
+    default:
+      return (
+        normalForm?.[activeIndex]?.normalFormStats || pokemonDetail.pokemonStats
+      )
+  }
 }

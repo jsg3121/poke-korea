@@ -1,16 +1,25 @@
 import { Metadata } from 'next'
-import { Fragment } from 'react'
 import { headers } from 'next/headers'
+import { Fragment } from 'react'
+import { TYPE_EFFECTIVNESS_SEO_META } from '~/constants/seoMetaData'
+import {
+  TYPE_EFFECTIVENESS_ITEMLIST_JSON_LD,
+  TYPE_EFFECTIVENESS_WEBPAGE_JSON_LD,
+} from '~/constants/typeEffectivenessJsonLd'
 import { detectUserAgent } from '~/module/device.module'
 import TypeEffectivenessDesktop from '~/views/desktop/TypeEffectiveness.desktop'
 import TypeEffectivenessMobile from '~/views/mobile/TypeEffectiveness.mobile'
-import { TYPE_EFFECTIVNESS_SEO_META } from '~/constants/seoMetaData'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 
 export const metadata: Metadata = {
   title: TYPE_EFFECTIVNESS_SEO_META.title,
   description: TYPE_EFFECTIVNESS_SEO_META.description,
+  robots: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+  },
   openGraph: {
     title: TYPE_EFFECTIVNESS_SEO_META.title,
     description: TYPE_EFFECTIVNESS_SEO_META.description,
@@ -22,14 +31,7 @@ export const metadata: Metadata = {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
         width: 1200,
         height: 630,
-        alt: 'poke-korea',
-        type: 'image/png',
-      },
-      {
-        url: 'https://poke-korea.com/assets/image/kakaoOg.png',
-        width: 800,
-        height: 800,
-        alt: 'poke-korea',
+        alt: TYPE_EFFECTIVNESS_SEO_META.title,
         type: 'image/png',
       },
     ],
@@ -47,6 +49,20 @@ const TypeEffectivenessPage = async () => {
   return (
     <Fragment>
       {isMobile ? <TypeEffectivenessMobile /> : <TypeEffectivenessDesktop />}
+      <script
+        id="type-effectiveness-webpage-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(TYPE_EFFECTIVENESS_WEBPAGE_JSON_LD),
+        }}
+      />
+      <script
+        id="type-effectiveness-itemlist-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(TYPE_EFFECTIVENESS_ITEMLIST_JSON_LD),
+        }}
+      />
     </Fragment>
   )
 }
