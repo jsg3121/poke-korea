@@ -1,12 +1,13 @@
-'use client'
 import isEqual from 'fast-deep-equal'
 import LogoIcon from '~/assets/logo.svg'
-import { ListContext } from '~/context/List.context'
-import { memo, useContext } from 'react'
+import { memo } from 'react'
 
-const LogoComponent = () => {
-  const { scrolling, searching } = useContext(ListContext)
+interface LogoComponentProps {
+  scrolling?: boolean
+  searching?: boolean
+}
 
+const LogoComponent = ({ scrolling, searching }: LogoComponentProps) => {
   return (
     <article
       className="w-full max-w-[1280px] h-24 relative transition-[height] duration-300 will-change-[height] mx-auto data-[scrolling=true]:h-0 data-[searching=has-query]:h-0"

@@ -1,16 +1,16 @@
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
 
-const ShinySwitchComponent = () => {
-  const routerQuery = useSearchParams()
+interface ShinySwitchComponentProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
-  const isShiny = routerQuery.get('shinyMode') === 'shiny' ? true : false
-  const currentQuery = Object.fromEntries(routerQuery.entries())
+const ShinySwitchComponent = ({ searchParams }: ShinySwitchComponentProps) => {
+  const isShiny = searchParams.shinyMode === 'shiny'
 
   const switchHref = {
     query: {
-      ...currentQuery,
+      ...searchParams,
       shinyMode: isShiny ? 'normal' : 'shiny',
     },
   }
