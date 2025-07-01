@@ -86,7 +86,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     isEvolution: toBooleanOrUndefined(isEvolution as string),
   }
 
-  console.time('fetch data')
   const { data } = await apolloClient.query({
     query: GetPokemonListDocument,
     variables: {
@@ -96,7 +95,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
   })
 
   const pokemonList = data?.getPokemonList || []
-  console.timeEnd('fetch data')
 
   return (
     <main className="w-full min-h-screen">
