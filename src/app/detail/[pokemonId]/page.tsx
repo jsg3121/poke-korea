@@ -147,6 +147,11 @@ export const generateMetadata = async ({
   const metadata: Metadata = {
     title,
     description,
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
     openGraph: {
       type: 'website',
       url: caninicalUrl,
