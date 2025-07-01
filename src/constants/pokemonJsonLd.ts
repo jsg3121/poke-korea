@@ -253,7 +253,6 @@ export const generatePokemonJsonLd = ({
         })) ?? []),
       ],
       genre: 'RPG',
-      gamePlatform: 'Nintendo',
       publisher: {
         '@type': 'Organization',
         name: '포켓몬스터 시리즈',
