@@ -82,7 +82,7 @@ const PokemonImageCompoment = () => {
 
   return (
     <div
-      className="w-[30rem] h-[25rem] [filter:drop-shadow(0px_-3px_3px_#000000)] [&_.swiper-slide>div]:mx-auto"
+      className="w-[30rem] h-[25rem] [filter:drop-shadow(0px_-3px_3px_#000000)] [&_.swiper-slide>figure]:mx-auto"
       aria-labelledby="pokemon-image-slide"
       role="region"
       aria-roledescription="carousel"
