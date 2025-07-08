@@ -11,7 +11,7 @@ const ImageComponent = ({
   ...imageProps
 }: ImageComponentProps) => {
   return (
-    <figure className={`relative`} style={{ width, height }}>
+    <figure className="relative mx-auto" style={{ width, height }}>
       <picture className="w-full h-full block">
         <img {...imageProps} />
       </picture>
