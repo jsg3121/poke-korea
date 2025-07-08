@@ -17,9 +17,8 @@ const TypeFieldButtonComponents = ({
   ...restProps
 }: TypeFieldButtonComponentsProps) => {
   return (
-    <div
+    <button
       className="group w-8 text-center duration-200 ease-out cursor-pointer hover:scale-[1.4] active:scale-120 max-sm:w-6 max-sm:h-6 desktop-639:w-[1.5rem] desktop-639:h-[1.5rem]"
-      role="button"
       aria-label={`포켓몬 필터 ${typeName}타입`}
     >
       <label
@@ -49,7 +48,7 @@ const TypeFieldButtonComponents = ({
       >
         {typeName}
       </span>
-    </div>
+    </button>
   )
 }
 
