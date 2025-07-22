@@ -3,6 +3,7 @@ import TypeEffectivenessCaculatorComponent from './typeEffectiveness.calculator/
 import TypeEffectivenessResultComponent from './typeEffectiveness.result/TypeEffectivenessResult.component'
 import TypeEffectivenessTableComponent from './typeEffectiveness.table/TypeEffectivenessTable.component'
 import TypeEffectivenessDescription from './typeEffectiveness.description/TypeEffectivenessDescription'
+import MobileTypeEffectivenessBanner from '~/components/adSlot/MobileTypeEffectivenessBanner'
 
 const TypeEffectivenessContainer = () => {
   return (
@@ -10,6 +11,7 @@ const TypeEffectivenessContainer = () => {
       <TypeEffectivenessProvider>
         <div className="w-full mb-12">
           <TypeEffectivenessCaculatorComponent />
+          <MobileTypeEffectivenessBanner />
           <TypeEffectivenessResultComponent />
         </div>
       </TypeEffectivenessProvider>
