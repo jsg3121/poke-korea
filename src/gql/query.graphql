@@ -94,3 +94,30 @@ query GetPokemonNormalForm($pokemonId: Int) {
     }
   }
 }
+
+query GetPokemonSkillList($input: PokemonSkillListInput) {
+  getPokemonSkillList(input: $input) {
+    edges {
+      cursor
+      node {
+        id
+        name
+        type
+        power
+        accuracy
+        pp
+        description
+        generationId
+        signatureMoves
+        zMoves
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
