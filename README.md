@@ -11,22 +11,26 @@
 #### 업그레이드 내역
 
 **Core Framework**
+
 - Next.js: `13.5.8` → `15.3.3`
 - React: `18` → `18.3.1` (최신 안정화 버전)
 - React-DOM: `18` → `18.3.1`
 - TypeScript: `5` → `5.7.2`
 
 **GraphQL & Data Fetching**
+
 - Apollo Client: `3.8.6` → `3.11.8`
 - GraphQL: `16.8.1` → `16.9.0`
 - GraphQL Codegen 관련 패키지들 최신화
 
 **Development Tools**
+
 - ESLint: `8` → `8.57.1`
 - TypeScript ESLint: `7.0.0` → `7.18.0`
 - 기타 개발 도구들 Next.js 15 호환 버전으로 업데이트
 
 #### 개선사항
+
 - ✅ 빌드 성능 향상 (4.0초 빌드 완료)
 - ✅ 보안 업데이트 적용
 - ✅ Pages Router 구조 유지 (기존 코드 호환성 보장)
@@ -35,15 +39,19 @@
 ## 🚀 향후 마이그레이션 계획
 
 ### 1단계: Tailwind CSS 마이그레이션 (예정)
+
 **목표**: Styled Components → Tailwind CSS 전환
+
 - 기존 Pages Router 구조 유지
-- 모바일/데스크톱 이중 구조 보존  
+- 모바일/데스크톱 이중 구조 보존
 - 점진적 컴포넌트 전환
 
 **예상 기간**: 2-3주
 
 ### 2단계: App Router 마이그레이션 (예정)
+
 **목표**: Pages Router → App Router 전환
+
 - Server Components 최적화
 - 레이아웃 시스템 재설계
 - 성능 최적화
@@ -61,7 +69,7 @@ npm run dev
 # 프로덕션 빌드
 npm run build
 
-# 프로덕션 서버 실행  
+# 프로덕션 서버 실행
 npm run start
 
 # ESLint 실행
@@ -72,10 +80,12 @@ npm run codegen
 ```
 
 ### 환경 요구사항
-- Node.js 18+ 
+
+- Node.js 18+
 - GraphQL 서버 (localhost:4000/graphql)
 
 ### 기술 스택
+
 - **Framework**: Next.js 15 (Pages Router)
 - **Styling**: Styled Components (Tailwind CSS 마이그레이션 예정)
 - **Data Fetching**: Apollo Client + GraphQL
