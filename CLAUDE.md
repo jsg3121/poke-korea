@@ -8,6 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 무게, 거리, 통화 기준도 한국을 기준으로 우선하여 적용
 - 모든 답변엔 먼저 코드를 어떻게 수정하면 좋을지에 대한 제안
 - 두 번째 질문을 통해 코드를 작성해달라는 요청이 있을 때만 코드를 직접 수정
+- 코드 작성시엔 프로젝트 폴더 내에 있는 lintrc, prettierrc에 맞춰서 작성해줘
+- 코드를 작성할 때 해당 기능이 동작될 수 있는 최소한의 구현을 실행
+- 모든 코드에 대해선 반드시 이슈가 발생할 가능성이 있는지 테스트를 진행하고, 어떤 부분을 개선해야할 지는 답변으로만 명시
 
 ## Development Commands
 

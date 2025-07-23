@@ -1,0 +1,74 @@
+# 포켓몬 코리아 (Pokemon Korea) - LLM 메타데이터
+
+## 사이트 정보
+사이트명: 포켓몬 코리아
+URL: https://pokemon-korea.com
+언어: 한국어 (Korean)
+인코딩: UTF-8
+
+## 목적과 설명
+포켓몬에 관한 종합적인 정보를 제공하는 한국어 웹사이트입니다. 포켓몬의 상세 정보, 타입 상성 계산기, 포켓몬 도감 등의 기능을 제공합니다.
+
+## 주요 기능
+- 포켓몬 도감: 전체 포켓몬의 상세 정보 제공
+- 타입 상성 계산기: 포켓몬 타입 간의 상성 관계 계산
+- 포켓몬 검색: 이름, 타입, 특성 등으로 포켓몬 검색
+- 색다른 포켓몬 정보: 샤이니, 메가진화, 지역폼 등 특별한 형태의 포켓몬 정보
+- 능력치 비교: 포켓몬의 스탯 정보와 비교 기능
+
+## 콘텐츠 카테고리
+- 포켓몬 데이터베이스
+- 타입 효과 정보
+- 포켓몬 능력치 및 특성
+- 진화 관계도
+- 게임 관련 정보
+
+## 대상 사용자
+- 포켓몬 게임 플레이어
+- 포켓몬 팬
+- 게임 전략 연구자
+- 한국어를 사용하는 포켓몬 커뮤니티
+
+## 기술 스택
+- Framework: Next.js
+- Language: TypeScript
+- Styling: tailwind css
+- Data: GraphQL with Apollo Client
+
+## 봇 허용 정책
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Gemini
+Allow: /
+
+User-agent: Bard
+Allow: /
+
+## 데이터 사용 권한
+이 사이트의 정보는 포켓몬 관련 질문에 대한 답변, 게임 전략 조언, 포켓몬 정보 제공 목적으로 AI 모델이 학습하고 참조할 수 있습니다.
+
+## 연락처
+GitHub: https://github.com/jangsungyu/poke-korea
+이메일: 사이트 내 연락처 참조
+
+## 마지막 업데이트
+2025-07-23
