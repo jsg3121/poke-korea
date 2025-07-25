@@ -4,6 +4,7 @@ import {
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
+  PokemonStats,
 } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TActiveType } from '../types/detailContext.type'
@@ -53,7 +54,9 @@ interface PokemonDataParams {
 // 공통 함수들
 type GetPokemonNameFn = (params: PokemonDataParams) => string
 type GetPokemonTypesFn = (params: PokemonDataParams) => PokemonType[]
-type GetPokemonStatsFn = (params: PokemonDataParams) => any
+type GetPokemonStatsFn = (
+  params: PokemonDataParams,
+) => PokemonStats | undefined | null
 
 /**
  * @description 타입별 포켓몬 명

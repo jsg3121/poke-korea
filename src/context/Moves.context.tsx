@@ -1,8 +1,13 @@
 'use client'
 
-import { createContext, ReactNode, useState, useCallback } from 'react'
+import { produce } from 'immer'
+import { createContext, ReactNode, useCallback, useState } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
-import { PokemonSkill, PokemonType } from '~/graphql/typeGenerated'
+import {
+  PokemonSkill,
+  PokemonSkillEdge,
+  PokemonType,
+} from '~/graphql/typeGenerated'
 
 interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>
@@ -35,25 +40,22 @@ export const MovesContext = createContext<ContextType>({
   hasNextPage: false,
   loading: false,
   totalCount: 0,
-  loadMore: () => {},
-  setFilter: () => {},
+  loadMore: () => null,
+  setFilter: () => null,
 })
 
 export const MovesProvider = ({
   initialSkills,
   hasNextPage: initialHasNextPage,
   endCursor,
-  totalCount: initialTotalCount,
+  totalCount,
   children,
 }: MovesProviderProps) => {
-  const [skillList, setSkillList] = useState(initialSkills)
   const [hasNextPage, setHasNextPage] = useState(initialHasNextPage)
-  const [loading, setLoading] = useState(false)
   const [movesFilter, setMovesFilter] = useState<MovesFilterType>({})
   const [cursor, setCursor] = useState(endCursor)
-  const [totalCount, setTotalCount] = useState(initialTotalCount)
 
-  const { fetchMore } = useGetPokemonSkillListQuery({
+  const { data, loading, fetchMore } = useGetPokemonSkillListQuery({
     variables: {
       input: {
         filter: movesFilter,
@@ -62,46 +64,44 @@ export const MovesProvider = ({
         },
       },
     },
-    skip: true, // 초기 로딩은 서버에서 했으므로 skip
   })
 
-  const loadMore = useCallback(async () => {
-    if (!cursor || loading || !hasNextPage) return
-
-    setLoading(true)
-    try {
-      const result = await fetchMore({
-        variables: {
-          input: {
-            filter: movesFilter,
-            pagination: {
-              first: 20,
-              after: cursor,
-            },
+  const loadMore = async () => {
+    console.log('s')
+    await fetchMore({
+      variables: {
+        input: {
+          filter: movesFilter,
+          pagination: {
+            first: 20,
+            after: cursor,
           },
         },
-      })
-
-      const newEdges = result.data?.getPokemonSkillList?.edges || []
-      const newSkills = newEdges.map((edge: any) => edge.node)
-      const newPageInfo = result.data?.getPokemonSkillList?.pageInfo
-      const newTotalCount = result.data?.getPokemonSkillList?.totalCount || 0
-
-      setSkillList((prev) => [...prev, ...newSkills])
-      setHasNextPage(newPageInfo?.hasNextPage || false)
-      setCursor(newPageInfo?.endCursor)
-      setTotalCount(newTotalCount)
-    } catch (error) {
-      console.error('Failed to load more skills:', error)
-    } finally {
-      setLoading(false)
-    }
-  }, [cursor, loading, hasNextPage, movesFilter, fetchMore])
+      },
+      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return previousQueryResult
+        console.log(previousQueryResult.getPokemonSkillList)
+        return produce(previousQueryResult, (draft) => {
+          draft.getPokemonSkillList.edges = [
+            ...previousQueryResult.getPokemonSkillList.edges,
+            ...fetchMoreResult.getPokemonSkillList.edges,
+          ]
+          draft.getPokemonSkillList.pageInfo = {
+            ...fetchMoreResult.getPokemonSkillList.pageInfo,
+          }
+        })
+      },
+    })
+  }
 
   const setFilter = useCallback((filter: MovesFilterType) => {
     setMovesFilter(filter)
-    // TODO: 필터 변경 시 리스트 재조회 로직 추가
   }, [])
+
+  const skillList =
+    data?.getPokemonSkillList?.edges?.map(
+      (edge: PokemonSkillEdge) => edge.node,
+    ) || initialSkills
 
   const value = {
     skillList,

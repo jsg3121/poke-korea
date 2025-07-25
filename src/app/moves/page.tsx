@@ -1,10 +1,11 @@
 import { headers } from 'next/headers'
-import { initializeApollo } from '~/module/apolloClient'
-import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
 import { MovesProvider } from '~/context/Moves.context'
+import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
+import { PokemonSkillEdge } from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
+import { detectUserAgent } from '~/module/device.module'
 import MovesDesktop from '~/views/desktop/moves/Moves.desktop'
 import MovesMobile from '~/views/mobile/moves/Moves.mobile'
-import { detectUserAgent } from '~/module/device.module'
 
 export default async function MovesPage() {
   const client = initializeApollo()
@@ -24,7 +25,9 @@ export default async function MovesPage() {
   })
 
   const skillList =
-    data?.getPokemonSkillList?.edges?.map((edge: any) => edge.node) || []
+    data?.getPokemonSkillList?.edges?.map(
+      (edge: PokemonSkillEdge) => edge.node,
+    ) || []
   const hasNextPage = data?.getPokemonSkillList?.pageInfo?.hasNextPage || false
   const endCursor = data?.getPokemonSkillList?.pageInfo?.endCursor
   const totalCount = data?.getPokemonSkillList?.totalCount || 0
