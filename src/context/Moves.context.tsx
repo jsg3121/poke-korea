@@ -1,7 +1,7 @@
 'use client'
 
 import { produce } from 'immer'
-import { createContext, ReactNode, useCallback, useState } from 'react'
+import { createContext, ReactNode, useCallback, useRef, useState } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
 import {
   PokemonSkill,
@@ -46,14 +46,13 @@ export const MovesContext = createContext<ContextType>({
 
 export const MovesProvider = ({
   initialSkills,
-  hasNextPage: initialHasNextPage,
+  hasNextPage,
   endCursor,
   totalCount,
   children,
 }: MovesProviderProps) => {
-  const [hasNextPage, setHasNextPage] = useState(initialHasNextPage)
   const [movesFilter, setMovesFilter] = useState<MovesFilterType>({})
-  const [cursor, setCursor] = useState(endCursor)
+  const cursorRef = useRef(endCursor)
 
   const { data, loading, fetchMore } = useGetPokemonSkillListQuery({
     variables: {
@@ -67,20 +66,20 @@ export const MovesProvider = ({
   })
 
   const loadMore = async () => {
-    console.log('s')
     await fetchMore({
       variables: {
         input: {
           filter: movesFilter,
           pagination: {
             first: 20,
-            after: cursor,
+            after: cursorRef.current,
           },
         },
       },
       updateQuery: (previousQueryResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return previousQueryResult
-        console.log(previousQueryResult.getPokemonSkillList)
+        cursorRef.current =
+          fetchMoreResult.getPokemonSkillList.pageInfo.endCursor ?? ''
         return produce(previousQueryResult, (draft) => {
           draft.getPokemonSkillList.edges = [
             ...previousQueryResult.getPokemonSkillList.edges,
