@@ -1,4 +1,3 @@
-'use client'
 import { useContext, useEffect, useRef } from 'react'
 import { MovesContext } from '~/context/Moves.context'
 import MoveCard from './moveCard/MoveCard.component'
@@ -12,7 +11,7 @@ const MovesListContainer = () => {
   const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
     entries.forEach((entry) => {
       const intersectionRatio = entry.intersectionRatio
-      if (intersectionRatio > 0) {
+      if (intersectionRatio > 0 && hasNextPage) {
         loadMore()
       }
     })
@@ -29,14 +28,14 @@ const MovesListContainer = () => {
       observer.observe(listRef.current)
     }
     return () => observer.disconnect()
-  }, [])
+  }, [skillList])
 
   return (
     <section>
-      <div>
+      <header>
         <h2>기술 목록</h2>
         <p>총 {totalCount}개의 기술</p>
-      </div>
+      </header>
       <div className="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {skillList.map((skill) => (
           <MoveCard key={skill.name} moveData={skill} />

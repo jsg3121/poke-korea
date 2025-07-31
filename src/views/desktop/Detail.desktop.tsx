@@ -7,10 +7,10 @@ import HeaderContainer from '~/container/desktop/header/Header.container'
 
 const DetailDesktop = () => {
   return (
-    <main className="w-full min-h-screen">
+    <main className="w-full min-h-screen pt-30">
       <HeaderContainer />
       <section
-        className="w-full h-full p-0 mx-auto relative"
+        className="w-full h-full mx-auto relative"
         aria-labelledby="pokemon-detail-info"
       >
         <h1 className="visually-hidden" id="pokemon-detail-info">

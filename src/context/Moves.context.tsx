@@ -1,7 +1,7 @@
 'use client'
 
 import { produce } from 'immer'
-import { createContext, ReactNode, useCallback, useRef, useState } from 'react'
+import { createContext, ReactNode, useCallback, useState } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
 import {
   PokemonSkill,
@@ -11,8 +11,6 @@ import {
 
 interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>
-  hasNextPage: boolean
-  endCursor?: string | null
   totalCount: number
   children: ReactNode
 }
@@ -27,9 +25,9 @@ type MovesFilterType = {
 type ContextType = {
   skillList: Array<PokemonSkill>
   movesFilter: MovesFilterType
-  hasNextPage: boolean
   loading: boolean
   totalCount: number
+  hasNextPage?: boolean
   loadMore: () => void
   setFilter: (filter: MovesFilterType) => void
 }
@@ -37,7 +35,6 @@ type ContextType = {
 export const MovesContext = createContext<ContextType>({
   skillList: [],
   movesFilter: {},
-  hasNextPage: false,
   loading: false,
   totalCount: 0,
   loadMore: () => null,
@@ -46,20 +43,17 @@ export const MovesContext = createContext<ContextType>({
 
 export const MovesProvider = ({
   initialSkills,
-  hasNextPage,
-  endCursor,
   totalCount,
   children,
 }: MovesProviderProps) => {
   const [movesFilter, setMovesFilter] = useState<MovesFilterType>({})
-  const cursorRef = useRef(endCursor)
 
   const { data, loading, fetchMore } = useGetPokemonSkillListQuery({
     variables: {
       input: {
         filter: movesFilter,
         pagination: {
-          first: 20,
+          first: 30,
         },
       },
     },
@@ -72,21 +66,22 @@ export const MovesProvider = ({
           filter: movesFilter,
           pagination: {
             first: 20,
-            after: cursorRef.current,
+            after: data?.getPokemonSkillList.pageInfo.endCursor,
           },
         },
       },
       updateQuery: (previousQueryResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return previousQueryResult
-        cursorRef.current =
-          fetchMoreResult.getPokemonSkillList.pageInfo.endCursor ?? ''
         return produce(previousQueryResult, (draft) => {
           draft.getPokemonSkillList.edges = [
             ...previousQueryResult.getPokemonSkillList.edges,
             ...fetchMoreResult.getPokemonSkillList.edges,
           ]
           draft.getPokemonSkillList.pageInfo = {
-            ...fetchMoreResult.getPokemonSkillList.pageInfo,
+            ...previousQueryResult.getPokemonSkillList.pageInfo,
+            endCursor: fetchMoreResult.getPokemonSkillList.pageInfo.endCursor,
+            hasNextPage:
+              fetchMoreResult.getPokemonSkillList.pageInfo.hasNextPage,
           }
         })
       },
@@ -109,7 +104,7 @@ export const MovesProvider = ({
   const value = {
     skillList,
     movesFilter,
-    hasNextPage,
+    hasNextPage: data?.getPokemonSkillList.pageInfo.hasNextPage,
     loading,
     totalCount,
     loadMore,

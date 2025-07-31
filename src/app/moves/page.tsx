@@ -28,17 +28,10 @@ export default async function MovesPage() {
     data?.getPokemonSkillList?.edges?.map(
       (edge: PokemonSkillEdge) => edge.node,
     ) || []
-  const hasNextPage = data?.getPokemonSkillList?.pageInfo?.hasNextPage || false
-  const endCursor = data?.getPokemonSkillList?.pageInfo?.endCursor
   const totalCount = data?.getPokemonSkillList?.totalCount || 0
 
   return (
-    <MovesProvider
-      initialSkills={skillList}
-      hasNextPage={hasNextPage}
-      endCursor={endCursor}
-      totalCount={totalCount}
-    >
+    <MovesProvider initialSkills={skillList} totalCount={totalCount}>
       {isMobile ? <MovesMobile /> : <MovesDesktop />}
     </MovesProvider>
   )

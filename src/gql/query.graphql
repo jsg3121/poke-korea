@@ -109,6 +109,7 @@ query GetPokemonSkillList($input: PokemonSkillListInput) {
         description
         generationId
         signatureMoves
+        damageType
         zMoves
       }
     }

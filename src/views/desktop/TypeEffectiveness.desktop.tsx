@@ -6,7 +6,7 @@ import TypeEffectivenessContainer from '~/container/desktop/typeEffectiveness/Ty
 
 const TypeEffectivenessDesktop = () => {
   return (
-    <main className="w-full min-h-screen">
+    <main className="w-full min-h-screen pt-30">
       <HeaderContainer />
       <section
         aria-labelledby="pokemon-type-effectiveness-calculator"
