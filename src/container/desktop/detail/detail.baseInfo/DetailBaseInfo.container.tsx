@@ -1,13 +1,14 @@
 'use client'
 
-import { DetailContext } from '~/context/Detail.context'
-import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
-import DescriptionComponent from './baseInfo.description/Description.component'
-import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
-import AbilitiesInfoComponent from './baseInfo.abilities/AbilitiesInfo.component'
 import { useContext } from 'react'
 import DesktopDetailCardBanner from '~/components/adSlot/DesktopDetailCardBanner'
-import LearnableSkillComponent from './baseInfo.learnableSkill/LearnableSkill.component'
+import { DetailContext } from '~/context/Detail.context'
+import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
+import AbilitiesInfoComponent from './baseInfo.abilities/AbilitiesInfo.component'
+import DescriptionComponent from './baseInfo.description/Description.component'
+import LevelLearnableSkillComponent from './baseInfo.learnableSkill/LevelLearnableSkill.component'
+import MachineLearnableSkillComponent from './baseInfo.learnableSkill/MachineLearnableSkill.component'
+import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
 
 const DetailBaseInfoContainer = () => {
   const { pokemonBaseInfo, activeTypeInfo } = useContext(DetailContext)
@@ -20,9 +21,10 @@ const DetailBaseInfoContainer = () => {
       aria-label="포켓몬 상세 정보"
     >
       <DescriptionComponent />
-      <LearnableSkillComponent />
       <AbilitiesInfoComponent />
       <DesktopDetailCardBanner />
+      <LevelLearnableSkillComponent />
+      <MachineLearnableSkillComponent />
       <TypesInfo type={activeTypeInfo.types} />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemonComponent

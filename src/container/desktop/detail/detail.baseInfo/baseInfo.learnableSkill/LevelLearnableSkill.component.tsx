@@ -3,7 +3,7 @@ import { DetailContext } from '~/context/Detail.context'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
-const LearnableSkillComponent = () => {
+const LevelLearnableSkillComponent = () => {
   const { pokemonBaseInfo } = useContext(DetailContext)
 
   const levelUpSkills =
@@ -16,10 +16,10 @@ const LearnableSkillComponent = () => {
   return (
     <section
       aria-labelledby="pokemon-learnable-skill"
-      className="w-full h-full max-h-[50rem] row-span-2 bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="w-full h-full max-h-[40rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
     >
       <InfoCardTitleComponent
-        title="습득 기술 정보"
+        title="레벨업 습득 기술 정보"
         id="pokemon-learnable-skill"
       />
       <p className="w-full h-6 flex items-baseline justify-between border-b border-solid border-primary-3">
@@ -81,7 +81,7 @@ const LearnableSkillComponent = () => {
                     key={skill.id}
                     className="h-8 [&>td]:align-middle [&>td]: text-[0.875rem]"
                   >
-                    <td className="text-center font-bold">
+                    <td className="text-center">
                       {level === 0 || level === 1 ? '최초' : level}
                     </td>
                     <td className="">{skill.name}</td>
@@ -123,4 +123,4 @@ const LearnableSkillComponent = () => {
   )
 }
 
-export default LearnableSkillComponent
+export default LevelLearnableSkillComponent
