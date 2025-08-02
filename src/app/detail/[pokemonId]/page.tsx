@@ -61,15 +61,17 @@ export const generateMetadata = async ({
   const { activeType = 'normal', shinyMode, activeIndex } = await searchParams
   const isShiny = shinyMode === 'shiny'
 
-  const [{ data: detailPokemonData }] = await Promise.all([
+  const [
+    { data: detailPokemonData },
+    megaData,
+    regionData,
+    { data: normalFormData },
+  ] = await Promise.all([
     apolloClient.query<PokemonDetailQuery>({
       query: PokemonDetailDocument,
       variables: { pokemonId: parseInt(pokemonId, 10) },
       fetchPolicy: 'cache-first',
     }),
-  ])
-
-  const [megaData, regionData, { data: normalFormData }] = await Promise.all([
     activeType === 'mega'
       ? apolloClient.query<GetPokemonMegaEvolutionQuery>({
           query: GetPokemonMegaEvolutionDocument,

@@ -47,6 +47,7 @@ query PokemonDetail($pokemonId: ID!) {
         level
         skill {
           id
+          generationId
           name
           type
           power
@@ -60,6 +61,7 @@ query PokemonDetail($pokemonId: ID!) {
         moveLearnMethodId
         skill {
           id
+          generationId
           name
           type
           power
