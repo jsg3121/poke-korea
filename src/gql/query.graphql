@@ -58,7 +58,6 @@ query PokemonDetail($pokemonId: ID!) {
         }
       }
       machineSkills {
-        moveLearnMethodId
         skill {
           id
           generationId
@@ -131,7 +130,6 @@ query GetPokemonRegionForm($pokemonId: Int) {
         }
       }
       machineSkills {
-        moveLearnMethodId
         skill {
           id
           generationId
@@ -186,7 +184,6 @@ query GetPokemonNormalForm($pokemonId: Int) {
         }
       }
       machineSkills {
-        moveLearnMethodId
         skill {
           id
           generationId

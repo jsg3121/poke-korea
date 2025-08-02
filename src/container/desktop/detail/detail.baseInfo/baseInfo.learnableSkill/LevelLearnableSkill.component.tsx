@@ -4,10 +4,10 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
 const LevelLearnableSkillComponent = () => {
-  const { pokemonBaseInfo } = useContext(DetailContext)
+  const { activeTypeInfo } = useContext(DetailContext)
 
-  const levelUpSkills = pokemonBaseInfo?.learnableSkills?.[0].levelUpSkills
-  const versionGroup = pokemonBaseInfo?.learnableSkills?.[0].versionGroup
+  const levelUpSkills = activeTypeInfo?.learnableSkills?.[0]?.levelUpSkills
+  const versionGroup = activeTypeInfo?.learnableSkills?.[0]?.versionGroup
 
   return (
     <section

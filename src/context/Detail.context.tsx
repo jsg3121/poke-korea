@@ -94,8 +94,26 @@ const DetailProvider = ({
     }
   }
 
+  const getLearnableSkills = () => {
+    switch (activeType) {
+      case 'region': {
+        return regionFormData?.[activeIndex]?.learnableSkills ?? []
+      }
+      case 'normal': {
+        return (
+          normalForm?.[activeIndex]?.learnableSkills ??
+          pokemonBaseInfo.learnableSkills
+        )
+      }
+      default: {
+        return pokemonBaseInfo.learnableSkills ?? []
+      }
+    }
+  }
+
   const types = getTypes()
   const abilities = getAbilities()
+  const learnableSkills = getLearnableSkills()
 
   const activeTypeInfo: TActiveTypeInfo = {
     activeType,
@@ -107,6 +125,7 @@ const DetailProvider = ({
     isRegion: pokemonBaseInfo.isRegionForm ?? false,
     types,
     abilities: abilities ?? [],
+    learnableSkills: learnableSkills ?? undefined,
   }
 
   const initialValue: IFDetailProps = {
