@@ -67,7 +67,7 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
         </button>
       </div>
       <ul
-        className={`w-full border-t border-solid border-primary-3 flex gap-2 flex-col justify-center transition-[height] ${!isFilterOpen ? 'h-0' : 'h-[6rem]'} overflow-hidden [&>li]:min-h-8 [&>li>p]:w-24 [&>li>p]:text-primary-4 [&>li>p]:shrink-0`}
+        className={`w-full border-t border-solid border-primary-3 flex gap-2 flex-col justify-center transition-[height] ${!isFilterOpen ? 'h-0' : 'h-[7rem]'} overflow-hidden [&>li]:min-h-8 [&>li>p]:w-24 [&>li>p]:text-primary-4 [&>li>p]:shrink-0`}
       >
         <li className="flex items-center">
           <p>기술 타입</p>
