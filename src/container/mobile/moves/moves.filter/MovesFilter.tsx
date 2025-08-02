@@ -46,17 +46,20 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
   }
 
   return (
-    <div className="w-full min-h-6 flex justify-between flex-wrap">
+    <div
+      className="w-full min-h-3 flex justify-between flex-wrap items-baseline relative px-2"
+      role="search"
+    >
       <p className="w-fit text-[1rem] h-6 text-primary-4 leading-6 font-thin">
         총 <b className="font-[600]">{totalCount}</b>개의 기술을 볼 수 있어요!
       </p>
-      <div className="flex items-center gap-4">
+      <div className="flex items-baseline gap-4">
         <button
           className={`flex gap-1 items-center text-primary-4 text-[0.8rem] ${!isActiveFilter && 'disabled:grayscale disabled:opacity-50'}`}
           disabled={!isActiveFilter}
           onClick={handleClickResetFilter}
         >
-          선택 필터 초기화
+          필터 초기화
         </button>
         <button
           aria-pressed={isFilterOpen}
@@ -67,10 +70,10 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
         </button>
       </div>
       <ul
-        className={`w-full border-t border-solid border-primary-3 flex gap-2 flex-col justify-center transition-[height] ${!isFilterOpen ? 'h-0' : 'h-[6rem]'} overflow-hidden [&>li]:min-h-8 [&>li>p]:w-24 [&>li>p]:text-primary-4 [&>li>p]:shrink-0`}
+        className={`w-full absolute top-[1.5rem] left-0 border-t border-solid border-primary-4 px-2 bg-primary-1 flex gap-2 flex-col justify-center transition-[height] ${!isFilterOpen ? 'h-0' : 'h-[15.5rem]'} overflow-hidden [&>li]:min-h-8 [&>li>p]:w-24 [&>li>p]:text-primary-4 [&>li>p]:shrink-0`}
       >
-        <li className="flex items-center">
-          <p>기술 타입</p>
+        <li className="w-full my-4">
+          <p className="mb-2">기술 타입</p>
           <div className="flex items-center flex-wrap gap-3 justify-start">
             {Object.entries(PokemonTypes).map(([types, typeName]) => {
               return (
@@ -85,8 +88,8 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
             })}
           </div>
         </li>
-        <li className="flex items-center">
-          <p>기술 유형</p>
+        <li className="w-full my-4">
+          <p className="mb-2">기술 유형</p>
           <div className="flex items-center gap-3">
             <button
               className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#fd8181] text-primary-1 ${damageTypeFilter && damageTypeFilter === '물리' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
