@@ -39,19 +39,19 @@ const MovesListContainer = () => {
         </h2>
         <MovesFilter totalCount={totalCount} />
         <div
-          className="w-full h-12 border-b border-solid flex bg-primary-4 border-primary-1 [&>p]:h-12 [&>p]:leading-[3rem] [&>p]:font-[500]"
+          className="w-full h-12 border-b border-solid flex bg-primary-2 border-primary-1 [&>p]:h-12 [&>p]:leading-[3rem] [&>p]:font-[500]"
           aria-hidden
         >
-          <p className="w-[18%] text-center">기술명</p>
-          <p className="w-[56%] text-center">설명</p>
-          <p className="w-[6%] text-center">타입</p>
-          <p className="w-[4%] text-center">위력</p>
-          <p className="w-[5%] text-center">명중률</p>
-          <p className="w-[4%] text-center">PP</p>
-          <p className="w-[7%] text-center">기술유형</p>
+          <p className="w-[18%] text-primary-4 text-center">기술명</p>
+          <p className="w-[56%] text-primary-4 text-center">설명</p>
+          <p className="w-[6%] text-primary-4 text-center">타입</p>
+          <p className="w-[4%] text-primary-4 text-center">위력</p>
+          <p className="w-[5%] text-primary-4 text-center">명중률</p>
+          <p className="w-[4%] text-primary-4 text-center">PP</p>
+          <p className="w-[7%] text-primary-4 text-center">기술유형</p>
         </div>
       </header>
-      <table className="w-full h-full bg-primary-3 border-hidden table-fixed">
+      <table className="w-full h-full bg-primary-4 border-hidden table-fixed">
         <colgroup>
           <col width="18%" />
           <col width="56%" />
@@ -79,12 +79,12 @@ const MovesListContainer = () => {
         </tbody>
       </table>
       {loading && (
-        <div className="h-14 border-y border-solid border-primary-4 text-center py-4 bg-primary-3">
+        <div className="h-14 border-y border-solid border-primary-3 text-center py-4 bg-primary-3">
           <p>로딩 중...</p>
         </div>
       )}
       {!loading && !hasNextPage && skillList.length > 0 && (
-        <div className="h-14 border-y border-solid border-primary-4 text-center py-4 bg-primary-3">
+        <div className="h-14 border-y border-solid border-primary-3 text-center py-4 bg-primary-3">
           <p>모든 기술을 불러왔습니다.</p>
         </div>
       )}

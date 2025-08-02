@@ -7,7 +7,7 @@ interface MoveCardProps {
 
 const MoveCard = ({ moveData }: MoveCardProps) => {
   return (
-    <tr className={`min-h-14 border-b border-solid border-primary-4`}>
+    <tr className={`min-h-14 border-b border-solid border-primary-3`}>
       <td
         className={`text-center leading-[3.5rem] font-[600] ${moveData.name.replace(/[\\(,\\)]/g, '').length > 9 && 'text-[0.8rem]'}`}
       >

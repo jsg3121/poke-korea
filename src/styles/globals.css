@@ -232,69 +232,59 @@ html.project__detail--show {
 /* 포켓몬 타입 색상 유틸리티 클래스 */
 @layer utilities {
   .chip-type-normal {
-    @apply bg-type-normal;
-    color: #333333;
+    @apply bg-type-normal text-black-2;
   }
   .chip-type-fire {
-    @apply bg-type-fire;
-    color: #333333;
+    @apply bg-type-fire text-black-2;
   }
   .chip-type-water {
-    @apply bg-type-water;
+    @apply bg-type-water text-white-1;
   }
   .chip-type-grass {
-    @apply bg-type-grass;
-    color: #333333;
+    @apply bg-type-grass text-black-2;
   }
   .chip-type-electric {
-    @apply bg-type-electric;
-    color: #333333;
+    @apply bg-type-electric text-black-2;
   }
   .chip-type-ice {
-    @apply bg-type-ice;
-    color: #333333;
+    @apply bg-type-ice text-black-2;
   }
   .chip-type-fighting {
-    @apply bg-type-fighting;
+    @apply bg-type-fighting text-white-1;
   }
   .chip-type-poison {
-    @apply bg-type-poison;
+    @apply bg-type-poison text-white-1;
   }
   .chip-type-ground {
-    @apply bg-type-ground;
-    color: #333333;
+    @apply bg-type-ground text-black-2;
   }
   .chip-type-flying {
-    @apply bg-type-flying;
-    color: #333333;
+    @apply bg-type-flying text-black-2;
   }
   .chip-type-psychic {
     @apply bg-type-psychic;
     color: #222222;
   }
   .chip-type-bug {
-    @apply bg-type-bug;
-    color: #333333;
+    @apply bg-type-bug text-black-2;
   }
   .chip-type-rock {
     @apply bg-type-rock;
     color: #141414;
   }
   .chip-type-ghost {
-    @apply bg-type-ghost;
+    @apply bg-type-ghost text-white-1;
   }
   .chip-type-dragon {
-    @apply bg-type-dragon;
+    @apply bg-type-dragon text-white-1;
   }
   .chip-type-dark {
-    @apply bg-type-dark;
+    @apply bg-type-dark text-white-1;
   }
   .chip-type-steel {
-    @apply bg-type-steel;
-    color: #333333;
+    @apply bg-type-steel text-black-2;
   }
   .chip-type-fairy {
-    @apply bg-type-fairy;
-    color: #333333;
+    @apply bg-type-fairy text-black-2;
   }
 }
