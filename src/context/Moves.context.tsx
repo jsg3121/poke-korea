@@ -92,14 +92,10 @@ export const MovesProvider = ({
     setMovesFilter(filter)
   }, [])
 
-  const rawList =
+  const skillList =
     data?.getPokemonSkillList?.edges?.map(
       (edge: PokemonSkillEdge) => edge.node,
     ) || initialSkills
-
-  const skillList = Array.from(
-    new Map(rawList.map((item) => [item.name, item])).values(),
-  )
 
   const value = {
     skillList,
