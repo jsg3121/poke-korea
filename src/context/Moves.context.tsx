@@ -1,53 +1,42 @@
 'use client'
 
 import { produce } from 'immer'
-import { createContext, ReactNode, useCallback, useState } from 'react'
+import { createContext, ReactNode } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
 import {
   PokemonSkill,
   PokemonSkillEdge,
-  PokemonType,
+  PokemonSkillFilterInput,
 } from '~/graphql/typeGenerated'
 
 interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>
   totalCount: number
+  movesFilter: PokemonSkillFilterInput
   children: ReactNode
-}
-
-type MovesFilterType = {
-  name?: string
-  type?: PokemonType | null
-  signatureMoves?: boolean
-  zMoves?: boolean
 }
 
 type ContextType = {
   skillList: Array<PokemonSkill>
-  movesFilter: MovesFilterType
   loading: boolean
   totalCount: number
   hasNextPage?: boolean
   loadMore: () => void
-  setFilter: (filter: MovesFilterType) => void
 }
 
 export const MovesContext = createContext<ContextType>({
   skillList: [],
-  movesFilter: {},
   loading: false,
   totalCount: 0,
   loadMore: () => null,
-  setFilter: () => null,
 })
 
 export const MovesProvider = ({
   initialSkills,
   totalCount,
+  movesFilter,
   children,
 }: MovesProviderProps) => {
-  const [movesFilter, setMovesFilter] = useState<MovesFilterType>({})
-
   const { data, loading, fetchMore } = useGetPokemonSkillListQuery({
     variables: {
       input: {
@@ -88,10 +77,6 @@ export const MovesProvider = ({
     })
   }
 
-  const setFilter = useCallback((filter: MovesFilterType) => {
-    setMovesFilter(filter)
-  }, [])
-
   const skillList =
     data?.getPokemonSkillList?.edges?.map(
       (edge: PokemonSkillEdge) => edge.node,
@@ -99,12 +84,10 @@ export const MovesProvider = ({
 
   const value = {
     skillList,
-    movesFilter,
     hasNextPage: data?.getPokemonSkillList.pageInfo.hasNextPage,
     loading,
     totalCount,
     loadMore,
-    setFilter,
   }
 
   return <MovesContext.Provider value={value}>{children}</MovesContext.Provider>
