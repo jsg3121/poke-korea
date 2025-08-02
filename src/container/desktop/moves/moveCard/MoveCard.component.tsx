@@ -9,14 +9,14 @@ const MoveCard = ({ moveData }: MoveCardProps) => {
   return (
     <tr className={`min-h-14 border-b border-solid border-primary-4`}>
       <td
-        className={`text-center leading-[3.5rem] font-[600] ${moveData.name.replace(/[\(,\)]/g, '').length > 9 && 'text-[0.8rem]'}`}
+        className={`text-center leading-[3.5rem] font-[600] ${moveData.name.replace(/[\\(,\\)]/g, '').length > 9 && 'text-[0.8rem]'}`}
       >
         {moveData.name}
       </td>
       <td className="align-middle">{moveData.description}</td>
       <td className="text-center">
         <span
-          className={`max-w-[3.875rem] h-6 px-2 text-[0.875rem] text-white leading-[calc(1.5rem+3px)] bg-type-${moveData.type.toLowerCase()} mx-auto block rounded-[1rem]`}
+          className={`max-w-[3.875rem] h-6 px-2 text-[0.875rem] text-white leading-[calc(1.5rem+3px)] chip-type-${moveData.type.toLowerCase()} mx-auto block rounded-[1rem]`}
         >
           {PokemonTypes[moveData.type]}
         </span>

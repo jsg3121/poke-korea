@@ -7,8 +7,8 @@ const MovesDesktop = () => {
     <main className="w-full h-full pt-30">
       <HeaderContainer />
       <section className="max-w-[1280px] mx-auto">
-        <header className="w-full h-32 text-center border-b border-solid border-primary-4 pb-4">
-          <h1 className="h-20 text-[2.5rem] text-center leading-[5rem] text-primary-4 font-[700]">
+        <header className="w-full h-28 text-center border-b border-solid border-primary-4 pb-4">
+          <h1 className="h-16 text-[2.5rem] text-center leading-[4rem] text-primary-4 font-[700]">
             포켓몬 기술 도감
           </h1>
           <p className="w-full h-8 text-center leading-8 text-primary-3">

@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef } from 'react'
 import { MovesContext } from '~/context/Moves.context'
 import FooterContainer from '../footer/Footer.container'
 import MoveCard from './moveCard/MoveCard.component'
+import MovesFilter from './moves.filter/MovesFilter'
 
 const MovesListContainer = () => {
   const listRef = useRef<HTMLDivElement>(null)
@@ -32,13 +33,11 @@ const MovesListContainer = () => {
 
   return (
     <section className="w-full h-fit">
-      <header className="w-full h-28 pt-4 flex justify-between border-b border-solid border-primary-3 items-end flex-wrap sticky top-30 z-10 bg-primary-1">
-        <h2 className="w-fit h-12 leading-[3rem] text-[1.5rem] font-[500] text-primary-4">
+      <header className="w-full min-h-28 pt-4 flex justify-between border-b border-solid border-primary-3 flex-wrap sticky top-30 z-10 bg-primary-1">
+        <h2 className="h-8 leading-[2rem] text-[1.5rem] font-[500] text-primary-4">
           기술 목록
         </h2>
-        <p className="w-fit h-6 text-primary-4 leading-6 font-thin">
-          총 <b className="font-[600]">{totalCount}</b>개의 기술을 볼 수 있어요!
-        </p>
+        <MovesFilter totalCount={totalCount} />
         <div
           className="w-full h-12 border-b border-solid flex bg-primary-4 border-primary-1 [&>p]:h-12 [&>p]:leading-[3rem] [&>p]:font-[500]"
           aria-hidden
@@ -49,7 +48,7 @@ const MovesListContainer = () => {
           <p className="w-[4%] text-center">위력</p>
           <p className="w-[5%] text-center">명중률</p>
           <p className="w-[4%] text-center">PP</p>
-          <p className="w-[7%] text-center">기술타입</p>
+          <p className="w-[7%] text-center">기술유형</p>
         </div>
       </header>
       <table className="w-full h-full bg-primary-3 border-hidden table-fixed">
@@ -66,7 +65,7 @@ const MovesListContainer = () => {
           <tr>
             <th>기술명</th>
             <th>설명</th>
-            <th>기술타입</th>
+            <th>기술유형</th>
             <th>타입</th>
             <th>위력</th>
             <th>명중률</th>
@@ -79,14 +78,13 @@ const MovesListContainer = () => {
           ))}
         </tbody>
       </table>
-
       {loading && (
-        <div className="text-center py-4">
+        <div className="h-14 border-y border-solid border-primary-4 text-center py-4 bg-primary-3">
           <p>로딩 중...</p>
         </div>
       )}
-      {!hasNextPage && skillList.length > 0 && (
-        <div className=" h-14 border-y border-solid border-primary-4 text-center py-4 bg-primary-3">
+      {!loading && !hasNextPage && skillList.length > 0 && (
+        <div className="h-14 border-y border-solid border-primary-4 text-center py-4 bg-primary-3">
           <p>모든 기술을 불러왔습니다.</p>
         </div>
       )}
