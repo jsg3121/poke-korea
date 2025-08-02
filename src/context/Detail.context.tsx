@@ -93,24 +93,21 @@ const DetailProvider = ({
       }
     }
   }
+
   const types = getTypes()
   const abilities = getAbilities()
 
-  const getActiveTypeInfo = () => {
-    return {
-      activeType,
-      isEvolution: pokemonBaseInfo.isEvolution,
-      name: pokemonBaseInfo.name,
-      pokemonNumber: pokemonBaseInfo.number,
-      generation: pokemonBaseInfo.generation,
-      isMega: pokemonBaseInfo.isMegaEvolution ?? false,
-      isRegion: pokemonBaseInfo.isRegionForm ?? false,
-      types,
-      abilities: abilities ?? [],
-    }
+  const activeTypeInfo: TActiveTypeInfo = {
+    activeType,
+    isEvolution: pokemonBaseInfo.isEvolution,
+    name: pokemonBaseInfo.name,
+    pokemonNumber: pokemonBaseInfo.number,
+    generation: pokemonBaseInfo.generation,
+    isMega: pokemonBaseInfo.isMegaEvolution ?? false,
+    isRegion: pokemonBaseInfo.isRegionForm ?? false,
+    types,
+    abilities: abilities ?? [],
   }
-
-  const activeTypeInfo: TActiveTypeInfo = getActiveTypeInfo()
 
   const initialValue: IFDetailProps = {
     pokemonBaseInfo,

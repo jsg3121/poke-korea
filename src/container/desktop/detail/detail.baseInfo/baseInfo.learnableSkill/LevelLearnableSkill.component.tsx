@@ -6,17 +6,13 @@ import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 const LevelLearnableSkillComponent = () => {
   const { pokemonBaseInfo } = useContext(DetailContext)
 
-  const levelUpSkills =
-    pokemonBaseInfo?.learnableSkills?.[0].levelUpSkills.sort(
-      (a, b) => a.level - b.level,
-    )
-  // const machineSkills = pokemonBaseInfo?.learnableSkills?.[0].machineSkills
+  const levelUpSkills = pokemonBaseInfo?.learnableSkills?.[0].levelUpSkills
   const versionGroup = pokemonBaseInfo?.learnableSkills?.[0].versionGroup
 
   return (
     <section
       aria-labelledby="pokemon-learnable-skill"
-      className="w-full h-full max-h-[40rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="w-full h-full max-h-[38.5rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
     >
       <InfoCardTitleComponent
         title="레벨업 습득 기술 정보"
@@ -78,13 +74,13 @@ const LevelLearnableSkillComponent = () => {
                 const { level, skill } = levelUpSkill
                 return (
                   <tr
-                    key={skill.id}
+                    key={`level-moves-${skill.id}-${level}`}
                     className="h-8 [&>td]:align-middle [&>td]: text-[0.875rem]"
                   >
                     <td className="text-center">
                       {level === 0 || level === 1 ? '최초' : level}
                     </td>
-                    <td className="">{skill.name}</td>
+                    <td>{skill.name}</td>
                     <td className="text-center">
                       <span
                         className={`w-[3.6rem] h-6 block px-2 rounded-[0.625rem] text-center text-[0.85rem] leading-[calc(1.5rem+2px)] font-semibold mx-auto chip-type-${skill.type.toLowerCase()}`}

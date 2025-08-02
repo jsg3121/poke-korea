@@ -12,7 +12,7 @@ const MachineLearnableSkillComponent = () => {
   return (
     <section
       aria-labelledby="pokemon-machine-learnable-skill"
-      className="w-full h-full max-h-[40rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="w-full h-full max-h-[38.5rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
     >
       <InfoCardTitleComponent
         title="기술/비전 머신 습득 기술 정보"
@@ -69,10 +69,10 @@ const MachineLearnableSkillComponent = () => {
                 const { skill } = levelUpSkill
                 return (
                   <tr
-                    key={skill.id}
+                    key={`machine-moves-${skill.id}`}
                     className="h-8 [&>td]:align-middle [&>td]: text-[0.875rem]"
                   >
-                    <td className="">{skill.name}</td>
+                    <td>{skill.name}</td>
                     <td className="text-center">
                       <span
                         className={`w-[3.6rem] h-6 block px-2 rounded-[0.625rem] text-center text-[0.85rem] leading-[calc(1.5rem+2px)] font-semibold mx-auto chip-type-${skill.type.toLowerCase()}`}
