@@ -46,10 +46,7 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
   }
 
   return (
-    <div
-      className="w-full min-h-3 flex justify-between flex-wrap items-baseline relative px-2"
-      role="search"
-    >
+    <div className="w-full min-h-3 flex justify-between flex-wrap items-baseline relative px-2">
       <p className="w-fit text-[1rem] h-6 text-primary-4 leading-6 font-thin">
         총 <b className="font-[600]">{totalCount}</b>개의 기술을 볼 수 있어요!
       </p>
@@ -79,7 +76,7 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
               return (
                 <button
                   key={types}
-                  className={`min-w-[3rem] h-6 px-2 text-[0.875rem] text-primary-4 leading-[calc(1.5rem+2px)] block rounded-[1rem] chip-type-${types.toLowerCase()} ${typeFilter && typeFilter === types ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+                  className={`min-w-[3rem] h-6 px-2 text-[0.875rem] text-primary-4 leading-[calc(1.5rem+2px)] block rounded-[1rem] will-change-[filter] chip-type-${types.toLowerCase()} ${typeFilter && typeFilter === types ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
                   onClick={handleClickSelectTypeFilter(types)}
                 >
                   {typeName}
@@ -92,19 +89,19 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
           <p className="mb-2">기술 유형</p>
           <div className="flex items-center gap-3">
             <button
-              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#fd8181] text-primary-1 ${damageTypeFilter && damageTypeFilter === '물리' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#fd8181] text-primary-1 will-change-[filter] ${damageTypeFilter && damageTypeFilter === '물리' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
               onClick={handleClickSelectDamageTypeFilter('물리')}
             >
               물리
             </button>
             <button
-              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#9b9bfa] text-primary-1 ${damageTypeFilter && damageTypeFilter === '특수' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#9b9bfa] text-primary-1 will-change-[filter] ${damageTypeFilter && damageTypeFilter === '특수' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
               onClick={handleClickSelectDamageTypeFilter('특수')}
             >
               특수
             </button>
             <button
-              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#72d372] text-primary-1 ${damageTypeFilter && damageTypeFilter === '변화' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#72d372] text-primary-1 will-change-[filter] ${damageTypeFilter && damageTypeFilter === '변화' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
               onClick={handleClickSelectDamageTypeFilter('변화')}
             >
               변화
