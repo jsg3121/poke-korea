@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { Fragment, useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
@@ -10,6 +10,7 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const MovesHeaderContainer = () => {
   const { pokemonId } = useParams()
+  const searchParams = useSearchParams()
   const { pokemonInfo, pokemonLearnableData } = useContext(DetailMovesContext)
 
   const versionGroupList = pokemonLearnableData
@@ -26,6 +27,19 @@ const MovesHeaderContainer = () => {
 
   const lastVersionInfo = versionGroupList[0]
   const firstVersionInfo = versionGroupList[versionGroupList.length - 1]
+  const selectVersion = searchParams.get('selectVersion')
+
+  const activeGroupId = () => {
+    if (selectVersion) {
+      const versionGroupId = versionGroupList.find((version) => {
+        return version?.versionGroupId.toString() === selectVersion
+      })
+
+      return versionGroupId?.versionGroupId
+    } else {
+      return versionGroupList[0]?.versionGroupId
+    }
+  }
 
   return (
     <Fragment>
@@ -80,18 +94,22 @@ const MovesHeaderContainer = () => {
             )}
           </div>
         </header>
-        <div className="w-full h-[4rem] flex items-center gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+        <nav className="w-full h-[4rem] flex items-center gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
           {versionGroupList.map((item) => {
             return (
-              <button
+              <Link
                 key={item?.name}
-                className="w-fit h-8 shrink-0 bg-primary-3 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)]"
+                href={`/detail/${pokemonId}/moves?selectVersion=${item?.versionGroupId}`}
+                className={`
+                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)]
+                  ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
+                `}
               >
                 {item?.nameKo}
-              </button>
+              </Link>
             )
           })}
-        </div>
+        </nav>
       </article>
     </Fragment>
   )
