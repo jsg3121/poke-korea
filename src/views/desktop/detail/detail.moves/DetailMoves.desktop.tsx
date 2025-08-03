@@ -1,4 +1,5 @@
-import MovesHeaderContainer from '~/container/desktop/detail/moves/MovesHeader.container'
+import MovesHeaderContainer from '~/container/desktop/detail/detail.moves/moves.header/MovesHeader.container'
+import MovesTableContainer from '~/container/desktop/detail/detail.moves/moves.table/MovesTableContainer'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 
 interface DetailMovesDesktopProps {
@@ -7,12 +8,13 @@ interface DetailMovesDesktopProps {
 
 const DetailMovesDesktop = ({ pokemonName }: DetailMovesDesktopProps) => {
   return (
-    <main className="w-full min-h-screen pt-30">
+    <main className="w-full max-w-[1280px] mx-auto min-h-screen pt-30">
       <HeaderContainer />
-      <section className="max-w-[1280px] mx-auto pt-4">
+      <section className="w-full pt-4">
         <h1 className="visually-hidden">{pokemonName} 상세 습득 기술 정보</h1>
         <MovesHeaderContainer />
       </section>
+      <MovesTableContainer />
     </main>
   )
 }

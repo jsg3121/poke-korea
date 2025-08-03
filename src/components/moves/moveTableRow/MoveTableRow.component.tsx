@@ -1,13 +1,15 @@
 import { PokemonSkill } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-interface MoveCardProps {
+interface MoveTableRowProps {
   moveData: PokemonSkill
+  moveLevel?: number | string
 }
 
-const MoveCard = ({ moveData }: MoveCardProps) => {
+const MoveTableRow = ({ moveData, moveLevel }: MoveTableRowProps) => {
   return (
     <tr className={`min-h-14 border-b border-solid border-primary-3`}>
+      {moveLevel ? <td className="text-center">{moveLevel}</td> : <></>}
       <td
         className={`text-center leading-[3.5rem] font-[600] ${moveData.name.replace(/[\\(,\\)]/g, '').length > 9 && 'text-[0.8rem]'}`}
       >
@@ -42,4 +44,4 @@ const MoveCard = ({ moveData }: MoveCardProps) => {
   )
 }
 
-export default MoveCard
+export default MoveTableRow

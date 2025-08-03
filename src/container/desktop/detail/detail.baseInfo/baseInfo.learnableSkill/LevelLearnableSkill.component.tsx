@@ -88,7 +88,7 @@ const LevelLearnableSkillComponent = () => {
                     className="h-8 [&>td]:align-middle [&>td]: text-[0.875rem]"
                   >
                     <td className="text-center">
-                      {level === 0 || level === 1 ? '최초' : level}
+                      {level === 0 ? '진화' : level === 1 ? '최초' : level}
                     </td>
                     <td>{skill.name}</td>
                     <td className="text-center">
