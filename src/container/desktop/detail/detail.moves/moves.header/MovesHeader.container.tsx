@@ -8,7 +8,11 @@ import { DetailMovesContext } from '~/context/DetailMoves.context'
 import { imageMode } from '~/module/buildMode'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-const MovesHeaderContainer = () => {
+interface MovesHeaderContainerProps {
+  pokemonName: string
+}
+
+const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const { pokemonId } = useParams()
   const searchParams = useSearchParams()
   const { pokemonInfo, pokemonLearnableData } = useContext(DetailMovesContext)
@@ -55,17 +59,17 @@ const MovesHeaderContainer = () => {
             width="9rem"
             height="9rem"
             src={`${imageMode}/${pokemonId}.webp`}
-            alt={pokemonInfo?.name}
+            alt={pokemonName}
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
           <div className="h-[9rem] ml-4 flex flex-col">
             <h2 className="text-[1.5rem] mb-4 justify-self-start">
               <span>No.{pokemonId}&nbsp;</span>
-              <b className="font-bold">{pokemonInfo?.name}</b>
+              <b className="font-bold">{pokemonName}</b>
             </h2>
             <p className="w-full h-[1.5rem] flex items-center gap-1 mb-1">
               타입 :{' '}
-              {pokemonInfo?.types.map((type) => {
+              {pokemonInfo?.types?.map((type) => {
                 return (
                   <span
                     key={`${pokemonId}-type-${type}`}

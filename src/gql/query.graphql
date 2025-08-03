@@ -138,13 +138,13 @@ query GetPokemonSkillList($input: PokemonSkillListInput) {
   }
 }
 
-query GetPokemonLearnableSkills(
-  $filter: PokemonLearnableSkillsFilterInput!
-  $pokemonId: ID!
-) {
+query GetDetailMovesPokemonInfo($pokemonId: ID!) {
   getPokemonDetail(pokemonId: $pokemonId) {
     ...LearnableSkillPokemonInfo
   }
+}
+
+query GetPokemonLearnableSkills($filter: PokemonLearnableSkillsFilterInput!) {
   getPokemonLearnableSkills(filter: $filter) {
     ...VergionGroup
     ...LevelUpSkills
@@ -163,8 +163,11 @@ query GetPokemonRegionFormLearnableSkills(
     types
   }
   getPokemonRegionFormLearnableSkills(filter: $filter) {
-    ...VergionGroup
-    ...LevelUpSkills
-    ...MachineSkills
+    region
+    learnableSkills {
+      ...VergionGroup
+      ...LevelUpSkills
+      ...MachineSkills
+    }
   }
 }

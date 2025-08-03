@@ -2,9 +2,9 @@
 
 import { ReactNode, createContext } from 'react'
 import {
-  LearnableSkillPokemonInfoFragment,
   PokemonLevelUpSkillInfo,
   PokemonMachineSkillInfo,
+  PokemonType,
   PokemonVersionGroup,
 } from '~/graphql/typeGenerated'
 
@@ -16,14 +16,22 @@ export type PokemonLearnableDataType = {
   machineSkills: Array<PokemonMachineSkillInfo>
 }
 
+export type PokemonInfoType = {
+  name: string
+  types: Array<PokemonType>
+  isFormChange?: boolean
+  isRegionForm?: boolean
+  activeType?: 'region' | 'normalForm'
+}
+
 interface IDetailMovesProviderProps {
-  pokemonInfo?: LearnableSkillPokemonInfoFragment | null
+  pokemonInfo: PokemonInfoType
   pokemonLearnableData: Array<PokemonLearnableDataType>
   children: ReactNode
 }
 
 interface IDetailMovesProps {
-  pokemonInfo?: LearnableSkillPokemonInfoFragment
+  pokemonInfo?: PokemonInfoType
   pokemonLearnableData: Array<PokemonLearnableDataType>
 }
 
@@ -36,8 +44,6 @@ const DetailMovesProvider = ({
   pokemonLearnableData,
   children,
 }: IDetailMovesProviderProps) => {
-  if (!pokemonInfo) return
-
   const initialValue: IDetailMovesProps = {
     pokemonInfo,
     pokemonLearnableData,

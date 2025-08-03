@@ -1,10 +1,13 @@
 import { headers } from 'next/headers'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
+  GetDetailMovesPokemonInfoDocument,
   GetPokemonLearnableSkillsDocument,
   GetPokemonRegionFormLearnableSkillsDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  GetDetailMovesPokemonInfoQuery,
+  GetDetailMovesPokemonInfoQueryVariables,
   GetPokemonLearnableSkillsQuery,
   GetPokemonLearnableSkillsQueryVariables,
   GetPokemonRegionFormLearnableSkillsQuery,
@@ -36,7 +39,21 @@ const DetailMovesPage = async ({
 
   const apolloClient = initializeApollo()
 
-  const [{ data }, { data: regionFormLearnableSkill }] = await Promise.all([
+  const [
+    { data: pokemonInfoData },
+    { data },
+    { data: regionFormLearnableSkill },
+  ] = await Promise.all([
+    apolloClient.query<
+      GetDetailMovesPokemonInfoQuery,
+      GetDetailMovesPokemonInfoQueryVariables
+    >({
+      query: GetDetailMovesPokemonInfoDocument,
+      variables: {
+        pokemonId,
+      },
+      fetchPolicy: 'cache-first',
+    }),
     pokemonType !== 'region' && pokemonType !== 'normalForm'
       ? apolloClient.query<
           GetPokemonLearnableSkillsQuery,
@@ -47,7 +64,6 @@ const DetailMovesPage = async ({
             filter: {
               pokemonNumber: parseInt(pokemonId, 10),
             },
-            pokemonId: pokemonId,
           },
           fetchPolicy: 'cache-first',
         })
@@ -68,10 +84,8 @@ const DetailMovesPage = async ({
         })
       : Promise.resolve({ data: null }),
   ])
-  console.log(
-    '🔬 dev-only ~ regionFormLearnableSkill:',
-    regionFormLearnableSkill?.getPokemonRegionForm,
-  )
+
+  if (!pokemonInfoData.getPokemonDetail) return
 
   const pokemonLearnableData =
     data?.getPokemonLearnableSkills?.map((learnableData) => {
@@ -80,17 +94,40 @@ const DetailMovesPage = async ({
         levelUpSkills: learnableData.levelUpSkills ?? [],
         machineSkills: learnableData.machineSkills ?? [],
       }
-    }) ?? []
+    }) ||
+    regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills?.[0].learnableSkills?.map(
+      (learnableData) => {
+        return {
+          versionGroup: learnableData.versionGroup,
+          levelUpSkills: learnableData.levelUpSkills ?? [],
+          machineSkills: learnableData.machineSkills ?? [],
+        }
+      },
+    ) ||
+    []
 
-  const providerProps = {
-    pokemonInfo: data?.getPokemonDetail,
+  const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill && `${regionFormLearnableSkill.getPokemonRegionForm?.[0].region}의 모습`} ${regionFormLearnableSkill?.getPokemonRegionForm?.[0].name && `(${regionFormLearnableSkill.getPokemonRegionForm?.[0].name})`}`
+  const pokemonInfoTypes =
+    (pokemonType === 'region'
+      ? regionFormLearnableSkill?.getPokemonRegionForm?.[0].types
+      : pokemonType === 'normalForm'
+        ? pokemonInfoData.getPokemonDetail.types
+        : pokemonInfoData.getPokemonDetail.types) ??
+    pokemonInfoData.getPokemonDetail.types
+
+  const initialValue = {
+    pokemonInfo: {
+      name: pokemonName,
+      types: pokemonInfoTypes,
+      isFormChange: pokemonInfoData.getPokemonDetail.isFormChange,
+      isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
+      activeType: pokemonType,
+    },
     pokemonLearnableData,
   }
 
-  const pokemonName = data?.getPokemonDetail?.name ?? ''
-
   return (
-    <DetailMovesProvider {...providerProps}>
+    <DetailMovesProvider {...initialValue}>
       {isMobile ? (
         <DetailMovesDesktop pokemonName={pokemonName} />
       ) : (
