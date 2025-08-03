@@ -1,17 +1,23 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import MoveTableRow from '~/components/moves/moveTableRow/MoveTableRow.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
+import ToggleButtonComponent from './components/Toggle.component'
 
 const MovesTableContainer = () => {
   const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
   const { pokemonLearnableData } = useContext(DetailMovesContext)
 
   const activeVersionId =
     searchParams.get('selectVersion') ??
     pokemonLearnableData[0].versionGroup?.versionGroupId.toString()
+
+  const defaultToggleStatus =
+    searchParams.get('movesType') === 'MACHINE' ? false : true
 
   const activeMoveList = pokemonLearnableData.find((movesData) => {
     return (
@@ -20,13 +26,29 @@ const MovesTableContainer = () => {
     )
   })
 
+  const handleClickCheckToggle = (value: string) => {
+    const params = new URLSearchParams(searchParams)
+    params.set('movesType', value)
+
+    router.replace(`${pathname}?${params.toString()}`)
+  }
+
   return (
     <section className="w-full h-fit">
       <header className="w-full h-28 pt-4 flex justify-between border-b border-solid border-primary-3 flex-wrap sticky top-30 z-10 bg-primary-1">
         <h2 className="h-12 leading-[2rem] text-[1.5rem] font-[500] text-primary-4">
           기술 목록
         </h2>
-
+        <div className="w-[11rem] h-[3rem] flex items-center justify-between">
+          <p className="h-[1.25rem] text-[1rem] leading-[calc(1.25rem+2px)] text-primary-4">
+            습득 유형 :
+          </p>
+          <ToggleButtonComponent
+            key={`toogle-status-${activeVersionId}`}
+            defaultChecked={defaultToggleStatus}
+            onClickToggle={handleClickCheckToggle}
+          />
+        </div>
         <div
           className="w-full h-12 border-b border-solid flex bg-primary-2 border-primary-1 [&>p]:h-12 [&>p]:leading-[3rem] [&>p]:font-[500]"
           aria-hidden
