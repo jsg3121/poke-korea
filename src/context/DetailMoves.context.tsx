@@ -11,7 +11,7 @@ import {
 export type TPokemonType = 'default' | 'region' | 'normalForm'
 
 export type PokemonLearnableDataType = {
-  versionGroupt?: PokemonVersionGroup
+  versionGroup?: PokemonVersionGroup
   levelUpSkills: Array<PokemonLevelUpSkillInfo>
   machineSkills: Array<PokemonMachineSkillInfo>
 }
