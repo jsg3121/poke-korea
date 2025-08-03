@@ -56,6 +56,7 @@ const MovesHeaderContainer = () => {
             height="9rem"
             src={`${imageMode}/${pokemonId}.webp`}
             alt={pokemonInfo?.name}
+            className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
           <div className="h-[9rem] ml-4 flex flex-col">
             <h2 className="text-[1.5rem] mb-4 justify-self-start">
