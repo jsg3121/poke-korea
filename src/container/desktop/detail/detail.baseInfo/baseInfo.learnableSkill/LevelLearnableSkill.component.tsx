@@ -15,7 +15,7 @@ const LevelLearnableSkillComponent = () => {
   return (
     <section
       aria-labelledby="pokemon-learnable-skill"
-      className="w-full h-full max-h-[40rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="w-full h-full max-h-[37.5rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
     >
       <InfoCardTitleComponent
         title="레벨업 습득 기술 정보"

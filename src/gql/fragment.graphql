@@ -85,6 +85,7 @@ fragment VergionGroup on PokemonLearnableSkillByVersion {
 fragment LearnableSkillPokemonInfo on PokemonDetail {
   id
   name
+  types
   isFormChange
   isRegionForm
 }
