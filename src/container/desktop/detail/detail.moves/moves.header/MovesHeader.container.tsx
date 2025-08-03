@@ -86,7 +86,7 @@ const MovesHeaderContainer = () => {
           <div className="shrink-0 flex align-center gap-2 ml-auto ">
             {pokemonInfo?.isRegionForm && (
               <Link
-                href={`/detail/${pokemonId}/moves?moveType=regionForm`}
+                href={`/detail/${pokemonId}/moves?pokemonType=region`}
                 className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem]"
                 replace
               >

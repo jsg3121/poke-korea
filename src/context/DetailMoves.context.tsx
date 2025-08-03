@@ -17,7 +17,7 @@ export type PokemonLearnableDataType = {
 }
 
 interface IDetailMovesProviderProps {
-  pokemonInfo: LearnableSkillPokemonInfoFragment
+  pokemonInfo?: LearnableSkillPokemonInfoFragment | null
   pokemonLearnableData: Array<PokemonLearnableDataType>
   children: ReactNode
 }
@@ -36,6 +36,8 @@ const DetailMovesProvider = ({
   pokemonLearnableData,
   children,
 }: IDetailMovesProviderProps) => {
+  if (!pokemonInfo) return
+
   const initialValue: IDetailMovesProps = {
     pokemonInfo,
     pokemonLearnableData,

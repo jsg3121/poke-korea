@@ -151,3 +151,20 @@ query GetPokemonLearnableSkills(
     ...MachineSkills
   }
 }
+
+query GetPokemonRegionFormLearnableSkills(
+  $filter: PokemonRegionFormLearnableSkillsFilterInput!
+  $pokemonId: Int!
+) {
+  getPokemonRegionForm(pokemonId: $pokemonId) {
+    id
+    name
+    region
+    types
+  }
+  getPokemonRegionFormLearnableSkills(filter: $filter) {
+    ...VergionGroup
+    ...LevelUpSkills
+    ...MachineSkills
+  }
+}

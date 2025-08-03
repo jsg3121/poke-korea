@@ -1,9 +1,14 @@
 import { headers } from 'next/headers'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import { GetPokemonLearnableSkillsDocument } from '~/graphql/gqlGenerated'
+import {
+  GetPokemonLearnableSkillsDocument,
+  GetPokemonRegionFormLearnableSkillsDocument,
+} from '~/graphql/gqlGenerated'
 import {
   GetPokemonLearnableSkillsQuery,
   GetPokemonLearnableSkillsQueryVariables,
+  GetPokemonRegionFormLearnableSkillsQuery,
+  GetPokemonRegionFormLearnableSkillsQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -24,27 +29,49 @@ const DetailMovesPage = async ({
   searchParams,
 }: DetailMovesPageProps) => {
   const { pokemonId } = await params
-  const { pokemonType = 'default' } = await searchParams
+  const { pokemonType } = await searchParams
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
   const apolloClient = initializeApollo()
 
-  const { data } = await apolloClient.query<
-    GetPokemonLearnableSkillsQuery,
-    GetPokemonLearnableSkillsQueryVariables
-  >({
-    query: GetPokemonLearnableSkillsDocument,
-    variables: {
-      filter: {
-        pokemonNumber: parseInt(pokemonId, 10),
-      },
-      pokemonId: pokemonId,
-    },
-  })
-
-  if (!data.getPokemonDetail) return
+  const [{ data }, { data: regionFormLearnableSkill }] = await Promise.all([
+    pokemonType !== 'region' && pokemonType !== 'normalForm'
+      ? apolloClient.query<
+          GetPokemonLearnableSkillsQuery,
+          GetPokemonLearnableSkillsQueryVariables
+        >({
+          query: GetPokemonLearnableSkillsDocument,
+          variables: {
+            filter: {
+              pokemonNumber: parseInt(pokemonId, 10),
+            },
+            pokemonId: pokemonId,
+          },
+          fetchPolicy: 'cache-first',
+        })
+      : Promise.resolve({ data: null }),
+    pokemonType === 'region'
+      ? apolloClient.query<
+          GetPokemonRegionFormLearnableSkillsQuery,
+          GetPokemonRegionFormLearnableSkillsQueryVariables
+        >({
+          query: GetPokemonRegionFormLearnableSkillsDocument,
+          variables: {
+            filter: {
+              pokemonId: parseInt(pokemonId, 10),
+            },
+            pokemonId: parseInt(pokemonId, 10),
+          },
+          fetchPolicy: 'cache-first',
+        })
+      : Promise.resolve({ data: null }),
+  ])
+  console.log(
+    '🔬 dev-only ~ regionFormLearnableSkill:',
+    regionFormLearnableSkill?.getPokemonRegionForm,
+  )
 
   const pokemonLearnableData =
     data?.getPokemonLearnableSkills?.map((learnableData) => {
@@ -56,11 +83,11 @@ const DetailMovesPage = async ({
     }) ?? []
 
   const providerProps = {
-    pokemonInfo: data.getPokemonDetail,
+    pokemonInfo: data?.getPokemonDetail,
     pokemonLearnableData,
   }
 
-  const pokemonName = data.getPokemonDetail.name
+  const pokemonName = data?.getPokemonDetail?.name ?? ''
 
   return (
     <DetailMovesProvider {...providerProps}>
