@@ -22,13 +22,13 @@ import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import {
   getPokemonNameByType,
+  getPokemonTypes,
   getSeoCanonicalUrl,
   getSeoDescription,
   getSeoTitle,
-  getPokemonTypes,
 } from '~/module/generateDetailSeoMetaData'
 import { TActiveType } from '~/types/detailContext.type'
-import DetailDesktop from '~/views/desktop/Detail.desktop'
+import DetailDesktop from '~/views/desktop/detail/Detail.desktop'
 import DetailMobile from '~/views/mobile/Detail.mobile'
 import { generatePokemonJsonLd } from '../../../constants/pokemonJsonLd'
 import { SHINY_QNA_JSON_LD } from '../../../constants/shinyJsonLd'

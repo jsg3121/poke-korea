@@ -39,3 +39,52 @@ fragment PokemonCard on PokemonList {
     ...PokemonStats
   }
 }
+
+fragment LevelUpSkills on PokemonLearnableSkillByVersion {
+  levelUpSkills {
+    level
+    skill {
+      id
+      generationId
+      name
+      type
+      power
+      accuracy
+      pp
+      description
+      damageType
+    }
+  }
+}
+
+fragment MachineSkills on PokemonLearnableSkillByVersion {
+  machineSkills {
+    skill {
+      id
+      generationId
+      name
+      type
+      power
+      accuracy
+      pp
+      description
+      damageType
+    }
+  }
+}
+
+fragment VergionGroup on PokemonLearnableSkillByVersion {
+  versionGroup {
+    versionGroupId
+    name
+    nameKo
+    generationId
+  }
+}
+
+fragment LearnableSkillPokemonInfo on PokemonDetail {
+  id
+  name
+  isFormChange
+  isRegionForm
+}

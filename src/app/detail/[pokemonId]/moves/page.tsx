@@ -1,20 +1,13 @@
 import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { DetailMovesProvider } from '~/context/DetailMoves.context'
+import { GetPokemonLearnableSkillsDocument } from '~/graphql/gqlGenerated'
 import {
-  GetPokemonNormalFormDocument,
-  GetPokemonRegionFormDocument,
-  PokemonDetailDocument,
-} from '~/graphql/gqlGenerated'
-import {
-  GetPokemonNormalFormQuery,
-  GetPokemonRegionFormQuery,
-  PokemonDetailQuery,
+  GetPokemonLearnableSkillsQuery,
+  GetPokemonLearnableSkillsQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
-import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import DetailMovesDesktop from '~/views/desktop/DetailMoves.desktop'
-import DetailMovesMobile from '~/views/mobile/DetailMoves.mobile'
+import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 
@@ -38,51 +31,44 @@ const DetailMovesPage = async ({
 
   const apolloClient = initializeApollo()
 
-  // 기본 포켓몬 정보는 항상 가져오기
-  const { data: pokemonDetailData } =
-    await apolloClient.query<PokemonDetailQuery>({
-      query: PokemonDetailDocument,
-      variables: { pokemonId: parseInt(pokemonId, 10) },
-      fetchPolicy: 'cache-first',
-    })
+  const { data } = await apolloClient.query<
+    GetPokemonLearnableSkillsQuery,
+    GetPokemonLearnableSkillsQueryVariables
+  >({
+    query: GetPokemonLearnableSkillsDocument,
+    variables: {
+      filter: {
+        pokemonNumber: parseInt(pokemonId, 10),
+      },
+      pokemonId: pokemonId,
+    },
+  })
 
-  const pokemonDetail = pokemonDetailData.getPokemonDetail
+  if (!data.getPokemonDetail) return
 
-  if (!pokemonDetail) {
-    redirect('/')
-  }
-
-  // 타입별로 추가 데이터 가져오기
-  let normalFormData: GetPokemonNormalFormQuery['getPokemonNormalForm'] = null
-  let regionFormData: GetPokemonRegionFormQuery['getPokemonRegionForm'] = null
-
-  if (pokemonType === 'normalForm') {
-    const { data } = await apolloClient.query<GetPokemonNormalFormQuery>({
-      query: GetPokemonNormalFormDocument,
-      variables: { pokemonId: parseInt(pokemonId, 10) },
-      fetchPolicy: 'cache-first',
-    })
-    normalFormData = data.getPokemonNormalForm
-  }
-
-  if (pokemonType === 'region') {
-    const { data } = await apolloClient.query<GetPokemonRegionFormQuery>({
-      query: GetPokemonRegionFormDocument,
-      variables: { pokemonId: parseInt(pokemonId, 10) },
-      fetchPolicy: 'cache-first',
-    })
-    regionFormData = data.getPokemonRegionForm
-  }
+  const pokemonLearnableData =
+    data?.getPokemonLearnableSkills?.map((learnableData) => {
+      return {
+        versionGroup: learnableData.versionGroup,
+        levelUpSkills: learnableData.levelUpSkills ?? [],
+        machineSkills: learnableData.machineSkills ?? [],
+      }
+    }) ?? []
 
   const providerProps = {
-    pokemonDetail,
-    normalFormData: normalFormData ?? [],
-    regionFormData: regionFormData ?? [],
+    pokemonInfo: data.getPokemonDetail,
+    pokemonLearnableData,
   }
+
+  const pokemonName = data.getPokemonDetail.name
 
   return (
     <DetailMovesProvider {...providerProps}>
-      {isMobile ? <DetailMovesMobile /> : <DetailMovesDesktop />}
+      {isMobile ? (
+        <DetailMovesDesktop pokemonName={pokemonName} />
+      ) : (
+        <DetailMovesDesktop pokemonName={pokemonName} />
+      )}
     </DetailMovesProvider>
   )
 }
