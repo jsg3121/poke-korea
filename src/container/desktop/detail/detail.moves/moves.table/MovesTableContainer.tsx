@@ -88,22 +88,29 @@ const MovesTableContainer = () => {
         </thead>
         <tbody>
           {activeMoveList &&
-            activeMoveList.levelUpSkills.map((move, index) => {
-              const level =
-                move.level === 0
-                  ? '진화'
-                  : move.level === 1
-                    ? '최초'
-                    : move.level
+            activeMoveList.levelUpSkills
+              .sort((a, b) => {
+                return parseInt(a.skill.id, 10) - parseInt(b.skill.id, 10)
+              })
+              .sort((a, b) => {
+                return a.level - b.level
+              })
+              .map((move, index) => {
+                const level =
+                  move.level === 0
+                    ? '진화'
+                    : move.level === 1
+                      ? '최초'
+                      : move.level
 
-              return (
-                <MoveTableRow
-                  key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-                  moveData={move.skill}
-                  moveLevel={level}
-                />
-              )
-            })}
+                return (
+                  <MoveTableRow
+                    key={`pokemon-levelup-move-${index}_${move.skill.id}`}
+                    moveData={move.skill}
+                    moveLevel={level}
+                  />
+                )
+              })}
         </tbody>
       </table>
     </section>
