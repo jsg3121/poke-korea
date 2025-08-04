@@ -32,7 +32,7 @@ const DetailMovesPage = async ({
   searchParams,
 }: DetailMovesPageProps) => {
   const { pokemonId } = await params
-  const { pokemonType } = await searchParams
+  const { pokemonType, activeIndex = '0' } = await searchParams
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
@@ -90,15 +90,15 @@ const DetailMovesPage = async ({
   const getPokemonLearnableData = () => {
     switch (pokemonType) {
       case 'region': {
-        return regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills?.[0].learnableSkills?.map(
-          (learnableData) => {
-            return {
-              versionGroup: learnableData.versionGroup,
-              levelUpSkills: learnableData.levelUpSkills ?? [],
-              machineSkills: learnableData.machineSkills ?? [],
-            }
-          },
-        )
+        return regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills?.[
+          parseInt(activeIndex, 10)
+        ].learnableSkills?.map((learnableData) => {
+          return {
+            versionGroup: learnableData.versionGroup,
+            levelUpSkills: learnableData.levelUpSkills ?? [],
+            machineSkills: learnableData.machineSkills ?? [],
+          }
+        })
       }
       case 'normalForm':
       default: {
@@ -115,10 +115,12 @@ const DetailMovesPage = async ({
 
   const pokemonLearnableData = getPokemonLearnableData() ?? []
 
-  const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill ? `${regionFormLearnableSkill.getPokemonRegionForm?.[0].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[0].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[0].name})` : ''}`
+  const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill ? `${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name})` : ''}`
   const pokemonInfoTypes =
     (pokemonType === 'region'
-      ? regionFormLearnableSkill?.getPokemonRegionForm?.[0].types
+      ? regionFormLearnableSkill?.getPokemonRegionForm?.[
+          parseInt(activeIndex, 10)
+        ].types
       : pokemonType === 'normalForm'
         ? pokemonInfoData.getPokemonDetail.types
         : pokemonInfoData.getPokemonDetail.types) ??

@@ -25,6 +25,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const firstVersionInfo = versionGroupList[versionGroupList.length - 1]
   const selectVersion = searchParams.get('selectVersion')
   const pokemonType = searchParams.get('pokemonType')
+  const activeIndex = searchParams.get('activeIndex')
 
   const activeGroupId = () => {
     if (selectVersion) {
@@ -35,6 +36,23 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
       return versionGroupId?.versionGroupId
     } else {
       return versionGroupList[0]?.versionGroupId
+    }
+  }
+
+  const imagePath = () => {
+    switch (pokemonType) {
+      case 'region': {
+        return `2${pokemonId.toString().padStart(3, '0')}${parseInt(
+          activeIndex ?? '0',
+          10,
+        )
+          ?.toString()
+          .padStart(2, '0')}`
+      }
+
+      default: {
+        return pokemonId
+      }
     }
   }
 
@@ -51,7 +69,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
           <ImageComponent
             width="9rem"
             height="9rem"
-            src={`${imageMode}/${pokemonId}.webp`}
+            src={`${imageMode}/${imagePath()}.webp`}
             alt={pokemonName}
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
@@ -66,7 +84,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 return (
                   <span
                     key={`${pokemonId}-type-${type}`}
-                    className={`w-12 h-[1.5rem] text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] block chip-type-${type.toLowerCase()}`}
+                    className={`w-12 h-[1.25rem] text-center text-[0.8rem] leading-[calc(1.25rem+2px)] rounded-[0.5rem] block chip-type-${type.toLowerCase()}`}
                   >
                     {PokemonTypes[type]}
                   </span>
@@ -81,13 +99,23 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             </p>
           </div>
           <div className="shrink-0 flex align-center gap-2 ml-auto ">
-            {pokemonInfo?.isRegionForm && (
+            {pokemonType === 'region' && (
               <Link
-                href={`/detail/${pokemonId}/moves?pokemonType=region`}
-                className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem]"
+                href={`/detail/${pokemonId}/moves`}
+                className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
                 replace
               >
-                리전폼 기술 정보 보러가기
+                <b className="font-bold ">일반폼</b> 기술 보러가기
+              </Link>
+            )}
+
+            {pokemonInfo?.isRegionForm && pokemonType !== 'region' && (
+              <Link
+                href={`/detail/${pokemonId}/moves?pokemonType=region`}
+                className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
+                replace
+              >
+                <b className="font-bold ">리전폼</b> 기술 보러가기
               </Link>
             )}
           </div>
@@ -97,9 +125,20 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             return (
               <Link
                 key={item?.name}
-                href={`/detail/${pokemonId}/moves?pokemonType=${pokemonType}&selectVersion=${item?.versionGroupId}`}
+                href={{
+                  pathname: `/detail/${pokemonId}/moves`,
+                  query: {
+                    selectVersion: item?.versionGroupId,
+                    ...(pokemonType && {
+                      pokemonType,
+                    }),
+                    ...(activeIndex && {
+                      activeIndex,
+                    }),
+                  },
+                }}
                 className={`
-                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)]
+                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)] hover:bg-primary-2 hover:text-primary-4
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
                 `}
               >
