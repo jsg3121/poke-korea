@@ -87,24 +87,33 @@ const DetailMovesPage = async ({
 
   if (!pokemonInfoData.getPokemonDetail) return
 
-  const pokemonLearnableData =
-    data?.getPokemonLearnableSkills?.map((learnableData) => {
-      return {
-        versionGroup: learnableData.versionGroup,
-        levelUpSkills: learnableData.levelUpSkills ?? [],
-        machineSkills: learnableData.machineSkills ?? [],
+  const getPokemonLearnableData = () => {
+    switch (pokemonType) {
+      case 'region': {
+        return regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills?.[0].learnableSkills?.map(
+          (learnableData) => {
+            return {
+              versionGroup: learnableData.versionGroup,
+              levelUpSkills: learnableData.levelUpSkills ?? [],
+              machineSkills: learnableData.machineSkills ?? [],
+            }
+          },
+        )
       }
-    }) ||
-    regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills?.[0].learnableSkills?.map(
-      (learnableData) => {
-        return {
-          versionGroup: learnableData.versionGroup,
-          levelUpSkills: learnableData.levelUpSkills ?? [],
-          machineSkills: learnableData.machineSkills ?? [],
-        }
-      },
-    ) ||
-    []
+      case 'normalForm':
+      default: {
+        return data?.getPokemonLearnableSkills?.map((learnableData) => {
+          return {
+            versionGroup: learnableData.versionGroup,
+            levelUpSkills: learnableData.levelUpSkills ?? [],
+            machineSkills: learnableData.machineSkills ?? [],
+          }
+        })
+      }
+    }
+  }
+
+  const pokemonLearnableData = getPokemonLearnableData() ?? []
 
   const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill ? `${regionFormLearnableSkill.getPokemonRegionForm?.[0].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[0].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[0].name})` : ''}`
   const pokemonInfoTypes =

@@ -15,6 +15,14 @@ const MovesTableContainer = () => {
   const activeVersionId =
     searchParams.get('selectVersion') ??
     pokemonLearnableData[0].versionGroup?.versionGroupId.toString()
+  console.log(
+    '🔬 dev-only ~ MovesTableContainer ~ activeVersionId:',
+    activeVersionId,
+  )
+  console.log(
+    '🔬 dev-only ~ MovesTableContainer ~ pokemonLearnableData[0].versionGroup?.versionGroupId:',
+    pokemonLearnableData[0].versionGroup?.versionGroupId,
+  )
 
   const defaultToggleStatus =
     searchParams.get('movesType') === 'MACHINE' ? false : true
@@ -101,41 +109,30 @@ const MovesTableContainer = () => {
         </thead>
         <tbody>
           {defaultToggleStatus
-            ? activeMoveList.levelUpSkills
-                .sort((a, b) => {
-                  return parseInt(a.skill.id, 10) - parseInt(b.skill.id, 10)
-                })
-                .sort((a, b) => {
-                  return a.level - b.level
-                })
-                .map((move, index) => {
-                  const level =
-                    move.level === 0
-                      ? '진화'
-                      : move.level === 1
-                        ? '최초'
-                        : move.level
+            ? activeMoveList.levelUpSkills.map((move, index) => {
+                const level =
+                  move.level === 0
+                    ? '진화'
+                    : move.level === 1
+                      ? '최초'
+                      : move.level
 
-                  return (
-                    <MoveTableRow
-                      key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-                      moveData={move.skill}
-                      moveLevel={level}
-                    />
-                  )
-                })
-            : activeMoveList.machineSkills
-                .sort((a, b) => {
-                  return parseInt(a.skill.id, 10) - parseInt(b.skill.id, 10)
-                })
-                .map((move, index) => {
-                  return (
-                    <MoveTableRow
-                      key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-                      moveData={move.skill}
-                    />
-                  )
-                })}
+                return (
+                  <MoveTableRow
+                    key={`pokemon-levelup-move-${index}_${move.skill.id}`}
+                    moveData={move.skill}
+                    moveLevel={level}
+                  />
+                )
+              })
+            : activeMoveList.machineSkills.map((move, index) => {
+                return (
+                  <MoveTableRow
+                    key={`pokemon-levelup-move-${index}_${move.skill.id}`}
+                    moveData={move.skill}
+                  />
+                )
+              })}
         </tbody>
       </table>
     </section>

@@ -17,17 +17,9 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const searchParams = useSearchParams()
   const { pokemonInfo, pokemonLearnableData } = useContext(DetailMovesContext)
 
-  const versionGroupList = pokemonLearnableData
-    .map((learnableData) => {
-      return learnableData.versionGroup
-    })
-    .sort((a, b) => {
-      if (a && b) {
-        return b.versionGroupId - a.versionGroupId
-      } else {
-        return 1
-      }
-    })
+  const versionGroupList = pokemonLearnableData.map((learnableData) => {
+    return learnableData.versionGroup
+  })
 
   const lastVersionInfo = versionGroupList[0]
   const firstVersionInfo = versionGroupList[versionGroupList.length - 1]
