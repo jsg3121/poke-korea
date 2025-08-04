@@ -15,7 +15,8 @@ interface MovesHeaderContainerProps {
 const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const { pokemonId } = useParams()
   const searchParams = useSearchParams()
-  const { pokemonInfo, pokemonLearnableData } = useContext(DetailMovesContext)
+  const { pokemonInfo, pokemonLearnableData, formDataLength } =
+    useContext(DetailMovesContext)
 
   const versionGroupList = pokemonLearnableData.map((learnableData) => {
     return learnableData.versionGroup
@@ -74,10 +75,56 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
           <div className="h-[9rem] ml-4 flex flex-col">
-            <h2 className="text-[1.5rem] mb-4 justify-self-start">
+            <h2 className="h-[2rem] text-[1.5rem] leading-[2rem+2px] justify-self-start">
               <span>No.{pokemonId}&nbsp;</span>
               <b className="font-bold">{pokemonName}</b>
             </h2>
+            <div className="w-full h-[2.5rem] flex items-center gap-2">
+              {pokemonType === 'region' && (
+                <>
+                  <Link
+                    href={{
+                      query: {
+                        ...(pokemonType && {
+                          pokemonType,
+                        }),
+                        activeIndex: Math.max(
+                          parseInt(activeIndex ?? '1', 10) - 1,
+                          0,
+                        ),
+                      },
+                    }}
+                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                      activeIndex === '0'
+                        ? 'bg-primary-3 text-primary-2 select-none cursor-default'
+                        : ' bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
+                    }`}
+                  >
+                    이전 폼으로
+                  </Link>
+                  <Link
+                    href={{
+                      query: {
+                        ...(pokemonType && {
+                          pokemonType,
+                        }),
+                        activeIndex: Math.min(
+                          parseInt(activeIndex ?? '0', 10) + 1,
+                          formDataLength - 1,
+                        ),
+                      },
+                    }}
+                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                      activeIndex === `${formDataLength - 1}`
+                        ? 'bg-primary-3 text-primary-2 select-none cursor-default'
+                        : 'bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
+                    }`}
+                  >
+                    다음 폼으로
+                  </Link>
+                </>
+              )}
+            </div>
             <p className="w-full h-[1.5rem] flex items-center gap-1 mb-1">
               타입 :{' '}
               {pokemonInfo?.types?.map((type) => {

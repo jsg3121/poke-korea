@@ -126,6 +126,9 @@ const DetailMovesPage = async ({
         : pokemonInfoData.getPokemonDetail.types) ??
     pokemonInfoData.getPokemonDetail.types
 
+  const formDataLength =
+    regionFormLearnableSkill?.getPokemonRegionForm?.length ?? 0
+
   const initialValue = {
     pokemonInfo: {
       name: pokemonName,
@@ -135,6 +138,7 @@ const DetailMovesPage = async ({
       activeType: pokemonType,
     },
     pokemonLearnableData,
+    formDataLength,
   }
 
   return (

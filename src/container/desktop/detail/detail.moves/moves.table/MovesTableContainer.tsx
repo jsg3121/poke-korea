@@ -15,14 +15,6 @@ const MovesTableContainer = () => {
   const activeVersionId =
     searchParams.get('selectVersion') ??
     pokemonLearnableData[0].versionGroup?.versionGroupId.toString()
-  console.log(
-    '🔬 dev-only ~ MovesTableContainer ~ activeVersionId:',
-    activeVersionId,
-  )
-  console.log(
-    '🔬 dev-only ~ MovesTableContainer ~ pokemonLearnableData[0].versionGroup?.versionGroupId:',
-    pokemonLearnableData[0].versionGroup?.versionGroupId,
-  )
 
   const defaultToggleStatus =
     searchParams.get('movesType') === 'MACHINE' ? false : true
