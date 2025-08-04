@@ -106,7 +106,7 @@ const DetailMovesPage = async ({
     ) ||
     []
 
-  const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill && `${regionFormLearnableSkill.getPokemonRegionForm?.[0].region}의 모습`} ${regionFormLearnableSkill?.getPokemonRegionForm?.[0].name && `(${regionFormLearnableSkill.getPokemonRegionForm?.[0].name})`}`
+  const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill ? `${regionFormLearnableSkill.getPokemonRegionForm?.[0].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[0].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[0].name})` : ''}`
   const pokemonInfoTypes =
     (pokemonType === 'region'
       ? regionFormLearnableSkill?.getPokemonRegionForm?.[0].types

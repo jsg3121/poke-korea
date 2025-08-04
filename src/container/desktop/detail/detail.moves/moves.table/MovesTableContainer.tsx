@@ -60,12 +60,12 @@ const MovesTableContainer = () => {
             <p className="w-[5%] text-primary-4 text-center">레벨</p>
           )}
           <p
-            className={`w-[${defaultToggleStatus ? '16%' : '18%'}] text-primary-4 text-center`}
+            className={`${defaultToggleStatus ? 'w-[16%]' : 'w-[18%]'} text-primary-4 text-center`}
           >
             기술명
           </p>
           <p
-            className={`w-[${defaultToggleStatus ? '53%' : '56%'}] text-primary-4 text-center`}
+            className={`${defaultToggleStatus ? 'w-[53%]' : 'w-[56%]'} text-primary-4 text-center`}
           >
             설명
           </p>

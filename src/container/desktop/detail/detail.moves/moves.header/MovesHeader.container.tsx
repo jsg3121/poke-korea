@@ -32,6 +32,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const lastVersionInfo = versionGroupList[0]
   const firstVersionInfo = versionGroupList[versionGroupList.length - 1]
   const selectVersion = searchParams.get('selectVersion')
+  const pokemonType = searchParams.get('pokemonType')
 
   const activeGroupId = () => {
     if (selectVersion) {
@@ -104,7 +105,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             return (
               <Link
                 key={item?.name}
-                href={`/detail/${pokemonId}/moves?selectVersion=${item?.versionGroupId}`}
+                href={`/detail/${pokemonId}/moves?pokemonType=${pokemonType}&selectVersion=${item?.versionGroupId}`}
                 className={`
                   w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)]
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
