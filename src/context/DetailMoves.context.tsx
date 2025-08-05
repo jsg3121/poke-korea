@@ -28,6 +28,10 @@ interface IDetailMovesProviderProps {
   pokemonInfo: PokemonInfoType
   pokemonLearnableData: Array<PokemonLearnableDataType>
   formDataLength: number
+  normalFormInfo?: {
+    name?: string
+    imagePath?: string
+  }
   children: ReactNode
 }
 
@@ -35,6 +39,10 @@ interface IDetailMovesProps {
   pokemonInfo?: PokemonInfoType
   pokemonLearnableData: Array<PokemonLearnableDataType>
   formDataLength: number
+  normalFormInfo?: {
+    name?: string
+    imagePath?: string
+  }
 }
 
 const DetailMovesContext = createContext<IDetailMovesProps>({
@@ -46,12 +54,14 @@ const DetailMovesProvider = ({
   pokemonInfo,
   pokemonLearnableData,
   formDataLength,
+  normalFormInfo,
   children,
 }: IDetailMovesProviderProps) => {
   const initialValue: IDetailMovesProps = {
     pokemonInfo,
     pokemonLearnableData,
     formDataLength,
+    normalFormInfo,
   }
 
   return (

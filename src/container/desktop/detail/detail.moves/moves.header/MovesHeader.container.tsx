@@ -15,7 +15,7 @@ interface MovesHeaderContainerProps {
 const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const { pokemonId } = useParams()
   const searchParams = useSearchParams()
-  const { pokemonInfo, pokemonLearnableData, formDataLength } =
+  const { pokemonInfo, pokemonLearnableData, formDataLength, normalFormInfo } =
     useContext(DetailMovesContext)
 
   const versionGroupList = pokemonLearnableData.map((learnableData) => {
@@ -52,7 +52,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
       }
 
       default: {
-        return pokemonId
+        return normalFormInfo?.imagePath ?? pokemonId
       }
     }
   }
@@ -74,7 +74,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
         }}
         className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 leading-[calc(3rem+2px)]"
       >
-        {pokemonName.trim()}의 상세 정보 보러가기
+        {pokemonName}의 상세 정보 보러가기
       </Link>
       <article className="w-full h-[15rem] bg-primary-4 rounded-[0.75rem] p-4">
         <header className="w-full h-[9rem] flex items-start flex-row">
@@ -91,7 +91,8 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               <b className="font-bold">{pokemonName}</b>
             </h2>
             <div className="w-full h-[2.5rem] flex items-center gap-2">
-              {formDataLength > 1 && activeType === 'region' && (
+              {((formDataLength > 1 && activeType === 'region') ||
+                pokemonInfo?.isFormChange) && (
                 <>
                   <Link
                     href={{
@@ -166,7 +167,6 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 <b className="font-bold ">일반폼</b> 기술 보러가기
               </Link>
             )}
-
             {pokemonInfo?.isRegionForm && activeType !== 'region' && (
               <Link
                 href={`/detail/${pokemonId}/moves?activeType=region`}

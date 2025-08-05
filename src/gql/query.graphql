@@ -171,3 +171,22 @@ query GetPokemonRegionFormLearnableSkills(
     }
   }
 }
+
+query GetPokemonNormalFormLearnableSkills(
+  $filter: PokemonNormalFormLearnableSkillsFilterInput!
+  $pokemonId: Int!
+) {
+  getPokemonNormalForm(pokemonId: $pokemonId) {
+    pokemonId
+    imagePath
+    types
+    name
+  }
+  getPokemonNormalFormLearnableSkills(filter: $filter) {
+    learnableSkills {
+      ...VergionGroup
+      ...LevelUpSkills
+      ...MachineSkills
+    }
+  }
+}

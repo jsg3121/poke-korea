@@ -39,6 +39,7 @@ const MachineLearnableSkillComponent = () => {
                 activeIndex !== '0' && {
                   activeIndex: parseInt(activeIndex, 10),
                 }),
+              movesType: 'MACHINE',
             },
           }}
           className="text-[0.8rem] h-5 bg-primary-2 leading-[calc(1.25rem+2px)] px-3 text-primary-4 rounded-[0.375rem]"

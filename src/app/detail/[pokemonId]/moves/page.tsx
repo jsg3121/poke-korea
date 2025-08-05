@@ -3,13 +3,16 @@ import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
   GetPokemonLearnableSkillsDocument,
+  GetPokemonNormalFormLearnableSkillsDocument,
   GetPokemonRegionFormLearnableSkillsDocument,
 } from '~/graphql/gqlGenerated'
-import {
+import type {
   GetDetailMovesPokemonInfoQuery,
   GetDetailMovesPokemonInfoQueryVariables,
   GetPokemonLearnableSkillsQuery,
   GetPokemonLearnableSkillsQueryVariables,
+  GetPokemonNormalFormLearnableSkillsQuery,
+  GetPokemonNormalFormLearnableSkillsQueryVariables,
   GetPokemonRegionFormLearnableSkillsQuery,
   GetPokemonRegionFormLearnableSkillsQueryVariables,
 } from '~/graphql/typeGenerated'
@@ -39,22 +42,25 @@ const DetailMovesPage = async ({
 
   const apolloClient = initializeApollo()
 
+  const { data: pokemonInfoData } = await apolloClient.query<
+    GetDetailMovesPokemonInfoQuery,
+    GetDetailMovesPokemonInfoQueryVariables
+  >({
+    query: GetDetailMovesPokemonInfoDocument,
+    variables: {
+      pokemonId,
+    },
+    fetchPolicy: 'cache-first',
+  })
+
+  const isNormalForm = !!pokemonInfoData.getPokemonDetail?.isFormChange
+
   const [
-    { data: pokemonInfoData },
     { data },
     { data: regionFormLearnableSkill },
+    { data: normalFormLearnableSkill },
   ] = await Promise.all([
-    apolloClient.query<
-      GetDetailMovesPokemonInfoQuery,
-      GetDetailMovesPokemonInfoQueryVariables
-    >({
-      query: GetDetailMovesPokemonInfoDocument,
-      variables: {
-        pokemonId,
-      },
-      fetchPolicy: 'cache-first',
-    }),
-    activeType !== 'region' && activeType !== 'normalForm'
+    activeType !== 'region' && !isNormalForm
       ? apolloClient.query<
           GetPokemonLearnableSkillsQuery,
           GetPokemonLearnableSkillsQueryVariables
@@ -83,6 +89,21 @@ const DetailMovesPage = async ({
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
+    isNormalForm
+      ? apolloClient.query<
+          GetPokemonNormalFormLearnableSkillsQuery,
+          GetPokemonNormalFormLearnableSkillsQueryVariables
+        >({
+          query: GetPokemonNormalFormLearnableSkillsDocument,
+          variables: {
+            filter: {
+              pokemonId: parseInt(pokemonId, 10),
+            },
+            pokemonId: parseInt(pokemonId, 10),
+          },
+          fetchPolicy: 'cache-first',
+        })
+      : Promise.resolve({ data: null }),
   ])
 
   if (!pokemonInfoData.getPokemonDetail) return
@@ -100,34 +121,58 @@ const DetailMovesPage = async ({
           }
         })
       }
-      case 'normalForm':
       default: {
-        return data?.getPokemonLearnableSkills?.map((learnableData) => {
-          return {
-            versionGroup: learnableData.versionGroup,
-            levelUpSkills: learnableData.levelUpSkills ?? [],
-            machineSkills: learnableData.machineSkills ?? [],
-          }
-        })
+        if (isNormalForm) {
+          return normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills?.[
+            parseInt(activeIndex, 10)
+          ].learnableSkills?.map((learnableData) => {
+            return {
+              versionGroup: learnableData.versionGroup,
+              levelUpSkills: learnableData.levelUpSkills ?? [],
+              machineSkills: learnableData.machineSkills ?? [],
+            }
+          })
+        } else {
+          return data?.getPokemonLearnableSkills?.map((learnableData) => {
+            return {
+              versionGroup: learnableData.versionGroup,
+              levelUpSkills: learnableData.levelUpSkills ?? [],
+              machineSkills: learnableData.machineSkills ?? [],
+            }
+          })
+        }
       }
     }
   }
 
   const pokemonLearnableData = getPokemonLearnableData() ?? []
 
-  const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill ? `${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name})` : ''}`
+  const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name})` : ''}`
+  const normalFormName =
+    normalFormLearnableSkill?.getPokemonNormalForm?.[parseInt(activeIndex, 10)]
+      .name ?? pokemonInfoData.getPokemonDetail.name
+  const pokemonName = isNormalForm
+    ? normalFormName
+    : `${pokemonInfoData.getPokemonDetail.name}${activeType === 'region' ? regionFormSuffixText : ''}`
+
   const pokemonInfoTypes =
     (activeType === 'region'
       ? regionFormLearnableSkill?.getPokemonRegionForm?.[
           parseInt(activeIndex, 10)
         ].types
-      : activeType === 'normalForm'
-        ? pokemonInfoData.getPokemonDetail.types
+      : isNormalForm
+        ? normalFormLearnableSkill?.getPokemonNormalForm?.[
+            parseInt(activeIndex, 10)
+          ].types
         : pokemonInfoData.getPokemonDetail.types) ??
     pokemonInfoData.getPokemonDetail.types
 
   const formDataLength =
-    regionFormLearnableSkill?.getPokemonRegionForm?.length ?? 0
+    activeType === 'region'
+      ? (regionFormLearnableSkill?.getPokemonRegionForm?.length ?? 0)
+      : isNormalForm
+        ? (normalFormLearnableSkill?.getPokemonNormalForm?.length ?? 0)
+        : 0
 
   const initialValue = {
     pokemonInfo: {
@@ -139,6 +184,13 @@ const DetailMovesPage = async ({
     },
     pokemonLearnableData,
     formDataLength,
+    normalFormInfo: {
+      name: normalFormName,
+      imagePath:
+        normalFormLearnableSkill?.getPokemonNormalForm?.[
+          parseInt(activeIndex, 10)
+        ].imagePath,
+    },
   }
 
   return (
