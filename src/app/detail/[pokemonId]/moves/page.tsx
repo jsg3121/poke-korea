@@ -22,7 +22,7 @@ export const revalidate = 31536000 // 24시간마다 재생성
 interface DetailMovesPageProps {
   params: Promise<{ pokemonId: string }>
   searchParams: Promise<{
-    pokemonType?: 'region' | 'normalForm'
+    activeType?: 'region' | 'normalForm'
     activeIndex?: string
   }>
 }
@@ -32,7 +32,7 @@ const DetailMovesPage = async ({
   searchParams,
 }: DetailMovesPageProps) => {
   const { pokemonId } = await params
-  const { pokemonType, activeIndex = '0' } = await searchParams
+  const { activeType, activeIndex = '0' } = await searchParams
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
@@ -54,7 +54,7 @@ const DetailMovesPage = async ({
       },
       fetchPolicy: 'cache-first',
     }),
-    pokemonType !== 'region' && pokemonType !== 'normalForm'
+    activeType !== 'region' && activeType !== 'normalForm'
       ? apolloClient.query<
           GetPokemonLearnableSkillsQuery,
           GetPokemonLearnableSkillsQueryVariables
@@ -68,7 +68,7 @@ const DetailMovesPage = async ({
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
-    pokemonType === 'region'
+    activeType === 'region'
       ? apolloClient.query<
           GetPokemonRegionFormLearnableSkillsQuery,
           GetPokemonRegionFormLearnableSkillsQueryVariables
@@ -88,7 +88,7 @@ const DetailMovesPage = async ({
   if (!pokemonInfoData.getPokemonDetail) return
 
   const getPokemonLearnableData = () => {
-    switch (pokemonType) {
+    switch (activeType) {
       case 'region': {
         return regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills?.[
           parseInt(activeIndex, 10)
@@ -117,11 +117,11 @@ const DetailMovesPage = async ({
 
   const pokemonName = `${pokemonInfoData.getPokemonDetail.name} ${regionFormLearnableSkill ? `${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name})` : ''}`
   const pokemonInfoTypes =
-    (pokemonType === 'region'
+    (activeType === 'region'
       ? regionFormLearnableSkill?.getPokemonRegionForm?.[
           parseInt(activeIndex, 10)
         ].types
-      : pokemonType === 'normalForm'
+      : activeType === 'normalForm'
         ? pokemonInfoData.getPokemonDetail.types
         : pokemonInfoData.getPokemonDetail.types) ??
     pokemonInfoData.getPokemonDetail.types
@@ -135,7 +135,7 @@ const DetailMovesPage = async ({
       types: pokemonInfoTypes,
       isFormChange: pokemonInfoData.getPokemonDetail.isFormChange,
       isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
-      activeType: pokemonType,
+      activeType: activeType,
     },
     pokemonLearnableData,
     formDataLength,

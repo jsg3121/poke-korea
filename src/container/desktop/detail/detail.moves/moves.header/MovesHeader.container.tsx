@@ -25,8 +25,8 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const lastVersionInfo = versionGroupList[0]
   const firstVersionInfo = versionGroupList[versionGroupList.length - 1]
   const selectVersion = searchParams.get('selectVersion')
-  const pokemonType = searchParams.get('pokemonType')
-  const activeIndex = searchParams.get('activeIndex')
+  const activeType = searchParams.get('activeType')
+  const activeIndex = searchParams.get('activeIndex') ?? '0'
 
   const activeGroupId = () => {
     if (selectVersion) {
@@ -41,7 +41,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   }
 
   const imagePath = () => {
-    switch (pokemonType) {
+    switch (activeType) {
       case 'region': {
         return `2${pokemonId.toString().padStart(3, '0')}${parseInt(
           activeIndex ?? '0',
@@ -60,10 +60,21 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   return (
     <Fragment>
       <Link
-        href={`/detail/${pokemonId}`}
+        href={{
+          pathname: `/detail/${pokemonId}`,
+          query: {
+            ...(activeType && {
+              activeType,
+            }),
+            ...(activeIndex &&
+              activeIndex !== '0' && {
+                activeIndex: parseInt(activeIndex, 10),
+              }),
+          },
+        }}
         className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 leading-[calc(3rem+2px)]"
       >
-        상세 페이지로 돌아가기
+        {pokemonName.trim()}의 상세 정보 보러가기
       </Link>
       <article className="w-full h-[15rem] bg-primary-4 rounded-[0.75rem] p-4">
         <header className="w-full h-[9rem] flex items-start flex-row">
@@ -80,13 +91,13 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               <b className="font-bold">{pokemonName}</b>
             </h2>
             <div className="w-full h-[2.5rem] flex items-center gap-2">
-              {pokemonType === 'region' && (
+              {formDataLength > 1 && activeType === 'region' && (
                 <>
                   <Link
                     href={{
                       query: {
-                        ...(pokemonType && {
-                          pokemonType,
+                        ...(activeType && {
+                          activeType,
                         }),
                         activeIndex: Math.max(
                           parseInt(activeIndex ?? '1', 10) - 1,
@@ -96,7 +107,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                     }}
                     className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
-                        ? 'bg-primary-3 text-primary-2 select-none cursor-default'
+                        ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : ' bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
                     }`}
                   >
@@ -105,8 +116,8 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   <Link
                     href={{
                       query: {
-                        ...(pokemonType && {
-                          pokemonType,
+                        ...(activeType && {
+                          activeType,
                         }),
                         activeIndex: Math.min(
                           parseInt(activeIndex ?? '0', 10) + 1,
@@ -116,7 +127,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                     }}
                     className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
-                        ? 'bg-primary-3 text-primary-2 select-none cursor-default'
+                        ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : 'bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
                     }`}
                   >
@@ -146,7 +157,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             </p>
           </div>
           <div className="shrink-0 flex align-center gap-2 ml-auto ">
-            {pokemonType === 'region' && (
+            {activeType === 'region' && (
               <Link
                 href={`/detail/${pokemonId}/moves`}
                 className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
@@ -156,9 +167,9 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               </Link>
             )}
 
-            {pokemonInfo?.isRegionForm && pokemonType !== 'region' && (
+            {pokemonInfo?.isRegionForm && activeType !== 'region' && (
               <Link
-                href={`/detail/${pokemonId}/moves?pokemonType=region`}
+                href={`/detail/${pokemonId}/moves?activeType=region`}
                 className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
                 replace
               >
@@ -176,12 +187,13 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   pathname: `/detail/${pokemonId}/moves`,
                   query: {
                     selectVersion: item?.versionGroupId,
-                    ...(pokemonType && {
-                      pokemonType,
+                    ...(activeType && {
+                      activeType,
                     }),
-                    ...(activeIndex && {
-                      activeIndex,
-                    }),
+                    ...(activeIndex &&
+                      activeIndex !== '0' && {
+                        activeIndex: parseInt(activeIndex, 10),
+                      }),
                   },
                 }}
                 className={`

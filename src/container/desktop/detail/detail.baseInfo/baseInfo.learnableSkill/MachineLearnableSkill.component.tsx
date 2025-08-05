@@ -3,12 +3,15 @@ import { DetailContext } from '~/context/Detail.context'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 
 const MachineLearnableSkillComponent = () => {
   const { pokemonId } = useParams()
+  const searchParams = useSearchParams()
   const { activeTypeInfo } = useContext(DetailContext)
 
+  const activeType = searchParams.get('activeType')
+  const activeIndex = searchParams.get('activeIndex') ?? '0'
   const machineSkills = activeTypeInfo?.learnableSkills?.[0]?.machineSkills
   const versionGroup = activeTypeInfo?.learnableSkills?.[0]?.versionGroup
 
@@ -26,7 +29,18 @@ const MachineLearnableSkillComponent = () => {
           버전 정보 : <b className="font-bold">{versionGroup?.nameKo}</b>
         </p>
         <Link
-          href={`/detail/${pokemonId}/moves`}
+          href={{
+            pathname: `/detail/${pokemonId}/moves`,
+            query: {
+              ...(activeType && {
+                activeType,
+              }),
+              ...(activeIndex &&
+                activeIndex !== '0' && {
+                  activeIndex: parseInt(activeIndex, 10),
+                }),
+            },
+          }}
           className="text-[0.8rem] h-5 bg-primary-2 leading-[calc(1.25rem+2px)] px-3 text-primary-4 rounded-[0.375rem]"
         >
           모든 세대 기술 보러가기
