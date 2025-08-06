@@ -12,9 +12,10 @@ const MovesTableContainer = () => {
   const router = useRouter()
   const { pokemonLearnableData, versionGroup } = useContext(DetailMovesContext)
 
-  const activeVersionId =
+  const activeVersionId = `${
     searchParams.get('selectVersion') ??
     versionGroup?.[0].versionGroupId.toString()
+  }_${searchParams.get('activeIndex')}`
 
   const defaultToggleStatus =
     searchParams.get('movesType') === 'MACHINE' ? false : true

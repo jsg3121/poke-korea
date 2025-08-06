@@ -7,17 +7,18 @@ import {
   GetPokemonRegionFormLearnableSkillsDocument,
   GetVersionGroupsDocument,
 } from '~/graphql/gqlGenerated'
-import type {
-  GetDetailMovesPokemonInfoQuery,
-  GetDetailMovesPokemonInfoQueryVariables,
-  GetPokemonLearnableSkillsQuery,
-  GetPokemonLearnableSkillsQueryVariables,
-  GetPokemonNormalFormLearnableSkillsQuery,
-  GetPokemonNormalFormLearnableSkillsQueryVariables,
-  GetPokemonRegionFormLearnableSkillsQuery,
-  GetPokemonRegionFormLearnableSkillsQueryVariables,
-  GetVersionGroupsQuery,
-  GetVersionGroupsQueryVariables,
+import {
+  LearnMethod,
+  type GetDetailMovesPokemonInfoQuery,
+  type GetDetailMovesPokemonInfoQueryVariables,
+  type GetPokemonLearnableSkillsQuery,
+  type GetPokemonLearnableSkillsQueryVariables,
+  type GetPokemonNormalFormLearnableSkillsQuery,
+  type GetPokemonNormalFormLearnableSkillsQueryVariables,
+  type GetPokemonRegionFormLearnableSkillsQuery,
+  type GetPokemonRegionFormLearnableSkillsQueryVariables,
+  type GetVersionGroupsQuery,
+  type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -31,6 +32,7 @@ interface DetailMovesPageProps {
     activeType?: 'region' | 'normalForm'
     activeIndex?: string
     selectVersion?: string
+    movesType?: 'LEVELUP' | 'MACHINE'
   }>
 }
 
@@ -39,7 +41,12 @@ const DetailMovesPage = async ({
   searchParams,
 }: DetailMovesPageProps) => {
   const { pokemonId } = await params
-  const { activeType, activeIndex = '0', selectVersion } = await searchParams
+  const {
+    activeType,
+    movesType = 'LEVELUP',
+    activeIndex = '0',
+    selectVersion,
+  } = await searchParams
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
@@ -86,6 +93,10 @@ const DetailMovesPage = async ({
               ...(selectVersion && {
                 versionGroupId: parseInt(selectVersion, 10),
               }),
+              learnMethod:
+                movesType === 'LEVELUP'
+                  ? LearnMethod['LEVEL_UP']
+                  : LearnMethod['MACHINE'],
             },
           },
           fetchPolicy: 'cache-first',
@@ -100,6 +111,11 @@ const DetailMovesPage = async ({
           variables: {
             filter: {
               pokemonId: parseInt(pokemonId, 10),
+              formIndex: parseInt(activeIndex, 10),
+              learnMethod:
+                movesType === 'LEVELUP'
+                  ? LearnMethod['LEVEL_UP']
+                  : LearnMethod['MACHINE'],
               ...(selectVersion && {
                 versionGroupId: parseInt(selectVersion, 10),
               }),
@@ -121,6 +137,11 @@ const DetailMovesPage = async ({
               ...(selectVersion && {
                 versionGroupId: parseInt(selectVersion, 10),
               }),
+              formIndex: parseInt(activeIndex, 10),
+              learnMethod:
+                movesType === 'LEVELUP'
+                  ? LearnMethod['LEVEL_UP']
+                  : LearnMethod['MACHINE'],
             },
             pokemonId: parseInt(pokemonId, 10),
           },
