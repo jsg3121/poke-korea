@@ -82,7 +82,7 @@ const DetailMovesPage = async ({
           query: GetPokemonLearnableSkillsDocument,
           variables: {
             filter: {
-              pokemonNumber: parseInt(pokemonId, 10),
+              pokemonId: parseInt(pokemonId, 10),
               ...(selectVersion && {
                 versionGroupId: parseInt(selectVersion, 10),
               }),
@@ -134,38 +134,36 @@ const DetailMovesPage = async ({
   const getPokemonLearnableData = () => {
     switch (activeType) {
       case 'region': {
-        return regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills?.[
-          parseInt(activeIndex, 10)
-        ].learnableSkills?.map((learnableData) => {
-          return {
-            levelUpSkills: learnableData.levelUpSkills ?? [],
-            machineSkills: learnableData.machineSkills ?? [],
-          }
-        })
+        return {
+          levelUpSkills:
+            regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills
+              ?.levelUpSkills || [],
+          machineSkills:
+            regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills
+              ?.machineSkills || [],
+        }
       }
       default: {
         if (isNormalForm) {
-          return normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills?.[
-            parseInt(activeIndex, 10)
-          ].learnableSkills?.map((learnableData) => {
-            return {
-              levelUpSkills: learnableData.levelUpSkills ?? [],
-              machineSkills: learnableData.machineSkills ?? [],
-            }
-          })
+          return {
+            levelUpSkills:
+              normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
+                ?.levelUpSkills || [],
+            machineSkills:
+              normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
+                ?.machineSkills || [],
+          }
         } else {
-          return data?.getPokemonLearnableSkills?.map((learnableData) => {
-            return {
-              levelUpSkills: learnableData.levelUpSkills ?? [],
-              machineSkills: learnableData.machineSkills ?? [],
-            }
-          })
+          return {
+            levelUpSkills: data?.getPokemonLearnableSkills?.levelUpSkills || [],
+            machineSkills: data?.getPokemonLearnableSkills?.machineSkills || [],
+          }
         }
       }
     }
   }
 
-  const pokemonLearnableData = getPokemonLearnableData() ?? []
+  const pokemonLearnableData = getPokemonLearnableData()
 
   const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name})` : ''}`
   const normalFormName =

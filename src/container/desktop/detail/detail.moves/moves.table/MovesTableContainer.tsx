@@ -94,7 +94,7 @@ const MovesTableContainer = () => {
         </thead>
         <tbody>
           {defaultToggleStatus
-            ? pokemonLearnableData[0].levelUpSkills.map((move, index) => {
+            ? pokemonLearnableData.levelUpSkills.map((move, index) => {
                 const level =
                   move.level === 0
                     ? '진화'
@@ -110,7 +110,7 @@ const MovesTableContainer = () => {
                   />
                 )
               })
-            : pokemonLearnableData[0].machineSkills.map((move, index) => {
+            : pokemonLearnableData.machineSkills.map((move, index) => {
                 return (
                   <MoveTableRow
                     key={`pokemon-levelup-move-${index}_${move.skill.id}`}
