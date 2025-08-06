@@ -12,8 +12,8 @@ const MachineLearnableSkillComponent = () => {
 
   const activeType = searchParams.get('activeType')
   const activeIndex = searchParams.get('activeIndex') ?? '0'
-  const machineSkills = activeTypeInfo?.learnableSkills?.[0]?.machineSkills
-  const versionGroup = activeTypeInfo?.learnableSkills?.[0]?.versionGroup
+  const machineSkills = activeTypeInfo?.learnableSkills?.machineSkills
+  const versionGroup = activeTypeInfo?.versionGroupInfo
 
   return (
     <section
@@ -26,7 +26,10 @@ const MachineLearnableSkillComponent = () => {
       />
       <div className="w-full h-6 flex items-baseline justify-between border-b border-solid border-primary-3">
         <p>
-          버전 정보 : <b className="font-bold">{versionGroup?.nameKo}</b>
+          버전 정보 :{' '}
+          <b className="font-bold">
+            {versionGroup?.machineSkillVersion?.nameKo}
+          </b>
         </p>
         <Link
           href={{
