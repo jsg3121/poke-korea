@@ -5,13 +5,12 @@ import {
   PokemonLevelUpSkillInfo,
   PokemonMachineSkillInfo,
   PokemonType,
-  PokemonVersionGroup,
+  VersionGroup,
 } from '~/graphql/typeGenerated'
 
 export type TPokemonType = 'default' | 'region' | 'normalForm'
 
 export type PokemonLearnableDataType = {
-  versionGroup?: PokemonVersionGroup
   levelUpSkills: Array<PokemonLevelUpSkillInfo>
   machineSkills: Array<PokemonMachineSkillInfo>
 }
@@ -28,6 +27,7 @@ interface IDetailMovesProviderProps {
   pokemonInfo: PokemonInfoType
   pokemonLearnableData: Array<PokemonLearnableDataType>
   formDataLength: number
+  versionGroup?: Array<VersionGroup> | null
   normalFormInfo?: {
     name?: string
     imagePath?: string
@@ -39,6 +39,7 @@ interface IDetailMovesProps {
   pokemonInfo?: PokemonInfoType
   pokemonLearnableData: Array<PokemonLearnableDataType>
   formDataLength: number
+  versionGroup?: Array<VersionGroup> | null
   normalFormInfo?: {
     name?: string
     imagePath?: string
@@ -55,6 +56,7 @@ const DetailMovesProvider = ({
   pokemonLearnableData,
   formDataLength,
   normalFormInfo,
+  versionGroup,
   children,
 }: IDetailMovesProviderProps) => {
   const initialValue: IDetailMovesProps = {
@@ -62,6 +64,7 @@ const DetailMovesProvider = ({
     pokemonLearnableData,
     formDataLength,
     normalFormInfo,
+    versionGroup,
   }
 
   return (

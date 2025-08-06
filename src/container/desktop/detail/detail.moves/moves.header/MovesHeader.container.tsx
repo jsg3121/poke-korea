@@ -15,12 +15,12 @@ interface MovesHeaderContainerProps {
 const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const { pokemonId } = useParams()
   const searchParams = useSearchParams()
-  const { pokemonInfo, pokemonLearnableData, formDataLength, normalFormInfo } =
+  const { pokemonInfo, formDataLength, normalFormInfo, versionGroup } =
     useContext(DetailMovesContext)
 
-  const versionGroupList = pokemonLearnableData.map((learnableData) => {
-    return learnableData.versionGroup
-  })
+  if (!versionGroup) return
+
+  const versionGroupList = versionGroup
 
   const lastVersionInfo = versionGroupList[0]
   const firstVersionInfo = versionGroupList[versionGroupList.length - 1]

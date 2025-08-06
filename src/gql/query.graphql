@@ -37,9 +37,39 @@ query PokemonDetail($pokemonId: ID!) {
       }
     }
     learnableSkills {
-      ...VergionGroup
-      ...LevelUpSkills
-      ...MachineSkills
+      levelUpVersionGroupId
+      machineVersionGroupId
+      levelUpSkills {
+        level
+        skill {
+          id
+          name
+          description
+          generationId
+          power
+          accuracy
+          pp
+          type
+          damageType
+          signatureMoves
+          zMoves
+        }
+      }
+      machineSkills {
+        skill {
+          id
+          name
+          description
+          generationId
+          power
+          accuracy
+          pp
+          type
+          damageType
+          signatureMoves
+          zMoves
+        }
+      }
     }
   }
 }
@@ -79,9 +109,39 @@ query GetPokemonRegionForm($pokemonId: Int) {
       ...PokemonStats
     }
     learnableSkills {
-      ...VergionGroup
-      ...LevelUpSkills
-      ...MachineSkills
+      levelUpVersionGroupId
+      machineVersionGroupId
+      levelUpSkills {
+        level
+        skill {
+          id
+          name
+          description
+          generationId
+          power
+          accuracy
+          pp
+          type
+          damageType
+          signatureMoves
+          zMoves
+        }
+      }
+      machineSkills {
+        skill {
+          id
+          name
+          description
+          generationId
+          power
+          accuracy
+          pp
+          type
+          damageType
+          signatureMoves
+          zMoves
+        }
+      }
     }
   }
 }
@@ -103,9 +163,39 @@ query GetPokemonNormalForm($pokemonId: Int) {
       ...PokemonStats
     }
     learnableSkills {
-      ...VergionGroup
-      ...LevelUpSkills
-      ...MachineSkills
+      levelUpVersionGroupId
+      machineVersionGroupId
+      levelUpSkills {
+        level
+        skill {
+          id
+          name
+          description
+          generationId
+          power
+          accuracy
+          pp
+          type
+          damageType
+          signatureMoves
+          zMoves
+        }
+      }
+      machineSkills {
+        skill {
+          id
+          name
+          description
+          generationId
+          power
+          accuracy
+          pp
+          type
+          damageType
+          signatureMoves
+          zMoves
+        }
+      }
     }
   }
 }
@@ -144,16 +234,46 @@ query GetDetailMovesPokemonInfo($pokemonId: ID!) {
   }
 }
 
-query GetPokemonLearnableSkills($filter: PokemonLearnableSkillsFilterInput!) {
+query GetPokemonLearnableSkills($filter: PokemonSkillsFilterInput!) {
   getPokemonLearnableSkills(filter: $filter) {
-    ...VergionGroup
-    ...LevelUpSkills
-    ...MachineSkills
+    pokemonId
+    versionGroupId
+    levelUpSkills {
+      level
+      skill {
+        id
+        name
+        description
+        generationId
+        power
+        accuracy
+        pp
+        type
+        damageType
+        signatureMoves
+        zMoves
+      }
+    }
+    machineSkills {
+      skill {
+        id
+        name
+        description
+        generationId
+        power
+        accuracy
+        pp
+        type
+        damageType
+        signatureMoves
+        zMoves
+      }
+    }
   }
 }
 
 query GetPokemonRegionFormLearnableSkills(
-  $filter: PokemonRegionFormLearnableSkillsFilterInput!
+  $filter: PokemonFormSkillsFilterInput!
   $pokemonId: Int!
 ) {
   getPokemonRegionForm(pokemonId: $pokemonId) {
@@ -163,17 +283,46 @@ query GetPokemonRegionFormLearnableSkills(
     types
   }
   getPokemonRegionFormLearnableSkills(filter: $filter) {
-    region
-    learnableSkills {
-      ...VergionGroup
-      ...LevelUpSkills
-      ...MachineSkills
+    pokemonId
+    formCode
+    formType
+    versionGroupId
+    levelUpSkills {
+      level
+      skill {
+        id
+        name
+        description
+        generationId
+        power
+        accuracy
+        pp
+        type
+        damageType
+        signatureMoves
+        zMoves
+      }
+    }
+    machineSkills {
+      skill {
+        id
+        name
+        description
+        generationId
+        power
+        accuracy
+        pp
+        type
+        damageType
+        signatureMoves
+        zMoves
+      }
     }
   }
 }
 
 query GetPokemonNormalFormLearnableSkills(
-  $filter: PokemonNormalFormLearnableSkillsFilterInput!
+  $filter: PokemonFormSkillsFilterInput!
   $pokemonId: Int!
 ) {
   getPokemonNormalForm(pokemonId: $pokemonId) {
@@ -183,10 +332,49 @@ query GetPokemonNormalFormLearnableSkills(
     name
   }
   getPokemonNormalFormLearnableSkills(filter: $filter) {
-    learnableSkills {
-      ...VergionGroup
-      ...LevelUpSkills
-      ...MachineSkills
+    pokemonId
+    formCode
+    formType
+    versionGroupId
+    levelUpSkills {
+      level
+      skill {
+        id
+        name
+        description
+        generationId
+        power
+        accuracy
+        pp
+        type
+        damageType
+        signatureMoves
+        zMoves
+      }
     }
+    machineSkills {
+      skill {
+        id
+        name
+        description
+        generationId
+        power
+        accuracy
+        pp
+        type
+        damageType
+        signatureMoves
+        zMoves
+      }
+    }
+  }
+}
+
+query GetVersionGroups {
+  getVersionGroups {
+    versionGroupId
+    name
+    nameKo
+    generationId
   }
 }

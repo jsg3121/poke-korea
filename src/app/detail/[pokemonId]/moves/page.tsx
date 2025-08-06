@@ -5,6 +5,7 @@ import {
   GetPokemonLearnableSkillsDocument,
   GetPokemonNormalFormLearnableSkillsDocument,
   GetPokemonRegionFormLearnableSkillsDocument,
+  GetVersionGroupsDocument,
 } from '~/graphql/gqlGenerated'
 import type {
   GetDetailMovesPokemonInfoQuery,
@@ -15,6 +16,8 @@ import type {
   GetPokemonNormalFormLearnableSkillsQueryVariables,
   GetPokemonRegionFormLearnableSkillsQuery,
   GetPokemonRegionFormLearnableSkillsQueryVariables,
+  GetVersionGroupsQuery,
+  GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -27,6 +30,7 @@ interface DetailMovesPageProps {
   searchParams: Promise<{
     activeType?: 'region' | 'normalForm'
     activeIndex?: string
+    selectVersion?: string
   }>
 }
 
@@ -35,23 +39,33 @@ const DetailMovesPage = async ({
   searchParams,
 }: DetailMovesPageProps) => {
   const { pokemonId } = await params
-  const { activeType, activeIndex = '0' } = await searchParams
+  const { activeType, activeIndex = '0', selectVersion } = await searchParams
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
   const apolloClient = initializeApollo()
 
-  const { data: pokemonInfoData } = await apolloClient.query<
-    GetDetailMovesPokemonInfoQuery,
-    GetDetailMovesPokemonInfoQueryVariables
-  >({
-    query: GetDetailMovesPokemonInfoDocument,
-    variables: {
-      pokemonId,
-    },
-    fetchPolicy: 'cache-first',
-  })
+  const [{ data: pokemonInfoData }, { data: versionGroup }] = await Promise.all(
+    [
+      apolloClient.query<
+        GetDetailMovesPokemonInfoQuery,
+        GetDetailMovesPokemonInfoQueryVariables
+      >({
+        query: GetDetailMovesPokemonInfoDocument,
+        variables: {
+          pokemonId,
+        },
+        fetchPolicy: 'cache-first',
+      }),
+      apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>(
+        {
+          query: GetVersionGroupsDocument,
+          fetchPolicy: 'cache-first',
+        },
+      ),
+    ],
+  )
 
   const isNormalForm = !!pokemonInfoData.getPokemonDetail?.isFormChange
 
@@ -69,6 +83,9 @@ const DetailMovesPage = async ({
           variables: {
             filter: {
               pokemonNumber: parseInt(pokemonId, 10),
+              ...(selectVersion && {
+                versionGroupId: parseInt(selectVersion, 10),
+              }),
             },
           },
           fetchPolicy: 'cache-first',
@@ -83,6 +100,9 @@ const DetailMovesPage = async ({
           variables: {
             filter: {
               pokemonId: parseInt(pokemonId, 10),
+              ...(selectVersion && {
+                versionGroupId: parseInt(selectVersion, 10),
+              }),
             },
             pokemonId: parseInt(pokemonId, 10),
           },
@@ -98,6 +118,9 @@ const DetailMovesPage = async ({
           variables: {
             filter: {
               pokemonId: parseInt(pokemonId, 10),
+              ...(selectVersion && {
+                versionGroupId: parseInt(selectVersion, 10),
+              }),
             },
             pokemonId: parseInt(pokemonId, 10),
           },
@@ -115,7 +138,6 @@ const DetailMovesPage = async ({
           parseInt(activeIndex, 10)
         ].learnableSkills?.map((learnableData) => {
           return {
-            versionGroup: learnableData.versionGroup,
             levelUpSkills: learnableData.levelUpSkills ?? [],
             machineSkills: learnableData.machineSkills ?? [],
           }
@@ -127,7 +149,6 @@ const DetailMovesPage = async ({
             parseInt(activeIndex, 10)
           ].learnableSkills?.map((learnableData) => {
             return {
-              versionGroup: learnableData.versionGroup,
               levelUpSkills: learnableData.levelUpSkills ?? [],
               machineSkills: learnableData.machineSkills ?? [],
             }
@@ -135,7 +156,6 @@ const DetailMovesPage = async ({
         } else {
           return data?.getPokemonLearnableSkills?.map((learnableData) => {
             return {
-              versionGroup: learnableData.versionGroup,
               levelUpSkills: learnableData.levelUpSkills ?? [],
               machineSkills: learnableData.machineSkills ?? [],
             }
@@ -182,6 +202,7 @@ const DetailMovesPage = async ({
       isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
       activeType: activeType,
     },
+    versionGroup: versionGroup.getVersionGroups,
     pokemonLearnableData,
     formDataLength,
     normalFormInfo: {

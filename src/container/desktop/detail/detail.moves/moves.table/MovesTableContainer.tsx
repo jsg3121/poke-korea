@@ -10,21 +10,14 @@ const MovesTableContainer = () => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-  const { pokemonLearnableData } = useContext(DetailMovesContext)
+  const { pokemonLearnableData, versionGroup } = useContext(DetailMovesContext)
 
   const activeVersionId =
     searchParams.get('selectVersion') ??
-    pokemonLearnableData[0].versionGroup?.versionGroupId.toString()
+    versionGroup?.[0].versionGroupId.toString()
 
   const defaultToggleStatus =
     searchParams.get('movesType') === 'MACHINE' ? false : true
-
-  const activeMoveList = pokemonLearnableData.find((movesData) => {
-    return (
-      movesData.versionGroup?.versionGroupId ===
-      parseInt(activeVersionId || '', 10)
-    )
-  })
 
   const handleClickCheckToggle = (value: string) => {
     const params = new URLSearchParams(searchParams)
@@ -32,7 +25,7 @@ const MovesTableContainer = () => {
     router.replace(`${pathname}?${params.toString()}`)
   }
 
-  if (!activeMoveList) {
+  if (!pokemonLearnableData) {
     return
   }
 
@@ -101,7 +94,7 @@ const MovesTableContainer = () => {
         </thead>
         <tbody>
           {defaultToggleStatus
-            ? activeMoveList.levelUpSkills.map((move, index) => {
+            ? pokemonLearnableData[0].levelUpSkills.map((move, index) => {
                 const level =
                   move.level === 0
                     ? '진화'
@@ -117,7 +110,7 @@ const MovesTableContainer = () => {
                   />
                 )
               })
-            : activeMoveList.machineSkills.map((move, index) => {
+            : pokemonLearnableData[0].machineSkills.map((move, index) => {
                 return (
                   <MoveTableRow
                     key={`pokemon-levelup-move-${index}_${move.skill.id}`}
