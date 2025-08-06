@@ -370,8 +370,8 @@ query GetPokemonNormalFormLearnableSkills(
   }
 }
 
-query GetVersionGroups {
-  getVersionGroups {
+query GetVersionGroups($filter: GetVersionGroupsInput) {
+  getVersionGroups(filter: $filter) {
     versionGroupId
     name
     nameKo

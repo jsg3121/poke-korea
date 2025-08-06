@@ -53,26 +53,18 @@ const DetailMovesPage = async ({
 
   const apolloClient = initializeApollo()
 
-  const [{ data: pokemonInfoData }, { data: versionGroup }] = await Promise.all(
-    [
-      apolloClient.query<
-        GetDetailMovesPokemonInfoQuery,
-        GetDetailMovesPokemonInfoQueryVariables
-      >({
-        query: GetDetailMovesPokemonInfoDocument,
-        variables: {
-          pokemonId,
-        },
-        fetchPolicy: 'cache-first',
-      }),
-      apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>(
-        {
-          query: GetVersionGroupsDocument,
-          fetchPolicy: 'cache-first',
-        },
-      ),
-    ],
-  )
+  const [{ data: pokemonInfoData }] = await Promise.all([
+    apolloClient.query<
+      GetDetailMovesPokemonInfoQuery,
+      GetDetailMovesPokemonInfoQueryVariables
+    >({
+      query: GetDetailMovesPokemonInfoDocument,
+      variables: {
+        pokemonId,
+      },
+      fetchPolicy: 'cache-first',
+    }),
+  ])
 
   const isNormalForm = !!pokemonInfoData.getPokemonDetail?.isFormChange
 
@@ -80,6 +72,7 @@ const DetailMovesPage = async ({
     { data },
     { data: regionFormLearnableSkill },
     { data: normalFormLearnableSkill },
+    { data: versionGroup },
   ] = await Promise.all([
     activeType !== 'region' && !isNormalForm
       ? apolloClient.query<
@@ -148,6 +141,23 @@ const DetailMovesPage = async ({
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
+    apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
+      query: GetVersionGroupsDocument,
+      variables: {
+        filter: {
+          pokemonId: parseInt(pokemonId, 10),
+          ...(activeType === 'region' && {
+            activeType: 'REGION',
+            activeIndex: parseInt(activeIndex, 10),
+          }),
+          ...(isNormalForm && {
+            activeType: 'NORMAL',
+            activeIndex: parseInt(activeIndex, 10),
+          }),
+        },
+      },
+      fetchPolicy: 'cache-first',
+    }),
   ])
 
   if (!pokemonInfoData.getPokemonDetail) return
