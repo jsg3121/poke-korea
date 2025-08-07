@@ -69,7 +69,7 @@ const DetailSummaryContainer = () => {
 
   return (
     <section
-      className="w-full h-full max-h-[40rem] mx-auto relative before:content-[''] before:w-full before:h-80 before:bg-white before:block"
+      className="w-full h-full max-h-[40rem] mx-auto relative before:content-[''] before:w-full before:h-80 before:bg-white before:block mb-4"
       aria-label="포켓몬 이미지 및 능력치 정보"
     >
       <div
