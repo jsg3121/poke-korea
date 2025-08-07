@@ -24,7 +24,7 @@ export const generateMetadata = async ({
   searchParams,
 }: MovesPageProps): Promise<Metadata> => {
   const { damageTypeFilter, typeFilter } = await searchParams
-  const title = `${damageTypeFilter ? `${damageTypeFilter} 유형` : ''} ${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 기술 목록 - 포케코리아`
+  const title = `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} 유형` : ''} ${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 기술 목록 - 포케코리아`
   const description = `포케코리아에서${damageTypeFilter ? ` ${damageTypeFilter} 유형의` : ''}${typeFilter ? ` ${PokemonTypes[typeFilter]} 타입을 가지고 있는` : ''} 포켓몬의 모든 기술을 한눈에 확인하세요. 1세대부터 9세대 까지 모든 기술을 확인하실 수 있습니다.`
   const params = new URLSearchParams()
 
