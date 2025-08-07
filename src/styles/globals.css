@@ -286,4 +286,60 @@ html.project__detail--show {
   .chip-type-fairy {
     @apply bg-type-fairy text-black-2;
   }
+
+  /* 포켓몬 타입 색상 유틸리티 클래스 */
+  .type-color-normal {
+    @apply text-type-normal;
+  }
+  .type-color-fire {
+    @apply text-type-fire;
+  }
+  .type-color-water {
+    @apply text-type-water;
+  }
+  .type-color-grass {
+    @apply text-type-grass;
+  }
+  .type-color-electric {
+    @apply text-type-electric;
+  }
+  .type-color-ice {
+    @apply text-type-ice;
+  }
+  .type-color-fighting {
+    @apply text-type-fighting;
+  }
+  .type-color-poison {
+    @apply text-type-poison;
+  }
+  .type-color-ground {
+    @apply text-type-ground;
+  }
+  .type-color-flying {
+    @apply text-type-flying;
+  }
+  .type-color-psychic {
+    @apply text-type-psychic;
+  }
+  .type-color-bug {
+    @apply text-type-bug;
+  }
+  .type-color-rock {
+    @apply text-type-rock;
+  }
+  .type-color-ghost {
+    @apply text-type-ghost;
+  }
+  .type-color-dragon {
+    @apply text-type-dragon;
+  }
+  .type-color-dark {
+    @apply text-type-dark;
+  }
+  .type-color-steel {
+    @apply text-type-steel;
+  }
+  .type-color-fairy {
+    @apply text-type-fairy;
+  }
 }
