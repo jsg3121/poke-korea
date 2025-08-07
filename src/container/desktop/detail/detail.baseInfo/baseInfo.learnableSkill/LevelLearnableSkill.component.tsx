@@ -2,27 +2,54 @@ import { useContext } from 'react'
 import { DetailContext } from '~/context/Detail.context'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
+import Link from 'next/link'
+import { useParams, useSearchParams } from 'next/navigation'
 
 const LevelLearnableSkillComponent = () => {
+  const { pokemonId } = useParams()
+  const searchParams = useSearchParams()
   const { activeTypeInfo } = useContext(DetailContext)
 
-  const levelUpSkills = activeTypeInfo?.learnableSkills?.[0]?.levelUpSkills
-  const versionGroup = activeTypeInfo?.learnableSkills?.[0]?.versionGroup
+  const activeType = searchParams.get('activeType')
+  const activeIndex = searchParams.get('activeIndex') ?? '0'
+  const levelUpSkills = activeTypeInfo.learnableSkills?.levelUpSkills
+  const versionGroup = activeTypeInfo?.versionGroupInfo
 
   return (
     <section
       aria-labelledby="pokemon-learnable-skill"
-      className="w-full h-full max-h-[38.5rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="w-full h-full max-h-[37.5rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
     >
       <InfoCardTitleComponent
         title="레벨업 습득 기술 정보"
         id="pokemon-learnable-skill"
       />
-      <p className="w-full h-6 flex items-baseline justify-between border-b border-solid border-primary-3">
-        가장 최신 등장 세대의 기술을 볼 수 있습니다.
-        <span className="text-[0.8rem]">모든 세대 기술 보러가기</span>
-      </p>
-      <div className="w-full h-[calc(100%-7rem)]  overflow-y-auto">
+      <div className="w-full h-6 flex items-baseline justify-between border-b border-solid border-primary-3">
+        <p>
+          버전 정보 :{' '}
+          <b className="font-bold">
+            {versionGroup?.levelUpSkillVersion?.nameKo}
+          </b>
+        </p>
+        <Link
+          href={{
+            pathname: `/detail/${pokemonId}/moves`,
+            query: {
+              ...(activeType && {
+                activeType,
+              }),
+              ...(activeIndex &&
+                activeIndex !== '0' && {
+                  activeIndex: parseInt(activeIndex, 10),
+                }),
+            },
+          }}
+          className="text-[0.8rem] h-5 bg-primary-2 leading-[calc(1.25rem+2px)] px-3 text-primary-4 rounded-[0.375rem]"
+        >
+          모든 세대 기술 보러가기
+        </Link>
+      </div>
+      <div className="w-full h-[calc(100%-6rem)]  overflow-y-auto">
         <div
           className="w-full h-8 flex align-center bg-primary-2 sticky top-0"
           aria-hidden
@@ -78,7 +105,7 @@ const LevelLearnableSkillComponent = () => {
                     className="h-8 [&>td]:align-middle [&>td]: text-[0.875rem]"
                   >
                     <td className="text-center">
-                      {level === 0 || level === 1 ? '최초' : level}
+                      {level === 0 ? '진화' : level === 1 ? '최초' : level}
                     </td>
                     <td>{skill.name}</td>
                     <td className="text-center">
@@ -110,11 +137,6 @@ const LevelLearnableSkillComponent = () => {
           </tbody>
         </table>
       </div>
-      <footer className="border-t border-solid border-primary-1">
-        <p className="w-full h-4 text-right text-[0.8rem] text-primary-2">
-          최신 등장 버전 : <b className="font-bold">{versionGroup?.nameKo}</b>
-        </p>
-      </footer>
     </section>
   )
 }

@@ -146,7 +146,6 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     background-color: var(--color-primary-1);
-    scroll-behavior: smooth;
   }
 
   body {

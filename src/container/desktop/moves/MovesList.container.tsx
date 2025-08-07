@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react'
 import { MovesContext } from '~/context/Moves.context'
 import FooterContainer from '../footer/Footer.container'
-import MoveCard from './moveCard/MoveCard.component'
 import MovesFilter from './moves.filter/MovesFilter'
+import MoveTableRow from '~/components/moves/moveTableRow/MoveTableRow.component'
 
 const MovesListContainer = () => {
   const listRef = useRef<HTMLDivElement>(null)
@@ -65,16 +65,16 @@ const MovesListContainer = () => {
           <tr>
             <th>기술명</th>
             <th>설명</th>
-            <th>기술유형</th>
             <th>타입</th>
             <th>위력</th>
             <th>명중률</th>
             <th>PP</th>
+            <th>기술유형</th>
           </tr>
         </thead>
         <tbody>
           {skillList.map((skill) => (
-            <MoveCard key={skill.id} moveData={skill} />
+            <MoveTableRow key={skill.id} moveData={skill} />
           ))}
         </tbody>
       </table>

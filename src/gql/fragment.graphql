@@ -39,3 +39,18 @@ fragment PokemonCard on PokemonList {
     ...PokemonStats
   }
 }
+
+fragment VergionGroup on VersionGroup {
+  versionGroupId
+  name
+  nameKo
+  generationId
+}
+
+fragment LearnableSkillPokemonInfo on PokemonDetail {
+  id
+  name
+  types
+  isFormChange
+  isRegionForm
+}
