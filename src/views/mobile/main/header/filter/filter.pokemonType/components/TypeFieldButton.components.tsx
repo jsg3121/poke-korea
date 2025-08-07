@@ -33,7 +33,7 @@ const TypeFieldButtonComponents = ({
       />
       <label
         htmlFor={`field-type-${typeValue}`}
-        className="w-8 h-8 opacity-40 block text-center grayscale peer-checked:grayscale-0 peer-checked:opacity-70 peer-disabled:opacity-20 drop-shadow-[1px_2px_0px_var(--color-black-1)] mx-auto mb-2"
+        className="w-8 h-8 opacity-40 block text-center will-change-[filter] grayscale peer-checked:grayscale-0 peer-checked:opacity-70 peer-disabled:opacity-20 drop-shadow-[1px_2px_0px_var(--color-black-1)] mx-auto mb-2"
       >
         <ImageComponent
           alt={`${typeName} 타입 필터 선택`}
