@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { useParams, useSearchParams } from 'next/navigation'
 import { Fragment, useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
+import TagComponent from '~/components/Tag.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import { imageMode } from '~/module/buildMode'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 interface MovesHeaderContainerProps {
   pokemonName: string
@@ -167,12 +167,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             타입 :{' '}
             {pokemonInfo?.types?.map((type) => {
               return (
-                <span
-                  key={`${pokemonId}-type-${type}`}
-                  className={`w-12 h-[1.25rem] text-center text-[0.8rem] leading-[calc(1.25rem+2px)] rounded-[0.5rem] block chip-type-${type.toLowerCase()}`}
-                >
-                  {PokemonTypes[type]}
-                </span>
+                <TagComponent key={`${pokemonId}-type-${type}`} type={type} />
               )
             })}
           </p>
