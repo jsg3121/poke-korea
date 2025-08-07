@@ -125,7 +125,7 @@ export const getSeoDescription: GetSeoDescriptionFn = ({
     })
     .join(', ')
 
-  return `전국 도감번호 : ${pokemonNumber} | 포켓몬명 : ${pokemonName} | 타입 : [${typeList}] | 등장세대 : ${generation}세대 | 포켓몬의 자세한 정보를 빠르고 간편하게 포케코리아에서 바로 확인해보세요.`
+  return `전국 도감번호 : ${pokemonNumber} | 포켓몬명 : ${pokemonName} | 타입 : [${typeList}] | 등장세대 : ${generation}세대 | 습득 기술을 포함한 포켓몬의 자세한 정보를 빠르고 간편하게 포케코리아에서 바로 확인해보세요.`
 }
 
 /**

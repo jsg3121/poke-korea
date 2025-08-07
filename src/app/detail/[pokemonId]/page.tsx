@@ -136,7 +136,7 @@ export const generateMetadata = async ({
     pokemonNumber: pokemonDetail.number,
   })
 
-  const caninicalUrl = getSeoCanonicalUrl({
+  const canonicalUrl = getSeoCanonicalUrl({
     activeType,
     activeIndex: dataIndex,
     pokemonNumber: pokemonDetail.number,
@@ -160,7 +160,7 @@ export const generateMetadata = async ({
     },
     openGraph: {
       type: 'website',
-      url: caninicalUrl,
+      url: canonicalUrl,
       title,
       description,
       images: [
@@ -175,7 +175,7 @@ export const generateMetadata = async ({
       siteName: '포케 코리아',
     },
     alternates: {
-      canonical: caninicalUrl,
+      canonical: canonicalUrl,
     },
   }
 

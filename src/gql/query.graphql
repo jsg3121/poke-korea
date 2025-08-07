@@ -378,3 +378,10 @@ query GetVersionGroups($filter: GetVersionGroupsInput) {
     generationId
   }
 }
+
+query GetPokemonNormalFormMetadata($pokemonId: Int) {
+  getPokemonNormalForm(pokemonId: $pokemonId) {
+    id
+    name
+  }
+}

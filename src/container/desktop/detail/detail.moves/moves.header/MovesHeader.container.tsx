@@ -74,7 +74,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
         }}
         className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 leading-[calc(3rem+2px)]"
       >
-        {pokemonName}의 상세 정보 보러가기
+        {pokemonName.replace('_', ' ')}의 상세 정보 보러가기
       </Link>
       <article className="w-full h-[15rem] bg-primary-4 rounded-[0.75rem] p-4">
         <header className="w-full h-[9rem] flex items-start flex-row">
@@ -88,7 +88,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
           <div className="h-[9rem] ml-4 flex flex-col">
             <h2 className="h-[2rem] text-[1.5rem] leading-[2rem+2px] justify-self-start">
               <span>No.{pokemonId}&nbsp;</span>
-              <b className="font-bold">{pokemonName}</b>
+              <b className="font-bold">{pokemonName.replace('_', ' ')}</b>
             </h2>
             <div className="w-full h-[2.5rem] flex items-center gap-2">
               {((formDataLength > 1 && activeType === 'region') ||
