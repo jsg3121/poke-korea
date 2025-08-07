@@ -31,7 +31,7 @@ const MovesTableContainer = () => {
   }
 
   return (
-    <section className="w-full h-fit">
+    <section className="w-full h-fit px-4">
       <header className="w-full h-28 pt-4 flex justify-between border-b border-solid border-primary-3 flex-wrap sticky top-30 z-10 bg-primary-1">
         <h2 className="h-12 leading-[2rem] text-[1.5rem] font-[500] text-primary-4">
           기술 목록

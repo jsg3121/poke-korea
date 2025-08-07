@@ -76,21 +76,46 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
       >
         {pokemonName}의 상세 정보 보러가기
       </Link>
-      <article className="w-full h-[15rem] bg-primary-4 rounded-[0.75rem] p-4">
-        <header className="w-full h-[9rem] flex items-start flex-row">
+      <article className="w-full h-[17rem] bg-primary-4 rounded-[0.75rem] p-4">
+        <header className="w-full h-[11.5rem] flex items-start flex-row flex-wrap">
           <ImageComponent
-            width="9rem"
-            height="9rem"
+            width="5.5rem"
+            height="5.5rem"
             src={`${imageMode}/${imagePath()}.webp`}
             alt={pokemonName}
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
-          <div className="h-[9rem] ml-4 flex flex-col">
-            <h2 className="h-[2rem] text-[1.5rem] leading-[2rem+2px] justify-self-start">
-              <span>No.{pokemonId}&nbsp;</span>
+          <div className="w-[calc(100%-6.5rem)] h-[5rem] ml-4 flex flex-col">
+            <div className="w-full h-[2rem] flex items-baseline gap-2">
+              <p className="w-full h-[1.25rem] text-[1rem] text-left leading-[1.25rem+2px]">
+                No.{pokemonId}&nbsp;
+              </p>
+
+              <div className="shrink-0 flex align-center gap-2">
+                {activeType === 'region' && (
+                  <Link
+                    href={`/detail/${pokemonId}/moves`}
+                    className="w-[6.5rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem]"
+                    replace
+                  >
+                    <b className="font-bold ">일반폼</b> 보기
+                  </Link>
+                )}
+                {pokemonInfo?.isRegionForm && activeType !== 'region' && (
+                  <Link
+                    href={`/detail/${pokemonId}/moves?activeType=region`}
+                    className="w-[6.5rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem]"
+                    replace
+                  >
+                    <b className="font-bold ">리전폼</b> 보기
+                  </Link>
+                )}
+              </div>
+            </div>
+            <h2 className="h-[2rem] text-[1.5rem] leading-[2rem+2px] justify-self-start mt-2">
               <b className="font-bold">{pokemonName}</b>
             </h2>
-            <div className="w-full h-[2.5rem] flex items-center gap-2">
+            <div className="h-[2rem] flex items-center gap-2">
               {((formDataLength > 1 && activeType === 'region') ||
                 pokemonInfo?.isFormChange) && (
                 <>
@@ -106,13 +131,13 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
-                        : ' bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
+                        : ' bg-primary-1 text-primary-4'
                     }`}
                   >
-                    이전 폼으로
+                    이전 폼
                   </Link>
                   <Link
                     href={{
@@ -126,59 +151,39 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
-                        : 'bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
+                        : 'bg-primary-1 text-primary-4'
                     }`}
                   >
-                    다음 폼으로
+                    다음 폼
                   </Link>
                 </>
               )}
             </div>
-            <p className="w-full h-[1.5rem] flex items-center gap-1 mb-1">
-              타입 :{' '}
-              {pokemonInfo?.types?.map((type) => {
-                return (
-                  <span
-                    key={`${pokemonId}-type-${type}`}
-                    className={`w-12 h-[1.25rem] text-center text-[0.8rem] leading-[calc(1.25rem+2px)] rounded-[0.5rem] block chip-type-${type.toLowerCase()}`}
-                  >
-                    {PokemonTypes[type]}
-                  </span>
-                )
-              })}
-            </p>
-            <p className="w-full h-[1.5rem] mb-1">
-              최초 등장 버전 : {firstVersionInfo?.nameKo}
-            </p>
-            <p className="w-full h-[1.5rem]">
-              최신 등장 버전 : {lastVersionInfo?.nameKo}
-            </p>
           </div>
-          <div className="shrink-0 flex align-center gap-2 ml-auto ">
-            {activeType === 'region' && (
-              <Link
-                href={`/detail/${pokemonId}/moves`}
-                className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
-                replace
-              >
-                <b className="font-bold ">일반폼</b> 기술 보러가기
-              </Link>
-            )}
-            {pokemonInfo?.isRegionForm && activeType !== 'region' && (
-              <Link
-                href={`/detail/${pokemonId}/moves?activeType=region`}
-                className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
-                replace
-              >
-                <b className="font-bold ">리전폼</b> 기술 보러가기
-              </Link>
-            )}
-          </div>
+          <p className="w-full h-[1.5rem] flex items-center gap-1 my-2">
+            타입 :{' '}
+            {pokemonInfo?.types?.map((type) => {
+              return (
+                <span
+                  key={`${pokemonId}-type-${type}`}
+                  className={`w-12 h-[1.25rem] text-center text-[0.8rem] leading-[calc(1.25rem+2px)] rounded-[0.5rem] block chip-type-${type.toLowerCase()}`}
+                >
+                  {PokemonTypes[type]}
+                </span>
+              )
+            })}
+          </p>
+          <p className="w-full h-[1.5rem] mb-1">
+            최초 등장 버전 : {firstVersionInfo?.nameKo}
+          </p>
+          <p className="w-full h-[1.5rem]">
+            최신 등장 버전 : {lastVersionInfo?.nameKo}
+          </p>
         </header>
-        <nav className="w-full h-[4rem] flex items-center gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+        <nav className="w-full h-[3rem] flex items-center gap-2 overflow-x-auto mt-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
           {versionGroupList.map((item) => {
             return (
               <Link
@@ -197,7 +202,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   },
                 }}
                 className={`
-                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)] hover:bg-primary-2 hover:text-primary-4
+                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)]
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
                 `}
               >
