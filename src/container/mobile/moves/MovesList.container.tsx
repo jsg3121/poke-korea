@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react'
 import { MovesContext } from '~/context/Moves.context'
 import FooterContainer from '../footer/Footer.container'
-import MoveCard from './moveCard/MoveCard.component'
 import MovesFilter from './moves.filter/MovesFilter'
+import MoveCard from '~/components/moves/moveCard/MoveCard.component'
 
 const MovesListContainer = () => {
   const listRef = useRef<HTMLDivElement>(null)

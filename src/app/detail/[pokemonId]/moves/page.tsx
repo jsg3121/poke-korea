@@ -23,6 +23,7 @@ import {
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
+import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 
@@ -246,7 +247,7 @@ const DetailMovesPage = async ({
   return (
     <DetailMovesProvider {...initialValue}>
       {isMobile ? (
-        <DetailMovesDesktop pokemonName={pokemonName} />
+        <DetailMovesMobile pokemonName={pokemonName} />
       ) : (
         <DetailMovesDesktop pokemonName={pokemonName} />
       )}

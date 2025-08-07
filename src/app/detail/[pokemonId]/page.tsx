@@ -32,7 +32,7 @@ import {
 } from '~/module/generateDetailSeoMetaData'
 import { TActiveType } from '~/types/detailContext.type'
 import DetailDesktop from '~/views/desktop/detail/Detail.desktop'
-import DetailMobile from '~/views/mobile/Detail.mobile'
+import DetailMobile from '~/views/mobile/detail/Detail.mobile'
 import { generatePokemonJsonLd } from '../../../constants/pokemonJsonLd'
 import { SHINY_QNA_JSON_LD } from '../../../constants/shinyJsonLd'
 
