@@ -5,6 +5,8 @@ import DescriptionComponent from './baseInfo.description/Description.component'
 import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
 import TypesInfoComponent from './basInfo.typesInfo/TypesInfo.component'
 import { useContext } from 'react'
+import LevelLearnableSkillComponent from './baseInfo.learnableSkill/LevelLearnableSkill.component'
+import MachineLearnableSkillComponent from './baseInfo.learnableSkill/MachineLearnableSkill.component'
 
 const DetailBaseInfoContainer = () => {
   const { pokemonBaseInfo, activeTypeInfo } = useContext(DetailContext)
@@ -18,6 +20,8 @@ const DetailBaseInfoContainer = () => {
     >
       <DescriptionComponent />
       <AbilitiesInfoComponent />
+      <LevelLearnableSkillComponent />
+      <MachineLearnableSkillComponent />
       <TypesInfoComponent type={activeTypeInfo.types} />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemonComponent
