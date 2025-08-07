@@ -119,6 +119,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     ]
 
+    const basicDetailMovesPages = data.getPokemonList.map(
+      (pokemon: PokemonList) => ({
+        url: `https://poke-korea.com/detail/${pokemon.number}/moves`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.7,
+      }),
+    )
+
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
@@ -128,6 +137,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...regionPages,
       ...typeFilterMovesPages,
       ...damageTypeFilterMovesPages,
+      ...basicDetailMovesPages,
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)
