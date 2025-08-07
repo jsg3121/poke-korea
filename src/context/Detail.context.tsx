@@ -7,6 +7,7 @@ import {
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
+  VersionGroup,
 } from '~/graphql/typeGenerated'
 import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.type'
 
@@ -15,6 +16,7 @@ interface IFDetailProviderProps {
   normalForm: Array<PokemonNormalForm>
   megaEvolutionData?: Array<PokemonMegaEvolution>
   regionFormData?: Array<PokemonRegionForm>
+  versionGroup?: Array<VersionGroup>
   children: ReactNode
 }
 
@@ -39,6 +41,7 @@ const DetailContext = createContext<IFDetailProps>({
     abilities: [],
     isMega: false,
     isRegion: false,
+    versionGroupInfo: {},
   },
 })
 
@@ -48,6 +51,7 @@ const DetailProvider = ({
   normalForm,
   megaEvolutionData,
   regionFormData,
+  versionGroup,
 }: IFDetailProviderProps) => {
   const routerQuery = useSearchParams()
 
@@ -93,24 +97,101 @@ const DetailProvider = ({
       }
     }
   }
-  const types = getTypes()
-  const abilities = getAbilities()
 
-  const getActiveTypeInfo = () => {
-    return {
-      activeType,
-      isEvolution: pokemonBaseInfo.isEvolution,
-      name: pokemonBaseInfo.name,
-      pokemonNumber: pokemonBaseInfo.number,
-      generation: pokemonBaseInfo.generation,
-      isMega: pokemonBaseInfo.isMegaEvolution ?? false,
-      isRegion: pokemonBaseInfo.isRegionForm ?? false,
-      types,
-      abilities: abilities ?? [],
+  const getLearnableSkills = () => {
+    switch (activeType) {
+      case 'region': {
+        return regionFormData?.[activeIndex]?.learnableSkills
+      }
+      case 'normal': {
+        return (
+          normalForm?.[activeIndex]?.learnableSkills ||
+          pokemonBaseInfo.learnableSkills
+        )
+      }
+      default: {
+        return pokemonBaseInfo.learnableSkills
+      }
     }
   }
 
-  const activeTypeInfo: TActiveTypeInfo = getActiveTypeInfo()
+  const getVersionInfo = () => {
+    switch (activeType) {
+      case 'region': {
+        return {
+          levelUpSkillVersion: versionGroup?.find((version) => {
+            return (
+              version.versionGroupId ===
+              regionFormData?.[activeIndex].learnableSkills
+                ?.levelUpVersionGroupId
+            )
+          }),
+          machineSkillVersion: versionGroup?.find((version) => {
+            return (
+              version.versionGroupId ===
+              regionFormData?.[activeIndex].learnableSkills
+                ?.machineVersionGroupId
+            )
+          }),
+        }
+      }
+      case 'normal': {
+        return {
+          levelUpSkillVersion: versionGroup?.find((version) => {
+            return (
+              version.versionGroupId ===
+              (normalForm?.[activeIndex]?.learnableSkills
+                ?.levelUpVersionGroupId ??
+                pokemonBaseInfo.learnableSkills?.levelUpVersionGroupId)
+            )
+          }),
+          machineSkillVersion: versionGroup?.find((version) => {
+            return (
+              version.versionGroupId ===
+              (normalForm?.[activeIndex]?.learnableSkills
+                ?.machineVersionGroupId ||
+                pokemonBaseInfo.learnableSkills?.machineVersionGroupId)
+            )
+          }),
+        }
+      }
+      default: {
+        return {
+          levelUpSkillVersion: versionGroup?.find((version) => {
+            return (
+              version.versionGroupId ===
+              pokemonBaseInfo.learnableSkills?.levelUpVersionGroupId
+            )
+          }),
+          machineSkillVersion: versionGroup?.find((version) => {
+            return (
+              version.versionGroupId ===
+              pokemonBaseInfo.learnableSkills?.machineVersionGroupId
+            )
+          }),
+        }
+      }
+    }
+  }
+
+  const types = getTypes()
+  const abilities = getAbilities()
+  const learnableSkills = getLearnableSkills()
+  const versionGroupInfo = getVersionInfo()
+
+  const activeTypeInfo: TActiveTypeInfo = {
+    activeType,
+    isEvolution: pokemonBaseInfo.isEvolution,
+    name: pokemonBaseInfo.name,
+    pokemonNumber: pokemonBaseInfo.number,
+    generation: pokemonBaseInfo.generation,
+    isMega: pokemonBaseInfo.isMegaEvolution ?? false,
+    isRegion: pokemonBaseInfo.isRegionForm ?? false,
+    types,
+    abilities: abilities ?? [],
+    learnableSkills: learnableSkills ?? undefined,
+    versionGroupInfo,
+  }
 
   const initialValue: IFDetailProps = {
     pokemonBaseInfo,

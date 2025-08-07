@@ -6,30 +6,33 @@ import {
   GetPokemonMegaEvolutionDocument,
   GetPokemonNormalFormDocument,
   GetPokemonRegionFormDocument,
+  GetVersionGroupsDocument,
   PokemonDetailDocument,
 } from '~/graphql/gqlGenerated'
 import {
   GetPokemonMegaEvolutionQuery,
   GetPokemonNormalFormQuery,
   GetPokemonRegionFormQuery,
+  GetVersionGroupsQuery,
   PokemonDetail,
   PokemonDetailQuery,
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
+  VersionGroup,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import {
   getPokemonNameByType,
+  getPokemonTypes,
   getSeoCanonicalUrl,
   getSeoDescription,
   getSeoTitle,
-  getPokemonTypes,
 } from '~/module/generateDetailSeoMetaData'
 import { TActiveType } from '~/types/detailContext.type'
-import DetailDesktop from '~/views/desktop/Detail.desktop'
-import DetailMobile from '~/views/mobile/Detail.mobile'
+import DetailDesktop from '~/views/desktop/detail/Detail.desktop'
+import DetailMobile from '~/views/mobile/detail/Detail.mobile'
 import { generatePokemonJsonLd } from '../../../constants/pokemonJsonLd'
 import { SHINY_QNA_JSON_LD } from '../../../constants/shinyJsonLd'
 
@@ -50,6 +53,7 @@ interface DetailPokemonInfo {
   megaEvolutionData?: Array<PokemonMegaEvolution>
   regionFormData?: Array<PokemonRegionForm>
   isShinyInfo: boolean
+  versionGroup?: Array<VersionGroup>
 }
 
 export const generateMetadata = async ({
@@ -61,15 +65,17 @@ export const generateMetadata = async ({
   const { activeType = 'normal', shinyMode, activeIndex } = await searchParams
   const isShiny = shinyMode === 'shiny'
 
-  const [{ data: detailPokemonData }] = await Promise.all([
+  const [
+    { data: detailPokemonData },
+    megaData,
+    regionData,
+    { data: normalFormData },
+  ] = await Promise.all([
     apolloClient.query<PokemonDetailQuery>({
       query: PokemonDetailDocument,
       variables: { pokemonId: parseInt(pokemonId, 10) },
       fetchPolicy: 'cache-first',
     }),
-  ])
-
-  const [megaData, regionData, { data: normalFormData }] = await Promise.all([
     activeType === 'mega'
       ? apolloClient.query<GetPokemonMegaEvolutionQuery>({
           query: GetPokemonMegaEvolutionDocument,
@@ -130,7 +136,7 @@ export const generateMetadata = async ({
     pokemonNumber: pokemonDetail.number,
   })
 
-  const caninicalUrl = getSeoCanonicalUrl({
+  const canonicalUrl = getSeoCanonicalUrl({
     activeType,
     activeIndex: dataIndex,
     pokemonNumber: pokemonDetail.number,
@@ -154,9 +160,10 @@ export const generateMetadata = async ({
     },
     openGraph: {
       type: 'website',
-      url: caninicalUrl,
+      url: canonicalUrl,
       title,
       description,
+      locale: 'ko_KR',
       images: [
         {
           url: 'https://poke-korea.com/assets/image/ogImage.png',
@@ -169,7 +176,7 @@ export const generateMetadata = async ({
       siteName: '포케 코리아',
     },
     alternates: {
-      canonical: caninicalUrl,
+      canonical: canonicalUrl,
     },
   }
 
@@ -186,19 +193,26 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const apolloClient = initializeApollo()
 
   // 병렬 요청
-  const [{ data: defaultPokemonData }, { data: normalFormData }] =
-    await Promise.all([
-      apolloClient.query<PokemonDetailQuery>({
-        query: PokemonDetailDocument,
-        variables: { pokemonId: parseInt(pokemonId, 10) },
-        fetchPolicy: 'cache-first',
-      }),
-      apolloClient.query<GetPokemonNormalFormQuery>({
-        query: GetPokemonNormalFormDocument,
-        variables: { pokemonId: parseInt(pokemonId, 10) },
-        fetchPolicy: 'cache-first',
-      }),
-    ])
+  const [
+    { data: defaultPokemonData },
+    { data: normalFormData },
+    { data: versionGroup },
+  ] = await Promise.all([
+    apolloClient.query<PokemonDetailQuery>({
+      query: PokemonDetailDocument,
+      variables: { pokemonId: parseInt(pokemonId, 10) },
+      fetchPolicy: 'cache-first',
+    }),
+    apolloClient.query<GetPokemonNormalFormQuery>({
+      query: GetPokemonNormalFormDocument,
+      variables: { pokemonId: parseInt(pokemonId, 10) },
+      fetchPolicy: 'cache-first',
+    }),
+    apolloClient.query<GetVersionGroupsQuery>({
+      query: GetVersionGroupsDocument,
+      fetchPolicy: 'cache-first',
+    }),
+  ])
 
   const pokemonDetail = defaultPokemonData.getPokemonDetail
 
@@ -246,6 +260,7 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     normalForm: normalFormData.getPokemonNormalForm ?? [],
     megaEvolutionData: megaData.data?.getPokemonMegaEvolution ?? [],
     regionFormData: regionData.data?.getPokemonRegionForm ?? [],
+    versionGroup: versionGroup.getVersionGroups ?? undefined,
   }
   const pokemonJsonLd = generatePokemonJsonLd({
     pokemonDetail,

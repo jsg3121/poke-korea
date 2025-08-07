@@ -27,7 +27,9 @@ const PokemonImageCompoment = () => {
     const activeIndex = data.activeIndex
     params.set('activeIndex', activeIndex.toString())
 
-    router.replace(`${pathname}?${params.toString()}`)
+    router.replace(`${pathname}?${params.toString()}`, {
+      scroll: false,
+    })
   }
 
   const getImageList = () => {

@@ -63,7 +63,7 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
           />
         </div>
         <div
-          className="w-full max-w-[18rem] flex items-center gap-[0.4rem] px-2 mx-auto"
+          className="w-full max-w-[18rem] flex items-center gap-[0.4rem] px-2 mx-auto justify-start"
           aria-description="포켓몬 타입 정보"
         >
           {pokemonData.types.map((item, index) => {

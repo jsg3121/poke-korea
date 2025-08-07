@@ -1,0 +1,56 @@
+import TagComponent from '~/components/Tag.component'
+import { PokemonSkill } from '~/graphql/typeGenerated'
+
+interface MoveCardProps {
+  moveData: PokemonSkill
+  moveLevel?: number | string
+}
+
+const MoveCard = ({ moveData, moveLevel }: MoveCardProps) => {
+  return (
+    <article
+      className={`w-[calc(100%-1rem)] min-h-14 border-b border-solid border-primary-4 bg-primary-4 rounded-[1rem] mx-auto mb-4 p-2 relative`}
+    >
+      <header className="w-full h-[2rem] flex items-center border-b border-solid border-primary-3 mb-2">
+        {moveLevel && (
+          <span className="w-[5rem] h-[2rem] shrink-0 leading-[2rem+2px] absolute top-2.5 left-2">
+            레벨 : <b className="font-bold">{moveLevel}</b>
+          </span>
+        )}
+        <strong className="w-full h-[2rem] text-center block text-[1.2rem] leading-[2rem] font-[600]">
+          {moveData.name}
+        </strong>
+        <span
+          className={`text-center w-14 h-[1.75rem] shrink-0 leading-8 rounded-[0.5rem] absolute top-2 right-2
+          ${
+            moveData.damageType === '물리'
+              ? 'bg-[#fd8181]'
+              : moveData.damageType === '특수'
+                ? 'bg-[#9b9bfa]'
+                : 'bg-[#72d372]'
+          }`}
+        >
+          {moveData.damageType}
+        </span>
+      </header>
+      <dl className="w-full flex flex-wrap items-center [&>dt]:h-[2rem] [&>dd]:font-[700] [&>dt]:leading-[2rem] [&>dd]:h-[2rem] [&>dd]:leading-[2rem] ">
+        <dt className="text-left w-[12%]">타입&nbsp;:</dt>
+        <dd className="text-center w-[18%] flex items-center">
+          <TagComponent type={moveData.type} />
+        </dd>
+        <dt className="text-center w-[13%]">위력&nbsp;:&nbsp;</dt>
+        <dd className="text-left w-[9%]">{moveData.power || '-'}</dd>
+        <dt className="text-center w-[17%]">명중률&nbsp;:&nbsp;</dt>
+        <dd className="text-left w-[9%]">{moveData.accuracy || '-'}</dd>
+        <dt className="text-center w-[13%]">PP&nbsp;:&nbsp;</dt>
+        <dd className="text-left w-[9%]">{moveData.pp}</dd>
+        <dt className="w-full text-center visually-hidden mt-1">설명</dt>
+        <dd className="w-full !h-auto text-left !border-none mt-1 !font-normal">
+          {moveData.description}
+        </dd>
+      </dl>
+    </article>
+  )
+}
+
+export default MoveCard

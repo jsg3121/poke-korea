@@ -23,9 +23,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: TYPE_EFFECTIVNESS_SEO_META.title,
     description: TYPE_EFFECTIVNESS_SEO_META.description,
-    url: TYPE_EFFECTIVNESS_SEO_META.caninicalUrl,
+    url: TYPE_EFFECTIVNESS_SEO_META.canonicalUrl,
     type: 'website',
     siteName: '포케 코리아',
+    locale: 'ko_KR',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: TYPE_EFFECTIVNESS_SEO_META.caninicalUrl,
+    canonical: TYPE_EFFECTIVNESS_SEO_META.canonicalUrl,
   },
 }
 

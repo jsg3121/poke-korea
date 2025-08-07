@@ -146,7 +146,6 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     background-color: var(--color-primary-1);
-    scroll-behavior: smooth;
   }
 
   body {
@@ -231,58 +230,60 @@ html.project__detail--show {
 
 /* 포켓몬 타입 색상 유틸리티 클래스 */
 @layer utilities {
-  .type-color-normal {
-    @apply text-type-normal;
+  .chip-type-normal {
+    @apply bg-type-normal text-black-2;
   }
-  .type-color-fire {
-    @apply text-type-fire;
+  .chip-type-fire {
+    @apply bg-type-fire text-black-2;
   }
-  .type-color-water {
-    @apply text-type-water;
+  .chip-type-water {
+    @apply bg-type-water text-white-1;
   }
-  .type-color-grass {
-    @apply text-type-grass;
+  .chip-type-grass {
+    @apply bg-type-grass text-black-2;
   }
-  .type-color-electric {
-    @apply text-type-electric;
+  .chip-type-electric {
+    @apply bg-type-electric text-black-2;
   }
-  .type-color-ice {
-    @apply text-type-ice;
+  .chip-type-ice {
+    @apply bg-type-ice text-black-2;
   }
-  .type-color-fighting {
-    @apply text-type-fighting;
+  .chip-type-fighting {
+    @apply bg-type-fighting text-white-1;
   }
-  .type-color-poison {
-    @apply text-type-poison;
+  .chip-type-poison {
+    @apply bg-type-poison text-white-1;
   }
-  .type-color-ground {
-    @apply text-type-ground;
+  .chip-type-ground {
+    @apply bg-type-ground text-black-2;
   }
-  .type-color-flying {
-    @apply text-type-flying;
+  .chip-type-flying {
+    @apply bg-type-flying text-black-2;
   }
-  .type-color-psychic {
-    @apply text-type-psychic;
+  .chip-type-psychic {
+    @apply bg-type-psychic;
+    color: #222222;
   }
-  .type-color-bug {
-    @apply text-type-bug;
+  .chip-type-bug {
+    @apply bg-type-bug text-black-2;
   }
-  .type-color-rock {
-    @apply text-type-rock;
+  .chip-type-rock {
+    @apply bg-type-rock;
+    color: #141414;
   }
-  .type-color-ghost {
-    @apply text-type-ghost;
+  .chip-type-ghost {
+    @apply bg-type-ghost text-white-1;
   }
-  .type-color-dragon {
-    @apply text-type-dragon;
+  .chip-type-dragon {
+    @apply bg-type-dragon text-white-1;
   }
-  .type-color-dark {
-    @apply text-type-dark;
+  .chip-type-dark {
+    @apply bg-type-dark text-white-1;
   }
-  .type-color-steel {
-    @apply text-type-steel;
+  .chip-type-steel {
+    @apply bg-type-steel text-black-2;
   }
-  .type-color-fairy {
-    @apply text-type-fairy;
+  .chip-type-fairy {
+    @apply bg-type-fairy text-black-2;
   }
 }

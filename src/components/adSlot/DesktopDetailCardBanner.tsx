@@ -4,7 +4,10 @@ import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 const DesktopDetailCardBanner = () => {
   const { slotRef } = useAdSlotEffect()
   return (
-    <div ref={slotRef} className="w-full h-fit max-w-[1280px] -my-6">
+    <div
+      ref={slotRef}
+      className="w-full h-fit max-w-[1280px] -my-4 col-span-full"
+    >
       <ins
         className="adsbygoogle w-full max-h-[160px] block text-center my-4"
         data-ad-client="ca-pub-6481622724376761"

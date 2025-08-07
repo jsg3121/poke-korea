@@ -12,7 +12,7 @@ export const TypesInfo = ({ type }: TypesInfoProps) => {
 
   return (
     <section
-      className="w-full h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="w-full h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 col-span-2"
       aria-labelledby="pokemon-type-relation"
     >
       <InfoCardTitleComponent title="타입 상성" id="pokemon-type-relation" />

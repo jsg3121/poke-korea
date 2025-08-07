@@ -25,8 +25,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Technology Stack
 
-- **Framework**: Next.js 13 with Pages Router (not App Router)
-- **Styling**: Styled Components with theme support
+- **Framework**: Next.js 14 with App Router
+- **Styling**: Tailwind CSS with utility-first approach
 - **Data Fetching**: Apollo Client with GraphQL
 - **TypeScript**: Strict mode enabled with path mapping (`~/*` maps to `src/*`)
 - **Responsive Design**: Mobile-first with device detection via user agent
@@ -74,9 +74,9 @@ The app uses a unique dual-container pattern for mobile/desktop layouts:
 
 #### Styling
 
-- Uses Styled Components with theme support
-- Global styles in `src/styles/Global.ts`
-- Component-specific styles co-located with components
+- Uses Tailwind CSS with utility-first approach
+- Global styles in `src/styles/globals.css` and `src/styles/common.css`
+- Component styles using Tailwind utility classes
 - SVG imports configured via @svgr/webpack
 
 #### GraphQL Code Generation

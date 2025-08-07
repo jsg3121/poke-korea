@@ -61,6 +61,14 @@ const HeaderHamburgerNavigation = () => {
                   상성 계산기
                 </Link>
               </li>
+              <li className="w-full">
+                <Link
+                  href="/moves"
+                  className="w-full h-6 text-base leading-[calc(1.5rem+2px)] text-primary-4"
+                >
+                  기술 도감
+                </Link>
+              </li>
             </ul>
           </nav>
           <div className="w-full h-12 flex items-center justify-center gap-4">

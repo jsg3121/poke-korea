@@ -2,61 +2,46 @@
 
 한국어 포켓몬 정보 웹사이트
 
-## 📅 최근 업데이트 (2025.06.04)
+## 📅 최근 업데이트 (2025.07.23)
 
-### ✨ Next.js 15 마이그레이션 완료
+### ✨ 현재 기술 스택
 
-프로젝트의 안정성과 성능 향상을 위해 주요 패키지들을 최신 버전으로 업그레이드했습니다.
+프로젝트는 Next.js App Router와 Tailwind CSS를 사용하여 최신 웹 기술로 구성되어 있습니다.
 
-#### 업그레이드 내역
+#### 현재 사용 중인 기술
 
 **Core Framework**
 
-- Next.js: `13.5.8` → `15.3.3`
-- React: `18` → `18.3.1` (최신 안정화 버전)
-- React-DOM: `18` → `18.3.1`
-- TypeScript: `5` → `5.7.2`
+- Next.js: `14.2.15` (App Router 사용)
+- React: `18.3.1`
+- React-DOM: `18.3.1`
+- TypeScript: `5.7.2`
 
 **GraphQL & Data Fetching**
 
-- Apollo Client: `3.8.6` → `3.11.8`
-- GraphQL: `16.8.1` → `16.9.0`
-- GraphQL Codegen 관련 패키지들 최신화
+- Apollo Client: `3.11.8`
+- GraphQL: `16.9.0`
+- GraphQL Codegen으로 타입 자동 생성
+
+**Styling**
+
+- Tailwind CSS: `3.4.17` 
+- PostCSS: `8.5.4`
+- Autoprefixer: `10.4.21`
 
 **Development Tools**
 
-- ESLint: `8` → `8.57.1`
-- TypeScript ESLint: `7.0.0` → `7.18.0`
-- 기타 개발 도구들 Next.js 15 호환 버전으로 업데이트
+- ESLint: `8.57.1`
+- TypeScript ESLint: `7.18.0`
+- Prettier integration
 
-#### 개선사항
+#### 주요 특징
 
-- ✅ 빌드 성능 향상 (4.0초 빌드 완료)
-- ✅ 보안 업데이트 적용
-- ✅ Pages Router 구조 유지 (기존 코드 호환성 보장)
-- ✅ 기존 GraphQL 스키마 및 타입 생성 시스템 정상 작동
-
-## 🚀 향후 마이그레이션 계획
-
-### 1단계: Tailwind CSS 마이그레이션 (예정)
-
-**목표**: Styled Components → Tailwind CSS 전환
-
-- 기존 Pages Router 구조 유지
-- 모바일/데스크톱 이중 구조 보존
-- 점진적 컴포넌트 전환
-
-**예상 기간**: 2-3주
-
-### 2단계: App Router 마이그레이션 (예정)
-
-**목표**: Pages Router → App Router 전환
-
-- Server Components 최적화
-- 레이아웃 시스템 재설계
-- 성능 최적화
-
-**예상 기간**: 3-4주
+- ✅ App Router로 Server Components 최적화 적용
+- ✅ Tailwind CSS로 유틸리티 기반 스타일링
+- ✅ 모바일/데스크톱 반응형 이중 구조 유지
+- ✅ GraphQL 코드 생성으로 타입 안전성 보장
+- ✅ 가상 스크롤로 대용량 리스트 최적화
 
 ## 🛠️ 개발 환경
 
@@ -86,8 +71,8 @@ npm run codegen
 
 ### 기술 스택
 
-- **Framework**: Next.js 15 (Pages Router)
-- **Styling**: Styled Components (Tailwind CSS 마이그레이션 예정)
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
 - **Data Fetching**: Apollo Client + GraphQL
 - **Language**: TypeScript
 - **UI**: 모바일/데스크톱 반응형 디자인
@@ -96,15 +81,20 @@ npm run codegen
 
 ```
 src/
-├── container/          # 디바이스별 컨테이너 컴포넌트
-│   ├── desktop/       # 데스크톱 전용 컴포넌트
-│   └── mobile/        # 모바일 전용 컴포넌트
-├── views/             # 페이지 레벨 뷰 컴포넌트
-├── components/        # 공통 UI 컴포넌트
-├── context/           # React Context 상태 관리
-├── hook/              # 커스텀 React 훅
-├── gql/               # GraphQL 쿼리 및 프래그먼트
-└── pages/             # Next.js 페이지 (Pages Router)
+├── app/               # Next.js App Router 페이지
+│   ├── layout.tsx    # 루트 레이아웃
+│   ├── page.tsx      # 메인 페이지
+│   ├── detail/       # 포켓몬 상세 페이지
+│   └── type-effectiveness/  # 타입 상성 계산기
+├── container/         # 디바이스별 컨테이너 컴포넌트
+│   ├── desktop/      # 데스크톱 전용 컴포넌트
+│   └── mobile/       # 모바일 전용 컴포넌트
+├── views/            # 페이지 레벨 뷰 컴포넌트
+├── components/       # 공통 UI 컴포넌트
+├── context/          # React Context 상태 관리
+├── hook/             # 커스텀 React 훅
+├── gql/              # GraphQL 쿼리 및 프래그먼트
+└── graphql/          # 생성된 GraphQL 타입
 ```
 
 ## 🔗 관련 링크

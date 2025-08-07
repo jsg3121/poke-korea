@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import GithubIcon from '~/assets/icons/github.svg'
@@ -9,7 +10,7 @@ const HeaderContainer = () => {
   const pathname = usePathname()
 
   return (
-    <header className="h-30 bg-primary-2 flex items-center justify-between flex-wrap sticky top-0 left-0 z-[500]">
+    <header className="w-full h-30 bg-primary-2 flex items-center justify-between flex-wrap fixed top-0 left-0 z-[500]">
       <Link href="/" className="w-56 h-8 block ml-8">
         <i className="icon-logo-link">
           <LogoIcon />
@@ -48,6 +49,14 @@ const HeaderContainer = () => {
               className="w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-1"
             >
               상성 계산기
+            </Link>
+          </li>
+          <li className="min-w-fit h-full px-4">
+            <Link
+              href="/moves"
+              className="w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-1"
+            >
+              기술 도감
             </Link>
           </li>
         </ul>

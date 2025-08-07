@@ -1,6 +1,16 @@
-import { PokemonAbilityList, PokemonType } from '~/graphql/typeGenerated'
+import {
+  PokemonAbilityList,
+  PokemonDetailSkills,
+  PokemonType,
+  VersionGroup,
+} from '~/graphql/typeGenerated'
 
 export type TActiveType = 'normal' | 'mega' | 'region'
+
+export type TVersionGroupInfo = {
+  levelUpSkillVersion?: VersionGroup
+  machineSkillVersion?: VersionGroup
+}
 
 export type TActiveTypeInfo = {
   activeType: TActiveType
@@ -12,4 +22,6 @@ export type TActiveTypeInfo = {
   abilities: Array<PokemonAbilityList>
   isRegion: boolean
   isMega: boolean
+  learnableSkills?: PokemonDetailSkills
+  versionGroupInfo: TVersionGroupInfo
 }
