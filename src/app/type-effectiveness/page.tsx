@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     url: TYPE_EFFECTIVNESS_SEO_META.canonicalUrl,
     type: 'website',
     siteName: '포케 코리아',
+    locale: 'ko_KR',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',

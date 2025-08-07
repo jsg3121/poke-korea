@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://poke-korea.com/',
     title: '포켓몬의 모든 정보 포케 코리아',
+    locale: 'ko_KR',
     description:
       '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
     images: [

@@ -144,6 +144,7 @@ export const generateMetadata = async ({
       url: canonicalUrl,
       title,
       description,
+      locale: 'ko_KR',
       images: [
         {
           url: 'https://poke-korea.com/assets/image/ogImage.png',
