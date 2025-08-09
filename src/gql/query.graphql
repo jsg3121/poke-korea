@@ -146,8 +146,8 @@ query GetPokemonRegionForm($pokemonId: Int) {
   }
 }
 
-query GetPokemonNormalForm($pokemonId: Int) {
-  getPokemonNormalForm(pokemonId: $pokemonId) {
+query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
+  getPokemonNormalForm(pokemonId: $pokemonId, activeIndex: $activeIndex) {
     id
     pokemonId
     name
@@ -324,8 +324,9 @@ query GetPokemonRegionFormLearnableSkills(
 query GetPokemonNormalFormLearnableSkills(
   $filter: PokemonFormSkillsFilterInput!
   $pokemonId: Int!
+  $activeIndex: Int
 ) {
-  getPokemonNormalForm(pokemonId: $pokemonId) {
+  getPokemonNormalForm(pokemonId: $pokemonId, activeIndex: $activeIndex) {
     pokemonId
     imagePath
     types
@@ -379,9 +380,12 @@ query GetVersionGroups($filter: GetVersionGroupsInput) {
   }
 }
 
-query GetPokemonNormalFormMetadata($pokemonId: Int) {
-  getPokemonNormalForm(pokemonId: $pokemonId) {
+query GetPokemonNormalFormMetadata($pokemonId: Int, $activeIndex: Int) {
+  getPokemonNormalForm(pokemonId: $pokemonId, activeIndex: $activeIndex) {
     id
     name
   }
+}
+query GetPokemonNormalFormImageList($pokemonId: Int) {
+  getPokemonNormalFormImageList(pokemonId: $pokemonId)
 }

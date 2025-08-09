@@ -14,8 +14,8 @@ const PokemonImageCompoment = () => {
     pokemonBaseInfo,
     megaEvolutions,
     regionFormInfo,
-    normalForm,
     activeType,
+    normalFormImageList,
   } = useContext(DetailContext)
   const router = useRouter()
   const routerQuery = useSearchParams()
@@ -50,10 +50,10 @@ const PokemonImageCompoment = () => {
         return regionImages
       }
       default: {
-        if (normalForm && normalForm.length > 0) {
-          const nomalFormImages = normalForm?.map((form) => {
+        if (normalFormImageList && normalFormImageList.length > 0) {
+          const nomalFormImages = normalFormImageList?.map((imagePath) => {
             return {
-              imageCode: form.imagePath,
+              imageCode: imagePath,
             }
           })
           return nomalFormImages

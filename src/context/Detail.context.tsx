@@ -17,6 +17,7 @@ interface IFDetailProviderProps {
   megaEvolutionData?: Array<PokemonMegaEvolution>
   regionFormData?: Array<PokemonRegionForm>
   versionGroup?: Array<VersionGroup>
+  normalFormImageList: Array<string>
   children: ReactNode
 }
 
@@ -27,10 +28,12 @@ interface IFDetailProps {
   normalForm?: Array<PokemonNormalForm>
   activeType: TActiveType
   activeTypeInfo: TActiveTypeInfo
+  normalFormImageList: Array<string>
 }
 
 const DetailContext = createContext<IFDetailProps>({
   activeType: 'normal',
+  normalFormImageList: [],
   activeTypeInfo: {
     activeType: 'normal',
     generation: 1,
@@ -52,6 +55,7 @@ const DetailProvider = ({
   megaEvolutionData,
   regionFormData,
   versionGroup,
+  normalFormImageList,
 }: IFDetailProviderProps) => {
   const routerQuery = useSearchParams()
 
@@ -200,6 +204,7 @@ const DetailProvider = ({
     activeTypeInfo,
     megaEvolutions: megaEvolutionData,
     regionFormInfo: regionFormData,
+    normalFormImageList,
   }
 
   return (
