@@ -74,7 +74,7 @@ const DetailProvider = ({
       }
       default: {
         return (
-          normalForm?.[activeIndex]?.types?.map((type) => {
+          normalForm?.[0]?.types?.map((type) => {
             return type
           }) ??
           pokemonBaseInfo.types?.map((type) => {
@@ -95,7 +95,7 @@ const DetailProvider = ({
       }
       default: {
         return (
-          normalForm?.[activeIndex]?.normalFormAbilityList ??
+          normalForm?.[0]?.normalFormAbilityList ??
           pokemonBaseInfo.pokemonAbilityList
         )
       }
@@ -107,14 +107,10 @@ const DetailProvider = ({
       case 'region': {
         return regionFormData?.[activeIndex]?.learnableSkills
       }
-      case 'normal': {
-        return (
-          normalForm?.[activeIndex]?.learnableSkills ||
-          pokemonBaseInfo.learnableSkills
-        )
-      }
       default: {
-        return pokemonBaseInfo.learnableSkills
+        return (
+          normalForm?.[0]?.learnableSkills ?? pokemonBaseInfo.learnableSkills
+        )
       }
     }
   }
@@ -139,28 +135,25 @@ const DetailProvider = ({
           }),
         }
       }
-      case 'normal': {
-        return {
+      default: {
+        const normalVersionGroup = {
           levelUpSkillVersion: versionGroup?.find((version) => {
             return (
               version.versionGroupId ===
-              (normalForm?.[activeIndex]?.learnableSkills
-                ?.levelUpVersionGroupId ??
+              (normalForm?.[0]?.learnableSkills?.levelUpVersionGroupId ??
                 pokemonBaseInfo.learnableSkills?.levelUpVersionGroupId)
             )
           }),
           machineSkillVersion: versionGroup?.find((version) => {
             return (
               version.versionGroupId ===
-              (normalForm?.[activeIndex]?.learnableSkills
-                ?.machineVersionGroupId ||
+              (normalForm?.[0]?.learnableSkills?.machineVersionGroupId ||
                 pokemonBaseInfo.learnableSkills?.machineVersionGroupId)
             )
           }),
         }
-      }
-      default: {
-        return {
+
+        const defaultVersionGroup = {
           levelUpSkillVersion: versionGroup?.find((version) => {
             return (
               version.versionGroupId ===
@@ -174,6 +167,8 @@ const DetailProvider = ({
             )
           }),
         }
+
+        return normalVersionGroup ?? defaultVersionGroup
       }
     }
   }
