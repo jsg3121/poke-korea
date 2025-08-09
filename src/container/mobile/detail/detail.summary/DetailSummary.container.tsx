@@ -43,11 +43,9 @@ const DetailSummaryContainer = () => {
       default:
         return {
           name:
-            normalForm?.[activeIndex]?.name.replace('_', ' ') ??
-            pokemonBaseInfo?.name,
+            normalForm?.[0]?.name.replace('_', ' ') ?? pokemonBaseInfo?.name,
           stats:
-            normalForm?.[activeIndex]?.normalFormStats ??
-            pokemonBaseInfo?.pokemonStats,
+            normalForm?.[0]?.normalFormStats ?? pokemonBaseInfo?.pokemonStats,
         }
     }
   }

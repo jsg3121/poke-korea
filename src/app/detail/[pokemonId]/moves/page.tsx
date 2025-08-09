@@ -4,12 +4,15 @@ import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
   GetPokemonLearnableSkillsDocument,
+  GetPokemonNormalFormImageListDocument,
   GetPokemonNormalFormLearnableSkillsDocument,
   GetPokemonNormalFormMetadataDocument,
   GetPokemonRegionFormLearnableSkillsDocument,
   GetVersionGroupsDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  GetPokemonNormalFormImageListQuery,
+  GetPokemonNormalFormImageListQueryVariables,
   GetPokemonNormalFormMetadataQuery,
   GetPokemonNormalFormMetadataQueryVariables,
   LearnMethod,
@@ -91,6 +94,7 @@ export const generateMetadata = async ({
       query: GetPokemonNormalFormMetadataDocument,
       variables: {
         pokemonId: parseInt(pokemonId, 10),
+        activeIndex: parseInt(activeIndex, 10),
       },
     }),
   ])
@@ -104,9 +108,7 @@ export const generateMetadata = async ({
   }
   const version = activeVersionInfo()
   const pokemonName = isNormalForm
-    ? normalFormData.getPokemonNormalForm?.[
-        parseInt(activeIndex, 10)
-      ].name.replace('_', ' ')
+    ? normalFormData.getPokemonNormalForm?.[0].name.replace('_', ' ')
     : pokemonDetail.getPokemonDetail?.name
 
   const activeIndexQuery =
@@ -199,6 +201,7 @@ const DetailMovesPage = async ({
     { data: regionFormLearnableSkill },
     { data: normalFormLearnableSkill },
     { data: versionGroup },
+    { data: normalFormImageList },
   ] = await Promise.all([
     activeType !== 'region' && !isNormalForm
       ? apolloClient.query<
@@ -263,6 +266,7 @@ const DetailMovesPage = async ({
                   : LearnMethod['MACHINE'],
             },
             pokemonId: parseInt(pokemonId, 10),
+            activeIndex: parseInt(activeIndex, 10),
           },
           fetchPolicy: 'cache-first',
         })
@@ -281,6 +285,16 @@ const DetailMovesPage = async ({
             activeIndex: parseInt(activeIndex, 10),
           }),
         },
+      },
+      fetchPolicy: 'cache-first',
+    }),
+    apolloClient.query<
+      GetPokemonNormalFormImageListQuery,
+      GetPokemonNormalFormImageListQueryVariables
+    >({
+      query: GetPokemonNormalFormImageListDocument,
+      variables: {
+        pokemonId: parseInt(pokemonId, 10),
       },
       fetchPolicy: 'cache-first',
     }),
@@ -324,8 +338,8 @@ const DetailMovesPage = async ({
 
   const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name})` : ''}`
   const normalFormName =
-    normalFormLearnableSkill?.getPokemonNormalForm?.[parseInt(activeIndex, 10)]
-      .name ?? pokemonInfoData.getPokemonDetail.name
+    normalFormLearnableSkill?.getPokemonNormalForm?.[0].name ??
+    pokemonInfoData.getPokemonDetail.name
   const pokemonName = isNormalForm
     ? normalFormName
     : `${pokemonInfoData.getPokemonDetail.name}${activeType === 'region' ? regionFormSuffixText : ''}`
@@ -336,9 +350,7 @@ const DetailMovesPage = async ({
           parseInt(activeIndex, 10)
         ].types
       : isNormalForm
-        ? normalFormLearnableSkill?.getPokemonNormalForm?.[
-            parseInt(activeIndex, 10)
-          ].types
+        ? normalFormLearnableSkill?.getPokemonNormalForm?.[0].types
         : pokemonInfoData.getPokemonDetail.types) ??
     pokemonInfoData.getPokemonDetail.types
 
@@ -346,7 +358,7 @@ const DetailMovesPage = async ({
     activeType === 'region'
       ? (regionFormLearnableSkill?.getPokemonRegionForm?.length ?? 0)
       : isNormalForm
-        ? (normalFormLearnableSkill?.getPokemonNormalForm?.length ?? 0)
+        ? (normalFormImageList.getPokemonNormalFormImageList?.length ?? 0)
         : 0
 
   const initialValue = {
@@ -362,10 +374,7 @@ const DetailMovesPage = async ({
     formDataLength,
     normalFormInfo: {
       name: normalFormName,
-      imagePath:
-        normalFormLearnableSkill?.getPokemonNormalForm?.[
-          parseInt(activeIndex, 10)
-        ].imagePath,
+      imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0].imagePath,
     },
   }
 

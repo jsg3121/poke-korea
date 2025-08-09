@@ -41,7 +41,7 @@ const MovesTableContainer = () => {
             습득 유형 :
           </p>
           <ToggleButtonComponent
-            key={`toogle-status-${activeVersionId}`}
+            key={`toogle-status-${activeVersionId}-${defaultToggleStatus}`}
             defaultChecked={defaultToggleStatus}
             onClickToggle={handleClickCheckToggle}
           />

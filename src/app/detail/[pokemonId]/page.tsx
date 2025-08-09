@@ -5,13 +5,17 @@ import { DetailProvider } from '~/context/Detail.context'
 import {
   GetPokemonMegaEvolutionDocument,
   GetPokemonNormalFormDocument,
+  GetPokemonNormalFormImageListDocument,
   GetPokemonRegionFormDocument,
   GetVersionGroupsDocument,
   PokemonDetailDocument,
 } from '~/graphql/gqlGenerated'
 import {
   GetPokemonMegaEvolutionQuery,
+  GetPokemonNormalFormImageListQuery,
+  GetPokemonNormalFormImageListQueryVariables,
   GetPokemonNormalFormQuery,
+  GetPokemonNormalFormQueryVariables,
   GetPokemonRegionFormQuery,
   GetVersionGroupsQuery,
   PokemonDetail,
@@ -54,6 +58,7 @@ interface DetailPokemonInfo {
   regionFormData?: Array<PokemonRegionForm>
   isShinyInfo: boolean
   versionGroup?: Array<VersionGroup>
+  normalFormImageList: Array<string>
 }
 
 export const generateMetadata = async ({
@@ -62,7 +67,11 @@ export const generateMetadata = async ({
 }: DetailPageProps): Promise<Metadata> => {
   const apolloClient = initializeApollo()
   const { pokemonId } = await params
-  const { activeType = 'normal', shinyMode, activeIndex } = await searchParams
+  const {
+    activeType = 'normal',
+    shinyMode,
+    activeIndex = '0',
+  } = await searchParams
   const isShiny = shinyMode === 'shiny'
 
   const [
@@ -93,7 +102,10 @@ export const generateMetadata = async ({
     activeType === 'normal'
       ? apolloClient.query<GetPokemonNormalFormQuery>({
           query: GetPokemonNormalFormDocument,
-          variables: { pokemonId: parseInt(pokemonId, 10) },
+          variables: {
+            pokemonId: parseInt(pokemonId, 10),
+            activeIndex: parseInt(activeIndex, 10),
+          },
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
@@ -190,6 +202,9 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
+  const isShiny = shinyMode === 'shiny'
+  const dataIndex = activeIndex ? parseInt(activeIndex, 10) : 0
+
   const apolloClient = initializeApollo()
 
   // 병렬 요청
@@ -197,19 +212,36 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     { data: defaultPokemonData },
     { data: normalFormData },
     { data: versionGroup },
+    { data: normalFormImageList },
   ] = await Promise.all([
     apolloClient.query<PokemonDetailQuery>({
       query: PokemonDetailDocument,
       variables: { pokemonId: parseInt(pokemonId, 10) },
       fetchPolicy: 'cache-first',
     }),
-    apolloClient.query<GetPokemonNormalFormQuery>({
+    apolloClient.query<
+      GetPokemonNormalFormQuery,
+      GetPokemonNormalFormQueryVariables
+    >({
       query: GetPokemonNormalFormDocument,
-      variables: { pokemonId: parseInt(pokemonId, 10) },
+      variables: {
+        pokemonId: parseInt(pokemonId, 10),
+        activeIndex: dataIndex,
+      },
       fetchPolicy: 'cache-first',
     }),
     apolloClient.query<GetVersionGroupsQuery>({
       query: GetVersionGroupsDocument,
+      fetchPolicy: 'cache-first',
+    }),
+    apolloClient.query<
+      GetPokemonNormalFormImageListQuery,
+      GetPokemonNormalFormImageListQueryVariables
+    >({
+      query: GetPokemonNormalFormImageListDocument,
+      variables: {
+        pokemonId: parseInt(pokemonId, 10),
+      },
       fetchPolicy: 'cache-first',
     }),
   ])
@@ -251,9 +283,6 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
       : Promise.resolve({ data: null }),
   ])
 
-  const isShiny = shinyMode === 'shiny'
-  const dataIndex = activeIndex ? parseInt(activeIndex, 10) : 0
-
   const props: DetailPokemonInfo = {
     pokemonBaseInfo: pokemonDetail,
     isShinyInfo: isShiny,
@@ -261,6 +290,8 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     megaEvolutionData: megaData.data?.getPokemonMegaEvolution ?? [],
     regionFormData: regionData.data?.getPokemonRegionForm ?? [],
     versionGroup: versionGroup.getVersionGroups ?? undefined,
+    normalFormImageList:
+      normalFormImageList.getPokemonNormalFormImageList ?? [],
   }
   const pokemonJsonLd = generatePokemonJsonLd({
     pokemonDetail,
