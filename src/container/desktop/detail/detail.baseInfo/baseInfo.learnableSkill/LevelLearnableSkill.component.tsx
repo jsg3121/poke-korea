@@ -24,7 +24,7 @@ const LevelLearnableSkillComponent = () => {
         title="레벨업 습득 기술 정보"
         id="pokemon-learnable-skill"
       />
-      <div className="w-full h-6 flex items-baseline justify-between border-b border-solid border-primary-3">
+      <div className="w-full h-6 flex items-baseline justify-between mb-1">
         <p>
           버전 정보 :{' '}
           <b className="font-bold">
@@ -49,7 +49,7 @@ const LevelLearnableSkillComponent = () => {
           모든 세대 기술 보러가기
         </Link>
       </div>
-      <div className="w-full h-[calc(100%-6rem)]  overflow-y-auto">
+      <div className="w-full h-[calc(100%-6.25rem)] overflow-y-auto">
         <div
           className="w-full h-8 flex align-center bg-primary-2 sticky top-0"
           aria-hidden
