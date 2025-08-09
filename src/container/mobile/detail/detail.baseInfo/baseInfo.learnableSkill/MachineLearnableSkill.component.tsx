@@ -55,7 +55,7 @@ const MachineLearnableSkillComponent = () => {
           className="w-full h-8 flex align-center bg-primary-2 sticky top-0 z-10"
           aria-hidden
         >
-          <p className="w-[48%] h-8 leading-8 text-primary-4 text-center">
+          <p className="w-[47%] h-8 leading-8 text-primary-4 text-center">
             기술명
           </p>
           <p className="w-[10%] h-8 leading-8 text-primary-4 text-center">
@@ -64,7 +64,7 @@ const MachineLearnableSkillComponent = () => {
           <p className="w-[10%] h-8 leading-8 text-primary-4 text-center">
             위력
           </p>
-          <p className="w-[12%] h-8 leading-8 text-primary-4 text-center">
+          <p className="w-[13%] h-8 leading-8 text-primary-4 text-center">
             명중률
           </p>
           <p className="w-[10%] h-8 leading-8 text-primary-4 text-center">PP</p>
@@ -74,10 +74,10 @@ const MachineLearnableSkillComponent = () => {
         </div>
         <table className="w-full h-fit table-fixed">
           <colgroup>
-            <col width="48%" />
+            <col width="47%" />
             <col width="10%" />
             <col width="10%" />
-            <col width="12%" />
+            <col width="13%" />
             <col width="10%" />
             <col width="10%" />
           </colgroup>
