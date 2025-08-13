@@ -33,7 +33,7 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
   return (
     <Link href={`/detail/${pokemonData.number}`}>
       <article
-        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0_0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
+        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
@@ -75,37 +75,37 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
           })}
         </div>
         <dl
-          className="w-full max-w-[19rem] grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] mt-4 mx-auto pl-2 pr-1"
+          className="w-full max-w-[19rem] grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] mt-4 mx-auto pl-2"
           aria-description="포켓몬 능력치 정보"
         >
-          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 mr-1">체력</dt>
-          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 mr-1">체력</dt>
+          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.hp}
           </dd>
-          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 ml-1">공격</dt>
-          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 ml-2">공격</dt>
+          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.attack}
           </dd>
-          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 mr-1">
+          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 mr-1">
             특수공격
           </dt>
-          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
+          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.specialAttack}
           </dd>
-          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 ml-1">방어</dt>
-          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 ml-2">방어</dt>
+          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.defense}
           </dd>
-          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 mr-1">
+          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 mr-1">
             특수방어
           </dt>
-          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
+          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.specialDefense}
           </dd>
-          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 ml-1">
+          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 ml-2">
             스피드
           </dt>
-          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
+          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.speed}
           </dd>
         </dl>
