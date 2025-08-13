@@ -1,9 +1,10 @@
-import { ReactNode } from 'react'
+import { Metadata, Viewport } from 'next'
+import localFont from 'next/font/local'
 import { headers } from 'next/headers'
 import Script from 'next/script'
-import Providers from './providers'
+import { ReactNode } from 'react'
 import '~/styles/globals.css'
-import { Metadata, Viewport } from 'next'
+import Providers from './providers'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
@@ -30,6 +31,24 @@ interface RootLayoutProps {
   children: ReactNode
 }
 
+const gmarket = localFont({
+  src: [
+    {
+      path: '../assets/font/GmarketSansMedium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/font/GmarketSansBold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  display: 'swap',
+  preload: true, // <link rel="preload"> 자동
+  variable: '--font-gmarket-sans', // 선택: CSS 변수로 노출
+})
+
 export default async function RootLayout({ children }: RootLayoutProps) {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
@@ -37,29 +56,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const isProduction = process.env.NODE_ENV === 'production'
 
   return (
-    <html lang="ko">
+    <html lang="ko" className={gmarket.className}>
       <head>
-        <link
-          rel="preload"
-          as="font"
-          href="/assets/font/GmarketSansLight.woff2"
-          type="font/woff2"
-          crossOrigin=""
-        />
-        <link
-          rel="preload"
-          as="font"
-          href="/assets/font/GmarketSansMedium.woff2"
-          type="font/woff2"
-          crossOrigin=""
-        />
-        <link
-          rel="preload"
-          as="font"
-          href="/assets/font/GmarketSansBold.woff2"
-          type="font/woff2"
-          crossOrigin=""
-        />
         {isProduction && (
           <>
             <meta
