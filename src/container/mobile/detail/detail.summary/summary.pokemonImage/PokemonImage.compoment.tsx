@@ -101,7 +101,7 @@ const PokemonImageCompoment = () => {
           initialSlide={defaultIndex}
           cssMode
         >
-          {imageList.map((item) => {
+          {imageList.map((item, index) => {
             const imageSrc =
               routerQuery.get('shinyMode') === 'shiny'
                 ? `${imageMode}/shiny/${item.imageCode}.webp`
@@ -114,6 +114,11 @@ const PokemonImageCompoment = () => {
                   height="18rem"
                   alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? '이로치' : ''}`}
                   className="pokemon-main"
+                  fetchPriority={index === 0 ? 'high' : 'low'}
+                  imageSize={{
+                    width: 252,
+                    height: 252,
+                  }}
                 />
               </SwiperSlide>
             )

@@ -18,7 +18,7 @@ const ShinySwitchComponent = ({ searchParams }: ShinySwitchComponentProps) => {
     <li>
       <Link
         href={switchHref}
-        className={`w-26 h-8 flex items-center justify-center px-2 rounded-2xl bg-primary-4 opacity-65 active:bg-primary-3 ${isShiny ? 'opacity-100' : ''}`}
+        className={`w-26 h-8 flex items-center justify-center px-2 rounded-2xl bg-primary-4 active:bg-primary-3 ${isShiny ? 'opacity-100' : 'opacity-65'}`}
         aria-label="이로치 상태 변환"
         replace
       >

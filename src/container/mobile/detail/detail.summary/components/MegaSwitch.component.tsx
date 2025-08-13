@@ -18,8 +18,8 @@ const MegaSwitchComponent = () => {
     <li>
       <Link
         href={megaHref}
-        className={`w-32 h-8 flex items-center justify-around px-2 rounded-2xl bg-primary-4 opacity-65 active:text-[#333333] active:bg-primary-3 ${
-          isMega ? 'opacity-100' : ''
+        className={`w-32 h-8 flex items-center justify-around px-2 rounded-2xl bg-primary-4 active:text-[#333333] active:bg-primary-3 ${
+          isMega ? 'opacity-100' : 'opacity-65'
         }`}
         aria-label="메가진화 모습 변환 스위치"
         replace

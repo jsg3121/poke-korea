@@ -2,28 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 폰트 정의 */
-@font-face {
-  font-family: 'GmarketSans';
-  src: url('../assets/font/GmarketSansLight.woff2') format('woff2');
-  font-weight: 300;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: 'GmarketSans';
-  src: url('../assets/font/GmarketSansMedium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: 'GmarketSans';
-  src: url('../assets/font/GmarketSansBold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: fallback;
-}
-
 /* CSS 커스텀 속성 (CSS Variables) */
 :root {
   --color-primary-1: #27374d;
@@ -43,7 +21,7 @@
 /* 기본 스타일 재설정 */
 @layer base {
   * {
-    @apply box-border font-gmarket-sans;
+    @apply box-border;
     -webkit-tap-highlight-color: transparent !important;
   }
 
@@ -139,7 +117,7 @@
 
   html,
   body {
-    @apply w-full h-full font-gmarket-sans;
+    @apply w-full h-full;
     font-size: 18px;
     -webkit-text-size-adjust: none;
     font-display: fallback;

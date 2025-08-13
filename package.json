@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:local": "npm run build && npm run start",
     "codegen": "graphql-codegen --config codegen.ts",
     "lint": "next lint"
   },

@@ -11,7 +11,7 @@ const DetailMovesDesktop = ({ pokemonName }: DetailMovesDesktopProps) => {
     <main className="w-full max-w-[1280px] mx-auto min-h-screen pt-30">
       <HeaderContainer />
       <section className="w-full pt-4">
-        <h1 className="visually-hidden">{pokemonName} 상세 습득 기술 정보</h1>
+        <h1 className="sr-only">{pokemonName} 상세 습득 기술 정보</h1>
         <MovesHeaderContainer pokemonName={pokemonName} />
       </section>
       <MovesTableContainer />

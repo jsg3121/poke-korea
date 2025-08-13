@@ -1,10 +1,10 @@
-import { ReactNode } from 'react'
+import { Metadata, Viewport } from 'next'
+import localFont from 'next/font/local'
 import { headers } from 'next/headers'
 import Script from 'next/script'
-import Providers from './providers'
-import '~/styles/common.css'
+import { ReactNode } from 'react'
 import '~/styles/globals.css'
-import { Metadata, Viewport } from 'next'
+import Providers from './providers'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
@@ -31,6 +31,24 @@ interface RootLayoutProps {
   children: ReactNode
 }
 
+const gmarket = localFont({
+  src: [
+    {
+      path: '../assets/font/GmarketSansMedium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/font/GmarketSansBold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  display: 'swap',
+  preload: true, // <link rel="preload"> 자동
+  variable: '--font-gmarket-sans', // 선택: CSS 변수로 노출
+})
+
 export default async function RootLayout({ children }: RootLayoutProps) {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
@@ -38,7 +56,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const isProduction = process.env.NODE_ENV === 'production'
 
   return (
-    <html lang="ko">
+    <html lang="ko" className={gmarket.className}>
       <head>
         {isProduction && (
           <>
@@ -50,6 +68,29 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               name="google-adsense-account"
               content="ca-pub-6481622724376761"
             />
+            {/* --- Preconnect / DNS Prefetch (초기 호출 도메인만) --- */}
+            <link
+              rel="preconnect"
+              href="https://www.googletagmanager.com"
+              crossOrigin=""
+            />
+            <link
+              rel="preconnect"
+              href="https://www.google-analytics.com"
+              crossOrigin=""
+            />
+            <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+            <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+            {/* 네이버 애널리틱스 사용 시 */}
+            <link
+              rel="preconnect"
+              href="https://wcs.naver.net"
+              crossOrigin=""
+            />
+            <link rel="dns-prefetch" href="https://wcs.naver.net" />
+            {/* (선택) origin-hint를 확실하게 하기 위한 referrer-policy */}
+            <meta name="referrer" content="strict-origin-when-cross-origin" />
           </>
         )}
       </head>
@@ -98,6 +139,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="adsbygoogle-init"
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+              rel="preconnect"
               crossOrigin="anonymous"
               strategy="beforeInteractive"
             />

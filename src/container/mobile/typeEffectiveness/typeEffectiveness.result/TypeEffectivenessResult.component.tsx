@@ -21,75 +21,66 @@ const TypeEffectivenessResultComponent = () => {
 
   return (
     <Fragment>
-      <section
-        aria-labelledby="calculate-result-type"
-        className="w-full h-full mt-4"
-      >
-        {selectTypeList.length > 0 && (
+      {selectTypeList.length > 0 && (
+        <section className="w-full h-full mt-4">
           <h2 className="w-full min-h-12 border-b border-solid border-primary-4 text-[1.375rem] leading-8 font-semibold text-primary-4 block pb-4">
             {selectTypeListKo} 타입은 이렇게 상대하세요!
           </h2>
-        )}
-        {isShowWeak && (
-          <article className="w-full h-fit py-5 px-4 bg-primary-2 rounded-2xl my-8">
-            <h3
-              id="calculate-result-type"
-              className="w-full h-8 text-xl leading-8 text-left text-white mb-4"
-            >
-              이런 타입을 쓰면 좋아요!
-            </h3>
-            <dl className="w-full">
-              {quad.length > 0 && (
-                <ResultListComponents
-                  title="4배의 데미지를 줄 수 있어요."
-                  dataList={quad}
-                  importantPoint={1}
-                />
-              )}
-              {double.length > 0 && (
-                <ResultListComponents
-                  title="2배의 데미지를 줄 수 있어요."
-                  dataList={double}
-                  importantPoint={2}
-                />
-              )}
-            </dl>
-          </article>
-        )}
-        {isShowStrong && (
-          <article className="w-full h-fit py-5 px-4 bg-primary-2 rounded-2xl my-8">
-            <h3
-              id="calculate-result-type"
-              className="w-full h-8 text-xl leading-8 text-left text-white mb-4"
-            >
-              이런 타입은 조심 해야해요!
-            </h3>
-            <dl className="w-full">
-              {half.length > 0 && (
-                <ResultListComponents
-                  title="0.5배의 데미지를 받아요."
-                  dataList={half}
-                  importantPoint={3}
-                />
-              )}
-              {quarter.length > 0 && (
-                <ResultListComponents
-                  title="0.25배의 데미지를 받아요."
-                  dataList={quarter}
-                  importantPoint={4}
-                />
-              )}
-              {zero.length > 0 && (
-                <ResultListComponents
-                  title="데미지를 받지 않아요."
-                  dataList={zero}
-                  importantPoint={5}
-                />
-              )}
-            </dl>
-          </article>
-        )}
-      </section>
+          {isShowWeak && (
+            <article className="w-full h-fit py-5 px-4 bg-primary-2 rounded-2xl my-8">
+              <h3 className="w-full h-8 text-xl leading-8 text-left text-white mb-4">
+                이런 타입을 쓰면 좋아요!
+              </h3>
+              <dl className="w-full">
+                {quad.length > 0 && (
+                  <ResultListComponents
+                    title="4배의 데미지를 줄 수 있어요."
+                    dataList={quad}
+                    importantPoint={1}
+                  />
+                )}
+                {double.length > 0 && (
+                  <ResultListComponents
+                    title="2배의 데미지를 줄 수 있어요."
+                    dataList={double}
+                    importantPoint={2}
+                  />
+                )}
+              </dl>
+            </article>
+          )}
+          {isShowStrong && (
+            <article className="w-full h-fit py-5 px-4 bg-primary-2 rounded-2xl my-8">
+              <h3 className="w-full h-8 text-xl leading-8 text-left text-white mb-4">
+                이런 타입은 조심 해야해요!
+              </h3>
+              <dl className="w-full">
+                {half.length > 0 && (
+                  <ResultListComponents
+                    title="0.5배의 데미지를 받아요."
+                    dataList={half}
+                    importantPoint={3}
+                  />
+                )}
+                {quarter.length > 0 && (
+                  <ResultListComponents
+                    title="0.25배의 데미지를 받아요."
+                    dataList={quarter}
+                    importantPoint={4}
+                  />
+                )}
+                {zero.length > 0 && (
+                  <ResultListComponents
+                    title="데미지를 받지 않아요."
+                    dataList={zero}
+                    importantPoint={5}
+                  />
+                )}
+              </dl>
+            </article>
+          )}
+        </section>
+      )}
     </Fragment>
   )
 }

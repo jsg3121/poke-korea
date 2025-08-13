@@ -33,11 +33,11 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
   return (
     <Link href={`/detail/${pokemonData.number}`}>
       <article
-        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.83333333rem_0.55555556rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
+        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0_0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
-        <header className="w-full h-8 flex items-start justify-between">
+        <header className="w-full h-8 flex items-start justify-between pr-2">
           <i className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
           </i>
@@ -51,7 +51,7 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
           </div>
         </header>
         <div
-          className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative"
+          className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative pr-2"
           aria-description="포켓몬 이미지"
         >
           <ImageComponent
@@ -59,7 +59,11 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
             width="10rem"
             alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
             src={`${imageMode}/${pokemonData.number}.webp`}
-            sizes="10rem"
+            imageSize={{
+              height: 140,
+              width: 140,
+            }}
+            fetchPriority="high"
           />
         </div>
         <div
@@ -71,31 +75,37 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
           })}
         </div>
         <dl
-          className="w-full max-w-[19rem] grid grid-rows-[repeat(3,_1fr)] grid-cols-[35%_15%_35%_15%] mt-4 mx-auto pl-2"
+          className="w-full max-w-[19rem] grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] mt-4 mx-auto pl-2 pr-1"
           aria-description="포켓몬 능력치 정보"
         >
-          <dt className="h-5 text-sm leading-5 even:ml-4">체력</dt>
-          <dd className="h-5 text-sm leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 mr-1">체력</dt>
+          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.hp}
           </dd>
-          <dt className="h-5 text-sm leading-5 even:ml-4 ml-4">공격</dt>
-          <dd className="h-5 text-sm leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 ml-1">공격</dt>
+          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.attack}
           </dd>
-          <dt className="h-5 text-sm leading-5 even:ml-4">특수공격</dt>
-          <dd className="h-5 text-sm leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 mr-1">
+            특수공격
+          </dt>
+          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.specialAttack}
           </dd>
-          <dt className="h-5 text-sm leading-5 even:ml-4 ml-4">방어</dt>
-          <dd className="h-5 text-sm leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 ml-1">방어</dt>
+          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.defense}
           </dd>
-          <dt className="h-5 text-sm leading-5 even:ml-4">특수방어</dt>
-          <dd className="h-5 text-sm leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 mr-1">
+            특수방어
+          </dt>
+          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.specialDefense}
           </dd>
-          <dt className="h-5 text-sm leading-5 even:ml-4 ml-4">스피드</dt>
-          <dd className="h-5 text-sm leading-5 text-right text-black">
+          <dt className="h-5 text-[max(0.875rem,12px)] leading-5 ml-1">
+            스피드
+          </dt>
+          <dd className="h-5 text-[max(0.875rem,12px)] leading-5 text-right text-black">
             {pokemonData.pokemonStats.speed}
           </dd>
         </dl>
