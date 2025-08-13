@@ -42,9 +42,6 @@ module.exports = {
         'type-steel': '#B8B8D0',
         'type-fairy': '#EE99AC',
       },
-      fontFamily: {
-        'gmarket-sans': ['GmarketSans', 'sans-serif'],
-      },
       spacing: {
         30: '7.5rem', // 120px
         128: '32rem', // 512px

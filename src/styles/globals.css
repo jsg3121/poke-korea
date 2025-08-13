@@ -21,7 +21,7 @@
 /* 기본 스타일 재설정 */
 @layer base {
   * {
-    @apply box-border font-gmarket-sans;
+    @apply box-border;
     -webkit-tap-highlight-color: transparent !important;
   }
 
@@ -117,7 +117,7 @@
 
   html,
   body {
-    @apply w-full h-full font-gmarket-sans;
+    @apply w-full h-full;
     font-size: 18px;
     -webkit-text-size-adjust: none;
     font-display: fallback;
