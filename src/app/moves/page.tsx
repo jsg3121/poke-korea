@@ -36,7 +36,7 @@ export const generateMetadata = async ({
   }
 
   const queryParams = `${typeFilter || damageTypeFilter ? '?' : ''}${params.toString()}`
-  const canonicalUrl = `https://poke-korea.com${queryParams}`
+  const canonicalUrl = `https://poke-korea.com/moves${queryParams}`
 
   const metadata: Metadata = {
     title,
