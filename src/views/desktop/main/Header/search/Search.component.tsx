@@ -78,6 +78,11 @@ const SearchComponent = () => {
               width="2rem"
               height="2rem"
               alt="포켓몬 검색"
+              fetchPriority="high"
+              imageSize={{
+                width: 32,
+                height: 32,
+              }}
             />
           </button>
         </form>

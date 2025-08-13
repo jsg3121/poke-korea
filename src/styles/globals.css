@@ -7,21 +7,21 @@
   font-family: 'GmarketSans';
   src: url('../assets/font/GmarketSansLight.woff2') format('woff2');
   font-weight: 300;
-  font-display: fallback;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'GmarketSans';
   src: url('../assets/font/GmarketSansMedium.woff2') format('woff2');
   font-weight: 500;
-  font-display: fallback;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'GmarketSans';
   src: url('../assets/font/GmarketSansBold.woff2') format('woff2');
   font-weight: 700;
-  font-display: fallback;
+  font-display: swap;
 }
 
 /* CSS 커스텀 속성 (CSS Variables) */

@@ -2,7 +2,6 @@ import { ReactNode } from 'react'
 import { headers } from 'next/headers'
 import Script from 'next/script'
 import Providers from './providers'
-import '~/styles/common.css'
 import '~/styles/globals.css'
 import { Metadata, Viewport } from 'next'
 

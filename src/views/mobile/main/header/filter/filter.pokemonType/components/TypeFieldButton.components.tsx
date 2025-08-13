@@ -40,7 +40,11 @@ const TypeFieldButtonComponents = ({
           height="100%"
           width="100%"
           src={`/assets/type/${typeValue.toLowerCase()}.svg`}
-          loading="lazy"
+          fetchPriority="high"
+          imageSize={{
+            width: 32,
+            height: 32,
+          }}
         />
       </label>
       <span className="text-black peer-checked:font-bold opacity-40 peer-checked:opacity-70">
