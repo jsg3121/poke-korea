@@ -39,6 +39,27 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko">
       <head>
+        <link
+          rel="preload"
+          as="font"
+          href="/assets/font/GmarketSansLight.woff2"
+          type="font/woff2"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          as="font"
+          href="/assets/font/GmarketSansMedium.woff2"
+          type="font/woff2"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          as="font"
+          href="/assets/font/GmarketSansBold.woff2"
+          type="font/woff2"
+          crossOrigin=""
+        />
         {isProduction && (
           <>
             <meta
