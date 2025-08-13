@@ -23,7 +23,7 @@ const ShinySwitchComponent = ({ searchParams }: ShinySwitchComponentProps) => {
         replace
       >
         <i
-          className={`w-8 h-8 flex-shrink-0 block ${isShiny ? '[&>svg]:fill-[#f5b62e]' : '[&>svg]:fill-transparent'}`}
+          className={`w-8 h-8 flex-shrink-0 block will-change-[filter] ${isShiny ? '[&>svg]:fill-[#f5b62e]' : '[&>svg]:fill-transparent'}`}
           aria-hidden
         >
           <ShinyIcon />

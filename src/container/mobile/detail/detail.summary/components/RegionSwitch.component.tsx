@@ -24,7 +24,7 @@ const RegionSwitchComponent = () => {
         replace
       >
         <i
-          className={`w-8 h-8 flex-shrink-0 block ${isRegion ? '[&>svg]:grayscale-0' : '[&>svg]:grayscale'}`}
+          className={`w-8 h-8 flex-shrink-0 block will-change-[filter] ${isRegion ? '[&>svg]:grayscale-0' : '[&>svg]:grayscale'}`}
         >
           <RegionIcon />
         </i>

@@ -25,7 +25,7 @@ const MegaSwitchComponent = () => {
         replace
       >
         <i
-          className={`w-[1.625rem] h-[1.625rem] flex-shrink-0 block ${
+          className={`w-[1.625rem] h-[1.625rem] flex-shrink-0 block will-change-[filter] ${
             isMega ? 'grayscale-0' : 'grayscale'
           }`}
         >
