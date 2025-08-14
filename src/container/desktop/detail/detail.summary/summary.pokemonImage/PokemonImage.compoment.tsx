@@ -117,7 +117,13 @@ const PokemonImageCompoment = () => {
                   height="25rem"
                   alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? '이로치' : ''}`}
                   className="pokemon-main"
-                  fetchPriority={index === defaultIndex ? 'high' : 'low'}
+                  {...(index === defaultIndex
+                    ? {
+                        fetchPriority: 'high',
+                      }
+                    : {
+                        loading: 'lazy',
+                      })}
                   imageSize={{
                     width: 400,
                     height: 400,
