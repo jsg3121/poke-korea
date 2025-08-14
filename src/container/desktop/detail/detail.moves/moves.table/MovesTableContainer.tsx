@@ -17,8 +17,8 @@ const MovesTableContainer = () => {
     versionGroup?.[0].versionGroupId.toString()
   }_${searchParams.get('activeIndex')}`
 
-  const defaultToggleStatus =
-    searchParams.get('movesType') === 'MACHINE' ? false : true
+  const defaultToggleStatus = searchParams.get('movesType')
+  const isToogleChecked = defaultToggleStatus === 'MACHINE' ? false : true
 
   const handleClickCheckToggle = (value: string) => {
     const params = new URLSearchParams(searchParams)
@@ -42,7 +42,7 @@ const MovesTableContainer = () => {
           </p>
           <ToggleButtonComponent
             key={`toogle-status-${activeVersionId}-${defaultToggleStatus}`}
-            defaultChecked={defaultToggleStatus}
+            defaultChecked={isToogleChecked}
             onClickToggle={handleClickCheckToggle}
           />
         </div>
@@ -50,16 +50,16 @@ const MovesTableContainer = () => {
           className="w-full h-12 border-b border-solid flex bg-primary-2 border-primary-1 [&>p]:h-12 [&>p]:leading-[3rem] [&>p]:font-[500]"
           aria-hidden
         >
-          {defaultToggleStatus && (
+          {isToogleChecked && (
             <p className="w-[5%] text-primary-4 text-center">레벨</p>
           )}
           <p
-            className={`${defaultToggleStatus ? 'w-[16%]' : 'w-[18%]'} text-primary-4 text-center`}
+            className={`${isToogleChecked ? 'w-[16%]' : 'w-[18%]'} text-primary-4 text-center`}
           >
             기술명
           </p>
           <p
-            className={`${defaultToggleStatus ? 'w-[53%]' : 'w-[56%]'} text-primary-4 text-center`}
+            className={`${isToogleChecked ? 'w-[53%]' : 'w-[56%]'} text-primary-4 text-center`}
           >
             설명
           </p>
@@ -72,9 +72,9 @@ const MovesTableContainer = () => {
       </header>
       <table className="w-full h-full bg-primary-4 border-hidden table-fixed">
         <colgroup>
-          {defaultToggleStatus && <col width="5%" />}
-          <col width={defaultToggleStatus ? '16%' : '18%'} />
-          <col width={defaultToggleStatus ? '53%' : '56%'} />
+          {isToogleChecked && <col width="5%" />}
+          <col width={isToogleChecked ? '16%' : '18%'} />
+          <col width={isToogleChecked ? '53%' : '56%'} />
           <col width="6%" />
           <col width="4%" />
           <col width="5%" />
@@ -83,7 +83,7 @@ const MovesTableContainer = () => {
         </colgroup>
         <thead className="visually-hidden">
           <tr>
-            {defaultToggleStatus && <th>배우는 레벨</th>}
+            {isToogleChecked && <th>배우는 레벨</th>}
             <th>기술명</th>
             <th>설명</th>
             <th>타입</th>
@@ -94,31 +94,38 @@ const MovesTableContainer = () => {
           </tr>
         </thead>
         <tbody>
-          {defaultToggleStatus
-            ? pokemonLearnableData.levelUpSkills.map((move, index) => {
-                const level =
-                  move.level === 0
-                    ? '진화'
-                    : move.level === 1
-                      ? '최초'
-                      : move.level
+          {defaultToggleStatus === null || defaultToggleStatus === 'LEVELUP' ? (
+            pokemonLearnableData.levelUpSkills.map((move, index) => {
+              const level =
+                move.level === 0
+                  ? '진화'
+                  : move.level === 1
+                    ? '최초'
+                    : move.level
 
-                return (
-                  <MoveTableRow
-                    key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-                    moveData={move.skill}
-                    moveLevel={level}
-                  />
-                )
-              })
-            : pokemonLearnableData.machineSkills.map((move, index) => {
-                return (
-                  <MoveTableRow
-                    key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-                    moveData={move.skill}
-                  />
-                )
-              })}
+              return (
+                <MoveTableRow
+                  key={`pokemon-levelup-move-${index}_${move.skill.id}`}
+                  moveData={move.skill}
+                  moveLevel={level}
+                />
+              )
+            })
+          ) : (
+            <></>
+          )}
+          {defaultToggleStatus === 'MACHINE' ? (
+            pokemonLearnableData.machineSkills.map((move, index) => {
+              return (
+                <MoveTableRow
+                  key={`pokemon-machine-move-${index}_${move.skill.id}`}
+                  moveData={move.skill}
+                />
+              )
+            })
+          ) : (
+            <></>
+          )}
         </tbody>
       </table>
     </section>

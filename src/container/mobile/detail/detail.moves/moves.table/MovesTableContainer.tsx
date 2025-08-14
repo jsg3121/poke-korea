@@ -17,8 +17,8 @@ const MovesTableContainer = () => {
     versionGroup?.[0].versionGroupId.toString()
   }_${searchParams.get('activeIndex')}`
 
-  const defaultToggleStatus =
-    searchParams.get('movesType') === 'MACHINE' ? false : true
+  const defaultToggleStatus = searchParams.get('movesType')
+  const isToogleChecked = defaultToggleStatus === 'MACHINE' ? false : true
 
   const handleClickCheckToggle = (value: string) => {
     const params = new URLSearchParams(searchParams)
@@ -42,32 +42,39 @@ const MovesTableContainer = () => {
           </p>
           <ToggleButtonComponent
             key={`toogle-status-${activeVersionId}-${defaultToggleStatus}`}
-            defaultChecked={defaultToggleStatus}
+            defaultChecked={isToogleChecked}
             onClickToggle={handleClickCheckToggle}
           />
         </div>
       </header>
-      {defaultToggleStatus
-        ? pokemonLearnableData.levelUpSkills.map((move, index) => {
-            const level =
-              move.level === 0 ? '진화' : move.level === 1 ? '최초' : move.level
+      {defaultToggleStatus === null || defaultToggleStatus === 'LEVELUP' ? (
+        pokemonLearnableData.levelUpSkills.map((move, index) => {
+          const level =
+            move.level === 0 ? '진화' : move.level === 1 ? '최초' : move.level
 
-            return (
-              <MoveCard
-                key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-                moveData={move.skill}
-                moveLevel={level}
-              />
-            )
-          })
-        : pokemonLearnableData.machineSkills.map((move, index) => {
-            return (
-              <MoveCard
-                key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-                moveData={move.skill}
-              />
-            )
-          })}
+          return (
+            <MoveCard
+              key={`pokemon-levelup-move-${index}_${move.skill.id}`}
+              moveData={move.skill}
+              moveLevel={level}
+            />
+          )
+        })
+      ) : (
+        <></>
+      )}
+      {defaultToggleStatus === 'MACHINE' ? (
+        pokemonLearnableData.machineSkills.map((move, index) => {
+          return (
+            <MoveCard
+              key={`pokemon-machine-move-${index}_${move.skill.id}`}
+              moveData={move.skill}
+            />
+          )
+        })
+      ) : (
+        <></>
+      )}
     </section>
   )
 }
