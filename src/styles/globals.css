@@ -120,7 +120,6 @@
     @apply w-full h-full;
     font-size: 18px;
     -webkit-text-size-adjust: none;
-    font-display: fallback;
     -ms-overflow-style: none;
     scrollbar-width: none;
     background-color: var(--color-primary-1);

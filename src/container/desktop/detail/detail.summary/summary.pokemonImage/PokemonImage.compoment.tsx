@@ -78,8 +78,10 @@ const PokemonImageCompoment = () => {
     }
   }
 
-  const defaultIndex =
-    parseInt(routerQuery.get('activeIndex') as string, 10) ?? 0
+  const defaultIndex = parseInt(
+    (routerQuery.get('activeIndex') as string) ?? '0',
+    10,
+  )
   const imageList = getImageList()
 
   return (
@@ -117,12 +119,18 @@ const PokemonImageCompoment = () => {
                   height="25rem"
                   alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? '이로치' : ''}`}
                   className="pokemon-main"
-                  {...(index === defaultIndex
+                  {...(normalFormImageList.length === 0
                     ? {
                         fetchPriority: 'high',
                       }
                     : {
-                        loading: 'lazy',
+                        ...(index === defaultIndex
+                          ? {
+                              fetchPriority: 'high',
+                            }
+                          : {
+                              loading: 'lazy',
+                            }),
                       })}
                   imageSize={{
                     width: 400,

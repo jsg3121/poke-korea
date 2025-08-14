@@ -45,8 +45,8 @@ const gmarket = localFont({
     },
   ],
   display: 'swap',
-  preload: true, // <link rel="preload"> 자동
-  variable: '--font-gmarket-sans', // 선택: CSS 변수로 노출
+  preload: true,
+  variable: '--font-gmarket-sans',
 })
 
 export default async function RootLayout({ children }: RootLayoutProps) {
