@@ -6,11 +6,9 @@ const RegionSwitch = () => {
   const routerQuery = useSearchParams()
 
   const isRegion = routerQuery.get('activeType') === 'region' ? true : false
-  const currentQuery = Object.fromEntries(routerQuery.entries())
 
   const regionHref = {
     query: {
-      ...currentQuery,
       activeType: isRegion ? 'normal' : 'region',
     },
   }
