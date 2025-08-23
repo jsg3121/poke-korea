@@ -42,6 +42,10 @@ module.exports = {
         'type-steel': '#B8B8D0',
         'type-fairy': '#EE99AC',
       },
+      spacing: {
+        30: '7.5rem', // 120px
+        128: '32rem', // 512px
+      },
       screens: {
         mobile: { max: '768px' },
         desktop: { min: '769px' },
