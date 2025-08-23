@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {},
-  compress: false,
   eslint: {
     ignoreDuringBuilds: true,
   },
