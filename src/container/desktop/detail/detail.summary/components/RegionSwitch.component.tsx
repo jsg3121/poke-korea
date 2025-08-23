@@ -6,9 +6,13 @@ const RegionSwitch = () => {
   const routerQuery = useSearchParams()
 
   const isRegion = routerQuery.get('activeType') === 'region' ? true : false
+  const isShiny = routerQuery.get('shinyMode') === 'shiny' ? true : false
 
   const regionHref = {
     query: {
+      ...(isShiny && {
+        shinyMode: 'shiny',
+      }),
       activeType: isRegion ? 'normal' : 'region',
     },
   }
