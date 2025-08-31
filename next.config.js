@@ -40,6 +40,16 @@ const nextConfig = {
         ],
       },
       {
+        // 상세 페이지 - 장기간 캐싱
+        source: '/moves',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
         source: '/assets/:all*\\.(svg|png)',
         headers: [
           {
