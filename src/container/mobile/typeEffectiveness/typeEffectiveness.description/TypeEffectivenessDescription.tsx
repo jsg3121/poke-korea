@@ -2,7 +2,7 @@ const TypeEffectivenessDescription = () => {
   return (
     <section
       aria-labelledby="type-effectiveness-description"
-      className="w-full h-fit pt-8"
+      className="w-full h-fit pt-4"
     >
       <h3
         id="type-effectiveness-description"
