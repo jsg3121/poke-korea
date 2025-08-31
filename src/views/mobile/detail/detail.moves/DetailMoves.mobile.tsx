@@ -1,6 +1,7 @@
 import MobileDetailMovesBanner from '~/components/adSlot/MobileDetailMovesBanner'
 import MovesHeaderContainer from '~/container/mobile/detail/detail.moves/moves.header/MovesHeader.container'
 import MovesTableContainer from '~/container/mobile/detail/detail.moves/moves.table/MovesTableContainer'
+import FooterContainer from '~/container/mobile/footer/Footer.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
 
 interface DetailMovesMobileProps {
@@ -17,6 +18,7 @@ const DetailMovesMobile = ({ pokemonName }: DetailMovesMobileProps) => {
       </section>
       <MobileDetailMovesBanner />
       <MovesTableContainer />
+      <FooterContainer />
     </main>
   )
 }
