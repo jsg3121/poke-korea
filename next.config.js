@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {},
+  compress: false,
+  compiler: {
+    removeConsole: true,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
