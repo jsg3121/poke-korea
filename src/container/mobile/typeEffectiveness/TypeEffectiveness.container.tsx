@@ -4,6 +4,7 @@ import TypeEffectivenessResultComponent from './typeEffectiveness.result/TypeEff
 import TypeEffectivenessTableComponent from './typeEffectiveness.table/TypeEffectivenessTable.component'
 import TypeEffectivenessDescription from './typeEffectiveness.description/TypeEffectivenessDescription'
 import MobileTypeEffectivenessBanner from '~/components/adSlot/MobileTypeEffectivenessBanner'
+import MobileTypeEffectivenessBottomBanner from '~/components/adSlot/MobileTypeEffectivenessBottomBanner'
 
 const TypeEffectivenessContainer = () => {
   return (
@@ -16,6 +17,7 @@ const TypeEffectivenessContainer = () => {
         </div>
       </TypeEffectivenessProvider>
       <TypeEffectivenessTableComponent />
+      <MobileTypeEffectivenessBottomBanner />
       <TypeEffectivenessDescription />
     </div>
   )

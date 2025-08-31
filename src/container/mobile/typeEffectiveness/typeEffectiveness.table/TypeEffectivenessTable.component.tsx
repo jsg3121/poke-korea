@@ -21,7 +21,7 @@ const TypeEffectivenessTableComponent = () => {
   }
 
   return (
-    <div className="w-full h-full" aria-label="포켓몬 타입 상성표">
+    <div className="w-full h-full mb-4" aria-label="포켓몬 타입 상성표">
       <table
         className="w-full h-full bg-primary-4 border-hidden table-fixed"
         aria-labelledby="pokemon-type-effectiveness-table"
