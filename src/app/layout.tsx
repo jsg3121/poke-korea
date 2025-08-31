@@ -102,11 +102,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="gtag-base"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
-              strategy="beforeInteractive"
+              strategy="afterInteractive"
             />
             <Script
               id="gtag-init"
-              strategy="beforeInteractive"
+              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -120,11 +120,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="naver-analytics"
               src="//wcs.naver.net/wcslog.js"
-              strategy="beforeInteractive"
+              strategy="afterInteractive"
             />
             <Script
               id="naver-analytics-init"
-              strategy="beforeInteractive"
+              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   if(!wcs_add) var wcs_add = {};
@@ -141,7 +141,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
               rel="preconnect"
               crossOrigin="anonymous"
-              strategy="beforeInteractive"
+              strategy="afterInteractive"
             />
           </>
         )}
