@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "browserslist": {
     "production": [
-      "Chrome >= 105",
-      "Edge >= 105",
-      "Firefox >= 102",
+      "Chrome >= 114",
+      "Edge >= 114",
+      "Firefox >= 115",
       "Safari >= 15.4",
-      "iOS >= 15.4"
+      "iOS >= 15.4",
+      "Samsung >= 17"
     ],
     "development": [
       "last 1 chrome version",
