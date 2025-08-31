@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { redirect, RedirectType } from 'next/navigation'
 import { DetailProvider } from '~/context/Detail.context'
 import {
   GetPokemonMegaEvolutionDocument,
@@ -249,7 +249,7 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const pokemonDetail = defaultPokemonData.getPokemonDetail
 
   if (!pokemonDetail) {
-    redirect('/')
+    redirect('/', RedirectType.replace)
   }
 
   if (!pokemonDetail.isMegaEvolution && activeType === 'mega') {
