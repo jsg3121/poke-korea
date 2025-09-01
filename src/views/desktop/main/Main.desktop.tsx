@@ -3,12 +3,13 @@ import { useSearchParams } from 'next/navigation'
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
 import ListContainer from '~/container/desktop/List/List.container'
 import { ListProvider } from '~/context/List.context'
-import { PokemonList } from '~/graphql/typeGenerated'
+import { PokemonList, PokemonFilterInput } from '~/graphql/typeGenerated'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
 import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 
 interface ManinViewsProps {
   pokemonList: Array<PokemonList>
+  initialFilter: PokemonFilterInput
 }
 
 const checkSearchParams = (searchParams: URLSearchParams) => {
@@ -19,7 +20,7 @@ const checkSearchParams = (searchParams: URLSearchParams) => {
   )
 }
 
-const MainDesktop = ({ pokemonList }: ManinViewsProps) => {
+const MainDesktop = ({ pokemonList, initialFilter }: ManinViewsProps) => {
   const searchParams = useSearchParams()
   const { observerRef, isScroll } = useHeaderScroll()
 
@@ -27,7 +28,8 @@ const MainDesktop = ({ pokemonList }: ManinViewsProps) => {
 
   return (
     <ListProvider
-      pokemonList={pokemonList}
+      initialList={pokemonList}
+      initialFilter={initialFilter}
       scrolling={isScroll}
       searching={hasSearchQuery}
     >

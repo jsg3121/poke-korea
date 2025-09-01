@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {},
   compiler: {
-    removeConsole: true,
+    removeConsole: process.env.NODE_ENV === 'production',
   },
   eslint: {
     ignoreDuringBuilds: true,

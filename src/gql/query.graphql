@@ -4,6 +4,23 @@ query GetPokemonList($filter: PokemonFilterInput) {
   }
 }
 
+query GetPokemonListPaginated($input: PokemonListInput) {
+  getPokemonList: getPokemonListPaginated(input: $input) {
+    edges {
+      cursor
+      node {
+        ...PokemonInfo
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+  }
+}
+
 query PokemonDetail($pokemonId: ID!) {
   getPokemonDetail(pokemonId: $pokemonId) {
     id

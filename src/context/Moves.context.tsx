@@ -42,7 +42,7 @@ export const MovesProvider = ({
       input: {
         filter: movesFilter,
         pagination: {
-          first: 30,
+          first: 20,
         },
       },
     },
