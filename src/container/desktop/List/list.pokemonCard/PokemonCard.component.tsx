@@ -11,9 +11,13 @@ import { imageMode } from '~/module/buildMode'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
+  setImagePriority: boolean
 }
 
-const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
+const PokemonCardComponent = ({
+  pokemonData,
+  setImagePriority = false,
+}: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
   const backgroundColor = getbackgroundColor(pokemonData.types)
 
@@ -54,6 +58,13 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
             alt={`pokemon_id_${pokemonData.number}`}
             src={`${imageMode}/${pokemonData.number}.webp`}
             sizes="10rem"
+            {...(setImagePriority
+              ? {
+                  fetchPriority: 'high',
+                }
+              : {
+                  loading: 'lazy',
+                })}
           />
         </div>
         <div

@@ -36,11 +36,12 @@ const ListContainer = () => {
     <section className="w-full h-full mx-auto py-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none">
       <h2>포켓몬 리스트</h2>
       <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5 [&_.virtuoso-grid-item]:w-full">
-        {pokemonList.map((pokemon) => {
+        {pokemonList.map((pokemon, index) => {
           return (
             <CardComponent
               key={`pokemon-id-${pokemon.id}`}
               pokemonData={pokemon}
+              setImagePriority={index < 20}
             />
           )
         })}

@@ -10,9 +10,13 @@ import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
+  setImagePriority: boolean
 }
 
-const CardComponent = ({ pokemonData }: CardComponentProps) => {
+const CardComponent = ({
+  pokemonData,
+  setImagePriority = false,
+}: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   const backgroundColor = useMemo(() => {
@@ -63,7 +67,13 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
               height: 140,
               width: 140,
             }}
-            fetchPriority="high"
+            {...(setImagePriority
+              ? {
+                  fetchPriority: 'high',
+                }
+              : {
+                  loading: 'lazy',
+                })}
           />
         </div>
         <div
