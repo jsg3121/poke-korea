@@ -13,7 +13,7 @@ interface ManinViewsProps {
 
 const MainMobile = ({ pokemonList, initialFilter }: ManinViewsProps) => {
   return (
-    <ListProvider pokemonList={pokemonList} initialFilter={initialFilter}>
+    <ListProvider initialList={pokemonList} initialFilter={initialFilter}>
       <HeaderContainer />
       <MobileListTopBanner />
       <ListContainer />

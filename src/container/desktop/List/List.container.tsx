@@ -1,11 +1,36 @@
 'use client'
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { ListContext } from '~/context/List.context'
 import PokemonCardComponent from './list.pokemonCard/PokemonCard.component'
+import FooterContainer from '../footer/Footer.container'
 
 const ListContainer = () => {
+  const listRef = useRef<HTMLDivElement>(null)
+
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
     useContext(ListContext)
+
+  const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
+    entries.forEach((entry) => {
+      const intersectionRatio = entry.intersectionRatio
+      if (intersectionRatio > 0 && hasNextPage) {
+        loadMore()
+      }
+    })
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: '0px 0px 380px 0px',
+      threshold: 0,
+    })
+
+    if (listRef.current) {
+      observer.observe(listRef.current)
+    }
+    return () => observer.disconnect()
+  }, [pokemonList])
 
   return (
     <section className="w-full max-w-[1280px] h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none ">
@@ -27,6 +52,9 @@ const ListContainer = () => {
           </div>
         </div>
       )}
+      <div ref={listRef}>
+        <FooterContainer />
+      </div>
     </section>
   )
 }

@@ -31,7 +31,7 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
         }
 
   return (
-    <Link href={`/detail/${pokemonData.number}`}>
+    <Link href={`/detail/${pokemonData.number}`} className="block w-full">
       <article
         className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
         style={gradientStyle}

@@ -67,7 +67,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-  console.log('🔬 dev-only ~ HomePage ~ userAgent:', userAgent)
 
   const apolloClient = initializeApollo()
 
@@ -107,8 +106,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     data?.getPokemonList?.edges.map((edge: PokemonEdge) => {
       return edge.node
     }) || []
-
-  console.log('🔬 dev-only ~ HomePage ~ pokemonList:', pokemonList)
 
   return (
     <main className="w-full min-h-screen">
