@@ -2,10 +2,10 @@ import { produce } from 'immer'
 import { createContext, ReactNode } from 'react'
 import { useGetPokemonListPaginatedQuery } from '~/graphql/gqlGenerated'
 import {
-  PokemonList,
-  PokemonInfoFragment,
-  PokemonFilterInput,
   PokemonEdge,
+  PokemonFilterInput,
+  PokemonInfoFragment,
+  PokemonList,
 } from '~/graphql/typeGenerated'
 
 interface ListProviderProps {

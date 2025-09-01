@@ -99,7 +99,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
         },
       },
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'network-only',
   })
 
   const pokemonList =
