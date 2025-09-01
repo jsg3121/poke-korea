@@ -3,7 +3,7 @@ import { useSearchParams } from 'next/navigation'
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
 import ListContainer from '~/container/desktop/List/List.container'
 import { ListProvider } from '~/context/List.context'
-import { PokemonList, PokemonFilterInput } from '~/graphql/typeGenerated'
+import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
 import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 
@@ -35,7 +35,7 @@ const MainDesktop = ({ pokemonList, initialFilter }: ManinViewsProps) => {
     >
       <div
         ref={observerRef}
-        className="pb-80 transition-[padding-bottom] duration-300 will-change-[padding-bottom] data-[scrolling=true]:pb-44 data-[searching=has-query]:pb-44"
+        className="pb-80 transition-[padding-bottom] duration-300 will-change-[padding-bottom,transition] data-[scrolling=true]:pb-44 data-[searching=has-query]:pb-44"
         data-scrolling={isScroll}
         data-searching={hasSearchQuery ? 'has-query' : ''}
       >
