@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
+import { Fragment } from 'react'
+import { MOVES_WEBPAGE_JSON_LD } from '~/constants/movesJsonLd'
 import { MovesProvider } from '~/context/Moves.context'
 import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
 import {
@@ -20,12 +22,12 @@ interface MovesPageProps {
   }>
 }
 
+export const revalidate = 31536000 // 24시간마다 재생성
+
 export const generateMetadata = async ({
   searchParams,
 }: MovesPageProps): Promise<Metadata> => {
   const { damageTypeFilter, typeFilter } = await searchParams
-  const title = `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} 유형` : ''} ${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 기술 목록 - 포케코리아`
-  const description = `포케코리아에서${damageTypeFilter ? ` ${damageTypeFilter} 유형의` : ''}${typeFilter ? ` ${PokemonTypes[typeFilter]} 타입을 가지고 있는` : ''} 포켓몬의 모든 기술을 한눈에 확인하세요. 1세대부터 9세대 까지 모든 기술을 확인하실 수 있습니다.`
   const params = new URLSearchParams()
 
   if (typeFilter) {
@@ -36,6 +38,15 @@ export const generateMetadata = async ({
   }
 
   const queryParams = `${typeFilter || damageTypeFilter ? '?' : ''}${params.toString()}`
+  const title =
+    !typeFilter && !damageTypeFilter
+      ? '포켓몬 기술 도감 - 포케코리아'
+      : `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} 유형` : ''} ${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 기술 목록 - 포케코리아`
+
+  const description =
+    !typeFilter && !damageTypeFilter
+      ? '900개가 넘는 포켓몬의 모든 기술을 한곳에서 확인하고, 타입과 유형 필터를 이용해 필요한 기술을 한 번에 찾아보세요!'
+      : `포케코리아에서${damageTypeFilter ? ` ${damageTypeFilter} 유형의` : ''}${typeFilter ? ` ${PokemonTypes[typeFilter]} 타입을 가지고 있는` : ''} 포켓몬의 모든 기술을 한눈에 확인하세요. 1세대부터 9세대 까지 모든 기술을 확인하실 수 있습니다.`
   const canonicalUrl = `https://poke-korea.com/moves${queryParams}`
 
   const metadata: Metadata = {
@@ -102,12 +113,21 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const totalCount = data?.getPokemonSkillList?.totalCount || 0
 
   return (
-    <MovesProvider
-      initialSkills={skillList}
-      totalCount={totalCount}
-      movesFilter={movesFilter}
-    >
-      {isMobile ? <MovesMobile /> : <MovesDesktop />}
-    </MovesProvider>
+    <Fragment>
+      <MovesProvider
+        initialSkills={skillList}
+        totalCount={totalCount}
+        movesFilter={movesFilter}
+      >
+        {isMobile ? <MovesMobile /> : <MovesDesktop />}
+      </MovesProvider>
+      <script
+        id="type-effectiveness-webpage-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(MOVES_WEBPAGE_JSON_LD),
+        }}
+      />
+    </Fragment>
   )
 }

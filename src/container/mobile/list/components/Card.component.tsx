@@ -4,16 +4,28 @@ import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
+import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
 import { CardColor } from '~/types/pokemonTypes.types'
 import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
+  setImagePriority: boolean
 }
 
-const CardComponent = ({ pokemonData }: CardComponentProps) => {
+const CardComponent = ({
+  pokemonData,
+  setImagePriority = false,
+}: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
+
+  // 커스텀 Lazy Loading Hook (200px 이내 영역에서 이미지 로드)
+  const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
+    useLazyImage({
+      rootMargin: '200px',
+      threshold: 0.1,
+    })
 
   const backgroundColor = useMemo(() => {
     const background: Array<CardColor> = []
@@ -31,7 +43,7 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
         }
 
   return (
-    <Link href={`/detail/${pokemonData.number}`}>
+    <Link href={`/detail/${pokemonData.number}`} className="block w-full">
       <article
         className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
         style={gradientStyle}
@@ -51,20 +63,31 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
           </div>
         </header>
         <div
+          ref={imgRef}
           className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative pr-2"
           aria-description="포켓몬 이미지"
         >
-          <ImageComponent
-            height="10rem"
-            width="10rem"
-            alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-            src={`${imageMode}/${pokemonData.number}.webp`}
-            imageSize={{
-              height: 140,
-              width: 140,
-            }}
-            fetchPriority="high"
-          />
+          {isVisible ? (
+            <ImageComponent
+              height="10rem"
+              width="10rem"
+              alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
+              src={`${imageMode}/${pokemonData.number}.webp`}
+              imageSize={{
+                height: 140,
+                width: 140,
+              }}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transition: 'opacity 0.3s ease-in-out',
+              }}
+            />
+          ) : (
+            // Placeholder: 이미지 로딩 전 스켈레톤 (모바일용)
+            <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+          )}
         </div>
         <div
           className="w-full max-w-[18rem] flex items-center gap-[0.4rem] px-2 mx-auto justify-start"

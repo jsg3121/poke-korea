@@ -8,16 +8,12 @@ type UseHeaderScrollType = (mode?: 'desktop' | 'mobile') => {
 export const useHeaderScroll: UseHeaderScrollType = (mode = 'desktop') => {
   const [isScroll, setIsScroll] = useState<boolean>(false)
   const observerRef = useRef<HTMLDivElement>(null)
-  const initialYPosRef = useRef<number | null>(null)
 
   const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
     entries.forEach((entry) => {
       if (mode === 'desktop') {
-        if (initialYPosRef.current === null) {
-          initialYPosRef.current = entry.boundingClientRect.top
-        }
         const currentYPos = entry.boundingClientRect.top
-        if (initialYPosRef.current !== currentYPos) {
+        if (currentYPos < 0) {
           setIsScroll(true)
         } else {
           setIsScroll(false)

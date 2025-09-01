@@ -1,3 +1,5 @@
+import { PokemonType } from '~/graphql/typeGenerated'
+
 export const toBooleanOrUndefined = (
   value: string | undefined,
 ): boolean | undefined => {
@@ -6,13 +8,13 @@ export const toBooleanOrUndefined = (
 
 export const changeTypeArrayToString = (
   type: string | undefined,
-): Array<string> => {
-  return type ? type.split(',') : []
+): Array<PokemonType> => {
+  return type ? (type.split(',') as Array<PokemonType>) : []
 }
 
 export const getGenerationParams = (generation: string | Array<string>) => {
   if (typeof generation === 'string') {
-    return parseInt(generation, 10)
+    return [parseInt(generation, 10)]
   } else {
     return generation.map((item) => {
       return parseInt(item, 10)

@@ -1,6 +1,12 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
+import { GetPokemonListPaginatedDocument } from '~/graphql/gqlGenerated'
+import {
+  GetPokemonListPaginatedQuery,
+  GetPokemonListPaginatedQueryVariables,
+  PokemonEdge,
+  PokemonFilterInput,
+} from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import {
@@ -67,7 +73,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
   const { type, isMega, isRegion, isEvolution, generation, name } =
     await searchParams
 
-  const filterInput = {
+  const filterInput: PokemonFilterInput = {
     ...(name && {
       name,
     }),
@@ -80,22 +86,33 @@ const HomePage = async ({ searchParams }: PageProps) => {
     isEvolution: toBooleanOrUndefined(isEvolution as string),
   }
 
-  const { data } = await apolloClient.query({
-    query: GetPokemonListDocument,
+  const { data } = await apolloClient.query<
+    GetPokemonListPaginatedQuery,
+    GetPokemonListPaginatedQueryVariables
+  >({
+    query: GetPokemonListPaginatedDocument,
     variables: {
-      filter: filterInput,
+      input: {
+        filter: filterInput,
+        pagination: {
+          first: 20,
+        },
+      },
     },
     fetchPolicy: 'cache-first',
   })
 
-  const pokemonList = data?.getPokemonList || []
+  const pokemonList =
+    data?.getPokemonList?.edges.map((edge: PokemonEdge) => {
+      return edge.node
+    }) || []
 
   return (
     <main className="w-full min-h-screen">
       {isMobile ? (
-        <MainMobile pokemonList={pokemonList} />
+        <MainMobile pokemonList={pokemonList} initialFilter={filterInput} />
       ) : (
-        <MainDesktop pokemonList={pokemonList} />
+        <MainDesktop pokemonList={pokemonList} initialFilter={filterInput} />
       )}
     </main>
   )

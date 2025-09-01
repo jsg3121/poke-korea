@@ -8,6 +8,7 @@ import {
 } from './modules/pokemonCardModules'
 import ImageComponent from '~/components/Image.component'
 import { imageMode } from '~/module/buildMode'
+import { useLazyImage } from '~/hook/useLazyImage'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -16,6 +17,13 @@ interface CardComponentProps {
 const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
   const backgroundColor = getbackgroundColor(pokemonData.types)
+
+  // 커스텀 Lazy Loading Hook (200px 이내 영역에서 이미지 로드)
+  const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
+    useLazyImage({
+      rootMargin: '200px',
+      threshold: 0.1,
+    })
 
   const gradientStyle =
     backgroundColor.length === 1
@@ -45,16 +53,28 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
           </div>
         </header>
         <div
+          ref={imgRef}
           className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
           aria-description="포켓몬 이미지"
         >
-          <ImageComponent
-            height="10rem"
-            width="10rem"
-            alt={`pokemon_id_${pokemonData.number}`}
-            src={`${imageMode}/${pokemonData.number}.webp`}
-            sizes="10rem"
-          />
+          {isVisible ? (
+            <ImageComponent
+              height="10rem"
+              width="10rem"
+              alt={`pokemon_id_${pokemonData.number}`}
+              src={`${imageMode}/${pokemonData.number}.webp`}
+              sizes="10rem"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transition: 'opacity 0.3s ease-in-out',
+              }}
+            />
+          ) : (
+            // Placeholder: 이미지 로딩 전 스켈레톤
+            <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+          )}
         </div>
         <div
           className="flex items-center gap-[0.38888889rem] px-[0.55555556rem]"
