@@ -99,13 +99,14 @@ const HomePage = async ({ searchParams }: PageProps) => {
         },
       },
     },
+    fetchPolicy: 'network-only',
   })
 
   const pokemonList =
     data?.getPokemonList?.edges.map((edge: PokemonEdge) => {
       return edge.node
     }) || []
-  const hasNextPage = data?.getPokemonList.pageInfo.hasNextPage
+  const hasNextPage = !!data?.getPokemonList.pageInfo.hasNextPage
 
   return (
     <main className="w-full min-h-screen">

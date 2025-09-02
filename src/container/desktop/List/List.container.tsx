@@ -29,7 +29,7 @@ const ListContainer = () => {
       observer.observe(listRef.current)
     }
     return () => observer.disconnect()
-  }, [pokemonList, hasNextPage])
+  }, [pokemonList])
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none">

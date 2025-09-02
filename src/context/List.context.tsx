@@ -117,7 +117,7 @@ export const ListProvider = ({
     listFilter: {},
     scrolling,
     searching,
-    hasNextPage,
+    hasNextPage: data?.getPokemonList.pageInfo.hasNextPage,
     isLoadingMore,
     loadMore,
   }
