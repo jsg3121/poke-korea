@@ -10,6 +10,7 @@ import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 interface ManinViewsProps {
   pokemonList: Array<PokemonList>
   initialFilter: PokemonFilterInput
+  hasNextPage: boolean
 }
 
 const checkSearchParams = (searchParams: URLSearchParams) => {
@@ -20,7 +21,11 @@ const checkSearchParams = (searchParams: URLSearchParams) => {
   )
 }
 
-const MainDesktop = ({ pokemonList, initialFilter }: ManinViewsProps) => {
+const MainDesktop = ({
+  pokemonList,
+  initialFilter,
+  hasNextPage,
+}: ManinViewsProps) => {
   const searchParams = useSearchParams()
   const { observerRef, isScroll } = useHeaderScroll()
 
@@ -30,6 +35,7 @@ const MainDesktop = ({ pokemonList, initialFilter }: ManinViewsProps) => {
     <ListProvider
       initialList={pokemonList}
       initialFilter={initialFilter}
+      hasNextPage={hasNextPage}
       scrolling={isScroll}
       searching={hasSearchQuery}
     >

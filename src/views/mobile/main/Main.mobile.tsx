@@ -9,11 +9,20 @@ import HeaderContainer from './header/Header.container'
 interface ManinViewsProps {
   pokemonList: Array<PokemonList>
   initialFilter: PokemonFilterInput
+  hasNextPage: boolean
 }
 
-const MainMobile = ({ pokemonList, initialFilter }: ManinViewsProps) => {
+const MainMobile = ({
+  pokemonList,
+  initialFilter,
+  hasNextPage,
+}: ManinViewsProps) => {
   return (
-    <ListProvider initialList={pokemonList} initialFilter={initialFilter}>
+    <ListProvider
+      initialList={pokemonList}
+      initialFilter={initialFilter}
+      hasNextPage={hasNextPage}
+    >
       <HeaderContainer />
       <MobileListTopBanner />
       <ListContainer />

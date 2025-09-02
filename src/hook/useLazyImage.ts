@@ -28,7 +28,7 @@ export const useLazyImage = (options: UseLazyImageOptions = {}) => {
       {
         rootMargin,
         threshold,
-      }
+      },
     )
 
     observer.observe(element)
