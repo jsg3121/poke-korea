@@ -1,8 +1,7 @@
-'use client'
 import { useContext, useEffect, useRef } from 'react'
 import { ListContext } from '~/context/List.context'
-import PokemonCardComponent from './list.pokemonCard/PokemonCard.component'
 import FooterContainer from '../footer/Footer.container'
+import PokemonCardComponent from './list.pokemonCard/PokemonCard.component'
 
 const ListContainer = () => {
   const listRef = useRef<HTMLDivElement>(null)
@@ -22,7 +21,7 @@ const ListContainer = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(observerCallback, {
       root: null,
-      rootMargin: '0px 0px 380px 0px',
+      rootMargin: '0px 0px 200px 0px',
       threshold: 0,
     })
 
@@ -33,7 +32,7 @@ const ListContainer = () => {
   }, [pokemonList])
 
   return (
-    <section className="w-full max-w-[1280px] h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none ">
+    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none">
       <h2 className="visually-hidden">포켓몬 리스트</h2>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] gap-x-4 gap-y-6 justify-items-center justify-between px-5">
         {pokemonList.map((pokemon) => {

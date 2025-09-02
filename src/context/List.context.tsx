@@ -11,6 +11,7 @@ import {
 interface ListProviderProps {
   initialList: Array<PokemonList>
   initialFilter: PokemonFilterInput
+  hasNextPage: boolean
   children: ReactNode
   scrolling?: boolean
   searching?: boolean
@@ -52,6 +53,7 @@ export const ListProvider = ({
   children,
   scrolling,
   searching,
+  hasNextPage,
 }: ListProviderProps) => {
   const {
     data,
@@ -66,9 +68,14 @@ export const ListProvider = ({
         },
       },
     },
+    skip: !hasNextPage,
   })
 
   const loadMore = async () => {
+    if (!data?.getPokemonList.pageInfo.hasNextPage) {
+      return
+    }
+
     await fetchMore({
       variables: {
         input: {

@@ -99,20 +99,29 @@ const HomePage = async ({ searchParams }: PageProps) => {
         },
       },
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'network-only',
   })
 
   const pokemonList =
     data?.getPokemonList?.edges.map((edge: PokemonEdge) => {
       return edge.node
     }) || []
+  const hasNextPage = !!data?.getPokemonList.pageInfo.hasNextPage
 
   return (
     <main className="w-full min-h-screen">
       {isMobile ? (
-        <MainMobile pokemonList={pokemonList} initialFilter={filterInput} />
+        <MainMobile
+          pokemonList={pokemonList}
+          initialFilter={filterInput}
+          hasNextPage={hasNextPage}
+        />
       ) : (
-        <MainDesktop pokemonList={pokemonList} initialFilter={filterInput} />
+        <MainDesktop
+          pokemonList={pokemonList}
+          initialFilter={filterInput}
+          hasNextPage={hasNextPage}
+        />
       )}
     </main>
   )
