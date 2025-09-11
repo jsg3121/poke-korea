@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 }
 
 const QuizMainPage = async () => {
-  const headersList = await headers()
+  const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
