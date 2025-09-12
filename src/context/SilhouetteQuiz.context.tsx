@@ -1,20 +1,22 @@
 'use client'
 
 import { ReactNode, createContext, useContext, useState } from 'react'
-import { useGetSilhouetteQuizLazyQuery } from '~/graphql/gqlGenerated'
-import {
-  SilhouetteQuizQuestion,
-  BaseQuizState,
-  BaseQuizContextType,
-  QuizResult,
-} from '~/types/quiz.type'
-import { useQuizTimer, useQuizProgress } from '~/hooks/useQuizTimer'
-import { generateQuizResult } from '~/utils/quiz.util'
 import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
+import { useGetSilhouetteQuizQuery } from '~/graphql/gqlGenerated'
+import { useQuizTimer } from '~/hook/useQuizTimer'
+import { quizProgress } from '~/module/quiz.module'
+import {
+  BaseQuizContextType,
+  BaseQuizState,
+  QuizResult,
+  QuizViewStage,
+  SilhouetteQuizQuestion,
+} from '~/types/quiz.type'
+import { generateQuizResult } from '~/utils/quiz.util'
 
 interface SilhouetteQuizContextType extends BaseQuizContextType {
   questions: SilhouetteQuizQuestion[]
-  loadQuestions: () => void
+  quizViewStage: QuizViewStage
 }
 
 interface SilhouetteQuizProviderProps {
@@ -28,6 +30,7 @@ const SilhouetteQuizContext = createContext<SilhouetteQuizContextType | null>(
 export const SilhouetteQuizProvider = ({
   children,
 }: SilhouetteQuizProviderProps) => {
+  const [quizViewStage, setQuizViewStage] = useState<QuizViewStage>('BEFORE')
   const [state, setState] = useState<BaseQuizState>({
     currentQuestionIndex: 0,
     userAnswers: [],
@@ -37,35 +40,15 @@ export const SilhouetteQuizProvider = ({
     isCompleted: false,
   })
 
-  const [fetchQuestions, { data, loading }] = useGetSilhouetteQuizLazyQuery()
+  const { data, loading } = useGetSilhouetteQuizQuery()
 
   const questions: SilhouetteQuizQuestion[] = data?.getSilhouetteQuiz || []
   const currentQuestion = questions[state.currentQuestionIndex] || null
   const timeElapsed = useQuizTimer(state.startTime)
-  const progress = useQuizProgress(
+  const progress = quizProgress(
     state.currentQuestionIndex,
     QUIZ_CONSTANTS.TOTAL_QUESTIONS,
   )
-
-  const loadQuestions = async () => {
-    setState((prev) => ({ ...prev, isLoading: true }))
-
-    try {
-      await fetchQuestions()
-      setState((prev) => ({
-        ...prev,
-        isLoading: false,
-        startTime: new Date(),
-        currentQuestionIndex: 0,
-        userAnswers: [],
-        isCompleted: false,
-        endTime: null,
-      }))
-    } catch (error) {
-      console.error('Failed to load silhouette quiz questions:', error)
-      setState((prev) => ({ ...prev, isLoading: false }))
-    }
-  }
 
   const submitAnswer = (answerIndex: number) => {
     if (state.isCompleted || !currentQuestion) return
@@ -132,7 +115,7 @@ export const SilhouetteQuizProvider = ({
     score,
     totalTimeSpent,
     result,
-    loadQuestions,
+    quizViewStage,
   }
 
   return (
@@ -142,7 +125,7 @@ export const SilhouetteQuizProvider = ({
   )
 }
 
-export const useSilhouetteQuiz = () => {
+export const useSilhouetteQuizContext = () => {
   const context = useContext(SilhouetteQuizContext)
   if (!context) {
     throw new Error(

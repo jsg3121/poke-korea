@@ -1,6 +1,5 @@
 import { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
-import { headers } from 'next/headers'
 import Script from 'next/script'
 import { ReactNode } from 'react'
 import '~/styles/globals.css'
@@ -50,9 +49,6 @@ const gmarket = localFont({
 })
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-
   const isProduction = process.env.NODE_ENV === 'production'
 
   return (
@@ -95,7 +91,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         )}
       </head>
       <body>
-        <Providers userAgent={userAgent}>{children}</Providers>
+        <Providers>{children}</Providers>
         {isProduction && (
           <>
             {/* Google Analytics */}
@@ -117,10 +113,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               }}
             />
             {/* Naver Analytics */}
-            <Script
-              id="naver-analytics"
-              src="//wcs.naver.net/wcslog.js"
-            />
+            <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
             <Script
               id="naver-analytics-init"
               strategy="lazyOnload"

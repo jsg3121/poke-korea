@@ -76,3 +76,14 @@ export interface BaseQuizContextType {
   totalTimeSpent: number
   result: QuizResult | null
 }
+
+/**
+ * @description 퀴즈 스테이지
+ *
+ * 'BEFORE' : 퀴즈 시작 전
+ *
+ * 'QUIZ' : 퀴즈 시작
+ *
+ * 'RESULT' : 퀴즈 결과
+ */
+export type QuizViewStage = 'BEFORE' | 'QUIZ' | 'RESULT'

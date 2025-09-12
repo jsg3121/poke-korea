@@ -3,7 +3,7 @@ import { headers } from 'next/headers'
 import { Fragment } from 'react'
 import { detectUserAgent } from '~/module/device.module'
 import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
-import SilhouetteQuizDesktop from '~/views/desktop/quiz/SilhouetteQuiz.desktop'
+import SilhouetteQuizDesktop from '~/views/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
 import SilhouetteQuizMobile from '~/views/mobile/quiz/SilhouetteQuiz.mobile'
 
 export const revalidate = 31536000
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 }
 
 const SilhouetteQuizPage = async () => {
-  const headersList = await headers()
+  const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 

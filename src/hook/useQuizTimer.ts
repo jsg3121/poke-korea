@@ -22,7 +22,3 @@ export const useQuizTimer = (startTime: Date | null) => {
 
   return timeElapsed
 }
-
-export const useQuizProgress = (currentIndex: number, totalQuestions: number) => {
-  return totalQuestions > 0 ? Math.round(((currentIndex + 1) / totalQuestions) * 100) : 0
-}
