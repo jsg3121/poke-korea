@@ -17,6 +17,7 @@ import { generateQuizResult } from '~/utils/quiz.util'
 interface SilhouetteQuizContextType extends BaseQuizContextType {
   questions: SilhouetteQuizQuestion[]
   quizViewStage: QuizViewStage
+  onChangeStage: (stage: QuizViewStage) => void
 }
 
 interface SilhouetteQuizProviderProps {
@@ -68,15 +69,8 @@ export const SilhouetteQuizProvider = ({
     }))
   }
 
-  const resetQuiz = () => {
-    setState({
-      currentQuestionIndex: 0,
-      userAnswers: [],
-      startTime: null,
-      endTime: null,
-      isLoading: false,
-      isCompleted: false,
-    })
+  const onChangeStage = (stage: QuizViewStage) => {
+    setQuizViewStage(() => stage)
   }
 
   const score =
@@ -110,12 +104,12 @@ export const SilhouetteQuizProvider = ({
     isLoading: state.isLoading || loading,
     isCompleted: state.isCompleted,
     currentQuestion,
-    submitAnswer,
-    resetQuiz,
     score,
     totalTimeSpent,
     result,
     quizViewStage,
+    submitAnswer,
+    onChangeStage,
   }
 
   return (

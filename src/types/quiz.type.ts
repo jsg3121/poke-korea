@@ -71,7 +71,6 @@ export interface BaseQuizContextType {
   isCompleted: boolean
   currentQuestion: BaseQuizQuestion | null
   submitAnswer: (answerIndex: number) => void
-  resetQuiz: () => void
   score: number
   totalTimeSpent: number
   result: QuizResult | null

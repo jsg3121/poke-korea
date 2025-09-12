@@ -5,6 +5,8 @@ import { detectUserAgent } from '~/module/device.module'
 import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
 import SilhouetteQuizDesktop from '~/views/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
 import SilhouetteQuizMobile from '~/views/mobile/quiz/SilhouetteQuiz.mobile'
+import HeaderContainer from '~/container/desktop/header/Header.container'
+import FooterContainer from '~/container/desktop/footer/Footer.container'
 
 export const revalidate = 31536000
 
@@ -46,9 +48,19 @@ const SilhouetteQuizPage = async () => {
 
   return (
     <Fragment>
-      <SilhouetteQuizProvider>
-        {isMobile ? <SilhouetteQuizMobile /> : <SilhouetteQuizDesktop />}
-      </SilhouetteQuizProvider>
+      <main>
+        <SilhouetteQuizProvider>
+          {isMobile ? (
+            <SilhouetteQuizMobile />
+          ) : (
+            <Fragment>
+              <HeaderContainer />
+              <SilhouetteQuizDesktop />
+              <FooterContainer />
+            </Fragment>
+          )}
+        </SilhouetteQuizProvider>
+      </main>
     </Fragment>
   )
 }

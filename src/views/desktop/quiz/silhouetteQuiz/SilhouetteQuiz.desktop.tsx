@@ -3,19 +3,13 @@
 import { Fragment } from 'react'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import SilhouetteQuizBeforeStage from './silhouetteQuiz.before/SilhouetteQuizBeforeStage'
-import HeaderContainer from '~/container/desktop/header/Header.container'
-import FooterContainer from '~/container/desktop/footer/Footer.container'
 
 const SilhouetteQuizDesktop = () => {
   const { quizViewStage } = useSilhouetteQuizContext()
 
   return (
     <Fragment>
-      <main>
-        <HeaderContainer />
-        {quizViewStage === 'BEFORE' && <SilhouetteQuizBeforeStage />}
-        <FooterContainer />
-      </main>
+      {quizViewStage === 'BEFORE' && <SilhouetteQuizBeforeStage />}
     </Fragment>
   )
 
