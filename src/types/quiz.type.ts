@@ -63,13 +63,13 @@ export interface QuizResult {
   questions: BaseQuizQuestion[]
 }
 
-export interface BaseQuizContextType {
+export interface BaseQuizContextType<T extends BaseQuizQuestion> {
   currentQuestionIndex: number
   progress: number
   timeElapsed: number
   isLoading: boolean
   isCompleted: boolean
-  currentQuestion: BaseQuizQuestion | null
+  currentQuestion: T | null
   submitAnswer: (answerIndex: number) => void
   score: number
   totalTimeSpent: number

@@ -10,10 +10,12 @@ const SilhouetteQuizDesktop = () => {
 
   return (
     <Fragment>
-      <section className="h-full min-h-screen w-full max-w-[1280px] mx-auto">
-        {quizViewStage === 'BEFORE' && <SilhouetteQuizBeforeStage />}
-        {quizViewStage === 'QUIZ' && <SilhouetteQuiz />}
-      </section>
+      {quizViewStage === 'BEFORE' && (
+        <section className="h-full w-full max-w-[1280px] mx-auto">
+          <SilhouetteQuizBeforeStage />
+        </section>
+      )}
+      {quizViewStage === 'QUIZ' && <SilhouetteQuiz />}
     </Fragment>
   )
 

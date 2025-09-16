@@ -14,13 +14,12 @@ import {
 } from '~/types/quiz.type'
 import { generateQuizResult } from '~/utils/quiz.util'
 
-interface SilhouetteQuizContextType extends BaseQuizContextType {
+interface SilhouetteQuizContextType
+  extends BaseQuizContextType<SilhouetteQuizQuestion> {
   questions: SilhouetteQuizQuestion[]
   quizViewStage: QuizViewStage
   onChangeStage: (stage: QuizViewStage) => void
-  showCountdown: boolean
-  startCountdown: () => void
-  cancelCountdown: () => void
+  onStartCountdown: () => void
 }
 
 interface SilhouetteQuizProviderProps {
@@ -35,8 +34,7 @@ export const SilhouetteQuizProvider = ({
   children,
 }: SilhouetteQuizProviderProps) => {
   const [quizViewStage, setQuizViewStage] = useState<QuizViewStage>('BEFORE')
-  const [showCountdown, setShowCountdown] = useState(false)
-  const [state, setState] = useState<BaseQuizState>({
+  const [quizState, setQuizState] = useState<BaseQuizState>({
     currentQuestionIndex: 0,
     userAnswers: [],
     startTime: null,
@@ -48,21 +46,34 @@ export const SilhouetteQuizProvider = ({
   const { data, loading } = useGetSilhouetteQuizQuery()
 
   const questions: SilhouetteQuizQuestion[] = data?.getSilhouetteQuiz || []
-  const currentQuestion = questions[state.currentQuestionIndex] || null
-  const timeElapsed = useQuizTimer(state.startTime)
+  const currentQuestion = questions[quizState.currentQuestionIndex] || null
+  const timeElapsed = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
-    state.currentQuestionIndex,
+    quizState.currentQuestionIndex,
     QUIZ_CONSTANTS.TOTAL_QUESTIONS,
   )
 
+  const onChangeStage = (stage: QuizViewStage) => {
+    setQuizViewStage(() => stage)
+  }
+
+  const onStartCountdown = () => {
+    setQuizState((prev) => {
+      return {
+        ...prev,
+        startTime: new Date(),
+      }
+    })
+  }
+
   const submitAnswer = (answerIndex: number) => {
-    if (state.isCompleted || !currentQuestion) return
+    if (quizState.isCompleted || !currentQuestion) return
 
-    const newAnswers = [...state.userAnswers, answerIndex]
+    const newAnswers = [...quizState.userAnswers, answerIndex]
     const isLastQuestion =
-      state.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
+      quizState.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
 
-    setState((prev) => ({
+    setQuizState((prev) => ({
       ...prev,
       userAnswers: newAnswers,
       currentQuestionIndex: isLastQuestion
@@ -71,36 +82,15 @@ export const SilhouetteQuizProvider = ({
       isCompleted: isLastQuestion,
       endTime: isLastQuestion ? new Date() : null,
     }))
-  }
 
-  const onChangeStage = (stage: QuizViewStage) => {
-    setQuizViewStage(() => stage)
-  }
-
-  const startCountdown = () => {
-    setShowCountdown(true)
-  }
-
-  const cancelCountdown = () => {
-    setShowCountdown(false)
-  }
-
-  const handleCountdownComplete = () => {
-    setShowCountdown(false)
-    setQuizViewStage('QUIZ')
-    setState(prev => ({ 
-      ...prev, 
-      startTime: new Date(),
-      currentQuestionIndex: 0,
-      userAnswers: [],
-      isCompleted: false,
-      endTime: null,
-    }))
+    if (isLastQuestion) {
+      setQuizViewStage('RESULT')
+    }
   }
 
   const score =
     questions.length > 0
-      ? state.userAnswers.reduce((count, answer, index) => {
+      ? quizState.userAnswers.reduce((count, answer, index) => {
           return answer === questions[index]?.correctAnswerIndex
             ? count + 1
             : count
@@ -108,26 +98,28 @@ export const SilhouetteQuizProvider = ({
       : 0
 
   const totalTimeSpent =
-    state.startTime && state.endTime
-      ? Math.floor((state.endTime.getTime() - state.startTime.getTime()) / 1000)
+    quizState.startTime && quizState.endTime
+      ? Math.floor(
+          (quizState.endTime.getTime() - quizState.startTime.getTime()) / 1000,
+        )
       : 0
 
-  const result: QuizResult | null = state.isCompleted
+  const result: QuizResult | null = quizState.isCompleted
     ? generateQuizResult(
-        state.userAnswers,
+        quizState.userAnswers,
         questions,
-        state.startTime,
-        state.endTime,
+        quizState.startTime,
+        quizState.endTime,
       )
     : null
 
   const contextValue: SilhouetteQuizContextType = {
     questions,
-    currentQuestionIndex: state.currentQuestionIndex,
+    currentQuestionIndex: quizState.currentQuestionIndex,
     progress,
     timeElapsed,
-    isLoading: state.isLoading || loading,
-    isCompleted: state.isCompleted,
+    isLoading: quizState.isLoading || loading,
+    isCompleted: quizState.isCompleted,
     currentQuestion,
     score,
     totalTimeSpent,
@@ -135,6 +127,7 @@ export const SilhouetteQuizProvider = ({
     quizViewStage,
     submitAnswer,
     onChangeStage,
+    onStartCountdown,
   }
 
   return (
