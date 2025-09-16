@@ -43,7 +43,9 @@ export const SilhouetteQuizProvider = ({
     isCompleted: false,
   })
 
-  const { data, loading } = useGetSilhouetteQuizQuery()
+  const { data, loading } = useGetSilhouetteQuizQuery({
+    fetchPolicy: 'network-only',
+  })
 
   const questions: SilhouetteQuizQuestion[] = data?.getSilhouetteQuiz || []
   const currentQuestion = questions[quizState.currentQuestionIndex] || null

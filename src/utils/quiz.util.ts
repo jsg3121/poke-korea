@@ -39,10 +39,10 @@ export const formatTime = (seconds: number): string => {
   const remainingSeconds = seconds % 60
 
   if (minutes === 0) {
-    return `${remainingSeconds}초`
+    return `${remainingSeconds} 초`
   }
 
-  return `${minutes}분 ${remainingSeconds}초`
+  return `${minutes} 분 ${remainingSeconds} 초`
 }
 
 export const formatTimeShort = (seconds: number): string => {
