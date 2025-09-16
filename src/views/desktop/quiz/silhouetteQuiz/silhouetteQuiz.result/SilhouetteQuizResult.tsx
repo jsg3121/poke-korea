@@ -1,10 +1,13 @@
 import Link from 'next/link'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
+import { getQuizResultCopy } from '~/module/quiz.module'
 import { formatTime } from '~/utils/quiz.util'
 
 const SilhouetteQuizResult = () => {
   const { result } = useSilhouetteQuizContext()
+
+  const { headline } = getQuizResultCopy(result?.score ?? 0)
 
   if (!result) {
     return null
@@ -15,6 +18,9 @@ const SilhouetteQuizResult = () => {
       <h1 className="w-full h-[4rem] text-[2.5rem] leading-[4rem] font-bold text-center text-primary-4 my-[2rem]">
         실루엣 퀴즈 완료!
       </h1>
+      <div>
+        <h2>{headline}</h2>
+      </div>
       <dl className="w-full h-[6.5rem] bg-primary-4 rounded-[2rem] p-[2rem] flex items-center justify-around mb-[2rem]">
         <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           맞은 문제
