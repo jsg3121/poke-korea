@@ -11,10 +11,13 @@ const SilhouetteQuiz = () => {
 
   return (
     <section className="w-full h-full min-h-[calc(100vh-12rem)] bg-primary-4 rounded-[20px] mt-[2rem] relative">
-      <QuizCountDownModalComponents
-        isOpen={isShowCounter}
-        onComplete={handleHideCounter}
-      />
+      {isShowCounter && (
+        <QuizCountDownModalComponents
+          quizTitle="실루엣 퀴즈!"
+          onComplete={handleHideCounter}
+        />
+      )}
+
       <SilhouetteQuizContainer />
     </section>
   )
