@@ -18,6 +18,9 @@ interface SilhouetteQuizContextType extends BaseQuizContextType {
   questions: SilhouetteQuizQuestion[]
   quizViewStage: QuizViewStage
   onChangeStage: (stage: QuizViewStage) => void
+  showCountdown: boolean
+  startCountdown: () => void
+  cancelCountdown: () => void
 }
 
 interface SilhouetteQuizProviderProps {
@@ -32,6 +35,7 @@ export const SilhouetteQuizProvider = ({
   children,
 }: SilhouetteQuizProviderProps) => {
   const [quizViewStage, setQuizViewStage] = useState<QuizViewStage>('BEFORE')
+  const [showCountdown, setShowCountdown] = useState(false)
   const [state, setState] = useState<BaseQuizState>({
     currentQuestionIndex: 0,
     userAnswers: [],
@@ -71,6 +75,27 @@ export const SilhouetteQuizProvider = ({
 
   const onChangeStage = (stage: QuizViewStage) => {
     setQuizViewStage(() => stage)
+  }
+
+  const startCountdown = () => {
+    setShowCountdown(true)
+  }
+
+  const cancelCountdown = () => {
+    setShowCountdown(false)
+  }
+
+  const handleCountdownComplete = () => {
+    setShowCountdown(false)
+    setQuizViewStage('QUIZ')
+    setState(prev => ({ 
+      ...prev, 
+      startTime: new Date(),
+      currentQuestionIndex: 0,
+      userAnswers: [],
+      isCompleted: false,
+      endTime: null,
+    }))
   }
 
   const score =

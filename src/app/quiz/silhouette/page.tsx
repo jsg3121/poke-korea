@@ -48,7 +48,7 @@ const SilhouetteQuizPage = async () => {
 
   return (
     <Fragment>
-      <main>
+      <main className="pt-30">
         <SilhouetteQuizProvider>
           {isMobile ? (
             <SilhouetteQuizMobile />

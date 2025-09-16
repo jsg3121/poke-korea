@@ -1,5 +1,6 @@
 'use client'
 
+import { Fragment } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
@@ -12,7 +13,7 @@ const SilhouetteQuizBeforeStage = () => {
   }
 
   return (
-    <section className="h-full min-h-screen w-full max-w-[1280px] pt-30 mx-auto">
+    <Fragment>
       <header className="w-full h-[8rem] pb-[1rem] pt-[1rem] border-b border-solid border-primary-4 mb-[2rem]">
         <h1 className="w-full h-[4rem] text-[2.5rem] leading-[4rem] font-bold text-center text-primary-4">
           {QUIZ_CONFIG[0].title}
@@ -21,14 +22,14 @@ const SilhouetteQuizBeforeStage = () => {
           {QUIZ_CONFIG[0].description}
         </p>
       </header>
-      <article className="w-full h-[40rem] border-solid p-[5rem] rounded-[20px] bg-primary-4 flex items-center gap-x-[4rem]">
+      <article className="w-full min-h-[40rem] border-solid p-[5rem] rounded-[20px] bg-primary-4 flex items-center gap-x-[4rem]">
         <ImageComponent
           aria-hidden
           height="29rem"
           width="29rem"
           src="/assets/image/mask.webp"
         />
-        <div className="w-[35rem] h-full flex flex-col justify-between">
+        <div className="w-[35rem] min-h-[26rem] h-full flex flex-col justify-between">
           <ul className="w-full h-[calc(100%-10rem)] [&>li]:h-[3rem] [&>li]:text-[1.25rem] [&>li]:leading-[3rem] [&>li]:text-primary-1">
             <li>1. 검은 실루엣으로 가려진 포켓몬을 맞춰보세요!</li>
             <li>2. 힌트를 통해 가려진 그림자를 약하게 만들 수 있어요.</li>
@@ -43,7 +44,7 @@ const SilhouetteQuizBeforeStage = () => {
           </button>
         </div>
       </article>
-    </section>
+    </Fragment>
   )
 }
 

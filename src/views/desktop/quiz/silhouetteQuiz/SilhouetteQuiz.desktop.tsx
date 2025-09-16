@@ -3,13 +3,17 @@
 import { Fragment } from 'react'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import SilhouetteQuizBeforeStage from './silhouetteQuiz.before/SilhouetteQuizBeforeStage'
+import SilhouetteQuiz from './silhouetteQuiz.quiz/SilhouetteQuiz'
 
 const SilhouetteQuizDesktop = () => {
   const { quizViewStage } = useSilhouetteQuizContext()
 
   return (
     <Fragment>
-      {quizViewStage === 'BEFORE' && <SilhouetteQuizBeforeStage />}
+      <section className="h-full min-h-screen w-full max-w-[1280px] mx-auto">
+        {quizViewStage === 'BEFORE' && <SilhouetteQuizBeforeStage />}
+        {quizViewStage === 'QUIZ' && <SilhouetteQuiz />}
+      </section>
     </Fragment>
   )
 
