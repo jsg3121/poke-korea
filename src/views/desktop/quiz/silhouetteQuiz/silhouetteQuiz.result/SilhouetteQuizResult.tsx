@@ -16,28 +16,28 @@ const SilhouetteQuizResult = () => {
         실루엣 퀴즈 완료!
       </h1>
       <dl className="w-full h-[6.5rem] bg-primary-4 rounded-[2rem] p-[2rem] flex items-center justify-around mb-[2rem]">
-        <dt className="text-[1rem] h-[2.5rem] leading-[calc(2.5rem+2px)] text-gray-600">
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           맞은 문제
         </dt>
-        <dd className="text-[2rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
           {result.correctAnswers} 개
         </dd>
-        <dt className="text-[1rem] h-[2.5rem] leading-[calc(2.5rem+2px)] text-gray-600">
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           정답률
         </dt>
-        <dd className="text-[2rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
           {result.percentage} %
         </dd>
-        <dt className="text-[1rem] h-[2.5rem] leading-[calc(2.5rem+2px)] text-gray-600">
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           총 시간
         </dt>
-        <dd className="text-[2rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
           {formatTime(result.totalTime)}
         </dd>
-        <dt className="text-[1rem] h-[2.5rem] leading-[calc(2.5rem+2px)] text-gray-600">
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           평균 시간
         </dt>
-        <dd className="text-[2rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
           {formatTime(result.averageTime)}
         </dd>
       </dl>
