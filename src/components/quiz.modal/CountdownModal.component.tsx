@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useCountdown } from '../../container/desktop/quiz/hooks/useCountdown'
+import { useCountdown } from '../../hook/useCountdown'
 
 interface CountdownModalComponentsProps {
   onComplete: () => void
