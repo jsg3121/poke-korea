@@ -1,82 +1,108 @@
 'use client'
 
 import Link from 'next/link'
+import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
+import { getQuizResultCopy } from '~/module/quiz.module'
 import { formatTime } from '~/utils/quiz.util'
 
 const AbilityQuizResult = () => {
-  const { result, onClickRetryQuiz } = useAbilityQuizContext()
+  const { result, questions, onClickRetryQuiz } = useAbilityQuizContext()
+
+  const { headline, medal, subcopy } = getQuizResultCopy(result?.score || 0)
+
+  const handleClickRetryQuiz = () => {
+    onClickRetryQuiz()
+  }
 
   if (!result) return null
 
-  const getScoreMessage = (percentage: number) => {
-    if (percentage >= 90) return '🏆 특성 마스터! 완벽한 실력이네요!'
-    if (percentage >= 70) return '⭐ 훌륭해요! 특성에 대해 잘 알고 있군요!'
-    if (percentage >= 50) return '👍 괜찮은 실력이에요! 조금 더 공부해보세요!'
-    return '📚 더 많은 특성을 학습해보세요!'
-  }
-
   return (
-    <div className="w-full max-w-[1280px] mx-auto bg-white rounded-[2rem] mt-[2rem] p-[3rem]">
-      <div className="text-center mb-[3rem]">
-        <h1 className="text-[2.5rem] font-bold text-primary-4 mb-[1rem]">
-          특성 퀴즈 완료!
+    <section className="w-full max-w-[1280px] mx-auto rounded-[2rem] mt-[2rem] p-[3rem]">
+      <header className="w-full h-[22rem]">
+        <span className="w-fit h-[14rem] text-[10rem] block mx-auto">
+          {medal}
+        </span>
+        <h1 className="w-full text-[2rem] font-bold text-center leading-[calc(2rem+2px)] text-primary-4">
+          {headline}
         </h1>
-        <p className="text-[1.125rem] text-gray-600">
-          {getScoreMessage(result.percentage)}
+        <p className="w-full h-[1.25rem] text-[1.25rem] text-center text-primary-3 leading-[calc(1.25rem+2px)] mt-[1.5rem]">
+          {subcopy}
         </p>
-      </div>
+      </header>
+      <dl className="w-full h-[6.5rem] bg-primary-4 rounded-[2rem] p-[2rem] flex items-center justify-around mb-[2rem]">
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+          맞은 문제
+        </dt>
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+          {result.correctAnswers} 개
+        </dd>
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+          정답률
+        </dt>
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+          {result.percentage} %
+        </dd>
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+          소요 시간
+        </dt>
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+          {formatTime(result.totalTime)}
+        </dd>
+        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+          평균 시간
+        </dt>
+        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+          {formatTime(result.averageTime)}
+        </dd>
+      </dl>
+      <article className="w-full h-[21rem] bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
+        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
+          문제 정답
+        </h2>
+        <ul className="w-full h-[15rem] flex flex-wrap items-center overflow-y-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+          <li className="w-[calc(100%-10px)] h-[2rem] text-[1rem] leading-[calc(2rem+2px)] text-primary-4 flex items-center sticky top-0 bg-primary-2">
+            <p className="w-full text-center">설명</p>
+            <p className="w-[10rem] shrink-0 text-center">정답</p>
+            <p className="w-[10rem] shrink-0 text-center">나의 답</p>
+          </li>
+          {questions.map((quiz, index) => {
+            const userAnswer =
+              quiz.options[result.userAnswers[index]].koreanName
+            const realAnswer = quiz.options[quiz.correctAnswerIndex].koreanName
 
-      <div className="grid grid-cols-2 gap-[2rem] mb-[3rem]">
-        <div className="bg-primary-4 rounded-[1.5rem] p-[2rem] text-center text-white">
-          <div className="text-[3rem] font-bold mb-[0.5rem]">
-            {result.correctAnswers}
-          </div>
-          <div className="text-[1.125rem]">맞춘 문제</div>
-          <div className="text-[0.875rem] opacity-80">
-            / {result.correctAnswers + result.wrongAnswers}문제
-          </div>
-        </div>
-
-        <div className="bg-purple-500 rounded-[1.5rem] p-[2rem] text-center text-white">
-          <div className="text-[3rem] font-bold mb-[0.5rem]">
-            {Math.round(result.percentage)}%
-          </div>
-          <div className="text-[1.125rem]">정답률</div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-[2rem] mb-[3rem]">
-        <div className="bg-gray-100 rounded-[1.5rem] p-[2rem] text-center">
-          <div className="text-[2rem] font-bold text-gray-700 mb-[0.5rem]">
-            {formatTime(result.totalTime)}
-          </div>
-          <div className="text-[1rem] text-gray-600">총 소요 시간</div>
-        </div>
-
-        <div className="bg-gray-100 rounded-[1.5rem] p-[2rem] text-center">
-          <div className="text-[2rem] font-bold text-gray-700 mb-[0.5rem]">
-            {formatTime(result.averageTime)}
-          </div>
-          <div className="text-[1rem] text-gray-600">문제당 평균 시간</div>
-        </div>
-      </div>
-
+            return (
+              <li
+                key={quiz.id}
+                className="w-[calc(100%-10px)] min-h-[3rem] flex items-center border-b border-solid border-primary-1"
+              >
+                <p className="w-full text-left">{quiz.abilityDescription}</p>
+                <p className="w-[10rem] shrink-0 text-center">{realAnswer}</p>
+                <p
+                  className={`w-[10rem] shrink-0 text-center ${realAnswer === userAnswer ? 'font-bold' : ' text-primary-3'}`}
+                >
+                  {userAnswer}
+                </p>
+              </li>
+            )
+          })}
+        </ul>
+      </article>
       <div className="flex gap-[1rem] justify-center">
         <button
-          onClick={onClickRetryQuiz}
-          className="px-[2rem] py-[1rem] bg-primary-2 text-white rounded-[1rem] hover:bg-primary-1 transition-colors"
+          className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-2 text-white font-medium rounded-lg hover:bg-primary-4 hover:text-primary-1 transition-colors"
+          onClick={handleClickRetryQuiz}
         >
           다시 도전하기
         </button>
         <Link
-          href="/quiz"
-          className="px-[2rem] py-[1rem] bg-gray-500 text-white rounded-[1rem] hover:bg-gray-600 transition-colors"
+          href={QUIZ_ROUTES.MAIN}
+          className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-3 text-black-2 font-medium rounded-lg hover:bg-primary-4 transition-colors"
         >
-          퀴즈 목록으로
+          다른 퀴즈 하러가기
         </Link>
       </div>
-    </div>
+    </section>
   )
 }
 

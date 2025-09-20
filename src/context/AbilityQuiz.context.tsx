@@ -135,10 +135,10 @@ export const AbilityQuizProvider = ({ children }: AbilityQuizProviderProps) => {
         correctAnswers: score,
         wrongAnswers: questions.length - score,
         userAnswers: quizState.userAnswers,
-        questions: questions.map(q => ({
+        questions: questions.map((q) => ({
           id: q.id,
           question: q.question,
-          options: q.options.map(opt => opt.koreanName),
+          options: q.options.map((opt) => opt.koreanName),
           correctAnswerIndex: q.correctAnswerIndex,
         })),
       }
@@ -172,9 +172,7 @@ export const AbilityQuizProvider = ({ children }: AbilityQuizProviderProps) => {
 export const useAbilityQuizContext = () => {
   const context = useContext(AbilityQuizContext)
   if (!context) {
-    throw new Error(
-      'useAbilityQuiz must be used within a AbilityQuizProvider',
-    )
+    throw new Error('useAbilityQuiz must be used within a AbilityQuizProvider')
   }
   return context
 }
