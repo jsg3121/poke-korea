@@ -1,9 +1,8 @@
 'use client'
 
-import ImageComponent from '~/components/Image.component'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
-import { imageMode } from '~/module/buildMode'
 import { formatTimeShort } from '~/utils/quiz.util'
+import SilhouetteQuizImage from './silhouetteQuiz.image/SilhouetteQuizImage'
 
 const SilhouetteQuizContainer = () => {
   const {
@@ -15,7 +14,11 @@ const SilhouetteQuizContainer = () => {
   } = useSilhouetteQuizContext()
 
   const handleClickSelectAnswer = (index: number) => () => {
-    return submitAnswer(index)
+    submitAnswer(index)
+  }
+
+  const handleClickSkipAnswer = () => {
+    submitAnswer(99)
   }
 
   return (
@@ -42,15 +45,11 @@ const SilhouetteQuizContainer = () => {
           ></div>
         </div>
       </header>
-      <div className="mx-auto">
-        <ImageComponent
-          height="18rem"
-          width="18rem"
-          src={`${imageMode}/${currentQuestion?.correctPokemonId}.webp`}
-          alt="실루엣 포켓몬"
-          className="brightness-0 saturate-100"
-        />
-      </div>
+      <SilhouetteQuizImage
+        key={currentQuestion?.correctPokemonId}
+        pokemonId={currentQuestion?.correctPokemonId || 0}
+        onClickSkipAnswer={handleClickSkipAnswer}
+      />
       <article className="w-1/2 bg-white rounded-[2rem] shadow-md p-[2rem] mb-[2rem] mx-auto">
         <h2 className="text-xl font-medium text-gray-800 mb-6 text-center">
           {currentQuestion?.question}

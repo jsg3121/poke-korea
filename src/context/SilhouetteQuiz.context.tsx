@@ -20,6 +20,7 @@ interface SilhouetteQuizContextType
   quizViewStage: QuizViewStage
   onChangeStage: (stage: QuizViewStage) => void
   onStartCountdown: () => void
+  onClickRetryQuiz: () => void
 }
 
 interface SilhouetteQuizProviderProps {
@@ -43,7 +44,7 @@ export const SilhouetteQuizProvider = ({
     isCompleted: false,
   })
 
-  const { data, loading } = useGetSilhouetteQuizQuery({
+  const { data, loading, refetch } = useGetSilhouetteQuizQuery({
     fetchPolicy: 'network-only',
   })
 
@@ -66,6 +67,22 @@ export const SilhouetteQuizProvider = ({
         startTime: new Date(),
       }
     })
+  }
+
+  const onClickRetryQuiz = async () => {
+    await refetch()
+    setQuizViewStage('QUIZ')
+    setQuizState(() => {
+      return {
+        currentQuestionIndex: 0,
+        userAnswers: [],
+        startTime: null,
+        endTime: null,
+        isLoading: false,
+        isCompleted: false,
+      }
+    })
+    window.scrollTo(0, 0)
   }
 
   const submitAnswer = (answerIndex: number) => {
@@ -130,6 +147,7 @@ export const SilhouetteQuizProvider = ({
     submitAnswer,
     onChangeStage,
     onStartCountdown,
+    onClickRetryQuiz,
   }
 
   return (

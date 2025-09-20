@@ -7,9 +7,13 @@ import { getQuizResultCopy } from '~/module/quiz.module'
 import { formatTime } from '~/utils/quiz.util'
 
 const SilhouetteQuizResult = () => {
-  const { result, questions } = useSilhouetteQuizContext()
+  const { result, questions, onClickRetryQuiz } = useSilhouetteQuizContext()
 
   const { headline, subcopy, medal } = getQuizResultCopy(result?.score ?? 0)
+
+  const handleClickRetryQuiz = () => {
+    onClickRetryQuiz()
+  }
 
   if (!result) {
     return null
@@ -81,7 +85,10 @@ const SilhouetteQuizResult = () => {
         </ul>
       </div>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <button className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors">
+        <button
+          className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"
+          onClick={handleClickRetryQuiz}
+        >
           다시 도전하기
         </button>
         <Link
