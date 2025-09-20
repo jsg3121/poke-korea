@@ -56,11 +56,11 @@ const AbilityQuizResult = () => {
           {formatTime(result.averageTime)}
         </dd>
       </dl>
-      <article className="w-full h-[21rem] bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
+      <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
         <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
           문제 정답
         </h2>
-        <ul className="w-full h-[15rem] flex flex-wrap items-center overflow-y-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+        <ul className="w-full flex flex-wrap items-center relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
           <li className="w-[calc(100%-10px)] h-[2rem] text-[1rem] leading-[calc(2rem+2px)] text-primary-4 flex items-center sticky top-0 bg-primary-2">
             <p className="w-full text-center">설명</p>
             <p className="w-[10rem] shrink-0 text-center">정답</p>
