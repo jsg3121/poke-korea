@@ -45,9 +45,6 @@ const AbilityQuizContainer = () => {
         </div>
       </header>
       <article className="w-full rounded-[2rem] shadow-md py-[2rem] px-[2rem] mx-auto flex-1 flex flex-col justify-center">
-        <h2 className="text-[1.25rem] font-medium text-primary-1 mb-[1.5rem] text-center">
-          {currentQuestion?.question}
-        </h2>
         <div className="mb-[2rem] p-[1.5rem] bg-primary-1 rounded-[1rem]">
           <h3 className="text-[1rem] text-primary-3 mb-[0.5rem]">설명</h3>
           <p className="text-[1.125rem] leading-[1.6] text-primary-4">
