@@ -63,7 +63,7 @@ const SilhouetteQuizContainer = () => {
               className="h-[4rem] px-[1rem] text-[1rem] text-left leading-[calc(4rem+2px)] rounded-[20rem] flex items-center hover:bg-primary-3 transition-all duration-200 font-medium"
             >
               <span className="h-[2rem] w-[2rem] bg-gray-100 rounded-full text-center text-[0.875rem] leading-[calc(2rem+2px)] mr-[0.75rem]">
-                {String.fromCharCode(65 + index)}
+                {index + 1}
               </span>
               {option}
             </button>

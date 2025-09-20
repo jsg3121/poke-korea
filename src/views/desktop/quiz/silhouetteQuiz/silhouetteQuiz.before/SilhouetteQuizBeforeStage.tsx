@@ -35,6 +35,7 @@ const SilhouetteQuizBeforeStage = () => {
             <li>2. 힌트를 통해 가려진 그림자를 약하게 만들 수 있어요.</li>
             <li>3. 너무 어렵다면 다음 문제로 넘어갈 수 있어요.</li>
             <li>4. 20문제를 완료한 후 결과를 확인하세요.</li>
+            <li>5. 문제 결과를 캡쳐하여 다른사람들에게 공유할 수 있어요.</li>
           </ul>
           <button
             className="h-[5rem] w-full bg-primary-2 rounded-[20px] text-[1.25rem] text-primary-4 hover:bg-primary-1 hover:scale-[1.025] transition-[transform] duration-[0.15s]"
