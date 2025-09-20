@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
-import SilhouetteQuizContainer from '~/container/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.container'
+import SilhouetteQuizContainer from '~/container/mobile/quiz/silhouetteQuiz/SilhouetteQuiz.container'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 
