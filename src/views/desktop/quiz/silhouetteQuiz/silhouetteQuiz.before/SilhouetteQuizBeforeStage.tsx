@@ -22,7 +22,7 @@ const SilhouetteQuizBeforeStage = () => {
           {QUIZ_CONFIG[0].description}
         </p>
       </header>
-      <article className="w-full min-h-[40rem] border-solid p-[5rem] rounded-[20px] bg-primary-4 flex items-center gap-x-[4rem]">
+      <article className="w-full h-[40rem] border-solid p-[5rem] rounded-[20px] bg-primary-4 flex items-center gap-x-[4rem]">
         <ImageComponent
           aria-hidden
           height="29rem"
