@@ -21,12 +21,7 @@ const AbilityQuizBeforeStage = () => {
           {QUIZ_CONFIG[1].description}
         </p>
       </header>
-
-      <article className="w-full min-h-[60vh] p-[1.5rem] rounded-[20px] bg-primary-4 flex flex-col items-center justify-center gap-[2rem]">
-        <div className="w-[8rem] h-[8rem] flex items-center justify-center bg-primary-3 rounded-[20px]">
-          <span className="text-[4rem]">{QUIZ_CONFIG[1].icon}</span>
-        </div>
-
+      <article className="w-full h-[20rem] p-[1.5rem] rounded-[20px] bg-primary-4 flex flex-col items-center justify-center gap-[2rem]">
         <div className="w-full">
           <ul className="w-full [&>li]:text-[1rem] [&>li]:leading-[1.8] [&>li]:text-primary-1 [&>li]:mb-[0.5rem]">
             <li>1. 특성 설명을 보고 어떤 특성인지 맞춰보세요!</li>
@@ -35,7 +30,6 @@ const AbilityQuizBeforeStage = () => {
             <li>4. 20문제를 완료한 후 결과를 확인하세요.</li>
           </ul>
         </div>
-
         <button
           className="w-full h-[3rem] bg-primary-2 rounded-[20px] text-[1.125rem] text-primary-4 hover:bg-primary-1 transition-colors"
           onClick={handleChangeStage}

@@ -21,7 +21,7 @@ const SilhouetteQuizResult = () => {
 
   return (
     <section className="w-[calc(100%-40px)] mx-auto pt-[1rem]">
-      <div className="w-full h-[15rem]">
+      <header className="w-full h-[15rem]">
         <span className="w-fit h-[9rem] text-[6rem] block mx-auto">
           {medal}
         </span>
@@ -31,7 +31,7 @@ const SilhouetteQuizResult = () => {
         <p className="w-full h-[1.25rem] text-[1rem] text-center text-primary-3 leading-[calc(1.25rem+2px)] mt-[1.5rem]">
           {subcopy}
         </p>
-      </div>
+      </header>
       <dl className="w-full bg-primary-4 rounded-[2rem] p-[1rem] mb-[2rem] grid grid-cols-[20%_30%_20%_30%]">
         <dt className="text-[1rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           맞은 문제
@@ -84,18 +84,18 @@ const SilhouetteQuizResult = () => {
           })}
         </ul>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="flex gap-[1rem] justify-center">
         <button
-          className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors text-center"
+          className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-2 text-white font-medium rounded-lg hover:bg-primary-4 hover:text-primary-1 transition-colors"
           onClick={handleClickRetryQuiz}
         >
           다시 도전하기
         </button>
         <Link
           href={QUIZ_ROUTES.MAIN}
-          className="px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors text-center"
+          className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-3 text-black-2 font-medium rounded-lg hover:bg-primary-4 transition-colors"
         >
-          다른 퀴즈 해보기
+          다른 퀴즈 하러가기
         </Link>
       </div>
     </section>

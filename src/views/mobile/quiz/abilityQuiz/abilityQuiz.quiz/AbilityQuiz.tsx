@@ -31,18 +31,19 @@ const AbilityQuiz = () => {
   useBodyScrollLock(isShowCounter)
 
   return (
-    <div className="w-full min-h-screen bg-primary-4 px-[20px] py-[1rem] relative">
+    <section className="w-full min-h-screen px-[20px] py-[1rem] relative">
       {isShowCounter && (
         <QuizCountDownModalComponents
           quizTitle="특성 퀴즈!"
           onComplete={handleHideCounter}
         />
       )}
-
       <header className="bg-white rounded-[1rem] shadow-md py-[1rem] px-[1rem] mb-[1rem]">
         <div className="flex items-center justify-between mb-[0.75rem]">
           <div>
-            <h1 className="text-[1.25rem] font-bold text-gray-800">특성 퀴즈</h1>
+            <h1 className="text-[1.25rem] font-bold text-gray-800">
+              특성 퀴즈
+            </h1>
             <p className="text-[0.875rem] text-gray-600">
               문제 {currentQuestionIndex + 1} / 20
             </p>
@@ -61,42 +62,35 @@ const AbilityQuiz = () => {
           ></div>
         </div>
       </header>
-
       <article className="bg-white rounded-[1rem] shadow-md py-[1.5rem] px-[1rem] flex-1 flex flex-col">
-        <div className="mb-[1.5rem] p-[1rem] bg-gray-50 rounded-[1rem]">
-          <h2 className="text-[0.875rem] text-gray-600 mb-[0.5rem]">특성 설명</h2>
-          <p className="text-[1rem] leading-[1.6] text-gray-800">
+        <div className="mb-[1.5rem] p-[1rem] bg-primary-1 rounded-[1rem]">
+          <h2 className="text-[0.875rem] text-primary-3 mb-[0.5rem]">설명</h2>
+          <p className="text-[1rem] leading-[1.6] text-primary-4">
             {currentQuestion?.abilityDescription}
           </p>
         </div>
-
-        <h3 className="text-[1.125rem] font-medium text-primary-1 mb-[1rem] text-center">
-          {currentQuestion?.question}
-        </h3>
-
-        <div className="space-y-[0.75rem] mb-[1.5rem]">
+        <div className="flex flex-col gap-[1rem] mb-[2rem]">
           {currentQuestion?.options.map((option, index) => (
             <button
               key={index}
               onClick={handleClickSelectAnswer(index)}
-              className="w-full h-[3rem] px-[1rem] text-[1rem] text-left flex items-center rounded-[1rem] bg-primary-3 text-white hover:bg-primary-2 transition-colors"
+              className="h-[3rem] px-[1rem] text-[1rem] text-left leading-[calc(3rem+2px)] rounded-[20rem] bg-primary-3 text-primary-1 transition-colors"
             >
-              <span className="w-[1.5rem] h-[1.5rem] rounded-full bg-white text-primary-3 text-[0.875rem] font-bold flex items-center justify-center mr-[0.75rem]">
+              <span className="w-[1rem] leading-[calc(3rem+2px)] mr-[0.875rem] text-primary-1 font-bold ">
                 {index + 1}
               </span>
               {option.koreanName}
             </button>
           ))}
         </div>
-
         <button
           onClick={handleClickSkipAnswer}
-          className="self-center px-[1.5rem] py-[0.5rem] text-[0.875rem] text-gray-500 border border-gray-300 rounded-[1rem] hover:bg-gray-50"
+          className="self-center px-[1.5rem] py-[0.5rem] text-[0.875rem] text-gray-500 border border-gray-300 rounded-[1rem]"
         >
           다음 문제
         </button>
       </article>
-    </div>
+    </section>
   )
 }
 
