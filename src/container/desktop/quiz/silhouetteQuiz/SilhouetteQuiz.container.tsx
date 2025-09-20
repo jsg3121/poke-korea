@@ -23,10 +23,12 @@ const SilhouetteQuizContainer = () => {
 
   return (
     <section className="w-full h-full mx-auto flex flex-col justify-between">
-      <header className="bg-white rounded-t-[2rem] shadow-md p-[1.5rem]">
-        <div className="flex items-center justify-between mb-4">
+      <header className="bg-white rounded-t-[2rem] shadow-md py-[1rem] px-[1.25rem] mb-[1.25rem]">
+        <div className="flex items-center justify-between mb-[0.75rem]">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">실루엣 퀴즈</h1>
+            <h1 className="text-[1.5rem] font-bold text-gray-800">
+              실루엣 퀴즈
+            </h1>
             <p className="text-gray-600">
               문제 {currentQuestionIndex + 1} / 20
             </p>
@@ -50,8 +52,8 @@ const SilhouetteQuizContainer = () => {
         pokemonId={currentQuestion?.correctPokemonId || 0}
         onClickSkipAnswer={handleClickSkipAnswer}
       />
-      <article className="w-1/2 bg-white rounded-[2rem] shadow-md p-[2rem] mb-[2rem] mx-auto">
-        <h2 className="text-xl font-medium text-gray-800 mb-6 text-center">
+      <article className="w-full bg-white rounded-[2rem] shadow-md py-[1rem] px-[2rem] mx-auto mt-[1rem]">
+        <h2 className="text-[1.25rem] font-medium text-primary-1 mb-[1rem] text-center">
           {currentQuestion?.question}
         </h2>
         <div className="grid grid-cols-2 gap-4">
@@ -59,9 +61,9 @@ const SilhouetteQuizContainer = () => {
             <button
               key={index}
               onClick={handleClickSelectAnswer(index)}
-              className="h-[4rem] px-[1rem] text-[1rem] text-left leading-[calc(4rem+2px)] rounded-[20rem] flex items-center hover:bg-primary-3 transition-all duration-200 font-medium"
+              className="h-[2.5rem] px-[1rem] text-[1rem] text-left leading-[calc(2.5rem+2px)] rounded-[20rem] bg-primary-3 text-white"
             >
-              <span className="h-[2rem] w-[2rem] bg-gray-100 rounded-full text-center text-[0.875rem] leading-[calc(2rem+2px)] mr-[0.75rem]">
+              <span className="w-[1rem] leading-[calc(2.5rem+2px)] mr-[0.875rem] text-white font-bold">
                 {index + 1}
               </span>
               {option}

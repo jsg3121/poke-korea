@@ -15,7 +15,7 @@ const SilhouetteQuiz = () => {
   useBodyScrollLock(isShowCounter)
 
   return (
-    <div className="w-full max-w-[1280px] mx-auto h-[calc(100vh-12rem)] bg-primary-4 rounded-[2rem] mt-[2rem] relative">
+    <div className="w-[calc(100%-40px)] bg-primary-4 rounded-[2rem] mt-[2rem] mx-auto relative">
       {isShowCounter && (
         <QuizCountDownModalComponents
           quizTitle="실루엣 퀴즈!"

@@ -1,12 +1,14 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import { detectUserAgent } from '~/module/device.module'
+import FooterDesktop from '~/container/desktop/footer/Footer.container'
+import HeaderDesktop from '~/container/desktop/header/Header.container'
+import FooterMobile from '~/container/mobile/footer/Footer.container'
+import HeaderMobile from '~/container/mobile/header/Header.container'
 import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
+import { detectUserAgent } from '~/module/device.module'
 import SilhouetteQuizDesktop from '~/views/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
-import SilhouetteQuizMobile from '~/views/mobile/quiz/SilhouetteQuiz.mobile'
-import HeaderContainer from '~/container/desktop/header/Header.container'
-import FooterContainer from '~/container/desktop/footer/Footer.container'
+import SilhouetteQuizMobile from '~/views/mobile/quiz/silhouetteQuiz/SilhouetteQuiz.mobile'
 
 export const revalidate = 31536000
 
@@ -48,15 +50,19 @@ const SilhouetteQuizPage = async () => {
 
   return (
     <Fragment>
-      <main className="pt-30">
+      <main className={`${isMobile ? '' : 'pt-30'}`}>
         <SilhouetteQuizProvider>
           {isMobile ? (
-            <SilhouetteQuizMobile />
+            <Fragment>
+              <HeaderMobile />
+              <SilhouetteQuizMobile />
+              <FooterMobile />
+            </Fragment>
           ) : (
             <Fragment>
-              <HeaderContainer />
+              <HeaderDesktop />
               <SilhouetteQuizDesktop />
-              <FooterContainer />
+              <FooterDesktop />
             </Fragment>
           )}
         </SilhouetteQuizProvider>

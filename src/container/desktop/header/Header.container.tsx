@@ -59,6 +59,14 @@ const HeaderContainer = () => {
               기술 도감
             </Link>
           </li>
+          <li className="min-w-fit h-full px-4">
+            <Link
+              href="/quiz"
+              className="w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-1"
+            >
+              포켓몬 퀴즈
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

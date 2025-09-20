@@ -22,22 +22,22 @@ const SilhouetteQuizImage = ({
   }
 
   return (
-    <div className="w-1/2 mx-auto relative flex justify-center">
+    <div className="w-[calc(100%-40px)] h-[15rem] mx-auto relative flex justify-center">
       <ImageComponent
-        height="18rem"
-        width="18rem"
+        height="12rem"
+        width="12rem"
         src={`${imageMode}/${pokemonId}.webp`}
         alt="실루엣 포켓몬"
         className={`${showHint ? 'brightness-[0.25]' : 'brightness-0'}`}
       />
       <button
-        className="min-w-[4rem] h-[2rem] bg-primary-1 rounded-[1rem] px-[1rem] text-primary-4 text-[0.75rem] leading-[calc(2rem+2px)] absolute top-0 right-0"
+        className="w-[5rem] h-[2rem] bg-primary-1 rounded-[1rem] px-[1rem] text-primary-4 text-[0.75rem] leading-[calc(2rem+2px)] absolute bottom-0 right-0"
         onClick={handleClickHint}
       >
         힌트보기
       </button>
       <button
-        className="min-w-[4rem] h-[2rem] bg-primary-2 rounded-[1rem] px-[1rem] text-primary-4 text-[0.75rem] leading-[calc(2rem+2px)] absolute top-0 left-0"
+        className="w-[5rem] h-[2rem] bg-primary-2 rounded-[1rem] px-[1rem] text-primary-4 text-[0.75rem] leading-[calc(2rem+2px)] absolute bottom-0 left-0"
         onClick={handleClickSkipAnswer}
       >
         다음문제
