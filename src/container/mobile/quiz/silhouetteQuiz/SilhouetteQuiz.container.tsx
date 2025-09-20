@@ -23,21 +23,21 @@ const SilhouetteQuizContainer = () => {
 
   return (
     <section className="w-full h-full mx-auto flex flex-col justify-between">
-      <header className="bg-white rounded-t-[2rem] shadow-md py-[1rem] px-[1.25rem] mb-[1.25rem]">
+      <header className="bg-white rounded-[1rem] shadow-md py-[1rem] px-[1rem] mb-[1rem]">
         <div className="flex items-center justify-between mb-[0.75rem]">
           <div>
-            <h1 className="text-[1.5rem] font-bold text-gray-800">
+            <h1 className="text-[1.25rem] font-bold text-gray-800">
               실루엣 퀴즈
             </h1>
-            <p className="text-gray-600">
+            <p className="text-[0.875rem] text-gray-600">
               문제 {currentQuestionIndex + 1} / 20
             </p>
           </div>
           <div className="text-right">
-            <div className="text-lg font-medium text-purple-600">
+            <div className="text-[1rem] font-medium text-purple-600">
               {formatTimeShort(timeElapsed)}
             </div>
-            <div className="text-sm text-gray-600">경과 시간</div>
+            <div className="text-[0.75rem] text-gray-600">경과 시간</div>
           </div>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
@@ -47,16 +47,13 @@ const SilhouetteQuizContainer = () => {
           ></div>
         </div>
       </header>
-      <SilhouetteQuizImage
-        key={currentQuestion?.correctPokemonId}
-        pokemonId={currentQuestion?.correctPokemonId || 0}
-        onClickSkipAnswer={handleClickSkipAnswer}
-      />
-      <article className="w-full bg-white rounded-[2rem] shadow-md py-[1rem] px-[2rem] mx-auto mt-[1rem]">
-        <h2 className="text-[1.25rem] font-medium text-primary-1 mb-[1rem] text-center">
-          {currentQuestion?.question}
-        </h2>
-        <div className="grid grid-cols-2 gap-4">
+      <article className="bg-white rounded-[1rem] shadow-md px-[1rem] flex flex-col gap-[1.5rem] pb-[1.5rem]">
+        <SilhouetteQuizImage
+          key={currentQuestion?.correctPokemonId}
+          pokemonId={currentQuestion?.correctPokemonId || 0}
+          onClickSkipAnswer={handleClickSkipAnswer}
+        />
+        <div className="grid grid-cols-2 gap-4 border-t border-solid border-primary-1 pt-[2rem]">
           {currentQuestion?.options.map((option, index) => (
             <button
               key={index}
