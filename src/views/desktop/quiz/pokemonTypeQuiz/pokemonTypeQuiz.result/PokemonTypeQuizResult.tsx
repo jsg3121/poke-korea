@@ -1,10 +1,15 @@
 'use client'
 
 import Link from 'next/link'
+import ImageComponent from '~/components/Image.component'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { imageMode } from '~/module/buildMode'
 import { getQuizResultCopy } from '~/module/quiz.module'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { formatTime } from '~/utils/quiz.util'
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
 
 const PokemonTypeQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = usePokemonTypeQuizContext()
@@ -18,7 +23,7 @@ const PokemonTypeQuizResult = () => {
   if (!result) return null
 
   return (
-    <section className="w-full max-w-[1280px] mx-auto rounded-[2rem] mt-[2rem] p-[3rem]">
+    <section className="h-fit w-full max-w-[1280px] mx-auto pt-[3rem]">
       <header className="w-full h-[22rem]">
         <span className="w-fit h-[14rem] text-[10rem] block mx-auto">
           {medal}
@@ -60,29 +65,52 @@ const PokemonTypeQuizResult = () => {
         <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
           문제 정답
         </h2>
-        <ul className="w-full flex flex-wrap items-center relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
-          <li className="w-[calc(100%-10px)] h-[2rem] text-[1rem] leading-[calc(2rem+2px)] text-primary-4 flex items-center sticky top-0 bg-primary-2">
-            <p className="w-full text-center">문제</p>
-            <p className="w-[15rem] shrink-0 text-center">정답</p>
-            <p className="w-[15rem] shrink-0 text-center">나의 답</p>
+        <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+          <li className="w-24 h-48 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-10 rounded-[1rem]">
+            <p className="w-full h-12 text-[1rem] text-primary-4 text-center leading-[calc(3rem+2px)]">
+              문제 타입
+            </p>
+            <p className="w-full h-[4.5rem] text-[0.875rem] text-primary-4 text-center leading-[calc(4.5rem+2px)]">
+              정답
+            </p>
+            <p className="w-full h-[4.5rem] text-[0.875rem] text-primary-4 text-center leading-[calc(4.5rem+2px)]">
+              나의 답
+            </p>
           </li>
           {questions.map((quiz, index) => {
-            const userAnswer =
-              quiz.options[result.userAnswers[index]]?.koreanName || '건너뛰기'
-            const realAnswer = quiz.options[quiz.correctAnswerIndex].koreanName
+            const userAnswerId = quiz.options[result.userAnswers[index]].id
+            const realAnswerId = quiz.options[quiz.correctAnswerIndex].id
 
             return (
-              <li
-                key={quiz.id}
-                className="w-[calc(100%-10px)] min-h-[3rem] flex items-center border-b border-solid border-primary-1"
-              >
-                <p className="w-full text-left">{quiz.question}</p>
-                <p className="w-[15rem] shrink-0 text-center">{realAnswer}</p>
-                <p
-                  className={`w-[15rem] shrink-0 text-center ${realAnswer === userAnswer ? 'font-bold' : ' text-primary-3'}`}
-                >
-                  {userAnswer}
+              <li key={quiz.id} className="w-20 h-34 shrink-0">
+                <p className="w-20 h-12 flex items-center">
+                  <span
+                    className={`w-20 h-6 text-[0.75rem] text-center chip-type-${quiz.targetType.toLowerCase()} leading-[calc(1.5rem+2px)] rounded-full block`}
+                  >
+                    {PokemonTypes[quiz.targetType as PokemonType]}
+                  </span>
                 </p>
+                <div className="w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333]">
+                  <ImageComponent
+                    width="3rem"
+                    height="3rem"
+                    src={`${imageMode}/${realAnswerId}.webp`}
+                  />
+                </div>
+                <div
+                  className={`w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333] ${userAnswerId === realAnswerId ? '' : 'opacity-70 grayscale'} relative`}
+                >
+                  {userAnswerId === realAnswerId && (
+                    <i className="w-4 h-4 block absolute top-0 right-0 z-10">
+                      <CorrectIcon />
+                    </i>
+                  )}
+                  <ImageComponent
+                    width={userAnswerId === realAnswerId ? '4rem' : '3rem'}
+                    height={userAnswerId === realAnswerId ? '4rem' : '3rem'}
+                    src={`${imageMode}/${userAnswerId}.webp`}
+                  />
+                </div>
               </li>
             )
           })}

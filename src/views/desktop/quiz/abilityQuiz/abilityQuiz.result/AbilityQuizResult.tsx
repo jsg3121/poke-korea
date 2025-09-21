@@ -18,7 +18,7 @@ const AbilityQuizResult = () => {
   if (!result) return null
 
   return (
-    <section className="w-full max-w-[1280px] mx-auto rounded-[2rem] mt-[2rem] p-[3rem]">
+    <section className="h-fit w-full max-w-[1280px] mx-auto pt-[3rem]">
       <header className="w-full h-[22rem]">
         <span className="w-fit h-[14rem] text-[10rem] block mx-auto">
           {medal}

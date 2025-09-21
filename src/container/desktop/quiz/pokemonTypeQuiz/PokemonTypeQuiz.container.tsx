@@ -15,10 +15,6 @@ const PokemonTypeQuizContainer = () => {
     currentQuestion,
     submitAnswer,
   } = usePokemonTypeQuizContext()
-  console.log(
-    '🔬 dev-only ~ PokemonTypeQuizContainer ~ currentQuestion:',
-    currentQuestion,
-  )
 
   const handleClickSelectAnswer = (index: number) => () => {
     submitAnswer(index)
