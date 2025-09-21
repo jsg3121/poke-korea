@@ -50,7 +50,7 @@ export const SilhouetteQuizProvider = ({
 
   const questions: SilhouetteQuizQuestion[] = data?.getSilhouetteQuiz || []
   const currentQuestion = questions[quizState.currentQuestionIndex] || null
-  const timeElapsed = useQuizTimer(quizState.startTime)
+  const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
     QUIZ_CONSTANTS.TOTAL_QUESTIONS,
@@ -104,6 +104,7 @@ export const SilhouetteQuizProvider = ({
 
     if (isLastQuestion) {
       setQuizViewStage('RESULT')
+      onCloseTimer()
     }
   }
 

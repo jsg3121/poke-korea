@@ -4,10 +4,19 @@ import { useState, useEffect } from 'react'
 
 export const useQuizTimer = (startTime: Date | null) => {
   const [timeElapsed, setTimeElapsed] = useState(0)
+  const [isActiveTimer, setIsActiverTimer] = useState<boolean>(true)
+
+  const onCloseTimer = () => {
+    setIsActiverTimer(false)
+  }
 
   useEffect(() => {
     if (!startTime) {
       setTimeElapsed(0)
+      return
+    }
+
+    if (!isActiveTimer) {
       return
     }
 
@@ -18,7 +27,10 @@ export const useQuizTimer = (startTime: Date | null) => {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [startTime])
+  }, [isActiveTimer, startTime])
 
-  return timeElapsed
+  return {
+    timeElapsed,
+    onCloseTimer,
+  }
 }

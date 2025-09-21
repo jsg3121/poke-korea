@@ -68,7 +68,7 @@ export const PokemonTypeQuizProvider = ({
       })),
     })) || []
   const currentQuestion = questions[quizState.currentQuestionIndex] || null
-  const timeElapsed = useQuizTimer(quizState.startTime)
+  const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
     QUIZ_CONSTANTS.TOTAL_QUESTIONS,
@@ -122,6 +122,7 @@ export const PokemonTypeQuizProvider = ({
 
     if (isLastQuestion) {
       setQuizViewStage('RESULT')
+      onCloseTimer()
     }
   }
 
