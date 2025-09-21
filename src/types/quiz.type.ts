@@ -31,7 +31,7 @@ export interface PokemonTypeQuizQuestion {
   correctAnswerIndex: number
   targetType: string
   options: Array<{
-    id: string
+    id: number
     koreanName: string
     types: string[]
   }>

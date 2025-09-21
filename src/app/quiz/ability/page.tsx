@@ -49,25 +49,23 @@ const AbilityQuizPage = async () => {
   const isMobile = detectUserAgent(userAgent)
 
   return (
-    <Fragment>
-      <main className={`${isMobile ? '' : 'pt-30'}`}>
-        <AbilityQuizProvider>
-          {isMobile ? (
-            <Fragment>
-              <HeaderMobile />
-              <AbilityQuizMobile />
-              <FooterMobile />
-            </Fragment>
-          ) : (
-            <Fragment>
-              <HeaderDesktop />
-              <AbilityQuizDesktop />
-              <FooterDesktop />
-            </Fragment>
-          )}
-        </AbilityQuizProvider>
-      </main>
-    </Fragment>
+    <main className={`${isMobile ? '' : 'pt-30'}`}>
+      <AbilityQuizProvider>
+        {isMobile ? (
+          <Fragment>
+            <HeaderMobile />
+            <AbilityQuizMobile />
+            <FooterMobile />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <HeaderDesktop />
+            <AbilityQuizDesktop />
+            <FooterDesktop />
+          </Fragment>
+        )}
+      </AbilityQuizProvider>
+    </main>
   )
 }
 
