@@ -29,8 +29,6 @@ const QuizCountDownModalComponents = ({
     onComplete,
   })
 
-  console.log('run')
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <article className="bg-white rounded-[2rem] p-[1.5rem] w-[25rem] text-center">

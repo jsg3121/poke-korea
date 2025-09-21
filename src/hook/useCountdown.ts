@@ -14,7 +14,7 @@ export const useCountdown = ({
   const [count, setCount] = useState(initialCount)
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (count > 0) {
+      if (count > 1) {
         const nextCount = count - 1
         setCount(nextCount)
       } else {
