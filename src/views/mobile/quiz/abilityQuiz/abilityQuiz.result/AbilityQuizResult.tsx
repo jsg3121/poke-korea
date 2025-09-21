@@ -72,8 +72,13 @@ const AbilityQuizResult = () => {
                 key={quiz.id}
                 className="w-full min-h-fit flex flex-col items-center bg-primary-4 rounded-[1rem] p-4"
               >
-                <span className="w-full text-primary-1 font-bold block">
-                  #{index + 1}
+                <span className="w-full text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]">
+                  #{index + 1}{' '}
+                  {userAnswer === realAnswer && (
+                    <>
+                      정답! <CorrectIcon />
+                    </>
+                  )}
                 </span>
                 <p className="w-full shrink-0 text-left text-[1.125rem] text-primary-1 py-2">
                   {quiz.abilityDescription}
@@ -86,10 +91,14 @@ const AbilityQuizResult = () => {
                     </span>
                   </p>
                   <p
-                    className={`w-fit shrink-0 text-left flex items-center gap-2 ${realAnswer === userAnswer ? 'text-primary-1' : ' text-primary-2'} [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]`}
+                    className={`w-fit shrink-0 text-left flex items-center gap-2 ${realAnswer === userAnswer ? 'text-primary-1 ' : ' text-primary-2'} [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]`}
                   >
-                    나의 답 : {userAnswer}{' '}
-                    {userAnswer === realAnswer && <CorrectIcon />}
+                    나의 답 :{' '}
+                    <span
+                      className={`${userAnswer === realAnswer ? 'font-bold' : ''}`}
+                    >
+                      {userAnswer}
+                    </span>
                   </p>
                 </div>
               </li>
