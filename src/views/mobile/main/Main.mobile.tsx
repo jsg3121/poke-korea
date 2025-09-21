@@ -5,6 +5,7 @@ import ListContainer from '~/container/mobile/list/List.container'
 import { ListProvider } from '~/context/List.context'
 import { PokemonList, PokemonFilterInput } from '~/graphql/typeGenerated'
 import HeaderContainer from './header/Header.container'
+import { useRouteChangeCache } from '~/hook/useRouteChangeCache'
 
 interface ManinViewsProps {
   pokemonList: Array<PokemonList>
@@ -17,6 +18,8 @@ const MainMobile = ({
   initialFilter,
   hasNextPage,
 }: ManinViewsProps) => {
+  useRouteChangeCache()
+
   return (
     <ListProvider
       initialList={pokemonList}

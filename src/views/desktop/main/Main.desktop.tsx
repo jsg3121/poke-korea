@@ -5,6 +5,7 @@ import ListContainer from '~/container/desktop/List/List.container'
 import { ListProvider } from '~/context/List.context'
 import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
 import { useHeaderScroll } from '~/hook/useHeaderScroll'
+import { useRouteChangeCache } from '~/hook/useRouteChangeCache'
 import HeaderContainer from '~/views/desktop/main/Header/Header.container'
 
 interface ManinViewsProps {
@@ -30,6 +31,7 @@ const MainDesktop = ({
   const { observerRef, isScroll } = useHeaderScroll()
 
   const hasSearchQuery = checkSearchParams(searchParams)
+  useRouteChangeCache()
 
   return (
     <ListProvider
