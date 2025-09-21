@@ -1,54 +1,31 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 
 interface UseCountdownOptions {
   initialCount: number
   onComplete: () => void
-  onTick?: (count: number) => void
 }
 
 export const useCountdown = ({
   initialCount,
   onComplete,
-  onTick,
 }: UseCountdownOptions) => {
   const [count, setCount] = useState(initialCount)
-  const [isActive, setIsActive] = useState(false)
-
-  const start = useCallback(() => {
-    setCount(initialCount)
-    setIsActive(true)
-  }, [initialCount])
-
-  const stop = useCallback(() => {
-    setIsActive(false)
-    setCount(initialCount)
-  }, [initialCount])
-
   useEffect(() => {
-    if (!isActive) return
-
-    if (count > 0) {
-      const timer = setTimeout(() => {
+    const timer = setTimeout(() => {
+      if (count > 0) {
         const nextCount = count - 1
         setCount(nextCount)
-        if (onTick) {
-          onTick(nextCount)
-        }
-      }, 1000)
+      } else {
+        onComplete()
+      }
+    }, 1000)
 
-      return () => clearTimeout(timer)
-    } else {
-      setIsActive(false)
-      onComplete()
-    }
-  }, [count, isActive, onComplete, onTick])
+    return () => clearTimeout(timer)
+  }, [count, onComplete])
 
   return {
     count,
-    isActive,
-    start,
-    stop,
   }
 }

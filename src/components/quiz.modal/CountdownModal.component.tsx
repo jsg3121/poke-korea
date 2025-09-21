@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useCountdown } from '../../hook/useCountdown'
 
 interface CountdownModalComponentsProps {
@@ -25,14 +24,12 @@ const QuizCountDownModalComponents = ({
   onComplete,
   quizTitle = '퀴즈',
 }: CountdownModalComponentsProps) => {
-  const { count, start } = useCountdown({
+  const { count } = useCountdown({
     initialCount: 3,
     onComplete,
   })
 
-  useEffect(() => {
-    start()
-  }, [])
+  console.log('run')
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
