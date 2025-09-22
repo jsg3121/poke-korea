@@ -1,12 +1,12 @@
 import Link from 'next/link'
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import ImageComponent from '~/components/Image.component'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import { imageMode } from '~/module/buildMode'
+import { getTextSize } from '~/module/getTextSize.module'
 import { getQuizResultCopy } from '~/module/quiz.module'
 import { formatTime } from '~/utils/quiz.util'
-import { getTextSize } from '../modules/getTextSize.module'
-import CorrectIcon from '~/assets/icons/correct-icon.svg'
 
 const SilhouetteQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = useSilhouetteQuizContext()

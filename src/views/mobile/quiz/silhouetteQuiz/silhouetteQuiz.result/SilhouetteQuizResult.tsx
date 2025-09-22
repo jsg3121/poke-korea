@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import ImageComponent from '~/components/Image.component'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
@@ -58,32 +59,56 @@ const SilhouetteQuizResult = () => {
           {formatTime(result.averageTime)}
         </dd>
       </dl>
-      <div className="w-full h-[12rem] bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
-          문제 정답
+      <article className="w-full h-fit py-[1rem] mb-[2rem]">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold leading-[calc(2rem+2px)] text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+          정답
         </h2>
-        <ul className="h-[7.5rem] flex items-center overflow-x-auto gap-[0.75rem] [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
-          {questions.map((quiz) => {
+        <ul className="w-full flex flex-col gap-[1rem] items-center relative">
+          {questions.map((quiz, index) => {
+            const userAnswer = quiz.options[result.userAnswers[index]]
+            const realAnswer = quiz.options[quiz.correctAnswerIndex]
+
             return (
-              <li key={quiz.id} className="w-[6rem] h-[7rem]">
-                <Link
-                  href={`/detail/${quiz.correctPokemonId}`}
-                  className="w-[6rem] h-[6rem] shrink-0 flex flex-col items-center justify-between"
-                >
-                  <ImageComponent
-                    width="4rem"
-                    height="4rem"
-                    src={`${imageMode}/${quiz.correctPokemonId}.webp`}
-                  />
-                  <p className="text-center text-[1rem] h-[1.25rem] text-primary-1">
-                    {quiz.options[quiz.correctAnswerIndex]}
+              <li
+                key={quiz.id}
+                className="w-full h-50 flex flex-wrap gap-x-4 justify-between bg-primary-4 rounded-[1rem] p-4"
+              >
+                <div className="w-1/2 h-32 flex flex-col items-start justify-start">
+                  <span className="w-full h-6 text-[1.25rem] text-primary-1 font-bold flex items-center gap-2 mb-4 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]">
+                    #{index + 1}{' '}
+                    {userAnswer === realAnswer && (
+                      <>
+                        정답! <CorrectIcon />
+                      </>
+                    )}
+                  </span>
+                  <p className="w-fit h-6 text-left text-[1rem] text-primary-1">
+                    정답 : <span className="font-bold">{realAnswer}</span>
                   </p>
-                </Link>
+                  <p
+                    className={`w-fit h-6 shrink-0 text-left flex items-center gap-2 text-primary-1`}
+                  >
+                    나의 답 :{' '}
+                    <span
+                      className={`${userAnswer === realAnswer ? 'font-bold text-[1.25rem]' : 'text-gray-400'}`}
+                    >
+                      {userAnswer}
+                    </span>
+                  </p>
+                </div>
+                <i className="w-32 h-32 shrink-0">
+                  <ImageComponent
+                    width="8rem"
+                    height="8rem"
+                    src={`${imageMode}/${quiz.correctPokemonId}.webp`}
+                    alt={`정답 포켓몬 ${realAnswer}`}
+                  />
+                </i>
               </li>
             )
           })}
         </ul>
-      </div>
+      </article>
       <div className="flex gap-[1rem] justify-center">
         <button
           className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-2 text-white font-medium rounded-lg hover:bg-primary-4 hover:text-primary-1 transition-colors"
