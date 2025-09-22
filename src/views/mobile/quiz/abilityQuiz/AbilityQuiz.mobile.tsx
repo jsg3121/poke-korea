@@ -11,11 +11,7 @@ const AbilityQuizMobile = () => {
 
   return (
     <Fragment>
-      {quizViewStage === 'BEFORE' && (
-        <section className="h-[calc(100vh-4rem)] w-full px-[20px]">
-          <AbilityQuizBeforeStage />
-        </section>
-      )}
+      {quizViewStage === 'BEFORE' && <AbilityQuizBeforeStage />}
       {quizViewStage === 'QUIZ' && <AbilityQuiz />}
       {quizViewStage === 'RESULT' && <AbilityQuizResult />}
     </Fragment>

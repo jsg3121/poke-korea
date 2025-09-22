@@ -1,6 +1,5 @@
 'use client'
 
-import { Fragment } from 'react'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 
@@ -12,7 +11,7 @@ const AbilityQuizBeforeStage = () => {
   }
 
   return (
-    <Fragment>
+    <section className="h-[calc(100vh-4rem)] w-full px-[20px]">
       <header className="w-full py-[1rem] border-b border-solid border-primary-4 mb-[2rem]">
         <h1 className="w-full text-[2rem] font-bold text-center text-primary-4 mb-[0.5rem]">
           {QUIZ_CONFIG[1].title}
@@ -37,7 +36,7 @@ const AbilityQuizBeforeStage = () => {
           시작하기
         </button>
       </article>
-    </Fragment>
+    </section>
   )
 }
 
