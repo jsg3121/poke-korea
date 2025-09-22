@@ -23,93 +23,104 @@ const PokemonTypeQuizResult = () => {
   if (!result) return null
 
   return (
-    <section className="h-fit w-full max-w-[1280px] mx-auto pt-[3rem]">
-      <header className="w-full h-[22rem]">
-        <span className="w-fit h-[14rem] text-[10rem] block mx-auto">
+    <section className="w-[calc(100%-40px)] mx-auto pt-[1rem]">
+      <header className="w-full h-[15rem]">
+        <span className="w-fit h-[9rem] text-[6rem] block mx-auto">
           {medal}
         </span>
-        <h1 className="w-full text-[2rem] font-bold text-center leading-[calc(2rem+2px)] text-primary-4">
+        <h1 className="w-full text-[1.5rem] font-bold text-center leading-[calc(1.5rem+2px)] text-primary-4">
           {headline}
         </h1>
-        <p className="w-full h-[1.25rem] text-[1.25rem] text-center text-primary-3 leading-[calc(1.25rem+2px)] mt-[1.5rem]">
+        <p className="w-full h-[1.25rem] text-[1rem] text-center text-primary-3 leading-[calc(1.25rem+2px)] mt-[1.5rem]">
           {subcopy}
         </p>
       </header>
-      <dl className="w-full h-[6.5rem] bg-primary-4 rounded-[2rem] p-[2rem] flex items-center justify-around mb-[2rem]">
-        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+      <dl className="w-full bg-primary-4 rounded-[2rem] p-[1rem] mb-[2rem] grid grid-cols-[20%_30%_20%_30%]">
+        <dt className="text-[1rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           맞은 문제
         </dt>
-        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[1.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1 text-right pr-2">
           {result.correctAnswers} 개
         </dd>
-        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+        <dt className="text-[1rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           정답률
         </dt>
-        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[1.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1 text-right pr-2">
           {result.percentage} %
         </dd>
-        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+        <dt className="text-[1rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           소요 시간
         </dt>
-        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[1.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1 text-right pr-2">
           {formatTime(result.totalTime)}
         </dd>
-        <dt className="text-[1.25rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
+        <dt className="text-[1rem] font-[500] h-[2.5rem] leading-[calc(2.5rem+2px)] text-primary-1">
           평균 시간
         </dt>
-        <dd className="text-[2.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1">
+        <dd className="text-[1.25rem] h-[2.5rem] leading-[calc(2.5rem+2px)] font-bold text-primary-1 text-right pr-2">
           {formatTime(result.averageTime)}
         </dd>
       </dl>
-      <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
-          문제 정답
+      <article className="w-full h-fit py-[1rem] mb-[2rem]">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold leading-[calc(2rem+2px)] text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+          정답
         </h2>
-        <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
-          <li className="w-24 h-48 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-10 rounded-[1rem]">
-            <p className="w-full h-12 text-[1rem] text-primary-4 text-center leading-[calc(3rem+2px)]">
-              문제 타입
-            </p>
-            <p className="w-full h-[4.5rem] text-[0.875rem] text-primary-4 text-center leading-[calc(4.5rem+2px)]">
-              정답
-            </p>
-            <p className="w-full h-[4.5rem] text-[0.875rem] text-primary-4 text-center leading-[calc(4.5rem+2px)]">
-              나의 답
-            </p>
-          </li>
+        <ul className="w-full flex flex-col gap-[1rem] items-center relative">
           {questions.map((quiz, index) => {
             const userAnswerId = quiz.options[result.userAnswers[index]].id
             const realAnswerId = quiz.options[quiz.correctAnswerIndex].id
 
             return (
-              <li key={quiz.id} className="w-20 h-34 shrink-0">
-                <p className="w-20 h-12 flex items-center">
-                  <span
-                    className={`w-20 h-6 text-[0.75rem] text-center chip-type-${quiz.targetType.toLowerCase()} leading-[calc(1.5rem+2px)] rounded-full block`}
-                  >
-                    {PokemonTypes[quiz.targetType as PokemonType]}
-                  </span>
-                </p>
-                <div className="w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333]">
-                  <ImageComponent
-                    width="3rem"
-                    height="3rem"
-                    src={`${imageMode}/${realAnswerId}.webp`}
-                  />
-                </div>
-                <div
-                  className={`w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333] ${userAnswerId === realAnswerId ? '' : 'opacity-70 grayscale'} relative`}
-                >
+              <li
+                key={quiz.id}
+                className="w-full h-50 flex flex-col bg-primary-4 rounded-[1rem] p-4"
+              >
+                <span className="w-full h-6 text-[1.25rem] text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]">
+                  #{index + 1}{' '}
                   {userAnswerId === realAnswerId && (
-                    <i className="w-4 h-4 block absolute top-0 right-0 z-10">
-                      <CorrectIcon />
-                    </i>
+                    <>
+                      정답! <CorrectIcon />
+                    </>
                   )}
-                  <ImageComponent
-                    width={userAnswerId === realAnswerId ? '4rem' : '3rem'}
-                    height={userAnswerId === realAnswerId ? '4rem' : '3rem'}
-                    src={`${imageMode}/${userAnswerId}.webp`}
-                  />
+                </span>
+                <div className="w-full h-6 bg-primary-1 flex mt-2">
+                  <p className="w-1/5 h-6 text-[1rem] leading-[calc(1.25rem+4px)] text-primary-4 text-center">
+                    문제 타입
+                  </p>
+                  <p className="w-2/5 h-6 text-[1rem] leading-[calc(1.25rem+4px)] text-primary-4 text-center">
+                    정답 포켓몬
+                  </p>
+                  <p className="w-2/5 h-6 text-[1rem] leading-[calc(1.25rem+4px)] text-primary-4 text-center">
+                    선택 포켓몬
+                  </p>
+                </div>
+                <div className="w-full h-28 flex items-center">
+                  <p className="w-1/5 h-6 text-left text-[1rem] text-primary-1 ">
+                    <span
+                      className={`w-16 h-6 text-[0.75rem] text-center chip-type-${quiz.targetType.toLowerCase()} leading-[calc(1.5rem+2px)] rounded-full block mx-auto`}
+                    >
+                      {PokemonTypes[quiz.targetType as PokemonType]}
+                    </span>
+                  </p>
+                  <div className="w-2/5 h-[6rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333]">
+                    <ImageComponent
+                      width="5rem"
+                      height="5rem"
+                      src={`${imageMode}/${realAnswerId}.webp`}
+                      alt={`정답 포켓몬 ${quiz.options[quiz.correctAnswerIndex].koreanName}`}
+                    />
+                  </div>
+                  <div
+                    className={`w-2/5 h-[6rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333] ${userAnswerId === realAnswerId ? '' : 'opacity-70 grayscale'} relative`}
+                  >
+                    <ImageComponent
+                      width={userAnswerId === realAnswerId ? '6rem' : '5rem'}
+                      height={userAnswerId === realAnswerId ? '6rem' : '5rem'}
+                      src={`${imageMode}/${userAnswerId}.webp`}
+                      alt={`내가 선택한 포켓몬 ${quiz.options[result.userAnswers[index]].koreanName}`}
+                      className={`will-change-[filter] ${userAnswerId === realAnswerId ? '' : 'grayscale opacity-70'}`}
+                    />
+                  </div>
                 </div>
               </li>
             )
