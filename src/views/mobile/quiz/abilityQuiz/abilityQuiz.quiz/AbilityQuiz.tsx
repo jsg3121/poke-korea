@@ -16,7 +16,7 @@ const AbilityQuiz = () => {
   useBodyScrollLock(isShowCounter)
 
   return (
-    <section className="w-full min-h-screen px-[20px] py-[1rem] relative">
+    <div className="w-full min-h-screen px-[20px] py-[1rem] relative">
       {isShowCounter && (
         <QuizCountDownModalComponents
           quizTitle="특성 퀴즈!"
@@ -24,7 +24,7 @@ const AbilityQuiz = () => {
         />
       )}
       <AbilityQuizContainer />
-    </section>
+    </div>
   )
 }
 

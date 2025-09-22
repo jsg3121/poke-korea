@@ -17,7 +17,7 @@ const PokemonTypeQuiz = () => {
   useBodyScrollLock(isShowCounter)
 
   return (
-    <div className="w-full max-w-[1280px] mx-auto h-[48rem] bg-primary-4 rounded-[2rem] mt-[2rem] relative">
+    <div className="w-full min-h-screen px-[20px] py-[1rem] relative">
       {isShowCounter && (
         <QuizCountDownModalComponents
           quizTitle="포켓몬 타입 퀴즈!"
