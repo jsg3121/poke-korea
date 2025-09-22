@@ -1,11 +1,14 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import FooterMobile from '~/container/desktop/footer/Footer.container'
+import FooterDesktop from '~/container/desktop/footer/Footer.container'
 import HeaderDesktop from '~/container/desktop/header/Header.container'
+import FooterMobile from '~/container/mobile/footer/Footer.container'
+import HeaderMobile from '~/container/mobile/header/Header.container'
 import { PokemonTypeQuizProvider } from '~/context/PokemonTypeQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
 import PokemonTypeQuizDesktop from '~/views/desktop/quiz/pokemonTypeQuiz/PokemonTypeQuiz.desktop'
+import PokemonTypeQuizMobile from '~/views/mobile/quiz/pokemonTypeQuiz/PokemonTypeQuiz.mobile'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 
@@ -48,12 +51,16 @@ const QuizMainPage = async () => {
     <main className={`${isMobile ? '' : 'pt-30'}`}>
       <PokemonTypeQuizProvider>
         {isMobile ? (
-          <PokemonTypeQuizDesktop />
+          <Fragment>
+            <HeaderMobile />
+            <PokemonTypeQuizMobile />
+            <FooterMobile />
+          </Fragment>
         ) : (
           <Fragment>
             <HeaderDesktop />
             <PokemonTypeQuizDesktop />
-            <FooterMobile />
+            <FooterDesktop />
           </Fragment>
         )}
       </PokemonTypeQuizProvider>
