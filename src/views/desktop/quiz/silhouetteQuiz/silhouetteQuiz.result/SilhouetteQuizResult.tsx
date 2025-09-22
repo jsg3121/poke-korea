@@ -5,6 +5,8 @@ import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import { imageMode } from '~/module/buildMode'
 import { getQuizResultCopy } from '~/module/quiz.module'
 import { formatTime } from '~/utils/quiz.util'
+import { getTextSize } from '../modules/getTextSize.module'
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
 
 const SilhouetteQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = useSilhouetteQuizContext()
@@ -20,7 +22,7 @@ const SilhouetteQuizResult = () => {
   }
 
   return (
-    <section className="h-[calc(100vh-12rem)] min-h-[47.5rem] w-full max-w-[1280px] mx-auto pt-[3rem]">
+    <section className="h-[60rem] w-full max-w-[1280px] mx-auto pt-[3rem]">
       <header className="w-full h-[22rem]">
         <span className="w-fit h-[14rem] text-[10rem] block mx-auto">
           {medal}
@@ -58,32 +60,64 @@ const SilhouetteQuizResult = () => {
           {formatTime(result.averageTime)}
         </dd>
       </dl>
-      <div className="w-full h-[12rem] bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
+      <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
         <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
           문제 정답
         </h2>
-        <ul className="h-[7.5rem] flex items-center overflow-x-auto gap-[0.75rem] [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
-          {questions.map((quiz) => {
+        <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+          <li className="w-24 h-44 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-10 rounded-[1rem]">
+            <p className="w-full h-24 text-[0.875rem] text-primary-4 text-center leading-[calc(5rem+2px)]">
+              문제 포켓몬
+            </p>
+            <p className="w-full h-10 text-[0.875rem] text-primary-4 text-center leading-[calc(2rem+2px)]">
+              정답
+            </p>
+            <p className="w-full h-10 text-[0.875rem] text-primary-4 text-center leading-[calc(2rem+2px)]">
+              나의 답
+            </p>
+          </li>
+          {questions.map((quiz, index) => {
+            const userAnswer = quiz.options[result.userAnswers[index]]
+            const realAnswer = quiz.options[quiz.correctAnswerIndex]
+
+            const userAnswerTextSize = getTextSize(userAnswer)
+            const realAnswerTextSize = getTextSize(realAnswer)
+
             return (
-              <li key={quiz.id} className="w-[6rem] h-[7rem]">
+              <li key={quiz.id} className="w-24 h-44 shrink-0">
                 <Link
                   href={`/detail/${quiz.correctPokemonId}`}
-                  className="w-[6rem] h-[6rem] shrink-0 flex flex-col items-center justify-between"
+                  className="w-full h-full shrink-0 flex flex-col items-center justify-between"
                 >
-                  <ImageComponent
-                    width="4rem"
-                    height="4rem"
-                    src={`${imageMode}/${quiz.correctPokemonId}.webp`}
-                  />
-                  <p className="text-center text-[1rem] h-[1.25rem] text-primary-1">
-                    {quiz.options[quiz.correctAnswerIndex]}
+                  <i className="h-24">
+                    <ImageComponent
+                      width="5rem"
+                      height="5rem"
+                      src={`${imageMode}/${quiz.correctPokemonId}.webp`}
+                      alt={`정답 포켓몬 ${realAnswer}`}
+                    />
+                  </i>
+                  <p
+                    className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] text-primary-1 ${userAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'}`}
+                  >
+                    {realAnswer}
+                  </p>
+                  <p
+                    className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] text-primary-1 relative ${realAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'} ${realAnswer === userAnswer ? 'font-bold' : 'text-gray-400'}`}
+                  >
+                    {userAnswer}
+                    {userAnswer === realAnswer && (
+                      <i className="w-4 h-4 block absolute top-0 right-0 z-10">
+                        <CorrectIcon />
+                      </i>
+                    )}
                   </p>
                 </Link>
               </li>
             )
           })}
         </ul>
-      </div>
+      </article>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <button
           className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-2 text-white font-medium rounded-lg hover:bg-primary-4 hover:text-primary-1 transition-colors"
