@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { DeviceProvider } from '~/context/Device.context'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import HeaderContainer from '~/container/desktop/header/Header.container'
+import FooterContainer from '~/container/desktop/footer/Footer.container'
 
 const QuizMainDesktop = () => {
   return (
@@ -67,6 +68,7 @@ const QuizMainDesktop = () => {
           </article>
         </section>
       </main>
+      <FooterContainer />
     </DeviceProvider>
   )
 }
