@@ -3,7 +3,6 @@ import { imageMode } from '~/module/buildMode'
 
 interface SilhouetteQuizImageProps {
   pokemonId: number
-  onClickSkipAnswer: () => void
 }
 
 const SilhouetteQuizImage = ({ pokemonId }: SilhouetteQuizImageProps) => {

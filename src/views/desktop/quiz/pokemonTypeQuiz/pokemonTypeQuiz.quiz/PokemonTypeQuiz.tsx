@@ -9,6 +9,7 @@ import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import { imageMode } from '~/module/buildMode'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import QuizHeader from '../../components/quiz/QuizHeader'
+import QuizSkipButton from '../../components/quiz/QuizSkipButton'
 
 const PokemonTypeQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -82,12 +83,7 @@ const PokemonTypeQuiz = () => {
               <p>{option.koreanName}</p>
             </button>
           ))}
-          <button
-            onClick={handleClickSkipAnswer}
-            className="col-span-2 mt-6 mx-auto block w-30 h-8 leading-[calc(2rem+2px)] text-primary-2 rounded-[1rem] hover:bg-primary-3 hover:text-primary-4 transition-colors"
-          >
-            건너뛰기
-          </button>
+          <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
     </Fragment>

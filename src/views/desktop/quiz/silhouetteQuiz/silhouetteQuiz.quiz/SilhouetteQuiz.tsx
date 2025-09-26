@@ -4,6 +4,7 @@ import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import QuizHeader from '../../components/quiz/QuizHeader'
 import SilhouetteQuizImage from './quiz.image/SilhouetteQuizImage'
+import QuizSkipButton from '../../components/quiz/QuizSkipButton'
 
 const SilhouetteQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -48,7 +49,6 @@ const SilhouetteQuiz = () => {
         <SilhouetteQuizImage
           key={currentQuestion?.correctPokemonId}
           pokemonId={currentQuestion?.correctPokemonId || 0}
-          onClickSkipAnswer={handleClickSkipAnswer}
         />
         <article className="w-full rounded-[2rem] p-[2rem] mx-auto grid grid-cols-2 gap-4">
           <h2 className="w-full text-[1.75rem] font-medium text-gray-800 mb-6 text-center col-span-2">
@@ -66,12 +66,7 @@ const SilhouetteQuiz = () => {
               {option}
             </button>
           ))}
-          <button
-            onClick={handleClickSkipAnswer}
-            className="col-span-2 mt-6 mx-auto block w-30 h-8 leading-[calc(2rem+2px)] text-primary-2 rounded-[1rem] hover:bg-primary-3 hover:text-primary-4 transition-colors"
-          >
-            건너뛰기
-          </button>
+          <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
     </Fragment>

@@ -3,6 +3,7 @@ import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import QuizHeader from '../../components/quiz/QuizHeader'
+import QuizSkipButton from '../../components/quiz/QuizSkipButton'
 
 const AbilityQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -63,12 +64,7 @@ const AbilityQuiz = () => {
               {option.koreanName}
             </button>
           ))}
-          <button
-            onClick={handleClickSkipAnswer}
-            className="col-span-2 mt-6 mx-auto block w-30 h-8 leading-[calc(2rem+2px)] text-primary-2 rounded-[1rem] hover:bg-primary-3 hover:text-primary-4 transition-colors"
-          >
-            건너뛰기
-          </button>
+          <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
     </Fragment>
