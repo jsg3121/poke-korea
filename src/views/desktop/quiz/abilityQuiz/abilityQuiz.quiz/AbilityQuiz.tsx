@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import QuizHeader from '../../components/QuizHeader'
+import QuizHeader from '../../components/quiz/QuizHeader'
 
 const AbilityQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)

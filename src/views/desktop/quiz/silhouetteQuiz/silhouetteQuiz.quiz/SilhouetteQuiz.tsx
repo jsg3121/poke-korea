@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import QuizHeader from '../../components/QuizHeader'
+import QuizHeader from '../../components/quiz/QuizHeader'
 import SilhouetteQuizImage from './quiz.image/SilhouetteQuizImage'
 
 const SilhouetteQuiz = () => {

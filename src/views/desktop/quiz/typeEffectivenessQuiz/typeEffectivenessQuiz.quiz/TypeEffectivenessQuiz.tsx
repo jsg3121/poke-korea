@@ -5,7 +5,7 @@ import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz
 import { PokemonType } from '~/graphql/typeGenerated'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import QuizHeader from '../../components/QuizHeader'
+import QuizHeader from '../../components/quiz/QuizHeader'
 
 const TypeEffectivenessQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)

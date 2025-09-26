@@ -8,7 +8,7 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import { imageMode } from '~/module/buildMode'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import QuizHeader from '../../components/QuizHeader'
+import QuizHeader from '../../components/quiz/QuizHeader'
 
 const PokemonTypeQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
