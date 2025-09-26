@@ -97,7 +97,7 @@ const AbilityQuizResult = () => {
                   >
                     나의 답 :{' '}
                     <span
-                      className={`${realAnswer === userAnswer ? 'text-green-600 font-bold' : 'text-red-600'}`}
+                      className={`${realAnswer === userAnswer ? 'text-green-700 font-bold' : 'text-red-700'}`}
                     >
                       {userAnswer}
                     </span>

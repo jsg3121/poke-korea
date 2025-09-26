@@ -114,7 +114,7 @@ const TypeEffectivenessQuizResult = () => {
                 <div className="grid grid-cols-2 gap-3 text-[1rem]">
                   <div className="flex flex-col gap-1">
                     <span className="text-primary-1 text-[1rem]">정답 :</span>
-                    <span className="font-medium text-green-600 text-[1rem]">
+                    <span className="font-medium text-green-700 text-[1rem]">
                       {correctAnswer}
                     </span>
                   </div>
@@ -124,7 +124,7 @@ const TypeEffectivenessQuizResult = () => {
                     </span>
                     <span
                       className={`font-medium text-[1rem] ${
-                        isCorrect ? 'text-green-600' : 'text-red-600'
+                        isCorrect ? 'text-green-700' : 'text-red-700'
                       }`}
                     >
                       {userAnswer}

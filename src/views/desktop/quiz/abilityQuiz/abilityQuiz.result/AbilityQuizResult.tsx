@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import { getQuizResultCopy } from '~/module/quiz.module'
@@ -60,31 +61,49 @@ const AbilityQuizResult = () => {
         <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
           문제 정답
         </h2>
-        <ul className="w-full flex flex-wrap items-center relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
-          <li className="w-[calc(100%-10px)] h-[2rem] text-[1rem] leading-[calc(2rem+2px)] text-primary-4 flex items-center sticky top-0 bg-primary-2">
-            <p className="w-full text-center">설명</p>
-            <p className="w-[10rem] shrink-0 text-center">정답</p>
-            <p className="w-[10rem] shrink-0 text-center">나의 답</p>
-          </li>
+        <ul className="space-y-3">
           {questions.map((quiz, index) => {
+            const userAnswerIndex = result.userAnswers[index]
             const userAnswer =
               result.userAnswers[index] === 99
                 ? '건너뛰기'
                 : quiz.options[result.userAnswers[index]].koreanName
             const realAnswer = quiz.options[quiz.correctAnswerIndex].koreanName
+            const isCorrect = userAnswerIndex === quiz.correctAnswerIndex
 
             return (
               <li
                 key={quiz.id}
-                className="w-[calc(100%-10px)] min-h-[3rem] flex items-center border-b border-solid border-primary-1"
+                className="w-full min-h-32 bg-white rounded-lg p-4 border border-gray-200"
               >
-                <p className="w-full text-left">{quiz.abilityDescription}</p>
-                <p className="w-[10rem] shrink-0 text-center">{realAnswer}</p>
-                <p
-                  className={`w-[10rem] shrink-0 text-center ${realAnswer === userAnswer ? 'text-green-600 font-bold' : 'text-red-600'}`}
-                >
-                  {userAnswer}
+                <p className="w-full h-8 text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-5 [&>svg]:h-5">
+                  #{index + 1}{' '}
+                  {isCorrect && (
+                    <>
+                      정답! <CorrectIcon />
+                    </>
+                  )}
                 </p>
+                <div className="w-full min-h-8 flex gap-4">
+                  <p className="w-4/5 min-h-8 leading-[calc(2rem+2px)] text-left flex gap-1">
+                    <span className="font-bold">특성 :</span>{' '}
+                    {quiz.abilityDescription}
+                  </p>
+                  <div className="w-1/5">
+                    <p className="h-8 text-[1rem] leading-[calc(2rem+2px)] shrink-0">
+                      <span className="font-bold text-primary-1">정답 :</span>{' '}
+                      {realAnswer}
+                    </p>
+                    <p
+                      className={`h-8 text-[1rem] leading-[calc(2rem+2px)] shrink-0 ${realAnswer === userAnswer ? 'text-green-700 font-bold' : 'text-red-700'}`}
+                    >
+                      <span className="font-bold text-primary-1">
+                        나의 답 :
+                      </span>{' '}
+                      {userAnswer}
+                    </p>
+                  </div>
+                </div>
               </li>
             )
           })}

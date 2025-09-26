@@ -1,15 +1,15 @@
 'use client'
 
 import Link from 'next/link'
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import ImageComponent from '~/components/Image.component'
+import TagComponent from '~/components/Tag.component'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import { getQuizResultCopy } from '~/module/quiz.module'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { formatTime } from '~/utils/quiz.util'
-import CorrectIcon from '~/assets/icons/correct-icon.svg'
 
 const PokemonTypeQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = usePokemonTypeQuizContext()
@@ -87,11 +87,7 @@ const PokemonTypeQuizResult = () => {
             return (
               <li key={quiz.id} className="w-20 h-34 shrink-0">
                 <p className="w-20 h-12 flex items-center">
-                  <span
-                    className={`w-20 h-6 text-[0.75rem] text-center chip-type-${quiz.targetType.toLowerCase()} leading-[calc(1.5rem+2px)] rounded-full block`}
-                  >
-                    {PokemonTypes[quiz.targetType as PokemonType]}
-                  </span>
+                  <TagComponent type={quiz.targetType as PokemonType} />
                 </p>
                 <div className="w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333]">
                   <ImageComponent
@@ -113,7 +109,6 @@ const PokemonTypeQuizResult = () => {
                         <CorrectIcon />
                       </i>
                     )}
-
                     <ImageComponent
                       width={userAnswerId === realAnswerId ? '4rem' : '3rem'}
                       height={userAnswerId === realAnswerId ? '4rem' : '3rem'}

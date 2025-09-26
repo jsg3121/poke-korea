@@ -1,10 +1,10 @@
 'use client'
 import { Fragment, useState } from 'react'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
+import TagComponent from '~/components/Tag.component'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 import QuizHeader from '../../components/quiz/QuizHeader'
 import QuizSkipButton from '../../components/quiz/QuizSkipButton'
 
@@ -57,23 +57,16 @@ const TypeEffectivenessQuiz = () => {
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="flex items-center gap-2">
                   <span className="text-[1.25rem] text-gray-600">공격:</span>
-                  <span
-                    className={`chip-type-${currentQuestion.attackingType.toLowerCase()} h-6 text-[1rem] leading-[calc(1.5rem+2px)] px-4 rounded-full block mb-1`}
-                  >
-                    {PokemonTypes[currentQuestion.attackingType as PokemonType]}
-                  </span>
+                  <TagComponent
+                    type={currentQuestion.attackingType as PokemonType}
+                  />
                 </div>
                 <span className="text-primary-1 text-[1.5rem]">→</span>
                 <div className="flex items-center gap-2">
                   <span className="text-[1.25rem] text-gray-600">방어:</span>
                   <div className="flex gap-1">
                     {currentQuestion.defendingTypes.map((type, index) => (
-                      <span
-                        key={index}
-                        className={`chip-type-${type.toLowerCase()} h-6 text-[1rem] leading-[calc(1.5rem+2px)] px-4 rounded-full block mb-1`}
-                      >
-                        {PokemonTypes[type as PokemonType]}
-                      </span>
+                      <TagComponent key={index} type={type as PokemonType} />
                     ))}
                   </div>
                 </div>

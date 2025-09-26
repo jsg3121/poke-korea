@@ -3,11 +3,11 @@
 import { Fragment, useState } from 'react'
 import ImageComponent from '~/components/Image.component'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
+import TagComponent from '~/components/Tag.component'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import { imageMode } from '~/module/buildMode'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 import QuizHeader from '../../components/quiz/QuizHeader'
 import QuizSkipButton from '../../components/quiz/QuizSkipButton'
 
@@ -55,11 +55,7 @@ const PokemonTypeQuiz = () => {
           {currentQuestion?.targetType ? (
             <h2 className="w-full h-12 col-span-2 text-[1.75rem] text-primary-1 mb-4 text-center flex items-center justify-center gap-2">
               다음 중{' '}
-              <span
-                className={`chip-type-${currentQuestion.targetType.toLowerCase()} h-6 text-[1rem] leading-[calc(1.5rem+2px)] px-4 rounded-full block mb-1`}
-              >
-                {PokemonTypes[currentQuestion.targetType as PokemonType]}
-              </span>
+              <TagComponent type={currentQuestion?.targetType as PokemonType} />
               타입을 가진 포켓몬은?
             </h2>
           ) : (

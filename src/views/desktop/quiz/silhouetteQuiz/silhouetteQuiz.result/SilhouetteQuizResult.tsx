@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import ImageComponent from '~/components/Image.component'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
@@ -65,7 +64,7 @@ const SilhouetteQuizResult = () => {
           문제 정답
         </h2>
         <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
-          <li className="w-24 h-44 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-10 rounded-[1rem]">
+          <li className="w-24 h-44 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-20 rounded-[1rem]">
             <p className="w-full h-24 text-[0.875rem] text-primary-4 text-center leading-[calc(5rem+2px)]">
               문제 포켓몬
             </p>
@@ -77,42 +76,38 @@ const SilhouetteQuizResult = () => {
             </p>
           </li>
           {questions.map((quiz, index) => {
-            const userAnswer = quiz.options[result.userAnswers[index]]
+            const userAnswer =
+              result.userAnswers[index] === 99
+                ? '건너뛰기'
+                : quiz.options[result.userAnswers[index]]
             const realAnswer = quiz.options[quiz.correctAnswerIndex]
 
             const userAnswerTextSize = getTextSize(userAnswer)
             const realAnswerTextSize = getTextSize(realAnswer)
 
             return (
-              <li key={quiz.id} className="w-24 h-44 shrink-0">
-                <Link
-                  href={`/detail/${quiz.correctPokemonId}`}
-                  className="w-full h-full shrink-0 flex flex-col items-center justify-between"
+              <li
+                key={quiz.id}
+                className="w-24 h-44 shrink-0 flex flex-col items-center justify-between"
+              >
+                <i className="h-24">
+                  <ImageComponent
+                    width="5rem"
+                    height="5rem"
+                    src={`${imageMode}/${quiz.correctPokemonId}.webp`}
+                    alt={`정답 포켓몬 ${realAnswer}`}
+                  />
+                </i>
+                <p
+                  className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] text-primary-1 ${userAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'}`}
                 >
-                  <i className="h-24">
-                    <ImageComponent
-                      width="5rem"
-                      height="5rem"
-                      src={`${imageMode}/${quiz.correctPokemonId}.webp`}
-                      alt={`정답 포켓몬 ${realAnswer}`}
-                    />
-                  </i>
-                  <p
-                    className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] text-primary-1 ${userAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'}`}
-                  >
-                    {realAnswer}
-                  </p>
-                  <p
-                    className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] text-primary-1 relative ${realAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'} ${realAnswer === userAnswer ? 'font-bold' : 'text-gray-400'}`}
-                  >
-                    {userAnswer}
-                    {userAnswer === realAnswer && (
-                      <i className="w-4 h-4 block absolute top-0 right-0 z-10">
-                        <CorrectIcon />
-                      </i>
-                    )}
-                  </p>
-                </Link>
+                  {realAnswer}
+                </p>
+                <p
+                  className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] relative ${realAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'} ${realAnswer === userAnswer ? 'font-bold text-green-700' : 'text-red-700'}`}
+                >
+                  {userAnswer}
+                </p>
               </li>
             )
           })}

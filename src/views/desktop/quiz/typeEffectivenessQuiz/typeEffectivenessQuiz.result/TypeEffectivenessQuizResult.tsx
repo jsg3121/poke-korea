@@ -1,14 +1,13 @@
 'use client'
 
 import Link from 'next/link'
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
+import TagComponent from '~/components/Tag.component'
 import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
-import { getQuizResultCopy } from '~/module/quiz.module'
-import { PokemonTypes, TypesColor } from '~/types/pokemonTypes.types'
-import { formatTime } from '~/utils/quiz.util'
-import { getKoreanTypeName } from '~/module/typeEffectivenessQuiz.module'
-import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import { PokemonType } from '~/graphql/typeGenerated'
+import { getQuizResultCopy } from '~/module/quiz.module'
+import { formatTime } from '~/utils/quiz.util'
 
 const TypeEffectivenessQuizResult = () => {
   const { result, questions, onClickRetryQuiz } =
@@ -18,14 +17,6 @@ const TypeEffectivenessQuizResult = () => {
 
   const handleClickRetryQuiz = () => {
     onClickRetryQuiz()
-  }
-
-  const getTypeColor = (typeName: string) => {
-    const typeKey = Object.keys(PokemonTypes).find(
-      (key) => PokemonTypes[key as keyof typeof PokemonTypes] === typeName,
-    ) as keyof typeof TypesColor | undefined
-
-    return typeKey ? TypesColor[typeKey] : '#A8A878'
   }
 
   if (!result) return null
@@ -86,62 +77,50 @@ const TypeEffectivenessQuizResult = () => {
             return (
               <li
                 key={quiz.id}
-                className="bg-white rounded-lg p-4 border border-gray-200"
+                className=" h-28 bg-white rounded-lg p-4 border border-gray-200"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-gray-600">
-                      문제 {index + 1}
+                <p className="w-full h-8 text-primary-1 mb-4 font-bold flex items-center gap-2 [&>svg]:w-5 [&>svg]:h-5">
+                  #{index + 1}{' '}
+                  {isCorrect && (
+                    <>
+                      정답! <CorrectIcon />
+                    </>
+                  )}
+                </p>
+                <div className="h-8 grid grid-cols-3 gap-3">
+                  <p className="h-8 flex items-center gap-2">
+                    <span className="h-full leading-[calc(2rem+2px)] text-[1rem] text-primary-1">
+                      공격:
                     </span>
-                    {isCorrect && (
-                      <div className="w-5 h-5 text-green-500">
-                        <CorrectIcon />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-500">공격:</span>
-                    <span
-                      className="px-2 py-1 rounded text-white text-xs"
-                      style={{
-                        backgroundColor: getTypeColor(
-                          getKoreanTypeName(quiz.attackingType as PokemonType),
-                        ),
-                      }}
-                    >
-                      {getKoreanTypeName(quiz.attackingType as PokemonType)}
+                    <TagComponent type={quiz.attackingType as PokemonType} />
+                    <span className="h-full leading-[calc(2rem+2px)] text-[1.25rem] text-primary-1">
+                      →
                     </span>
-                    <span className="text-gray-400">→</span>
                     {quiz.defendingTypes.map((type, typeIndex) => (
-                      <span
+                      <TagComponent
                         key={typeIndex}
-                        className="px-2 py-1 rounded text-white text-xs"
-                        style={{
-                          backgroundColor: getTypeColor(
-                            getKoreanTypeName(type as PokemonType),
-                          ),
-                        }}
-                      >
-                        {getKoreanTypeName(type as PokemonType)}
-                      </span>
+                        type={type as PokemonType}
+                      />
                     ))}
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-600">정답:</span>
-                    <span className="font-medium text-green-600">
+                  </p>
+                  <p className="h-8 flex items-center gap-2">
+                    <span className="h-full text-[1rem] leading-[calc(2rem+2px)] text-primary-1 font-bold">
+                      정답:
+                    </span>
+                    <span className="h-full text-[1rem] leading-[calc(2rem+2px)]">
                       {correctAnswer}
                     </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-600">나의 답:</span>
+                  </p>
+                  <p className="h-8 flex items-center gap-2">
+                    <span className="h-full text-[1rem] leading-[calc(2rem+2px)] text-primary-1 font-bold">
+                      나의 답:
+                    </span>
                     <span
-                      className={`font-medium ${isCorrect ? 'text-green-600' : 'text-red-600'}`}
+                      className={`h-full text-[1rem] leading-[calc(2rem+2px)] font-medium ${isCorrect ? 'text-green-700' : 'text-red-700'}`}
                     >
                       {userAnswer}
                     </span>
-                  </div>
+                  </p>
                 </div>
               </li>
             )
