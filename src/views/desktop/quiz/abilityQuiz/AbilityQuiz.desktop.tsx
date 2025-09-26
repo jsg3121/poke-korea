@@ -11,11 +11,7 @@ const AbilityQuizDesktop = () => {
 
   return (
     <Fragment>
-      {quizViewStage === 'BEFORE' && (
-        <section className="h-full w-full max-w-[1280px] mx-auto">
-          <AbilityQuizBeforeStage />
-        </section>
-      )}
+      {quizViewStage === 'BEFORE' && <AbilityQuizBeforeStage />}
       {quizViewStage === 'QUIZ' && <AbilityQuiz />}
       {quizViewStage === 'RESULT' && <AbilityQuizResult />}
     </Fragment>

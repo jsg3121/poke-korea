@@ -11,11 +11,7 @@ const SilhouetteQuizDesktop = () => {
 
   return (
     <Fragment>
-      {quizViewStage === 'BEFORE' && (
-        <section className="h-full w-full max-w-[1280px] mx-auto">
-          <SilhouetteQuizBeforeStage />
-        </section>
-      )}
+      {quizViewStage === 'BEFORE' && <SilhouetteQuizBeforeStage />}
       {quizViewStage === 'QUIZ' && <SilhouetteQuiz />}
       {quizViewStage === 'RESULT' && <SilhouetteQuizResult />}
     </Fragment>
