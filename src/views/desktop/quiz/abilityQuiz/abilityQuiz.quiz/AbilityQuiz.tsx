@@ -37,7 +37,7 @@ const AbilityQuiz = () => {
           onComplete={handleHideCounter}
         />
       )}
-      <section className="w-full max-w-[1280px] mx-auto h-[28rem] bg-primary-4 rounded-[2rem] mt-[2rem] relative flex flex-col">
+      <section className="w-full max-w-[1280px] mx-auto h-[33rem] bg-primary-4 rounded-[2rem] mt-[2rem] relative flex flex-col">
         <QuizHeader
           quizName="특성 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
