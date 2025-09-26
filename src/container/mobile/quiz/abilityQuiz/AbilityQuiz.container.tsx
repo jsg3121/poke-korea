@@ -71,7 +71,7 @@ const AbilityQuizContainer = () => {
           onClick={handleClickSkipAnswer}
           className="self-center px-[1.5rem] py-[0.5rem] text-[0.875rem] text-gray-500 border border-gray-300 rounded-[1rem]"
         >
-          다음 문제
+          건너뛰기
         </button>
       </article>
     </section>

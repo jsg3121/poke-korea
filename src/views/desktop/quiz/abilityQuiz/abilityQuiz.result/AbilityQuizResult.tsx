@@ -68,7 +68,9 @@ const AbilityQuizResult = () => {
           </li>
           {questions.map((quiz, index) => {
             const userAnswer =
-              quiz.options[result.userAnswers[index]].koreanName
+              result.userAnswers[index] === 99
+                ? '건너뛰기'
+                : quiz.options[result.userAnswers[index]].koreanName
             const realAnswer = quiz.options[quiz.correctAnswerIndex].koreanName
 
             return (
@@ -79,7 +81,7 @@ const AbilityQuizResult = () => {
                 <p className="w-full text-left">{quiz.abilityDescription}</p>
                 <p className="w-[10rem] shrink-0 text-center">{realAnswer}</p>
                 <p
-                  className={`w-[10rem] shrink-0 text-center ${realAnswer === userAnswer ? 'font-bold' : ' text-primary-3'}`}
+                  className={`w-[10rem] shrink-0 text-center ${realAnswer === userAnswer ? 'text-green-600 font-bold' : 'text-red-600'}`}
                 >
                   {userAnswer}
                 </p>

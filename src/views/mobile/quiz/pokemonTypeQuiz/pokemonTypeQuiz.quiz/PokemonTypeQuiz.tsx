@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
-import PokemonTypeQuizContainer from '~/container/desktop/quiz/pokemonTypeQuiz/PokemonTypeQuiz.container'
+import PokemonTypeQuizContainer from '~/container/mobile/quiz/pokemonTypeQuiz/PokemonTypeQuiz.container'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 

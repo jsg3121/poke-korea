@@ -50,7 +50,7 @@ const PokemonTypeQuizContainer = () => {
           ></div>
         </div>
       </header>
-      <article className="w-full max-w-[800px] bg-white rounded-[2rem] shadow-md p-[2rem] mb-[2rem] mx-auto">
+      <article className="w-full bg-white rounded-[2rem] shadow-md p-[2rem] mb-[2rem] mx-auto">
         {currentQuestion?.targetType ? (
           <h2 className="w-full h-8 text-[1.25rem] text-primary-1 mb-4 text-center flex items-center justify-center gap-2">
             다음 중{' '}

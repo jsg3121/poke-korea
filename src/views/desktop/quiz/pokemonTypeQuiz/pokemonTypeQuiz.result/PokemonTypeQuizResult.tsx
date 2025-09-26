@@ -78,7 +78,10 @@ const PokemonTypeQuizResult = () => {
             </p>
           </li>
           {questions.map((quiz, index) => {
-            const userAnswerId = quiz.options[result.userAnswers[index]].id
+            const userAnswerId =
+              result.userAnswers[index] === 99
+                ? '건너뛰기'
+                : quiz.options[result.userAnswers[index]].id
             const realAnswerId = quiz.options[quiz.correctAnswerIndex].id
 
             return (
@@ -97,20 +100,27 @@ const PokemonTypeQuizResult = () => {
                     src={`${imageMode}/${realAnswerId}.webp`}
                   />
                 </div>
-                <div
-                  className={`w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333] ${userAnswerId === realAnswerId ? '' : 'opacity-70 grayscale'} relative`}
-                >
-                  {userAnswerId === realAnswerId && (
-                    <i className="w-4 h-4 block absolute top-0 right-0 z-10">
-                      <CorrectIcon />
-                    </i>
-                  )}
-                  <ImageComponent
-                    width={userAnswerId === realAnswerId ? '4rem' : '3rem'}
-                    height={userAnswerId === realAnswerId ? '4rem' : '3rem'}
-                    src={`${imageMode}/${userAnswerId}.webp`}
-                  />
-                </div>
+                {userAnswerId === '건너뛰기' ? (
+                  <p className="w-[4.5rem] h-[4.5rem] leading-[4.5rem]">
+                    건너뛰기
+                  </p>
+                ) : (
+                  <div
+                    className={`w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333] ${userAnswerId === realAnswerId ? '' : 'opacity-70 grayscale'} relative`}
+                  >
+                    {userAnswerId === realAnswerId && (
+                      <i className="w-4 h-4 block absolute top-0 right-0 z-10">
+                        <CorrectIcon />
+                      </i>
+                    )}
+
+                    <ImageComponent
+                      width={userAnswerId === realAnswerId ? '4rem' : '3rem'}
+                      height={userAnswerId === realAnswerId ? '4rem' : '3rem'}
+                      src={`${imageMode}/${userAnswerId}.webp`}
+                    />
+                  </div>
+                )}
               </li>
             )
           })}

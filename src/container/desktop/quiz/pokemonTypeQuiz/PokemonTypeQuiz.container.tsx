@@ -50,7 +50,7 @@ const PokemonTypeQuizContainer = () => {
           ></div>
         </div>
       </header>
-      <article className="w-full max-w-[800px] bg-white rounded-[2rem] shadow-md p-[2rem] mb-[2rem] mx-auto">
+      <article className="w-full max-w-[50rem] bg-white rounded-[2rem] shadow-md p-[2rem] mb-[2rem] mx-auto">
         {currentQuestion?.targetType ? (
           <h2 className="w-full h-8 text-[1.25rem] text-primary-1 mb-4 text-center flex items-center justify-center gap-2">
             다음 중{' '}
@@ -69,7 +69,7 @@ const PokemonTypeQuizContainer = () => {
             <button
               key={index}
               onClick={handleClickSelectAnswer(index)}
-              className="p-[1rem] text-left rounded-[1rem] flex flex-col items-center"
+              className="p-[1rem] text-left rounded-[1rem] flex flex-col items-center hover:bg-primary-4 transition-colors"
             >
               <ImageComponent
                 width="8rem"
@@ -83,7 +83,7 @@ const PokemonTypeQuizContainer = () => {
         </div>
         <button
           onClick={handleClickSkipAnswer}
-          className="mt-6 mx-auto block w-30 h-8 leading-[calc(2rem+2px)] text-primary-3 rounded-[1rem]"
+          className="mt-6 mx-auto block w-30 h-8 leading-[calc(2rem+2px)] text-primary-3 rounded-[1rem] hover:bg-primary-3 hover:text-primary-2 transition-colors"
         >
           건너뛰기
         </button>

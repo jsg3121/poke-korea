@@ -64,7 +64,9 @@ const AbilityQuizResult = () => {
         <ul className="w-full flex flex-col gap-[1rem] items-center relative">
           {questions.map((quiz, index) => {
             const userAnswer =
-              quiz.options[result.userAnswers[index]].koreanName
+              result.userAnswers[index] === 99
+                ? '건너뛰기'
+                : quiz.options[result.userAnswers[index]].koreanName
             const realAnswer = quiz.options[quiz.correctAnswerIndex].koreanName
 
             return (
@@ -91,11 +93,11 @@ const AbilityQuizResult = () => {
                     </span>
                   </p>
                   <p
-                    className={`w-fit shrink-0 text-left flex items-center gap-2 ${realAnswer === userAnswer ? 'text-primary-1 ' : ' text-primary-2'} [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]`}
+                    className={`w-fit shrink-0 text-left flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]`}
                   >
                     나의 답 :{' '}
                     <span
-                      className={`${userAnswer === realAnswer ? 'font-bold' : ''}`}
+                      className={`${realAnswer === userAnswer ? 'text-green-600 font-bold' : 'text-red-600'}`}
                     >
                       {userAnswer}
                     </span>

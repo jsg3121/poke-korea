@@ -120,7 +120,7 @@ const TypeEffectivenessQuizContainer = () => {
 
         <button
           onClick={handleClickSkipAnswer}
-          className="mt-6 mx-auto block px-4 py-2 text-gray-500 rounded-[1rem] hover:text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          className="mt-6 mx-auto block w-30 h-8 leading-[calc(2rem+2px)] text-primary-3 rounded-[1rem] hover:bg-primary-3 hover:text-primary-2 transition-colors"
         >
           건너뛰기
         </button>
