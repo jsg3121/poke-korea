@@ -8,6 +8,7 @@ import HeaderMobile from '~/container/mobile/header/Header.container'
 import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
 import TypeEffectivenessQuizDesktop from '~/views/desktop/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.desktop'
+import TypeEffectivenessQuizMobile from '~/views/mobile/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.mobile'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 
@@ -52,10 +53,7 @@ const TypeEffectivenessQuizPage = async () => {
         {isMobile ? (
           <Fragment>
             <HeaderMobile />
-            {/* 모바일 컴포넌트는 아직 구현하지 않음 */}
-            <div className="flex items-center justify-center h-96 text-gray-500">
-              모바일 버전은 아직 준비 중입니다.
-            </div>
+            <TypeEffectivenessQuizMobile />
             <FooterMobile />
           </Fragment>
         ) : (
