@@ -1,10 +1,9 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import ImageComponent from '~/components/Image.component'
-import { ListContext } from '~/context/List.context'
 import InputComponents from './components/Input.component'
 
 type SearchFormType = {
@@ -15,7 +14,6 @@ const SearchComponent = () => {
   const router = useRouter()
   const routerQuery = useSearchParams()
   const pathname = usePathname()
-  const { scrolling, searching } = useContext(ListContext)
 
   const searchFormMethods = useForm<SearchFormType>({
     defaultValues: {
@@ -51,11 +49,7 @@ const SearchComponent = () => {
 
   return (
     <div
-      className={`max-w-[41.66666667rem] h-[3.33333333rem] border border-[#dddddd] shadow-[0_3px_12px_0_rgba(0,0,0,0.1),0_1px_2px_0_rgba(0,0,0,0.08)] rounded-[2.22222222rem] bg-white relative left-1/2 -translate-x-1/2 transition-[top,width,max-width] duration-300 will-change-[top,width,max-width] hover:bg-[#ebebeb] hover:rounded-[2.22222222rem] ${
-        scrolling || searching
-          ? 'desktop-890:left-[80%] max-[890px]:left-[80%] w-[40%] max-w-[600px] top-0 '
-          : 'top-8 w-full'
-      }`}
+      className={`w-[30rem] h-12 absolute left-1/2 -translate-x-1/2 top-0 rounded-[2rem] bg-white`}
     >
       <FormProvider {...searchFormMethods}>
         <form

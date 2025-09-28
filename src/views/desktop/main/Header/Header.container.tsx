@@ -1,22 +1,17 @@
-import { useContext } from 'react'
-import { ListContext } from '~/context/List.context'
+import LogoIcon from '~/assets/logo.svg'
 import FilterComponents from './filter/Filter.components'
-import LogoComponent from './logo/Logo.component'
 import SearchComponent from './search/Search.component'
 
 const HeaderContainer = () => {
-  const { scrolling, searching } = useContext(ListContext)
-
   return (
     <header
-      className={`w-full bg-primary-2 transition-[height] duration-300 will-change-[height] fixed top-0 z-20 pt-6 ${
-        scrolling || searching ? 'h-44' : 'h-80'
-      }`}
-      data-scrolling={scrolling}
-      data-searching={searching ? 'has-query' : ''}
+      className={`w-full h-44 bg-primary-2 transition-[height] duration-300 will-change-[height] fixed top-0 z-20 pt-6`}
     >
-      <div className="w-full max-w-[1280px] absolute left-1/2 -translate-x-1/2 translate-y-0 px-5">
-        <LogoComponent scrolling={scrolling} searching={searching} />
+      <div className="w-full max-w-[1280px] h-12 mx-auto px-5 relative">
+        <h1 className="sr-only">포켓몬의 모든 정보 Poke Korea</h1>
+        <div className="w-56 h-12">
+          <LogoIcon />
+        </div>
         <SearchComponent />
       </div>
       <FilterComponents />
