@@ -2,7 +2,8 @@ import { Fragment, useState } from 'react'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import { formatTimeShort } from '~/utils/quiz.util'
+import QuizHeader from '../../components/quiz/QuizHeader'
+import QuizSkipButton from '../../components/quiz/QuizSkipButton'
 
 const AbilityQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -39,38 +40,20 @@ const AbilityQuiz = () => {
         />
       )}
       <section className="w-full h-full px-[20px] py-[1rem] relative mx-auto flex flex-col gap-4">
-        <header className="bg-white rounded-[1rem] shadow-md py-[1rem] px-[1rem] mb-[1rem]">
-          <div className="flex items-center justify-between mb-[0.75rem]">
-            <div>
-              <h1 className="text-[1.25rem] font-bold text-gray-800">
-                특성 퀴즈
-              </h1>
-              <p className="text-[0.875rem] text-gray-600">
-                문제 {currentQuestionIndex + 1} / 20
-              </p>
-            </div>
-            <div className="text-right">
-              <div className="text-[1rem] font-medium text-purple-600">
-                {formatTimeShort(timeElapsed)}
-              </div>
-              <div className="text-[0.75rem] text-gray-600">경과 시간</div>
-            </div>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-purple-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        </header>
-        <article className="bg-white rounded-[1rem] shadow-md py-[1.5rem] px-[1rem] flex-1 flex flex-col">
-          <div className="mb-[1.5rem] p-[1rem] bg-primary-1 rounded-[1rem]">
+        <QuizHeader
+          quizName="특성 퀴즈"
+          currentQuestionIndex={currentQuestionIndex}
+          progress={progress}
+          timeElapsed={timeElapsed}
+        />
+        <article className="bg-white rounded-[1rem] shadow-md px-[1rem] flex flex-col gap-[1.5rem] py-[1.5rem]">
+          <header className="my-[1.5rem] p-[1rem] bg-primary-1 rounded-[1rem]">
             <h2 className="text-[0.875rem] text-primary-3 mb-[0.5rem]">설명</h2>
             <p className="text-[1rem] leading-[1.6] text-primary-4">
               {currentQuestion?.abilityDescription}
             </p>
-          </div>
-          <div className="flex flex-col gap-[1rem] mb-[2rem]">
+          </header>
+          <div className="flex flex-col gap-[1rem]">
             {currentQuestion?.options.map((option, index) => (
               <button
                 key={index}
@@ -84,12 +67,7 @@ const AbilityQuiz = () => {
               </button>
             ))}
           </div>
-          <button
-            onClick={handleClickSkipAnswer}
-            className="self-center px-[1.5rem] py-[0.5rem] text-[0.875rem] text-gray-500 border border-gray-300 rounded-[1rem]"
-          >
-            건너뛰기
-          </button>
+          <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
     </Fragment>

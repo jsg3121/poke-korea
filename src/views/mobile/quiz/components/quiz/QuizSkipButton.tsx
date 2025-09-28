@@ -10,7 +10,7 @@ const QuizSkipButton = ({ onClickSkipButton }: QuizSkipButtonProps) => {
   return (
     <button
       onClick={handleClickSkipAnswer}
-      className="col-span-2 mt-6 mx-auto block w-30 h-8 leading-[calc(2rem+2px)] text-primary-2 rounded-[1rem] hover:bg-primary-3 hover:text-primary-4 transition-colors"
+      className="mt-6 mx-auto block px-4 py-2 text-gray-500 rounded-[1rem]"
     >
       건너뛰기
     </button>

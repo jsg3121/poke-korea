@@ -7,7 +7,7 @@ interface SilhouetteQuizImageProps {
 
 const SilhouetteQuizImage = ({ pokemonId }: SilhouetteQuizImageProps) => {
   return (
-    <div className="w-[calc(100%-40px)] h-[15rem] mx-auto relative flex justify-center">
+    <div className="w-[calc(100%-40px)] h-[13rem] mx-auto relative flex justify-center">
       <ImageComponent
         height="12rem"
         width="12rem"
