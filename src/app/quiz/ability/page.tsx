@@ -13,17 +13,16 @@ import AbilityQuizMobile from '~/views/mobile/quiz/abilityQuiz/AbilityQuiz.mobil
 export const revalidate = 31536000
 
 export const metadata: Metadata = {
-  title: '특성 퀴즈 | 포케 코리아',
-  description:
-    '포켓몬의 특성 설명을 보고 어떤 특성인지 맞춰보세요! 20문제로 구성된 객관식 퀴즈입니다.',
+  title: '포켓몬 특성 퀴즈 | 포케 코리아',
+  description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
   robots: {
     index: true,
     follow: true,
     'max-image-preview': 'large',
   },
   openGraph: {
-    title: '특성 퀴즈 | 포케 코리아',
-    description: '포켓몬의 특성 설명을 보고 어떤 특성인지 맞춰보세요!',
+    title: '포켓몬 특성 퀴즈 | 포케 코리아',
+    description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
     url: 'https://poke-korea.com/quiz/ability',
     type: 'website',
     siteName: '포케 코리아',

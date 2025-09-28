@@ -13,16 +13,18 @@ import TypeEffectivenessQuizMobile from '~/views/mobile/quiz/typeEffectivenessQu
 export const revalidate = 31536000 // 24시간마다 재생성
 
 export const metadata: Metadata = {
-  title: '타입 상성 퀴즈 | 포케 코리아',
-  description: '타입 상성을 계산해서 정답을 맞춰보세요!',
+  title: '포켓몬 타입 상성 퀴즈 | 포케 코리아',
+  description:
+    '공격하는 타입과 방어하는 타입을 확인하고, 어떤 효과를 가지는지 답을 선택해 맞춰보세요!',
   robots: {
     index: true,
     follow: true,
     'max-image-preview': 'large',
   },
   openGraph: {
-    title: '타입 상성 퀴즈 | 포케 코리아',
-    description: '타입 상성을 계산해서 정답을 맞춰보세요!',
+    title: '포켓몬 타입 상성 퀴즈 | 포케 코리아',
+    description:
+      '공격하는 타입과 방어하는 타입을 확인하고, 어떤 효과를 가지는지 답을 선택해 맞춰보세요!',
     url: 'https://poke-korea.com/quiz/type-effectiveness',
     type: 'website',
     siteName: '포케 코리아',
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
         width: 1200,
         height: 630,
-        alt: '타입 상성 퀴즈 | 포케 코리아',
+        alt: '포켓몬 타입 상성 퀴즈 | 포케 코리아',
         type: 'image/png',
       },
     ],

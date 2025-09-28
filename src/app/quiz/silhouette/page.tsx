@@ -13,17 +13,17 @@ import SilhouetteQuizMobile from '~/views/mobile/quiz/silhouetteQuiz/SilhouetteQ
 export const revalidate = 31536000
 
 export const metadata: Metadata = {
-  title: '실루엣 퀴즈 | 포케 코리아',
-  description:
-    '포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요! 20문제로 구성된 객관식 퀴즈입니다.',
+  title: '포켓몬 실루엣 퀴즈 | 포케 코리아',
+  description: '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
   robots: {
     index: true,
     follow: true,
     'max-image-preview': 'large',
   },
   openGraph: {
-    title: '실루엣 퀴즈 | 포케 코리아',
-    description: '포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
+    title: '포켓몬 실루엣 퀴즈 | 포케 코리아',
+    description:
+      '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
     url: 'https://poke-korea.com/quiz/silhouette',
     type: 'website',
     siteName: '포케 코리아',

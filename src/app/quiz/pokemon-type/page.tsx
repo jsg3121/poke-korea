@@ -14,7 +14,7 @@ export const revalidate = 31536000 // 24시간마다 재생성
 
 export const metadata: Metadata = {
   title: '포켓몬 타입 퀴즈 | 포케 코리아',
-  description: '특정 타입을 가지고 있는 포켓몬을 맞춰보세요!',
+  description: '특정 타입을 보고 해당 타입을 가지고 있는 포켓몬을 맞춰보세요!',
   robots: {
     index: true,
     follow: true,
@@ -22,7 +22,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: '실루엣 퀴즈 | 포케 코리아',
-    description: '특정 타입을 가지고 있는 포켓몬을 맞춰보세요!',
+    description:
+      '특정 타입을 보고 해당 타입을 가지고 있는 포켓몬을 맞춰보세요!',
     url: 'https://poke-korea.com/quiz/pokemon-type',
     type: 'website',
     siteName: '포케 코리아',

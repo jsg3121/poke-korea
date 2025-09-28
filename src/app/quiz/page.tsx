@@ -10,7 +10,7 @@ export const revalidate = 31536000 // 24시간마다 재생성
 export const metadata: Metadata = {
   title: '포켓몬 퀴즈 | 포케 코리아',
   description:
-    '실루엣, 특성, 타입 상성 등 다양한 포켓몬 퀴즈를 풀어보세요! 20문제씩 도전해보세요.',
+    '포켓몬의 실루엣, 특성, 타입, 상성을 정보를 통해 재미있는 퀴즈를 맞추며 포켓몬의 정보를 확인하고 배워보세요!',
   robots: {
     index: true,
     follow: true,
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: '포켓몬 퀴즈 | 포케 코리아',
-    description: '실루엣, 특성, 타입 상성 등 다양한 포켓몬 퀴즈를 풀어보세요!',
+    description:
+      '포켓몬의 실루엣, 특성, 타입, 상성을 정보를 통해 재미있는 퀴즈를 맞추며 포켓몬의 정보를 확인하고 배워보세요!',
     url: 'https://poke-korea.com/quiz',
     type: 'website',
     siteName: '포케 코리아',

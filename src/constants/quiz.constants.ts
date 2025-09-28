@@ -36,7 +36,7 @@ export const QUIZ_CONFIG = [
   {
     type: 'type-effectiveness',
     title: '타입 상성 퀴즈',
-    description: '타입 상성을 계산해서 정답을 맞춰보세요!',
+    description: '공격, 방어 관계를 보고 답을 선택해 맞춰보세요!',
     route: QUIZ_ROUTES.TYPE_EFFECTIVENESS,
     icon: '⚔️',
   },
