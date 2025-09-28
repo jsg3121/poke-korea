@@ -7,7 +7,7 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { PokemonTypeQuizProvider } from '~/context/PokemonTypeQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
-import PokemonTypeQuizDesktop from '~/views/desktop/quiz/pokemonTypeQuiz/PokemonTypeQuiz.desktop'
+import PokemonTypeQuizDesktop from '~/container/desktop/quiz/pokemonTypeQuiz/PokemonTypeQuiz.desktop'
 import PokemonTypeQuizMobile from '~/views/mobile/quiz/pokemonTypeQuiz/PokemonTypeQuiz.mobile'
 
 export const revalidate = 31536000 // 24시간마다 재생성

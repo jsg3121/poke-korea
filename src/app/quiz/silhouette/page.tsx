@@ -7,7 +7,7 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
-import SilhouetteQuizDesktop from '~/views/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
+import SilhouetteQuizDesktop from '~/container/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
 import SilhouetteQuizMobile from '~/views/mobile/quiz/silhouetteQuiz/SilhouetteQuiz.mobile'
 
 export const revalidate = 31536000

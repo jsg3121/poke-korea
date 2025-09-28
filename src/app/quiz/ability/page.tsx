@@ -7,7 +7,7 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { AbilityQuizProvider } from '~/context/AbilityQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
-import AbilityQuizDesktop from '~/views/desktop/quiz/abilityQuiz/AbilityQuiz.desktop'
+import AbilityQuizDesktop from '~/container/desktop/quiz/abilityQuiz/AbilityQuiz.desktop'
 import AbilityQuizMobile from '~/views/mobile/quiz/abilityQuiz/AbilityQuiz.mobile'
 
 export const revalidate = 31536000

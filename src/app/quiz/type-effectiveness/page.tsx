@@ -7,7 +7,7 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
-import TypeEffectivenessQuizDesktop from '~/views/desktop/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.desktop'
+import TypeEffectivenessQuizDesktop from '~/container/desktop/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.desktop'
 import TypeEffectivenessQuizMobile from '~/views/mobile/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.mobile'
 
 export const revalidate = 31536000 // 24시간마다 재생성
