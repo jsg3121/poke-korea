@@ -1,10 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import CorrectIcon from '~/assets/icons/correct-icon.svg'
-import { QUIZ_ROUTES } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import { getQuizResultCopy } from '~/module/quiz.module'
+import ResultFooter from '../../components/result/ResultFooter'
 import ResultHeader from '../../components/result/ResultHeader'
 import ResultSummary from '../../components/result/ResultSummary'
 
@@ -80,20 +79,7 @@ const AbilityQuizResult = () => {
           })}
         </ul>
       </article>
-      <div className="flex gap-[1rem] justify-center">
-        <button
-          className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-2 text-white font-medium rounded-lg hover:bg-primary-4 hover:text-primary-1 transition-colors"
-          onClick={handleClickRetryQuiz}
-        >
-          다시 도전하기
-        </button>
-        <Link
-          href={QUIZ_ROUTES.MAIN}
-          className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-3 text-black-2 font-medium rounded-lg hover:bg-primary-4 transition-colors"
-        >
-          다른 퀴즈 하러가기
-        </Link>
-      </div>
+      <ResultFooter onClickRetryButton={handleClickRetryQuiz} />
     </section>
   )
 }
