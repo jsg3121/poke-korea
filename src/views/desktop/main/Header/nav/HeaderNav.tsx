@@ -12,7 +12,7 @@ const HeaderNav = () => {
             홈 화면
           </Link>
         </li>
-        <li className="min-w-fit h-full px-4">
+        <li className="min-w-fit h-full px-4 hover:scale-110 transition-transform duration-200">
           <Link
             href="/type-effectiveness"
             className="w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 "
@@ -20,7 +20,7 @@ const HeaderNav = () => {
             상성 계산기
           </Link>
         </li>
-        <li className="min-w-fit h-full px-4">
+        <li className="min-w-fit h-full px-4 hover:scale-110 transition-transform duration-200">
           <Link
             href="/moves"
             className="w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 "
@@ -28,7 +28,7 @@ const HeaderNav = () => {
             기술 도감
           </Link>
         </li>
-        <li className="min-w-fit h-full px-4">
+        <li className="min-w-fit h-full px-4 hover:scale-110 transition-transform duration-200">
           <Link
             href="/quiz"
             className="w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 "
