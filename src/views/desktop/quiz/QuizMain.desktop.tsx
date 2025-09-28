@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { DeviceProvider } from '~/context/Device.context'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
-import HeaderContainer from '~/container/desktop/header/Header.container'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
+import HeaderContainer from '~/container/desktop/header/Header.container'
+import { DeviceProvider } from '~/context/Device.context'
 
 const QuizMainDesktop = () => {
   return (

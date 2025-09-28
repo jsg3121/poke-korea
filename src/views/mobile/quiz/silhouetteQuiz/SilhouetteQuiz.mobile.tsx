@@ -11,11 +11,7 @@ const SilhouetteQuizMobile = () => {
 
   return (
     <Fragment>
-      {quizViewStage === 'BEFORE' && (
-        <section className="h-full w-full px-[20px]">
-          <SilhouetteQuizBeforeStage />
-        </section>
-      )}
+      {quizViewStage === 'BEFORE' && <SilhouetteQuizBeforeStage />}
       {quizViewStage === 'QUIZ' && <SilhouetteQuiz />}
       {quizViewStage === 'RESULT' && <SilhouetteQuizResult />}
     </Fragment>
