@@ -2,7 +2,7 @@ import FilterPokemonTypeComponent from './filter.pokemonType/FilterPokemonType.c
 
 const FilterComponents = () => {
   return (
-    <section className="w-full h-[4.8rem] bg-primary-1 shadow-[0_1px_6px_-2px_var(--color-black-1)] absolute bottom-0 left-0 z-20">
+    <section className="w-full h-[4.8rem] bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)]">
       <FilterPokemonTypeComponent />
     </section>
   )
