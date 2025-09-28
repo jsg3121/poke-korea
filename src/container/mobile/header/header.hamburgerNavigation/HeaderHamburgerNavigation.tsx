@@ -69,6 +69,14 @@ const HeaderHamburgerNavigation = () => {
                   기술 도감
                 </Link>
               </li>
+              <li className="w-full">
+                <Link
+                  href="/quiz"
+                  className="w-full h-6 text-base leading-[calc(1.5rem+2px)] text-primary-4"
+                >
+                  포켓몬 퀴즈
+                </Link>
+              </li>
             </ul>
           </nav>
           <div className="w-full h-12 flex items-center justify-center gap-4">
