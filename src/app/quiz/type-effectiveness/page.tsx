@@ -50,7 +50,7 @@ const TypeEffectivenessQuizPage = async () => {
   const isMobile = detectUserAgent(userAgent)
 
   return (
-    <main className={`${isMobile ? '' : 'pt-30'}`}>
+    <main className={`${isMobile ? '' : 'pt-40'}`}>
       <TypeEffectivenessQuizProvider>
         {isMobile ? (
           <Fragment>

@@ -50,7 +50,7 @@ const SilhouetteQuizPage = async () => {
 
   return (
     <Fragment>
-      <main className={`${isMobile ? '' : 'pt-30'}`}>
+      <main className={`${isMobile ? '' : 'pt-40'}`}>
         <SilhouetteQuizProvider>
           {isMobile ? (
             <Fragment>

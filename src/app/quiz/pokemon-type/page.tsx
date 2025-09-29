@@ -49,7 +49,7 @@ const QuizMainPage = async () => {
   const isMobile = detectUserAgent(userAgent)
 
   return (
-    <main className={`${isMobile ? '' : 'pt-30'}`}>
+    <main className={`${isMobile ? '' : 'pt-40'}`}>
       <PokemonTypeQuizProvider>
         {isMobile ? (
           <Fragment>

@@ -5,10 +5,9 @@ import { usePathname } from 'next/navigation'
 
 const HeaderNav = () => {
   const pathname = usePathname()
-  console.log('🔬 dev-only ~ HeaderNav ~ pathname:', pathname)
 
   return (
-    <nav className="w-full h-16 flex-shrink-0 self-end px-8 mt-4 bg-primary-1 border-b border-solid border-primary-2">
+    <nav className="w-full h-16 flex-shrink-0 self-end px-8 mt-6 bg-primary-1 border-b border-solid border-primary-2">
       <ul className="w-full h-16 max-w-[1280px] mx-auto flex items-center flex-row gap-4">
         <li
           className={`min-w-fit h-full px-4 ${pathname === '/' ? 'border-b-4 border-solid border-primary-4' : ''}`}

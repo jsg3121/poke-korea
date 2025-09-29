@@ -7,7 +7,7 @@ import { DeviceProvider } from '~/context/Device.context'
 const QuizMainDesktop = () => {
   return (
     <DeviceProvider>
-      <main className="w-full h-full pt-30">
+      <main className="w-full h-full pt-40">
         <HeaderContainer />
         <section className="max-w-[1280px] mx-auto">
           <header className="w-full h-30 text-center border-b border-solid border-primary-4 pt-4">

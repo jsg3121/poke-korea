@@ -4,9 +4,9 @@ import MovesListContainer from '~/container/desktop/moves/MovesList.container'
 
 const MovesDesktop = () => {
   return (
-    <main className="w-full h-full pt-30">
+    <main className="w-full h-full pt-40">
       <HeaderContainer />
-      <section className="max-w-[1280px] mx-auto">
+      <section className="max-w-[1280px] mx-auto mt-6">
         <header className="w-full h-28 text-center border-b border-solid border-primary-4 pb-4">
           <h1 className="h-16 text-[2.5rem] text-center leading-[4rem] text-primary-4 font-[700]">
             포켓몬 기술 도감
