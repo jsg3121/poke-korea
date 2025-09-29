@@ -50,7 +50,7 @@ const HeaderHamburgerNavigation = () => {
                   href="/"
                   className="w-full h-6 text-base leading-[calc(1.5rem+2px)] text-primary-4"
                 >
-                  홈 화면
+                  홈
                 </Link>
               </li>
               <li className="w-full">
