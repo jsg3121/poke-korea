@@ -10,7 +10,7 @@ type SearchFormType = {
   name: string | null
 }
 
-const SearchComponent = () => {
+const MainSearch = () => {
   const router = useRouter()
   const routerQuery = useSearchParams()
   const pathname = usePathname()
@@ -85,4 +85,4 @@ const SearchComponent = () => {
   )
 }
 
-export default SearchComponent
+export default MainSearch
