@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import MobileTabBar from '~/components/MobileTabBar'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
@@ -69,6 +70,7 @@ const QuizMainMobile = () => {
         </section>
         <FooterContainer />
       </main>
+      <MobileTabBar />
     </DeviceProvider>
   )
 }

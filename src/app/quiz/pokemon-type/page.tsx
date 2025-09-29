@@ -9,6 +9,7 @@ import { PokemonTypeQuizProvider } from '~/context/PokemonTypeQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
 import PokemonTypeQuizDesktop from '~/container/desktop/quiz/pokemonTypeQuiz/PokemonTypeQuiz.desktop'
 import PokemonTypeQuizMobile from '~/views/mobile/quiz/pokemonTypeQuiz/PokemonTypeQuiz.mobile'
+import MobileTabBar from '~/components/MobileTabBar'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 
@@ -56,6 +57,7 @@ const QuizMainPage = async () => {
             <HeaderMobile />
             <PokemonTypeQuizMobile />
             <FooterMobile />
+            <MobileTabBar />
           </Fragment>
         ) : (
           <Fragment>

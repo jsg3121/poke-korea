@@ -9,6 +9,7 @@ import { AbilityQuizProvider } from '~/context/AbilityQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
 import AbilityQuizDesktop from '~/container/desktop/quiz/abilityQuiz/AbilityQuiz.desktop'
 import AbilityQuizMobile from '~/views/mobile/quiz/abilityQuiz/AbilityQuiz.mobile'
+import MobileTabBar from '~/components/MobileTabBar'
 
 export const revalidate = 31536000
 
@@ -55,6 +56,7 @@ const AbilityQuizPage = async () => {
             <HeaderMobile />
             <AbilityQuizMobile />
             <FooterMobile />
+            <MobileTabBar />
           </Fragment>
         ) : (
           <Fragment>

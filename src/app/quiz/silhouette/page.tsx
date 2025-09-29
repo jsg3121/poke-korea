@@ -9,6 +9,7 @@ import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
 import SilhouetteQuizDesktop from '~/container/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
 import SilhouetteQuizMobile from '~/views/mobile/quiz/silhouetteQuiz/SilhouetteQuiz.mobile'
+import MobileTabBar from '~/components/MobileTabBar'
 
 export const revalidate = 31536000
 
@@ -57,6 +58,7 @@ const SilhouetteQuizPage = async () => {
               <HeaderMobile />
               <SilhouetteQuizMobile />
               <FooterMobile />
+              <MobileTabBar />
             </Fragment>
           ) : (
             <Fragment>

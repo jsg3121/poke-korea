@@ -9,6 +9,7 @@ import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.c
 import { detectUserAgent } from '~/module/device.module'
 import TypeEffectivenessQuizDesktop from '~/container/desktop/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.desktop'
 import TypeEffectivenessQuizMobile from '~/views/mobile/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.mobile'
+import MobileTabBar from '~/components/MobileTabBar'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 
@@ -57,6 +58,7 @@ const TypeEffectivenessQuizPage = async () => {
             <HeaderMobile />
             <TypeEffectivenessQuizMobile />
             <FooterMobile />
+            <MobileTabBar />
           </Fragment>
         ) : (
           <Fragment>
