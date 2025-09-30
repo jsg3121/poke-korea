@@ -10,7 +10,7 @@ const HeaderNav = () => {
     <nav className="w-full h-16 flex-shrink-0 self-end px-8 mt-6 bg-primary-1 border-b border-solid border-primary-2">
       <ul className="w-full h-16 max-w-[1280px] mx-auto flex items-center flex-row gap-4">
         <li
-          className={`min-w-fit h-full px-4 ${pathname === '/' ? 'border-b-4 border-solid border-primary-4' : ''}`}
+          className={`min-w-fit h-full px-4 ${pathname === '/' || pathname.includes('/detail') ? 'border-b-4 border-solid border-primary-4' : ''}`}
         >
           <Link
             href="/"
@@ -40,11 +40,11 @@ const HeaderNav = () => {
           </Link>
         </li>
         <li
-          className={`min-w-fit h-full px-4 ${pathname === '/quiz' ? 'border-b-4 border-solid border-primary-4' : ''}`}
+          className={`min-w-fit h-full px-4 ${pathname.includes('/quiz') ? 'border-b-4 border-solid border-primary-4' : ''}`}
         >
           <Link
             href="/quiz"
-            className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname === '/quiz' ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
+            className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname.includes('/quiz') ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             포켓몬 퀴즈
           </Link>
