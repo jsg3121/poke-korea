@@ -1,4 +1,5 @@
 'use client'
+import MobileTabBar from '~/components/MobileTabBar'
 import HeaderContainer from '~/container/mobile/header/Header.container'
 import MovesListContainer from '~/container/mobile/moves/MovesList.container'
 
@@ -19,6 +20,7 @@ const MovesMobile = () => {
         </header>
         <MovesListContainer />
       </section>
+      <MobileTabBar />
     </main>
   )
 }

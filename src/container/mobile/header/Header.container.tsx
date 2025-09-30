@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import LogoIcon from '~/assets/logo.svg'
-import HeaderHamburgerNavigation from './header.hamburgerNavigation/HeaderHamburgerNavigation'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
 
 const HeaderContainer = () => {
@@ -18,7 +17,6 @@ const HeaderContainer = () => {
         <p className="visually-hidden">메인 화면으로 돌아가기</p>
       </Link>
       <HeaderSearchContainer key={`search-key-${pathname}`} />
-      <HeaderHamburgerNavigation />
     </header>
   )
 }

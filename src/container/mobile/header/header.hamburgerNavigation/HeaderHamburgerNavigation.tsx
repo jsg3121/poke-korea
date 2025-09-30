@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import { Fragment, useState } from 'react'
 import GithubIcon from '~/assets/icons/github.svg'
 import GmailIcon from '~/assets/icons/gmail.svg'
@@ -43,34 +42,6 @@ const HeaderHamburgerNavigation = () => {
               : 'animate-[slide-out_0.3s_ease_0s_1_forwards]'
           }`}
         >
-          <nav className="w-full mt-4 px-5">
-            <ul className="w-full flex flex-col gap-4">
-              <li className="w-full">
-                <Link
-                  href="/"
-                  className="w-full h-6 text-base leading-[calc(1.5rem+2px)] text-primary-4"
-                >
-                  홈 화면
-                </Link>
-              </li>
-              <li className="w-full">
-                <Link
-                  href="/type-effectiveness"
-                  className="w-full h-6 text-base leading-[calc(1.5rem+2px)] text-primary-4"
-                >
-                  상성 계산기
-                </Link>
-              </li>
-              <li className="w-full">
-                <Link
-                  href="/moves"
-                  className="w-full h-6 text-base leading-[calc(1.5rem+2px)] text-primary-4"
-                >
-                  기술 도감
-                </Link>
-              </li>
-            </ul>
-          </nav>
           <div className="w-full h-12 flex items-center justify-center gap-4">
             <a
               href="https://github.com/jsg3121"

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useParams, useSearchParams } from 'next/navigation'
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useEffect, useRef } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import { imageMode } from '~/module/buildMode'
@@ -17,26 +17,23 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const searchParams = useSearchParams()
   const { pokemonInfo, formDataLength, normalFormInfo, versionGroup } =
     useContext(DetailMovesContext)
+  const versionListRef = useRef<HTMLElement>(null)
 
-  if (!versionGroup) return
-
-  const versionGroupList = versionGroup
-
-  const lastVersionInfo = versionGroupList[0]
-  const firstVersionInfo = versionGroupList[versionGroupList.length - 1]
+  const lastVersionInfo = versionGroup?.[0]
+  const firstVersionInfo = versionGroup?.[versionGroup.length - 1]
   const selectVersion = searchParams.get('selectVersion')
   const activeType = searchParams.get('activeType')
   const activeIndex = searchParams.get('activeIndex') ?? '0'
 
   const activeGroupId = () => {
     if (selectVersion) {
-      const versionGroupId = versionGroupList.find((version) => {
+      const versionGroupId = versionGroup?.find((version) => {
         return version?.versionGroupId.toString() === selectVersion
       })
 
       return versionGroupId?.versionGroupId
     } else {
-      return versionGroupList[0]?.versionGroupId
+      return versionGroup?.[0]?.versionGroupId
     }
   }
 
@@ -56,6 +53,17 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
       }
     }
   }
+
+  useEffect(() => {
+    if (versionListRef.current) {
+      const activeLink = versionListRef.current.querySelector(
+        `a[data-item='${activeGroupId()}']`,
+      )
+      activeLink?.scrollIntoView({
+        inline: 'start',
+      })
+    }
+  }, [])
 
   return (
     <Fragment>
@@ -178,10 +186,14 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             )}
           </div>
         </header>
-        <nav className="w-full h-[4rem] flex items-center gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
-          {versionGroupList.map((item) => {
+        <nav
+          ref={versionListRef}
+          className="w-full h-[4rem] flex items-center gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+        >
+          {versionGroup?.map((item) => {
             return (
               <Link
+                data-item={item?.versionGroupId}
                 key={item?.name}
                 href={{
                   pathname: `/detail/${pokemonId}/moves`,

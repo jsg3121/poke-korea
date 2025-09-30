@@ -1,26 +1,16 @@
 'use client'
 import { ReactNode, createContext, useContext } from 'react'
-import { detectUserAgent } from '~/module/device.module'
 
 export interface IFDeviceProviderProps {
-  userAgent: string
   children: ReactNode
 }
 
-interface IFDeviceProps {
-  isMobile: boolean
-}
+interface IFDeviceProps {}
 
-const DeviceContext = createContext<IFDeviceProps>({
-  isMobile: true,
-})
+const DeviceContext = createContext<IFDeviceProps>({})
 
-const DeviceProvider = ({ children, userAgent }: IFDeviceProviderProps) => {
-  const isMobile = detectUserAgent(userAgent)
-
-  const initialValue: IFDeviceProps = {
-    isMobile,
-  }
+const DeviceProvider = ({ children }: IFDeviceProviderProps) => {
+  const initialValue: IFDeviceProps = {}
 
   return (
     <DeviceContext.Provider value={initialValue}>

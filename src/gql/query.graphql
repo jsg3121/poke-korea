@@ -406,3 +406,39 @@ query GetPokemonNormalFormMetadata($pokemonId: Int, $activeIndex: Int) {
 query GetPokemonNormalFormImageList($pokemonId: Int) {
   getPokemonNormalFormImageList(pokemonId: $pokemonId)
 }
+
+query GetAbilityQuiz {
+  getAbilityQuiz {
+    abilityDescription
+    correctAnswerIndex
+    id
+    options {
+      koreanName
+    }
+    question
+  }
+}
+
+query GetPokemonTypeQuiz {
+  getPokemonTypeQuiz {
+    id
+    targetType
+    question
+    options {
+      id
+      koreanName
+      types
+    }
+    correctAnswerIndex
+  }
+}
+
+query GetSilhouetteQuiz {
+  getSilhouetteQuiz {
+    id
+    correctPokemonId
+    question
+    options
+    correctAnswerIndex
+  }
+}

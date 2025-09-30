@@ -13,8 +13,6 @@ interface ListProviderProps {
   initialFilter: PokemonFilterInput
   hasNextPage: boolean
   children: ReactNode
-  scrolling?: boolean
-  searching?: boolean
 }
 
 type ListFilterType = {
@@ -31,8 +29,6 @@ type ListFilterType = {
 type ContextType = {
   pokemonList: Array<PokemonInfoFragment>
   listFilter: ListFilterType
-  scrolling?: boolean
-  searching?: boolean
   hasNextPage?: boolean
   isLoadingMore: boolean
   loadMore: () => void
@@ -41,8 +37,6 @@ type ContextType = {
 export const ListContext = createContext<ContextType>({
   pokemonList: [],
   listFilter: {},
-  scrolling: false,
-  searching: false,
   isLoadingMore: false,
   loadMore: () => null,
 })
@@ -51,8 +45,6 @@ export const ListProvider = ({
   initialList,
   initialFilter,
   children,
-  scrolling,
-  searching,
   hasNextPage,
 }: ListProviderProps) => {
   const {
@@ -115,8 +107,6 @@ export const ListProvider = ({
   const initialValue = {
     pokemonList,
     listFilter: {},
-    scrolling,
-    searching,
     hasNextPage: data?.getPokemonList.pageInfo.hasNextPage,
     isLoadingMore,
     loadMore,

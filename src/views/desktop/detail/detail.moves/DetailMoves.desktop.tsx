@@ -10,7 +10,7 @@ interface DetailMovesDesktopProps {
 
 const DetailMovesDesktop = ({ pokemonName }: DetailMovesDesktopProps) => {
   return (
-    <main className="w-full max-w-[1280px] mx-auto min-h-screen pt-30">
+    <main className="w-full max-w-[1280px] mx-auto min-h-screen pt-40">
       <HeaderContainer />
       <section className="w-full pt-4 mb-4">
         <h1 className="sr-only">{pokemonName} 상세 습득 기술 정보</h1>

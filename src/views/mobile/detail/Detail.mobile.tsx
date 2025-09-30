@@ -2,6 +2,7 @@
 
 import MobileDetailCardBottomBanner from '~/components/adSlot/MobileDetailCardBottomBanner'
 import MobileDetailCardTopBanner from '~/components/adSlot/MobileDetailCardTopBanner'
+import MobileTabBar from '~/components/MobileTabBar'
 import DetailBaseInfoContainer from '~/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container'
 import DetailSummaryContainer from '~/container/mobile/detail/detail.summary/DetailSummary.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -24,6 +25,7 @@ const DetailMobile = () => {
       </section>
       <MobileDetailCardBottomBanner />
       <FooterContainer />
+      <MobileTabBar />
     </main>
   )
 }
