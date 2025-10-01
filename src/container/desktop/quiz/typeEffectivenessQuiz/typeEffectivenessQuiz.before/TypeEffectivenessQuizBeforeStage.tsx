@@ -4,6 +4,7 @@ import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
 import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
+import DesktopTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/DesktopTypeEffectivenessQuizGuideBottomBanner'
 
 const TypeEffectivenessQuizBeforeStage = () => {
   const { onChangeStage } = useTypeEffectivenessQuizContext()
@@ -27,6 +28,7 @@ const TypeEffectivenessQuizBeforeStage = () => {
         </ul>
         <GuideStartButton onClickStartButton={handleClickChangeStage} />
       </article>
+      <DesktopTypeEffectivenessQuizGuideBottomBanner />
     </section>
   )
 }

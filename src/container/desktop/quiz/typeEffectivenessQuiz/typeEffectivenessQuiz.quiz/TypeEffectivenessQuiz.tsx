@@ -7,6 +7,7 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import QuizHeader from '../../components/quiz/QuizHeader'
 import QuizSkipButton from '../../components/quiz/QuizSkipButton'
+import DesktopAbilityQuizBottomBanner from '~/components/adSlot/DesktopAbilityQuizBottomBanner'
 
 const TypeEffectivenessQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -88,6 +89,7 @@ const TypeEffectivenessQuiz = () => {
           <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
+      <DesktopAbilityQuizBottomBanner />
     </Fragment>
   )
 }
