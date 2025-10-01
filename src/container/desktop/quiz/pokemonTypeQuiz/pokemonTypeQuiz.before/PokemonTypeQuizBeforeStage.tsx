@@ -4,6 +4,7 @@ import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
+import DesktopPokemonTypeGuideBottomBanner from '~/components/adSlot/DesktopPokemonTypeGuideBottomBanner'
 
 const PokemonTypeQuizBeforeStage = () => {
   const { onChangeStage } = usePokemonTypeQuizContext()
@@ -27,6 +28,7 @@ const PokemonTypeQuizBeforeStage = () => {
         </ul>
         <GuideStartButton onClickStartButton={handleClickChangeStage} />
       </article>
+      <DesktopPokemonTypeGuideBottomBanner />
     </section>
   )
 }
