@@ -7,7 +7,7 @@ const MobileListTopBanner = () => {
   return (
     <div ref={slotRef} className="w-full h-fit mt-8 mx-auto">
       <ins
-        className="adsbygoogle w-[calc(100%-3rem)] h-[100px] block mx-auto text-center"
+        className="adsbygoogle w-[320px] h-[100px] block mx-auto"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="1410249585"
       ></ins>

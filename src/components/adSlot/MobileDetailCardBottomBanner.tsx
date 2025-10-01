@@ -12,7 +12,6 @@ const MobileDetailCardBottomBanner = () => {
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="5619127337"
         data-ad-format="auto"
-        data-full-width-responsive="true"
       ></ins>
     </div>
   )
