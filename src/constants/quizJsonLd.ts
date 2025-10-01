@@ -95,8 +95,7 @@ export const SILHOUETTE_QUIZ_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'Quiz',
   name: '포켓몬 실루엣 퀴즈',
-  description:
-    '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
+  description: '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
   about: {
     '@type': 'Thing',
     name: '포켓몬',
@@ -182,4 +181,37 @@ export const TYPE_EFFECTIVENESS_QUIZ_JSON_LD = {
       },
     ],
   },
+}
+
+export const QUIZ_WEBPAGE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: '포켓몬 퀴즈 | 포케 코리아',
+  description:
+    '포켓몬의 실루엣, 특성, 타입, 상성을 정보를 통해 재미있는 퀴즈를 맞추며 포켓몬의 정보를 확인하고 배워보세요!',
+  url: 'https://poke-korea.com/quiz',
+  inLanguage: 'ko-KR',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: '포케 코리아',
+    url: 'https://poke-korea.com',
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: '홈',
+        item: 'https://poke-korea.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: '타입 상성 계산기',
+        item: 'https://poke-korea.com/quiz',
+      },
+    ],
+  },
+  image: 'https://poke-korea.com/assets/image/ogImage.png',
 }
