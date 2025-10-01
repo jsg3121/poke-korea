@@ -7,6 +7,7 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
+import { getRobotsConfig } from '~/module/metadata.module'
 import TypeEffectivenessQuizDesktop from '~/container/desktop/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.desktop'
 import TypeEffectivenessQuizMobile from '~/views/mobile/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.mobile'
 import MobileTabBar from '~/components/MobileTabBar'
@@ -18,11 +19,7 @@ export const metadata: Metadata = {
   title: '포켓몬 타입 상성 퀴즈 | 포케 코리아',
   description:
     '공격하는 타입과 방어하는 타입을 확인하고, 어떤 효과를 가지는지 답을 선택해 맞춰보세요!',
-  robots: {
-    index: true,
-    follow: true,
-    'max-image-preview': 'large',
-  },
+  robots: getRobotsConfig(),
   openGraph: {
     title: '포켓몬 타입 상성 퀴즈 | 포케 코리아',
     description:

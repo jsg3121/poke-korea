@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import Script from 'next/script'
 import { ReactNode } from 'react'
 import '~/styles/globals.css'
+import { getRobotsConfig } from '~/module/metadata.module'
 import Providers from './providers'
 
 export const viewport: Viewport = {
@@ -20,10 +21,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: getRobotsConfig(),
 }
 
 interface RootLayoutProps {

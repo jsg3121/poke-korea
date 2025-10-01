@@ -34,6 +34,7 @@ import {
   getSeoDescription,
   getSeoTitle,
 } from '~/module/generateDetailSeoMetaData'
+import { getRobotsConfig } from '~/module/metadata.module'
 import { TActiveType } from '~/types/detailContext.type'
 import DetailDesktop from '~/views/desktop/detail/Detail.desktop'
 import DetailMobile from '~/views/mobile/detail/Detail.mobile'
@@ -165,11 +166,7 @@ export const generateMetadata = async ({
   const metadata: Metadata = {
     title,
     description,
-    robots: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-    },
+    robots: getRobotsConfig(),
     openGraph: {
       type: 'website',
       url: canonicalUrl,

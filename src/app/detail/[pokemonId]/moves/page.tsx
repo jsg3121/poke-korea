@@ -29,6 +29,7 @@ import {
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
+import { getRobotsConfig } from '~/module/metadata.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
 
@@ -136,11 +137,7 @@ export const generateMetadata = async ({
   return {
     title,
     description,
-    robots: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-    },
+    robots: getRobotsConfig(),
     openGraph: {
       type: 'website',
       url: canonicalUrl,
