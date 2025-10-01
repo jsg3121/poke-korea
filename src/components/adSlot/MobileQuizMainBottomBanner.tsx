@@ -7,7 +7,7 @@ const MobileQuizMainBottomBanner = () => {
   return (
     <div ref={slotRef} className="w-full h-fit mx-auto">
       <ins
-        className="adsbygoogle w-full block mx-auto mt-8"
+        className="adsbygoogle w-full block mx-auto mt-8 text-center"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="8040944682"
         data-ad-format="auto"
