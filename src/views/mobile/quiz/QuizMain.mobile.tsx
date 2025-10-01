@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import MobileQuizMainBottomBanner from '~/components/adSlot/MobileQuizMainBottomBanner'
+import MobileQuizMainTopBanner from '~/components/adSlot/MobileQuizMainTopBanner'
 import MobileTabBar from '~/components/MobileTabBar'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -19,6 +21,7 @@ const QuizMainMobile = () => {
               다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!
             </p>
           </header>
+          <MobileQuizMainTopBanner />
           <article className="mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
             <h2 className="text-xl font-bold text-primary-1 mb-4">퀴즈 안내</h2>
             <ul className="space-y-2 text-primary-1">
@@ -68,6 +71,7 @@ const QuizMainMobile = () => {
             ))}
           </div>
         </section>
+        <MobileQuizMainBottomBanner />
         <FooterContainer />
       </main>
       <MobileTabBar />
