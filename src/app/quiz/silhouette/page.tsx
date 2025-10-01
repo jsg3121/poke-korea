@@ -10,6 +10,7 @@ import { detectUserAgent } from '~/module/device.module'
 import SilhouetteQuizDesktop from '~/container/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
 import SilhouetteQuizMobile from '~/views/mobile/quiz/silhouetteQuiz/SilhouetteQuiz.mobile'
 import MobileTabBar from '~/components/MobileTabBar'
+import { SILHOUETTE_QUIZ_JSON_LD } from '~/constants/quizJsonLd'
 
 export const revalidate = 31536000
 
@@ -69,6 +70,13 @@ const SilhouetteQuizPage = async () => {
           )}
         </SilhouetteQuizProvider>
       </main>
+      <script
+        id="silhouette-quiz-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(SILHOUETTE_QUIZ_JSON_LD),
+        }}
+      />
     </Fragment>
   )
 }
