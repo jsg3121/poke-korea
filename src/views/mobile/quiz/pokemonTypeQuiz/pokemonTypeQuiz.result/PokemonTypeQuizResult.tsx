@@ -10,6 +10,7 @@ import { getQuizResultCopy } from '~/module/quiz.module'
 import ResultFooter from '../../components/result/ResultFooter'
 import ResultHeader from '../../components/result/ResultHeader'
 import ResultSummary from '../../components/result/ResultSummary'
+import MobilePokemonTypeResultTopBanner from '~/components/adSlot/MobilePokemonTypeResultTopBanner'
 
 const PokemonTypeQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = usePokemonTypeQuizContext()
@@ -31,6 +32,7 @@ const PokemonTypeQuizResult = () => {
         percentage={result.percentage}
         totalTime={result.totalTime}
       />
+      <MobilePokemonTypeResultTopBanner />
       <article className="w-full h-fit py-[1rem] mb-[2rem]">
         <h2 className="w-full h-[3rem] text-primary-4 font-bold leading-[calc(2rem+2px)] text-[1.25rem] border-b border-solid border-primary-4 mb-4">
           정답

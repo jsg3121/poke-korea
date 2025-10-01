@@ -7,6 +7,7 @@ import {
   TYPE_EFFECTIVENESS_WEBPAGE_JSON_LD,
 } from '~/constants/typeEffectivenessJsonLd'
 import { detectUserAgent } from '~/module/device.module'
+import { getRobotsConfig } from '~/module/metadata.module'
 import TypeEffectivenessDesktop from '~/views/desktop/TypeEffectiveness.desktop'
 import TypeEffectivenessMobile from '~/views/mobile/TypeEffectiveness.mobile'
 
@@ -15,11 +16,7 @@ export const revalidate = 31536000 // 24시간마다 재생성
 export const metadata: Metadata = {
   title: TYPE_EFFECTIVNESS_SEO_META.title,
   description: TYPE_EFFECTIVNESS_SEO_META.description,
-  robots: {
-    index: true,
-    follow: true,
-    'max-image-preview': 'large',
-  },
+  robots: getRobotsConfig(),
   openGraph: {
     title: TYPE_EFFECTIVNESS_SEO_META.title,
     description: TYPE_EFFECTIVNESS_SEO_META.description,

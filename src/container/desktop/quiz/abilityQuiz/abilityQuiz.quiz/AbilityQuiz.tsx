@@ -4,6 +4,7 @@ import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import QuizHeader from '../../components/quiz/QuizHeader'
 import QuizSkipButton from '../../components/quiz/QuizSkipButton'
+import DesktopAbilityQuizBottomBanner from '~/components/adSlot/DesktopAbilityQuizBottomBanner'
 
 const AbilityQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -38,7 +39,7 @@ const AbilityQuiz = () => {
           onComplete={handleHideCounter}
         />
       )}
-      <section className="w-full max-w-[1280px] mx-auto h-[33rem] bg-primary-4 rounded-[2rem] mt-[2rem] relative flex flex-col">
+      <section className="w-full max-w-[1280px] mx-auto min-h-[33rem] bg-primary-4 rounded-[2rem] mt-[2rem] relative flex flex-col">
         <QuizHeader
           quizName="특성 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
@@ -67,6 +68,7 @@ const AbilityQuiz = () => {
           <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
+      <DesktopAbilityQuizBottomBanner />
     </Fragment>
   )
 }

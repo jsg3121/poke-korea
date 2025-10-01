@@ -6,7 +6,7 @@ const DesktopTypeEffectivenessBanner = () => {
   return (
     <div ref={slotRef} className="w-full max-w-[1280px] h-fit">
       <ins
-        className="adsbygoogle w-full h-[160px] block text-center"
+        className="adsbygoogle w-[970px] h-[250px] block mx-auto"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="6041965400"
       ></ins>

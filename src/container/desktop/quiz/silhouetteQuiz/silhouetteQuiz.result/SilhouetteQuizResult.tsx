@@ -6,6 +6,7 @@ import { getQuizResultCopy } from '~/module/quiz.module'
 import ResultFooter from '../../components/result/ResultFooter'
 import ResultHeader from '../../components/result/ResultHeader'
 import ResultSummary from '../../components/result/ResultSummary'
+import DesktopSilhouetteResultTopBanner from '~/components/adSlot/DesktopSilhouetteResultTopBanner'
 
 const SilhouetteQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = useSilhouetteQuizContext()
@@ -21,7 +22,7 @@ const SilhouetteQuizResult = () => {
   }
 
   return (
-    <section className="h-[60rem] w-full max-w-[1280px] mx-auto pt-[3rem]">
+    <section className="min-h-[60rem] w-full max-w-[1280px] mx-auto pt-[3rem]">
       <ResultHeader headline={headline} medal={medal} subcopy={subcopy} />
       <ResultSummary
         averageTime={result.averageTime}
@@ -29,6 +30,7 @@ const SilhouetteQuizResult = () => {
         percentage={result.percentage}
         totalTime={result.totalTime}
       />
+      <DesktopSilhouetteResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
         <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
           문제 정답

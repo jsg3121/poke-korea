@@ -7,20 +7,18 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { AbilityQuizProvider } from '~/context/AbilityQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
+import { getRobotsConfig } from '~/module/metadata.module'
 import AbilityQuizDesktop from '~/container/desktop/quiz/abilityQuiz/AbilityQuiz.desktop'
 import AbilityQuizMobile from '~/views/mobile/quiz/abilityQuiz/AbilityQuiz.mobile'
 import MobileTabBar from '~/components/MobileTabBar'
+import { ABILITY_QUIZ_JSON_LD } from '~/constants/quizJsonLd'
 
 export const revalidate = 31536000
 
 export const metadata: Metadata = {
   title: '포켓몬 특성 퀴즈 | 포케 코리아',
   description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
-  robots: {
-    index: true,
-    follow: true,
-    'max-image-preview': 'large',
-  },
+  robots: getRobotsConfig(),
   openGraph: {
     title: '포켓몬 특성 퀴즈 | 포케 코리아',
     description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
@@ -49,24 +47,33 @@ const AbilityQuizPage = async () => {
   const isMobile = detectUserAgent(userAgent)
 
   return (
-    <main className={`${isMobile ? '' : 'pt-40'}`}>
-      <AbilityQuizProvider>
-        {isMobile ? (
-          <Fragment>
-            <HeaderMobile />
-            <AbilityQuizMobile />
-            <FooterMobile />
-            <MobileTabBar />
-          </Fragment>
-        ) : (
-          <Fragment>
-            <HeaderDesktop />
-            <AbilityQuizDesktop />
-            <FooterDesktop />
-          </Fragment>
-        )}
-      </AbilityQuizProvider>
-    </main>
+    <Fragment>
+      <main className={`${isMobile ? '' : 'pt-40'}`}>
+        <AbilityQuizProvider>
+          {isMobile ? (
+            <Fragment>
+              <HeaderMobile />
+              <AbilityQuizMobile />
+              <FooterMobile />
+              <MobileTabBar />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <HeaderDesktop />
+              <AbilityQuizDesktop />
+              <FooterDesktop />
+            </Fragment>
+          )}
+        </AbilityQuizProvider>
+      </main>
+      <script
+        id="ability-quiz-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(ABILITY_QUIZ_JSON_LD),
+        }}
+      />
+    </Fragment>
   )
 }
 

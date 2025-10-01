@@ -4,6 +4,7 @@ import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
+import MobileSilhouetteGuideBottomBanner from '~/components/adSlot/MobileSilhouetteGuideBottomBanner'
 
 const SilhouetteQuizBeforeStage = () => {
   const { onChangeStage } = useSilhouetteQuizContext()
@@ -27,6 +28,7 @@ const SilhouetteQuizBeforeStage = () => {
         </ul>
         <GuideStartButton onClickStartButton={handleClickStartButton} />
       </article>
+      <MobileSilhouetteGuideBottomBanner />
     </section>
   )
 }

@@ -8,6 +8,7 @@ import { getQuizResultCopy } from '~/module/quiz.module'
 import ResultFooter from '../../components/result/ResultFooter'
 import ResultHeader from '../../components/result/ResultHeader'
 import ResultSummary from '../../components/result/ResultSummary'
+import DesktopTypeEffectivenessQuizResultTopBanner from '~/components/adSlot/DesktopTypeEffectivenessQuizResultTopBanner'
 
 const TypeEffectivenessQuizResult = () => {
   const { result, questions, onClickRetryQuiz } =
@@ -30,6 +31,7 @@ const TypeEffectivenessQuizResult = () => {
         percentage={result.percentage}
         totalTime={result.totalTime}
       />
+      <DesktopTypeEffectivenessQuizResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
         <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
           문제 정답

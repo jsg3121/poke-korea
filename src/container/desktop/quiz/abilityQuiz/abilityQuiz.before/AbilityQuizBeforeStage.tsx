@@ -4,6 +4,7 @@ import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
+import DesktopAbilityGuideBottomBanner from '~/components/adSlot/DesktopAbilityGuideBottomBanner'
 
 const AbilityQuizBeforeStage = () => {
   const { onChangeStage } = useAbilityQuizContext()
@@ -27,6 +28,7 @@ const AbilityQuizBeforeStage = () => {
         </ul>
         <GuideStartButton onClickStartButton={handleClickChangeStage} />
       </article>
+      <DesktopAbilityGuideBottomBanner />
     </section>
   )
 }
