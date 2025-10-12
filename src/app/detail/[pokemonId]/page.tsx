@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { redirect, RedirectType } from 'next/navigation'
+import { notFound, permanentRedirect, RedirectType } from 'next/navigation'
 import { DetailProvider } from '~/context/Detail.context'
 import {
   GetPokemonMegaEvolutionDocument,
@@ -66,8 +66,15 @@ export const generateMetadata = async ({
   params,
   searchParams,
 }: DetailPageProps): Promise<Metadata> => {
-  const apolloClient = initializeApollo()
   const { pokemonId } = await params
+  const parsedPokemonId = parseInt(pokemonId, 10)
+
+  // pokemonId 유효성 검증
+  if (isNaN(parsedPokemonId) || parsedPokemonId <= 0) {
+    notFound()
+  }
+
+  const apolloClient = initializeApollo()
   const {
     activeType = 'normal',
     shinyMode,
@@ -83,20 +90,20 @@ export const generateMetadata = async ({
   ] = await Promise.all([
     apolloClient.query<PokemonDetailQuery>({
       query: PokemonDetailDocument,
-      variables: { pokemonId: parseInt(pokemonId, 10) },
+      variables: { pokemonId: parsedPokemonId },
       fetchPolicy: 'cache-first',
     }),
     activeType === 'mega'
       ? apolloClient.query<GetPokemonMegaEvolutionQuery>({
           query: GetPokemonMegaEvolutionDocument,
-          variables: { pokemonId: parseInt(pokemonId, 10) },
+          variables: { pokemonId: parsedPokemonId },
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
     activeType === 'region'
       ? apolloClient.query<GetPokemonRegionFormQuery>({
           query: GetPokemonRegionFormDocument,
-          variables: { pokemonId: parseInt(pokemonId, 10) },
+          variables: { pokemonId: parsedPokemonId },
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
@@ -104,7 +111,7 @@ export const generateMetadata = async ({
       ? apolloClient.query<GetPokemonNormalFormQuery>({
           query: GetPokemonNormalFormDocument,
           variables: {
-            pokemonId: parseInt(pokemonId, 10),
+            pokemonId: parsedPokemonId,
             activeIndex: parseInt(activeIndex, 10),
           },
           fetchPolicy: 'cache-first',
@@ -194,13 +201,60 @@ export const generateMetadata = async ({
 
 const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const { pokemonId } = await params
-  const { activeType = 'normal', shinyMode, activeIndex } = await searchParams
+  const searchParamsData = await searchParams
+  const { activeType = 'normal', shinyMode, activeIndex } = searchParamsData
+
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
+  const parsedPokemonId = parseInt(pokemonId, 10)
+
+  if (isNaN(parsedPokemonId)) {
+    notFound() // 404 페이지로 이동
+  }
+
+  // 쿼리 파라미터 검증
+  let hasInvalidParams = false
+
+  // 1. activeType 검증
+  const allowedActiveTypes: TActiveType[] = ['normal', 'mega', 'region']
+  if (activeType && !allowedActiveTypes.includes(activeType)) {
+    hasInvalidParams = true
+  }
+
+  // 2. shinyMode 검증
+  if (shinyMode && shinyMode !== 'shiny') {
+    hasInvalidParams = true
+  }
+
+  // 3. activeIndex 검증
+  const parsedActiveIndex = activeIndex ? parseInt(activeIndex, 10) : 0
+  if (
+    activeIndex &&
+    (isNaN(parsedActiveIndex) ||
+      parsedActiveIndex < 0 ||
+      parsedActiveIndex > 100)
+  ) {
+    hasInvalidParams = true
+  }
+
+  // 4. 알 수 없는 파라미터 검증
+  const allowedParams = ['activeType', 'shinyMode', 'activeIndex']
+  const hasUnknownParams = Object.keys(searchParamsData).some(
+    (key) => !allowedParams.includes(key),
+  )
+  if (hasUnknownParams) {
+    hasInvalidParams = true
+  }
+
+  // 잘못된 파라미터가 있으면 기본 경로로 301 리다이렉트
+  if (hasInvalidParams) {
+    permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
+  }
+
   const isShiny = shinyMode === 'shiny'
-  const dataIndex = activeIndex ? parseInt(activeIndex, 10) : 0
+  const dataIndex = parsedActiveIndex
 
   const apolloClient = initializeApollo()
 
@@ -213,7 +267,7 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   ] = await Promise.all([
     apolloClient.query<PokemonDetailQuery>({
       query: PokemonDetailDocument,
-      variables: { pokemonId: parseInt(pokemonId, 10) },
+      variables: { pokemonId: parsedPokemonId },
       fetchPolicy: 'cache-first',
     }),
     apolloClient.query<
@@ -222,7 +276,7 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     >({
       query: GetPokemonNormalFormDocument,
       variables: {
-        pokemonId: parseInt(pokemonId, 10),
+        pokemonId: parsedPokemonId,
         activeIndex: dataIndex,
       },
       fetchPolicy: 'cache-first',
@@ -237,7 +291,7 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     >({
       query: GetPokemonNormalFormImageListDocument,
       variables: {
-        pokemonId: parseInt(pokemonId, 10),
+        pokemonId: parsedPokemonId,
       },
       fetchPolicy: 'cache-first',
     }),
@@ -245,36 +299,32 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
 
   const pokemonDetail = defaultPokemonData.getPokemonDetail
 
+  // 포켓몬이 존재하지 않으면 404 페이지 표시
   if (!pokemonDetail) {
-    redirect('/', RedirectType.replace)
+    notFound()
   }
 
+  // mega/region form 가능 여부 검증 후 리다이렉트
   if (!pokemonDetail.isMegaEvolution && activeType === 'mega') {
-    const url = new URL(`/detail/${pokemonId}`, 'https://poke-korea.com')
-    url.searchParams.set('activeType', 'normal')
-    if (shinyMode) url.searchParams.set('shinyMode', shinyMode)
-    redirect(url.pathname + url.search)
+    permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
   if (!pokemonDetail.isRegionForm && activeType === 'region') {
-    const url = new URL(`/detail/${pokemonId}`, 'https://poke-korea.com')
-    url.searchParams.set('activeType', 'normal')
-    if (shinyMode) url.searchParams.set('shinyMode', shinyMode)
-    redirect(url.pathname + url.search)
+    permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
   const [megaData, regionData] = await Promise.all([
     activeType === 'mega'
       ? apolloClient.query<GetPokemonMegaEvolutionQuery>({
           query: GetPokemonMegaEvolutionDocument,
-          variables: { pokemonId: parseInt(pokemonId, 10) },
+          variables: { pokemonId: parsedPokemonId },
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
     activeType === 'region'
       ? apolloClient.query<GetPokemonRegionFormQuery>({
           query: GetPokemonRegionFormDocument,
-          variables: { pokemonId: parseInt(pokemonId, 10) },
+          variables: { pokemonId: parsedPokemonId },
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
