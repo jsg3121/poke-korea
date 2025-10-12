@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { redirect, RedirectType } from 'next/navigation'
+import { permanentRedirect, RedirectType } from 'next/navigation'
 import { DetailProvider } from '~/context/Detail.context'
 import {
   GetPokemonMegaEvolutionDocument,
@@ -194,13 +194,54 @@ export const generateMetadata = async ({
 
 const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const { pokemonId } = await params
-  const { activeType = 'normal', shinyMode, activeIndex } = await searchParams
+  const searchParamsData = await searchParams
+  const { activeType = 'normal', shinyMode, activeIndex } = searchParamsData
+
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
+  // 쿼리 파라미터 검증
+  let hasInvalidParams = false
+
+  // 1. activeType 검증
+  const allowedActiveTypes: TActiveType[] = ['normal', 'mega', 'region']
+  if (activeType && !allowedActiveTypes.includes(activeType)) {
+    hasInvalidParams = true
+  }
+
+  // 2. shinyMode 검증
+  if (shinyMode && shinyMode !== 'shiny') {
+    hasInvalidParams = true
+  }
+
+  // 3. activeIndex 검증
+  const parsedActiveIndex = activeIndex ? parseInt(activeIndex, 10) : 0
+  if (
+    activeIndex &&
+    (isNaN(parsedActiveIndex) ||
+      parsedActiveIndex < 0 ||
+      parsedActiveIndex > 100)
+  ) {
+    hasInvalidParams = true
+  }
+
+  // 4. 알 수 없는 파라미터 검증
+  const allowedParams = ['activeType', 'shinyMode', 'activeIndex']
+  const hasUnknownParams = Object.keys(searchParamsData).some(
+    (key) => !allowedParams.includes(key),
+  )
+  if (hasUnknownParams) {
+    hasInvalidParams = true
+  }
+
+  // 잘못된 파라미터가 있으면 기본 경로로 301 리다이렉트
+  if (hasInvalidParams) {
+    permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
+  }
+
   const isShiny = shinyMode === 'shiny'
-  const dataIndex = activeIndex ? parseInt(activeIndex, 10) : 0
+  const dataIndex = parsedActiveIndex
 
   const apolloClient = initializeApollo()
 
@@ -246,21 +287,16 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const pokemonDetail = defaultPokemonData.getPokemonDetail
 
   if (!pokemonDetail) {
-    redirect('/', RedirectType.replace)
+    permanentRedirect('/', RedirectType.replace)
   }
 
+  // mega/region form 가능 여부 검증 후 리다이렉트
   if (!pokemonDetail.isMegaEvolution && activeType === 'mega') {
-    const url = new URL(`/detail/${pokemonId}`, 'https://poke-korea.com')
-    url.searchParams.set('activeType', 'normal')
-    if (shinyMode) url.searchParams.set('shinyMode', shinyMode)
-    redirect(url.pathname + url.search)
+    permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
   if (!pokemonDetail.isRegionForm && activeType === 'region') {
-    const url = new URL(`/detail/${pokemonId}`, 'https://poke-korea.com')
-    url.searchParams.set('activeType', 'normal')
-    if (shinyMode) url.searchParams.set('shinyMode', shinyMode)
-    redirect(url.pathname + url.search)
+    permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
   const [megaData, regionData] = await Promise.all([
