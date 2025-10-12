@@ -5,7 +5,7 @@ import HeaderContainerDesktop from '~/container/desktop/header/Header.container'
 import HeaderContainerMobile from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
 
-export default function NotFound() {
+const NotFound = () => {
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
@@ -52,3 +52,5 @@ export default function NotFound() {
     </main>
   )
 }
+
+export default NotFound
