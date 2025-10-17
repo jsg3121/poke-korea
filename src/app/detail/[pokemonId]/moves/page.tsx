@@ -132,7 +132,7 @@ export const generateMetadata = async ({
 
   const title = `${pokemonName}${pokemonDetail.getPokemonDetail?.isRegionForm ? ' 리전폼' : ''}${version ? ` ${version.generationId}세대 ${version.nameKo} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
   const description = `${pokemonName}의 ${versionInfo.getVersionGroups?.[versionInfo.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionInfo.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다른 포켓몬의 기술 정보를 확인해보세요!`
-  const canonicalUrl = `https://poke-korea.com/detail/${pokemonId}${queryParams ? `?${queryParams}` : ''}`
+  const canonicalUrl = `https://poke-korea.com/detail/${pokemonId}/moves${queryParams ? `?${queryParams}` : ''}`
 
   return {
     title,
