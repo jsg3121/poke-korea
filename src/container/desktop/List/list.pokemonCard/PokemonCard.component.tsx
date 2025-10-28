@@ -62,7 +62,7 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
               height="10rem"
               width="10rem"
               alt={`pokemon_id_${pokemonData.number}`}
-              src={`${imageMode}/${pokemonData.number}.webp?w=200&h=200`}
+              src={`${imageMode}/${pokemonData.number}.webp?w=240&h=240`}
               sizes="10rem"
               fetchPriority="high"
               onLoad={handleImageLoad}

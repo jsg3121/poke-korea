@@ -19,7 +19,11 @@ const HeaderContainer = () => {
         {pathname === '/' && (
           <h1 className="sr-only">포켓몬의 모든 정보 Poke Korea</h1>
         )}
-        <Link href="/" className="w-56 h-12 block">
+        <Link
+          href="/"
+          className="w-56 h-12 block"
+          aria-label="포켓몬의 모든 정보 Poke Korea"
+        >
           <LogoIcon />
         </Link>
         {pathname === '/' ? <MainSearch /> : <DetailSearch />}
