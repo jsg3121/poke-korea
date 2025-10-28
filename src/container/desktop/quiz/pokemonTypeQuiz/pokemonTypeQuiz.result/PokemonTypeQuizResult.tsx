@@ -84,7 +84,7 @@ const PokemonTypeQuizResult = () => {
                     <ImageComponent
                       width={userAnswerId === realAnswerId ? '4rem' : '3rem'}
                       height={userAnswerId === realAnswerId ? '4rem' : '3rem'}
-                      src={`${imageMode}/${userAnswerId}.webp`}
+                      src={`${imageMode}/${userAnswerId}.webp?w=80&h=80`}
                     />
                   </div>
                 )}
