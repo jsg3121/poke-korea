@@ -89,7 +89,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
           <ImageComponent
             width="9rem"
             height="9rem"
-            src={`${imageMode}/${imagePath()}.webp`}
+            src={`${imageMode}/${imagePath()}.webp?w=200&h=200`}
             alt={pokemonName}
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
