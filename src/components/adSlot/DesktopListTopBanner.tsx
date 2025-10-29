@@ -12,7 +12,7 @@ const DesktopListTopBanner = () => {
         data-ad-slot="9835534510"
       ></ins> */}
       <ins
-        className="adsbygoogle block mx-auto"
+        className="adsbygoogle block mx-auto text-center"
         data-ad-format="fluid"
         data-ad-layout-key="-f2+6i+53-cr+51"
         data-ad-client="ca-pub-6481622724376761"
