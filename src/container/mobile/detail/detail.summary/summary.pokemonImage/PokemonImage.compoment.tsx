@@ -106,8 +106,8 @@ const PokemonImageCompoment = () => {
           {imageList.map((item, index) => {
             const imageSrc =
               routerQuery.get('shinyMode') === 'shiny'
-                ? `${imageMode}/shiny/${item.imageCode}.webp`
-                : `${imageMode}/${item.imageCode}.webp`
+                ? `${imageMode}/shiny/${item.imageCode}.webp?w=252&h=252`
+                : `${imageMode}/${item.imageCode}.webp?w=252&h=252`
             return (
               <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
                 <ImageComponent
@@ -129,10 +129,6 @@ const PokemonImageCompoment = () => {
                               loading: 'lazy',
                             }),
                       })}
-                  imageSize={{
-                    width: 252,
-                    height: 252,
-                  }}
                 />
               </SwiperSlide>
             )

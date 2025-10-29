@@ -11,13 +11,9 @@ import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
-  setImagePriority: boolean
 }
 
-const CardComponent = ({
-  pokemonData,
-  setImagePriority = false,
-}: CardComponentProps) => {
+const CardComponent = ({ pokemonData }: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   // 커스텀 Lazy Loading Hook (200px 이내 영역에서 이미지 로드)
@@ -72,7 +68,8 @@ const CardComponent = ({
               height="10rem"
               width="10rem"
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-              src={`${imageMode}/${pokemonData.number}.webp`}
+              src={`${imageMode}/${pokemonData.number}.webp?w=180&h=180`}
+              fetchPriority="high"
               imageSize={{
                 height: 140,
                 width: 140,

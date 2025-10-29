@@ -72,7 +72,7 @@ const PokemonTypeQuiz = () => {
               <ImageComponent
                 width="8rem"
                 height="8rem"
-                src={`${imageMode}/${option.id}.webp`}
+                src={`${imageMode}/${option.id}.webp?w=180&h=180`}
                 alt={`${option.koreanName} 포켓몬 선택`}
                 className="drop-shadow-[1px_1px_2px_#333333]"
               />

@@ -66,7 +66,7 @@ const SilhouetteQuizResult = () => {
                   <ImageComponent
                     width="5rem"
                     height="5rem"
-                    src={`${imageMode}/${quiz.correctPokemonId}.webp`}
+                    src={`${imageMode}/${quiz.correctPokemonId}.webp?w=120&h=120`}
                     alt={`정답 포켓몬 ${realAnswer}`}
                   />
                 </i>

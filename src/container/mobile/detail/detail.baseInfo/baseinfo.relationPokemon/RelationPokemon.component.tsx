@@ -30,7 +30,7 @@ const RelationPokemonComponent = ({
                 aria-label={`${name}와(과) 연관된 포켓몬`}
               >
                 <ImageComponent
-                  src={`${imageMode}/${id}.webp`}
+                  src={`${imageMode}/${id}.webp?w=180&h=180`}
                   width="11.5rem"
                   height="11.5rem"
                   alt={`포켓몬 ${name} 연관 포켓몬 ${id}`}

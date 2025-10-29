@@ -47,12 +47,11 @@ const ListContainer = () => {
       )}
       {pokemonList.length > 0 && (
         <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5 [&_.virtuoso-grid-item]:w-full">
-          {pokemonList.map((pokemon, index) => {
+          {pokemonList.map((pokemon) => {
             return (
               <CardComponent
                 key={`pokemon-id-${pokemon.id}`}
                 pokemonData={pokemon}
-                setImagePriority={index < 20}
               />
             )
           })}
