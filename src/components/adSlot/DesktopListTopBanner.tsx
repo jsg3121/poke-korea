@@ -14,7 +14,7 @@ const DesktopListTopBanner = () => {
       <ins
         className="adsbygoogle block"
         data-ad-format="fluid"
-        data-ad-layout-key="-g4+4u+62-bs+2"
+        data-ad-layout-key="-f2+6i+53-cr+51"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="1219493182"
       ></ins>
