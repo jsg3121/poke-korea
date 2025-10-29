@@ -223,11 +223,6 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     hasInvalidParams = true
   }
 
-  // 2. shinyMode 검증
-  if (shinyMode && shinyMode !== 'shiny') {
-    hasInvalidParams = true
-  }
-
   // 3. activeIndex 검증
   const parsedActiveIndex = activeIndex ? parseInt(activeIndex, 10) : 0
   if (
