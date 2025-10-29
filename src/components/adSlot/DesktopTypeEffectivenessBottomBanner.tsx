@@ -13,7 +13,7 @@ const DesktopTypeEffectivenessBottomBanner = () => {
         data-ad-format="auto"
       ></ins> */}
       <ins
-        className="adsbygoogle block mx-auto max-w-[1280px] w-full"
+        className="adsbygoogle block mx-auto max-w-[1280px] w-full text-center"
         data-ad-format="autorelaxed"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="7565409686"
