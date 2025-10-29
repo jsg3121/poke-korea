@@ -12,11 +12,11 @@ const MobileTypeEffectivenessBanner = () => {
         data-ad-slot="1180520963"
       ></ins> */}
       <ins
-        className="adsbygoogle block text-center mx-auto w-full"
-        data-ad-layout="in-article"
+        className="adsbygoogle block"
         data-ad-format="fluid"
+        data-ad-layout-key="-fu+52+56-cp+49"
         data-ad-client="ca-pub-6481622724376761"
-        data-ad-slot="1522745513"
+        data-ad-slot="2341482094"
       ></ins>
     </div>
   )
