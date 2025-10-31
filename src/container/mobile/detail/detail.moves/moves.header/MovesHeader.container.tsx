@@ -61,6 +61,8 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
       )
       activeLink?.scrollIntoView({
         inline: 'start',
+        block: 'nearest',
+        behavior: 'smooth',
       })
     }
   }, [])
