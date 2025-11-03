@@ -180,15 +180,6 @@ export const generateMetadata = async ({
       title,
       description,
       locale: 'ko_KR',
-      images: [
-        {
-          url: 'https://poke-korea.com/assets/image/ogImage.png',
-          width: 1200,
-          height: 630,
-          alt: title,
-          type: 'image/png',
-        },
-      ],
       siteName: '포케 코리아',
     },
     alternates: {
@@ -198,7 +189,6 @@ export const generateMetadata = async ({
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://poke-korea.com/assets/image/ogImage.png'],
     },
   }
 
