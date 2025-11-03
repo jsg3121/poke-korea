@@ -194,6 +194,12 @@ export const generateMetadata = async ({
     alternates: {
       canonical: canonicalUrl,
     },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['https://poke-korea.com/assets/image/ogImage.png'],
+    },
   }
 
   return metadata

@@ -39,6 +39,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://poke-korea.com/quiz/ability',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: '포켓몬 특성 퀴즈 | 포케 코리아',
+    description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
+    images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
 }
 
 const AbilityQuizPage = async () => {

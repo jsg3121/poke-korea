@@ -46,7 +46,7 @@ export const generateMetadata = async ({
 
   const description =
     !typeFilter && !damageTypeFilter
-      ? '900개가 넘는 포켓몬의 모든 기술을 한곳에서 확인하고, 타입과 유형 필터를 이용해 필요한 기술을 한 번에 찾아보세요!'
+      ? '1세대부터 9세대까지 900개 이상의 포켓몬 기술을 한곳에서 확인하세요. 타입과 데미지 유형 필터로 원하는 기술을 빠르게 검색!'
       : `포케코리아에서${damageTypeFilter ? ` ${damageTypeFilter} 유형의` : ''}${typeFilter ? ` ${PokemonTypes[typeFilter]} 타입을 가지고 있는` : ''} 포켓몬의 모든 기술을 한눈에 확인하세요. 1세대부터 9세대 까지 모든 기술을 확인하실 수 있습니다.`
   const canonicalUrl = `https://poke-korea.com/moves${queryParams}`
 
@@ -73,6 +73,12 @@ export const generateMetadata = async ({
     },
     alternates: {
       canonical: canonicalUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['https://poke-korea.com/assets/image/ogImage.png'],
     },
   }
 

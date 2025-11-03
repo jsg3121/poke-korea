@@ -35,6 +35,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://poke-korea.com/quiz',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: '포켓몬 퀴즈 | 포케 코리아',
+    description:
+      '포켓몬의 실루엣, 특성, 타입, 상성을 정보를 통해 재미있는 퀴즈를 맞추며 포켓몬의 정보를 확인하고 배워보세요!',
+    images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
 }
 
 const QuizMainPage = async () => {

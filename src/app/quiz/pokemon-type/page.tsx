@@ -40,6 +40,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://poke-korea.com/quiz/pokemon-type',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: '포켓몬 타입 퀴즈 | 포케 코리아',
+    description:
+      '특정 타입을 보고 해당 타입을 가지고 있는 포켓몬을 맞춰보세요!',
+    images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
 }
 
 const QuizMainPage = async () => {
