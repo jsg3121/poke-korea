@@ -34,7 +34,17 @@ const nextConfig = {
       },
       {
         // 상세 페이지 - 장기간 캐싱
-        source: '/detail/:pokemonId*',
+        source: '/detail/:pokemonId',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 상세 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/moves',
         headers: [
           {
             key: 'Cache-Control',
