@@ -64,6 +64,7 @@ export default async function Image({
       : primaryColor
 
     const pokemonImgeUrl = await convertPng(pokemonId)
+    console.log('🔬 dev-only ~ Image ~ pokemonImgeUrl:', pokemonImgeUrl)
 
     // 폰트 데이터 로드
     const [boldFontData, mediumFontData] = await Promise.all([
