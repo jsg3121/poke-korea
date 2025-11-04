@@ -12,7 +12,6 @@ import {
 } from '~/module/ogImage.module'
 
 export const runtime = 'nodejs'
-export const revalidate = 31536000
 export const alt = '포케 코리아 - 포켓몬 정보'
 export const size = {
   width: 1200,
