@@ -41,6 +41,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://poke-korea.com/quiz/type-effectiveness',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: '포켓몬 타입 상성 퀴즈 | 포케 코리아',
+    description:
+      '공격하는 타입과 방어하는 타입을 확인하고, 어떤 효과를 가지는지 답을 선택해 맞춰보세요!',
+    images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
 }
 
 const TypeEffectivenessQuizPage = async () => {

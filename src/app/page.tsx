@@ -47,6 +47,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://poke-korea.com/',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: '포켓몬의 모든 정보 포케 코리아',
+    description:
+      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+    images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
 }
 
 type searchParamsKey =

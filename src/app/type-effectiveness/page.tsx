@@ -37,6 +37,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: TYPE_EFFECTIVNESS_SEO_META.canonicalUrl,
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: TYPE_EFFECTIVNESS_SEO_META.title,
+    description: TYPE_EFFECTIVNESS_SEO_META.description,
+    images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
 }
 
 const TypeEffectivenessPage = async () => {

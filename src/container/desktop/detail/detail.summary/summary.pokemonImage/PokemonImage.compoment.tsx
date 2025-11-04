@@ -8,6 +8,7 @@ import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
 import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
 import { imageMode } from '~/module/buildMode'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const PokemonImageCompoment = () => {
   const {
@@ -43,6 +44,8 @@ const PokemonImageCompoment = () => {
                 .padStart(2, '0')}`,
               10,
             ),
+            types: mega.types,
+            name: mega.name,
           }
         })
         return megaImages
@@ -56,6 +59,8 @@ const PokemonImageCompoment = () => {
                 .padStart(2, '0')}`,
               10,
             ),
+            types: region.types,
+            name: region.name,
           }
         })
         return regionImages
@@ -65,12 +70,16 @@ const PokemonImageCompoment = () => {
           const nomalFormImages = normalFormImageList?.map((imagePath) => {
             return {
               imageCode: imagePath,
+              types: pokemonBaseInfo?.types,
+              name: pokemonBaseInfo?.name,
             }
           })
           return nomalFormImages
         } else {
           const pokemonData = {
             imageCode: pokemonBaseInfo?.number,
+            types: pokemonBaseInfo?.types,
+            name: pokemonBaseInfo?.name,
           }
           return [pokemonData]
         }
@@ -111,13 +120,19 @@ const PokemonImageCompoment = () => {
                 ? `${imageMode}/shiny/${item.imageCode}.webp`
                 : `${imageMode}/${item.imageCode}.webp`
 
+            const typeText = item.types
+              ?.map((type) => PokemonTypes[type])
+              .join('/')
+
+            const altText = `${typeText} 타입 포켓몬 ${item.name || pokemonBaseInfo?.name}${activeType === 'region' ? ' 리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? ' 이로치' : ''}의 이미지`
+
             return (
               <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
                 <ImageComponent
                   src={imageSrc}
                   width="25rem"
                   height="25rem"
-                  alt={`도감번호 ${pokemonBaseInfo?.number}번 ${activeType === 'mega' ? '메가' : ''}${pokemonBaseInfo?.name} ${activeType === 'region' ? '리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? '이로치' : ''}`}
+                  alt={altText}
                   className="pokemon-main"
                   {...(normalFormImageList.length === 0
                     ? {

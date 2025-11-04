@@ -177,22 +177,18 @@ export const generateMetadata = async ({
     openGraph: {
       type: 'website',
       url: canonicalUrl,
-      title,
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType}`,
       description,
       locale: 'ko_KR',
-      images: [
-        {
-          url: 'https://poke-korea.com/assets/image/ogImage.png',
-          width: 1200,
-          height: 630,
-          alt: title,
-          type: 'image/png',
-        },
-      ],
       siteName: '포케 코리아',
     },
     alternates: {
       canonical: canonicalUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType} | 포케코리아`,
+      description,
     },
   }
 

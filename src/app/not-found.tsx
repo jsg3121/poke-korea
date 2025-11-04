@@ -1,9 +1,21 @@
 import { headers } from 'next/headers'
 import Link from 'next/link'
+import { Metadata } from 'next'
 import MobileTabBar from '~/components/MobileTabBar'
 import HeaderContainerDesktop from '~/container/desktop/header/Header.container'
 import HeaderContainerMobile from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
+import ImageComponent from '~/components/Image.component'
+import { imageMode } from '~/module/buildMode'
+
+export const metadata: Metadata = {
+  title: '404 - 페이지를 찾을 수 없습니다 | 포케 코리아',
+  description: '요청하신 페이지가 존재하지 않거나 잘못되었습니다.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+}
 
 const NotFound = () => {
   const headersList = headers()
@@ -43,10 +55,61 @@ const NotFound = () => {
         </strong>
         <Link
           href="/"
-          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-[1.25rem] leading-[calc(3rem+2px)] text-white h-12 border-solid border-primary-4 border block`}
+          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-[1.25rem] leading-[calc(3rem+2px)] text-white h-12 border-solid border-primary-4 border block mb-12`}
         >
           홈으로 돌아가기
         </Link>
+        <div className={`${isMobile ? 'px-4' : ''}`}>
+          <p
+            className={`${isMobile ? 'text-base' : 'text-lg'} text-primary-3 mb-4 font-medium`}
+          >
+            인기 포켓몬 보러가는건 어때요?
+          </p>
+          <div
+            className={`flex ${isMobile ? 'flex-wrap justify-center' : ''} gap-3 justify-center`}
+          >
+            <Link href="/detail/25">
+              <ImageComponent
+                height="10rem"
+                width="10rem"
+                src={`${imageMode}/25.webp?w=200&h=200`}
+              />
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+                피카츄
+              </p>
+            </Link>
+            <Link href="/detail/6">
+              <ImageComponent
+                height="10rem"
+                width="10rem"
+                src={`${imageMode}/6.webp?w=200&h=200`}
+              />
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+                리자몽
+              </p>
+            </Link>
+            <Link href="/detail/133">
+              <ImageComponent
+                height="10rem"
+                width="10rem"
+                src={`${imageMode}/133.webp?w=200&h=200`}
+              />
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+                이브이
+              </p>
+            </Link>
+            <Link href="/detail/150">
+              <ImageComponent
+                height="10rem"
+                width="10rem"
+                src={`${imageMode}/150.webp?w=200&h=200`}
+              />
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+                뮤츠
+              </p>
+            </Link>
+          </div>
+        </div>
       </div>
       {isMobile && <MobileTabBar />}
     </main>
