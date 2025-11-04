@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { ReactNode } from 'react'
 import '~/styles/globals.css'
 import { getRobotsConfig } from '~/module/metadata.module'
+import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import Providers from './providers'
 
 export const viewport: Viewport = {
@@ -90,6 +91,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       </head>
       <body>
         <Providers>{children}</Providers>
+        <script
+          id="website-jsonLd"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(WEBSITE_JSON_LD),
+          }}
+        />
         {isProduction && (
           <>
             {/* Google Analytics */}
