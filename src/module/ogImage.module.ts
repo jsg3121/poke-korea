@@ -60,7 +60,6 @@ export const bufferToArrayBuffer = (
 export const convertPng = async (pokemonId: string) => {
   const cdnBase = 'https://image.poke-korea.com'
   const pokemonImgUrl = `${cdnBase}/image/${pokemonId}.webp`
-  console.log('🔬 dev-only ~ convertPng ~ pokemonImgUrl:', pokemonImgUrl)
   // 1) WebP 불러오고
   const webpSrc = await fetchAsBuffer(pokemonImgUrl)
   // 2) PNG로 변환

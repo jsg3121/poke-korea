@@ -13,6 +13,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://poke-korea.com'),
   title: {
     default: '포켓몬의 모든 정보 포케 코리아',
     template: '%s',

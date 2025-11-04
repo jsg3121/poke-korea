@@ -21,10 +21,10 @@ export const contentType = 'image/png'
 
 // 폰트 로드
 const gmarketSansBold = readFile(
-  join(process.cwd(), 'src/assets/font/GmarketSansTTFBold.ttf'),
+  join(process.cwd(), 'public/assets/font/GmarketSansTTFBold.ttf'),
 )
 const gmarketSansMedium = readFile(
-  join(process.cwd(), 'src/assets/font/GmarketSansTTFMedium.ttf'),
+  join(process.cwd(), 'public/assets/font/GmarketSansTTFMedium.ttf'),
 )
 
 export default async function Image({
@@ -64,7 +64,6 @@ export default async function Image({
       : primaryColor
 
     const pokemonImgeUrl = await convertPng(pokemonId)
-    console.log('🔬 dev-only ~ Image ~ pokemonImgeUrl:', pokemonImgeUrl)
 
     // 폰트 데이터 로드
     const [boldFontData, mediumFontData] = await Promise.all([
@@ -141,6 +140,7 @@ export default async function Image({
                       fontWeight: 700,
                       fontFamily: 'Gmarket Sans',
                       color: chipColors.color,
+                      boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.3)',
                     }}
                   >
                     {typeInfo.type}
