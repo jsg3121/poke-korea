@@ -9,13 +9,7 @@ const DetailDesktop = () => {
   return (
     <main className="w-full min-h-screen pt-40">
       <HeaderContainer />
-      <section
-        className="w-full h-full mx-auto relative"
-        aria-labelledby="pokemon-detail-info"
-      >
-        <h1 className="visually-hidden" id="pokemon-detail-info">
-          포켓몬 능력치 및 상세 정보
-        </h1>
+      <section className="w-full h-full mx-auto relative">
         <DetailSummaryContainer />
         <DetailBaseInfoContainer />
       </section>
