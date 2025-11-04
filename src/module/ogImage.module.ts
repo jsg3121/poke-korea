@@ -34,8 +34,8 @@ export const fetchAsBuffer = async (url: string) => {
     },
   })
   if (!res.ok) throw new Error(`fetch fail ${res.status}: ${url}`)
-  const ab = await res.arrayBuffer()
-  return Buffer.from(ab)
+  const convertArrayBuffer = await res.arrayBuffer()
+  return Buffer.from(convertArrayBuffer)
 }
 
 // 기본 OG 이미지를 fetch로 가져와서 반환하는 함수
@@ -61,10 +61,10 @@ export const convertPng = async (pokemonId: string) => {
   const cdnBase = 'https://image.poke-korea.com'
   const pokemonImgUrl = `${cdnBase}/image/${pokemonId}.webp`
   // 1) WebP 불러오고
-  const webp = await fetchAsBuffer(pokemonImgUrl)
+  const webpSrc = await fetchAsBuffer(pokemonImgUrl)
   // 2) PNG로 변환
-  const png = await sharp(webp).png({ quality: 100 }).toBuffer()
-  const pngAb = bufferToArrayBuffer(png)
+  const pngSrc = await sharp(webpSrc).png({ quality: 100 }).toBuffer()
+  const pngArrayBuffer = bufferToArrayBuffer(pngSrc)
 
-  return pngAb
+  return pngArrayBuffer
 }

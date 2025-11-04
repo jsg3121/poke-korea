@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og'
+import { readFile } from 'fs/promises'
+import { join } from 'path'
 import { initializeApollo } from '~/module/apolloClient'
 import { PokemonDetailDocument } from '~/graphql/gqlGenerated'
 import { PokemonDetailQuery } from '~/graphql/typeGenerated'
@@ -10,12 +12,20 @@ import {
 } from '~/module/ogImage.module'
 
 export const runtime = 'nodejs'
-export const alt = '포케 코리아 – 포켓몬 정보'
+export const alt = '포케 코리아 - 포켓몬 정보'
 export const size = {
   width: 1200,
   height: 630,
 }
 export const contentType = 'image/png'
+
+// 폰트 로드
+const gmarketSansBold = readFile(
+  join(process.cwd(), 'src/assets/font/GmarketSansTTFBold.ttf'),
+)
+const gmarketSansMedium = readFile(
+  join(process.cwd(), 'src/assets/font/GmarketSansTTFMedium.ttf'),
+)
 
 export default async function Image({
   params,
@@ -55,6 +65,12 @@ export default async function Image({
 
     const pokemonImgeUrl = await convertPng(pokemonId)
 
+    // 폰트 데이터 로드
+    const [boldFontData, mediumFontData] = await Promise.all([
+      gmarketSansBold,
+      gmarketSansMedium,
+    ])
+
     return new ImageResponse(
       (
         <div
@@ -67,9 +83,9 @@ export default async function Image({
             background: `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`,
             padding: '60px 80px',
             position: 'relative',
+            fontFamily: 'Gmarket Sans',
           }}
         >
-          {/* 왼쪽: 텍스트 정보 */}
           <div
             style={{
               display: 'flex',
@@ -79,33 +95,28 @@ export default async function Image({
               flex: 1,
             }}
           >
-            {/* 도감 번호 */}
             <div
               style={{
                 display: 'flex',
                 fontSize: 32,
-                fontWeight: 'bold',
+                fontWeight: 500,
                 color: 'rgba(255, 255, 255, 0.9)',
-                letterSpacing: '2px',
+                marginBottom: '13px',
               }}
             >
-              NO. {String(pokemon.number).padStart(4, '0')}
+              No. {String(pokemon.number).padStart(3, '0')}
             </div>
-
-            {/* 포켓몬 이름 */}
             <div
               style={{
                 display: 'flex',
                 fontSize: 72,
-                fontWeight: 'bold',
+                fontWeight: 700,
                 color: 'white',
                 textShadow: '4px 4px 8px rgba(0, 0, 0, 0.3)',
               }}
             >
               {pokemon.name}
             </div>
-
-            {/* 타입 배지 */}
             <div
               style={{
                 display: 'flex',
@@ -120,14 +131,14 @@ export default async function Image({
                   <div
                     key={type}
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '8px 30px',
+                      height: '40px',
+                      padding: '0 30px',
                       background: chipColors.background,
                       borderRadius: '20px',
-                      fontSize: 22,
-                      fontWeight: '600',
+                      lineHeight: 2.5,
+                      fontSize: '22px',
+                      fontWeight: 700,
+                      fontFamily: 'Gmarket Sans',
                       color: chipColors.color,
                     }}
                   >
@@ -136,22 +147,7 @@ export default async function Image({
                 )
               })}
             </div>
-
-            {/* 브랜드 로고 */}
-            <div
-              style={{
-                display: 'flex',
-                marginTop: '30px',
-                fontSize: 28,
-                fontWeight: 'bold',
-                color: 'rgba(255, 255, 255, 0.95)',
-              }}
-            >
-              포케 코리아
-            </div>
           </div>
-
-          {/* 오른쪽: 포켓몬 이미지 영역 (현재는 원형 배경만) */}
           <div
             style={{
               display: 'flex',
@@ -174,6 +170,20 @@ export default async function Image({
       ),
       {
         ...size,
+        fonts: [
+          {
+            name: 'Gmarket Sans',
+            data: boldFontData,
+            weight: 700,
+            style: 'normal',
+          },
+          {
+            name: 'Gmarket Sans',
+            data: mediumFontData,
+            weight: 500,
+            style: 'normal',
+          },
+        ],
       },
     )
   } catch (error) {

@@ -177,7 +177,7 @@ export const generateMetadata = async ({
     openGraph: {
       type: 'website',
       url: canonicalUrl,
-      title,
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType}`,
       description,
       locale: 'ko_KR',
       siteName: '포케 코리아',
@@ -187,7 +187,7 @@ export const generateMetadata = async ({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType} | 포케코리아`,
       description,
     },
   }
