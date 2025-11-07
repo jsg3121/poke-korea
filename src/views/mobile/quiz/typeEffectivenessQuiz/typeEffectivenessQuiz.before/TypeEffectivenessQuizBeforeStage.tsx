@@ -1,10 +1,10 @@
 'use client'
 
+import MobileTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/MobileTypeEffectivenessQuizGuideBottomBanner'
+import PageHeader from '~/components/mobile/PageHeader'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
-import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
-import MobileTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/MobileTypeEffectivenessQuizGuideBottomBanner'
 
 const TypeEffectivenessQuizBeforeStage = () => {
   const { onChangeStage } = useTypeEffectivenessQuizContext()
@@ -15,7 +15,7 @@ const TypeEffectivenessQuizBeforeStage = () => {
 
   return (
     <section className="h-full w-full mx-auto px-[20px]">
-      <GuideHeader
+      <PageHeader
         description={QUIZ_CONFIG[3].description}
         title={QUIZ_CONFIG[3].title}
       />

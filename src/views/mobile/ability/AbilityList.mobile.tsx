@@ -15,14 +15,14 @@ const AbilityListMobile = ({
   totalCount,
 }: AbilityListMobileProps) => {
   return (
-    <>
+    <main>
       <HeaderContainer />
       <AbilityListContainer
         initialAbilities={initialAbilities}
         totalCount={totalCount}
       />
       <MobileTabBar />
-    </>
+    </main>
   )
 }
 
