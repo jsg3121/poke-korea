@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import AbilityCardComponent from '~/components/ability/AbilityCard.component'
+import AbilityDescriptionComponent from '~/components/ability/AbilityDescription.component'
 import { useAbilityList } from '~/hook/useAbilityList'
 import { Ability } from '~/graphql/typeGenerated'
 import FooterContainer from '../footer/Footer.container'
@@ -41,8 +42,9 @@ const AbilityListContainer = ({
   }, [abilityList, hasNextPage, loading])
 
   return (
-    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 px-5">특성 도감</h2>
+    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative px-5">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8">특성 도감</h2>
+      <AbilityDescriptionComponent />
       {abilityList.length === 0 && (
         <div className="w-full h-[20rem]">
           <p className="w-full text-2xl text-gray-700 font-bold text-center">
@@ -51,7 +53,7 @@ const AbilityListContainer = ({
         </div>
       )}
       {abilityList.length > 0 && (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6 px-5">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6">
           {abilityList.map((ability) => {
             return (
               <AbilityCardComponent

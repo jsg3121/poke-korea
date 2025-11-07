@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import AbilityCardComponent from '~/components/ability/AbilityCard.component'
+import AbilityDescriptionComponent from '~/components/ability/AbilityDescription.component'
 import { useAbilityList } from '~/hook/useAbilityList'
 import { Ability } from '~/graphql/typeGenerated'
 import FooterContainer from '../footer/Footer.container'
@@ -43,6 +44,7 @@ const AbilityListContainer = ({
   return (
     <section className="w-full h-full mx-auto py-8 px-5 relative">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">특성 도감</h2>
+      <AbilityDescriptionComponent />
       {abilityList.length === 0 && (
         <div className="w-full h-20">
           <p className="w-full text-lg text-gray-700 font-medium text-center">

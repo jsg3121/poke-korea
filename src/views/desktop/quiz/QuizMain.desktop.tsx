@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import DesktopQuizMainBottomBanner from '~/components/adSlot/DesktopQuizMainBottomBanner'
 import DesktopQuizMainTopBanner from '~/components/adSlot/DesktopQuizMainTopBanner'
+import PageHeader from '~/components/PageHeader'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import HeaderContainer from '~/container/desktop/header/Header.container'
@@ -12,14 +13,10 @@ const QuizMainDesktop = () => {
       <main className="w-full h-fit pt-40">
         <HeaderContainer />
         <section className="max-w-[1280px] mx-auto">
-          <header className="w-full h-30 text-center border-b border-solid border-primary-4 pt-4">
-            <h1 className="h-16 text-[2.5rem] text-center leading-[4rem] text-primary-4 font-bold">
-              포켓몬 퀴즈
-            </h1>
-            <p className="text-[1.25rem] text-primary-3 max-w-2xl mx-auto">
-              다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!
-            </p>
-          </header>
+          <PageHeader
+            title="포켓몬 퀴즈"
+            description="다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!"
+          />
           <DesktopQuizMainTopBanner />
           <div className="grid grid-cols-2 gap-6 mx-auto pt-10">
             {QUIZ_CONFIG.map((quiz) => (
