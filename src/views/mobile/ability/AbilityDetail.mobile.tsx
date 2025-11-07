@@ -19,7 +19,7 @@ const AbilityDetailMobile = ({
   totalCount,
 }: AbilityDetailMobileProps) => {
   return (
-    <>
+    <main className="w-full mx-auto min-h-screen">
       <HeaderContainer />
       <PokemonByAbilityContainer
         abilityId={abilityId}
@@ -28,7 +28,7 @@ const AbilityDetailMobile = ({
         totalCount={totalCount}
       />
       <MobileTabBar />
-    </>
+    </main>
   )
 }
 
