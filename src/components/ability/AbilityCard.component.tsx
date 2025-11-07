@@ -12,21 +12,24 @@ const AbilityCardComponent = ({ abilityData }: AbilityCardComponentProps) => {
       className="block w-full"
       aria-label={`${abilityData.name} 특성 상세보기`}
     >
-      <article className="w-full min-h-[8rem] bg-white border-2 border-solid border-gray-300 rounded-lg p-4 hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer">
+      <article className="w-full min-h-40 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-3 relative">
         <header className="mb-3">
-          <h3 className="text-lg font-bold text-gray-900 mb-1">
+          <h3 className="text-[1.25rem] font-bold text-gray-900 mb-1 border-b border-solid border-primary-1">
+            <span className="text-[0.875rem] text-primary-2">
+              {abilityData.abilityId}.
+            </span>
+            &nbsp;
             {abilityData.name}
           </h3>
-          {abilityData.pokemonCount !== null &&
-            abilityData.pokemonCount !== undefined && (
-              <p className="text-sm text-gray-500">
-                보유 포켓몬: {abilityData.pokemonCount}마리
-              </p>
-            )}
         </header>
-        <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
-          {abilityData.description}
-        </p>
+        <p className="text-[1rem] text-primary-1">{abilityData.description}</p>
+        {abilityData.pokemonCount !== null &&
+          abilityData.pokemonCount !== undefined && (
+            <p className="text-[1rem] text-primary-2 font-semibold absolute bottom-3 left-3">
+              <span className="text-[0.875rem] font-normal">보유 포켓몬:</span>{' '}
+              {abilityData.pokemonCount}마리
+            </p>
+          )}
       </article>
     </Link>
   )

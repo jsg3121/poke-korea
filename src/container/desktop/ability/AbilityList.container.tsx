@@ -19,14 +19,14 @@ const AbilityListContainer = ({
   totalCount,
 }: AbilityListContainerProps) => {
   const listRef = useRef<HTMLDivElement>(null)
-  const { abilityList, loadMore, hasNextPage, loading } = useAbilityList({
+  const { abilityList, loadMore, hasNextPage } = useAbilityList({
     initialAbilities,
   })
 
   const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
     entries.forEach((entry) => {
       const intersectionRatio = entry.intersectionRatio
-      if (intersectionRatio > 0 && hasNextPage && !loading) {
+      if (intersectionRatio > 0 && hasNextPage) {
         loadMore()
       }
     })
@@ -43,7 +43,7 @@ const AbilityListContainer = ({
       observer.observe(listRef.current)
     }
     return () => observer.disconnect()
-  }, [abilityList, hasNextPage, loading])
+  }, [abilityList, hasNextPage])
 
   return (
     <section className="w-full max-w-[1280px] h-fit mx-auto pb-8 relative px-5">
@@ -61,7 +61,7 @@ const AbilityListContainer = ({
         </div>
       )}
       {abilityList.length > 0 && (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6 px-1">
           {abilityList.map((ability) => {
             return (
               <AbilityCardComponent
@@ -70,11 +70,6 @@ const AbilityListContainer = ({
               />
             )
           })}
-        </div>
-      )}
-      {loading && (
-        <div className="flex justify-center py-6 w-full">
-          <div className="text-base text-gray-600">특성을 불러오는 중...</div>
         </div>
       )}
       <div ref={listRef}>
