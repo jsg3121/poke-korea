@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
+import { ABILITY_WEBPAGE_JSON_LD } from '~/constants/abilityJsonLd'
 import { GetAbilityListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
   GetAbilityListPaginatedQuery,
@@ -9,22 +10,30 @@ import {
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
+import { getRobotsConfig } from '~/module/metadata.module'
 import AbilityListDesktop from '~/views/desktop/ability/AbilityList.desktop'
 import AbilityListMobile from '~/views/mobile/ability/AbilityList.mobile'
 
 export const revalidate = 31536000 // 1년
 
+type PageProps = {
+  searchParams: Promise<{
+    search: string
+  }>
+}
+
 export const metadata: Metadata = {
   title: '포켓몬 특성 도감 - 포케코리아',
   description:
     '포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요.',
+  robots: getRobotsConfig(),
   openGraph: {
     type: 'website',
     url: 'https://poke-korea.com/ability',
     title: '포켓몬 특성 도감 - 포케코리아',
-    locale: 'ko_KR',
     description:
       '포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요.',
+    locale: 'ko_KR',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
@@ -46,12 +55,6 @@ export const metadata: Metadata = {
       '포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요.',
     images: ['https://poke-korea.com/assets/image/ogImage.png'],
   },
-}
-
-type PageProps = {
-  searchParams: Promise<{
-    search: string
-  }>
 }
 
 const AbilityPage = async ({ searchParams }: PageProps) => {
@@ -98,6 +101,13 @@ const AbilityPage = async ({ searchParams }: PageProps) => {
           totalCount={data.getAbilityListPaginated.totalCount}
         />
       )}
+      <script
+        id="ability-webpage-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(ABILITY_WEBPAGE_JSON_LD),
+        }}
+      />
     </Fragment>
   )
 }

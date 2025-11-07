@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
+import { getAbilityDetailJsonLd } from '~/constants/abilityJsonLd'
 import { GetPokemonByAbilityDocument } from '~/graphql/gqlGenerated'
 import {
   GetPokemonByAbilityQuery,
@@ -10,6 +11,7 @@ import {
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
+import { getRobotsConfig } from '~/module/metadata.module'
 import AbilityDetailDesktop from '~/views/desktop/ability/AbilityDetail.desktop'
 import AbilityDetailMobile from '~/views/mobile/ability/AbilityDetail.mobile'
 
@@ -67,6 +69,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    robots: getRobotsConfig(),
     openGraph: {
       type: 'website',
       url: `https://poke-korea.com/ability/${abilityId}`,
@@ -139,6 +142,8 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
+  const jsonLd = getAbilityDetailJsonLd(abilityId, ability.name)
+
   return (
     <Fragment>
       {isMobile ? (
@@ -156,6 +161,13 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
           totalCount={data.getPokemonByAbility.totalCount ?? 0}
         />
       )}
+      <script
+        id="ability-detail-webpage-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
     </Fragment>
   )
 }
