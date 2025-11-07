@@ -1,10 +1,10 @@
 'use client'
 
+import DesktopTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/DesktopTypeEffectivenessQuizGuideBottomBanner'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
-import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
-import DesktopTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/DesktopTypeEffectivenessQuizGuideBottomBanner'
+import PageHeader from '~/components/PageHeader'
 
 const TypeEffectivenessQuizBeforeStage = () => {
   const { onChangeStage } = useTypeEffectivenessQuizContext()
@@ -15,7 +15,7 @@ const TypeEffectivenessQuizBeforeStage = () => {
 
   return (
     <section className="h-full w-full max-w-[1280px] mx-auto">
-      <GuideHeader
+      <PageHeader
         title={QUIZ_CONFIG[3].title}
         description={QUIZ_CONFIG[3].description}
       />

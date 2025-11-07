@@ -1,6 +1,9 @@
 import type { MetadataRoute } from 'next'
-import { GetPokemonListDocument } from '~/graphql/gqlGenerated'
-import { PokemonList, PokemonType } from '~/graphql/typeGenerated'
+import {
+  GetPokemonListDocument,
+  GetAbilityListPaginatedDocument,
+} from '~/graphql/gqlGenerated'
+import { PokemonList, PokemonType, AbilityEdge } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -22,6 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: 'https://poke-korea.com/moves',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
+      url: 'https://poke-korea.com/ability',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
@@ -59,31 +68,45 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   try {
-    const [{ data }, { data: megaData }, { data: regionData }] =
-      await Promise.all([
-        apolloClient.query({
-          query: GetPokemonListDocument,
-          variables: {
-            filter: {},
+    const [
+      { data },
+      { data: megaData },
+      { data: regionData },
+      { data: abilityData },
+    ] = await Promise.all([
+      apolloClient.query({
+        query: GetPokemonListDocument,
+        variables: {
+          filter: {},
+        },
+      }),
+      apolloClient.query({
+        query: GetPokemonListDocument,
+        variables: {
+          filter: {
+            isMegaEvolution: true,
           },
-        }),
-        apolloClient.query({
-          query: GetPokemonListDocument,
-          variables: {
-            filter: {
-              isMegaEvolution: true,
+        },
+      }),
+      apolloClient.query({
+        query: GetPokemonListDocument,
+        variables: {
+          filter: {
+            isRegionForm: true,
+          },
+        },
+      }),
+      apolloClient.query({
+        query: GetAbilityListPaginatedDocument,
+        variables: {
+          input: {
+            pagination: {
+              first: 1000, // 모든 특성을 가져오기 위해 충분히 큰 숫자
             },
           },
-        }),
-        apolloClient.query({
-          query: GetPokemonListDocument,
-          variables: {
-            filter: {
-              isRegionForm: true,
-            },
-          },
-        }),
-      ])
+        },
+      }),
+    ])
 
     // 기본 포켓몬 상세 페이지들
     const basicDetailPages = data.getPokemonList.map(
@@ -158,6 +181,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
+    // 특성 상세 페이지들
+    const abilityDetailPages = abilityData.getAbilityListPaginated.edges.map(
+      (edge: AbilityEdge) => ({
+        url: `https://poke-korea.com/ability/${edge.node.abilityId}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.7,
+      }),
+    )
+
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
@@ -168,6 +201,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...typeFilterMovesPages,
       ...damageTypeFilterMovesPages,
       ...basicDetailMovesPages,
+      ...abilityDetailPages,
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)

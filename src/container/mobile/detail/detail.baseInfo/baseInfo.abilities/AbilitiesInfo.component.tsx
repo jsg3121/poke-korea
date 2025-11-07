@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
+import Link from 'next/link'
 
 const AbilitiesInfoComponent = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -19,11 +20,17 @@ const AbilitiesInfoComponent = () => {
               key={`ability-id-${index}`}
               className="w-full border-b border-solid border-primary-3 py-2 last:border-b-0 last:p-0"
             >
-              <dt className="w-full h-7 text-xl font-bold leading-6 pb-2">
+              <dt className="w-full h-7 text-xl font-bold leading-6 pb-2 relative">
                 {ability.name}&nbsp;
                 {ability.isHidden && (
                   <span className="text-xs font-normal">(숨겨진 특성)</span>
                 )}
+                <Link
+                  href={`/ability/${ability.abilityId}`}
+                  className="text-[0.75rem] text-primary-1 absolute right-0 underline underline-offset-4"
+                >
+                  특성 정보 보러가기
+                </Link>
               </dt>
               <dd className="w-full min-h-6 text-base leading-6">
                 {ability.description}

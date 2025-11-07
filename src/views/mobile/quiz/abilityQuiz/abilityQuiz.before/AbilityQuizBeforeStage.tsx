@@ -1,10 +1,10 @@
 'use client'
 
+import MobileAbilityGuideBottomBanner from '~/components/adSlot/MobileAbilityGuideBottomBanner'
+import PageHeader from '~/components/mobile/PageHeader'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
-import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
-import MobileAbilityGuideBottomBanner from '~/components/adSlot/MobileAbilityGuideBottomBanner'
 
 const AbilityQuizBeforeStage = () => {
   const { onChangeStage } = useAbilityQuizContext()
@@ -15,7 +15,7 @@ const AbilityQuizBeforeStage = () => {
 
   return (
     <section className="h-full w-full mx-auto px-[20px]">
-      <GuideHeader
+      <PageHeader
         description={QUIZ_CONFIG[1].description}
         title={QUIZ_CONFIG[1].title}
       />

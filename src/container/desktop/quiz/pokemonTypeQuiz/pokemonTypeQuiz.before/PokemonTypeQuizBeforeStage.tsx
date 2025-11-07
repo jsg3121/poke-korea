@@ -1,10 +1,10 @@
 'use client'
 
+import DesktopPokemonTypeGuideBottomBanner from '~/components/adSlot/DesktopPokemonTypeGuideBottomBanner'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
-import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
-import DesktopPokemonTypeGuideBottomBanner from '~/components/adSlot/DesktopPokemonTypeGuideBottomBanner'
+import PageHeader from '~/components/PageHeader'
 
 const PokemonTypeQuizBeforeStage = () => {
   const { onChangeStage } = usePokemonTypeQuizContext()
@@ -15,7 +15,7 @@ const PokemonTypeQuizBeforeStage = () => {
 
   return (
     <section className="h-full w-full max-w-[1280px] mx-auto">
-      <GuideHeader
+      <PageHeader
         title={QUIZ_CONFIG[2].title}
         description={QUIZ_CONFIG[2].description}
       />

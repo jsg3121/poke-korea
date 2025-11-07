@@ -1,10 +1,10 @@
 'use client'
 
+import MobileSilhouetteGuideBottomBanner from '~/components/adSlot/MobileSilhouetteGuideBottomBanner'
+import PageHeader from '~/components/mobile/PageHeader'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
-import GuideHeader from '../../components/guide/GuideHeader'
 import GuideStartButton from '../../components/guide/GuideStartButton'
-import MobileSilhouetteGuideBottomBanner from '~/components/adSlot/MobileSilhouetteGuideBottomBanner'
 
 const SilhouetteQuizBeforeStage = () => {
   const { onChangeStage } = useSilhouetteQuizContext()
@@ -15,7 +15,7 @@ const SilhouetteQuizBeforeStage = () => {
 
   return (
     <section className="h-full w-full px-[20px]">
-      <GuideHeader
+      <PageHeader
         title={QUIZ_CONFIG[0].title}
         description={QUIZ_CONFIG[0].description}
       />

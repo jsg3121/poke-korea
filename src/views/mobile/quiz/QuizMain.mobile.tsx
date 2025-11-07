@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import MobileQuizMainBottomBanner from '~/components/adSlot/MobileQuizMainBottomBanner'
 import MobileQuizMainTopBanner from '~/components/adSlot/MobileQuizMainTopBanner'
+import PageHeader from '~/components/mobile/PageHeader'
 import MobileTabBar from '~/components/MobileTabBar'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -13,14 +14,10 @@ const QuizMainMobile = () => {
       <main className="w-full h-full">
         <HeaderContainer />
         <section className="w-full px-[20px]">
-          <header className="w-full h-30 text-center border-b border-solid border-primary-4 pt-4">
-            <h1 className="h-16 text-[2rem] text-center leading-[4rem] text-primary-4 font-bold">
-              포켓몬 퀴즈
-            </h1>
-            <p className="text-[0.875rem] text-primary-3 max-w-2xl mx-auto">
-              다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!
-            </p>
-          </header>
+          <PageHeader
+            title="포켓몬 퀴즈"
+            description="다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!"
+          />
           <MobileQuizMainTopBanner />
           <article className="mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
             <h2 className="text-xl font-bold text-primary-1 mb-4">퀴즈 안내</h2>

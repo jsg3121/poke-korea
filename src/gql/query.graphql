@@ -442,3 +442,42 @@ query GetSilhouetteQuiz {
     correctAnswerIndex
   }
 }
+
+query GetAbilityListPaginated($input: AbilityListInput) {
+  getAbilityListPaginated(input: $input) {
+    edges {
+      cursor
+      node {
+        ...AbilityInfo
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+
+query GetPokemonByAbility($input: PokemonByAbilityInput!) {
+  getPokemonByAbility(input: $input) {
+    ability {
+      ...AbilityInfo
+    }
+    edges {
+      cursor
+      node {
+        ...PokemonWithAbilityInfo
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
