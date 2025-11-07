@@ -4,13 +4,20 @@ import HeaderContainer from '~/container/desktop/header/Header.container'
 
 interface AbilityListDesktopProps {
   initialAbilities: Array<Ability>
+  totalCount: number
 }
 
-const AbilityListDesktop = ({ initialAbilities }: AbilityListDesktopProps) => {
+const AbilityListDesktop = ({
+  initialAbilities,
+  totalCount,
+}: AbilityListDesktopProps) => {
   return (
     <main className="w-full h-full pt-40">
       <HeaderContainer />
-      <AbilityListContainer initialAbilities={initialAbilities} />
+      <AbilityListContainer
+        initialAbilities={initialAbilities}
+        totalCount={totalCount}
+      />
     </main>
   )
 }

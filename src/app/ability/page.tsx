@@ -80,7 +80,10 @@ const AbilityPage = async () => {
       {isMobile ? (
         <AbilityListMobile initialAbilities={abilityList} />
       ) : (
-        <AbilityListDesktop initialAbilities={abilityList} />
+        <AbilityListDesktop
+          initialAbilities={abilityList}
+          totalCount={data.getAbilityListPaginated.totalCount}
+        />
       )}
     </Fragment>
   )

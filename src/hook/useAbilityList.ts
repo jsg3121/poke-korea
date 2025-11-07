@@ -1,28 +1,27 @@
 'use client'
 
 import { produce } from 'immer'
+import { useSearchParams } from 'next/navigation'
 import { useGetAbilityListPaginatedQuery } from '~/graphql/gqlGenerated'
-import {
-  Ability,
-  AbilityEdge,
-  AbilityFilterInput,
-} from '~/graphql/typeGenerated'
+import { Ability, AbilityEdge } from '~/graphql/typeGenerated'
 
 interface UseAbilityListProps {
   initialAbilities?: Array<Ability>
-  filter?: AbilityFilterInput
   pageSize?: number
 }
 
 export const useAbilityList = ({
   initialAbilities = [],
-  filter,
   pageSize = 20,
 }: UseAbilityListProps = {}) => {
+  const searchParams = useSearchParams()
+  const searchKeyword = searchParams.get('search')
   const { data, loading, fetchMore, error } = useGetAbilityListPaginatedQuery({
     variables: {
       input: {
-        filter,
+        filter: {
+          name: searchKeyword,
+        },
         pagination: {
           first: pageSize,
         },
@@ -36,7 +35,9 @@ export const useAbilityList = ({
     await fetchMore({
       variables: {
         input: {
-          filter,
+          filter: {
+            name: searchKeyword,
+          },
           pagination: {
             first: pageSize,
             after: data?.getAbilityListPaginated.pageInfo.endCursor,

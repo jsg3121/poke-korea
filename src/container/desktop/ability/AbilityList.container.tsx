@@ -7,13 +7,16 @@ import { useAbilityList } from '~/hook/useAbilityList'
 import { Ability } from '~/graphql/typeGenerated'
 import FooterContainer from '../footer/Footer.container'
 import PageHeader from '~/components/PageHeader'
+import AbilitySearchComponent from '~/components/ability/AbilitySearch.component'
 
 interface AbilityListContainerProps {
   initialAbilities: Array<Ability>
+  totalCount: number
 }
 
 const AbilityListContainer = ({
   initialAbilities,
+  totalCount,
 }: AbilityListContainerProps) => {
   const listRef = useRef<HTMLDivElement>(null)
   const { abilityList, loadMore, hasNextPage, loading } = useAbilityList({
@@ -43,12 +46,13 @@ const AbilityListContainer = ({
   }, [abilityList, hasNextPage, loading])
 
   return (
-    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative px-5">
+    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto pb-8 relative px-5">
       <PageHeader
         title="특성 도감"
         description="포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요."
       />
       <AbilityDescriptionComponent />
+      <AbilitySearchComponent totalCount={totalCount} />
       {abilityList.length === 0 && (
         <div className="w-full h-[20rem]">
           <p className="w-full text-2xl text-gray-700 font-bold text-center">
