@@ -69,6 +69,7 @@ fragment PokemonWithAbilityInfo on PokemonWithAbility {
   number
   formName
   formType
+  imagePath
   isHidden
   region
   types

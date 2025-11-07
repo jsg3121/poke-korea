@@ -8,24 +8,25 @@ interface AbilityDetailDesktopProps {
   abilityId: number
   initialAbility: Ability
   initialPokemon: Array<PokemonWithAbility>
+  totalCount: number
 }
 
 const AbilityDetailDesktop = ({
   abilityId,
   initialAbility,
   initialPokemon,
+  totalCount,
 }: AbilityDetailDesktopProps) => {
   return (
-    <>
-      <div className="h-56">
-        <HeaderContainer />
-      </div>
+    <main className="w-full h-full pt-40">
+      <HeaderContainer />
       <PokemonByAbilityContainer
         abilityId={abilityId}
         initialAbility={initialAbility}
         initialPokemon={initialPokemon}
+        totalCount={totalCount}
       />
-    </>
+    </main>
   )
 }
 
