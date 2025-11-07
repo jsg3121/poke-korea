@@ -77,7 +77,7 @@ const PokemonByAbilityContainer = ({
       )}
 
       {pokemonList.length > 0 && (
-        <div className="w-full grid grid-cols-1 gap-4">
+        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between [&_.virtuoso-grid-item]:w-full">
           {pokemonList.map((pokemon) => {
             return (
               <PokemonByAbilityCardComponent

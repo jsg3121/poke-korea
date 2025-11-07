@@ -79,7 +79,7 @@ const PokemonByAbilityContainer = ({
       )}
 
       {pokemonList.length > 0 && (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-6">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] gap-x-4 gap-y-6 justify-items-center justify-between">
           {pokemonList.map((pokemon) => {
             return (
               <PokemonByAbilityCardComponent
