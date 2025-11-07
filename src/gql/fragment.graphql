@@ -54,3 +54,22 @@ fragment LearnableSkillPokemonInfo on PokemonDetail {
   isFormChange
   isRegionForm
 }
+
+fragment AbilityInfo on Ability {
+  id
+  abilityId
+  name
+  description
+  pokemonCount
+}
+
+fragment PokemonWithAbilityInfo on PokemonWithAbility {
+  id
+  name
+  number
+  formName
+  formType
+  isHidden
+  region
+  types
+}
