@@ -89,7 +89,7 @@ const PokemonByAbilityCardComponent = ({
               height="10rem"
               width="10rem"
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.id}.webp?w=240&h=240`}
+              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?w=240&h=240`}
               fetchPriority="high"
               imageSize={{
                 height: 140,

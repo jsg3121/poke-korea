@@ -1,5 +1,6 @@
 'use client'
 
+import { produce } from 'immer'
 import { useGetPokemonByAbilityQuery } from '~/graphql/gqlGenerated'
 import {
   PokemonByAbilityEdge,
@@ -51,17 +52,26 @@ export const usePokemonByAbility = ({
         },
       },
       updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousQueryResult
-
-        return {
-          getPokemonByAbility: {
-            ...fetchMoreResult.getPokemonByAbility,
-            edges: [
-              ...previousQueryResult.getPokemonByAbility.edges,
-              ...fetchMoreResult.getPokemonByAbility.edges,
-            ],
-          },
+        if (!fetchMoreResult) {
+          return previousQueryResult
         }
+
+        return produce(previousQueryResult, (draft) => {
+          if (!draft.getPokemonByAbility) {
+            return
+          }
+
+          draft.getPokemonByAbility.edges = [
+            ...previousQueryResult.getPokemonByAbility.edges,
+            ...fetchMoreResult.getPokemonByAbility.edges,
+          ]
+          draft.getPokemonByAbility.pageInfo = {
+            ...previousQueryResult.getPokemonByAbility.pageInfo,
+            endCursor: fetchMoreResult.getPokemonByAbility.pageInfo.endCursor,
+            hasNextPage:
+              fetchMoreResult.getPokemonByAbility.pageInfo.hasNextPage,
+          }
+        })
       },
     })
   }
