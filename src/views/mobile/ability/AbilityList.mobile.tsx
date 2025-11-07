@@ -7,13 +7,20 @@ import MobileTabBar from '~/components/MobileTabBar'
 
 interface AbilityListMobileProps {
   initialAbilities: Array<Ability>
+  totalCount: number
 }
 
-const AbilityListMobile = ({ initialAbilities }: AbilityListMobileProps) => {
+const AbilityListMobile = ({
+  initialAbilities,
+  totalCount,
+}: AbilityListMobileProps) => {
   return (
     <>
       <HeaderContainer />
-      <AbilityListContainer initialAbilities={initialAbilities} />
+      <AbilityListContainer
+        initialAbilities={initialAbilities}
+        totalCount={totalCount}
+      />
       <MobileTabBar />
     </>
   )

@@ -88,7 +88,10 @@ const AbilityPage = async ({ searchParams }: PageProps) => {
   return (
     <Fragment>
       {isMobile ? (
-        <AbilityListMobile initialAbilities={abilityList} />
+        <AbilityListMobile
+          initialAbilities={abilityList}
+          totalCount={data.getAbilityListPaginated.totalCount}
+        />
       ) : (
         <AbilityListDesktop
           initialAbilities={abilityList}
