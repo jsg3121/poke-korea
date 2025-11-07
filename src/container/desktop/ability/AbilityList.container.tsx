@@ -6,6 +6,7 @@ import AbilityDescriptionComponent from '~/components/ability/AbilityDescription
 import { useAbilityList } from '~/hook/useAbilityList'
 import { Ability } from '~/graphql/typeGenerated'
 import FooterContainer from '../footer/Footer.container'
+import PageHeader from '~/components/PageHeader'
 
 interface AbilityListContainerProps {
   initialAbilities: Array<Ability>
@@ -43,7 +44,10 @@ const AbilityListContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative px-5">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8">특성 도감</h2>
+      <PageHeader
+        title="특성 도감"
+        description="포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요."
+      />
       <AbilityDescriptionComponent />
       {abilityList.length === 0 && (
         <div className="w-full h-[20rem]">

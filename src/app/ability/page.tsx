@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
+import { Fragment } from 'react'
 import { GetAbilityListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
   GetAbilityListPaginatedQuery,
@@ -14,22 +15,22 @@ import AbilityListMobile from '~/views/mobile/ability/AbilityList.mobile'
 export const revalidate = 31536000 // 1년
 
 export const metadata: Metadata = {
-  title: '특성 도감 - 포케 코리아',
+  title: '포켓몬 특성 도감 - 포케코리아',
   description:
-    '포켓몬의 모든 특성 정보를 확인하세요. 각 특성의 효과와 해당 특성을 가진 포켓몬 목록을 한눈에 볼 수 있습니다.',
+    '포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요.',
   openGraph: {
     type: 'website',
     url: 'https://poke-korea.com/ability',
-    title: '특성 도감 - 포케 코리아',
+    title: '포켓몬 특성 도감 - 포케코리아',
     locale: 'ko_KR',
     description:
-      '포켓몬의 모든 특성 정보를 확인하세요. 각 특성의 효과와 해당 특성을 가진 포켓몬 목록을 한눈에 볼 수 있습니다.',
+      '포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요.',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
         width: 1200,
         height: 630,
-        alt: '특성 도감 - 포케 코리아',
+        alt: '포켓몬 특성 도감 - 포케코리아',
         type: 'image/png',
       },
     ],
@@ -40,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '특성 도감 - 포케 코리아',
+    title: '포켓몬 특성 도감 - 포케코리아',
     description:
-      '포켓몬의 모든 특성 정보를 확인하세요. 각 특성의 효과와 해당 특성을 가진 포켓몬 목록을 한눈에 볼 수 있습니다.',
+      '포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요.',
     images: ['https://poke-korea.com/assets/image/ogImage.png'],
   },
 }
@@ -75,13 +76,13 @@ const AbilityPage = async () => {
     }) || []
 
   return (
-    <main className="w-full min-h-screen">
+    <Fragment>
       {isMobile ? (
         <AbilityListMobile initialAbilities={abilityList} />
       ) : (
         <AbilityListDesktop initialAbilities={abilityList} />
       )}
-    </main>
+    </Fragment>
   )
 }
 

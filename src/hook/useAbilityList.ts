@@ -1,5 +1,6 @@
 'use client'
 
+import { produce } from 'immer'
 import { useGetAbilityListPaginatedQuery } from '~/graphql/gqlGenerated'
 import {
   Ability,
@@ -45,15 +46,23 @@ export const useAbilityList = ({
       updateQuery: (previousQueryResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return previousQueryResult
 
-        return {
-          getAbilityListPaginated: {
-            ...fetchMoreResult.getAbilityListPaginated,
-            edges: [
-              ...previousQueryResult.getAbilityListPaginated.edges,
-              ...fetchMoreResult.getAbilityListPaginated.edges,
-            ],
-          },
-        }
+        return produce(previousQueryResult, (draft) => {
+          if (!draft.getAbilityListPaginated) {
+            return
+          }
+
+          draft.getAbilityListPaginated.edges = [
+            ...previousQueryResult.getAbilityListPaginated.edges,
+            ...fetchMoreResult.getAbilityListPaginated.edges,
+          ]
+          draft.getAbilityListPaginated.pageInfo = {
+            ...previousQueryResult.getAbilityListPaginated.pageInfo,
+            endCursor:
+              fetchMoreResult.getAbilityListPaginated.pageInfo.endCursor,
+            hasNextPage:
+              fetchMoreResult.getAbilityListPaginated.pageInfo.hasNextPage,
+          }
+        })
       },
     })
   }
