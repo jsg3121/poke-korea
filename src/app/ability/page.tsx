@@ -48,8 +48,15 @@ export const metadata: Metadata = {
   },
 }
 
-const AbilityPage = async () => {
+type PageProps = {
+  searchParams: Promise<{
+    search: string
+  }>
+}
+
+const AbilityPage = async ({ searchParams }: PageProps) => {
   const headersList = await headers()
+  const { search } = await searchParams
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
@@ -62,6 +69,9 @@ const AbilityPage = async () => {
     query: GetAbilityListPaginatedDocument,
     variables: {
       input: {
+        filter: {
+          name: search,
+        },
         pagination: {
           first: 20,
         },

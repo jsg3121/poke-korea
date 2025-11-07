@@ -46,7 +46,7 @@ const AbilityListContainer = ({
   }, [abilityList, hasNextPage, loading])
 
   return (
-    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto pb-8 relative px-5">
+    <section className="w-full max-w-[1280px] h-fit mx-auto pb-8 relative px-5">
       <PageHeader
         title="특성 도감"
         description="포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요."

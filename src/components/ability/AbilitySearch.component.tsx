@@ -12,7 +12,6 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
   const params = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-  const searchParam = params.get('search') || ''
 
   const [debouncedKeyword, debounce] = useDebounce()
 
@@ -33,9 +32,9 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-3 mb-6">
+    <div className="w-full h-24 flex flex-col py-3 gap-2 sticky mb-6 top-40 bg-primary-1 z-10 shadow-[0px_10px_7px_-6px_#27374d] ">
       <div className="flex items-center gap-3">
-        <div className="flex-1 relative">
+        <div className="w-full relative">
           <input
             type="search"
             onChange={handleChangeSearch}
@@ -45,16 +44,13 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
         </div>
       </div>
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-600">
+        <p className="text-[0.75rem] text-primary-3">
           총{' '}
-          <strong className="font-semibold text-gray-900">{totalCount}</strong>
+          <strong className="text-[1rem] font-semibold text-primary-4">
+            {totalCount}
+          </strong>
           개의 특성을 볼 수 있어요!
         </p>
-        {searchParam && (
-          <p className="text-sm text-blue-600">
-            &quot;{searchParam}&quot; 검색 결과
-          </p>
-        )}
       </div>
     </div>
   )
