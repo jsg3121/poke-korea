@@ -55,7 +55,7 @@ const AbilityListContainer = ({
       <AbilitySearchComponent totalCount={totalCount} />
       {abilityList.length === 0 && (
         <div className="w-full h-20">
-          <p className="w-full text-lg text-gray-700 font-medium text-center">
+          <p className="w-full text-lg text-primary-4 font-medium text-center">
             검색하신 이름의 특성이 존재하지 않아요!
           </p>
         </div>
@@ -70,11 +70,6 @@ const AbilityListContainer = ({
               />
             )
           })}
-        </div>
-      )}
-      {loading && (
-        <div className="flex justify-center py-4">
-          <div className="text-sm text-gray-600">특성을 불러오는 중...</div>
         </div>
       )}
       <div ref={listRef}>

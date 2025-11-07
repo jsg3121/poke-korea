@@ -9,12 +9,14 @@ interface AbilityDetailMobileProps {
   abilityId: number
   initialAbility: Ability
   initialPokemon: Array<PokemonWithAbility>
+  totalCount: number
 }
 
 const AbilityDetailMobile = ({
   abilityId,
   initialAbility,
   initialPokemon,
+  totalCount,
 }: AbilityDetailMobileProps) => {
   return (
     <>
@@ -23,6 +25,7 @@ const AbilityDetailMobile = ({
         abilityId={abilityId}
         initialAbility={initialAbility}
         initialPokemon={initialPokemon}
+        totalCount={totalCount}
       />
       <MobileTabBar />
     </>

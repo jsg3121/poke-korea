@@ -146,6 +146,7 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
           abilityId={abilityId}
           initialAbility={ability}
           initialPokemon={pokemonList}
+          totalCount={data.getPokemonByAbility.totalCount ?? 0}
         />
       ) : (
         <AbilityDetailDesktop
