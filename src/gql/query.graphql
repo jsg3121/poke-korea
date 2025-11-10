@@ -4,6 +4,15 @@ query GetPokemonList($filter: PokemonFilterInput) {
   }
 }
 
+query GetDailyRandomPokemon {
+  getDailyRandomPokemon {
+    date
+    pokemons {
+      ...PokemonCard
+    }
+  }
+}
+
 query GetPokemonListPaginated($input: PokemonListInput) {
   getPokemonList: getPokemonListPaginated(input: $input) {
     edges {

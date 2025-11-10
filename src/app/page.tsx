@@ -1,6 +1,12 @@
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
 import HomeView from '~/views/Home.view'
+import { initializeApollo } from '~/module/apolloClient'
+import { GetDailyRandomPokemonDocument } from '~/graphql/gqlGenerated'
+import {
+  GetDailyRandomPokemonQuery,
+  GetDailyRandomPokemonQueryVariables,
+} from '~/graphql/typeGenerated'
 
 export const revalidate = 3600 // 1시간
 
@@ -68,7 +74,20 @@ const HomePage = async ({ searchParams }: PageProps) => {
     permanentRedirect(`/list?${queryString}`)
   }
 
-  return <HomeView />
+  const apolloClient = initializeApollo()
+
+  // 매일 변경되는 랜덤 포켓몬 10마리 가져오기
+  const { data } = await apolloClient.query<
+    GetDailyRandomPokemonQuery,
+    GetDailyRandomPokemonQueryVariables
+  >({
+    query: GetDailyRandomPokemonDocument,
+    fetchPolicy: 'network-only',
+  })
+
+  const dailyPokemon = data?.getDailyRandomPokemon?.pokemons || []
+
+  return <HomeView dailyPokemon={dailyPokemon} />
 }
 
 export default HomePage
