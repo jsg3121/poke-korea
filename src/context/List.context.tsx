@@ -80,31 +80,15 @@ export const ListProvider = ({
           },
         },
       },
-      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousQueryResult
-        return produce(previousQueryResult, (draft) => {
-          if (!draft.getPokemonList) {
-            return
-          }
-
-          draft.getPokemonList.edges = [
-            ...previousQueryResult.getPokemonList.edges,
-            ...fetchMoreResult.getPokemonList.edges,
-          ]
-          draft.getPokemonList.pageInfo = {
-            ...previousQueryResult.getPokemonList.pageInfo,
-            endCursor: fetchMoreResult.getPokemonList.pageInfo.endCursor,
-            hasNextPage: fetchMoreResult.getPokemonList.pageInfo.hasNextPage,
-          }
-        })
-      },
+      updateQuery: (prev, { fetchMoreResult }) =>
+        mergePagedResults('getPokemonList', prev, fetchMoreResult),
     })
   }
 
-  const pokemonList =
-    data?.getPokemonList?.edges.map((edge: PokemonEdge) => {
-      return edge.node
-    }) || initialList
+  const pokemonList = extractNodesFromEdges(
+    data?.getPokemonList?.edges,
+    initialList,
+  )
 
   const initialValue = {
     pokemonList,

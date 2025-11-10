@@ -1,13 +1,12 @@
 'use client'
 
-import { produce } from 'immer'
 import { createContext, ReactNode } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
+import { PokemonSkill, PokemonSkillFilterInput } from '~/graphql/typeGenerated'
 import {
-  PokemonSkill,
-  PokemonSkillEdge,
-  PokemonSkillFilterInput,
-} from '~/graphql/typeGenerated'
+  mergePagedResults,
+  extractNodesFromEdges,
+} from '~/module/graphqlPagination.module'
 
 interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>
@@ -59,28 +58,15 @@ export const MovesProvider = ({
           },
         },
       },
-      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousQueryResult
-        return produce(previousQueryResult, (draft) => {
-          draft.getPokemonSkillList.edges = [
-            ...previousQueryResult.getPokemonSkillList.edges,
-            ...fetchMoreResult.getPokemonSkillList.edges,
-          ]
-          draft.getPokemonSkillList.pageInfo = {
-            ...previousQueryResult.getPokemonSkillList.pageInfo,
-            endCursor: fetchMoreResult.getPokemonSkillList.pageInfo.endCursor,
-            hasNextPage:
-              fetchMoreResult.getPokemonSkillList.pageInfo.hasNextPage,
-          }
-        })
-      },
+      updateQuery: (prev, { fetchMoreResult }) =>
+        mergePagedResults('getPokemonSkillList', prev, fetchMoreResult),
     })
   }
 
-  const skillList =
-    data?.getPokemonSkillList?.edges?.map(
-      (edge: PokemonSkillEdge) => edge.node,
-    ) || initialSkills
+  const skillList = extractNodesFromEdges(
+    data?.getPokemonSkillList?.edges,
+    initialSkills,
+  )
 
   const value = {
     skillList,

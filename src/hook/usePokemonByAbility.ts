@@ -1,11 +1,11 @@
 'use client'
 
-import { produce } from 'immer'
 import { useGetPokemonByAbilityQuery } from '~/graphql/gqlGenerated'
+import { PokemonWithAbility } from '~/graphql/typeGenerated'
 import {
-  PokemonByAbilityEdge,
-  PokemonWithAbility,
-} from '~/graphql/typeGenerated'
+  mergePagedResults,
+  extractNodesFromEdges,
+} from '~/module/graphqlPagination.module'
 
 interface UsePokemonByAbilityProps {
   abilityId: number
@@ -51,35 +51,15 @@ export const usePokemonByAbility = ({
           },
         },
       },
-      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return previousQueryResult
-        }
-
-        return produce(previousQueryResult, (draft) => {
-          if (!draft.getPokemonByAbility) {
-            return
-          }
-
-          draft.getPokemonByAbility.edges = [
-            ...previousQueryResult.getPokemonByAbility.edges,
-            ...fetchMoreResult.getPokemonByAbility.edges,
-          ]
-          draft.getPokemonByAbility.pageInfo = {
-            ...previousQueryResult.getPokemonByAbility.pageInfo,
-            endCursor: fetchMoreResult.getPokemonByAbility.pageInfo.endCursor,
-            hasNextPage:
-              fetchMoreResult.getPokemonByAbility.pageInfo.hasNextPage,
-          }
-        })
-      },
+      updateQuery: (prev, { fetchMoreResult }) =>
+        mergePagedResults('getPokemonByAbility', prev, fetchMoreResult),
     })
   }
 
-  const pokemonList =
-    data?.getPokemonByAbility?.edges?.map(
-      (edge: PokemonByAbilityEdge) => edge.node,
-    ) || initialPokemon
+  const pokemonList = extractNodesFromEdges(
+    data?.getPokemonByAbility?.edges,
+    initialPokemon,
+  )
 
   return {
     ability: data?.getPokemonByAbility?.ability,
