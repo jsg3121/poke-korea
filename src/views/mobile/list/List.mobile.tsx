@@ -8,17 +8,17 @@ import HeaderContainer from './header/Header.container'
 import { useRouteChangeCache } from '~/hook/useRouteChangeCache'
 import MobileTabBar from '~/components/MobileTabBar'
 
-interface ManinViewsProps {
+interface ListViewProps {
   pokemonList: Array<PokemonList>
   initialFilter: PokemonFilterInput
   hasNextPage: boolean
 }
 
-const MainMobile = ({
+const ListMobile = ({
   pokemonList,
   initialFilter,
   hasNextPage,
-}: ManinViewsProps) => {
+}: ListViewProps) => {
   useRouteChangeCache()
 
   return (
@@ -35,4 +35,4 @@ const MainMobile = ({
   )
 }
 
-export default MainMobile
+export default ListMobile

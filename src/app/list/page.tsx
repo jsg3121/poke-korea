@@ -16,8 +16,8 @@ import {
 } from '~/module/filter.module'
 import { getDailyRandomPokemon } from '~/module/list.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import MainDesktop from '~/views/desktop/main/Main.desktop'
-import MainMobile from '~/views/mobile/main/Main.mobile'
+import ListDesktop from '~/views/desktop/list/List.desktop'
+import ListMobile from '~/views/mobile/list/List.mobile'
 
 export const revalidate = 31536000 // 1년
 
@@ -299,13 +299,13 @@ const ListPage = async ({ searchParams }: PageProps) => {
       />
       <main className="w-full min-h-screen">
         {isMobile ? (
-          <MainMobile
+          <ListMobile
             pokemonList={pokemonList}
             initialFilter={filterInput}
             hasNextPage={hasNextPage}
           />
         ) : (
-          <MainDesktop
+          <ListDesktop
             pokemonList={pokemonList}
             initialFilter={filterInput}
             hasNextPage={hasNextPage}

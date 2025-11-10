@@ -1,28 +1,29 @@
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
+import HomeView from '~/views/Home.view'
 
 export const revalidate = 3600 // 1시간
 
 export const metadata: Metadata = {
-  title: '포켓몬의 모든 정보 포케 코리아',
+  title: '포케 코리아 - 한국어 포켓몬 도감',
   description: `
-    언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.
-    카드형식을 통해 포켓몬의 능력치를 확인할 수 있고 타입 또는 진화 여부 등으로 원하는 포켓몬을 빠르게 찾아보세요.
-    간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색해 확인해보세요.
+    포케 코리아에서 포켓몬의 모든 정보를 확인하세요!
+    포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 포켓몬 퀴즈까지!
+    언제, 어디서든 포켓몬 정보를 빠르고 편리하게 확인할 수 있습니다.
   `,
   openGraph: {
     type: 'website',
     url: 'https://poke-korea.com/',
-    title: '포켓몬의 모든 정보 포케 코리아',
+    title: '포케 코리아 - 한국어 포켓몬 도감',
     locale: 'ko_KR',
     description:
-      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+      '포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 포켓몬 퀴즈까지! 포켓몬의 모든 정보를 한곳에서 확인하세요.',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
         width: 1200,
         height: 630,
-        alt: '포켓몬의 모든 정보 포케 코리아',
+        alt: '포케 코리아 - 한국어 포켓몬 도감',
         type: 'image/png',
       },
     ],
@@ -33,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '포켓몬의 모든 정보 포케 코리아',
+    title: '포케 코리아 - 한국어 포켓몬 도감',
     description:
-      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+      '포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 포켓몬 퀴즈까지! 포켓몬의 모든 정보를 한곳에서 확인하세요.',
     images: ['https://poke-korea.com/assets/image/ogImage.png'],
   },
 }
@@ -67,21 +68,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
     permanentRedirect(`/list?${queryString}`)
   }
 
-  // TODO: 새로운 홈 화면 컴포넌트로 교체 예정
-  return (
-    <main className="w-full min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">포케 코리아</h1>
-        <p className="text-lg mb-8">새로운 홈 화면 개발 중...</p>
-        <a
-          href="/list"
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
-        >
-          포켓몬 도감 보러가기
-        </a>
-      </div>
-    </main>
-  )
+  return <HomeView />
 }
 
 export default HomePage
