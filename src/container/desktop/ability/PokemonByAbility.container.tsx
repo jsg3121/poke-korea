@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import AbilityDetailComponent from '~/components/ability/AbilityDetail.component'
 import PokemonByAbilityCardComponent from '~/components/ability/PokemonByAbilityCard.component'
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
 import { usePokemonByAbility } from '~/hook/usePokemonByAbility'
+import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
 
 interface PokemonByAbilityContainerProps {
@@ -20,35 +20,18 @@ const PokemonByAbilityContainer = ({
   initialPokemon,
   totalCount,
 }: PokemonByAbilityContainerProps) => {
-  const listRef = useRef<HTMLDivElement>(null)
-
   const { ability, pokemonList, loadMore, hasNextPage, loading } =
     usePokemonByAbility({
       abilityId,
       initialPokemon,
     })
 
-  const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
-    entries.forEach((entry) => {
-      const intersectionRatio = entry.intersectionRatio
-      if (intersectionRatio > 0 && hasNextPage && !loading) {
-        loadMore()
-      }
-    })
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: '0px 0px 100px 0px',
-      threshold: 0,
-    })
-
-    if (listRef.current) {
-      observer.observe(listRef.current)
-    }
-    return () => observer.disconnect()
-  }, [pokemonList])
+  const listRef = useInfiniteScroll({
+    hasNextPage,
+    loadMore,
+    rootMargin: '0px 0px 100px 0px',
+    dependencies: [pokemonList],
+  })
 
   const displayAbility = ability || initialAbility
 

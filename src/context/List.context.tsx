@@ -1,12 +1,14 @@
-import { produce } from 'immer'
 import { createContext, ReactNode } from 'react'
 import { useGetPokemonListPaginatedQuery } from '~/graphql/gqlGenerated'
 import {
-  PokemonEdge,
   PokemonFilterInput,
   PokemonInfoFragment,
   PokemonList,
 } from '~/graphql/typeGenerated'
+import {
+  mergePagedResults,
+  extractNodesFromEdges,
+} from '~/module/graphqlPagination.module'
 
 interface ListProviderProps {
   initialList: Array<PokemonList>
