@@ -2,10 +2,7 @@ import Link from 'next/link'
 import BallComponent from '~/components/Ball.component'
 import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import {
-  getbackgroundColor,
-  pokemonNumberFormat,
-} from './modules/pokemonCardModules'
+import { pokemonNumberFormat, getBackgroundColor } from '~/module/pokemonCard.module'
 import ImageComponent from '~/components/Image.component'
 import { imageMode } from '~/module/buildMode'
 import { useLazyImage } from '~/hook/useLazyImage'
@@ -16,7 +13,7 @@ interface CardComponentProps {
 
 const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
-  const backgroundColor = getbackgroundColor(pokemonData.types)
+  const backgroundColor = getBackgroundColor(pokemonData.types)
 
   // 커스텀 Lazy Loading Hook (200px 이내 영역에서 이미지 로드)
   const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =

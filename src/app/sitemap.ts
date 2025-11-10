@@ -18,6 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
+      url: 'https://poke-korea.com/list',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
       url: 'https://poke-korea.com/type-effectiveness',
       lastModified: new Date(),
       changeFrequency: 'daily',
@@ -151,6 +157,54 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     })
 
+    // 포켓몬 리스트 타입별 필터 페이지들
+    const typeFilterListPages = Object.values(PokemonType).map((type) => {
+      return {
+        url: `https://poke-korea.com/list?type=${type}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      }
+    })
+
+    // 포켓몬 리스트 세대별 필터 페이지들
+    const generationFilterListPages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(
+      (gen) => ({
+        url: `https://poke-korea.com/list?generation=${gen}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      }),
+    )
+
+    // 포켓몬 리스트 Boolean 필터 페이지들
+    const booleanFilterListPages = [
+      {
+        url: 'https://poke-korea.com/list?isMega=true',
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      },
+      {
+        url: 'https://poke-korea.com/list?isRegion=true',
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      },
+      {
+        url: 'https://poke-korea.com/list?isEvolution=true',
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      },
+      {
+        url: 'https://poke-korea.com/list?isEvolution=false',
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      },
+    ]
+
     const damageTypeFilterMovesPages = [
       {
         url: `https://poke-korea.com/moves?damageTypeFilter=%EB%AC%BC%EB%A6%AC`,
@@ -198,6 +252,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...shinyPages,
       ...megaPages,
       ...regionPages,
+      ...typeFilterListPages,
+      ...generationFilterListPages,
+      ...booleanFilterListPages,
       ...typeFilterMovesPages,
       ...damageTypeFilterMovesPages,
       ...basicDetailMovesPages,

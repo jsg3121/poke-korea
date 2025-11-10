@@ -23,8 +23,18 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // 메인 페이지 - 기본 캐싱 (필터는 클라이언트에서 처리)
+        // 메인 페이지 - 기본 캐싱
         source: '/',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 리스트 페이지 - 장기간 캐싱 (필터는 클라이언트에서 처리)
+        source: '/list',
         headers: [
           {
             key: 'Cache-Control',

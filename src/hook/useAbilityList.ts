@@ -1,9 +1,12 @@
 'use client'
 
-import { produce } from 'immer'
 import { useSearchParams } from 'next/navigation'
 import { useGetAbilityListPaginatedQuery } from '~/graphql/gqlGenerated'
-import { Ability, AbilityEdge } from '~/graphql/typeGenerated'
+import { Ability } from '~/graphql/typeGenerated'
+import {
+  mergePagedResults,
+  extractNodesFromEdges,
+} from '~/module/graphqlPagination.module'
 
 interface UseAbilityListProps {
   initialAbilities?: Array<Ability>
@@ -44,34 +47,15 @@ export const useAbilityList = ({
           },
         },
       },
-      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousQueryResult
-
-        return produce(previousQueryResult, (draft) => {
-          if (!draft.getAbilityListPaginated) {
-            return
-          }
-
-          draft.getAbilityListPaginated.edges = [
-            ...previousQueryResult.getAbilityListPaginated.edges,
-            ...fetchMoreResult.getAbilityListPaginated.edges,
-          ]
-          draft.getAbilityListPaginated.pageInfo = {
-            ...previousQueryResult.getAbilityListPaginated.pageInfo,
-            endCursor:
-              fetchMoreResult.getAbilityListPaginated.pageInfo.endCursor,
-            hasNextPage:
-              fetchMoreResult.getAbilityListPaginated.pageInfo.hasNextPage,
-          }
-        })
-      },
+      updateQuery: (prev, { fetchMoreResult }) =>
+        mergePagedResults('getAbilityListPaginated', prev, fetchMoreResult),
     })
   }
 
-  const abilityList =
-    data?.getAbilityListPaginated?.edges?.map(
-      (edge: AbilityEdge) => edge.node,
-    ) || initialAbilities
+  const abilityList = extractNodesFromEdges(
+    data?.getAbilityListPaginated?.edges,
+    initialAbilities,
+  )
 
   return {
     abilityList,

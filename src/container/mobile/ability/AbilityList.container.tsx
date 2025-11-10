@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import AbilityCardComponent from '~/components/ability/AbilityCard.component'
 import AbilityDescriptionComponent from '~/components/ability/AbilityDescription.component'
 import AbilitySearchComponent from '~/components/ability/AbilitySearch.component'
 import { useAbilityList } from '~/hook/useAbilityList'
+import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import { Ability } from '~/graphql/typeGenerated'
 import FooterContainer from '../footer/Footer.container'
 import PageHeader from '~/components/mobile/PageHeader'
@@ -18,32 +18,16 @@ const AbilityListContainer = ({
   initialAbilities,
   totalCount,
 }: AbilityListContainerProps) => {
-  const listRef = useRef<HTMLDivElement>(null)
   const { abilityList, loadMore, hasNextPage, loading } = useAbilityList({
     initialAbilities,
   })
 
-  const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
-    entries.forEach((entry) => {
-      const intersectionRatio = entry.intersectionRatio
-      if (intersectionRatio > 0 && hasNextPage && !loading) {
-        loadMore()
-      }
-    })
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: '0px 0px 380px 0px',
-      threshold: 0,
-    })
-
-    if (listRef.current) {
-      observer.observe(listRef.current)
-    }
-    return () => observer.disconnect()
-  }, [abilityList, hasNextPage, loading])
+  const listRef = useInfiniteScroll({
+    hasNextPage,
+    loadMore,
+    rootMargin: '0px 0px 380px 0px',
+    dependencies: [abilityList, hasNextPage, loading],
+  })
 
   return (
     <section className="w-full h-full mx-auto px-5 relative">
