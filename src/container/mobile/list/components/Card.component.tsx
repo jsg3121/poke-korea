@@ -6,8 +6,7 @@ import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
-import { CardColor } from '~/types/pokemonTypes.types'
-import { pokemonNumberFormat } from '../module/pokemonNumberFormat'
+import { pokemonNumberFormat, getBackgroundColor } from '~/module/pokemonCard.module'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -24,12 +23,8 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
     })
 
   const backgroundColor = useMemo(() => {
-    const background: Array<CardColor> = []
-    pokemonData.types.map((item) => {
-      return background.push(CardColor[item])
-    })
-    return background
-  }, [pokemonData])
+    return getBackgroundColor(pokemonData.types)
+  }, [pokemonData.types])
 
   const gradientStyle =
     backgroundColor.length === 1

@@ -1,35 +1,19 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext } from 'react'
 import { ListContext } from '~/context/List.context'
+import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
 import PokemonCardComponent from './list.pokemonCard/PokemonCard.component'
 
 const ListContainer = () => {
-  const listRef = useRef<HTMLDivElement>(null)
-
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
     useContext(ListContext)
 
-  const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
-    entries.forEach((entry) => {
-      const intersectionRatio = entry.intersectionRatio
-      if (intersectionRatio > 0 && hasNextPage) {
-        loadMore()
-      }
-    })
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: '0px 0px 100px 0px',
-      threshold: 0,
-    })
-
-    if (listRef.current) {
-      observer.observe(listRef.current)
-    }
-    return () => observer.disconnect()
-  }, [pokemonList])
+  const listRef = useInfiniteScroll({
+    hasNextPage,
+    loadMore,
+    rootMargin: '0px 0px 100px 0px',
+    dependencies: [pokemonList],
+  })
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none">

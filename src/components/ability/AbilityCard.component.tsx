@@ -25,9 +25,8 @@ const AbilityCardComponent = ({ abilityData }: AbilityCardComponentProps) => {
         <p className="text-[1rem] text-primary-1">{abilityData.description}</p>
         {abilityData.pokemonCount !== null &&
           abilityData.pokemonCount !== undefined && (
-            <p className="text-[1rem] text-primary-2 font-semibold absolute bottom-3 left-3">
-              <span className="text-[0.875rem] font-normal">보유 포켓몬:</span>{' '}
-              {abilityData.pokemonCount}마리
+            <p className="text-[1rem] md:text-[0.75rem] text-primary-2 font-semibold absolute bottom-3 left-3">
+              해당 특성을 가진 포켓몬 보러가기 &gt;
             </p>
           )}
       </article>
