@@ -1,23 +1,7 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
-import { GetPokemonListPaginatedDocument } from '~/graphql/gqlGenerated'
-import {
-  GetPokemonListPaginatedQuery,
-  GetPokemonListPaginatedQueryVariables,
-  PokemonEdge,
-  PokemonFilterInput,
-} from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
-import {
-  changeTypeArrayToString,
-  getGenerationParams,
-  toBooleanOrUndefined,
-} from '~/module/filter.module'
-import MainDesktop from '~/views/desktop/main/Main.desktop'
-import MainMobile from '~/views/mobile/main/Main.mobile'
+import { permanentRedirect } from 'next/navigation'
 
-export const revalidate = 31536000 // 1년
+export const revalidate = 3600 // 1시간
 
 export const metadata: Metadata = {
   title: '포켓몬의 모든 정보 포케 코리아',
@@ -71,65 +55,31 @@ type PageProps = {
 }
 
 const HomePage = async ({ searchParams }: PageProps) => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
+  const params = await searchParams
+  const hasFilters = Object.keys(params).length > 0
 
-  const apolloClient = initializeApollo()
-
-  const { type, isMega, isRegion, isEvolution, generation, name } =
-    await searchParams
-
-  const filterInput: PokemonFilterInput = {
-    ...(name && {
-      name,
-    }),
-    ...(generation && {
-      generation: getGenerationParams(generation),
-    }),
-    ...(type && { types: changeTypeArrayToString(type as string) }),
-    isMegaEvolution: toBooleanOrUndefined(isMega as string),
-    isRegionForm: toBooleanOrUndefined(isRegion as string),
-    isEvolution: toBooleanOrUndefined(isEvolution as string),
+  // 필터 쿼리 파라미터가 있으면 /list로 308 영구 리다이렉트 (SEO)
+  // ⚠️ 중요: 이 리다이렉트는 최소 1년 이상 유지해야 합니다!
+  // 배포일: 2025-XX-XX
+  // 제거 예정일: 2026-XX-XX 이후
+  if (hasFilters) {
+    const queryString = new URLSearchParams(params).toString()
+    permanentRedirect(`/list?${queryString}`)
   }
 
-  const { data } = await apolloClient.query<
-    GetPokemonListPaginatedQuery,
-    GetPokemonListPaginatedQueryVariables
-  >({
-    query: GetPokemonListPaginatedDocument,
-    variables: {
-      input: {
-        filter: filterInput,
-        pagination: {
-          first: 20,
-        },
-      },
-    },
-    fetchPolicy: 'network-only',
-  })
-
-  const pokemonList =
-    data?.getPokemonList?.edges.map((edge: PokemonEdge) => {
-      return edge.node
-    }) || []
-  const hasNextPage = !!data?.getPokemonList.pageInfo.hasNextPage
-
+  // TODO: 새로운 홈 화면 컴포넌트로 교체 예정
   return (
-    <main className="w-full min-h-screen">
-      {isMobile ? (
-        <MainMobile
-          pokemonList={pokemonList}
-          initialFilter={filterInput}
-          hasNextPage={hasNextPage}
-        />
-      ) : (
-        <MainDesktop
-          pokemonList={pokemonList}
-          initialFilter={filterInput}
-          hasNextPage={hasNextPage}
-        />
-      )}
+    <main className="w-full min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-4">포케 코리아</h1>
+        <p className="text-lg mb-8">새로운 홈 화면 개발 중...</p>
+        <a
+          href="/list"
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
+        >
+          포켓몬 도감 보러가기
+        </a>
+      </div>
     </main>
   )
 }
