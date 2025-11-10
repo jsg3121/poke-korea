@@ -14,6 +14,7 @@ import {
   getGenerationParams,
   toBooleanOrUndefined,
 } from '~/module/filter.module'
+import { getDailyRandomPokemon } from '~/module/list.module'
 import MainDesktop from '~/views/desktop/main/Main.desktop'
 import MainMobile from '~/views/mobile/main/Main.mobile'
 
@@ -133,11 +134,36 @@ const ListPage = async ({ searchParams }: PageProps) => {
     ],
   }
 
+  const dailyPokemonNumbers = getDailyRandomPokemon()
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: '포켓몬 도감',
+    description: '모든 세대의 포켓몬을 한눈에 확인할 수 있는 포켓몬 도감',
+    numberOfItems: 10,
+    itemListElement: dailyPokemonNumbers.map((number, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Thing',
+        name: `포켓몬 #${number}`,
+        url: `https://poke-korea.com/detail/${number}`,
+        image: `https://image.poke-korea.com/image/pokemon/${number}.png`,
+        description: `포켓몬 도감 번호 ${number}`,
+      },
+    })),
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <main className="w-full min-h-screen">
         {isMobile ? (
