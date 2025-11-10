@@ -15,13 +15,14 @@ const MobileTabBar = () => {
     <nav className="w-full h-20 bg-primary-1 border-t border-solid border-primary-2 fixed bottom-0 left-0 z-50">
       <ul className="w-full h-full grid grid-cols-5">
         <li
-          className={`w-full h-full text-center ${pathname === '/' || pathname.includes('/detail') ? 'border-t-4 border-solid border-primary-4' : ''}`}
+          className={`w-full h-full text-center ${pathname === '/list' || pathname.includes('/detail') ? 'border-t-4 border-solid border-primary-4' : ''}`}
         >
           <Link
-            href="/"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-base leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/' ? 'font-bold' : ''}`}
+            href="/list"
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-base leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/list' || pathname.includes('/detail') ? 'font-bold' : ''}`}
           >
-            <TabHomeIcon />홈
+            <TabHomeIcon />
+            포켓몬 도감
           </Link>
         </li>
         <li

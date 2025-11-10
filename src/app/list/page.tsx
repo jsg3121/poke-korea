@@ -114,22 +114,47 @@ const ListPage = async ({ searchParams }: PageProps) => {
     }) || []
   const hasNextPage = !!data?.getPokemonList.pageInfo.hasNextPage
 
+  // Breadcrumb JSON-LD for SEO
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: '홈',
+        item: 'https://poke-korea.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: '포켓몬 도감',
+      },
+    ],
+  }
+
   return (
-    <main className="w-full min-h-screen">
-      {isMobile ? (
-        <MainMobile
-          pokemonList={pokemonList}
-          initialFilter={filterInput}
-          hasNextPage={hasNextPage}
-        />
-      ) : (
-        <MainDesktop
-          pokemonList={pokemonList}
-          initialFilter={filterInput}
-          hasNextPage={hasNextPage}
-        />
-      )}
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <main className="w-full min-h-screen">
+        {isMobile ? (
+          <MainMobile
+            pokemonList={pokemonList}
+            initialFilter={filterInput}
+            hasNextPage={hasNextPage}
+          />
+        ) : (
+          <MainDesktop
+            pokemonList={pokemonList}
+            initialFilter={filterInput}
+            hasNextPage={hasNextPage}
+          />
+        )}
+      </main>
+    </>
   )
 }
 
