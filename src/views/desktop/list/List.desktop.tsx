@@ -6,17 +6,17 @@ import { ListProvider } from '~/context/List.context'
 import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
 import { useRouteChangeCache } from '~/hook/useRouteChangeCache'
 
-interface ManinViewsProps {
+interface ListViewProps {
   pokemonList: Array<PokemonList>
   initialFilter: PokemonFilterInput
   hasNextPage: boolean
 }
 
-const MainDesktop = ({
+const ListDesktop = ({
   pokemonList,
   initialFilter,
   hasNextPage,
-}: ManinViewsProps) => {
+}: ListViewProps) => {
   useRouteChangeCache()
 
   return (
@@ -34,4 +34,4 @@ const MainDesktop = ({
   )
 }
 
-export default MainDesktop
+export default ListDesktop

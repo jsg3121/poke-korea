@@ -1,28 +1,45 @@
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
+import {
+  GetDailyQuizPreviewDocument,
+  GetDailyRandomPokemonDocument,
+} from '~/graphql/gqlGenerated'
+import {
+  GetDailyQuizPreviewQuery,
+  GetDailyQuizPreviewQueryVariables,
+  GetDailyRandomPokemonQuery,
+  GetDailyRandomPokemonQueryVariables,
+} from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
+import HomeView from '~/views/Home.view'
 
 export const revalidate = 3600 // 1시간
 
 export const metadata: Metadata = {
-  title: '포켓몬의 모든 정보 포케 코리아',
-  description: `
-    언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.
-    카드형식을 통해 포켓몬의 능력치를 확인할 수 있고 타입 또는 진화 여부 등으로 원하는 포켓몬을 빠르게 찾아보세요.
-    간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색해 확인해보세요.
-  `,
+  title: '포케 코리아 - 한국어 포켓몬 도감',
+  description:
+    '1025마리 포켓몬 도감, 타입 상성 계산기, 800개 이상 기술 정보, 300개 이상 특성 정보, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
+  authors: [{ name: '포케 코리아' }],
+  creator: '포케 코리아',
+  publisher: '포케 코리아',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: 'website',
     url: 'https://poke-korea.com/',
-    title: '포켓몬의 모든 정보 포케 코리아',
+    title: '포케 코리아 - 한국어 포켓몬 도감',
     locale: 'ko_KR',
     description:
-      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
         width: 1200,
         height: 630,
-        alt: '포켓몬의 모든 정보 포케 코리아',
+        alt: '포케 코리아 - 한국어 포켓몬 도감',
         type: 'image/png',
       },
     ],
@@ -33,10 +50,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '포켓몬의 모든 정보 포케 코리아',
+    title: '포케 코리아 - 한국어 포켓몬 도감',
     description:
-      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
     images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
@@ -67,21 +95,30 @@ const HomePage = async ({ searchParams }: PageProps) => {
     permanentRedirect(`/list?${queryString}`)
   }
 
-  // TODO: 새로운 홈 화면 컴포넌트로 교체 예정
-  return (
-    <main className="w-full min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">포케 코리아</h1>
-        <p className="text-lg mb-8">새로운 홈 화면 개발 중...</p>
-        <a
-          href="/list"
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
-        >
-          포켓몬 도감 보러가기
-        </a>
-      </div>
-    </main>
-  )
+  const apolloClient = initializeApollo()
+
+  // 매일 변경되는 랜덤 포켓몬 10마리 가져오기
+  const { data: pokemonData } = await apolloClient.query<
+    GetDailyRandomPokemonQuery,
+    GetDailyRandomPokemonQueryVariables
+  >({
+    query: GetDailyRandomPokemonDocument,
+    fetchPolicy: 'network-only',
+  })
+
+  // 매일 변경되는 퀴즈 3개 (타입, 특성, 실루엣) 가져오기
+  const { data: quizData } = await apolloClient.query<
+    GetDailyQuizPreviewQuery,
+    GetDailyQuizPreviewQueryVariables
+  >({
+    query: GetDailyQuizPreviewDocument,
+    fetchPolicy: 'network-only',
+  })
+
+  const dailyPokemon = pokemonData?.getDailyRandomPokemon?.pokemons || []
+  const dailyQuiz = quizData?.getDailyQuizPreview
+
+  return <HomeView dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
 }
 
 export default HomePage

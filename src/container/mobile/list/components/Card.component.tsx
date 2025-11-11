@@ -6,7 +6,10 @@ import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
-import { pokemonNumberFormat, getBackgroundColor } from '~/module/pokemonCard.module'
+import {
+  pokemonNumberFormat,
+  getBackgroundColor,
+} from '~/module/pokemonCard.module'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment

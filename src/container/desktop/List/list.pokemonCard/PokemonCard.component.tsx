@@ -2,7 +2,10 @@ import Link from 'next/link'
 import BallComponent from '~/components/Ball.component'
 import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import { pokemonNumberFormat, getBackgroundColor } from '~/module/pokemonCard.module'
+import {
+  pokemonNumberFormat,
+  getBackgroundColor,
+} from '~/module/pokemonCard.module'
 import ImageComponent from '~/components/Image.component'
 import { imageMode } from '~/module/buildMode'
 import { useLazyImage } from '~/hook/useLazyImage'
