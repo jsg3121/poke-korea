@@ -2,23 +2,22 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Autoplay, Navigation, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import PokemonCardComponent from '~/container/desktop/List/list.pokemonCard/PokemonCard.component'
+import QuizResultPopup from '~/components/QuizResultPopup.component'
 import { DailyQuizPreview, PokemonCardFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import QuizResultPopup from '~/components/QuizResultPopup.component'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import HeaderContainer from '~/container/desktop/header/Header.container'
+import HomeBannerContainer from '~/container/desktop/home/home.banner/HomeBanner.container'
 
-interface HomeViewProps {
+interface HomeDesktopProps {
   dailyPokemon: Array<PokemonCardFragment>
   dailyQuiz?: DailyQuizPreview
 }
 
-const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
+const HomeDesktop = ({ dailyPokemon, dailyQuiz }: HomeDesktopProps) => {
   const [selectedAnswers, setSelectedAnswers] = useState<{
     ability?: number
     silhouette?: number
@@ -34,23 +33,6 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
     isCorrect: false,
     quizType: null,
   })
-
-  // JSON-LD 구조화된 데이터
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: '포케 코리아',
-    alternateName: '포케코리아',
-    url: 'https://poke-korea.com',
-    description:
-      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://poke-korea.com/list?name={search_term_string}',
-      'query-input': 'required name=search_term_string',
-    },
-    inLanguage: 'ko-KR',
-  }
 
   const handleAnswerSelect = (
     quizType: 'ability' | 'silhouette' | 'type',
@@ -91,50 +73,36 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
       quizType: null,
     })
   }
+
   return (
     <>
-      {/* JSON-LD 구조화된 데이터 */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <main className="w-full min-h-screen bg-gradient-to-b from-primary-1 to-primary-2 py-12 px-4">
-        {/* 헤더 섹션 */}
-        <header className="max-w-6xl mx-auto text-center mb-16 px-4">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary-4 mb-4 animate-fadeIn">
-            포케 코리아
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-primary-3 animate-fadeIn">
-            한국어로 만나는 포켓몬 도감
-          </p>
-        </header>
-
-        {/* 주요 기능 링크 섹션 */}
+      <main className="w-full min-h-screen bg-gradient-to-b from-primary-1 to-primary-2 pt-56 px-4">
+        <HeaderContainer />
+        <HomeBannerContainer dailyPokemon={dailyPokemon} />
         <section
           className="max-w-6xl mx-auto mb-20 px-4"
           aria-labelledby="main-features-heading"
         >
           <h2
             id="main-features-heading"
-            className="text-2xl sm:text-3xl font-bold text-primary-4 text-center mb-8"
+            className="text-3xl font-bold text-primary-4 text-center mb-8"
           >
             주요 기능
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-3 gap-6">
             {/* 포켓몬 도감 */}
             <Link
               href="/list"
-              className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
+              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
               aria-label="포켓몬 도감 페이지로 이동"
             >
-              <div className="text-5xl sm:text-6xl mb-4" aria-hidden="true">
+              <div className="text-6xl mb-4" aria-hidden="true">
                 📋
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
                 포켓몬 도감
               </h3>
-              <p className="text-sm sm:text-base text-primary-3">
+              <p className="text-base text-primary-3">
                 1025마리의 포켓몬 정보를 확인하세요
               </p>
             </Link>
@@ -142,16 +110,16 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
             {/* 타입 상성 계산기 */}
             <Link
               href="/type-effectiveness"
-              className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
+              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
               aria-label="타입 상성 계산기 페이지로 이동"
             >
-              <div className="text-5xl sm:text-6xl mb-4" aria-hidden="true">
+              <div className="text-6xl mb-4" aria-hidden="true">
                 🎯
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
                 타입 상성 계산기
               </h3>
-              <p className="text-sm sm:text-base text-primary-3">
+              <p className="text-base text-primary-3">
                 타입별 상성을 빠르게 확인하세요
               </p>
             </Link>
@@ -159,16 +127,16 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
             {/* 기술 도감 */}
             <Link
               href="/moves"
-              className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
+              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
               aria-label="기술 도감 페이지로 이동"
             >
-              <div className="text-5xl sm:text-6xl mb-4" aria-hidden="true">
+              <div className="text-6xl mb-4" aria-hidden="true">
                 ⚔️
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
                 기술 도감
               </h3>
-              <p className="text-sm sm:text-base text-primary-3">
+              <p className="text-base text-primary-3">
                 800개 이상의 포켓몬 기술 정보
               </p>
             </Link>
@@ -176,16 +144,16 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
             {/* 특성 도감 */}
             <Link
               href="/ability"
-              className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
+              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
               aria-label="특성 도감 페이지로 이동"
             >
-              <div className="text-5xl sm:text-6xl mb-4" aria-hidden="true">
+              <div className="text-6xl mb-4" aria-hidden="true">
                 ✨
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
                 특성 도감
               </h3>
-              <p className="text-sm sm:text-base text-primary-3">
+              <p className="text-base text-primary-3">
                 300개 이상의 포켓몬 특성 정보
               </p>
             </Link>
@@ -193,78 +161,19 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
             {/* 포켓몬 퀴즈 */}
             <Link
               href="/quiz"
-              className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
+              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-3"
               aria-label="포켓몬 퀴즈 페이지로 이동"
             >
-              <div className="text-5xl sm:text-6xl mb-4" aria-hidden="true">
+              <div className="text-6xl mb-4" aria-hidden="true">
                 🎮
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-2xl font-bold text-primary-4 mb-2 group-hover:text-blue-600 transition-colors">
                 포켓몬 퀴즈
               </h3>
-              <p className="text-sm sm:text-base text-primary-3">
+              <p className="text-base text-primary-3">
                 실루엣, 특성, 타입 퀴즈에 도전하세요
               </p>
             </Link>
-          </div>
-        </section>
-
-        {/* 오늘의 랜덤 포켓몬 슬라이더 */}
-        <section
-          className="max-w-7xl mx-auto mb-20"
-          aria-labelledby="daily-pokemon-heading"
-        >
-          <h2
-            id="daily-pokemon-heading"
-            className="text-2xl sm:text-3xl font-bold text-primary-4 text-center mb-8 px-4"
-          >
-            오늘의 랜덤 포켓몬
-          </h2>
-          <div
-            className="px-4"
-            role="region"
-            aria-label="오늘의 랜덤 포켓몬 슬라이드"
-          >
-            <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
-              spaceBetween={24}
-              slidesPerView={1}
-              navigation
-              loop
-              pagination={{ clickable: true }}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 24,
-                },
-                1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 24,
-                },
-                1280: {
-                  slidesPerView: 5,
-                  spaceBetween: 24,
-                },
-              }}
-              className="py-8 [&_.swiper-button-next]:!text-primary-4 [&_.swiper-button-prev]:!text-primary-4 [&_.swiper-button-next]:!bg-primary-1/80 [&_.swiper-button-prev]:!bg-primary-1/80 [&_.swiper-button-next]:!w-12 [&_.swiper-button-prev]:!w-12 [&_.swiper-button-next]:!h-12 [&_.swiper-button-prev]:!h-12 [&_.swiper-button-next]:!rounded-full [&_.swiper-button-prev]:!rounded-full [&_.swiper-pagination-bullet]:!bg-primary-3 [&_.swiper-pagination-bullet-active]:!bg-primary-4 [&_.swiper-wrapper]:!ease-linear"
-            >
-              {dailyPokemon.map((pokemon) => (
-                <SwiperSlide
-                  key={pokemon.id}
-                  className="flex justify-center !h-auto"
-                >
-                  <PokemonCardComponent pokemonData={pokemon} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
           </div>
         </section>
 
@@ -276,33 +185,33 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
           >
             <h2
               id="daily-quiz-heading"
-              className="text-2xl sm:text-3xl font-bold text-primary-4 text-center mb-8"
+              className="text-3xl font-bold text-primary-4 text-center mb-8"
             >
               오늘의 퀴즈
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-3 gap-6">
               {/* 실루엣 퀴즈 */}
               <article
-                className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg"
+                className="bg-white rounded-2xl p-6 shadow-lg"
                 aria-labelledby="silhouette-quiz-title"
               >
                 <h3
                   id="silhouette-quiz-title"
-                  className="text-lg sm:text-xl font-bold text-primary-4 mb-4 flex items-center gap-2"
+                  className="text-xl font-bold text-primary-4 mb-4 flex items-center gap-2"
                 >
-                  <span className="text-xl sm:text-2xl" aria-hidden="true">
+                  <span className="text-2xl" aria-hidden="true">
                     🔍
                   </span>
                   실루엣 퀴즈
                 </h3>
-                <p className="text-primary-2 mb-4 text-xs sm:text-sm font-medium">
+                <p className="text-primary-2 mb-4 text-sm font-medium">
                   {dailyQuiz.silhouetteQuiz.question}
                 </p>
                 <div className="mb-4 bg-gradient-to-br from-primary-1 to-primary-2 rounded-xl p-4 flex items-center justify-center">
                   <img
                     src={`${imageMode}/${dailyQuiz.silhouetteQuiz.correctPokemonId}.webp?w=240&h=240`}
                     alt="포켓몬 실루엣 이미지"
-                    className="w-28 h-28 sm:w-32 sm:h-32 object-contain brightness-0"
+                    className="w-32 h-32 object-contain brightness-0"
                   />
                 </div>
                 <div
@@ -314,7 +223,7 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
                     <button
                       key={index}
                       onClick={() => handleAnswerSelect('silhouette', index)}
-                      className={`w-full p-2.5 sm:p-3 rounded-lg text-left text-sm sm:text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary-3 ${
+                      className={`w-full p-3 rounded-lg text-left text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary-3 ${
                         selectedAnswers.silhouette === index
                           ? 'bg-primary-4 text-primary-1 shadow-md'
                           : 'bg-primary-1/10 text-primary-2 hover:bg-primary-1/20'
@@ -329,23 +238,23 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
 
               {/* 특성 퀴즈 */}
               <article
-                className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg"
+                className="bg-white rounded-2xl p-6 shadow-lg"
                 aria-labelledby="ability-quiz-title"
               >
                 <h3
                   id="ability-quiz-title"
-                  className="text-lg sm:text-xl font-bold text-primary-4 mb-4 flex items-center gap-2"
+                  className="text-xl font-bold text-primary-4 mb-4 flex items-center gap-2"
                 >
-                  <span className="text-xl sm:text-2xl" aria-hidden="true">
+                  <span className="text-2xl" aria-hidden="true">
                     ✨
                   </span>
                   특성 퀴즈
                 </h3>
-                <p className="text-primary-2 mb-4 text-xs sm:text-sm font-medium">
+                <p className="text-primary-2 mb-4 text-sm font-medium">
                   {dailyQuiz.abilityQuiz.question}
                 </p>
                 <div className="mb-4 bg-gradient-to-br from-primary-1 to-primary-2 rounded-xl p-4">
-                  <p className="text-primary-4 text-xs sm:text-sm leading-relaxed">
+                  <p className="text-primary-4 text-sm leading-relaxed">
                     {dailyQuiz.abilityQuiz.abilityDescription}
                   </p>
                 </div>
@@ -358,7 +267,7 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
                     <button
                       key={index}
                       onClick={() => handleAnswerSelect('ability', index)}
-                      className={`w-full p-2.5 sm:p-3 rounded-lg text-left text-sm sm:text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary-3 ${
+                      className={`w-full p-3 rounded-lg text-left text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary-3 ${
                         selectedAnswers.ability === index
                           ? 'bg-primary-4 text-primary-1 shadow-md'
                           : 'bg-primary-1/10 text-primary-2 hover:bg-primary-1/20'
@@ -373,23 +282,23 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
 
               {/* 타입 퀴즈 */}
               <article
-                className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg"
+                className="bg-white rounded-2xl p-6 shadow-lg"
                 aria-labelledby="type-quiz-title"
               >
                 <h3
                   id="type-quiz-title"
-                  className="text-lg sm:text-xl font-bold text-primary-4 mb-4 flex items-center gap-2"
+                  className="text-xl font-bold text-primary-4 mb-4 flex items-center gap-2"
                 >
-                  <span className="text-xl sm:text-2xl" aria-hidden="true">
+                  <span className="text-2xl" aria-hidden="true">
                     🎯
                   </span>
                   타입 퀴즈
                 </h3>
-                <p className="text-primary-2 mb-4 text-xs sm:text-sm font-medium">
+                <p className="text-primary-2 mb-4 text-sm font-medium">
                   {dailyQuiz.typeQuiz.question}
                 </p>
                 <div className="mb-4 bg-gradient-to-br from-primary-1 to-primary-2 rounded-xl p-4 flex items-center justify-center">
-                  <span className="text-primary-4 text-base sm:text-lg font-bold">
+                  <span className="text-primary-4 text-lg font-bold">
                     {dailyQuiz.typeQuiz.targetType} 타입
                   </span>
                 </div>
@@ -402,7 +311,7 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
                     <button
                       key={option.id}
                       onClick={() => handleAnswerSelect('type', index)}
-                      className={`w-full p-2.5 sm:p-3 rounded-lg text-left text-sm sm:text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary-3 ${
+                      className={`w-full p-3 rounded-lg text-left text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary-3 ${
                         selectedAnswers.type === index
                           ? 'bg-primary-4 text-primary-1 shadow-md'
                           : 'bg-primary-1/10 text-primary-2 hover:bg-primary-1/20'
@@ -432,4 +341,4 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
   )
 }
 
-export default HomeView
+export default HomeDesktop

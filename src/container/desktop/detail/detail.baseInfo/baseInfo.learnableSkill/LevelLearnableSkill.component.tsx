@@ -84,7 +84,7 @@ const LevelLearnableSkillComponent = () => {
             <col width="8%" />
             <col width="8%" />
           </colgroup>
-          <thead className="visually-hidden">
+          <thead className="sr-only">
             <tr>
               <th>레벨</th>
               <th>기술명</th>

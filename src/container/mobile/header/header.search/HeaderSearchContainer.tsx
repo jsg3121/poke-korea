@@ -59,7 +59,7 @@ const HeaderSearchContainer = () => {
       aria-labelledby="pokemon-search"
       role="search"
     >
-      <p id="pokemon-search" className="visually-hidden">
+      <p id="pokemon-search" className="sr-only">
         포켓몬 검색하기
       </p>
       <div className="w-full h-10 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">

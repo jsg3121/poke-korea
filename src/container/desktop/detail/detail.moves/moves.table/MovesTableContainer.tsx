@@ -81,7 +81,7 @@ const MovesTableContainer = () => {
           <col width="4%" />
           <col width="7%" />
         </colgroup>
-        <thead className="visually-hidden">
+        <thead className="sr-only">
           <tr>
             {isToogleChecked && <th>배우는 레벨</th>}
             <th>기술명</th>

@@ -44,7 +44,7 @@ const MoveCard = ({ moveData, moveLevel }: MoveCardProps) => {
         <dd className="text-left w-[9%]">{moveData.accuracy || '-'}</dd>
         <dt className="text-center w-[13%]">PP&nbsp;:&nbsp;</dt>
         <dd className="text-left w-[9%]">{moveData.pp}</dd>
-        <dt className="w-full text-center visually-hidden mt-1">설명</dt>
+        <dt className="w-full text-center sr-only mt-1">설명</dt>
         <dd className="w-full !h-auto text-left !border-none mt-1 !font-normal">
           {moveData.description}
         </dd>

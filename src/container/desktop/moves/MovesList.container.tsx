@@ -46,7 +46,7 @@ const MovesListContainer = () => {
           <col width="4%" />
           <col width="7%" />
         </colgroup>
-        <thead className="visually-hidden">
+        <thead className="sr-only">
           <tr>
             <th>기술명</th>
             <th>설명</th>

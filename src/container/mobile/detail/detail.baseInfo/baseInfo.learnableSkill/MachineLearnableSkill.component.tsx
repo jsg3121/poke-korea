@@ -81,7 +81,7 @@ const MachineLearnableSkillComponent = () => {
             <col width="10%" />
             <col width="10%" />
           </colgroup>
-          <thead className="visually-hidden">
+          <thead className="sr-only">
             <tr>
               <th>기술명</th>
               <th>타입</th>

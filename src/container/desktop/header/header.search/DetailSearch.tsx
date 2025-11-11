@@ -59,7 +59,7 @@ const DetailSearch = () => {
       aria-labelledby="pokemon-search"
       role="search"
     >
-      <p id="pokemon-search" className="visually-hidden">
+      <p id="pokemon-search" className="sr-only">
         포켓몬 검색하기
       </p>
       <div className="w-full h-full flex items-center cursor-text rounded-[2.22222222rem] px-[1.38888889rem] relative">

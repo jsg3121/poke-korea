@@ -13,10 +13,7 @@ const TypeEffectivenessMobile = () => {
         aria-labelledby="pokemon-type-effectiveness-calculator"
         className="w-full h-full px-5 relative"
       >
-        <h1
-          id="pokemon-type-effectiveness-calculator"
-          className="visually-hidden"
-        >
+        <h1 id="pokemon-type-effectiveness-calculator" className="sr-only">
           타입 상성 계산기
         </h1>
         <TypeEffectivenessContainer />

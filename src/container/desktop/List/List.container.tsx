@@ -17,7 +17,7 @@ const ListContainer = () => {
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none">
-      <h2 className="visually-hidden">포켓몬 리스트</h2>
+      <h2 className="sr-only">포켓몬 리스트</h2>
       {pokemonList.length === 0 && (
         <div className="w-full h-[20rem]">
           <p className="w-full text-[2rem] text-primary-4 font-bold text-center">
