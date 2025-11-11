@@ -174,10 +174,7 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
             autoplay={{
               delay: 3000,
               disableOnInteraction: false,
-              pauseOnMouseEnter: true,
             }}
-            speed={600}
-            watchSlidesProgress
             breakpoints={{
               640: {
                 slidesPerView: 2,
@@ -196,7 +193,7 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
                 spaceBetween: 24,
               },
             }}
-            className="py-8 [&_.swiper-button-next]:!text-primary-4 [&_.swiper-button-prev]:!text-primary-4 [&_.swiper-button-next]:!bg-primary-1/80 [&_.swiper-button-prev]:!bg-primary-1/80 [&_.swiper-button-next]:!w-12 [&_.swiper-button-prev]:!w-12 [&_.swiper-button-next]:!h-12 [&_.swiper-button-prev]:!h-12 [&_.swiper-button-next]:!rounded-full [&_.swiper-button-prev]:!rounded-full [&_.swiper-pagination-bullet]:!bg-primary-3 [&_.swiper-pagination-bullet-active]:!bg-primary-4 [&_.swiper-wrapper]:!ease-linear [&_.swiper-slide]:!opacity-100"
+            className="py-8 [&_.swiper-button-next]:!text-primary-4 [&_.swiper-button-prev]:!text-primary-4 [&_.swiper-button-next]:!bg-primary-1/80 [&_.swiper-button-prev]:!bg-primary-1/80 [&_.swiper-button-next]:!w-12 [&_.swiper-button-prev]:!w-12 [&_.swiper-button-next]:!h-12 [&_.swiper-button-prev]:!h-12 [&_.swiper-button-next]:!rounded-full [&_.swiper-button-prev]:!rounded-full [&_.swiper-pagination-bullet]:!bg-primary-3 [&_.swiper-pagination-bullet-active]:!bg-primary-4 [&_.swiper-wrapper]:!ease-linear"
           >
             {dailyPokemon.map((pokemon) => (
               <SwiperSlide
