@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import PokemonCardComponent from '~/container/desktop/List/list.pokemonCard/PokemonCard.component'
 import { DailyQuizPreview, PokemonCardFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
+import QuizResultPopup from '~/components/QuizResultPopup.component'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -24,14 +25,54 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
     type?: number
   }>({})
 
+  const [popupState, setPopupState] = useState<{
+    isOpen: boolean
+    isCorrect: boolean
+    quizType: 'ability' | 'silhouette' | 'type' | null
+  }>({
+    isOpen: false,
+    isCorrect: false,
+    quizType: null,
+  })
+
   const handleAnswerSelect = (
     quizType: 'ability' | 'silhouette' | 'type',
     answerIndex: number,
   ) => {
+    if (!dailyQuiz) return
+
+    // 정답 확인
+    let correctAnswerIndex = 0
+    if (quizType === 'ability') {
+      correctAnswerIndex = dailyQuiz.abilityQuiz.correctAnswerIndex
+    } else if (quizType === 'silhouette') {
+      correctAnswerIndex = dailyQuiz.silhouetteQuiz.correctAnswerIndex
+    } else if (quizType === 'type') {
+      correctAnswerIndex = dailyQuiz.typeQuiz.correctAnswerIndex
+    }
+
+    const isCorrect = answerIndex === correctAnswerIndex
+
+    // 선택한 답안 저장
     setSelectedAnswers((prev) => ({
       ...prev,
       [quizType]: answerIndex,
     }))
+
+    // 팝업 표시
+    setPopupState({
+      isOpen: true,
+      isCorrect,
+      quizType,
+    })
+  }
+
+  const handleClosePopup = () => {
+    setPopupState({
+      isOpen: false,
+      isCorrect: false,
+      quizType: null,
+    })
   }
   return (
     <main className="w-full min-h-screen bg-gradient-to-b from-primary-1 to-primary-2 py-12 px-4">
@@ -133,7 +174,10 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
             autoplay={{
               delay: 3000,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
+            speed={600}
+            watchSlidesProgress
             breakpoints={{
               640: {
                 slidesPerView: 2,
@@ -152,10 +196,13 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
                 spaceBetween: 24,
               },
             }}
-            className="py-8 [&_.swiper-button-next]:!text-primary-4 [&_.swiper-button-prev]:!text-primary-4 [&_.swiper-button-next]:!bg-primary-1/80 [&_.swiper-button-prev]:!bg-primary-1/80 [&_.swiper-button-next]:!w-12 [&_.swiper-button-prev]:!w-12 [&_.swiper-button-next]:!h-12 [&_.swiper-button-prev]:!h-12 [&_.swiper-button-next]:!rounded-full [&_.swiper-button-prev]:!rounded-full [&_.swiper-pagination-bullet]:!bg-primary-3 [&_.swiper-pagination-bullet-active]:!bg-primary-4"
+            className="py-8 [&_.swiper-button-next]:!text-primary-4 [&_.swiper-button-prev]:!text-primary-4 [&_.swiper-button-next]:!bg-primary-1/80 [&_.swiper-button-prev]:!bg-primary-1/80 [&_.swiper-button-next]:!w-12 [&_.swiper-button-prev]:!w-12 [&_.swiper-button-next]:!h-12 [&_.swiper-button-prev]:!h-12 [&_.swiper-button-next]:!rounded-full [&_.swiper-button-prev]:!rounded-full [&_.swiper-pagination-bullet]:!bg-primary-3 [&_.swiper-pagination-bullet-active]:!bg-primary-4 [&_.swiper-wrapper]:!ease-linear [&_.swiper-slide]:!opacity-100"
           >
             {dailyPokemon.map((pokemon) => (
-              <SwiperSlide key={pokemon.id} className="flex justify-center">
+              <SwiperSlide
+                key={pokemon.id}
+                className="flex justify-center !h-auto"
+              >
                 <PokemonCardComponent pokemonData={pokemon} />
               </SwiperSlide>
             ))}
@@ -266,6 +313,16 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
             </div>
           </div>
         </section>
+      )}
+
+      {/* 퀴즈 결과 팝업 */}
+      {popupState.quizType && (
+        <QuizResultPopup
+          isOpen={popupState.isOpen}
+          isCorrect={popupState.isCorrect}
+          quizType={popupState.quizType}
+          onClose={handleClosePopup}
+        />
       )}
     </main>
   )
