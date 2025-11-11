@@ -1,12 +1,17 @@
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
-import HomeView from '~/views/Home.view'
-import { initializeApollo } from '~/module/apolloClient'
-import { GetDailyRandomPokemonDocument } from '~/graphql/gqlGenerated'
 import {
+  GetDailyQuizPreviewDocument,
+  GetDailyRandomPokemonDocument,
+} from '~/graphql/gqlGenerated'
+import {
+  GetDailyQuizPreviewQuery,
+  GetDailyQuizPreviewQueryVariables,
   GetDailyRandomPokemonQuery,
   GetDailyRandomPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/module/apolloClient'
+import HomeView from '~/views/Home.view'
 
 export const revalidate = 3600 // 1시간
 
@@ -77,7 +82,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
   const apolloClient = initializeApollo()
 
   // 매일 변경되는 랜덤 포켓몬 10마리 가져오기
-  const { data } = await apolloClient.query<
+  const { data: pokemonData } = await apolloClient.query<
     GetDailyRandomPokemonQuery,
     GetDailyRandomPokemonQueryVariables
   >({
@@ -85,9 +90,19 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
-  const dailyPokemon = data?.getDailyRandomPokemon?.pokemons || []
+  // 매일 변경되는 퀴즈 3개 (타입, 특성, 실루엣) 가져오기
+  const { data: quizData } = await apolloClient.query<
+    GetDailyQuizPreviewQuery,
+    GetDailyQuizPreviewQueryVariables
+  >({
+    query: GetDailyQuizPreviewDocument,
+    fetchPolicy: 'network-only',
+  })
 
-  return <HomeView dailyPokemon={dailyPokemon} />
+  const dailyPokemon = pokemonData?.getDailyRandomPokemon?.pokemons || []
+  const dailyQuiz = quizData?.getDailyQuizPreview
+
+  return <HomeView dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
 }
 
 export default HomePage

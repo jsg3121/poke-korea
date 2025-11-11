@@ -13,6 +13,40 @@ query GetDailyRandomPokemon {
   }
 }
 
+query GetDailyQuizPreview {
+  getDailyQuizPreview {
+    date
+    abilityQuiz {
+      id
+      question
+      abilityDescription
+      correctAnswerIndex
+      options {
+        koreanName
+        englishName
+      }
+    }
+    silhouetteQuiz {
+      id
+      question
+      correctPokemonId
+      correctAnswerIndex
+      options
+    }
+    typeQuiz {
+      id
+      question
+      targetType
+      correctAnswerIndex
+      options {
+        id
+        koreanName
+        types
+      }
+    }
+  }
+}
+
 query GetPokemonListPaginated($input: PokemonListInput) {
   getPokemonList: getPokemonListPaginated(input: $input) {
     edges {

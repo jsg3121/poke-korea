@@ -1,10 +1,12 @@
 'use client'
 
 import Link from 'next/link'
+import { useState } from 'react'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import PokemonCardComponent from '~/container/desktop/List/list.pokemonCard/PokemonCard.component'
+import { DailyQuizPreview, PokemonCardFragment } from '~/graphql/typeGenerated'
+import { imageMode } from '~/module/buildMode'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -12,9 +14,25 @@ import 'swiper/css/pagination'
 
 interface HomeViewProps {
   dailyPokemon: Array<PokemonCardFragment>
+  dailyQuiz?: DailyQuizPreview
 }
 
-const HomeView = ({ dailyPokemon }: HomeViewProps) => {
+const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
+  const [selectedAnswers, setSelectedAnswers] = useState<{
+    ability?: number
+    silhouette?: number
+    type?: number
+  }>({})
+
+  const handleAnswerSelect = (
+    quizType: 'ability' | 'silhouette' | 'type',
+    answerIndex: number,
+  ) => {
+    setSelectedAnswers((prev) => ({
+      ...prev,
+      [quizType]: answerIndex,
+    }))
+  }
   return (
     <main className="w-full min-h-screen bg-gradient-to-b from-primary-1 to-primary-2 py-12 px-4">
       {/* 헤더 섹션 */}
@@ -145,15 +163,110 @@ const HomeView = ({ dailyPokemon }: HomeViewProps) => {
         </div>
       </section>
 
-      {/* 오늘의 퀴즈 섹션 (Phase 4에서 추가 예정) */}
-      <section className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-primary-4 text-center mb-8">
-          오늘의 퀴즈
-        </h2>
-        <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
-          <p className="text-primary-3">퀴즈 섹션 구현 예정...</p>
-        </div>
-      </section>
+      {/* 오늘의 퀴즈 섹션 */}
+      {dailyQuiz && (
+        <section className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-primary-4 text-center mb-8">
+            오늘의 퀴즈
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* 실루엣 퀴즈 */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 className="text-xl font-bold text-primary-4 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🔍</span>
+                실루엣 퀴즈
+              </h3>
+              <p className="text-primary-2 mb-4 text-sm font-medium">
+                {dailyQuiz.silhouetteQuiz.question}
+              </p>
+              <div className="mb-4 bg-gradient-to-br from-primary-1 to-primary-2 rounded-xl p-4 flex items-center justify-center">
+                <img
+                  src={`${imageMode}/${dailyQuiz.silhouetteQuiz.correctPokemonId}.webp?w=240&h=240`}
+                  alt="실루엣"
+                  className="w-32 h-32 object-contain brightness-0"
+                />
+              </div>
+              <div className="space-y-2">
+                {dailyQuiz.silhouetteQuiz.options.map((option, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleAnswerSelect('silhouette', index)}
+                    className={`w-full p-3 rounded-lg text-left font-medium transition-all ${
+                      selectedAnswers.silhouette === index
+                        ? 'bg-primary-4 text-primary-1 shadow-md'
+                        : 'bg-primary-1/10 text-primary-2 hover:bg-primary-1/20'
+                    }`}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 특성 퀴즈 */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 className="text-xl font-bold text-primary-4 mb-4 flex items-center gap-2">
+                <span className="text-2xl">✨</span>
+                특성 퀴즈
+              </h3>
+              <p className="text-primary-2 mb-4 text-sm font-medium">
+                {dailyQuiz.abilityQuiz.question}
+              </p>
+              <div className="mb-4 bg-gradient-to-br from-primary-1 to-primary-2 rounded-xl p-4">
+                <p className="text-primary-4 text-sm leading-relaxed">
+                  {dailyQuiz.abilityQuiz.abilityDescription}
+                </p>
+              </div>
+              <div className="space-y-2">
+                {dailyQuiz.abilityQuiz.options.map((option, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleAnswerSelect('ability', index)}
+                    className={`w-full p-3 rounded-lg text-left font-medium transition-all ${
+                      selectedAnswers.ability === index
+                        ? 'bg-primary-4 text-primary-1 shadow-md'
+                        : 'bg-primary-1/10 text-primary-2 hover:bg-primary-1/20'
+                    }`}
+                  >
+                    {option.koreanName}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 타입 퀴즈 */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 className="text-xl font-bold text-primary-4 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🎯</span>
+                타입 퀴즈
+              </h3>
+              <p className="text-primary-2 mb-4 text-sm font-medium">
+                {dailyQuiz.typeQuiz.question}
+              </p>
+              <div className="mb-4 bg-gradient-to-br from-primary-1 to-primary-2 rounded-xl p-4 flex items-center justify-center">
+                <span className="text-primary-4 text-lg font-bold">
+                  {dailyQuiz.typeQuiz.targetType} 타입
+                </span>
+              </div>
+              <div className="space-y-2">
+                {dailyQuiz.typeQuiz.options.map((option, index) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleAnswerSelect('type', index)}
+                    className={`w-full p-3 rounded-lg text-left font-medium transition-all ${
+                      selectedAnswers.type === index
+                        ? 'bg-primary-4 text-primary-1 shadow-md'
+                        : 'bg-primary-1/10 text-primary-2 hover:bg-primary-1/20'
+                    }`}
+                  >
+                    {option.koreanName}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   )
 }
