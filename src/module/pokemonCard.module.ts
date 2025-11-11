@@ -34,6 +34,8 @@ export const pokemonNumberFormat = (pokemonNumber: number): string => {
  * // [CardColor.FIRE, CardColor.FLYING]
  * ```
  */
-export const getBackgroundColor = (types: Array<PokemonType>): Array<CardColor> => {
+export const getBackgroundColor = (
+  types: Array<PokemonType>,
+): Array<CardColor> => {
   return types.map((type) => CardColor[type])
 }

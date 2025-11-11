@@ -1,17 +1,6 @@
 import { produce } from 'immer'
 
 /**
- * GraphQL Relay Cursor Pagination 결과 타입
- */
-interface PaginationResult<T> {
-  edges: Array<{ node: T }>
-  pageInfo: {
-    endCursor: string
-    hasNextPage: boolean
-  }
-}
-
-/**
  * GraphQL 페이지네이션 결과를 병합하는 유틸 함수
  *
  * @param queryName - GraphQL 쿼리 이름 (예: 'getPokemonList', 'getAbilityListPaginated')
