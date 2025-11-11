@@ -17,18 +17,23 @@ export const revalidate = 3600 // 1시간
 
 export const metadata: Metadata = {
   title: '포케 코리아 - 한국어 포켓몬 도감',
-  description: `
-    포케 코리아에서 포켓몬의 모든 정보를 확인하세요!
-    포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 포켓몬 퀴즈까지!
-    언제, 어디서든 포켓몬 정보를 빠르고 편리하게 확인할 수 있습니다.
-  `,
+  description:
+    '1025마리 포켓몬 도감, 타입 상성 계산기, 800개 이상 기술 정보, 300개 이상 특성 정보, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
+  authors: [{ name: '포케 코리아' }],
+  creator: '포케 코리아',
+  publisher: '포케 코리아',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: 'website',
     url: 'https://poke-korea.com/',
     title: '포케 코리아 - 한국어 포켓몬 도감',
     locale: 'ko_KR',
     description:
-      '포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 포켓몬 퀴즈까지! 포켓몬의 모든 정보를 한곳에서 확인하세요.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
@@ -47,8 +52,19 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '포케 코리아 - 한국어 포켓몬 도감',
     description:
-      '포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 포켓몬 퀴즈까지! 포켓몬의 모든 정보를 한곳에서 확인하세요.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
     images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
