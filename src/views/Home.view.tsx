@@ -158,10 +158,10 @@ const HomeView = ({ dailyPokemon, dailyQuiz }: HomeViewProps) => {
         </div>
       </section>
 
-      {/* 오늘의 인기 포켓몬 슬라이더 */}
+      {/* 오늘의 랜덤 포켓몬 슬라이더 */}
       <section className="max-w-7xl mx-auto mb-20">
         <h2 className="text-3xl font-bold text-primary-4 text-center mb-8">
-          오늘의 인기 포켓몬
+          오늘의 랜덤 포켓몬
         </h2>
         <div className="px-4">
           <Swiper
