@@ -1,5 +1,4 @@
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import BannerComponent from './components/Banner.component'
 
 interface HomeBannerContainerProps {
   dailyPokemon: Array<PokemonCardFragment>
@@ -15,12 +14,10 @@ const HomeBannerContainer = ({ dailyPokemon }: HomeBannerContainerProps) => {
         오늘의 랜덤 포켓몬
       </h2>
       <div
-        className="px-4"
+        className="px-4 w-full max-w-[1280px] h-96"
         role="region"
         aria-label="오늘의 랜덤 포켓몬 슬라이드"
-      >
-        <BannerComponent dailyPokemon={dailyPokemon} />
-      </div>
+      ></div>
     </section>
   )
 }

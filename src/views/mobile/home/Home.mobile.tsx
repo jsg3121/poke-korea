@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import PokemonCardComponent from '~/container/desktop/List/list.pokemonCard/PokemonCard.component'
 import { DailyQuizPreview, PokemonCardFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import QuizResultPopup from '~/components/QuizResultPopup.component'
+import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
