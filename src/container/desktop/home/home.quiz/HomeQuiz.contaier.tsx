@@ -1,5 +1,4 @@
 import { Fragment, useState } from 'react'
-import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import { DailyQuizPreview } from '~/graphql/typeGenerated'
 import SilhouetteQuizCardCntainer from './quiz.quizCard/SilhouetteQuizCard.cntainer'
 

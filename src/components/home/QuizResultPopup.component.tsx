@@ -1,11 +1,29 @@
+import CorrectIcon from '~/assets/icons/correct-icon.svg'
+import InCorrectIcon from '~/assets/icons/wrong-correct.svg'
 import Portal from '../Portal.component'
+import Link from 'next/link'
+
+type QuizType = 'ability' | 'silhouette' | 'pokemon-type'
 
 interface QuizResultPopupProps {
+  quizType: QuizType
   isCorrect: boolean
+  answer: string
   onClose: () => void
 }
 
-const QuizResultPopup = ({ isCorrect, onClose }: QuizResultPopupProps) => {
+const QUIZ_TYPE = {
+  ability: '특성 퀴즈',
+  silhouette: '실루엣 퀴즈',
+  'pokemon-type': '타입 퀴즈',
+}
+
+const QuizResultPopup = ({
+  answer,
+  quizType,
+  isCorrect,
+  onClose,
+}: QuizResultPopupProps) => {
   return (
     <Portal>
       <div
@@ -21,41 +39,53 @@ const QuizResultPopup = ({ isCorrect, onClose }: QuizResultPopupProps) => {
           aria-hidden="true"
         />
         <div
-          className="relative bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-scaleIn"
+          className="relative bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl animate-scaleIn"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex justify-center mb-6" aria-hidden="true">
+          <div className="flex justify-center mb-2" aria-hidden="true">
             {isCorrect ? (
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-green-100 rounded-full flex items-center justify-center animate-bounce">
-                <span className="text-5xl sm:text-6xl">✅</span>
-              </div>
+              <CorrectIcon width={80} height={80} />
             ) : (
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-red-100 rounded-full flex items-center justify-center animate-shake">
-                <span className="text-5xl sm:text-6xl">❌</span>
-              </div>
+              <InCorrectIcon width={80} height={80} />
             )}
           </div>
-          <h3
+          <strong
             id="quiz-result-title"
-            className={`text-2xl sm:text-3xl font-bold text-center mb-4 ${
+            className={`w-full text-2xl block font-bold text-center mb-4 ${
               isCorrect ? 'text-green-600' : 'text-red-600'
             }`}
           >
             {isCorrect ? '정답입니다!' : '오답입니다!'}
-          </h3>
+          </strong>
+          {!isCorrect && (
+            <p className="h-12 text-[1rem] text-center">
+              정답 : <span className="text-[1.25rem] font-bold">{answer}</span>
+            </p>
+          )}
           <p
             id="quiz-result-description"
-            className="text-center text-primary-2 mb-6 text-sm sm:text-base"
+            className="text-center text-primary-2 mb-6 text-[1rem]"
           >
-            퀴즈에 {isCorrect ? '성공' : '실패'}했습니다.
+            {isCorrect
+              ? '더 많은 퀴즈를 풀러 가볼까요?'
+              : '다른 문제를 풀어보러 갈까요?'}
           </p>
-          <button
-            onClick={onClose}
-            className="w-full bg-gradient-to-r from-primary-1 to-primary-2 text-primary-4 font-bold py-3 sm:py-4 rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary-3"
-            aria-label="퀴즈 결과 닫기"
-          >
-            확인
-          </button>
+          <div className="w-full h-12 flex gap-4">
+            <button
+              onClick={onClose}
+              className="w-32 h-12 shrink-0 text-primary-2 font-bold py-3 border border-solid border-primary-3 rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+              aria-label="퀴즈 결과 닫기"
+            >
+              닫기
+            </button>
+            <Link
+              href={`/quiz/${quizType}`}
+              className="w-full h-12 bg-primary-1 text-primary-4 text-center block leading-[calc(3rem+2px)] font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+              aria-label="퀴즈 풀러 가기"
+            >
+              {QUIZ_TYPE[quizType]} 풀러 가기
+            </Link>
+          </div>
         </div>
       </div>
     </Portal>

@@ -69,7 +69,12 @@ const SilhouetteQuizCardCntainer = ({
         </div>
       </article>
       {isShowModal && (
-        <QuizResultPopup isCorrect={isCorrect} onClose={handleClosePopup} />
+        <QuizResultPopup
+          isCorrect={isCorrect}
+          answer={silhouetteQuiz.options[silhouetteQuiz.correctAnswerIndex]}
+          quizType="silhouette"
+          onClose={handleClosePopup}
+        />
       )}
     </Fragment>
   )
