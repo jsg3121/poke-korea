@@ -6,6 +6,7 @@ import Link from 'next/link'
 type QuizType = 'ability' | 'silhouette' | 'pokemon-type'
 
 interface QuizResultPopupProps {
+  id: string
   quizType: QuizType
   isCorrect: boolean
   answer: string
@@ -19,13 +20,14 @@ const QUIZ_TYPE = {
 }
 
 const QuizResultPopup = ({
+  id,
   answer,
   quizType,
   isCorrect,
   onClose,
 }: QuizResultPopupProps) => {
   return (
-    <Portal>
+    <Portal containerId={id}>
       <div
         className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn"
         onClick={onClose}
