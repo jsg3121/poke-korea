@@ -43,7 +43,7 @@ const SilhouetteQuizCardCntainer = ({
         <p className="text-primary-1 mb-4 text-[1rem] font-medium">
           이 실루엣은 어떤 포켓몬일까요?
         </p>
-        <div className="mb-4 rounded-xl p-4 flex items-center justify-center">
+        <div className="mb-4 rounded-xl p-4 flex items-center justify-center bg-white">
           <ImageComponent
             width="8rem"
             height="8rem"
