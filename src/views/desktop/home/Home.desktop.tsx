@@ -19,8 +19,8 @@ const HomeDesktop = ({ dailyPokemon, dailyQuiz }: HomeDesktopProps) => {
   return (
     <main className="w-full max-w-[1280px] min-h-screen mx-auto pt-56">
       <HeaderContainer />
-      <HomeQuizContaier dailyQuiz={dailyQuiz} />
       <HomeBannerContainer dailyPokemon={dailyPokemon} />
+      <HomeQuizContaier dailyQuiz={dailyQuiz} />
       <section
         className="w-full mx-auto mb-20 px-4"
         aria-labelledby="main-features-heading"

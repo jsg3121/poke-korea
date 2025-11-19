@@ -4,14 +4,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import PokemonCardComponent from '~/container/desktop/List/list.pokemonCard/PokemonCard.component'
+import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import { DailyQuizPreview, PokemonCardFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import PokemonCardComponent from '~/components/pokemonCard/desktop/PokemonCard.component'
 
 interface HomeMobileProps {
   dailyPokemon: Array<PokemonCardFragment>
