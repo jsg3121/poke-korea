@@ -1,7 +1,7 @@
 'use client'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import ImageComponent from '~/components/Image.component'
-import { useGetPokemonListLazyQuery } from '~/graphql/gqlGenerated'
+import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
 import { useOutSideClick } from '~/hook/useOutSideClick'
 import SearchResultList from './search.detail/SearchResultList'
@@ -11,9 +11,10 @@ const DetailSearch = () => {
   const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)
   const [searchKeyword, debounce] = useDebounce()
 
-  const [getPokemonList, { data, loading }] = useGetPokemonListLazyQuery({
-    fetchPolicy: 'cache-and-network',
-  })
+  const [searchPokemonWithAllForms, { data, loading }] =
+    useSearchPokemonWithAllFormsLazyQuery({
+      fetchPolicy: 'cache-and-network',
+    })
 
   const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value.trim()
@@ -21,9 +22,9 @@ const DetailSearch = () => {
   }
 
   const searchPokemon = async () => {
-    await getPokemonList({
+    await searchPokemonWithAllForms({
       variables: {
-        filter: {
+        input: {
           name: searchKeyword,
         },
       },
@@ -38,10 +39,10 @@ const DetailSearch = () => {
     setIsShowSearchResult(() => false)
   }
 
-  const pokemonList = (data && data.getPokemonList) || []
+  const pokemonList = (data && data.searchPokemonWithAllForms) || []
 
   useEffect(() => {
-    if (searchKeyword !== '') {
+    if (searchKeyword !== '' && searchKeyword.length >= 2) {
       searchPokemon()
     }
   }, [searchKeyword])
@@ -66,7 +67,7 @@ const DetailSearch = () => {
         <input
           type="text"
           name="search-pokemon"
-          placeholder="포켓몬 검색"
+          placeholder="포켓몬 검색 (2글자 이상 입력 필수)"
           autoComplete="off"
           onChange={handleChangeKeyword}
           className=" w-[calc(100%-5rem)] h-8 text-base font-normal leading-8 border-0 p-0 cursor-text bg-transparent absolute left-[1.38888889rem] transition-[top] duration-300 placeholder:text-[#999999] placeholder:text-[0.83333333rem]"
