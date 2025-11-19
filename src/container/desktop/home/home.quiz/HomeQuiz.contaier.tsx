@@ -12,7 +12,10 @@ const HomeQuizContaier = ({ dailyQuiz }: HomeQuizContaierProps) => {
   return (
     <Fragment>
       <section className="w-full mx-auto" aria-labelledby="daily-quiz-heading">
-        <h2 id="daily-quiz-heading" className="sr-only">
+        <h2
+          id="daily-quiz-heading"
+          className="h-12 text-[2.5rem] font-bold text-primary-4 text-center mb-12"
+        >
           오늘의 퀴즈
         </h2>
         <div className="grid grid-cols-3 gap-6">
