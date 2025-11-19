@@ -28,19 +28,15 @@ const QuizResultPopup = ({
 }: QuizResultPopupProps) => {
   return (
     <Portal containerId={id}>
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn"
+      <aside
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn bg-black/65"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
         aria-labelledby="quiz-result-title"
         aria-describedby="quiz-result-description"
       >
-        <div
-          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-          aria-hidden="true"
-        />
-        <div
+        <article
           className="relative bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl animate-scaleIn"
           onClick={(e) => e.stopPropagation()}
         >
@@ -88,8 +84,8 @@ const QuizResultPopup = ({
               {QUIZ_TYPE[quizType]} 풀러 가기
             </Link>
           </div>
-        </div>
-      </div>
+        </article>
+      </aside>
     </Portal>
   )
 }
