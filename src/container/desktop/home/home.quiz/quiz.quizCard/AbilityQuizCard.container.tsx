@@ -1,3 +1,5 @@
+'use client'
+
 import { AbilityQuizQuestion } from '~/graphql/typeGenerated'
 import { useCorrectQuizCheck } from '../hooks/useCorrectQuizCheck'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'

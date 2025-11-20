@@ -1,3 +1,5 @@
+'use client'
+
 import { Fragment } from 'react'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import ImageComponent from '~/components/Image.component'

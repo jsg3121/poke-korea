@@ -1,3 +1,5 @@
+'use client'
+
 import { PokemonTypeQuizQuestion } from '~/graphql/typeGenerated'
 import { useCorrectQuizCheck } from '../hooks/useCorrectQuizCheck'
 import { Fragment } from 'react'

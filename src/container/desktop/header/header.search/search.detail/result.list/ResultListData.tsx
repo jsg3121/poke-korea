@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import { useLazyImage } from '~/hook/useLazyImage'
