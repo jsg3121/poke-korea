@@ -30,16 +30,6 @@ const HeaderNav = () => {
           </Link>
         </li>
         <li
-          className={`min-w-fit h-full px-4 ${pathname === '/type-effectiveness' ? 'border-b-4 border-solid border-primary-4' : ''}`}
-        >
-          <Link
-            href="/type-effectiveness"
-            className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname === '/type-effectiveness' ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
-          >
-            상성 계산기
-          </Link>
-        </li>
-        <li
           className={`min-w-fit h-full px-4 ${pathname === '/moves' ? 'border-b-4 border-solid border-primary-4' : ''}`}
         >
           <Link
@@ -57,6 +47,16 @@ const HeaderNav = () => {
             className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname.includes('/ability') ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             특성 도감
+          </Link>
+        </li>
+        <li
+          className={`min-w-fit h-full px-4 ${pathname === '/type-effectiveness' ? 'border-b-4 border-solid border-primary-4' : ''}`}
+        >
+          <Link
+            href="/type-effectiveness"
+            className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname === '/type-effectiveness' ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
+          >
+            상성 계산기
           </Link>
         </li>
         <li
