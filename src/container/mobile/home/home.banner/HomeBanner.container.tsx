@@ -8,7 +8,7 @@ interface HomeBannerContainerProps {
 const HomeBannerContainer = ({ dailyPokemon }: HomeBannerContainerProps) => {
   return (
     <section
-      className="w-[calc(100%-2.5rem)] mx-auto mb-20 px-2 relative overflow-x-auto [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+      className="w-[calc(100%-2.5rem)] mx-auto mb-12 px-2 relative overflow-x-auto [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
       aria-labelledby="daily-pokemon-heading"
     >
       <h2

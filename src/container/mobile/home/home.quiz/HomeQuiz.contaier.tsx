@@ -17,7 +17,7 @@ const HomeQuizContaier = ({ dailyQuiz }: HomeQuizContaierProps) => {
       >
         <h2
           id="daily-quiz-heading"
-          className="h-12 text-[2.5rem] font-bold text-primary-4 text-center mb-12"
+          className="h-12 text-[2rem] font-bold text-primary-4 text-center mb-4"
         >
           오늘의 퀴즈
         </h2>
