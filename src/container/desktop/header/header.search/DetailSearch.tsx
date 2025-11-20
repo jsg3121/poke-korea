@@ -45,6 +45,10 @@ const DetailSearch = () => {
     if (searchKeyword !== '' && searchKeyword.length >= 2) {
       searchPokemon()
     }
+
+    if (searchKeyword === '') {
+      setIsShowSearchResult(false)
+    }
   }, [searchKeyword])
 
   useOutSideClick({
