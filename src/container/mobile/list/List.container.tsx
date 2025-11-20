@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { ListContext } from '~/context/List.context'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
-import CardComponent from './components/Card.component'
+import CardComponent from '~/components/pokemonCard/mobile/Card.component'
 
 const ListContainer = () => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
