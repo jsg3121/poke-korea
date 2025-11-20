@@ -20,6 +20,7 @@ const AbilityListContainer = ({
 }: AbilityListContainerProps) => {
   const { abilityList, loadMore, hasNextPage } = useAbilityList({
     initialAbilities,
+    pageSize: 15,
   })
 
   const listRef = useInfiniteScroll({
