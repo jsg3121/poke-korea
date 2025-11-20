@@ -30,7 +30,7 @@ const ListContainer = () => {
         </div>
       )}
       {pokemonList.length > 0 && (
-        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5 [&_.virtuoso-grid-item]:w-full">
+        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5">
           {pokemonList.map((pokemon) => {
             return (
               <PokemonCardComponent
