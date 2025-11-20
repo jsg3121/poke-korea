@@ -63,21 +63,3 @@ export const extractNodesFromEdges = <T>(
 ): Array<T> => {
   return edges?.map((edge) => edge.node) || fallback
 }
-
-/**
- * 페이지네이션 변수 생성 헬퍼
- *
- * @param first - 가져올 아이템 개수
- * @param after - 시작 커서 (기본: undefined)
- * @returns 페이지네이션 변수 객체
- *
- * @example
- * ```tsx
- * const paginationVars = createPaginationVars(20, endCursor)
- * // { first: 20, after: endCursor }
- * ```
- */
-export const createPaginationVars = (first: number, after?: string | null) => ({
-  first,
-  ...(after && { after }),
-})
