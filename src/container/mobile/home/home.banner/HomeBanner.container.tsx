@@ -1,4 +1,4 @@
-import PokemonCardComponent from '~/components/pokemonCard/desktop/PokemonCard.component'
+import PokemonCardComponent from '~/components/pokemonCard/mobile/PokemonCard.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 
 interface HomeBannerContainerProps {
