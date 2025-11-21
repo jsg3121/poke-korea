@@ -1,6 +1,6 @@
 const AbilityDescriptionComponent = () => {
   return (
-    <section className="w-full bg-primary-4 rounded-2xl p-6 mb-6">
+    <section className="w-[calc(100%-2.5rem)] mx-auto bg-primary-4 rounded-2xl p-6 mb-6">
       <h2 className="text-2xl font-bold text-primary-1 mb-4 border-b border-solid border-primary-1">
         특성이란?
       </h2>

@@ -1,39 +1,23 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext } from 'react'
 import { ListContext } from '~/context/List.context'
+import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
-import PokemonCardComponent from './list.pokemonCard/PokemonCard.component'
+import PokemonCardComponent from '~/components/pokemonCard/desktop/PokemonCard.component'
 
 const ListContainer = () => {
-  const listRef = useRef<HTMLDivElement>(null)
-
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
     useContext(ListContext)
 
-  const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
-    entries.forEach((entry) => {
-      const intersectionRatio = entry.intersectionRatio
-      if (intersectionRatio > 0 && hasNextPage) {
-        loadMore()
-      }
-    })
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: '0px 0px 100px 0px',
-      threshold: 0,
-    })
-
-    if (listRef.current) {
-      observer.observe(listRef.current)
-    }
-    return () => observer.disconnect()
-  }, [pokemonList])
+  const listRef = useInfiniteScroll({
+    hasNextPage,
+    loadMore,
+    rootMargin: '0px 0px 100px 0px',
+    dependencies: [pokemonList],
+  })
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative [&>h2]:absolute [&>h2]:top-0 [&>h2]:text-primary-1 [&>h2]:select-none">
-      <h2 className="visually-hidden">포켓몬 리스트</h2>
+      <h2 className="sr-only">포켓몬 리스트</h2>
       {pokemonList.length === 0 && (
         <div className="w-full h-[20rem]">
           <p className="w-full text-[2rem] text-primary-4 font-bold text-center">
@@ -46,11 +30,12 @@ const ListContainer = () => {
       )}
       {pokemonList.length > 0 && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] gap-x-4 gap-y-6 justify-items-center justify-between px-5">
-          {pokemonList.map((pokemon) => {
+          {pokemonList.map((pokemon, index) => {
             return (
               <PokemonCardComponent
                 key={`pokemon-id-${pokemon.id}`}
                 pokemonData={pokemon}
+                isHighPriority={index <= 20}
               />
             )
           })}

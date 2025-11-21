@@ -99,3 +99,109 @@ return isMobile ? <MobileComponent /> : <DesktopComponent />
 - Import/export validation
 - Prettier integration for formatting
 - Accessibility (jsx-a11y) rules enabled
+
+## Version Control & Release Management
+
+### Branch Strategy
+
+#### Branch Naming Convention
+
+```text
+feature/{version}
+예: feature/1.25.0, feature/1.26.0
+```
+
+- 모든 새로운 작업은 `feature/{version}` 형식의 브랜치에서 진행
+- 버전 번호는 [Semantic Versioning](https://semver.org/lang/ko/) 준수
+  - **Major (X.0.0)**: 대규모 변경, Breaking Changes
+  - **Minor (1.X.0)**: 새로운 기능 추가, 하위 호환성 유지
+  - **Patch (1.26.X)**: 버그 수정, 소규모 개선
+- 브랜치는 사용자가 직접 생성하므로, 새로운 작업 시작 시 브랜치 생성 여부 확인 필요
+
+#### Workflow
+
+1. 사용자가 main에서 `feature/{version}` 브랜치 생성
+2. 해당 브랜치에서 작업 진행
+3. 작업 완료 후 PR 생성
+4. main 브랜치로 머지
+
+### Update Log Management
+
+#### 로그 파일 위치
+
+```text
+updateLog/{version}.md
+예: updateLog/1.25.0.md
+```
+
+#### 로그 작성 시점
+
+1. **브랜치 작업 시작 시**: 새 버전 로그 파일 생성
+2. **주요 기능 추가/수정 시**: 실시간으로 로그 업데이트
+3. **main 머지 전**: 최종 검토 및 완성
+4. **main 머지 후**: 릴리즈 날짜, PR 링크 추가
+
+#### 로그 필수 섹션
+
+- 📋 목차
+- 🎯 주요 변경사항
+- ✨ 기능 개선
+- 🐛 버그 수정
+- 📝 커밋 히스토리
+
+#### 로그 선택 섹션 (해당 시)
+
+- 🔍 SEO 개선
+- 🔧 코드 리팩토링
+- 🚀 성능 개선
+- 🎨 디자인 변경
+- 🔨 기술적 개선사항
+
+#### 로그 작성 가이드라인
+
+1. **명확한 제목**: 각 섹션의 제목은 명확하고 구체적으로
+2. **코드 예시**: 변경사항은 Before/After 코드로 설명
+3. **파일 링크**: 변경된 파일은 상대 경로로 링크 (`[파일명](../src/...)`))
+4. **통계 제공**: 정량적 지표 포함 (줄 수, 파일 수, 개선율 등)
+5. **이모지 활용**: 가독성을 위해 적절한 이모지 사용
+
+#### 권장 이모지
+
+- 🎯 주요 변경사항
+- ✨ 새 기능
+- 🐛 버그 수정
+- 🔧 리팩토링
+- 🔍 SEO
+- 📊 통계
+- 🚀 성능 개선
+- 🎨 디자인
+- 📝 문서
+
+### 새 작업 시작 시 체크리스트
+
+Claude가 새로운 작업 요청을 받았을 때:
+
+1. **브랜치 확인**: 현재 작업 중인 브랜치가 feature/{version} 형식인지 확인
+2. **브랜치 생성 필요 시**: 사용자에게 새 브랜치 생성 여부 확인
+
+   ```text
+   "이 작업을 위한 새 feature 브랜치를 생성하시겠습니까?
+   예: feature/1.27.0"
+   ```
+
+3. **업데이트 로그 확인**: 해당 버전의 업데이트 로그 파일이 존재하는지 확인
+4. **로그 업데이트**: 작업 완료 시 업데이트 로그에 변경사항 자동 기록
+
+### 업데이트 로그 자동화
+
+주요 작업(기능 추가, 리팩토링, 버그 수정 등) 완료 시:
+
+1. 현재 브랜치에서 버전 번호 추출
+2. `updateLog/{version}.md` 파일 읽기
+3. 해당 섹션에 변경사항 추가
+4. 통계 업데이트 (파일 수, 코드 라인 변화 등)
+
+### 참고 문서
+
+- 상세한 업데이트 로그 가이드: [updateLog/README.md](updateLog/README.md)
+- 업데이트 로그 템플릿: [updateLog/1.26.0.md](updateLog/1.26.0.md) 참고

@@ -1,7 +1,7 @@
 'use client'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import ImageComponent from '~/components/Image.component'
-import { useGetPokemonListLazyQuery } from '~/graphql/gqlGenerated'
+import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
 import { useOutSideClickMobile } from '~/hook/useOutSideClickMobile'
 import SearchResultList from './search.result/SearchResultList'
@@ -11,9 +11,10 @@ const HeaderSearchContainer = () => {
   const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)
   const [searchKeyword, debounce] = useDebounce()
 
-  const [getPokemonList, { data, loading }] = useGetPokemonListLazyQuery({
-    fetchPolicy: 'cache-and-network',
-  })
+  const [searchPokemonWithAllForms, { data, loading }] =
+    useSearchPokemonWithAllFormsLazyQuery({
+      fetchPolicy: 'cache-and-network',
+    })
 
   const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value.trim()
@@ -21,9 +22,9 @@ const HeaderSearchContainer = () => {
   }
 
   const searchPokemon = async () => {
-    await getPokemonList({
+    await searchPokemonWithAllForms({
       variables: {
-        filter: {
+        input: {
           name: searchKeyword,
         },
       },
@@ -38,11 +39,15 @@ const HeaderSearchContainer = () => {
     setIsShowSearchResult(() => false)
   }
 
-  const pokemonList = (data && data.getPokemonList) || []
+  const pokemonList = (data && data.searchPokemonWithAllForms) || []
 
   useEffect(() => {
-    if (searchKeyword !== '') {
+    if (searchKeyword !== '' && searchKeyword.length >= 2) {
       searchPokemon()
+    }
+
+    if (searchKeyword === '') {
+      setIsShowSearchResult(false)
     }
   }, [searchKeyword])
 
@@ -55,18 +60,18 @@ const HeaderSearchContainer = () => {
   return (
     <div
       ref={searchRef}
-      className="w-1/2 relative"
+      className="w-2/3 relative"
       aria-labelledby="pokemon-search"
       role="search"
     >
-      <p id="pokemon-search" className="visually-hidden">
+      <p id="pokemon-search" className="sr-only">
         포켓몬 검색하기
       </p>
       <div className="w-full h-10 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">
         <input
           type="text"
           name="search-pokemon"
-          placeholder="포켓몬 검색"
+          placeholder="포켓몬 검색 (2글자 이상)"
           autoComplete="off"
           onChange={handleChangeKeyword}
           className="w-full h-full text-sm text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"

@@ -1,11 +1,11 @@
-import { PokemonList } from '~/graphql/typeGenerated'
-import ResultListLoading from './result.list/ResultListLoading'
 import { Fragment } from 'react'
+import { PokemonFormInfo } from '~/graphql/typeGenerated'
 import SearchResultData from './result.list/ResultListData'
+import ResultListLoading from './result.list/ResultListLoading'
 import ResultListNoData from './result.list/ResultListNoData'
 
 interface SearchResultListProps {
-  pokemonList: Array<PokemonList>
+  pokemonList: Array<PokemonFormInfo>
   loading: boolean
 }
 
@@ -24,6 +24,9 @@ const SearchResultList = ({ pokemonList, loading }: SearchResultListProps) => {
                     key={`pokemon-id-${pokemon.id}`}
                     name={pokemon.name}
                     number={pokemon.number}
+                    imagePath={pokemon.imagePath}
+                    formType={pokemon.formType}
+                    formIndex={pokemon.index}
                   />
                 )
               })

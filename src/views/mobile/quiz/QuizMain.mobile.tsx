@@ -13,13 +13,13 @@ const QuizMainMobile = () => {
     <DeviceProvider>
       <main className="w-full h-full">
         <HeaderContainer />
-        <section className="w-full px-[20px]">
+        <section className="w-full">
           <PageHeader
             title="포켓몬 퀴즈"
             description="다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!"
           />
           <MobileQuizMainTopBanner />
-          <article className="mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
+          <article className="w-[calc(100%-2.5rem)] mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
             <h2 className="text-xl font-bold text-primary-1 mb-4">퀴즈 안내</h2>
             <ul className="space-y-2 text-primary-1">
               <li className="flex items-center gap-2">
@@ -40,7 +40,7 @@ const QuizMainMobile = () => {
               </li>
             </ul>
           </article>
-          <div className="flex flex-col gap-[1rem] mx-auto pt-[1rem]">
+          <div className="w-[calc(100%-2.5rem)] mx-auto flex flex-col gap-[1rem] pt-[1rem]">
             {QUIZ_CONFIG.map((quiz) => (
               <Link
                 key={quiz.type}

@@ -49,7 +49,7 @@ module.exports = {
       screens: {
         mobile: { max: '768px' },
         desktop: { min: '769px' },
-        'desktop-890': { max: '890px' },
+        'desktop-970': { max: '970px' },
         'desktop-639': { max: '639px' },
       },
       keyframes: {
@@ -69,6 +69,40 @@ module.exports = {
             right: '-12rem',
           },
         },
+        fadeIn: {
+          '0%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '1',
+          },
+        },
+        scaleIn: {
+          '0%': {
+            opacity: '0',
+            transform: 'scale(0.9)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'scale(1)',
+          },
+        },
+        shake: {
+          '0%, 100%': {
+            transform: 'translateX(0)',
+          },
+          '25%': {
+            transform: 'translateX(-10px)',
+          },
+          '75%': {
+            transform: 'translateX(10px)',
+          },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.2s ease-in-out',
+        scaleIn: 'scaleIn 0.3s ease-out',
+        shake: 'shake 0.5s ease-in-out',
       },
     },
   },

@@ -6,8 +6,8 @@ interface UseLazyImageOptions {
 }
 
 export const useLazyImage = (options: UseLazyImageOptions = {}) => {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const imgRef = useRef<HTMLDivElement>(null)
 
   const { rootMargin = '200px', threshold = 0.1 } = options

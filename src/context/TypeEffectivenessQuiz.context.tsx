@@ -1,6 +1,12 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState, useEffect } from 'react'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from 'react'
 import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
 import { useQuizTimer } from '~/hook/useQuizTimer'
 import { quizProgress } from '~/module/quiz.module'
@@ -34,15 +40,16 @@ interface TypeEffectivenessQuizProviderProps {
   children: ReactNode
 }
 
-const TypeEffectivenessQuizContext = createContext<TypeEffectivenessQuizContextType | null>(
-  null,
-)
+const TypeEffectivenessQuizContext =
+  createContext<TypeEffectivenessQuizContextType | null>(null)
 
 export const TypeEffectivenessQuizProvider = ({
   children,
 }: TypeEffectivenessQuizProviderProps) => {
   const [quizViewStage, setQuizViewStage] = useState<QuizViewStage>('BEFORE')
-  const [questions, setQuestions] = useState<TypeEffectivenessQuizQuestion[]>([])
+  const [questions, setQuestions] = useState<TypeEffectivenessQuizQuestion[]>(
+    [],
+  )
   const [isGenerating, setIsGenerating] = useState(false)
   const [quizState, setQuizState] = useState<BaseQuizState>({
     currentQuestionIndex: 0,
@@ -57,7 +64,9 @@ export const TypeEffectivenessQuizProvider = ({
   const generateQuestions = () => {
     setIsGenerating(true)
     try {
-      const newQuestions = generateTypeEffectivenessQuestions(QUIZ_CONSTANTS.TOTAL_QUESTIONS)
+      const newQuestions = generateTypeEffectivenessQuestions(
+        QUIZ_CONSTANTS.TOTAL_QUESTIONS,
+      )
       setQuestions(newQuestions)
     } catch (error) {
       console.error('퀴즈 문제 생성 중 오류 발생:', error)

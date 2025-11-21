@@ -1,44 +1,41 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { GetPokemonListPaginatedDocument } from '~/graphql/gqlGenerated'
+import { permanentRedirect } from 'next/navigation'
+import { Fragment } from 'react'
 import {
-  GetPokemonListPaginatedQuery,
-  GetPokemonListPaginatedQueryVariables,
-  PokemonEdge,
-  PokemonFilterInput,
+  GetDailyQuizPreviewDocument,
+  GetDailyRandomPokemonDocument,
+} from '~/graphql/gqlGenerated'
+import {
+  GetDailyQuizPreviewQuery,
+  GetDailyQuizPreviewQueryVariables,
+  GetDailyRandomPokemonQuery,
+  GetDailyRandomPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
-import {
-  changeTypeArrayToString,
-  getGenerationParams,
-  toBooleanOrUndefined,
-} from '~/module/filter.module'
-import MainDesktop from '~/views/desktop/main/Main.desktop'
-import MainMobile from '~/views/mobile/main/Main.mobile'
+import HomeDesktop from '~/views/desktop/home/Home.desktop'
+import HomeMobile from '~/views/mobile/home/Home.mobile'
 
-export const revalidate = 31536000 // 1년
+export const revalidate = 3600 // 1시간
 
 export const metadata: Metadata = {
-  title: '포켓몬의 모든 정보 포케 코리아',
-  description: `
-    언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.
-    카드형식을 통해 포켓몬의 능력치를 확인할 수 있고 타입 또는 진화 여부 등으로 원하는 포켓몬을 빠르게 찾아보세요.
-    간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색해 확인해보세요.
-  `,
+  title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
+  description:
+    '1025마리 포켓몬 도감, 타입 상성 계산기, 800개 이상 기술 정보, 300개 이상 특성 정보, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
   openGraph: {
     type: 'website',
     url: 'https://poke-korea.com/',
-    title: '포켓몬의 모든 정보 포케 코리아',
+    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
     locale: 'ko_KR',
     description:
-      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
         width: 1200,
         height: 630,
-        alt: '포켓몬의 모든 정보 포케 코리아',
+        alt: '빠르고 정확한 포켓몬 도감 - 포케코리아',
         type: 'image/png',
       },
     ],
@@ -49,10 +46,19 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '포켓몬의 모든 정보 포케 코리아',
+    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
     description:
-      '간단한 포켓몬 정보부터 특정 포켓몬의 자세한 정보까지 검색하고 확인해보세요.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
     images: ['https://poke-korea.com/assets/image/ogImage.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
   },
 }
 
@@ -74,63 +80,73 @@ const HomePage = async ({ searchParams }: PageProps) => {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-
   const apolloClient = initializeApollo()
 
-  const { type, isMega, isRegion, isEvolution, generation, name } =
-    await searchParams
+  const params = await searchParams
+  const hasFilters = Object.keys(params).length > 0
 
-  const filterInput: PokemonFilterInput = {
-    ...(name && {
-      name,
-    }),
-    ...(generation && {
-      generation: getGenerationParams(generation),
-    }),
-    ...(type && { types: changeTypeArrayToString(type as string) }),
-    isMegaEvolution: toBooleanOrUndefined(isMega as string),
-    isRegionForm: toBooleanOrUndefined(isRegion as string),
-    isEvolution: toBooleanOrUndefined(isEvolution as string),
+  // 필터 쿼리 파라미터가 있으면 /list로 308 영구 리다이렉트 (SEO)
+  // ⚠️ 중요: 이 리다이렉트는 최소 1년 이상 유지해야 합니다!
+  // 배포일: 2025-XX-XX
+  // 제거 예정일: 2026-XX-XX 이후
+  if (hasFilters) {
+    const queryString = new URLSearchParams(params).toString()
+    permanentRedirect(`/list?${queryString}`)
   }
 
-  const { data } = await apolloClient.query<
-    GetPokemonListPaginatedQuery,
-    GetPokemonListPaginatedQueryVariables
+  // 매일 변경되는 랜덤 포켓몬 10마리 가져오기
+  const { data: pokemonData } = await apolloClient.query<
+    GetDailyRandomPokemonQuery,
+    GetDailyRandomPokemonQueryVariables
   >({
-    query: GetPokemonListPaginatedDocument,
-    variables: {
-      input: {
-        filter: filterInput,
-        pagination: {
-          first: 20,
-        },
-      },
-    },
+    query: GetDailyRandomPokemonDocument,
     fetchPolicy: 'network-only',
   })
 
-  const pokemonList =
-    data?.getPokemonList?.edges.map((edge: PokemonEdge) => {
-      return edge.node
-    }) || []
-  const hasNextPage = !!data?.getPokemonList.pageInfo.hasNextPage
+  // 매일 변경되는 퀴즈 3개 (타입, 특성, 실루엣) 가져오기
+  const { data: quizData } = await apolloClient.query<
+    GetDailyQuizPreviewQuery,
+    GetDailyQuizPreviewQueryVariables
+  >({
+    query: GetDailyQuizPreviewDocument,
+    fetchPolicy: 'network-only',
+  })
+
+  const dailyPokemon = pokemonData?.getDailyRandomPokemon?.pokemons || []
+  const dailyQuiz = quizData?.getDailyQuizPreview
+
+  // JSON-LD 구조화된 데이터
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: '포케 코리아',
+    alternateName: '포케코리아',
+    url: 'https://poke-korea.com',
+    description:
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://poke-korea.com/list?name={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+    inLanguage: 'ko-KR',
+  }
 
   return (
-    <main className="w-full min-h-screen">
+    <Fragment>
       {isMobile ? (
-        <MainMobile
-          pokemonList={pokemonList}
-          initialFilter={filterInput}
-          hasNextPage={hasNextPage}
-        />
+        <HomeMobile dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
       ) : (
-        <MainDesktop
-          pokemonList={pokemonList}
-          initialFilter={filterInput}
-          hasNextPage={hasNextPage}
-        />
+        <HomeDesktop dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
       )}
-    </main>
+      <script
+        id="ability-webpage-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+    </Fragment>
   )
 }
 

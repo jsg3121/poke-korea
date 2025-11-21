@@ -173,9 +173,16 @@ export const generatePokemonJsonLd = ({
         },
       ],
     },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      '@id': `https://image.poke-korea.com/detail/${pokemonDetail.number}/opengraph-image#imgaeObject`,
+      url: `https://image.poke-korea.com/detail/${pokemonDetail.number}/opengraph-image`,
+      width: 1200,
+      height: 630,
+    },
     image: imageSrc,
     mainEntity: {
-      '@type': 'CreativeWork',
+      '@type': 'Thing',
       name: `No. ${pokemonDetail.number} ${displayName}`,
       description: `${displayName} 도감 번호 ${pokemonDetail.number}번 ${typeList} 타입의 포켓몬 ${pokemonDetail.generation}세대에 첫 등장.`,
       identifier: pokemonDetail.number.toString(),
@@ -252,11 +259,6 @@ export const generatePokemonJsonLd = ({
           description: ability.description,
         })) ?? []),
       ],
-      genre: 'RPG',
-      publisher: {
-        '@type': 'Organization',
-        name: '포켓몬스터 시리즈',
-      },
     },
   }
 }

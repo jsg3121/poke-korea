@@ -4,6 +4,49 @@ query GetPokemonList($filter: PokemonFilterInput) {
   }
 }
 
+query GetDailyRandomPokemon {
+  getDailyRandomPokemon {
+    date
+    pokemons {
+      ...PokemonCard
+    }
+  }
+}
+
+query GetDailyQuizPreview {
+  getDailyQuizPreview {
+    date
+    abilityQuiz {
+      id
+      question
+      abilityDescription
+      correctAnswerIndex
+      options {
+        koreanName
+        englishName
+      }
+    }
+    silhouetteQuiz {
+      id
+      question
+      correctPokemonId
+      correctAnswerIndex
+      options
+    }
+    typeQuiz {
+      id
+      question
+      targetType
+      correctAnswerIndex
+      options {
+        id
+        koreanName
+        types
+      }
+    }
+  }
+}
+
 query GetPokemonListPaginated($input: PokemonListInput) {
   getPokemonList: getPokemonListPaginated(input: $input) {
     edges {
@@ -479,5 +522,16 @@ query GetPokemonByAbility($input: PokemonByAbilityInput!) {
       endCursor
     }
     totalCount
+  }
+}
+
+query SearchPokemonWithAllForms($input: SearchPokemonWithAllFormsInput!) {
+  searchPokemonWithAllForms(input: $input) {
+    id
+    name
+    number
+    index
+    formType
+    imagePath
   }
 }

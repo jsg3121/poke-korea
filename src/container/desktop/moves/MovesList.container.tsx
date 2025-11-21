@@ -1,39 +1,26 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext } from 'react'
 import { MovesContext } from '~/context/Moves.context'
+import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
 import MovesFilter from './moves.filter/MovesFilter'
 import MoveTableRow from '~/components/moves/moveTableRow/MoveTableRow.component'
+import DesktopMovesTopBanner from '~/components/adSlot/DesktopMovesTopBanner'
 
 const MovesListContainer = () => {
-  const listRef = useRef<HTMLDivElement>(null)
   const { skillList, hasNextPage, loading, totalCount, loadMore } =
     useContext(MovesContext)
 
-  const observerCallback = (entries: Array<IntersectionObserverEntry>) => {
-    entries.forEach((entry) => {
-      const intersectionRatio = entry.intersectionRatio
-      if (intersectionRatio > 0 && hasNextPage) {
-        loadMore()
-      }
-    })
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: '0px 0px 380px 0px',
-      threshold: 0,
-    })
-
-    if (listRef.current) {
-      observer.observe(listRef.current)
-    }
-    return () => observer.disconnect()
-  }, [skillList])
+  const listRef = useInfiniteScroll({
+    hasNextPage,
+    loadMore,
+    rootMargin: '0px 0px 380px 0px',
+    dependencies: [skillList],
+  })
 
   return (
     <section className="w-full h-fit">
-      <header className="w-full min-h-28 pt-4 flex justify-between border-b border-solid border-primary-3 flex-wrap sticky top-30 z-10 bg-primary-1">
+      <DesktopMovesTopBanner />
+      <header className="w-full min-h-28 pt-3 flex justify-between border-b border-solid border-primary-3 flex-wrap sticky top-30 z-10 bg-primary-1">
         <h2 className="h-8 leading-[2rem] text-[1.5rem] font-[500] text-primary-4">
           기술 목록
         </h2>
@@ -61,7 +48,7 @@ const MovesListContainer = () => {
           <col width="4%" />
           <col width="7%" />
         </colgroup>
-        <thead className="visually-hidden">
+        <thead className="sr-only">
           <tr>
             <th>기술명</th>
             <th>설명</th>

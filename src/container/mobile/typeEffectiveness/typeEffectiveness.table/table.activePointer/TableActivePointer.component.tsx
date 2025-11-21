@@ -1,5 +1,4 @@
 import { MouseEvent } from 'react'
-import ResetIcon from '~/assets/icons/button-reset.svg'
 
 export type ActivePointerType = 'double' | 'half' | 'zero' | undefined
 
@@ -24,12 +23,14 @@ const TableActivePointerComponent = ({
   }
 
   return (
-    <div className="h-8 flex items-center gap-1 absolute right-0 text-white">
+    <div className="h-8 flex items-center gap-2 text-white">
       <button
         type="button"
         data-effective="double"
-        className={`h-4 text-sm leading-[calc(1rem+2px)] tracking-[-0.2px] flex items-baseline cursor-pointer ${
-          activeType === 'double' ? 'text-primary-4' : 'text-primary-3'
+        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
+          activeType === 'double'
+            ? 'text-primary-1 bg-primary-4'
+            : 'text-primary-1 bg-primary-3'
         }`}
         aria-pressed={activeType === 'double'}
         onClick={handleClickPointer}
@@ -39,8 +40,10 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="half"
-        className={`h-4 text-sm leading-[calc(1rem+2px)] tracking-[-0.2px] flex items-baseline cursor-pointer ${
-          activeType === 'half' ? 'text-primary-4' : 'text-primary-3'
+        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
+          activeType === 'half'
+            ? 'text-primary-1 bg-primary-4'
+            : 'text-primary-1 bg-primary-3'
         }`}
         aria-pressed={activeType === 'half'}
         onClick={handleClickPointer}
@@ -50,8 +53,10 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="zero"
-        className={`h-4 text-sm leading-[calc(1rem+2px)] tracking-[-0.2px] flex items-baseline cursor-pointer ${
-          activeType === 'zero' ? 'text-primary-4' : 'text-primary-3'
+        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
+          activeType === 'zero'
+            ? 'text-primary-1 bg-primary-4'
+            : 'text-primary-1 bg-primary-3'
         }`}
         aria-pressed={activeType === 'zero'}
         onClick={handleClickPointer}
@@ -60,16 +65,11 @@ const TableActivePointerComponent = ({
       </button>
       <button
         type="button"
-        className="w-3.5 h-3.5 cursor-pointer"
         aria-label="초기화"
+        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer text-primary-1 bg-primary-3`}
         onClick={handleClickResetEffective}
       >
-        <ResetIcon
-          width="0.875rem"
-          height="0.875rem"
-          alt="선택 배율 초기화"
-          className="fill-primary-3"
-        />
+        초기화
       </button>
     </div>
   )
