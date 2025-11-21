@@ -182,7 +182,7 @@ export const generatePokemonJsonLd = ({
     },
     image: imageSrc,
     mainEntity: {
-      '@type': 'CreativeWork',
+      '@type': 'Thing',
       name: `No. ${pokemonDetail.number} ${displayName}`,
       description: `${displayName} 도감 번호 ${pokemonDetail.number}번 ${typeList} 타입의 포켓몬 ${pokemonDetail.generation}세대에 첫 등장.`,
       identifier: pokemonDetail.number.toString(),

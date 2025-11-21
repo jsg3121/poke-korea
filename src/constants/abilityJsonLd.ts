@@ -37,7 +37,7 @@ export const getAbilityDetailJsonLd = (
 ) => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: `특성 정보 ${abilityName}`,
+  name: `포켓몬 ${abilityName} 특성 정보 - 포케 코리아`,
   description: `${abilityName} 특성을 가진 포켓몬 목록을 확인하세요.`,
   url: `https://poke-korea.com/ability/${abilityId}`,
   inLanguage: 'ko-KR',
