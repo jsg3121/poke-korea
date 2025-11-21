@@ -85,6 +85,23 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://wcs.naver.net" />
+
+            {/* 이미지 CDN - 최우선 */}
+            <link
+              rel="preconnect"
+              href="https://image-cdn.poke-korea.com"
+              crossOrigin=""
+            />
+            <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
+
+            {/* GraphQL API */}
+            <link
+              rel="preconnect"
+              href="https://api.poke-korea.com"
+              crossOrigin=""
+            />
+            <link rel="dns-prefetch" href="https://api.poke-korea.com" />
+
             {/* (선택) origin-hint를 확실하게 하기 위한 referrer-policy */}
             <meta name="referrer" content="strict-origin-when-cross-origin" />
           </>
@@ -119,8 +136,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 `,
               }}
             />
-            {/* Naver Analytics */}
-            <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
             <Script
               id="naver-analytics-init"
               strategy="lazyOnload"

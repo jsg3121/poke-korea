@@ -31,11 +31,12 @@ const ListContainer = () => {
       )}
       {pokemonList.length > 0 && (
         <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5">
-          {pokemonList.map((pokemon) => {
+          {pokemonList.map((pokemon, index) => {
             return (
               <PokemonCardComponent
                 key={`pokemon-id-${pokemon.id}`}
                 pokemonData={pokemon}
+                isHighPriority={index < 6}
               />
             )
           })}

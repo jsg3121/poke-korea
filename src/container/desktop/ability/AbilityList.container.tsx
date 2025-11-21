@@ -1,13 +1,14 @@
 'use client'
 
+import PageHeader from '~/components/PageHeader'
 import AbilityCardComponent from '~/components/ability/AbilityCard.component'
 import AbilityDescriptionComponent from '~/components/ability/AbilityDescription.component'
+import AbilitySearchComponent from '~/components/ability/AbilitySearch.component'
+import { Ability } from '~/graphql/typeGenerated'
 import { useAbilityList } from '~/hook/useAbilityList'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
-import { Ability } from '~/graphql/typeGenerated'
 import FooterContainer from '../footer/Footer.container'
-import PageHeader from '~/components/PageHeader'
-import AbilitySearchComponent from '~/components/ability/AbilitySearch.component'
+import DesktopAbilityListTopBanner from '~/components/adSlot/DesktopAbilityListTopBanner'
 
 interface AbilityListContainerProps {
   initialAbilities: Array<Ability>
@@ -36,6 +37,7 @@ const AbilityListContainer = ({
         title="특성 도감"
         description="포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요."
       />
+      <DesktopAbilityListTopBanner />
       <AbilityDescriptionComponent />
       <AbilitySearchComponent totalCount={totalCount} />
       {abilityList.length === 0 && (

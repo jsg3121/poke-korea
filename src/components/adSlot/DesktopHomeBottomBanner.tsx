@@ -1,20 +1,18 @@
 'use client'
 import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
-const DesktopListTopBanner = () => {
+const DesktopHomeBottomBanner = () => {
   const { slotRef } = useAdSlotEffect()
 
   return (
     <div ref={slotRef} className="w-full max-w-[1280px] h-fit mt-8 mx-auto">
       <ins
-        className="adsbygoogle block mx-auto text-center"
-        data-ad-format="fluid"
-        data-ad-layout-key="-f2+6i+53-cr+51"
+        className="adsbygoogle block w-[970px] h-[250px] mx-auto"
         data-ad-client="ca-pub-6481622724376761"
-        data-ad-slot="1219493182"
+        data-ad-slot="7641917377"
       ></ins>
     </div>
   )
 }
 
-export default DesktopListTopBanner
+export default DesktopHomeBottomBanner

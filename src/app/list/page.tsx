@@ -282,7 +282,7 @@ const ListPage = async ({ searchParams }: PageProps) => {
         '@type': 'Thing',
         name: `포켓몬 #${number}`,
         url: `https://poke-korea.com/detail/${number}`,
-        image: `https://image.poke-korea.com/image/pokemon/${number}.png`,
+        image: `https://image.poke-korea.com/origin/${number}.png`,
         description: `포켓몬 도감 번호 ${number}`,
       },
     })),

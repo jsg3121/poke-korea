@@ -27,6 +27,7 @@ const HomeBannerContainer = ({ dailyPokemon }: HomeBannerContainerProps) => {
             <PokemonCardComponent
               key={`pokemon-id-${pokemon.id}`}
               pokemonData={pokemon}
+              isHighPriority
             />
           )
         })}

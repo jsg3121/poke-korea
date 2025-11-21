@@ -64,7 +64,7 @@ export async function generateMetadata({
     }
   }
 
-  const title = `특성 정보 ${ability.name} - 포케 코리아`
+  const title = `포켓몬 ${ability.name} 특성 정보 - 포케 코리아`
   const description = `${ability.name}: ${ability.description} | 이 특성을 가진 포켓몬은 누구일까요?`
   return {
     title,

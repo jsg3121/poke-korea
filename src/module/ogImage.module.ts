@@ -1,4 +1,3 @@
-import sharp from 'sharp'
 import { PokemonType } from '~/graphql/typeGenerated'
 
 // 타입별 칩 색상 매핑 (TypesColor의 진한 색상 사용)
@@ -34,8 +33,7 @@ export const fetchAsBuffer = async (url: string) => {
     },
   })
   if (!res.ok) throw new Error(`fetch fail ${res.status}: ${url}`)
-  const convertArrayBuffer = await res.arrayBuffer()
-  return Buffer.from(convertArrayBuffer)
+  return res.arrayBuffer()
 }
 
 // 기본 OG 이미지를 fetch로 가져와서 반환하는 함수
@@ -59,12 +57,9 @@ export const bufferToArrayBuffer = (
 
 export const convertPng = async (pokemonId: string) => {
   const cdnBase = 'https://image.poke-korea.com'
-  const pokemonImgUrl = `${cdnBase}/image/${pokemonId}.webp`
+  const pokemonImgUrl = `${cdnBase}/origin/${pokemonId}.png`
   // 1) WebP 불러오고
   const webpSrc = await fetchAsBuffer(pokemonImgUrl)
-  // 2) PNG로 변환
-  const pngSrc = await sharp(webpSrc).png({ quality: 100 }).toBuffer()
-  const pngArrayBuffer = bufferToArrayBuffer(pngSrc)
 
-  return pngArrayBuffer
+  return webpSrc
 }

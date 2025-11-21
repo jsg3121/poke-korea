@@ -15,9 +15,13 @@ import {
 
 interface PokemonCardComponentProps {
   pokemonData: PokemonCardFragment
+  isHighPriority?: boolean
 }
 
-const PokemonCardComponent = ({ pokemonData }: PokemonCardComponentProps) => {
+const PokemonCardComponent = ({
+  pokemonData,
+  isHighPriority = false,
+}: PokemonCardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   // 커스텀 Lazy Loading Hook (200px 이내 영역에서 이미지 로드)
@@ -58,12 +62,8 @@ const PokemonCardComponent = ({ pokemonData }: PokemonCardComponentProps) => {
             </h3>
           </div>
         </header>
-        <div
-          ref={imgRef}
-          className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative pr-2"
-          aria-description="포켓몬 이미지"
-        >
-          {isVisible ? (
+        {isHighPriority ? (
+          <div className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative pr-2">
             <ImageComponent
               height="10rem"
               width="10rem"
@@ -74,18 +74,38 @@ const PokemonCardComponent = ({ pokemonData }: PokemonCardComponentProps) => {
                 height: 140,
                 width: 140,
               }}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              style={{
-                opacity: isLoaded ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out',
-              }}
             />
-          ) : (
-            // Placeholder: 이미지 로딩 전 스켈레톤 (모바일용)
-            <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
-          )}
-        </div>
+          </div>
+        ) : (
+          <div
+            ref={imgRef}
+            className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative pr-2"
+            aria-description="포켓몬 이미지"
+          >
+            {isVisible ? (
+              <ImageComponent
+                height="10rem"
+                width="10rem"
+                alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
+                src={`${imageMode}/${pokemonData.number}.webp?w=180&h=180`}
+                fetchPriority="high"
+                imageSize={{
+                  height: 140,
+                  width: 140,
+                }}
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                style={{
+                  opacity: isLoaded ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out',
+                }}
+              />
+            ) : (
+              // Placeholder: 이미지 로딩 전 스켈레톤 (모바일용)
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+            )}
+          </div>
+        )}
         <div
           className="w-full max-w-[18rem] flex items-center gap-[0.4rem] px-2 mx-auto justify-start"
           aria-description="포켓몬 타입 정보"

@@ -14,9 +14,13 @@ import { useLazyImage } from '~/hook/useLazyImage'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
+  isHighPriority?: boolean
 }
 
-const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
+const PokemonCardComponent = ({
+  pokemonData,
+  isHighPriority = false,
+}: CardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
   const backgroundColor = getBackgroundColor(pokemonData.types)
 
@@ -54,12 +58,8 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
             </h3>
           </div>
         </header>
-        <div
-          ref={imgRef}
-          className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
-          aria-description="포켓몬 이미지"
-        >
-          {isVisible ? (
+        {isHighPriority ? (
+          <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
             <ImageComponent
               height="10rem"
               width="10rem"
@@ -67,18 +67,36 @@ const PokemonCardComponent = ({ pokemonData }: CardComponentProps) => {
               src={`${imageMode}/${pokemonData.number}.webp?w=240&h=240`}
               sizes="10rem"
               fetchPriority="high"
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              style={{
-                opacity: isLoaded ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out',
-              }}
             />
-          ) : (
-            // Placeholder: 이미지 로딩 전 스켈레톤
-            <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
-          )}
-        </div>
+          </div>
+        ) : (
+          <div
+            ref={imgRef}
+            className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
+            aria-description="포켓몬 이미지"
+          >
+            {isVisible ? (
+              <ImageComponent
+                height="10rem"
+                width="10rem"
+                alt={`pokemon_id_${pokemonData.number}`}
+                src={`${imageMode}/${pokemonData.number}.webp?w=240&h=240`}
+                sizes="10rem"
+                fetchPriority="high"
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                style={{
+                  opacity: isLoaded ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out',
+                }}
+              />
+            ) : (
+              // Placeholder: 이미지 로딩 전 스켈레톤
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+            )}
+          </div>
+        )}
+
         <div
           className="flex items-center gap-[0.38888889rem] px-[0.55555556rem]"
           aria-description="포켓몬 타입 정보"

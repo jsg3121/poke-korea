@@ -8,7 +8,7 @@ interface HomeBannerContainerProps {
 const HomeBannerContainer = ({ dailyPokemon }: HomeBannerContainerProps) => {
   return (
     <section
-      className="max-w-[1280px] w-full mx-auto mb-20"
+      className="max-w-[1280px] w-full mx-auto mb-10 mt-8"
       aria-labelledby="daily-pokemon-heading"
     >
       <h2
@@ -27,6 +27,7 @@ const HomeBannerContainer = ({ dailyPokemon }: HomeBannerContainerProps) => {
             <PokemonCardComponent
               key={`pokemon-id-${pokemon.id}`}
               pokemonData={pokemon}
+              isHighPriority
             />
           )
         })}
