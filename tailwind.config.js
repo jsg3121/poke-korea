@@ -49,7 +49,7 @@ module.exports = {
       screens: {
         mobile: { max: '768px' },
         desktop: { min: '769px' },
-        'desktop-890': { max: '890px' },
+        'desktop-970': { max: '970px' },
         'desktop-639': { max: '639px' },
       },
       keyframes: {

@@ -169,13 +169,7 @@
   html,
   body {
     font-size: 16px;
-  }
-}
-
-@media screen and (min-width: 680px) {
-  html,
-  body {
-    min-width: 845px;
+    min-width: 960px;
   }
 }
 
@@ -183,6 +177,7 @@
   html,
   body {
     font-size: 14px;
+    min-width: 845px;
   }
 }
 
