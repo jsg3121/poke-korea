@@ -1,6 +1,6 @@
-import { Ability } from '~/graphql/typeGenerated'
 import AbilityListContainer from '~/container/desktop/ability/AbilityList.container'
 import HeaderContainer from '~/container/desktop/header/Header.container'
+import { Ability } from '~/graphql/typeGenerated'
 
 interface AbilityListDesktopProps {
   initialAbilities: Array<Ability>
