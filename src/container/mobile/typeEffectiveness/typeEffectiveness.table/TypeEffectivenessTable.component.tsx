@@ -26,18 +26,20 @@ const TypeEffectivenessTableComponent = () => {
         className="w-full h-full bg-primary-4 border-hidden table-fixed"
         aria-labelledby="pokemon-type-effectiveness-table"
       >
-        <caption className="w-full h-8 relative">
-          <h2
-            id="pokemon-type-effectiveness-table"
-            className="h-6 text-[1.375rem] font-semibold leading-[calc(1.5rem+2px)] text-primary-4 absolute left-0"
-          >
-            타입별 상성 표
-          </h2>
-          <TableActivePointerComponent
-            activeType={activeType}
-            onClickPointer={handleClickActiveEffective}
-            onClickResetEffective={handleClickResetActiveEffective}
-          />
+        <caption className="w-full h-20">
+          <div className="w-full h-20 flex flex-col gap-2 items-start">
+            <h2
+              id="pokemon-type-effectiveness-table"
+              className="h-6 text-[1.375rem] font-semibold leading-[calc(1.5rem+2px)] text-primary-4"
+            >
+              타입별 상성 표
+            </h2>
+            <TableActivePointerComponent
+              activeType={activeType}
+              onClickPointer={handleClickActiveEffective}
+              onClickResetEffective={handleClickResetActiveEffective}
+            />
+          </div>
         </caption>
         <colgroup>
           <col width="5%" />
