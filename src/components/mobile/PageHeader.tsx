@@ -5,7 +5,7 @@ interface PageHeaderProps {
 
 const PageHeader = ({ description, title }: PageHeaderProps) => {
   return (
-    <header className="w-full h-32 text-center border-b border-solid border-primary-4 pt-4 mb-6 pb-2">
+    <header className="w-[calc(100%-2.5rem)] h-32 text-center border-b border-solid border-primary-4 pt-4 mb-6 pb-2 mx-auto">
       <h1 className="h-16 text-[2rem] text-center leading-[4rem] text-primary-4 font-bold">
         {title}
       </h1>
