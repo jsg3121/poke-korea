@@ -173,6 +173,13 @@ export const generatePokemonJsonLd = ({
         },
       ],
     },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      '@id': `https://image.poke-korea.com/detail/${pokemonDetail.number}/opengraph-image#imgaeObject`,
+      url: `https://image.poke-korea.com/detail/${pokemonDetail.number}/opengraph-image`,
+      width: 1200,
+      height: 630,
+    },
     image: imageSrc,
     mainEntity: {
       '@type': 'CreativeWork',
