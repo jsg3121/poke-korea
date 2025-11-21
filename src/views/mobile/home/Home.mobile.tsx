@@ -1,3 +1,4 @@
+import MobileHomeTopBanner from '~/components/adSlot/MobileHomeTopBanner'
 import MobileTabBar from '~/components/MobileTabBar'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
@@ -15,6 +16,7 @@ const HomeMobile = ({ dailyPokemon, dailyQuiz }: HomeMobileProps) => {
       <h1 className="sr-only">포켓몬의 모든 정보 Poke Korea</h1>
       <HeaderContainer />
       <HomeBannerContainer dailyPokemon={dailyPokemon} />
+      <MobileHomeTopBanner />
       <HomeQuizContaier dailyQuiz={dailyQuiz} />
       <FooterContainer />
       <MobileTabBar />
