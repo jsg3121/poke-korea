@@ -8,7 +8,7 @@ const AbilityDetailComponent = ({
   abilityData,
 }: AbilityDetailComponentProps) => {
   return (
-    <section className="w-full min-h-32 pb-4 relative">
+    <section className="w-[calc(100%-2.5rem)] mx-auto min-h-32 pb-4 relative">
       <h1 className="text-[2.5rem] text-primary-4 font-bold mb-4">
         {abilityData.name}
       </h1>
