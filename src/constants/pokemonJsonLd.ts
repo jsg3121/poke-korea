@@ -259,11 +259,6 @@ export const generatePokemonJsonLd = ({
           description: ability.description,
         })) ?? []),
       ],
-      genre: 'RPG',
-      publisher: {
-        '@type': 'Organization',
-        name: '포켓몬스터 시리즈',
-      },
     },
   }
 }
