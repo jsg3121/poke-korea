@@ -8,15 +8,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'image.poke-korea.com',
-        pathname: '/image/**',
-      },
-    ],
-  },
   allowedDevOrigins: ['local.poke-korea.com'],
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
