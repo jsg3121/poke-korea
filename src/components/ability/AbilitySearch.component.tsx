@@ -32,7 +32,7 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
   }
 
   return (
-    <div className="w-[calc(100%-2.5rem)] mx-auto h-24 flex flex-col py-3 gap-2 sticky mb-6 top-16 md:top-40 bg-primary-1 z-10 shadow-[0px_10px_7px_-6px_#27374d] ">
+    <div className="w-[calc(100%-2.5rem)] md:w-full mx-auto h-24 flex flex-col py-3 gap-2 sticky mb-6 top-16 md:top-40 bg-primary-1 z-10 shadow-[0px_10px_7px_-6px_#27374d] ">
       <div className="flex items-center gap-3">
         <div className="w-full relative">
           <input
