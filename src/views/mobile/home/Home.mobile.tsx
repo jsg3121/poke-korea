@@ -1,3 +1,4 @@
+import MobileHomeBottomBanner from '~/components/adSlot/MobileHomeBottomBanner'
 import MobileHomeTopBanner from '~/components/adSlot/MobileHomeTopBanner'
 import MobileTabBar from '~/components/MobileTabBar'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -18,6 +19,7 @@ const HomeMobile = ({ dailyPokemon, dailyQuiz }: HomeMobileProps) => {
       <HomeBannerContainer dailyPokemon={dailyPokemon} />
       <MobileHomeTopBanner />
       <HomeQuizContaier dailyQuiz={dailyQuiz} />
+      <MobileHomeBottomBanner />
       <FooterContainer />
       <MobileTabBar />
     </main>
