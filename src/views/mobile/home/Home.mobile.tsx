@@ -12,6 +12,7 @@ interface HomeMobileProps {
 const HomeMobile = ({ dailyPokemon, dailyQuiz }: HomeMobileProps) => {
   return (
     <main className="w-full min-h-screen">
+      <h1 className="sr-only">포켓몬의 모든 정보 Poke Korea</h1>
       <HeaderContainer />
       <HomeBannerContainer dailyPokemon={dailyPokemon} />
       <HomeQuizContaier dailyQuiz={dailyQuiz} />

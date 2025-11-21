@@ -15,6 +15,7 @@ interface HomeDesktopProps {
 const HomeDesktop = ({ dailyPokemon, dailyQuiz }: HomeDesktopProps) => {
   return (
     <main className="w-full max-w-[1280px] min-h-screen mx-auto pt-56">
+      <h1 className="sr-only">포켓몬의 모든 정보 Poke Korea</h1>
       <HeaderContainer />
       <HomeBannerContainer dailyPokemon={dailyPokemon} />
       <HomeQuizContaier dailyQuiz={dailyQuiz} />

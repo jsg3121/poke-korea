@@ -262,6 +262,7 @@ const ListPage = async ({ searchParams }: PageProps) => {
         '@type': 'ListItem',
         position: 2,
         name: '포켓몬 도감',
+        item: 'https://poke-korea.com/list',
       },
     ],
   }
