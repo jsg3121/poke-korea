@@ -12,10 +12,7 @@ const TypeEffectivenessDesktop = () => {
         aria-labelledby="pokemon-type-effectiveness-calculator"
         className="w-full max-w-[1280px] h-full px-5 mx-auto relative mt-6"
       >
-        <h1
-          id="pokemon-type-effectiveness-calculator"
-          className="visually-hidden"
-        >
+        <h1 id="pokemon-type-effectiveness-calculator" className="sr-only">
           타입 상성 계산기
         </h1>
         <TypeEffectivenessContainer />

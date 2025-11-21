@@ -1,9 +1,9 @@
 'use client'
 import { useContext } from 'react'
+import PokemonCardComponent from '~/components/pokemonCard/mobile/PokemonCard.component'
 import { ListContext } from '~/context/List.context'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
-import CardComponent from './components/Card.component'
 
 const ListContainer = () => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
@@ -30,10 +30,10 @@ const ListContainer = () => {
         </div>
       )}
       {pokemonList.length > 0 && (
-        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5 [&_.virtuoso-grid-item]:w-full">
+        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5">
           {pokemonList.map((pokemon) => {
             return (
-              <CardComponent
+              <PokemonCardComponent
                 key={`pokemon-id-${pokemon.id}`}
                 pokemonData={pokemon}
               />

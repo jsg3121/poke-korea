@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { useMemo } from 'react'
 import BallComponent from '~/components/Ball.component'
@@ -7,15 +9,15 @@ import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
 import {
-  pokemonNumberFormat,
   getBackgroundColor,
+  pokemonNumberFormat,
 } from '~/module/pokemonCard.module'
 
-interface CardComponentProps {
+interface PokemonCardComponentProps {
   pokemonData: PokemonCardFragment
 }
 
-const CardComponent = ({ pokemonData }: CardComponentProps) => {
+const PokemonCardComponent = ({ pokemonData }: PokemonCardComponentProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
 
   // 커스텀 Lazy Loading Hook (200px 이내 영역에서 이미지 로드)
@@ -132,4 +134,4 @@ const CardComponent = ({ pokemonData }: CardComponentProps) => {
   )
 }
 
-export default CardComponent
+export default PokemonCardComponent

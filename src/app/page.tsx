@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
+import { headers } from 'next/headers'
 import { permanentRedirect } from 'next/navigation'
+import { Fragment } from 'react'
 import {
   GetDailyQuizPreviewDocument,
   GetDailyRandomPokemonDocument,
@@ -11,35 +13,29 @@ import {
   GetDailyRandomPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
-import HomeView from '~/views/Home.view'
+import { detectUserAgent } from '~/module/device.module'
+import HomeDesktop from '~/views/desktop/home/Home.desktop'
+import HomeMobile from '~/views/mobile/home/Home.mobile'
 
 export const revalidate = 3600 // 1시간
 
 export const metadata: Metadata = {
-  title: '포케 코리아 - 한국어 포켓몬 도감',
+  title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
   description:
-    '1025마리 포켓몬 도감, 타입 상성 계산기, 800개 이상 기술 정보, 300개 이상 특성 정보, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
-  authors: [{ name: '포케 코리아' }],
-  creator: '포케 코리아',
-  publisher: '포케 코리아',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+    '1025마리 포켓몬 도감, 타입 상성 계산기, 800개 이상 기술 정보, 300개 이상 특성 정보, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
   openGraph: {
     type: 'website',
     url: 'https://poke-korea.com/',
-    title: '포케 코리아 - 한국어 포켓몬 도감',
+    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
     locale: 'ko_KR',
     description:
-      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
     images: [
       {
         url: 'https://poke-korea.com/assets/image/ogImage.png',
         width: 1200,
         height: 630,
-        alt: '포케 코리아 - 한국어 포켓몬 도감',
+        alt: '빠르고 정확한 포켓몬 도감 - 포케코리아',
         type: 'image/png',
       },
     ],
@@ -50,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '포케 코리아 - 한국어 포켓몬 도감',
+    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
     description:
-      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 한국어로 만나는 가장 완벽한 포켓몬 백과사전.',
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
     images: ['https://poke-korea.com/assets/image/ogImage.png'],
   },
   robots: {
@@ -61,9 +57,7 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
       'max-image-preview': 'large',
-      'max-snippet': -1,
     },
   },
 }
@@ -83,6 +77,11 @@ type PageProps = {
 }
 
 const HomePage = async ({ searchParams }: PageProps) => {
+  const headersList = await headers()
+  const userAgent = headersList.get('user-agent') || ''
+  const isMobile = detectUserAgent(userAgent)
+  const apolloClient = initializeApollo()
+
   const params = await searchParams
   const hasFilters = Object.keys(params).length > 0
 
@@ -94,8 +93,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     const queryString = new URLSearchParams(params).toString()
     permanentRedirect(`/list?${queryString}`)
   }
-
-  const apolloClient = initializeApollo()
 
   // 매일 변경되는 랜덤 포켓몬 10마리 가져오기
   const { data: pokemonData } = await apolloClient.query<
@@ -118,7 +115,39 @@ const HomePage = async ({ searchParams }: PageProps) => {
   const dailyPokemon = pokemonData?.getDailyRandomPokemon?.pokemons || []
   const dailyQuiz = quizData?.getDailyQuizPreview
 
-  return <HomeView dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
+  // JSON-LD 구조화된 데이터
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: '포케 코리아',
+    alternateName: '포케코리아',
+    url: 'https://poke-korea.com',
+    description:
+      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://poke-korea.com/list?name={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+    inLanguage: 'ko-KR',
+  }
+
+  return (
+    <Fragment>
+      {isMobile ? (
+        <HomeMobile dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
+      ) : (
+        <HomeDesktop dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
+      )}
+      <script
+        id="ability-webpage-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+    </Fragment>
+  )
 }
 
 export default HomePage

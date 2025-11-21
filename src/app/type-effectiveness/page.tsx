@@ -8,8 +8,8 @@ import {
 } from '~/constants/typeEffectivenessJsonLd'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
-import TypeEffectivenessDesktop from '~/views/desktop/TypeEffectiveness.desktop'
-import TypeEffectivenessMobile from '~/views/mobile/TypeEffectiveness.mobile'
+import TypeEffectivenessDesktop from '~/views/desktop/typeEffectiveness/TypeEffectiveness.desktop'
+import TypeEffectivenessMobile from '~/views/mobile/typeEffectiveness/TypeEffectiveness.mobile'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 

@@ -162,12 +162,6 @@
   figure {
     @apply w-full h-full relative;
   }
-
-  /* 접근성 - 시각적으로 숨김 */
-  .visually-hidden {
-    @apply absolute w-px h-px p-0 -m-px overflow-hidden border-0;
-    clip: rect(0, 0, 0, 0);
-  }
 }
 
 /* 반응형 폰트 크기 */

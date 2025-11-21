@@ -15,7 +15,7 @@ interface UseAbilityListProps {
 
 export const useAbilityList = ({
   initialAbilities = [],
-  pageSize = 20,
+  pageSize = 15,
 }: UseAbilityListProps = {}) => {
   const searchParams = useSearchParams()
   const searchKeyword = searchParams.get('search')

@@ -524,3 +524,14 @@ query GetPokemonByAbility($input: PokemonByAbilityInput!) {
     totalCount
   }
 }
+
+query SearchPokemonWithAllForms($input: SearchPokemonWithAllFormsInput!) {
+  searchPokemonWithAllForms(input: $input) {
+    id
+    name
+    number
+    index
+    formType
+    imagePath
+  }
+}

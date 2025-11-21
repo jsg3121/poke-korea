@@ -100,7 +100,7 @@ const PokemonImageCompoment = () => {
       role="region"
       aria-roledescription="carousel"
     >
-      <p className="visually-hidden" id="pokemon-image-slide">
+      <p className="sr-only" id="pokemon-image-slide">
         포켓몬 이미지 정보
       </p>
       {imageList && (
