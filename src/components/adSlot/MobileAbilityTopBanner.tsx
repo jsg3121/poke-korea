@@ -9,7 +9,7 @@ const MobileAbilityTopBanner = () => {
       <ins
         className="adsbygoogle w-[320px] h-[100px] block mx-auto"
         data-ad-client="ca-pub-648162272437676"
-        data-ad-slot="1972830328"
+        data-ad-slot="5477227960"
       ></ins>
     </div>
   )
