@@ -137,7 +137,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               }}
             />
             {/* Naver Analytics */}
-            <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js">
+            <Script type="text/javascript" src="//wcs.pstatic.net/wcslog.js">
             <Script
               id="naver-analytics-init"
               strategy="lazyOnload"
