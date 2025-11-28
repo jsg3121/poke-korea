@@ -13,6 +13,7 @@ import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { getDamageTypeEnglish } from '~/utils/skill.util'
 import MovesDesktop from '~/views/desktop/moves/Moves.desktop'
 import MovesMobile from '~/views/mobile/moves/Moves.mobile'
 
@@ -93,7 +94,7 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const { damageTypeFilter, typeFilter } = await searchParams
 
   const movesFilter: PokemonSkillFilterInput = {
-    damageType: damageTypeFilter,
+    damageType: getDamageTypeEnglish(damageTypeFilter),
     type: typeFilter,
   }
 

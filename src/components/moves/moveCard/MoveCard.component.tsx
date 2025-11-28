@@ -1,5 +1,6 @@
 import TagComponent from '~/components/Tag.component'
 import { PokemonSkill } from '~/graphql/typeGenerated'
+import { getDamageTypeKorean } from '~/utils/skill.util'
 
 interface MoveCardProps {
   moveData: PokemonSkill
@@ -18,32 +19,32 @@ const MoveCard = ({ moveData, moveLevel }: MoveCardProps) => {
           </span>
         )}
         <strong className="w-full h-[2rem] text-center block text-[1.2rem] leading-[2rem] font-[600]">
-          {moveData.name}
+          {moveData.nameKo}
         </strong>
         <span
           className={`text-center w-14 h-[1.75rem] shrink-0 leading-8 rounded-[0.5rem] absolute top-2 right-2
           ${
-            moveData.damageType === '물리'
+            getDamageTypeKorean(moveData.damageType) === '물리'
               ? 'bg-[#fd8181]'
-              : moveData.damageType === '특수'
+              : getDamageTypeKorean(moveData.damageType) === '특수'
                 ? 'bg-[#9b9bfa]'
                 : 'bg-[#72d372]'
           }`}
         >
-          {moveData.damageType}
+          {getDamageTypeKorean(moveData.damageType)}
         </span>
       </header>
       <dl className="w-full flex flex-wrap items-center [&>dt]:h-[2rem] [&>dd]:font-[700] [&>dt]:leading-[2rem] [&>dd]:h-[2rem] [&>dd]:leading-[2rem] ">
         <dt className="text-left w-[12%]">타입&nbsp;:</dt>
         <dd className="text-center w-[18%] flex items-center">
-          <TagComponent type={moveData.type} />
+          {moveData.type && <TagComponent type={moveData.type} />}
         </dd>
         <dt className="text-center w-[13%]">위력&nbsp;:&nbsp;</dt>
         <dd className="text-left w-[9%]">{moveData.power || '-'}</dd>
         <dt className="text-center w-[17%]">명중률&nbsp;:&nbsp;</dt>
         <dd className="text-left w-[9%]">{moveData.accuracy || '-'}</dd>
         <dt className="text-center w-[13%]">PP&nbsp;:&nbsp;</dt>
-        <dd className="text-left w-[9%]">{moveData.pp}</dd>
+        <dd className="text-left w-[9%]">{moveData.pp || '-'}</dd>
         <dt className="w-full text-center sr-only mt-1">설명</dt>
         <dd className="w-full !h-auto text-left !border-none mt-1 !font-normal">
           {moveData.description}
