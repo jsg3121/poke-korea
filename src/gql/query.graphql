@@ -548,3 +548,61 @@ query SearchPokemonWithAllForms($input: SearchPokemonWithAllFormsInput!) {
     imagePath
   }
 }
+
+query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
+  getPokemonSkillDetail(filter: $filter) {
+    id
+    identifier
+    nameKo
+    type
+    power
+    accuracy
+    pp
+    description
+    firstGenerationId
+    signatureMoves
+    damageType
+    zMoves
+    generations {
+      id
+      skillId
+      generationId
+      type
+      power
+      accuracy
+      pp
+      description
+      damageType
+      language
+    }
+  }
+}
+
+query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
+  getPokemonsBySkill(input: $input) {
+    skillId
+    skillName
+    edges {
+      cursor
+      node {
+        id
+        pokemonId
+        name
+        number
+        level
+        method
+        versionGroupId
+        formType
+        formCode
+        formName
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
