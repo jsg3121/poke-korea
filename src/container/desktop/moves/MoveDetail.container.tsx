@@ -4,10 +4,15 @@ import { Fragment, useState } from 'react'
 import MoveDetailComponent from '~/components/moves/MoveDetail.component'
 import MoveGenerationInfo from '~/components/moves/MoveGenerationInfo.component'
 import PokemonBySkillCard from '~/components/moves/PokemonBySkillCard.component'
-import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
+import {
+  LearnMethod,
+  PokemonLearnInfo,
+  PokemonSkillDetail,
+} from '~/graphql/typeGenerated'
 import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
+import { AVAILABLE_LEARN_METHODS } from '~/utils/skill.util'
 
 interface MoveDetailContainerProps {
   skillId: number
@@ -27,9 +32,22 @@ const MoveDetailContainer = ({
       ?.generationId || 9,
   )
 
-  const { pokemonList, loadMore, hasNextPage, loading } = usePokemonsBySkill({
+  const [selectedMethod, setSelectedMethod] = useState<string>('ALL')
+
+  // 필터에 따라 method 설정
+  const methodFilter: LearnMethod | undefined =
+    selectedMethod === 'ALL' ? undefined : (selectedMethod as LearnMethod)
+
+  const {
+    pokemonList,
+    loadMore,
+    hasNextPage,
+    loading,
+    totalCount: filteredTotalCount,
+  } = usePokemonsBySkill({
     skillId,
-    initialPokemonList,
+    method: methodFilter,
+    initialPokemonList: selectedMethod === 'ALL' ? initialPokemonList : [],
   })
 
   const listRef = useInfiniteScroll({
@@ -80,9 +98,26 @@ const MoveDetailContainer = ({
 
       {/* 이 기술을 배울 수 있는 포켓몬 */}
       <div className="mt-12">
-        <h2 className="text-2xl font-bold text-primary-1 mb-2">
+        <h2 className="text-2xl font-bold text-primary-1 mb-4">
           🎯 이 기술을 배울 수 있는 포켓몬
         </h2>
+
+        {/* 습득 방법 필터 */}
+        <div className="flex gap-2 mb-6">
+          {AVAILABLE_LEARN_METHODS.map((method) => (
+            <button
+              key={method.value}
+              onClick={() => setSelectedMethod(method.value)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                selectedMethod === method.value
+                  ? 'bg-primary-1 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {method.label}
+            </button>
+          ))}
+        </div>
 
         {pokemonList.length === 0 && !loading && (
           <div className="w-full h-[20rem]">
@@ -95,7 +130,9 @@ const MoveDetailContainer = ({
         {pokemonList.length > 0 && (
           <Fragment>
             <p className="text-[1rem] text-primary-3 mb-8">
-              <span className="text-[1.25rem] font-bold">{totalCount}마리</span>
+              <span className="text-[1.25rem] font-bold">
+                {filteredTotalCount || totalCount}마리
+              </span>
               의 포켓몬이 이 기술을 배울 수 있어요
             </p>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] gap-x-4 gap-y-6 justify-items-center justify-between">
