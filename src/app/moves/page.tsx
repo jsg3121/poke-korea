@@ -21,6 +21,7 @@ interface MovesPageProps {
   searchParams: Promise<{
     typeFilter: PokemonType
     damageTypeFilter: string
+    search: string
   }>
 }
 
@@ -91,11 +92,12 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-  const { damageTypeFilter, typeFilter } = await searchParams
+  const { damageTypeFilter, typeFilter, search } = await searchParams
 
   const movesFilter: PokemonSkillFilterInput = {
     damageType: getDamageTypeEnglish(damageTypeFilter),
     type: typeFilter,
+    name: search,
   }
 
   const { data } = await client.query({

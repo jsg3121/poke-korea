@@ -1,3 +1,6 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
 import { PokemonSkill } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { getDamageTypeKorean } from '~/utils/skill.util'
@@ -8,8 +11,18 @@ interface MoveTableRowProps {
 }
 
 const MoveTableRow = ({ moveData, moveLevel }: MoveTableRowProps) => {
+  const router = useRouter()
+  const skillId = moveData.id
+
+  const handleClick = () => {
+    router.push(`/moves/${skillId}`)
+  }
+
   return (
-    <tr className={`min-h-14 border-b border-solid border-primary-3`}>
+    <tr
+      onClick={handleClick}
+      className={`min-h-14 border-b border-solid border-primary-3 hover:bg-gray-100 cursor-pointer transition-colors`}
+    >
       {moveLevel ? <td className="text-center">{moveLevel}</td> : <></>}
       <td
         className={`text-center leading-[3.5rem] font-[600] ${moveData.nameKo.replace(/[\\(,\\)]/g, '').length > 9 && 'text-[0.8rem]'}`}

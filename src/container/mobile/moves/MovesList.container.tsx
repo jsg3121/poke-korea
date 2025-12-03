@@ -4,6 +4,7 @@ import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
 import MovesFilter from './moves.filter/MovesFilter'
 import MoveCard from '~/components/moves/moveCard/MoveCard.component'
+import MoveSearchComponent from '~/components/moves/MoveSearch.component'
 
 const MovesListContainer = () => {
   const { skillList, hasNextPage, loading, totalCount, loadMore } =
@@ -18,6 +19,7 @@ const MovesListContainer = () => {
 
   return (
     <section className="w-full h-fit">
+      <MoveSearchComponent totalCount={totalCount} />
       <header className="w-full min-h-8 pt-4 border-b border-solid border-primary-3 flex-wrap sticky top-16 z-10 bg-primary-1 mb-2">
         <h2 className="h-6 leading-[1.5rem] text-[1.25rem] font-[500] text-primary-4 sr-only">
           기술 목록
