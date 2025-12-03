@@ -1,5 +1,5 @@
 import { PokemonSkillGeneration } from '~/graphql/typeGenerated'
-import { getTypeKorean } from '~/utils/pokemon.util'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 
 interface MoveGenerationInfoProps {
@@ -18,7 +18,7 @@ const MoveGenerationInfo = ({ generationData }: MoveGenerationInfoProps) => {
           <div>
             <span className="text-sm text-gray-600">타입</span>
             <p className="text-base font-semibold text-primary-4">
-              {getTypeKorean(generationData.type)}
+              {PokemonTypes[generationData.type]}
             </p>
           </div>
         )}

@@ -1,5 +1,5 @@
 import { PokemonSkillDetail } from '~/graphql/typeGenerated'
-import { getTypeKorean } from '~/utils/pokemon.util'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 
 interface MoveDetailComponentProps {
@@ -19,7 +19,7 @@ const MoveDetailComponent = ({ skillData }: MoveDetailComponentProps) => {
           <div className="flex items-center gap-2">
             <span className="font-semibold text-primary-3">타입:</span>
             <span className="px-3 py-1 rounded-full bg-primary-1 text-white">
-              {getTypeKorean(skillData.type)}
+              {PokemonTypes[skillData.type]}
             </span>
           </div>
         )}
