@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
+import { getMoveDetailJsonLd } from '~/constants/movesJsonLd'
 import {
   GetPokemonSkillDetailDocument,
   GetPokemonsBySkillDocument,
@@ -156,8 +157,7 @@ const MoveDetailPage = async ({ params }: PageProps) => {
       return edge.node
     }) || []
 
-  // TODO: JSON-LD 추가 예정
-  // const jsonLd = getMoveDetailJsonLd(skillId, skill.nameKo)
+  const jsonLd = getMoveDetailJsonLd(skillId, skill.nameKo)
 
   return (
     <Fragment>
@@ -176,14 +176,13 @@ const MoveDetailPage = async ({ params }: PageProps) => {
           totalCount={pokemonData?.getPokemonsBySkill?.totalCount ?? 0}
         />
       )}
-      {/* TODO: JSON-LD 추가 예정 */}
-      {/* <script
+      <script
         id="move-detail-webpage-jsonLd"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd),
         }}
-      /> */}
+      />
     </Fragment>
   )
 }
