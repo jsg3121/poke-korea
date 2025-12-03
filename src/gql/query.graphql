@@ -591,7 +591,7 @@ query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
         number
         level
         method
-        versionGroupId
+        generationId
         formType
         formCode
         formName
