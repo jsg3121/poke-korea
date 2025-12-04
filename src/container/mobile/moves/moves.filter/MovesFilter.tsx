@@ -46,37 +46,42 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
   }
 
   return (
-    <div className="w-full min-h-3 flex justify-between flex-wrap items-baseline relative px-2">
-      <p className="w-fit text-[1rem] h-6 text-primary-4 leading-6 font-thin">
-        총 <b className="font-[600]">{totalCount}</b>개의 기술을 볼 수 있어요!
-      </p>
-      <div className="flex items-baseline gap-4">
-        <button
-          className={`flex gap-1 items-center text-primary-4 text-[0.8rem] ${!isActiveFilter && 'disabled:grayscale disabled:opacity-50'}`}
-          disabled={!isActiveFilter}
-          onClick={handleClickResetFilter}
-        >
-          필터 초기화
-        </button>
-        <button
-          aria-pressed={isFilterOpen}
-          className="flex gap-1 items-center text-primary-4"
-          onClick={handleClickToggleFilter}
-        >
-          필터 조건 {isFilterOpen ? '닫기' : '열기'}
-        </button>
+    <div className="w-full min-h-3 flex flex-col gap-3 relative px-2">
+      <div className="flex justify-between items-center">
+        <p className="w-fit text-[1rem] h-6 text-primary-4 leading-6 font-thin">
+          총 <b className="font-[600]">{totalCount}</b>개의 기술을 볼 수 있어요!
+        </p>
+        <div className="flex items-baseline gap-3">
+          <button
+            className={`flex gap-1 items-center text-primary-4 text-[0.75rem] ${!isActiveFilter && 'disabled:grayscale disabled:opacity-50'}`}
+            disabled={!isActiveFilter}
+            onClick={handleClickResetFilter}
+          >
+            초기화
+          </button>
+          <button
+            aria-pressed={isFilterOpen}
+            className="flex gap-1 items-center text-primary-4 text-[0.875rem]"
+            onClick={handleClickToggleFilter}
+          >
+            필터 {isFilterOpen ? '닫기' : '열기'}
+          </button>
+        </div>
       </div>
+
       <ul
-        className={`w-full absolute top-[1.5rem] left-0 border-t border-solid border-primary-4 px-2 bg-primary-1 flex gap-2 flex-col justify-center transition-[height] ${!isFilterOpen ? 'h-0' : 'h-[15.5rem]'} overflow-hidden [&>li]:min-h-8 [&>li>p]:w-24 [&>li>p]:text-primary-4 [&>li>p]:shrink-0`}
+        className={`w-full flex gap-3 flex-col transition-all duration-300 ${!isFilterOpen ? 'h-0 opacity-0' : 'h-auto opacity-100'} overflow-hidden`}
       >
-        <li className="w-full my-4">
-          <p className="mb-2">기술 타입</p>
-          <div className="flex items-center flex-wrap gap-3 justify-start">
+        <li className="w-full">
+          <p className="mb-2 text-primary-4 font-semibold text-[0.875rem]">
+            기술 타입
+          </p>
+          <div className="flex items-center flex-wrap gap-2">
             {Object.entries(PokemonTypes).map(([types, typeName]) => {
               return (
                 <button
                   key={types}
-                  className={`min-w-[3rem] h-6 px-2 text-[0.875rem] text-primary-4 leading-[calc(1.5rem+2px)] block rounded-[1rem] will-change-[filter] chip-type-${types.toLowerCase()} ${typeFilter && typeFilter === types ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+                  className={`min-w-[3rem] h-7 px-3 text-[0.75rem] text-white leading-[1.75rem] rounded-full chip-type-${types.toLowerCase()} transition-all ${typeFilter && typeFilter === types ? 'opacity-100 scale-105 ring-2 ring-offset-1 ring-primary-2' : 'opacity-60'}`}
                   onClick={handleClickSelectTypeFilter(types)}
                 >
                   {typeName}
@@ -85,23 +90,25 @@ const MovesFilter = ({ totalCount }: MovesFilterProps) => {
             })}
           </div>
         </li>
-        <li className="w-full my-4">
-          <p className="mb-2">기술 유형</p>
-          <div className="flex items-center gap-3">
+        <li className="w-full pb-2">
+          <p className="mb-2 text-primary-4 font-semibold text-[0.875rem]">
+            기술 유형
+          </p>
+          <div className="flex items-center gap-2">
             <button
-              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#fd8181] text-primary-1 will-change-[filter] ${damageTypeFilter && damageTypeFilter === '물리' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+              className={`w-14 h-7 text-[0.75rem] leading-[1.75rem] rounded-lg bg-[#fd8181] text-white transition-all ${damageTypeFilter && damageTypeFilter === '물리' ? 'opacity-100 scale-105 ring-2 ring-offset-1 ring-[#fd8181]' : 'opacity-60'}`}
               onClick={handleClickSelectDamageTypeFilter('물리')}
             >
               물리
             </button>
             <button
-              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#9b9bfa] text-primary-1 will-change-[filter] ${damageTypeFilter && damageTypeFilter === '특수' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+              className={`w-14 h-7 text-[0.75rem] leading-[1.75rem] rounded-lg bg-[#9b9bfa] text-white transition-all ${damageTypeFilter && damageTypeFilter === '특수' ? 'opacity-100 scale-105 ring-2 ring-offset-1 ring-[#9b9bfa]' : 'opacity-60'}`}
               onClick={handleClickSelectDamageTypeFilter('특수')}
             >
               특수
             </button>
             <button
-              className={`w-12 h-6 leading-[calc(1.5rem+2px)] rounded-lg bg-[#72d372] text-primary-1 will-change-[filter] ${damageTypeFilter && damageTypeFilter === '변화' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale'}`}
+              className={`w-14 h-7 text-[0.75rem] leading-[1.75rem] rounded-lg bg-[#72d372] text-white transition-all ${damageTypeFilter && damageTypeFilter === '변화' ? 'opacity-100 scale-105 ring-2 ring-offset-1 ring-[#72d372]' : 'opacity-60'}`}
               onClick={handleClickSelectDamageTypeFilter('변화')}
             >
               변화
