@@ -11,7 +11,7 @@ import {
 } from '~/graphql/typeGenerated'
 import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
-import FooterContainer from '../footer/Footer.container'
+import FooterContainer from '../../footer/Footer.container'
 import { AVAILABLE_LEARN_METHODS } from '~/utils/skill.util'
 
 interface MoveDetailContainerProps {

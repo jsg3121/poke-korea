@@ -1,5 +1,5 @@
 import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
-import MoveDetailContainer from '~/container/desktop/moves/MoveDetail.container'
+import MoveDetailContainer from '~/container/desktop/moves/moves.detail/MoveDetail.container'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 
 interface MoveDetailDesktopProps {
