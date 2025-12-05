@@ -1,4 +1,3 @@
-'use client'
 import DesktopMovesTopBanner from '~/components/adSlot/DesktopMovesTopBanner'
 import MovesSearchAndFilter from '~/components/moves/MovesSearchAndFilter.component'
 import FooterContainer from '../footer/Footer.container'

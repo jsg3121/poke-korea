@@ -1,3 +1,5 @@
+'use client'
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
@@ -36,7 +38,7 @@ const FilterOptionsComponent = () => {
         <p className="text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
           기술 타입
         </p>
-        <div className="w-full h-8 flex items-center flex-wrap gap-2 flex-1">
+        <div className="w-full min-h-8 flex items-center flex-wrap gap-2 flex-1">
           {Object.entries(PokemonTypes).map(([types, typeName]) => {
             return (
               <button
@@ -50,7 +52,7 @@ const FilterOptionsComponent = () => {
           })}
         </div>
       </li>
-      <li className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3 pb-2">
+      <li className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
         <p className="text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
           기술 유형
         </p>

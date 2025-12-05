@@ -1,3 +1,5 @@
+'use client'
+
 import { Fragment, useContext } from 'react'
 import MoveListCard from '~/components/moves/moveCard/MoveListCard.component'
 import { MovesContext } from '~/context/Moves.context'
@@ -28,7 +30,7 @@ const MovesList = () => {
         </div>
       )}
       {skillList.length > 0 && (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6 px-1 py-6">
+        <div className="w-[calc(100%-1.5rem)] grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6 px-1 py-6 mx-auto">
           {skillList.map((skill) => (
             <MoveListCard key={skill.id} moveData={skill} />
           ))}
