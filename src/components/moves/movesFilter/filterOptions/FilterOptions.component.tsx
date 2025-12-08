@@ -9,6 +9,7 @@ const FilterOptionsComponent = () => {
   const router = useRouter()
   const typeFilter = params.get('typeFilter')
   const damageTypeFilter = params.get('damageTypeFilter')
+  const generationId = params.get('generationId')
 
   const handleClickSelectTypeFilter = (types: string) => () => {
     const queryString = new URLSearchParams(params)
@@ -29,13 +30,20 @@ const FilterOptionsComponent = () => {
     }
     router.replace(`${pathname}?${queryString}`)
   }
+  const handleClickSelectgenerationId = (id: string) => () => {
+    const queryString = new URLSearchParams(params)
+    if (generationId === id) {
+      queryString.delete('generationId')
+    } else {
+      queryString.set('generationId', id)
+    }
+    router.replace(`${pathname}?${queryString}`)
+  }
 
   return (
-    <ul
-      className={`w-full flex gap-3 flex-col transition-all duration-300 h-auto overflow-hidden`}
-    >
+    <ul className="w-full h-30 flex gap-3 flex-col justify-evenly transition-all duration-300 overflow-hidden">
       <li className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
-        <p className="text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
+        <p className="w-20 shrink-0 text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
           기술 타입
         </p>
         <div className="w-full min-h-8 flex items-center flex-wrap gap-2 flex-1">
@@ -53,7 +61,7 @@ const FilterOptionsComponent = () => {
         </div>
       </li>
       <li className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
-        <p className="text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
+        <p className="w-20 shrink-0 text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
           기술 유형
         </p>
         <div className="flex items-center gap-2 md:gap-3">
@@ -75,6 +83,28 @@ const FilterOptionsComponent = () => {
           >
             변화
           </button>
+        </div>
+      </li>
+      <li className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
+        <p className="w-20 shrink-0 text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
+          첫 등장 세대
+        </p>
+        <div className="flex items-center gap-2 md:gap-3">
+          {new Array(9).fill('').map((_, index) => {
+            const selectGenerationId = (index + 1).toString()
+            return (
+              <button
+                key={`generation-filter-key-${index + 1}`}
+                className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg transition-all ${generationId && generationId === selectGenerationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white hover:opacity-80 hover:grayscale-0'}`}
+                onClick={handleClickSelectgenerationId(selectGenerationId)}
+              >
+                {index + 1}
+              </button>
+            )
+          })}
+          <span className="text-primary-3 text-[0.875rem] self-end">
+            선택하지 않으면 최신 세대 기준 스펙으로 나와요!
+          </span>
         </div>
       </li>
     </ul>

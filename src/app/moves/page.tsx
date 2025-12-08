@@ -22,6 +22,7 @@ interface MovesPageProps {
     typeFilter: PokemonType
     damageTypeFilter: string
     search: string
+    generationId: string
   }>
 }
 
@@ -92,12 +93,14 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-  const { damageTypeFilter, typeFilter, search } = await searchParams
+  const { damageTypeFilter, typeFilter, search, generationId } =
+    await searchParams
 
   const movesFilter: PokemonSkillFilterInput = {
     damageType: getDamageTypeEnglish(damageTypeFilter),
     type: typeFilter,
     name: search,
+    generationId: parseInt(generationId, 10),
   }
 
   const { data } = await client.query({

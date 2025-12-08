@@ -6,8 +6,7 @@ import MoveListCard from '~/components/moves/moveCard/MoveListCard.component'
 import MovesSearchAndFilter from '~/components/moves/MovesSearchAndFilter.component'
 
 const MovesListContainer = () => {
-  const { skillList, hasNextPage, loading, totalCount, loadMore } =
-    useContext(MovesContext)
+  const { skillList, hasNextPage, loading, loadMore } = useContext(MovesContext)
 
   const listRef = useInfiniteScroll({
     hasNextPage,
@@ -18,7 +17,7 @@ const MovesListContainer = () => {
 
   return (
     <section className="w-full h-fit">
-      <MovesSearchAndFilter totalCount={totalCount} />
+      <MovesSearchAndFilter />
       <header className="w-full min-h-8 pt-4 pb-4">
         <h2 className="h-6 leading-[1.5rem] text-[1.25rem] font-[500] text-primary-4 sr-only">
           기술 목록

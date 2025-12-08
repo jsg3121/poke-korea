@@ -12,7 +12,13 @@ const FilterHeaderComponent = () => {
   const typeFilter = params.get('typeFilter')
   const damageTypeFilter = params.get('damageTypeFilter')
   const searchFilter = params.get('search')
-  const isActiveFilter = !!(typeFilter || damageTypeFilter || searchFilter)
+  const generationId = params.get('generationId')
+  const isActiveFilter = !!(
+    typeFilter ||
+    damageTypeFilter ||
+    searchFilter ||
+    generationId
+  )
 
   const handleClickResetFilter = () => {
     router.replace(pathname)

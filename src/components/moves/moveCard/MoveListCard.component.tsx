@@ -19,7 +19,7 @@ const MoveCard = ({ moveData }: MoveCardProps) => {
     >
       <article className="w-full min-h-[160px] bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative hover:scale-105 transition-transform">
         <header className="w-full h-8 mb-3 flex items-center justify-between">
-          <h3 className="h-6 text-[1.25rem] leading-[calc(1.5rem+2px)] font-bold text-gray-900 flex gap-2">
+          <h3 className="w-full h-6 text-[1.125rem] leading-[calc(1.5rem+2px)] font-bold text-gray-900 flex gap-1">
             <span className="h-4 text-[1rem] text-primary-2">
               {moveData.id}.
             </span>
@@ -33,7 +33,7 @@ const MoveCard = ({ moveData }: MoveCardProps) => {
             )}
           </h3>
           <span
-            className={`h-7 px-3 text-[0.875rem] leading-[calc(1.75rem+2px)] font-semibold rounded-lg text-white ${
+            className={`h-7 shrink-0 px-3 text-[0.875rem] leading-[calc(1.75rem+2px)] font-semibold rounded-lg text-white ${
               damageType === '물리'
                 ? 'bg-[#fd8181]'
                 : damageType === '특수'
