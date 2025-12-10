@@ -1,12 +1,14 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useDevice } from '~/context/Device.context'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const FilterOptionsComponent = () => {
   const params = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
+  const { isMobile } = useDevice()
   const typeFilter = params.get('typeFilter')
   const damageTypeFilter = params.get('damageTypeFilter')
   const generationId = params.get('generationId')
@@ -39,9 +41,12 @@ const FilterOptionsComponent = () => {
     }
     router.replace(`${pathname}?${queryString}`)
   }
+  if (isMobile) {
+    return <></>
+  }
 
   return (
-    <ul className="w-full h-30 flex gap-3 flex-col justify-evenly transition-all duration-300 overflow-hidden">
+    <ul className="w-full h-auto md:h-30 flex gap-3 flex-col justify-evenly transition-all duration-300 overflow-hidden">
       <li className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
         <p className="w-20 shrink-0 text-primary-4 font-semibold text-[0.875rem] md:min-w-[4rem] md:pt-1">
           기술 타입

@@ -6,6 +6,9 @@ import '~/styles/globals.css'
 import { getRobotsConfig } from '~/module/metadata.module'
 import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import Providers from './providers'
+import { headers } from 'next/headers'
+import { detectUserAgent } from '~/module/device.module'
+import { DeviceProvider } from '~/context/Device.context'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
@@ -50,6 +53,10 @@ const gmarket = localFont({
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   const isProduction = process.env.NODE_ENV === 'production'
+  const headersList = headers()
+  const userAgent = headersList.get('user-agent') || ''
+  const isMobile = detectUserAgent(userAgent)
+  console.log('🔬 dev-only ~ RootLayout ~ isMobile:', isMobile)
 
   return (
     <html lang="ko" className={gmarket.className}>
@@ -108,7 +115,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         )}
       </head>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <DeviceProvider isMobile={isMobile}>{children}</DeviceProvider>
+        </Providers>
         <script
           id="website-jsonLd"
           type="application/ld+json"

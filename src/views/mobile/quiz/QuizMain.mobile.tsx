@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Fragment } from 'react'
 import MobileQuizMainBottomBanner from '~/components/adSlot/MobileQuizMainBottomBanner'
 import MobileQuizMainTopBanner from '~/components/adSlot/MobileQuizMainTopBanner'
 import PageHeader from '~/components/mobile/PageHeader'
@@ -6,11 +7,10 @@ import MobileTabBar from '~/components/MobileTabBar'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
-import { DeviceProvider } from '~/context/Device.context'
 
 const QuizMainMobile = () => {
   return (
-    <DeviceProvider>
+    <Fragment>
       <main className="w-full h-full">
         <HeaderContainer />
         <section className="w-full">
@@ -72,7 +72,7 @@ const QuizMainMobile = () => {
         <FooterContainer />
       </main>
       <MobileTabBar />
-    </DeviceProvider>
+    </Fragment>
   )
 }
 

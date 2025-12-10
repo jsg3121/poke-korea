@@ -1,15 +1,15 @@
 import Link from 'next/link'
+import { Fragment } from 'react'
 import DesktopQuizMainBottomBanner from '~/components/adSlot/DesktopQuizMainBottomBanner'
 import DesktopQuizMainTopBanner from '~/components/adSlot/DesktopQuizMainTopBanner'
 import PageHeader from '~/components/PageHeader'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import HeaderContainer from '~/container/desktop/header/Header.container'
-import { DeviceProvider } from '~/context/Device.context'
 
 const QuizMainDesktop = () => {
   return (
-    <DeviceProvider>
+    <Fragment>
       <main className="w-full h-fit pt-40">
         <HeaderContainer />
         <section className="max-w-[1280px] mx-auto">
@@ -70,7 +70,7 @@ const QuizMainDesktop = () => {
         </section>
       </main>
       <FooterContainer />
-    </DeviceProvider>
+    </Fragment>
   )
 }
 

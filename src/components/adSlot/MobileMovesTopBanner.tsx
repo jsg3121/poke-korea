@@ -5,7 +5,7 @@ const MobileMovesTopBanner = () => {
   const { slotRef } = useAdSlotEffect()
 
   return (
-    <div ref={slotRef} className="w-full h-fit mb-8 mx-auto">
+    <div ref={slotRef} className="w-full h-fit mb-4 mx-auto">
       <ins
         className="adsbygoogle w-[320px] h-[100px] block mx-auto"
         data-ad-client="ca-pub-6481622724376761"
