@@ -26,16 +26,16 @@ const FilterHeaderComponent = () => {
 
   return (
     <header className="flex justify-between items-center">
-      <p className="text-[0.875rem] md:text-[1rem] text-primary-3 md:text-primary-4 leading-6">
+      <p className="text-base text-primary-3 md:text-primary-4 leading-6">
         총{' '}
-        <strong className="text-[1rem] font-semibold text-primary-4">
+        <strong className="text-base font-semibold text-primary-4">
           {totalCount}
         </strong>
         개의 기술을 볼 수 있어요!
       </p>
       <div className="flex items-center gap-3 md:gap-4">
         <button
-          className={`flex gap-1 items-center text-primary-4 text-[0.75rem] md:text-base ${!isActiveFilter && 'disabled:grayscale disabled:opacity-50'}`}
+          className={`flex gap-1 items-center text-primary-4 text-base md:text-[0.75rem] md:text-base ${!isActiveFilter && 'disabled:grayscale disabled:opacity-50'}`}
           disabled={!isActiveFilter}
           onClick={handleClickResetFilter}
         >

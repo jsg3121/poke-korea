@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 type FilterOptionsTypes = 'types' | 'damageType' | 'generationId'
@@ -42,27 +42,27 @@ const OptionsMobile = ({
   }
 
   return (
-    <div>
-      <ul className="w-full h-auto flex gap-3 flex-row justify-evenly relative">
-        <li className="flex flex-col items-start gap-3">
+    <Fragment>
+      <ul className="w-full h-auto flex gap-3 flex-row relative">
+        <li className="h-6 flex flex-col items-start gap-3">
           <button
-            className="text-primary-4 text-baseline"
+            className={`${selectFilter === 'types' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-20 text-left`}
             onClick={handleClickOpenFilterOpion('types')}
           >
             기술 타입
           </button>
         </li>
-        <li className="flex flex-col items-start gap-3">
+        <li className="h-6 flex flex-col items-start gap-3">
           <button
-            className="text-primary-4 text-baseline"
+            className={`${selectFilter === 'damageType' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-20 text-left`}
             onClick={handleClickOpenFilterOpion('damageType')}
           >
             기술 유형
           </button>
         </li>
-        <li className="flex flex-col items-start gap-3">
+        <li className="h-6 flex flex-col items-start gap-3">
           <button
-            className="text-primary-4 text-baseline"
+            className={`${selectFilter === 'generationId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-24 text-left`}
             onClick={handleClickOpenFilterOpion('generationId')}
           >
             첫 등장 세대{' '}
@@ -125,7 +125,7 @@ const OptionsMobile = ({
           </span>
         </div>
       )}
-    </div>
+    </Fragment>
   )
 }
 

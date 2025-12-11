@@ -35,6 +35,7 @@ const FilterSearchComponent = () => {
   return (
     <input
       type="search"
+      name="move search"
       onChange={handleChangeSearch}
       defaultValue={queryString.get('search') || ''}
       placeholder="기술 이름으로 검색하세요"

@@ -1,7 +1,7 @@
 import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
-import MoveDetailContainer from '~/container/mobile/moves/MoveDetail.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
 import MobileTabBar from '~/components/MobileTabBar'
+import MoveDetailContainer from '~/container/desktop/moves/moves.detail/MoveDetail.container'
 
 interface MoveDetailMobileProps {
   skillId: number
