@@ -1,4 +1,8 @@
+'use client'
+import { useState } from 'react'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+
+type FilterOptionsTypes = 'types' | 'damageType' | 'generationId'
 
 interface OptionsMobileProps {
   selectTypeFilter: string
@@ -17,6 +21,8 @@ const OptionsMobile = ({
   onClickSelectTypeFilter,
   onClickSelectgenerationId,
 }: OptionsMobileProps) => {
+  const [selectFilter, setSelectFilter] = useState<FilterOptionsTypes | null>()
+
   const handleClickSelectTypeFilter = (types: string) => () => {
     onClickSelectTypeFilter(types)
   }
@@ -27,13 +33,44 @@ const OptionsMobile = ({
     onClickSelectgenerationId(id)
   }
 
+  const handleClickOpenFilterOpion = (value: FilterOptionsTypes) => () => {
+    if (selectFilter === value) {
+      setSelectFilter(null)
+    } else {
+      setSelectFilter(() => value)
+    }
+  }
+
   return (
-    <ul className="w-full h-30 flex gap-3 flex-col justify-evenly transition-all duration-300 overflow-hidden">
-      <li className="flex flex-row items-center gap-3">
-        <p className="shrink-0 text-primary-4 font-semibold text-[0.875rem] min-w-[4rem] pt-1">
-          기술 타입
-        </p>
-        <div className="w-full min-h-8 flex items-center flex-wrap gap-2 flex-1">
+    <div>
+      <ul className="w-full h-auto flex gap-3 flex-row justify-evenly relative">
+        <li className="flex flex-col items-start gap-3">
+          <button
+            className="text-primary-4 text-baseline"
+            onClick={handleClickOpenFilterOpion('types')}
+          >
+            기술 타입
+          </button>
+        </li>
+        <li className="flex flex-col items-start gap-3">
+          <button
+            className="text-primary-4 text-baseline"
+            onClick={handleClickOpenFilterOpion('damageType')}
+          >
+            기술 유형
+          </button>
+        </li>
+        <li className="flex flex-col items-start gap-3">
+          <button
+            className="text-primary-4 text-baseline"
+            onClick={handleClickOpenFilterOpion('generationId')}
+          >
+            첫 등장 세대{' '}
+          </button>
+        </li>
+      </ul>
+      {selectFilter === 'types' && (
+        <div className="w-full h-28 flex items-start content-start flex-wrap gap-2 mt-4">
           {Object.entries(PokemonTypes).map(([types, typeName]) => {
             return (
               <button
@@ -46,12 +83,9 @@ const OptionsMobile = ({
             )
           })}
         </div>
-      </li>
-      <li className="flex flex-row items-center gap-3">
-        <p className="shrink-0 text-primary-4 font-semibold text-[0.875rem] min-w-[4rem] pt-1">
-          기술 유형
-        </p>
-        <div className="flex flex-row items-center gap-3">
+      )}
+      {selectFilter === 'damageType' && (
+        <div className="w-full h-28 flex items-start content-start flex-wrap gap-2 mt-4">
           <button
             className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg bg-[#fd8181] text-white transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
             onClick={handleClickSelectDamageTypeFilter('물리')}
@@ -71,12 +105,9 @@ const OptionsMobile = ({
             변화
           </button>
         </div>
-      </li>
-      <li className="flex flex-row items-center gap-3">
-        <p className="shrink-0 text-primary-4 font-semibold text-[0.875rem] min-w-[4rem] pt-1">
-          첫 등장 세대
-        </p>
-        <div className="flex flex-row items-center gap-3">
+      )}
+      {selectFilter === 'generationId' && (
+        <div className="w-full h-28 flex items-start content-start flex-wrap gap-2 mt-4">
           {new Array(9).fill('').map((_, index) => {
             const generationId = (index + 1).toString()
             return (
@@ -89,12 +120,12 @@ const OptionsMobile = ({
               </button>
             )
           })}
-          <span className="text-primary-3 text-[0.875rem] self-end">
+          <span className="w-full text-primary-3 text-[0.875rem] my-2">
             선택하지 않으면 최신 세대 기준 스펙으로 나와요!
           </span>
         </div>
-      </li>
-    </ul>
+      )}
+    </div>
   )
 }
 

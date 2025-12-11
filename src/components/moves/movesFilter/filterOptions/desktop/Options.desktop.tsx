@@ -28,7 +28,7 @@ const OptionsDesktop = ({
   }
 
   return (
-    <ul className="w-full h-30 flex gap-3 flex-col justify-evenly transition-all duration-300 overflow-hidden">
+    <ul className="w-full h-30 flex gap-3 flex-col justify-evenly">
       <li className="flex flex-row items-center gap-3">
         <p className="shrink-0 text-primary-4 font-semibold text-[0.875rem] min-w-[4rem] pt-1">
           기술 타입
