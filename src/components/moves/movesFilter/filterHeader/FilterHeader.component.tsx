@@ -25,7 +25,7 @@ const FilterHeaderComponent = () => {
   }
 
   return (
-    <header className="flex justify-between items-center">
+    <header className="flex justify-between items-center md:my-2">
       <p className="text-base text-primary-3 md:text-primary-4 leading-6">
         총{' '}
         <strong className="text-base font-semibold text-primary-4">
