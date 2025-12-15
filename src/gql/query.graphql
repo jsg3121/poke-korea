@@ -560,6 +560,7 @@ query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
     pp
     description
     firstGenerationId
+    isAvailable
     signatureMoves
     damageType
     zMoves
@@ -567,6 +568,7 @@ query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
       id
       skillId
       generationId
+      isAvailable
       type
       power
       accuracy

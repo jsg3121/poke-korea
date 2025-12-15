@@ -1,58 +1,77 @@
-import { PokemonSkillDetail } from '~/graphql/typeGenerated'
+import {
+  PokemonSkillDetail,
+  PokemonSkillGeneration,
+} from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 
 interface MoveDetailComponentProps {
   skillData: PokemonSkillDetail
+  selectedGenerationData?: PokemonSkillGeneration
 }
 
-const MoveDetailComponent = ({ skillData }: MoveDetailComponentProps) => {
+const MoveDetailComponent = ({
+  skillData,
+  selectedGenerationData,
+}: MoveDetailComponentProps) => {
+  // 선택된 세대 데이터가 있으면 그것을 우선 사용, 없으면 기본 skillData 사용
+  const displayData = selectedGenerationData || skillData
+
   return (
     <section className="w-[calc(100%-2.5rem)] mx-auto min-h-32 pb-4 relative">
-      <h1 className="text-[2.5rem] text-primary-4 font-bold mb-4">
-        {skillData.nameKo}
-      </h1>
+      <div className="flex items-center gap-4 mb-4">
+        <h1 className="text-[2.5rem] text-primary-4 font-bold">
+          {skillData.nameKo}
+        </h1>
+        {selectedGenerationData && (
+          <span className="px-3 py-1 rounded-lg bg-primary-1 text-white text-lg font-medium">
+            {selectedGenerationData.generationId}세대
+          </span>
+        )}
+      </div>
 
       {/* 기본 정보 */}
       <div className="flex flex-wrap gap-4 text-lg mb-4">
-        {skillData.type && (
+        {displayData.type && (
           <div className="flex items-center gap-2">
             <span className="font-semibold text-primary-3">타입:</span>
             <span className="px-3 py-1 rounded-full bg-primary-1 text-white">
-              {PokemonTypes[skillData.type]}
+              {PokemonTypes[displayData.type]}
             </span>
           </div>
         )}
 
-        {skillData.damageType && (
+        {displayData.damageType && (
           <div className="flex items-center gap-2">
             <span className="font-semibold text-primary-3">분류:</span>
             <span className="px-3 py-1 rounded-full bg-gray-200 text-gray-700">
-              {getDamageTypeKorean(skillData.damageType)}
+              {getDamageTypeKorean(displayData.damageType)}
             </span>
           </div>
         )}
 
-        {skillData.power && (
+        {displayData.power && (
           <div className="flex items-center gap-2">
             <span className="font-semibold text-primary-3">위력:</span>
-            <span className="text-primary-4 font-bold">{skillData.power}</span>
+            <span className="text-primary-4 font-bold">
+              {displayData.power}
+            </span>
           </div>
         )}
 
-        {skillData.accuracy && (
+        {displayData.accuracy && (
           <div className="flex items-center gap-2">
             <span className="font-semibold text-primary-3">명중률:</span>
             <span className="text-primary-4 font-bold">
-              {skillData.accuracy}
+              {displayData.accuracy}
             </span>
           </div>
         )}
 
-        {skillData.pp && (
+        {displayData.pp && (
           <div className="flex items-center gap-2">
             <span className="font-semibold text-primary-3">PP:</span>
-            <span className="text-primary-4 font-bold">{skillData.pp}</span>
+            <span className="text-primary-4 font-bold">{displayData.pp}</span>
           </div>
         )}
       </div>
@@ -73,9 +92,9 @@ const MoveDetailComponent = ({ skillData }: MoveDetailComponentProps) => {
       </div>
 
       {/* 설명 */}
-      {skillData.description && (
+      {displayData.description && (
         <p className="text-[1.25rem] text-primary-4 leading-relaxed">
-          {skillData.description}
+          {displayData.description}
         </p>
       )}
     </section>

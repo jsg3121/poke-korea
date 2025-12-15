@@ -8,6 +8,7 @@ interface MoveDetailMobileProps {
   initialSkill: PokemonSkillDetail
   initialPokemonList: Array<PokemonLearnInfo>
   totalCount: number
+  selectedGeneration?: number
 }
 
 const MoveDetailMobile = ({
@@ -15,6 +16,7 @@ const MoveDetailMobile = ({
   initialSkill,
   initialPokemonList,
   totalCount,
+  selectedGeneration,
 }: MoveDetailMobileProps) => {
   return (
     <main className="w-full mx-auto min-h-screen">
@@ -24,6 +26,7 @@ const MoveDetailMobile = ({
         initialSkill={initialSkill}
         initialPokemonList={initialPokemonList}
         totalCount={totalCount}
+        selectedGeneration={selectedGeneration}
       />
       <MobileTabBar />
     </main>

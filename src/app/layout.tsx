@@ -56,7 +56,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-  console.log('🔬 dev-only ~ RootLayout ~ isMobile:', isMobile)
 
   return (
     <html lang="ko" className={gmarket.className}>

@@ -1,6 +1,7 @@
 'use client'
 
 import { Fragment, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import MoveDetailComponent from '~/components/moves/MoveDetail.component'
 import MoveGenerationInfo from '~/components/moves/MoveGenerationInfo.component'
 import PokemonBySkillCard from '~/components/moves/PokemonBySkillCard.component'
@@ -19,6 +20,7 @@ interface MoveDetailContainerProps {
   initialSkill: PokemonSkillDetail
   initialPokemonList: Array<PokemonLearnInfo>
   totalCount: number
+  selectedGeneration?: number
 }
 
 const MoveDetailContainer = ({
@@ -26,10 +28,15 @@ const MoveDetailContainer = ({
   initialSkill,
   initialPokemonList,
   totalCount,
+  selectedGeneration: initialSelectedGeneration,
 }: MoveDetailContainerProps) => {
+  const router = useRouter()
+
   const [selectedGeneration, setSelectedGeneration] = useState<number>(
-    initialSkill.generations[initialSkill.generations.length - 1]
-      ?.generationId || 9,
+    initialSelectedGeneration ||
+      initialSkill.generations[initialSkill.generations.length - 1]
+        ?.generationId ||
+      9,
   )
 
   const [selectedMethod, setSelectedMethod] = useState<string>('ALL')
@@ -47,6 +54,7 @@ const MoveDetailContainer = ({
   } = usePokemonsBySkill({
     skillId,
     method: methodFilter,
+    generationId: selectedGeneration,
     initialPokemonList: selectedMethod === 'ALL' ? initialPokemonList : [],
   })
 
@@ -62,10 +70,19 @@ const MoveDetailContainer = ({
     (gen) => gen.generationId === selectedGeneration,
   )
 
+  // 세대 선택 핸들러 - 페이지 네비게이션
+  const handleGenerationChange = (generationId: number) => {
+    setSelectedGeneration(generationId)
+    router.push(`/moves/${skillId}/generation/${generationId}`)
+  }
+
   return (
     <section className="w-full max-w-[1280px] h-full mx-auto pt-4 pb-8 px-5">
       {/* 기술 기본 정보 */}
-      <MoveDetailComponent skillData={initialSkill} />
+      <MoveDetailComponent
+        skillData={initialSkill}
+        selectedGenerationData={selectedGenerationData}
+      />
 
       {/* 세대별 정보 섹션 */}
       <div className="mt-8 mb-12">
@@ -78,7 +95,7 @@ const MoveDetailContainer = ({
           {initialSkill.generations.map((gen) => (
             <button
               key={`gen-${gen.generationId}`}
-              onClick={() => setSelectedGeneration(gen.generationId)}
+              onClick={() => handleGenerationChange(gen.generationId)}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                 selectedGeneration === gen.generationId
                   ? 'bg-primary-1 text-white'
