@@ -591,12 +591,17 @@ query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
         pokemonId
         name
         number
-        level
-        method
+        methods {
+          method
+        }
         generationId
         formType
         formCode
         formName
+        types
+        region
+        imagePath
+        formType
       }
     }
     pageInfo {

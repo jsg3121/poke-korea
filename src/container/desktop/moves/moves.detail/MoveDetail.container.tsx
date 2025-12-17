@@ -106,11 +106,12 @@ const MoveDetailContainer = ({
               의 포켓몬이 이 기술을 배울 수 있어요
             </h2>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] gap-x-4 gap-y-6 justify-items-center justify-between">
-              {pokemonList.map((pokemon) => {
+              {pokemonList.map((pokemon, index) => {
                 return (
                   <PokemonBySkillCard
-                    key={`pokemon-skill-${pokemon.pokemonId}-${pokemon.method}-${pokemon.formType || 'base'}`}
+                    key={`pokemon-skill-${index + 1}-${pokemon.pokemonId}`}
                     pokemonData={pokemon}
+                    isHighPriority={index < 15}
                   />
                 )
               })}
