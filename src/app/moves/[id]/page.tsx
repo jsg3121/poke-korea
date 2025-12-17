@@ -50,6 +50,7 @@ export async function generateMetadata({
     variables: {
       filter: {
         skillId,
+        generationId: 9,
       },
     },
     fetchPolicy: 'network-only',
@@ -122,6 +123,7 @@ const MoveDetailPage = async ({ params }: PageProps) => {
     variables: {
       filter: {
         skillId,
+        generationId: 9,
       },
     },
     fetchPolicy: 'network-only',
@@ -143,6 +145,7 @@ const MoveDetailPage = async ({ params }: PageProps) => {
       input: {
         filter: {
           skillId,
+          generationId: 9,
         },
         pagination: {
           first: 30,

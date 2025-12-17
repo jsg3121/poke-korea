@@ -34,7 +34,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { id, generationId } = await params
   const skillId = parseInt(id, 10)
-  const generation = parseInt(generationId, 10)
+  const generation = parseInt(generationId, 10) ?? 9
 
   if (isNaN(skillId) || isNaN(generation) || generation < 1 || generation > 9) {
     return {
@@ -52,6 +52,7 @@ export async function generateMetadata({
     variables: {
       filter: {
         skillId,
+        generationId: generation,
       },
     },
     fetchPolicy: 'network-only',
@@ -119,7 +120,7 @@ const MoveDetailGenerationPage = async ({ params }: PageProps) => {
 
   const { id, generationId } = await params
   const skillId = parseInt(id, 10)
-  const generation = parseInt(generationId, 10)
+  const generation = parseInt(generationId, 10) ?? 9
 
   if (isNaN(skillId) || isNaN(generation) || generation < 1 || generation > 9) {
     notFound()
