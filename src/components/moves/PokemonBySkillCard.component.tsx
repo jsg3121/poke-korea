@@ -6,6 +6,9 @@ import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
 import { getBackgroundColor } from '~/module/pokemonCard.module'
 import TagComponent from '../Tag.component'
+import LevelUpIcon from '~/assets/icons/levelUp.svg'
+import MachineMoveIcon from '~/assets/icons/machineMove.svg'
+import { Fragment } from 'react'
 
 interface PokemonBySkillCardProps {
   pokemonData: PokemonLearnInfo
@@ -117,15 +120,25 @@ const PokemonBySkillCard = ({
           })}
         </div>
         <div className="w-full flex flex-wrap items-center justify-center gap-2 px-2">
-          {/* 습득 방법 */}
           {pokemonData.methods.map((method, index) => {
             return (
-              <span
-                key={`method-id-${index + 1}`}
-                className="h-6 leading-[calc(1.5rem+2px)] px-3 text-[0.875rem] bg-[#334150] text-white rounded-md font-bold"
-              >
-                {method.method === 'LEVEL_UP' ? `레벨업` : '기술머신'}
-              </span>
+              <Fragment key={`method-id-${index + 1}`}>
+                {method.method === 'LEVEL_UP' ? (
+                  <p className="bg-green-600 text-white rounded-md font-bold flex items-center px-2 gap-1">
+                    <LevelUpIcon width={14} height={14} />
+                    <span className="h-6 leading-[calc(1.5rem+2px)] text-[0.875rem]">
+                      레벨업
+                    </span>
+                  </p>
+                ) : (
+                  <p className="bg-slate-500 text-white rounded-md font-bold flex items-center px-2 gap-1">
+                    <MachineMoveIcon width={20} height={20} />
+                    <span className="h-6 leading-[calc(1.5rem+2px)] text-[0.875rem]">
+                      기술머신
+                    </span>
+                  </p>
+                )}
+              </Fragment>
             )
           })}
         </div>
