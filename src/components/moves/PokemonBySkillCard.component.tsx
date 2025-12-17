@@ -1,4 +1,7 @@
 import Link from 'next/link'
+import { Fragment } from 'react'
+import LevelUpIcon from '~/assets/icons/levelUp.svg'
+import MachineMoveIcon from '~/assets/icons/machineMove.svg'
 import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import { PokemonLearnInfo } from '~/graphql/typeGenerated'
@@ -6,9 +9,6 @@ import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
 import { getBackgroundColor } from '~/module/pokemonCard.module'
 import TagComponent from '../Tag.component'
-import LevelUpIcon from '~/assets/icons/levelUp.svg'
-import MachineMoveIcon from '~/assets/icons/machineMove.svg'
-import { Fragment } from 'react'
 
 interface PokemonBySkillCardProps {
   pokemonData: PokemonLearnInfo
