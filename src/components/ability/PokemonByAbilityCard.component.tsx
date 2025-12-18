@@ -63,6 +63,11 @@ const PokemonByAbilityCardComponent = ({
         query: {
           ...(pokemonData.formType === 'REGION_FORM' && {
             activeType: 'region',
+            activeIndex:
+              pokemonData.imagePath?.[pokemonData.imagePath.length - 1] ?? 0,
+          }),
+          ...(pokemonData.formType === 'NORMAL_FORM' && {
+            activeIndex: pokemonData.imagePath?.split('_')[1] ?? 0,
           }),
         },
       }}

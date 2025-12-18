@@ -52,6 +52,7 @@ const PokemonBySkillCard = ({
 
   const formLabel = getFormTypeLabel()
 
+  console.log('🔬 dev-only ~ PokemonBySkillCard ~ pokemonData:', pokemonData)
   return (
     <Link
       href={{
@@ -59,6 +60,11 @@ const PokemonBySkillCard = ({
         query: {
           ...(pokemonData.formType === 'REGION' && {
             activeType: 'region',
+            activeIndex:
+              pokemonData.imagePath?.[pokemonData.imagePath.length - 1] ?? 0,
+          }),
+          ...(pokemonData.formType === 'NORMAL' && {
+            activeIndex: pokemonData.imagePath?.split('_')[1] ?? 0,
           }),
         },
       }}
