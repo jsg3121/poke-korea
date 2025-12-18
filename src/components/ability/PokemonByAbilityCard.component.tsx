@@ -58,7 +58,14 @@ const PokemonByAbilityCardComponent = ({
 
   return (
     <Link
-      href={`/detail/${pokemonData.number}`}
+      href={{
+        pathname: `/detail/${pokemonData.number}`,
+        query: {
+          ...(pokemonData.formType === 'REGION_FORM' && {
+            activeType: 'region',
+          }),
+        },
+      }}
       className="block w-full md:w-56"
       aria-label={`포켓몬 ${pokemonData.name} 카드`}
     >
