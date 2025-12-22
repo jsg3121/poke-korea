@@ -6,13 +6,14 @@ import { getDamageTypeKorean } from '~/utils/skill.util'
 interface MoveCardProps {
   moveData: PokemonSkill
   moveLevel?: number | string
+  generationId: number
 }
 
-const MoveCard = ({ moveData, moveLevel }: MoveCardProps) => {
+const MoveCard = ({ moveData, moveLevel, generationId }: MoveCardProps) => {
   const skillId = moveData.id
 
   return (
-    <Link href={`/moves/${skillId}`}>
+    <Link href={`/moves/${skillId}/generation/${generationId}`}>
       <article
         className={`w-[calc(100%-1rem)] min-h-14 border-b border-solid border-primary-4 bg-primary-4 rounded-[1rem] mx-auto mb-4 p-2 relative hover:bg-gray-100 cursor-pointer transition-colors`}
       >

@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
-import MoveTableRow from '~/components/moves/moveTableRow/MoveTableRow.component'
+import MoveDetailCard from '~/components/moves/moveCard/MoveDetailCard.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import ToggleButtonComponent from './components/Toggle.component'
 
@@ -12,10 +12,23 @@ const MovesTableContainer = () => {
   const router = useRouter()
   const { pokemonLearnableData, versionGroup } = useContext(DetailMovesContext)
 
+  const selectVersionParam = searchParams.get('selectVersion')
   const activeVersionId = `${
-    searchParams.get('selectVersion') ??
-    versionGroup?.[0].versionGroupId.toString()
+    selectVersionParam ?? versionGroup?.[0].versionGroupId.toString()
   }_${searchParams.get('activeIndex')}`
+
+  // 현재 선택된 버전 그룹의 세대 ID 가져오기
+  const currentGenerationId =
+    versionGroup?.find(
+      (version) =>
+        version.versionGroupId ===
+        parseInt(
+          selectVersionParam ?? versionGroup[0].versionGroupId.toString(),
+          10,
+        ),
+    )?.generationId ??
+    versionGroup?.[0].generationId ??
+    9
 
   const defaultToggleStatus = searchParams.get('movesType')
   const isToogleChecked = defaultToggleStatus === 'MACHINE' ? false : true
@@ -32,8 +45,8 @@ const MovesTableContainer = () => {
 
   return (
     <section className="w-full h-fit">
-      <header className="w-full h-28 pt-4 flex justify-between border-b border-solid border-primary-3 flex-wrap sticky top-30 z-10 bg-primary-1">
-        <h2 className="h-12 leading-[2rem] text-[1.5rem] font-[500] text-primary-4">
+      <header className="w-full h-20 pt-4 flex justify-between items-center border-b border-solid border-primary-3 bg-primary-1">
+        <h2 className="h-12 leading-[3rem] text-[1.5rem] font-[500] text-primary-4">
           기술 목록
         </h2>
         <div className="w-[11rem] h-[3rem] flex items-center justify-between">
@@ -46,56 +59,10 @@ const MovesTableContainer = () => {
             onClickToggle={handleClickCheckToggle}
           />
         </div>
-        <div
-          className="w-full h-12 border-b border-solid flex bg-primary-2 border-primary-1 [&>p]:h-12 [&>p]:leading-[3rem] [&>p]:font-[500]"
-          aria-hidden
-        >
-          {isToogleChecked && (
-            <p className="w-[5%] text-primary-4 text-center">레벨</p>
-          )}
-          <p
-            className={`${isToogleChecked ? 'w-[16%]' : 'w-[18%]'} text-primary-4 text-center`}
-          >
-            기술명
-          </p>
-          <p
-            className={`${isToogleChecked ? 'w-[53%]' : 'w-[56%]'} text-primary-4 text-center`}
-          >
-            설명
-          </p>
-          <p className="w-[6%] text-primary-4 text-center">타입</p>
-          <p className="w-[4%] text-primary-4 text-center">위력</p>
-          <p className="w-[5%] text-primary-4 text-center">명중률</p>
-          <p className="w-[4%] text-primary-4 text-center">PP</p>
-          <p className="w-[7%] text-primary-4 text-center">기술유형</p>
-        </div>
       </header>
-      <table className="w-full h-full bg-primary-4 border-hidden table-fixed">
-        <colgroup>
-          {isToogleChecked && <col width="5%" />}
-          <col width={isToogleChecked ? '16%' : '18%'} />
-          <col width={isToogleChecked ? '53%' : '56%'} />
-          <col width="6%" />
-          <col width="4%" />
-          <col width="5%" />
-          <col width="4%" />
-          <col width="7%" />
-        </colgroup>
-        <thead className="sr-only">
-          <tr>
-            {isToogleChecked && <th>배우는 레벨</th>}
-            <th>기술명</th>
-            <th>설명</th>
-            <th>타입</th>
-            <th>위력</th>
-            <th>명중률</th>
-            <th>PP</th>
-            <th>기술유형</th>
-          </tr>
-        </thead>
-        <tbody>
-          {defaultToggleStatus === null || defaultToggleStatus === 'LEVELUP' ? (
-            pokemonLearnableData.levelUpSkills.map((move, index) => {
+      <div className="w-full flex flex-col gap-6 py-6">
+        {defaultToggleStatus === null || defaultToggleStatus === 'LEVELUP'
+          ? pokemonLearnableData.levelUpSkills.map((move, index) => {
               const level =
                 move.level === 0
                   ? '진화'
@@ -104,30 +71,27 @@ const MovesTableContainer = () => {
                     : move.level
 
               return (
-                <MoveTableRow
+                <MoveDetailCard
                   key={`pokemon-levelup-move-${index}_${move.skill.id}`}
                   moveData={move.skill}
                   moveLevel={level}
+                  generationId={currentGenerationId}
                 />
               )
             })
-          ) : (
-            <></>
-          )}
-          {defaultToggleStatus === 'MACHINE' ? (
-            pokemonLearnableData.machineSkills.map((move, index) => {
+          : null}
+        {defaultToggleStatus === 'MACHINE'
+          ? pokemonLearnableData.machineSkills.map((move, index) => {
               return (
-                <MoveTableRow
+                <MoveDetailCard
                   key={`pokemon-machine-move-${index}_${move.skill.id}`}
                   moveData={move.skill}
+                  generationId={currentGenerationId}
                 />
               )
             })
-          ) : (
-            <></>
-          )}
-        </tbody>
-      </table>
+          : null}
+      </div>
     </section>
   )
 }
