@@ -114,7 +114,7 @@ const MoveDetailContainer = ({
                   <PokemonBySkillCard
                     key={`pokemon-skill-${index + 1}-${pokemon.pokemonId}`}
                     pokemonData={pokemon}
-                    isHighPriority={index < 15}
+                    isHighPriority={index < 8}
                   />
                 )
               })}

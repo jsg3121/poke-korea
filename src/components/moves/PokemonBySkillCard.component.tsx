@@ -1,9 +1,12 @@
+'use client'
+
 import Link from 'next/link'
 import { Fragment } from 'react'
 import LevelUpIcon from '~/assets/icons/levelUp.svg'
 import MachineMoveIcon from '~/assets/icons/machineMove.svg'
 import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
+import { useDevice } from '~/context/Device.context'
 import { PokemonLearnInfo } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
@@ -19,6 +22,7 @@ const PokemonBySkillCard = ({
   pokemonData,
   isHighPriority = false,
 }: PokemonBySkillCardProps) => {
+  const { isMobile } = useDevice()
   const pokemonNumber = String(pokemonData.number).padStart(3, '0')
   const backgroundColor = getBackgroundColor(pokemonData.types)
 
@@ -87,15 +91,14 @@ const PokemonBySkillCard = ({
             </h3>
           </div>
         </header>
-
         {isHighPriority ? (
           <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
             <ImageComponent
-              height="10rem"
-              width="10rem"
+              height={isMobile ? '8rem' : '10rem'}
+              width={isMobile ? '8rem' : '10rem'}
               alt={`pokemon_id_${pokemonData.number}`}
-              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?w=240&h=240`}
-              sizes="10rem"
+              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
+              sizes={isMobile ? '8rem' : '10rem'}
               fetchPriority="high"
             />
           </div>
@@ -106,14 +109,11 @@ const PokemonBySkillCard = ({
           >
             {isVisible ? (
               <ImageComponent
-                height="10rem"
-                width="10rem"
+                height={isMobile ? '8rem' : '10rem'}
+                width={isMobile ? '8rem' : '10rem'}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?w=240&h=240`}
-                imageSize={{
-                  height: 140,
-                  width: 140,
-                }}
+                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
+                sizes={isMobile ? '8rem' : '10rem'}
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 style={{

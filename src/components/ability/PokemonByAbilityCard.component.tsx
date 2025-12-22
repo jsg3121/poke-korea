@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import { useMemo } from 'react'
 import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
+import { useDevice } from '~/context/Device.context'
 import { PokemonWithAbilityInfoFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
@@ -10,11 +13,14 @@ import { CardColor } from '~/types/pokemonTypes.types'
 
 interface PokemonByAbilityCardProps {
   pokemonData: PokemonWithAbilityInfoFragment
+  isHighPriority?: boolean
 }
 
 const PokemonByAbilityCardComponent = ({
   pokemonData,
+  isHighPriority = false,
 }: PokemonByAbilityCardProps) => {
+  const { isMobile } = useDevice()
   const pokemonNumber = String(pokemonData.number).padStart(3, '0')
 
   // 커스텀 Lazy Loading Hook
@@ -91,34 +97,41 @@ const PokemonByAbilityCardComponent = ({
             </h3>
           </div>
         </header>
-
-        <div
-          ref={imgRef}
-          className="w-fit mx-auto mb-4 md:mb-2 drop-shadow-[2px_3px_2px_#333333] relative pr-2"
-        >
-          {isVisible ? (
+        {isHighPriority ? (
+          <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
             <ImageComponent
-              height="10rem"
-              width="10rem"
-              alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?w=240&h=240`}
+              height={isMobile ? '8rem' : '10rem'}
+              width={isMobile ? '8rem' : '10rem'}
+              alt={`pokemon_id_${pokemonData.number}`}
+              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
+              sizes={isMobile ? '8rem' : '10rem'}
               fetchPriority="high"
-              imageSize={{
-                height: 140,
-                width: 140,
-              }}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              style={{
-                opacity: isLoaded ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out',
-              }}
             />
-          ) : (
-            <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
-          )}
-        </div>
-
+          </div>
+        ) : (
+          <div
+            ref={imgRef}
+            className="w-fit mx-auto mb-4 md:mb-2 drop-shadow-[2px_3px_2px_#333333] relative pr-2"
+          >
+            {isVisible ? (
+              <ImageComponent
+                height={isMobile ? '8rem' : '10rem'}
+                width={isMobile ? '8rem' : '10rem'}
+                alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
+                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
+                sizes={isMobile ? '8rem' : '10rem'}
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                style={{
+                  opacity: isLoaded ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out',
+                }}
+              />
+            ) : (
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+            )}
+          </div>
+        )}
         <div className="w-full flex items-center justify-center gap-[0.4rem] px-2 mb-3">
           {pokemonData.types.map((item, index) => {
             return <TagComponent key={`${item}-id-${index}`} type={item} />
