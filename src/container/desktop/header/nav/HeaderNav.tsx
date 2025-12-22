@@ -30,11 +30,11 @@ const HeaderNav = () => {
           </Link>
         </li>
         <li
-          className={`min-w-fit h-full px-4 ${pathname === '/moves' ? 'border-b-4 border-solid border-primary-4' : ''}`}
+          className={`min-w-fit h-full px-4 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'border-b-4 border-solid border-primary-4' : ''}`}
         >
           <Link
             href="/moves"
-            className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname === '/moves' ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
+            className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             기술 도감
           </Link>
