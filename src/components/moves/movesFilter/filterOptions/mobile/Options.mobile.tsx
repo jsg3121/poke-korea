@@ -1,5 +1,5 @@
 'use client'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 type FilterOptionsTypes = 'types' | 'damageType' | 'generationId'
@@ -42,6 +42,13 @@ const OptionsMobile = ({
       setSelectFilter(() => value)
     }
   }
+
+  // 모든 필터가 초기화되면 열린 옵션 패널 닫기
+  useEffect(() => {
+    if (!selectTypeFilter && !selectDamageTypes && !selectGenerationId) {
+      setSelectFilter(null)
+    }
+  }, [selectTypeFilter, selectDamageTypes, selectGenerationId])
 
   return (
     <Fragment>
