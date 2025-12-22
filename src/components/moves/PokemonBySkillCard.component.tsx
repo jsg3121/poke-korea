@@ -52,7 +52,6 @@ const PokemonBySkillCard = ({
 
   const formLabel = getFormTypeLabel()
 
-  console.log('🔬 dev-only ~ PokemonBySkillCard ~ pokemonData:', pokemonData)
   return (
     <Link
       href={{
