@@ -19,14 +19,15 @@ const MovesTableContainer = () => {
 
   // 현재 선택된 버전 그룹의 세대 ID 가져오기
   const currentGenerationId =
-    versionGroup?.find(
-      (version) =>
+    versionGroup?.find((version) => {
+      return (
         version.versionGroupId ===
         parseInt(
           selectVersionParam ?? versionGroup[0].versionGroupId.toString(),
           10,
-        ),
-    )?.generationId ??
+        )
+      )
+    })?.generationId ??
     versionGroup?.[0].generationId ??
     9
 
@@ -60,23 +61,21 @@ const MovesTableContainer = () => {
           />
         </div>
       </header>
-      {defaultToggleStatus === null || defaultToggleStatus === 'LEVELUP' ? (
-        pokemonLearnableData.levelUpSkills.map((move, index) => {
-          const level =
-            move.level === 0 ? '진화' : move.level === 1 ? '최초' : move.level
+      {defaultToggleStatus === null || defaultToggleStatus === 'LEVELUP'
+        ? pokemonLearnableData.levelUpSkills.map((move, index) => {
+            const level =
+              move.level === 0 ? '진화' : move.level === 1 ? '최초' : move.level
 
-          return (
-            <MoveCard
-              key={`pokemon-levelup-move-${index}_${move.skill.id}`}
-              moveData={move.skill}
-              moveLevel={level}
-              generationId={currentGenerationId}
-            />
-          )
-        })
-      ) : (
-        <></>
-      )}
+            return (
+              <MoveCard
+                key={`pokemon-levelup-move-${index}_${move.skill.id}`}
+                moveData={move.skill}
+                moveLevel={level}
+                generationId={currentGenerationId}
+              />
+            )
+          })
+        : null}
       {defaultToggleStatus === 'MACHINE' ? (
         pokemonLearnableData.machineSkills.map((move, index) => {
           return (
