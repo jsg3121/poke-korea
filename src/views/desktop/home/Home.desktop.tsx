@@ -1,6 +1,3 @@
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 import DesktopHomeBottomBanner from '~/components/adSlot/DesktopHomeBottomBanner'
 import DesktopHomeTopBanner from '~/components/adSlot/DesktopHomeTopBanner'
 import FooterContainer from '~/container/desktop/footer/Footer.container'

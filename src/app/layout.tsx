@@ -70,28 +70,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               name="google-adsense-account"
               content="ca-pub-6481622724376761"
             />
-            {/* --- Preconnect / DNS Prefetch (초기 호출 도메인만) --- */}
-            <link
-              rel="preconnect"
-              href="https://www.googletagmanager.com"
-              crossOrigin=""
-            />
-            <link
-              rel="preconnect"
-              href="https://www.google-analytics.com"
-              crossOrigin=""
-            />
-            <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-            <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-
-            {/* 네이버 애널리틱스 사용 시 */}
-            <link
-              rel="preconnect"
-              href="https://wcs.naver.net"
-              crossOrigin=""
-            />
-            <link rel="dns-prefetch" href="https://wcs.naver.net" />
-
             {/* 이미지 CDN - 최우선 */}
             <link
               rel="preconnect"
@@ -99,7 +77,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
-
+            {/* og 이미지 CDN - 최우선 */}
+            <link
+              rel="preconnect"
+              href="https://image.poke-korea.com"
+              crossOrigin=""
+            />
+            <link rel="dns-prefetch" href="https://image.poke-korea.com" />
             {/* GraphQL API */}
             <link
               rel="preconnect"
@@ -107,9 +91,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://api.poke-korea.com" />
-
-            {/* (선택) origin-hint를 확실하게 하기 위한 referrer-policy */}
-            <meta name="referrer" content="strict-origin-when-cross-origin" />
           </>
         )}
       </head>
@@ -163,7 +144,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="adsbygoogle-init"
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-              rel="preconnect"
               crossOrigin="anonymous"
               strategy="afterInteractive"
             />
