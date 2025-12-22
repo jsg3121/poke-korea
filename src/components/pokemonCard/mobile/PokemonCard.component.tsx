@@ -49,15 +49,15 @@ const PokemonCardComponent = ({
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
-        <header className="w-full h-8 flex items-start justify-between pr-2">
+        <header className="w-full min-h-8 flex items-start justify-between pr-2 relative z-10">
           <i className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
           </i>
-          <div className="w-full h-5 flex items-start justify-between border-b border-solid border-[#334150] pb-1">
+          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-[#334150] pb-1 gap-2">
             <p className="h-4 text-base leading-none font-medium text-[#333333]">
               No.{pokemonNumber}
             </p>
-            <h3 className="w-full text-base leading-none font-semibold text-right text-black">
+            <h3 className="w-fit text-base leading-none font-semibold text-right text-black">
               {pokemonData.name}
             </h3>
           </div>

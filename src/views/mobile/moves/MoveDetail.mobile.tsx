@@ -1,7 +1,7 @@
 import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
 import HeaderContainer from '~/container/mobile/header/Header.container'
 import MobileTabBar from '~/components/MobileTabBar'
-import MoveDetailContainer from '~/container/desktop/moves/moves.detail/MoveDetail.container'
+import MoveDetailContainer from '~/container/mobile/moves/moves.detail/MoveDetail.container'
 
 interface MoveDetailMobileProps {
   skillId: number
@@ -16,7 +16,6 @@ const MoveDetailMobile = ({
   initialSkill,
   initialPokemonList,
   totalCount,
-  selectedGeneration,
 }: MoveDetailMobileProps) => {
   return (
     <main className="w-full mx-auto min-h-screen">
@@ -26,7 +25,6 @@ const MoveDetailMobile = ({
         initialSkill={initialSkill}
         initialPokemonList={initialPokemonList}
         totalCount={totalCount}
-        selectedGeneration={selectedGeneration}
       />
       <MobileTabBar />
     </main>

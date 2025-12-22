@@ -75,15 +75,15 @@ const PokemonBySkillCard = ({
         className="w-full h-[20rem] md:h-80 text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] md:p-[0.83333333rem_0.55555556rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] md:hover:scale-105 md:hover:z-10"
         style={gradientStyle}
       >
-        <header className="w-full h-8 flex items-start justify-between pr-2 relative z-10">
+        <header className="w-full min-h-8 flex items-start justify-between pr-2 relative z-10">
           <i className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
           </i>
-          <div className="w-full h-5 flex items-start justify-between border-b border-solid border-[#334150] pb-1">
+          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-[#334150] pb-1 gap-2">
             <p className="h-4 text-base leading-none font-medium text-[#333333]">
               No.{pokemonNumber}
             </p>
-            <h3 className="w-full text-base leading-none font-semibold text-right text-black">
+            <h3 className="w-fit text-base leading-none font-semibold text-right text-black">
               {pokemonData.name}
             </h3>
           </div>

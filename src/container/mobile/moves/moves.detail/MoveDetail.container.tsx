@@ -1,18 +1,14 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { Fragment } from 'react'
 import MoveDetailComponent from '~/components/moves/MoveDetail.component'
-import MoveGenerationInfo from '~/components/moves/MoveGenerationInfo.component'
 import PokemonBySkillCard from '~/components/moves/PokemonBySkillCard.component'
-import {
-  LearnMethod,
-  PokemonLearnInfo,
-  PokemonSkillDetail,
-} from '~/graphql/typeGenerated'
-import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
+import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
+import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 import FooterContainer from '../../footer/Footer.container'
-import { AVAILABLE_LEARN_METHODS } from '~/utils/skill.util'
+import Link from 'next/link'
 
 interface MoveDetailContainerProps {
   skillId: number
@@ -21,22 +17,19 @@ interface MoveDetailContainerProps {
   totalCount: number
 }
 
+type ParamsType = {
+  id: string
+  generationId: string
+}
+
 const MoveDetailContainer = ({
   skillId,
   initialSkill,
   initialPokemonList,
   totalCount,
 }: MoveDetailContainerProps) => {
-  const [selectedGeneration, setSelectedGeneration] = useState<number>(
-    initialSkill.generations[initialSkill.generations.length - 1]
-      ?.generationId || 9,
-  )
-
-  const [selectedMethod, setSelectedMethod] = useState<string>('ALL')
-
-  // 필터에 따라 method 설정
-  const methodFilter: LearnMethod | undefined =
-    selectedMethod === 'ALL' ? undefined : (selectedMethod as LearnMethod)
+  const { generationId } = useParams<ParamsType>()
+  const selectedGeneration = parseInt(generationId ?? 9, 10)
 
   const {
     pokemonList,
@@ -46,15 +39,15 @@ const MoveDetailContainer = ({
     totalCount: filteredTotalCount,
   } = usePokemonsBySkill({
     skillId,
-    method: methodFilter,
-    initialPokemonList: selectedMethod === 'ALL' ? initialPokemonList : [],
+    generationId: selectedGeneration,
+    initialPokemonList,
   })
 
   const listRef = useInfiniteScroll({
     hasNextPage,
     loadMore,
-    rootMargin: '0px 0px 380px 0px',
-    dependencies: [pokemonList, hasNextPage, loading],
+    rootMargin: '0px 0px 100px 0px',
+    dependencies: [pokemonList],
   })
 
   // 선택된 세대의 정보 가져오기
@@ -63,84 +56,64 @@ const MoveDetailContainer = ({
   )
 
   return (
-    <section className="w-full h-full mx-auto py-8">
-      {/* 기술 기본 정보 */}
-      <MoveDetailComponent skillData={initialSkill} />
-
-      {/* 세대별 정보 섹션 */}
-      <div className="w-[calc(100%-2.5rem)] mx-auto mt-8 mb-12">
-        <h2 className="text-xl font-bold text-primary-1 mb-4">
-          📊 세대별 변화
-        </h2>
-
-        {/* 세대 선택 버튼 */}
-        <div className="flex gap-2 mb-6 flex-wrap">
-          {initialSkill.generations.map((gen) => (
-            <button
-              key={`gen-${gen.generationId}`}
-              onClick={() => setSelectedGeneration(gen.generationId)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                selectedGeneration === gen.generationId
-                  ? 'bg-primary-1 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {gen.generationId}세대
-            </button>
-          ))}
-        </div>
-
-        {/* 선택된 세대 정보 */}
-        {selectedGenerationData && (
-          <MoveGenerationInfo generationData={selectedGenerationData} />
-        )}
-      </div>
-
-      {/* 이 기술을 배울 수 있는 포켓몬 */}
-      <div className="w-[calc(100%-2.5rem)] mx-auto mt-12">
-        <h2 className="text-xl font-bold text-primary-1 mb-4">
-          🎯 이 기술을 배울 수 있는 포켓몬
-        </h2>
-
-        {/* 습득 방법 필터 */}
-        <div className="flex gap-2 mb-6 flex-wrap">
-          {AVAILABLE_LEARN_METHODS.map((method) => (
-            <button
-              key={method.value}
-              onClick={() => setSelectedMethod(method.value)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                selectedMethod === method.value
-                  ? 'bg-primary-1 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {method.label}
-            </button>
-          ))}
-        </div>
-
+    <section className="w-full max-w-[1280px] h-full mx-auto pt-4 pb-8">
+      <MoveDetailComponent
+        skillData={initialSkill}
+        selectedGenerationData={selectedGenerationData}
+      />
+      <h2
+        id="previous-generation"
+        className="h-12 text-[1.375rem] text-primary-4 border-t border-solid border-primary-4 pt-4 px-4"
+      >
+        세대 정보
+      </h2>
+      <nav
+        className="w-full min-h-18 flex flex-wrap items-center gap-3 px-4 mt-4"
+        aria-labelledby="previous-generation"
+      >
+        <Link
+          href={`/moves/${skillId}`}
+          className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] leading-[calc(2rem+2px)] text-center ${generationId ? 'bg-primary-4 text-primary-1' : 'bg-primary-2 text-primary-4'}`}
+        >
+          최신
+        </Link>
+        {new Array(9 - initialSkill.firstGenerationId)
+          .fill('')
+          .map((_, index) => {
+            return (
+              <Link
+                key={`generation-index-${9 - index}`}
+                href={`/moves/${skillId}/generation/${8 - index}`}
+                className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] leading-[calc(2rem+2px)] text-center ${parseInt(generationId, 10) === 8 - index ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+              >
+                {8 - index}세대
+              </Link>
+            )
+          })}
+      </nav>
+      <div className="mt-8">
         {pokemonList.length === 0 && !loading && (
-          <div className="w-full h-20">
-            <p className="w-full text-lg text-gray-700 font-medium text-center">
+          <div className="w-full h-[20rem] flex items-center">
+            <p className="w-full text-2xl text-primary-4 font-bold text-center">
               이 기술을 배울 수 있는 포켓몬이 없습니다.
             </p>
           </div>
         )}
-
         {pokemonList.length > 0 && (
           <Fragment>
-            <p className="text-[1rem] text-primary-3 mb-8">
+            <h2 className="text-[1rem] text-primary-3 mb-4 px-4">
               <span className="text-[1.25rem] font-bold">
                 {filteredTotalCount || totalCount}마리
               </span>
               의 포켓몬이 이 기술을 배울 수 있어요
-            </p>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between">
-              {pokemonList.map((pokemon) => {
+            </h2>
+            <div className="w-[calc(100%-2.5rem)] mx-auto grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between">
+              {pokemonList.map((pokemon, index) => {
                 return (
                   <PokemonBySkillCard
-                    key={`pokemon-skill-${pokemon.pokemonId}-${pokemon.method}-${pokemon.formType || 'base'}`}
+                    key={`pokemon-skill-${index + 1}-${pokemon.pokemonId}`}
                     pokemonData={pokemon}
+                    isHighPriority={index < 15}
                   />
                 )
               })}
@@ -148,7 +121,6 @@ const MoveDetailContainer = ({
           </Fragment>
         )}
       </div>
-
       <div ref={listRef}>
         <FooterContainer />
       </div>
