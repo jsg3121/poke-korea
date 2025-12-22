@@ -19,14 +19,15 @@ const MovesTableContainer = () => {
 
   // 현재 선택된 버전 그룹의 세대 ID 가져오기
   const currentGenerationId =
-    versionGroup?.find(
-      (version) =>
+    versionGroup?.find((version) => {
+      return (
         version.versionGroupId ===
         parseInt(
           selectVersionParam ?? versionGroup[0].versionGroupId.toString(),
           10,
-        ),
-    )?.generationId ??
+        )
+      )
+    })?.generationId ??
     versionGroup?.[0].generationId ??
     9
 

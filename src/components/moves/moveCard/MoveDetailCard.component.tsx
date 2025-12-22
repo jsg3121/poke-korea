@@ -19,7 +19,11 @@ const MoveDetailCard = ({
 
   return (
     <Link
-      href={`/moves/${skillId}/generation/${generationId}`}
+      href={
+        generationId === 9
+          ? `/moves/${skillId}`
+          : `/moves/${skillId}/generation/${generationId}`
+      }
       className="block w-full"
       aria-label={`${moveData.nameKo} 기술 상세보기`}
     >
@@ -29,7 +33,7 @@ const MoveDetailCard = ({
             Lv.{moveLevel}
           </p>
         )}
-        <h3 className="w-1/2 h-6 shrink-0 text-[1.125rem] leading-[calc(1.5rem+2px)] font-bold text-gray-900 flex gap-1">
+        <h3 className="w-fit h-6 shrink-0 text-[1.125rem] leading-[calc(1.5rem+2px)] font-bold text-gray-900 flex gap-1">
           {moveData.nameKo}
           {moveData.type && (
             <span className="h-6 shrink-0">
@@ -37,18 +41,22 @@ const MoveDetailCard = ({
             </span>
           )}
         </h3>
-        <span
-          className={`w-16 h-7 shrink-0 px-3 text-[0.875rem] text-center leading-[calc(1.75rem+2px)] font-semibold rounded-lg text-white ${
-            damageType === '물리'
-              ? 'bg-[#fd8181]'
-              : damageType === '특수'
-                ? 'bg-[#9b9bfa]'
-                : 'bg-[#72d372]'
-          }`}
-        >
-          {damageType}
-        </span>
-        <dl className="w-full h-24 grid grid-cols-3">
+        <p className="w-full">{moveData.description}</p>
+        <dl className="w-80 h-24 shrink-0 grid grid-cols-4">
+          <div className="w-full h-full flex flex-col justify-center text-center relative after:absolute after:-right-0 after:bg-primary-3 after:top-0 after:h-full after:w-[2px]">
+            <dt className="sr-only">위력</dt>
+            <dd
+              className={`w-16 h-7 block shrink-0 px-3 text-[0.875rem] text-center leading-[calc(1.75rem+2px)] font-semibold rounded-lg text-white ${
+                damageType === '물리'
+                  ? 'bg-[#fd8181]'
+                  : damageType === '특수'
+                    ? 'bg-[#9b9bfa]'
+                    : 'bg-[#72d372]'
+              }`}
+            >
+              {damageType}
+            </dd>
+          </div>
           <div className="w-full h-full flex flex-col justify-center text-center relative after:absolute after:-right-0 after:bg-primary-3 after:top-0 after:h-full after:w-[2px]">
             <dt className="text-base text-gray-600 mb-1">위력</dt>
             <dd className="text-[1.375rem] font-bold text-primary-1">
