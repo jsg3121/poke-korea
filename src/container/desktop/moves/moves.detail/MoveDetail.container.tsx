@@ -61,6 +61,7 @@ const MoveDetailContainer = ({
       <MoveDetailComponent
         skillData={initialSkill}
         selectedGenerationData={selectedGenerationData}
+        isShowTooltip={parseInt(generationId, 10) < 6}
       />
       <h2 id="previous-generation" className="sr-only">
         이전 세대 정보
@@ -93,7 +94,7 @@ const MoveDetailContainer = ({
         {pokemonList.length === 0 && !loading && (
           <div className="w-full h-[20rem] flex items-center">
             <p className="w-full text-2xl text-primary-4 font-bold text-center">
-              이 기술을 배울 수 있는 포켓몬이 없습니다.
+              이 기술을 배울 수 있는 포켓몬이 없어요.
             </p>
           </div>
         )}
