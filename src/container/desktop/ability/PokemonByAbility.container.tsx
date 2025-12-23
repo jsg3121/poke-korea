@@ -57,11 +57,12 @@ const PokemonByAbilityContainer = ({
             포켓몬이 이 특성을 가지고 있어요
           </p>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] gap-x-4 gap-y-6 justify-items-center justify-between">
-            {pokemonList.map((pokemon) => {
+            {pokemonList.map((pokemon, index) => {
               return (
                 <PokemonByAbilityCardComponent
                   key={`pokemon-ability-${pokemon.id}-${pokemon.formType}`}
                   pokemonData={pokemon}
+                  isHighPriority={index < 15}
                 />
               )
             })}

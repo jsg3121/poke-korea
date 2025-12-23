@@ -6,6 +6,9 @@ import '~/styles/globals.css'
 import { getRobotsConfig } from '~/module/metadata.module'
 import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import Providers from './providers'
+import { headers } from 'next/headers'
+import { detectUserAgent } from '~/module/device.module'
+import { DeviceProvider } from '~/context/Device.context'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
@@ -50,6 +53,9 @@ const gmarket = localFont({
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   const isProduction = process.env.NODE_ENV === 'production'
+  const headersList = headers()
+  const userAgent = headersList.get('user-agent') || ''
+  const isMobile = detectUserAgent(userAgent)
 
   return (
     <html lang="ko" className={gmarket.className}>
@@ -64,28 +70,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               name="google-adsense-account"
               content="ca-pub-6481622724376761"
             />
-            {/* --- Preconnect / DNS Prefetch (초기 호출 도메인만) --- */}
-            <link
-              rel="preconnect"
-              href="https://www.googletagmanager.com"
-              crossOrigin=""
-            />
-            <link
-              rel="preconnect"
-              href="https://www.google-analytics.com"
-              crossOrigin=""
-            />
-            <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-            <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-
-            {/* 네이버 애널리틱스 사용 시 */}
-            <link
-              rel="preconnect"
-              href="https://wcs.naver.net"
-              crossOrigin=""
-            />
-            <link rel="dns-prefetch" href="https://wcs.naver.net" />
-
             {/* 이미지 CDN - 최우선 */}
             <link
               rel="preconnect"
@@ -93,7 +77,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
-
+            {/* og 이미지 CDN - 최우선 */}
+            <link
+              rel="preconnect"
+              href="https://image.poke-korea.com"
+              crossOrigin=""
+            />
+            <link rel="dns-prefetch" href="https://image.poke-korea.com" />
             {/* GraphQL API */}
             <link
               rel="preconnect"
@@ -101,14 +91,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://api.poke-korea.com" />
-
-            {/* (선택) origin-hint를 확실하게 하기 위한 referrer-policy */}
-            <meta name="referrer" content="strict-origin-when-cross-origin" />
           </>
         )}
       </head>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <DeviceProvider isMobile={isMobile}>{children}</DeviceProvider>
+        </Providers>
         <script
           id="website-jsonLd"
           type="application/ld+json"
@@ -155,7 +144,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="adsbygoogle-init"
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-              rel="preconnect"
               crossOrigin="anonymous"
               strategy="afterInteractive"
             />

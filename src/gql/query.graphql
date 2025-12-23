@@ -103,9 +103,10 @@ query PokemonDetail($pokemonId: ID!) {
         level
         skill {
           id
-          name
+          identifier
+          nameKo
           description
-          generationId
+          firstGenerationId
           power
           accuracy
           pp
@@ -118,9 +119,10 @@ query PokemonDetail($pokemonId: ID!) {
       machineSkills {
         skill {
           id
-          name
+          identifier
+          nameKo
           description
-          generationId
+          firstGenerationId
           power
           accuracy
           pp
@@ -175,9 +177,10 @@ query GetPokemonRegionForm($pokemonId: Int) {
         level
         skill {
           id
-          name
+          identifier
+          nameKo
           description
-          generationId
+          firstGenerationId
           power
           accuracy
           pp
@@ -190,9 +193,10 @@ query GetPokemonRegionForm($pokemonId: Int) {
       machineSkills {
         skill {
           id
-          name
+          identifier
+          nameKo
           description
-          generationId
+          firstGenerationId
           power
           accuracy
           pp
@@ -229,9 +233,10 @@ query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
         level
         skill {
           id
-          name
+          identifier
+          nameKo
           description
-          generationId
+          firstGenerationId
           power
           accuracy
           pp
@@ -244,9 +249,10 @@ query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
       machineSkills {
         skill {
           id
-          name
+          identifier
+          nameKo
           description
-          generationId
+          firstGenerationId
           power
           accuracy
           pp
@@ -266,13 +272,14 @@ query GetPokemonSkillList($input: PokemonSkillListInput) {
       cursor
       node {
         id
-        name
+        identifier
+        nameKo
         type
         power
         accuracy
         pp
         description
-        generationId
+        firstGenerationId
         signatureMoves
         damageType
         zMoves
@@ -302,9 +309,10 @@ query GetPokemonLearnableSkills($filter: PokemonSkillsFilterInput!) {
       level
       skill {
         id
-        name
+        identifier
+        nameKo
         description
-        generationId
+        firstGenerationId
         power
         accuracy
         pp
@@ -317,9 +325,10 @@ query GetPokemonLearnableSkills($filter: PokemonSkillsFilterInput!) {
     machineSkills {
       skill {
         id
-        name
+        identifier
+        nameKo
         description
-        generationId
+        firstGenerationId
         power
         accuracy
         pp
@@ -351,9 +360,10 @@ query GetPokemonRegionFormLearnableSkills(
       level
       skill {
         id
-        name
+        identifier
+        nameKo
         description
-        generationId
+        firstGenerationId
         power
         accuracy
         pp
@@ -366,9 +376,10 @@ query GetPokemonRegionFormLearnableSkills(
     machineSkills {
       skill {
         id
-        name
+        identifier
+        nameKo
         description
-        generationId
+        firstGenerationId
         power
         accuracy
         pp
@@ -401,9 +412,10 @@ query GetPokemonNormalFormLearnableSkills(
       level
       skill {
         id
-        name
+        identifier
+        nameKo
         description
-        generationId
+        firstGenerationId
         power
         accuracy
         pp
@@ -416,9 +428,10 @@ query GetPokemonNormalFormLearnableSkills(
     machineSkills {
       skill {
         id
-        name
+        identifier
+        nameKo
         description
-        generationId
+        firstGenerationId
         power
         accuracy
         pp
@@ -533,5 +546,70 @@ query SearchPokemonWithAllForms($input: SearchPokemonWithAllFormsInput!) {
     index
     formType
     imagePath
+  }
+}
+
+query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
+  getPokemonSkillDetail(filter: $filter) {
+    id
+    identifier
+    nameKo
+    type
+    power
+    accuracy
+    pp
+    description
+    firstGenerationId
+    isAvailable
+    signatureMoves
+    damageType
+    zMoves
+    generations {
+      id
+      skillId
+      generationId
+      isAvailable
+      type
+      power
+      accuracy
+      pp
+      description
+      damageType
+      language
+    }
+  }
+}
+
+query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
+  getPokemonsBySkill(input: $input) {
+    skillId
+    skillName
+    edges {
+      cursor
+      node {
+        id
+        pokemonId
+        name
+        number
+        methods {
+          method
+        }
+        generationId
+        formType
+        formCode
+        formName
+        types
+        region
+        imagePath
+        formType
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
   }
 }

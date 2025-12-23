@@ -1,12 +1,13 @@
 'use client'
 
-import LogoIcon from '~/assets/logo.svg'
-import MainSearch from './search.main/MainSearch'
-import HeaderNav from './nav/HeaderNav'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import FeedbackIcon from '~/assets/icons/feedback.svg'
+import LogoIcon from '~/assets/logo.svg'
 import FilterComponents from './filter/Filter.components'
 import DetailSearch from './header.search/DetailSearch'
+import HeaderNav from './nav/HeaderNav'
+import MainSearch from './search.main/MainSearch'
 
 const HeaderContainer = () => {
   const pathname = usePathname()
@@ -25,6 +26,14 @@ const HeaderContainer = () => {
           <LogoIcon />
         </Link>
         {pathname === '/list' ? <MainSearch /> : <DetailSearch />}
+        <Link
+          href="https://forms.gle/BP9QVkj42xTJ5beQ8"
+          target="_blank"
+          className="h-8 text-primary-4 absolute right-5 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex items-center gap-2"
+        >
+          <FeedbackIcon width={16} height={16} />
+          <span className="text-base mt-1">기능/오류 신고</span>
+        </Link>
       </div>
       <HeaderNav />
       {pathname === '/list' && <FilterComponents />}

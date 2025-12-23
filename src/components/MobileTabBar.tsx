@@ -37,11 +37,11 @@ const MobileTabBar = () => {
           </Link>
         </li>
         <li
-          className={`w-full h-full text-center ${pathname === '/moves' ? 'border-t-4 border-solid border-primary-4' : ''}`}
+          className={`w-full h-full text-center ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'border-t-4 border-solid border-primary-4' : ''}`}
         >
           <Link
             href="/moves"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/moves' ? 'font-bold' : ''}`}
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'font-bold' : ''}`}
           >
             <MovesListIcon />
             기술 도감

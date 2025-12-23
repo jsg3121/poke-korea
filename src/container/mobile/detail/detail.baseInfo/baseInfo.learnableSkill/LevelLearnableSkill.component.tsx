@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
+import { getDamageTypeKorean } from '~/utils/skill.util'
 
 const LevelLearnableSkillComponent = () => {
   const { pokemonId } = useParams()
@@ -107,31 +108,33 @@ const LevelLearnableSkillComponent = () => {
                     <td className="text-center">
                       {level === 0 ? '진화' : level === 1 ? '최초' : level}
                     </td>
-                    <td>{skill.name}</td>
+                    <td>{skill.nameKo}</td>
                     <td className="justify-items-center">
-                      <ImageComponent
-                        alt={`${levelUpSkill.skill.type.toLowerCase()} 타입 필터 선택`}
-                        height="1rem"
-                        width="1rem"
-                        src={`/assets/type/${levelUpSkill.skill.type.toLowerCase()}.svg`}
-                        loading="lazy"
-                      />
+                      {skill.type && (
+                        <ImageComponent
+                          alt={`${skill.type.toLowerCase()} 타입 필터 선택`}
+                          height="1rem"
+                          width="1rem"
+                          src={`/assets/type/${skill.type.toLowerCase()}.svg`}
+                          loading="lazy"
+                        />
+                      )}
                     </td>
-                    <td className="text-center">{skill.power}</td>
-                    <td className="text-center">{skill.accuracy}</td>
-                    <td className="text-center">{skill.pp}</td>
+                    <td className="text-center">{skill.power || '-'}</td>
+                    <td className="text-center">{skill.accuracy || '-'}</td>
+                    <td className="text-center">{skill.pp || '-'}</td>
                     <td
                       className={`text-center
                          ${
-                           skill.damageType === '물리'
+                           getDamageTypeKorean(skill.damageType) === '물리'
                              ? 'bg-[#fd8181]'
-                             : skill.damageType === '특수'
+                             : getDamageTypeKorean(skill.damageType) === '특수'
                                ? 'bg-[#9b9bfa]'
                                : 'bg-[#72d372]'
                          }
                       `}
                     >
-                      {skill.damageType}
+                      {getDamageTypeKorean(skill.damageType)}
                     </td>
                   </tr>
                 )
