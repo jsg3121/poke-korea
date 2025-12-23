@@ -2,8 +2,14 @@ import type { MetadataRoute } from 'next'
 import {
   GetPokemonListDocument,
   GetAbilityListPaginatedDocument,
+  GetPokemonSkillListDocument,
 } from '~/graphql/gqlGenerated'
-import { PokemonList, PokemonType, AbilityEdge } from '~/graphql/typeGenerated'
+import {
+  PokemonList,
+  PokemonType,
+  AbilityEdge,
+  PokemonSkillEdge,
+} from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -79,6 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { data: megaData },
       { data: regionData },
       { data: abilityData },
+      { data: skillsData },
     ] = await Promise.all([
       apolloClient.query({
         query: GetPokemonListDocument,
@@ -108,6 +115,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           input: {
             pagination: {
               first: 1000, // 모든 특성을 가져오기 위해 충분히 큰 숫자
+            },
+          },
+        },
+      }),
+      apolloClient.query({
+        query: GetPokemonSkillListDocument,
+        variables: {
+          input: {
+            pagination: {
+              first: 1000, // 모든 기술을 가져오기 위해 충분히 큰 숫자
             },
           },
         },
@@ -245,6 +262,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
+    // 기술 상세 페이지들
+    const moveDetailPages = skillsData.getPokemonSkillList.edges.map(
+      (edge: PokemonSkillEdge) => ({
+        url: `https://poke-korea.com/moves/${edge.node.id}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.7,
+      }),
+    )
+
+    // 기술 세대별 상세 페이지들 (해당 기술이 등장한 세대부터 9세대까지만)
+    const moveGenerationPages: MetadataRoute.Sitemap = []
+    for (const edge of skillsData.getPokemonSkillList.edges) {
+      const firstGen = edge.node.firstGenerationId || 1
+      for (let gen = firstGen; gen <= 9; gen++) {
+        moveGenerationPages.push({
+          url: `https://poke-korea.com/moves/${edge.node.id}/generation/${gen}`,
+          lastModified: new Date(),
+          changeFrequency: 'daily',
+          priority: 0.6,
+        })
+      }
+    }
+
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
@@ -259,6 +300,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...damageTypeFilterMovesPages,
       ...basicDetailMovesPages,
       ...abilityDetailPages,
+      ...moveDetailPages,
+      ...moveGenerationPages,
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)
