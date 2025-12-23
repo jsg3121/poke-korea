@@ -3,14 +3,21 @@ import { ReactNode, createContext, useContext } from 'react'
 
 export interface IFDeviceProviderProps {
   children: ReactNode
+  isMobile: boolean
 }
 
-interface IFDeviceProps {}
+interface IFDeviceProps {
+  isMobile: boolean
+}
 
-const DeviceContext = createContext<IFDeviceProps>({})
+const DeviceContext = createContext<IFDeviceProps>({
+  isMobile: true,
+})
 
-const DeviceProvider = ({ children }: IFDeviceProviderProps) => {
-  const initialValue: IFDeviceProps = {}
+const DeviceProvider = ({ children, isMobile }: IFDeviceProviderProps) => {
+  const initialValue: IFDeviceProps = {
+    isMobile,
+  }
 
   return (
     <DeviceContext.Provider value={initialValue}>

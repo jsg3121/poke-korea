@@ -1,4 +1,3 @@
-'use client'
 import PageHeader from '~/components/PageHeader'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 import MovesListContainer from '~/container/desktop/moves/MovesList.container'

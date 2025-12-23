@@ -1,5 +1,7 @@
 'use client'
+import Link from 'next/link'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import FeedbackIcon from '~/assets/icons/feedback.svg'
 import ImageComponent from '~/components/Image.component'
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
@@ -67,7 +69,7 @@ const HeaderSearchContainer = () => {
       <p id="pokemon-search" className="sr-only">
         포켓몬 검색하기
       </p>
-      <div className="w-full h-10 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">
+      <div className="w-4/5 h-10 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">
         <input
           type="text"
           name="search-pokemon"
@@ -84,6 +86,14 @@ const HeaderSearchContainer = () => {
           className="icon-search"
         />
       </div>
+      <Link
+        href="https://forms.gle/BP9QVkj42xTJ5beQ8"
+        target="_blank"
+        className="h-8 text-primary-4 absolute right-0 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex items-center gap-2"
+      >
+        <FeedbackIcon width={16} height={16} />
+        <span className="sr-only">기능/오류 신고</span>
+      </Link>
       {isShowSearchResult && (
         <SearchResultList pokemonList={pokemonList} loading={loading} />
       )}
