@@ -8,6 +8,7 @@ import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
 import MobileAbilityDetailTopBanner from '~/components/adSlot/MobileAbilityDetailTopBanner'
 import { Fragment } from 'react'
+import MobileAbilityDetailBottomBanner from '~/components/adSlot/MobileAbilityDetailBottomBanner'
 
 interface PokemonByAbilityContainerProps {
   abilityId: number
@@ -69,6 +70,7 @@ const PokemonByAbilityContainer = ({
           </div>
         </Fragment>
       )}
+      <MobileAbilityDetailBottomBanner />
       <div ref={listRef}>
         <FooterContainer />
       </div>

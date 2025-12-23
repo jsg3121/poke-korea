@@ -9,6 +9,7 @@ import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 import FooterContainer from '../../footer/Footer.container'
+import DesktopMovesDetailTopBanner from '~/components/adSlot/DesktopMovesDetailTopBanner'
 
 interface MoveDetailContainerProps {
   skillId: number
@@ -62,6 +63,9 @@ const MoveDetailContainer = ({
         skillData={initialSkill}
         selectedGenerationData={selectedGenerationData}
         isShowTooltip={parseInt(generationId, 10) < 6}
+      />
+      <DesktopMovesDetailTopBanner
+        key={`generation-id-${selectedGeneration}`}
       />
       <h2 id="previous-generation" className="sr-only">
         이전 세대 정보
