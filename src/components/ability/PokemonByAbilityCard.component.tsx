@@ -78,7 +78,7 @@ const PokemonByAbilityCardComponent = ({
         },
       }}
       className="block w-full md:w-56"
-      aria-label={`포켓몬 ${pokemonData.name} 카드`}
+      aria-label={`포켓몬 ${pokemonData.name} 카드 ${formLabel ? formLabel : ''}`}
     >
       <article
         className="w-full h-[20rem] md:h-80 text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] md:p-[0.83333333rem_0.55555556rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] md:hover:scale-[1.2] md:hover:z-10"
@@ -102,7 +102,7 @@ const PokemonByAbilityCardComponent = ({
             <ImageComponent
               height={isMobile ? '8rem' : '10rem'}
               width={isMobile ? '8rem' : '10rem'}
-              alt={`pokemon_id_${pokemonData.number}`}
+              alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
               src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
               sizes={isMobile ? '8rem' : '10rem'}
               fetchPriority="high"
@@ -117,7 +117,7 @@ const PokemonByAbilityCardComponent = ({
               <ImageComponent
                 height={isMobile ? '8rem' : '10rem'}
                 width={isMobile ? '8rem' : '10rem'}
-                alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
+                alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
                 src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
                 sizes={isMobile ? '8rem' : '10rem'}
                 onLoad={handleImageLoad}
@@ -138,17 +138,17 @@ const PokemonByAbilityCardComponent = ({
           })}
         </div>
         <div className="w-full flex flex-wrap items-center justify-center gap-2 px-2">
-          {formLabel && (
-            <span className="h-6 leading-[calc(1.5rem+2px)] px-2 text-[0.75rem] bg-[#334150] text-white rounded-md font-medium">
-              {formLabel}
-            </span>
-          )}
           {pokemonData.isHidden && (
-            <span className="h-6 leading-[calc(1.5rem+2px)] px-2 text-[0.75rem] bg-[#F8D030] text-[#333333] rounded-md font-bold">
+            <strong className="h-6 leading-[calc(1.5rem+2px)] px-2 text-[0.75rem] bg-[#F8D030] text-[#333333] rounded-md font-bold">
               숨겨진 특성
-            </span>
+            </strong>
           )}
         </div>
+        {formLabel && (
+          <p className="w-fit h-6 leading-[calc(1.5rem+2px)] px-2 text-[0.75rem] bg-[#334150] text-white rounded-md font-medium mt-2 mx-auto">
+            {formLabel}
+          </p>
+        )}
       </article>
     </Link>
   )
