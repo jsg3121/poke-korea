@@ -12,6 +12,8 @@ import {
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
+export const revalidate = 0
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const apolloClient = initializeApollo()
 
