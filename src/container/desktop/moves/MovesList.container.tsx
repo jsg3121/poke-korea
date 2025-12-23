@@ -6,8 +6,8 @@ import MovesList from './moves.list/MovesList'
 const MovesListContainer = () => {
   return (
     <section className="w-full h-fit">
-      <MovesSearchAndFilter />
       <DesktopMovesTopBanner />
+      <MovesSearchAndFilter />
       <MovesList />
       <FooterContainer />
     </section>

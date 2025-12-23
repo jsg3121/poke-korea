@@ -9,6 +9,8 @@ import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 import FooterContainer from '../../footer/Footer.container'
 import Link from 'next/link'
+import MobileMovesDetailTopBanner from '~/components/adSlot/MobileMovesDetailTopBanner'
+import MobileMovesDetailBottomBanner from '~/components/adSlot/MobileMovesDetailBottomBanner'
 
 interface MoveDetailContainerProps {
   skillId: number
@@ -62,6 +64,7 @@ const MoveDetailContainer = ({
         selectedGenerationData={selectedGenerationData}
         isShowTooltip={parseInt(generationId, 10) < 6}
       />
+      <MobileMovesDetailTopBanner />
       <h2
         id="previous-generation"
         className="h-12 text-[1.375rem] text-primary-4 border-t border-solid border-primary-4 pt-4 px-4"
@@ -122,6 +125,7 @@ const MoveDetailContainer = ({
           </Fragment>
         )}
       </div>
+      <MobileMovesDetailBottomBanner />
       <div ref={listRef}>
         <FooterContainer />
       </div>

@@ -7,7 +7,7 @@ const DesktopAbilityListTopBanner = () => {
   return (
     <div ref={slotRef} className="w-full max-w-[1280px] h-fit mb-8 mx-auto">
       <ins
-        className="adsbygoogle block w-[728px] h-[90px] mx-auto"
+        className="adsbygoogle block w-[970px] h-[250px] mx-auto"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="3369121137"
       ></ins>
