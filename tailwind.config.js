@@ -5,6 +5,8 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/container/**/*.{js,ts,jsx,tsx}',
     './src/views/**/*.{js,ts,jsx,tsx}',
+    './src/app/**/*.{js,ts,jsx,tsx}',
+    './content/**/*.{md,mdx}',
   ],
   theme: {
     extend: {
@@ -112,5 +114,5 @@ module.exports = {
         /chip-type-(normal|fire|water|grass|electric|ice|fighting|poison|ground|flying|psychic|bug|rock|ghost|dragon|dark|steel|fairy)/,
     },
   ],
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

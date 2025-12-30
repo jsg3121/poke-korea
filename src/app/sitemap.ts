@@ -11,6 +11,7 @@ import {
   PokemonSkillEdge,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
+import { getPublishedPosts } from '~/lib/blog'
 
 export const revalidate = 0
 
@@ -29,6 +30,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: 'https://poke-korea.com/list',
       lastModified: new Date(),
       changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: 'https://poke-korea.com/blog',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
@@ -80,6 +87,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
   ]
+
+  // 블로그 포스트 페이지들
+  const blogPosts = getPublishedPosts()
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `https://poke-korea.com/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }))
 
   try {
     const [
@@ -291,6 +307,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
+      ...blogPages,
       ...basicDetailPages,
       ...shinyPages,
       ...megaPages,

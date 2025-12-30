@@ -56,7 +56,7 @@ const Error = () => {
         </p>
         <Link
           href="/"
-          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-[1.25rem] leading-[calc(3rem+2px)] text-white h-12 border-solid border-primary-4 border block`}
+          className={`${isMobile ? 'w-1/2' : 'w-[15rem]'} text-[1.25rem] leading-[calc(3rem+2px)] text-white h-12 border-solid border-primary-4 border block mx-auto`}
         >
           홈으로 돌아가기
         </Link>
