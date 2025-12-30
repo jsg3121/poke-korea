@@ -23,10 +23,12 @@
     "start": "next start",
     "start:local": "npm run build && npm run start",
     "codegen": "graphql-codegen --config codegen.ts",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "partytown copylib public/~partytown"
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "@builder.io/partytown": "^0.10.3",
     "@svgr/webpack": "^8.1.0",
     "chart.js": "^4.4.6",
     "cross-fetch": "^4.0.0",
