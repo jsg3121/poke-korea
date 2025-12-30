@@ -111,11 +111,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="gtag-base"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
-              strategy="afterInteractive"
+              strategy="worker"
             />
             <Script
               id="gtag-init"
-              strategy="afterInteractive"
+              strategy="worker"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -126,10 +126,14 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               }}
             />
             {/* Naver Analytics */}
-            <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
+            <Script
+              id="naver-analytics"
+              src="//wcs.naver.net/wcslog.js"
+              strategy="worker"
+            />
             <Script
               id="naver-analytics-init"
-              strategy="lazyOnload"
+              strategy="worker"
               dangerouslySetInnerHTML={{
                 __html: `
                   if(!wcs_add) var wcs_add = {};
