@@ -79,7 +79,7 @@ const mdxComponents = {
   a: ({ href, children, ...props }: any) => (
     <a
       href={href}
-      className="text-blue-600 hover:text-blue-800 underline"
+      className="text-primary-2 hover:text-primary-1 no-underline"
       {...props}
     >
       {children}
@@ -88,7 +88,7 @@ const mdxComponents = {
   // 코드 블록 스타일
   pre: ({ children, ...props }: any) => (
     <pre
-      className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4"
+      className="bg-primary-1 text-white rounded-lg p-4 overflow-x-auto my-4"
       {...props}
     >
       {children}
@@ -97,7 +97,7 @@ const mdxComponents = {
   // 인라인 코드 스타일
   code: ({ children, ...props }: any) => (
     <code
-      className="bg-gray-100 text-red-600 px-1.5 py-0.5 rounded text-sm font-mono"
+      className="bg-primary-4 text-primary-1 px-1.5 py-0.5 rounded text-sm font-mono"
       {...props}
     >
       {children}
@@ -106,14 +106,14 @@ const mdxComponents = {
   // 테이블 스타일
   table: ({ children, ...props }: any) => (
     <div className="overflow-x-auto my-6">
-      <table className="min-w-full divide-y divide-gray-200" {...props}>
+      <table className="min-w-full divide-y divide-primary-3" {...props}>
         {children}
       </table>
     </div>
   ),
   th: ({ children, ...props }: any) => (
     <th
-      className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      className="px-6 py-3 bg-primary-1 text-left text-xs font-medium text-white uppercase tracking-wider"
       {...props}
     >
       {children}
@@ -121,7 +121,7 @@ const mdxComponents = {
   ),
   td: ({ children, ...props }: any) => (
     <td
-      className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+      className="px-6 py-4 whitespace-nowrap text-sm text-primary-4 border-b border-primary-4"
       {...props}
     >
       {children}
@@ -173,24 +173,24 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4">
-        <article className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="min-h-screen bg-primary-1 py-12 px-5">
+        <article className="max-w-[1280px] mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-primary-3">
           {/* 블로그 헤더 */}
-          <header className="border-b border-gray-200 px-8 py-10 bg-gradient-to-r from-blue-50 to-indigo-50">
+          <header className="border-b border-primary-4 px-8 py-10 bg-gradient-to-r from-primary-1 to-primary-2">
             <Link
               href="/blog"
-              className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 font-medium"
+              className="inline-flex items-center text-white hover:text-primary-3 mb-6 font-medium"
             >
               ← 블로그 목록으로
             </Link>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               {post.title}
             </h1>
 
-            <p className="text-xl text-gray-600 mb-6">{post.description}</p>
+            <p className="text-xl text-primary-3 mb-6">{post.description}</p>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-primary-4 mb-6">
               <time dateTime={post.date} className="font-medium">
                 {format(new Date(post.date), 'yyyy년 M월 d일', { locale: ko })}
               </time>
@@ -204,7 +204,7 @@ export default async function BlogPostPage({ params }: Props) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-sm bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-medium"
+                  className="text-sm bg-white text-primary-1 px-4 py-2 rounded-full font-medium"
                 >
                   #{tag}
                 </span>
@@ -213,8 +213,8 @@ export default async function BlogPostPage({ params }: Props) {
           </header>
 
           {/* 블로그 본문 */}
-          <div className="px-8 py-10">
-            <div className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900 prose-code:text-red-600 prose-code:bg-gray-100 prose-pre:bg-gray-900 prose-pre:text-gray-100">
+          <div className="px-8 py-10 bg-primary-2">
+            <div className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-primary-4 prose-a:text-white prose-a:no-underline prose-strong:text-white prose-code:text-white prose-code:bg-primary-1 prose-pre:bg-primary-1 prose-li:text-primary-4">
               <MDXRemote
                 source={post.content}
                 components={mdxComponents}
@@ -247,11 +247,11 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           {/* 블로그 푸터 */}
-          <footer className="border-t border-gray-200 px-8 py-8 bg-gray-50">
+          <footer className="border-t border-primary-4 px-8 py-8 bg-gradient-to-r from-primary-1 to-primary-2">
             <div className="text-center">
               <Link
                 href="/blog"
-                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                className="inline-block bg-white text-primary-1 px-8 py-3 rounded-lg font-medium hover:bg-primary-3 hover:text-primary-1 transition-colors"
               >
                 더 많은 글 보기
               </Link>

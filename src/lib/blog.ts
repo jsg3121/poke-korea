@@ -73,8 +73,6 @@ export function getPostBySlug(slug: string): Post | null {
     // URL 인코딩된 slug를 디코딩
     const decodedSlug = decodeURIComponent(slug)
     const fullPath = path.join(postsDirectory, `${decodedSlug}.md`)
-    console.log('🔍 Trying to read:', fullPath)
-    console.log('📁 File exists:', fs.existsSync(fullPath))
 
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)

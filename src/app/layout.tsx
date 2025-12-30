@@ -1,14 +1,15 @@
 import { Metadata, Viewport } from 'next'
+import { Partytown } from '@qwik.dev/partytown/react'
 import localFont from 'next/font/local'
+import { headers } from 'next/headers'
 import Script from 'next/script'
 import { ReactNode } from 'react'
-import '~/styles/globals.css'
-import { getRobotsConfig } from '~/module/metadata.module'
 import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
-import Providers from './providers'
-import { headers } from 'next/headers'
-import { detectUserAgent } from '~/module/device.module'
 import { DeviceProvider } from '~/context/Device.context'
+import { detectUserAgent } from '~/module/device.module'
+import { getRobotsConfig } from '~/module/metadata.module'
+import '~/styles/globals.css'
+import Providers from './providers'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
@@ -62,6 +63,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <head>
         {isProduction && (
           <>
+            <Partytown
+              debug={false}
+              forward={['dataLayer.push', 'gtag', 'wcs_add', 'wcs_do', 'wcs']}
+            />
             <meta
               name="naver-site-verification"
               content="28fbf8b85e4e80ff37d5a2338991716ae74de83f"

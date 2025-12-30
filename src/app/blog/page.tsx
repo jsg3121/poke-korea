@@ -47,14 +47,14 @@ export default function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-16 px-4">
-        <div className="max-w-6xl mx-auto">
+      <div className="min-h-screen bg-primary-1 py-16 px-5">
+        <div className="max-w-[1280px] mx-auto">
           {/* 헤더 */}
-          <header className="mb-16 text-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">
+          <header className="mb-16">
+            <h1 className="text-5xl font-bold text-white mb-4">
               기술 블로그
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-primary-3">
               웹 개발과 성능 최적화에 대한 경험을 공유합니다
             </p>
           </header>
@@ -62,28 +62,28 @@ export default function BlogPage() {
           {/* 블로그 포스트 그리드 */}
           {posts.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-gray-500 text-lg">
+              <p className="text-primary-3 text-lg">
                 아직 작성된 글이 없습니다.
               </p>
             </div>
           ) : (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {posts.map((post) => (
                 <article
                   key={post.slug}
-                  className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-100"
+                  className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-primary-3 hover:border-primary-2"
                 >
                   <Link href={`/blog/${post.slug}`}>
                     <div className="p-6">
-                      <h2 className="text-2xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors line-clamp-2">
+                      <h2 className="text-2xl font-bold text-primary-1 mb-3 hover:text-primary-2 transition-colors line-clamp-2">
                         {post.title}
                       </h2>
 
-                      <p className="text-gray-600 mb-4 line-clamp-3">
+                      <p className="text-primary-2 mb-4 line-clamp-3">
                         {post.description}
                       </p>
 
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center gap-4 text-sm text-primary-3 mb-4">
                         <time dateTime={post.date}>
                           {format(new Date(post.date), 'yyyy년 M월 d일', {
                             locale: ko,
@@ -97,7 +97,7 @@ export default function BlogPage() {
                         {post.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-medium"
+                            className="text-xs bg-primary-1 text-white px-3 py-1 rounded-full font-medium"
                           >
                             #{tag}
                           </span>
