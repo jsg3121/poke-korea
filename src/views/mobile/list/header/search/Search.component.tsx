@@ -53,7 +53,7 @@ const SearchComponent = () => {
       ref={observerRef}
       className={`w-full h-16 my-8 relative before:content-[''] before:w-full before:h-16 before:block ${
         isScroll
-          ? 'fixed after:content-[""] after:w-full after:h-16 after:bg-primary-1 after:border-b after:border-primary-4 after:py-4 after:block after:fixed after:top-0 after:z-10 after:box-content'
+          ? 'fixed after:content-[""] after:w-full after:h-16 after:bg-primary-1 after:border-b after:border-primary-4 after:py-4 after:block after:fixed after:top-0 after:z-50 after:box-content'
           : ''
       }`}
     >
