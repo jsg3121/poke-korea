@@ -27,7 +27,7 @@ const TypeListComponent = ({ list, title, grade }: TypeListComponentProps) => {
       </dt>
       <dd className="h-[calc(100%-2.25rem)]">
         <ul
-          className="h-full flex items-center justify-center flex-wrap gap-2"
+          className="h-full flex-center flex-wrap gap-2"
           aria-label="상성 타입 리스트"
         >
           {list.map((item, index) => {

@@ -50,7 +50,7 @@ const MovesTableContainer = () => {
         <h2 className="h-12 leading-[3rem] text-[1.5rem] font-[500] text-primary-4">
           기술 목록
         </h2>
-        <div className="w-[11rem] h-[3rem] flex items-center justify-between">
+        <div className="w-[11rem] h-[3rem] flex-between">
           <p className="h-[1.25rem] text-[1rem] text-aligned-xs text-primary-4">
             습득 유형 :
           </p>

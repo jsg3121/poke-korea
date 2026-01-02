@@ -55,8 +55,8 @@ const TypeEffectivenessQuiz = () => {
               {currentQuestion?.question}
             </h2>
             {currentQuestion && (
-              <div className="h-120 flex items-center justify-center gap-4 py-8 border-y border-solid border-primary-3">
-                <p className="h-full flex items-center gap-2">
+              <div className="h-120 flex-center gap-4 py-8 border-y border-solid border-primary-3">
+                <p className="h-full flex-items-gap-2">
                   <span className="h-6 text-[1rem] text-primary-1 text-aligned-sm">
                     공격:
                   </span>
@@ -67,7 +67,7 @@ const TypeEffectivenessQuiz = () => {
                 <span className="h-6 text-[1rem] text-primary-1 text-aligned-sm">
                   →
                 </span>
-                <p className="flex items-center gap-2">
+                <p className="flex-items-gap-2">
                   <span className="text-[1rem] text-gray-600">방어:</span>
                   {currentQuestion.defendingTypes.map((type, index) => (
                     <TagComponent key={index} type={type as PokemonType} />

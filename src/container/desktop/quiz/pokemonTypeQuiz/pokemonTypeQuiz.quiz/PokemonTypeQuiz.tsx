@@ -53,7 +53,7 @@ const PokemonTypeQuiz = () => {
         />
         <article className="w-full  rounded-[2rem] p-[2rem] mx-auto grid grid-cols-2 gap-4">
           {currentQuestion?.targetType ? (
-            <h2 className="w-full h-12 col-span-2 text-[1.75rem] text-primary-1 mb-4 text-center flex items-center justify-center gap-2">
+            <h2 className="w-full h-12 col-span-2 text-[1.75rem] text-primary-1 mb-4 text-center flex-center gap-2">
               다음 중{' '}
               <TagComponent type={currentQuestion?.targetType as PokemonType} />
               타입을 가진 포켓몬은?

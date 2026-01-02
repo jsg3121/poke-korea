@@ -100,7 +100,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               <span>No.{pokemonId}&nbsp;</span>
               <b className="font-bold">{pokemonName.replace('_', ' ')}</b>
             </h2>
-            <div className="w-full h-[2.5rem] flex items-center gap-2">
+            <div className="w-full h-[2.5rem] flex-items-gap-2">
               {((formDataLength > 1 && activeType === 'region') ||
                 pokemonInfo?.isFormChange) && (
                 <>
@@ -190,7 +190,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
         </header>
         <nav
           ref={versionListRef}
-          className="w-full h-[4rem] flex items-center gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+          className="w-full h-[4rem] flex-items-gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
         >
           {versionGroup?.map((item) => {
             return (

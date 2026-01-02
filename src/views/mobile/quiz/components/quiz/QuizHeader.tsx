@@ -15,7 +15,7 @@ const QuizHeader = ({
 }: QuizHeaderProps) => {
   return (
     <header className="bg-white rounded-[1rem] shadow-md py-[1rem] px-[1rem] mb-[1rem]">
-      <div className="flex items-center justify-between mb-[0.75rem]">
+      <div className="flex-between mb-[0.75rem]">
         <div>
           <h1 className="text-[1.25rem] font-bold text-gray-800">{quizName}</h1>
           <p className="text-[0.875rem] text-gray-600">

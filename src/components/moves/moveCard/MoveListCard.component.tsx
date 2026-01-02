@@ -18,7 +18,7 @@ const MoveCard = ({ moveData }: MoveCardProps) => {
       aria-label={`${moveData.nameKo} 기술 상세보기`}
     >
       <article className="w-full min-h-40 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative md:hover:scale-105 transition-transform">
-        <header className="w-full h-8 mb-3 flex items-center justify-between">
+        <header className="w-full h-8 mb-3 flex-between">
           <h3 className="w-full h-6 text-[1.125rem] text-aligned-sm font-bold text-gray-900 flex gap-1">
             <span className="h-4 text-[1rem] text-primary-2">
               {moveData.id}.

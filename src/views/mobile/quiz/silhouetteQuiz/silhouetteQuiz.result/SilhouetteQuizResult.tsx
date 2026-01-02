@@ -49,7 +49,7 @@ const SilhouetteQuizResult = () => {
                 className="w-full h-50 flex flex-wrap gap-x-4 justify-between bg-primary-4 rounded-[1rem] p-4"
               >
                 <div className="w-1/2 h-32 flex flex-col items-start justify-start">
-                  <span className="w-full text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem] mb-4">
+                  <span className="w-full text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem] mb-4">
                     #{index + 1}{' '}
                     {userAnswer === realAnswer && (
                       <>
@@ -64,7 +64,7 @@ const SilhouetteQuizResult = () => {
                     </span>
                   </p>
                   <p
-                    className={`w-fit h-6 shrink-0 text-left flex items-center gap-2 text-primary-1`}
+                    className={`w-fit h-6 shrink-0 text-left flex-items-gap-2 text-primary-1`}
                   >
                     나의 답 :{' '}
                     <span

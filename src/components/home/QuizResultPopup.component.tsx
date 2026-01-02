@@ -29,7 +29,7 @@ const QuizResultPopup = ({
   return (
     <Portal containerId={id}>
       <aside
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn bg-black/65"
+        className="fixed inset-0 z-50 flex-center p-4 animate-fadeIn bg-black/65"
         onClick={onClose}
         role="dialog"
         aria-modal="true"

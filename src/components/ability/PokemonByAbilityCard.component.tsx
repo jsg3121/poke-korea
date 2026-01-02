@@ -128,16 +128,16 @@ const PokemonByAbilityCardComponent = ({
                 }}
               />
             ) : (
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}
-        <div className="w-full flex items-center justify-center gap-[0.4rem] px-2 mb-3">
+        <div className="w-full flex-center gap-[0.4rem] px-2 mb-3">
           {pokemonData.types.map((item, index) => {
             return <TagComponent key={`${item}-id-${index}`} type={item} />
           })}
         </div>
-        <div className="w-full flex flex-wrap items-center justify-center gap-2 px-2">
+        <div className="w-full flex flex-wrap flex-center gap-2 px-2">
           {pokemonData.isHidden && (
             <strong className="h-6 text-aligned-sm px-2 text-[0.75rem] bg-[#F8D030] text-[#333333] rounded-md font-bold">
               숨겨진 특성

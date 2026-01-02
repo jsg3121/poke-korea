@@ -23,7 +23,7 @@ const MovesList = () => {
         </h2>
       </header>
       {skillList.length === 0 && !loading && (
-        <div className="w-full h-[20rem] flex items-center justify-center">
+        <div className="w-full h-[20rem] flex-center">
           <p className="w-full text-2xl text-primary-4 font-bold text-center">
             검색하신 조건의 기술이 존재하지 않아요!
           </p>

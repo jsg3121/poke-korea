@@ -55,15 +55,15 @@ const TypeEffectivenessQuiz = () => {
               {currentQuestion?.question}
             </h2>
             {currentQuestion && (
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="flex items-center gap-2">
+              <div className="flex-center gap-4 mb-6">
+                <div className="flex-items-gap-2">
                   <span className="text-[1.25rem] text-gray-600">공격:</span>
                   <TagComponent
                     type={currentQuestion.attackingType as PokemonType}
                   />
                 </div>
                 <span className="text-primary-1 text-[1.5rem]">→</span>
-                <div className="flex items-center gap-2">
+                <div className="flex-items-gap-2">
                   <span className="text-[1.25rem] text-gray-600">방어:</span>
                   <div className="flex gap-1">
                     {currentQuestion.defendingTypes.map((type, index) => (

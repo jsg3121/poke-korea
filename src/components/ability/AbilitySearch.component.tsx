@@ -43,7 +43,7 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
           />
         </div>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex-between">
         <p className="text-[0.75rem] text-primary-3">
           총{' '}
           <strong className="text-[1rem] font-semibold text-primary-4">

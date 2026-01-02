@@ -23,7 +23,7 @@ const TableActivePointerComponent = ({
   }
 
   return (
-    <div className="h-8 flex items-center gap-2 text-white">
+    <div className="h-8 flex-items-gap-2 text-white">
       <button
         type="button"
         data-effective="double"

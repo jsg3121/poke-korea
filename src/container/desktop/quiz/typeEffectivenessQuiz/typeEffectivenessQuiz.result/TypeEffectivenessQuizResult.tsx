@@ -51,7 +51,7 @@ const TypeEffectivenessQuizResult = () => {
                 key={quiz.id}
                 className=" h-28 bg-white rounded-lg p-4 border border-gray-200"
               >
-                <p className="w-full h-8 text-primary-1 mb-4 font-bold flex items-center gap-2 [&>svg]:w-5 [&>svg]:h-5">
+                <p className="w-full h-8 text-primary-1 mb-4 font-bold flex-items-gap-2 [&>svg]:w-5 [&>svg]:h-5">
                   #{index + 1}{' '}
                   {isCorrect && (
                     <>
@@ -60,7 +60,7 @@ const TypeEffectivenessQuizResult = () => {
                   )}
                 </p>
                 <div className="h-8 grid grid-cols-3 gap-3">
-                  <p className="h-8 flex items-center gap-2">
+                  <p className="h-8 flex-items-gap-2">
                     <span className="h-full text-aligned-base text-[1rem] text-primary-1">
                       공격:
                     </span>
@@ -75,7 +75,7 @@ const TypeEffectivenessQuizResult = () => {
                       />
                     ))}
                   </p>
-                  <p className="h-8 flex items-center gap-2">
+                  <p className="h-8 flex-items-gap-2">
                     <span className="h-full text-[1rem] text-aligned-base text-primary-1 font-bold">
                       정답:
                     </span>
@@ -83,7 +83,7 @@ const TypeEffectivenessQuizResult = () => {
                       {correctAnswer}
                     </span>
                   </p>
-                  <p className="h-8 flex items-center gap-2">
+                  <p className="h-8 flex-items-gap-2">
                     <span className="h-full text-[1rem] text-aligned-base text-primary-1 font-bold">
                       나의 답:
                     </span>

@@ -48,7 +48,7 @@ const AbilityQuizResult = () => {
                 key={quiz.id}
                 className="w-full min-h-32 bg-white rounded-lg p-4 border border-gray-200"
               >
-                <p className="w-full h-8 text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-5 [&>svg]:h-5">
+                <p className="w-full h-8 text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-5 [&>svg]:h-5">
                   #{index + 1}{' '}
                   {isCorrect && (
                     <>

@@ -46,7 +46,7 @@ const SilhouetteQuizCardCntainer = ({
           }
           quizDescription="이 실루엣은 어떤 포켓몬일까요?"
         />
-        <div className="w-full h-40 mb-4 rounded-xl p-4 flex items-center justify-center bg-white">
+        <div className="w-full h-40 mb-4 rounded-xl p-4 flex-center bg-white">
           <ImageComponent
             width="8rem"
             height="8rem"

@@ -51,7 +51,7 @@ const TypeEffectivenessQuizResult = () => {
                 key={quiz.id}
                 className="w-full bg-primary-4 rounded-[1rem] p-4"
               >
-                <span className="w-full text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem] mb-4">
+                <span className="w-full text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem] mb-4">
                   #{index + 1}{' '}
                   {userAnswer === correctAnswer && (
                     <>

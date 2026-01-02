@@ -26,7 +26,7 @@ const QuizMainDesktop = () => {
                 className="group block bg-primary-4 rounded-[1rem] hover:scale-105 transition-[transform] duration-[0.15s]"
               >
                 <article className="rounded-[1rem] overflow-hidden">
-                  <header className="flex items-center gap-4 px-6 py-4 bg-primary-2 group-hover:bg-primary-3 transition-[background] duration-[0.15s]">
+                  <header className="flex-items-gap-4 px-6 py-4 bg-primary-2 group-hover:bg-primary-3 transition-[background] duration-[0.15s]">
                     <span className="text-[2rem]">{quiz.icon}</span>
                     <h2 className="text-[1.5rem] text-primary-4 font-bold group-hover:text-primary-1 transition-[color] duration-[0.15s]">
                       {quiz.title}
@@ -34,7 +34,7 @@ const QuizMainDesktop = () => {
                   </header>
                   <div className="p-6">
                     <p className="text-primary-1 mb-4">{quiz.description}</p>
-                    <p className="flex items-center justify-between text-[0.875rem] text-gray-500">
+                    <p className="flex-between text-[0.875rem] text-gray-500">
                       예상 소요시간: 5-10분
                       <span className="text-blue-600 text-[0.875rem] font-medium">
                         시작하기 →
@@ -48,19 +48,19 @@ const QuizMainDesktop = () => {
           <article className="mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
             <h2 className="text-xl font-bold text-primary-1 mb-4">퀴즈 안내</h2>
             <ul className="space-y-2 text-primary-1">
-              <li className="flex items-center gap-2">
+              <li className="flex-items-gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                 모든 퀴즈는 20문제로 구성되어 있습니다
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex-items-gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                 4지선다 객관식 문제입니다
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex-items-gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                 문제를 시작하면 타이머가 작동됩니다
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex-items-gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                 모든 문제를 완료하면 결과를 확인할 수 있습니다
               </li>

@@ -125,7 +125,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             <h2 className="h-[2rem] text-[1.5rem] leading-[2rem+2px] justify-self-start mt-2">
               <b className="font-bold">{pokemonName.replace('_', ' ')}</b>
             </h2>
-            <div className="h-[2rem] flex items-center gap-2">
+            <div className="h-[2rem] flex-items-gap-2">
               {((formDataLength > 1 && activeType === 'region') ||
                 pokemonInfo?.isFormChange) && (
                 <>
@@ -190,7 +190,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
         </header>
         <nav
           ref={versionListRef}
-          className="w-full h-[3rem] flex items-center gap-2 overflow-x-auto mt-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+          className="w-full h-[3rem] flex-items-gap-2 overflow-x-auto mt-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
         >
           {versionGroup?.map((item) => {
             return (

@@ -35,7 +35,7 @@ const SilhouetteQuizResult = () => {
         <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-[1.25rem]">
           문제 정답
         </h2>
-        <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+        <ul className="w-full h-52 flex-items-gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
           <li className="w-24 h-44 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-20 rounded-[1rem]">
             <p className="w-full h-24 text-[0.875rem] text-primary-4 text-center leading-[calc(5rem+2px)]">
               문제 포켓몬

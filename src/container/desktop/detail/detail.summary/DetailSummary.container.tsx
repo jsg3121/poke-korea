@@ -74,9 +74,9 @@ const DetailSummaryContainer = () => {
         className="absolute top-0 w-full h-80 block"
         style={getGradientStyle()}
       />
-      <div className="w-full h-[32.375rem] max-w-[1280px] flex items-center justify-between relative -top-[17rem] left-0 z-[1] mx-auto px-5">
+      <div className="w-full h-[32.375rem] max-w-[1280px] flex-between relative -top-[17rem] left-0 z-[1] mx-auto px-5">
         {isShiny && (
-          <div className="flex items-center gap-2 absolute top-0 left-5 z-[100]">
+          <div className="flex-items-gap-2 absolute top-0 left-5 z-[100]">
             <ShinyTooltipComponent />
             <ShinyRateComponent />
           </div>

@@ -25,7 +25,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
   return (
     <article className="w-full">
       <div
-        className="w-full h-12 bg-primary-1 rounded-2xl flex items-center gap-4 p-2"
+        className="w-full h-12 bg-primary-1 rounded-2xl flex-items-gap-4 p-2"
         aria-label="타입 강점, 약점 변환 버튼"
       >
         <button

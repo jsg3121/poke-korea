@@ -23,7 +23,7 @@ const MegaSwitch = () => {
     >
       <Link
         href={megaHref}
-        className="w-32 h-8 flex items-center justify-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
+        className="w-32 h-8 flex-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
         aria-label="메가진화 모습 변환 스위치"
         replace
       >

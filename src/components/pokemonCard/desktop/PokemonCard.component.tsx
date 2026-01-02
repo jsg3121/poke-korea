@@ -92,7 +92,7 @@ const PokemonCardComponent = ({
               />
             ) : (
               // Placeholder: 이미지 로딩 전 스켈레톤
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}

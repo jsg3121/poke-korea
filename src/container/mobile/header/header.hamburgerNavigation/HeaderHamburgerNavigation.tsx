@@ -42,7 +42,7 @@ const HeaderHamburgerNavigation = () => {
               : 'animate-[slide-out_0.3s_ease_0s_1_forwards]'
           }`}
         >
-          <div className="w-full h-12 flex items-center justify-center gap-4">
+          <div className="w-full h-12 flex-center gap-4">
             <a
               href="https://github.com/jsg3121"
               target="_blank"
