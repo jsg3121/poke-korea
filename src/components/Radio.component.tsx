@@ -32,7 +32,7 @@ const RadioComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
         <div className="w-[1.2rem] h-[1.2rem] absolute left-0 scale-0 transition-transform duration-300 will-change-transform peer-checked:scale-100">
           <Ball />
         </div>
-        <span className="ml-6 h-[1.3rem] text-base text-primary-3 peer-checked:text-primary-4 peer-disabled:text-black/35">
+        <span className="ml-6 h-[1.2rem] text-base leading-[calc(1.2rem+2px)] text-primary-3 peer-checked:text-primary-4 peer-disabled:text-black/35">
           {label}
         </span>
       </label>

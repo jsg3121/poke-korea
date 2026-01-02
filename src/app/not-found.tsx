@@ -72,7 +72,12 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/25.webp?w=200&h=200`}
+                src={`${imageMode}/25.webp`}
+                alt="피카츄 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 피카츄
@@ -82,7 +87,12 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/6.webp?w=200&h=200`}
+                src={`${imageMode}/6.webp`}
+                alt="리자몽 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 리자몽
@@ -92,7 +102,12 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/133.webp?w=200&h=200`}
+                src={`${imageMode}/133.webp`}
+                alt="이브이 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 이브이
@@ -102,7 +117,12 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/150.webp?w=200&h=200`}
+                src={`${imageMode}/150.webp`}
+                alt="뮤츠 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 뮤츠

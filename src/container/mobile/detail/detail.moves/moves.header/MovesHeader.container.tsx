@@ -91,12 +91,16 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
           <ImageComponent
             width="5.5rem"
             height="5.5rem"
-            src={`${imageMode}/${imagePath()}.webp?w=100&h=100`}
+            src={`${imageMode}/${imagePath()}.webp`}
             alt={pokemonName}
+            imageSize={{ width: 66, height: 66 }}
+            densities={[1, 2]}
+            sizes="5.5rem"
+            loading="lazy"
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
           <div className="w-[calc(100%-6.5rem)] h-[5rem] ml-4 flex flex-col">
-            <div className="w-full h-[2rem] flex items-baseline gap-2">
+            <div className="w-full h-8 flex items-baseline gap-2">
               <p className="w-full h-[1.25rem] text-base text-left leading-[1.25rem+2px]">
                 No.{pokemonId}&nbsp;
               </p>
@@ -122,10 +126,10 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 )}
               </div>
             </div>
-            <h2 className="h-[2rem] text-2xl leading-[2rem+2px] justify-self-start mt-2">
+            <h2 className="h-8 text-2xl leading-[2rem+2px] justify-self-start mt-2">
               <b className="font-bold">{pokemonName.replace('_', ' ')}</b>
             </h2>
-            <div className="h-[2rem] flex-items-gap-2">
+            <div className="h-8 flex-items-gap-2">
               {((formDataLength > 1 && activeType === 'region') ||
                 pokemonInfo?.isFormChange) && (
                 <>
@@ -141,7 +145,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
+                    className={`w-[4rem] h-8 shrink-0 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : ' bg-primary-1 text-primary-4'
@@ -161,7 +165,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
+                    className={`w-[4rem] h-8 shrink-0 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : 'bg-primary-1 text-primary-4'

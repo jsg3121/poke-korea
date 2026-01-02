@@ -99,7 +99,7 @@ const MachineLearnableSkillComponent = () => {
                 return (
                   <tr
                     key={`machine-moves-${skill.id}`}
-                    className="h-8 [&>td]:align-middle [&>td]: text-sm"
+                    className="h-8 [&>td]:align-middle text-sm"
                   >
                     <td>{skill.nameKo}</td>
                     <td className="text-center">
@@ -114,16 +114,18 @@ const MachineLearnableSkillComponent = () => {
                     <td className="text-center">{skill.power || '-'}</td>
                     <td className="text-center">{skill.accuracy || '-'}</td>
                     <td className="text-center">{skill.pp || '-'}</td>
-                    <td
-                      className={
-                        getDamageTypeKorean(skill.damageType) === '물리'
-                          ? 'badge-damage-physical'
-                          : getDamageTypeKorean(skill.damageType) === '특수'
-                            ? 'badge-damage-special'
-                            : 'badge-damage-status'
-                      }
-                    >
-                      {getDamageTypeKorean(skill.damageType)}
+                    <td>
+                      <span
+                        className={`flex-center block ${
+                          getDamageTypeKorean(skill.damageType) === '물리'
+                            ? 'badge-damage-physical'
+                            : getDamageTypeKorean(skill.damageType) === '특수'
+                              ? 'badge-damage-special'
+                              : 'badge-damage-status'
+                        }`}
+                      >
+                        {getDamageTypeKorean(skill.damageType)}
+                      </span>
                     </td>
                   </tr>
                 )
