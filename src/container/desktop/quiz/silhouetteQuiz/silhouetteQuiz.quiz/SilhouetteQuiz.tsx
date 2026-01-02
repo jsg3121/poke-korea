@@ -3,8 +3,8 @@ import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import QuizHeader from '../../components/quiz/QuizHeader'
-import SilhouetteQuizImage from './quiz.image/SilhouetteQuizImage'
 import QuizSkipButton from '../../components/quiz/QuizSkipButton'
+import SilhouetteQuizImage from './quiz.image/SilhouetteQuizImage'
 
 const SilhouetteQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -58,7 +58,7 @@ const SilhouetteQuiz = () => {
             <button
               key={index}
               onClick={handleClickSelectAnswer(index)}
-              className="group h-[3rem] px-[1rem] text-[1rem] text-left text-aligned-xl rounded-[20rem] bg-primary-3 text-primary-1 hover:bg-primary-2 hover:text-primary-4 transition-colors"
+              className="btn-quiz-answer group"
             >
               <span className="w-[1rem] text-aligned-xl mr-[0.875rem] text-primary-1 font-bold group-hover:text-primary-4">
                 {index + 1}

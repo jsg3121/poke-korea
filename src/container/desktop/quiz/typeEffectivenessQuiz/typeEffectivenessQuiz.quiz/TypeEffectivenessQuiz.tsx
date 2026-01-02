@@ -1,5 +1,6 @@
 'use client'
 import { Fragment, useState } from 'react'
+import DesktopAbilityQuizBottomBanner from '~/components/adSlot/DesktopAbilityQuizBottomBanner'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
 import TagComponent from '~/components/Tag.component'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
@@ -7,7 +8,6 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import QuizHeader from '../../components/quiz/QuizHeader'
 import QuizSkipButton from '../../components/quiz/QuizSkipButton'
-import DesktopAbilityQuizBottomBanner from '~/components/adSlot/DesktopAbilityQuizBottomBanner'
 
 const TypeEffectivenessQuiz = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
@@ -78,7 +78,7 @@ const TypeEffectivenessQuiz = () => {
             <button
               key={index}
               onClick={handleClickSelectAnswer(index)}
-              className="group h-[3rem] px-[1rem] text-[1rem] text-left text-aligned-xl rounded-[20rem] bg-primary-3 text-primary-1 hover:bg-primary-2 hover:text-primary-4 transition-colors"
+              className="btn-quiz-answer group"
             >
               <span className="w-[1rem] text-aligned-xl mr-[0.875rem] text-primary-1 font-bold group-hover:text-primary-4">
                 {index + 1}

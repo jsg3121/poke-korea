@@ -81,7 +81,7 @@ const TypeEffectivenessQuiz = () => {
               <button
                 key={index}
                 onClick={handleClickSelectAnswer(index)}
-                className="h-[3rem] px-[1rem] text-[1rem] text-left text-aligned-xl rounded-[20rem] bg-primary-3 text-primary-1 transition-colors"
+                className="btn-quiz-answer"
               >
                 <span className="w-[1rem] text-aligned-xl mr-[0.875rem] text-primary-1 font-bold ">
                   {index + 1}
