@@ -77,7 +77,7 @@ const MoveDetailContainer = ({
       >
         <Link
           href={`/moves/${skillId}`}
-          className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] leading-[calc(2rem+2px)] text-center ${generationId ? 'bg-primary-4 text-primary-1' : 'bg-primary-2 text-primary-4'}`}
+          className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] text-aligned-base text-center ${generationId ? 'bg-primary-4 text-primary-1' : 'bg-primary-2 text-primary-4'}`}
         >
           최신
         </Link>
@@ -88,7 +88,7 @@ const MoveDetailContainer = ({
               <Link
                 key={`generation-index-${9 - index}`}
                 href={`/moves/${skillId}/generation/${8 - index}`}
-                className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] leading-[calc(2rem+2px)] text-center ${parseInt(generationId, 10) === 8 - index ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+                className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] text-aligned-base text-center ${parseInt(generationId, 10) === 8 - index ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
               >
                 {8 - index}세대
               </Link>

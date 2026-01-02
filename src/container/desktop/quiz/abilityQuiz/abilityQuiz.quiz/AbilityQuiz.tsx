@@ -57,9 +57,9 @@ const AbilityQuiz = () => {
             <button
               key={index}
               onClick={handleClickSelectAnswer(index)}
-              className="group h-[3rem] px-[1rem] text-[1rem] text-left leading-[calc(3rem+2px)] rounded-[20rem] bg-primary-3 text-primary-1 hover:bg-primary-2 hover:text-primary-4 transition-colors"
+              className="group h-[3rem] px-[1rem] text-[1rem] text-left text-aligned-xl rounded-[20rem] bg-primary-3 text-primary-1 hover:bg-primary-2 hover:text-primary-4 transition-colors"
             >
-              <span className="w-[1rem] leading-[calc(3rem+2px)] mr-[0.875rem] text-primary-1 font-bold group-hover:text-primary-4">
+              <span className="w-[1rem] text-aligned-xl mr-[0.875rem] text-primary-1 font-bold group-hover:text-primary-4">
                 {index + 1}
               </span>
               {option.koreanName}

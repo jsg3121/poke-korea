@@ -19,21 +19,21 @@ const MoveCard = ({ moveData }: MoveCardProps) => {
     >
       <article className="w-full min-h-40 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative md:hover:scale-105 transition-transform">
         <header className="w-full h-8 mb-3 flex items-center justify-between">
-          <h3 className="w-full h-6 text-[1.125rem] leading-[calc(1.5rem+2px)] font-bold text-gray-900 flex gap-1">
+          <h3 className="w-full h-6 text-[1.125rem] text-aligned-sm font-bold text-gray-900 flex gap-1">
             <span className="h-4 text-[1rem] text-primary-2">
               {moveData.id}.
             </span>
             {moveData.nameKo}
             {moveData.type && (
               <span
-                className={`h-6 px-3 text-[0.875rem] leading-[calc(1.5rem+2px)] rounded-full chip-type-${moveData.type.toLowerCase()}`}
+                className={`h-6 px-3 text-[0.875rem] text-aligned-sm rounded-full chip-type-${moveData.type.toLowerCase()}`}
               >
                 {PokemonTypes[moveData.type]}
               </span>
             )}
           </h3>
           <span
-            className={`h-7 shrink-0 px-3 text-[0.875rem] leading-[calc(1.75rem+2px)] font-semibold rounded-lg text-white ${
+            className={`h-7 shrink-0 px-3 text-[0.875rem] text-aligned-md font-semibold rounded-lg text-white ${
               damageType === '물리'
                 ? 'bg-[#fd8181]'
                 : damageType === '특수'

@@ -55,7 +55,7 @@ const NotFound = () => {
         </strong>
         <Link
           href="/"
-          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-[1.25rem] leading-[calc(3rem+2px)] text-white h-12 border-solid border-primary-4 border block mb-12`}
+          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-[1.25rem] text-aligned-xl text-white h-12 border-solid border-primary-4 border block mb-12`}
         >
           홈으로 돌아가기
         </Link>
@@ -74,7 +74,7 @@ const NotFound = () => {
                 width="10rem"
                 src={`${imageMode}/25.webp?w=200&h=200`}
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 피카츄
               </p>
             </Link>
@@ -84,7 +84,7 @@ const NotFound = () => {
                 width="10rem"
                 src={`${imageMode}/6.webp?w=200&h=200`}
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 리자몽
               </p>
             </Link>
@@ -94,7 +94,7 @@ const NotFound = () => {
                 width="10rem"
                 src={`${imageMode}/133.webp?w=200&h=200`}
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 이브이
               </p>
             </Link>
@@ -104,7 +104,7 @@ const NotFound = () => {
                 width="10rem"
                 src={`${imageMode}/150.webp?w=200&h=200`}
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 뮤츠
               </p>
             </Link>

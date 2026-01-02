@@ -41,7 +41,7 @@ const MoveDetailComponent = ({
         <dd className="py-1 rounded-full bg-primary-1 text-white">
           {displayData.type && (
             <span
-              className={`h-6 block px-3 text-[0.875rem] leading-[calc(1.5rem+2px)] rounded-full chip-type-${displayData.type.toLowerCase()}`}
+              className={`h-6 block px-3 text-[0.875rem] text-aligned-sm rounded-full chip-type-${displayData.type.toLowerCase()}`}
             >
               {PokemonTypes[displayData.type]}
             </span>
@@ -65,7 +65,7 @@ const MoveDetailComponent = ({
         <dd className="py-1 rounded-full bg-primary-1 text-white">
           {displayData.type && (
             <span
-              className={`h-6 block px-3 text-[0.875rem] leading-[calc(1.5rem+2px)] rounded-full chip-type-${displayData.type.toLowerCase()}`}
+              className={`h-6 block px-3 text-[0.875rem] text-aligned-sm rounded-full chip-type-${displayData.type.toLowerCase()}`}
             >
               {PokemonTypes[displayData.type]}
             </span>
@@ -98,7 +98,7 @@ const MoveDetailComponent = ({
         </span>
       )}
       {displayData.description && (
-        <p className="min-h-8 text-[1.725rem] leading-[calc(2rem+2px)] text-primary-4">
+        <p className="min-h-8 text-[1.725rem] text-aligned-base text-primary-4">
           {displayData.description}
         </p>
       )}

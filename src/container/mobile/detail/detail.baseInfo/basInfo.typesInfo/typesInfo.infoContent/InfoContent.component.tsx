@@ -26,7 +26,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
     <article className="w-full">
       <div className="w-full h-12 bg-primary-1 rounded-2xl flex items-center gap-4 p-2">
         <button
-          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-center ${
+          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg text-aligned-base text-center ${
             activeTab === 'strong'
               ? 'bg-primary-4 text-primary-1 font-bold'
               : 'text-primary-2'
@@ -36,7 +36,7 @@ const InfoContentComponent = ({ relationType }: InfoContentComponentProps) => {
           강점
         </button>
         <button
-          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg leading-[calc(2rem+2px)] text-center ${
+          className={`w-[calc(50%-0.5rem)] h-8 rounded-[0.725rem] text-lg text-aligned-base text-center ${
             activeTab === 'weak'
               ? 'bg-primary-4 text-primary-1 font-bold'
               : 'text-primary-2'

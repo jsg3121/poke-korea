@@ -82,7 +82,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               }),
           },
         }}
-        className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 leading-[calc(3rem+2px)]"
+        className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 text-aligned-xl"
       >
         {pokemonName.replace('_', ' ')}의 상세 정보 보러가기
       </Link>
@@ -105,7 +105,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 {activeType === 'region' && (
                   <Link
                     href={`/detail/${pokemonId}/moves`}
-                    className="w-[6.5rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem]"
+                    className="w-[6.5rem] h-6 bg-primary-3 text-center text-aligned-sm rounded-[0.5rem]"
                     replace
                   >
                     <b className="font-bold ">일반폼</b> 보기
@@ -114,7 +114,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 {pokemonInfo?.isRegionForm && activeType !== 'region' && (
                   <Link
                     href={`/detail/${pokemonId}/moves?activeType=region`}
-                    className="w-[6.5rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem]"
+                    className="w-[6.5rem] h-6 bg-primary-3 text-center text-aligned-sm rounded-[0.5rem]"
                     replace
                   >
                     <b className="font-bold ">리전폼</b> 보기
@@ -141,7 +141,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-[0.875rem] text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : ' bg-primary-1 text-primary-4'
@@ -161,7 +161,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                    className={`w-[4rem] h-[2rem] shrink-0 text-center text-[0.875rem] text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : 'bg-primary-1 text-primary-4'
@@ -211,7 +211,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   },
                 }}
                 className={`
-                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)]
+                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] text-aligned-base
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
                 `}
               >

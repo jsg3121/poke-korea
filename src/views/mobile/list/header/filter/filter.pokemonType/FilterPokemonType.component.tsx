@@ -81,7 +81,7 @@ const FilterPokemonTypeComponent = () => {
             height="1.5rem"
             width="1.5rem"
           />
-          <span className="h-10 text-lg leading-[calc(2.5rem+2px)] text-primary-1">
+          <span className="h-10 text-lg text-aligned-lg text-primary-1">
             필터
           </span>
         </button>

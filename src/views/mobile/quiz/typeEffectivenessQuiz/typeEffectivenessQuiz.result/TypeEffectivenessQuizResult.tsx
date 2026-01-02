@@ -33,7 +33,7 @@ const TypeEffectivenessQuizResult = () => {
       />
       <MobileTypeEffectivenessQuizResultTopBanner />
       <article className="w-full h-fit py-[1rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-4 font-bold leading-[calc(2rem+2px)] text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-[1.25rem] border-b border-solid border-primary-4 mb-4">
           정답
         </h2>
         <ul className="w-full flex flex-col gap-[1rem] items-center relative">
@@ -60,14 +60,14 @@ const TypeEffectivenessQuizResult = () => {
                   )}
                 </span>
                 <div className="w-full flex items-center justify-start gap-2 mt-3 mb-6">
-                  <span className="h-6 text-[1rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+                  <span className="h-6 text-[1rem] text-primary-1 text-aligned-sm">
                     공격:
                   </span>
                   <TagComponent type={quiz.attackingType as PokemonType} />
-                  <span className="h-6 text-[1.25rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+                  <span className="h-6 text-[1.25rem] text-primary-1 text-aligned-sm">
                     →
                   </span>
-                  <span className="h-6 text-[1rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+                  <span className="h-6 text-[1rem] text-primary-1 text-aligned-sm">
                     방어:
                   </span>
                   {quiz.defendingTypes.map((type, typeIndex) => (

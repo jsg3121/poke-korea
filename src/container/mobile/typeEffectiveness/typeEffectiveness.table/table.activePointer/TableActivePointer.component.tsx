@@ -27,7 +27,7 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="double"
-        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
+        className={`h-8 min-w-12 text-base text-aligned-base px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
           activeType === 'double'
             ? 'text-primary-1 bg-primary-4'
             : 'text-primary-1 bg-primary-3'
@@ -40,7 +40,7 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="half"
-        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
+        className={`h-8 min-w-12 text-base text-aligned-base px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
           activeType === 'half'
             ? 'text-primary-1 bg-primary-4'
             : 'text-primary-1 bg-primary-3'
@@ -53,7 +53,7 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="zero"
-        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
+        className={`h-8 min-w-12 text-base text-aligned-base px-4 rounded-full tracking-[-0.2px] cursor-pointer ${
           activeType === 'zero'
             ? 'text-primary-1 bg-primary-4'
             : 'text-primary-1 bg-primary-3'
@@ -66,7 +66,7 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         aria-label="초기화"
-        className={`h-8 min-w-12 text-base leading-[calc(2rem+2px)] px-4 rounded-full tracking-[-0.2px] cursor-pointer text-primary-1 bg-primary-3`}
+        className={`h-8 min-w-12 text-base text-aligned-base px-4 rounded-full tracking-[-0.2px] cursor-pointer text-primary-1 bg-primary-3`}
         onClick={handleClickResetEffective}
       >
         초기화

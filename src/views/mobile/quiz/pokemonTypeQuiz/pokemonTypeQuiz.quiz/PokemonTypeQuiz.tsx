@@ -52,7 +52,7 @@ const PokemonTypeQuiz = () => {
           timeElapsed={timeElapsed}
         />
         <article className="bg-white rounded-[1rem] shadow-md px-[1rem] flex flex-col py-[1.5rem]">
-          <h2 className="w-full h-12 text-[1.375rem] leading-[calc(3rem+2px)] text-primary-1 text-center flex items-center justify-center gap-2 mb-4">
+          <h2 className="w-full h-12 text-[1.375rem] text-aligned-xl text-primary-1 text-center flex items-center justify-center gap-2 mb-4">
             {currentQuestion?.targetType ? (
               <>
                 다음 중{' '}

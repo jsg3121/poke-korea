@@ -34,7 +34,7 @@ const PokemonTypeQuizResult = () => {
       />
       <MobilePokemonTypeResultTopBanner />
       <article className="w-full h-fit py-[1rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-4 font-bold leading-[calc(2rem+2px)] text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-[1.25rem] border-b border-solid border-primary-4 mb-4">
           정답
         </h2>
         <ul className="w-full flex flex-col gap-[1rem] items-center relative">
@@ -59,13 +59,13 @@ const PokemonTypeQuizResult = () => {
                   )}
                 </span>
                 <div className="w-full h-6 bg-primary-1 flex mt-2">
-                  <p className="w-1/5 h-6 text-[1rem] leading-[calc(1.25rem+4px)] text-primary-4 text-center">
+                  <p className="w-1/5 h-6 text-[1rem] text-aligned-xs text-primary-4 text-center">
                     문제 타입
                   </p>
-                  <p className="w-2/5 h-6 text-[1rem] leading-[calc(1.25rem+4px)] text-primary-4 text-center">
+                  <p className="w-2/5 h-6 text-[1rem] text-aligned-xs text-primary-4 text-center">
                     정답 포켓몬
                   </p>
-                  <p className="w-2/5 h-6 text-[1rem] leading-[calc(1.25rem+4px)] text-primary-4 text-center">
+                  <p className="w-2/5 h-6 text-[1rem] text-aligned-xs text-primary-4 text-center">
                     선택 포켓몬
                   </p>
                 </div>

@@ -45,7 +45,7 @@ const LevelLearnableSkillComponent = () => {
                 }),
             },
           }}
-          className="text-[0.8rem] h-5 bg-primary-2 leading-[calc(1.25rem+2px)] px-3 text-primary-4 rounded-[0.375rem]"
+          className="text-[0.8rem] h-5 bg-primary-2 text-aligned-xs px-3 text-primary-4 rounded-[0.375rem]"
         >
           더 많은 기술 보기
         </Link>

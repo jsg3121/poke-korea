@@ -44,7 +44,7 @@ const ShinyRateComponent = () => {
     <Fragment>
       <button
         onClick={handleClickOpenModal}
-        className="w-[5.5rem] h-6 text-xs text-center leading-[calc(1.5rem+2px)] text-primary-1 bg-primary-4 rounded-xl"
+        className="w-[5.5rem] h-6 text-xs text-center text-aligned-sm text-primary-1 bg-primary-4 rounded-xl"
       >
         이로치 포획률
       </button>

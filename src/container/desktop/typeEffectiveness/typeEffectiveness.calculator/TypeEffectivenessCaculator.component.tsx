@@ -65,7 +65,7 @@ const TypeEffectivenessCaculatorComponent = () => {
                   width="1.5rem"
                   src={`/assets/type/${types.toLowerCase()}.svg`}
                 />
-                <p className="h-8 text-base leading-[calc(2rem+2px)] group-disabled:text-[#8b8b8b]">
+                <p className="h-8 text-base text-aligned-base group-disabled:text-[#8b8b8b]">
                   {typeName}
                 </p>
               </button>
@@ -79,7 +79,7 @@ const TypeEffectivenessCaculatorComponent = () => {
             disabled={selectTypeList.length === 0}
             onClick={handleClickResetType}
           >
-            <p className="h-[2rem] text-sm leading-[calc(2px+2rem)] text-[#333333] group-disabled:text-[#8b8b8b]">
+            <p className="h-[2rem] text-sm text-aligned-base text-[#333333] group-disabled:text-[#8b8b8b]">
               초기화
             </p>
           </button>

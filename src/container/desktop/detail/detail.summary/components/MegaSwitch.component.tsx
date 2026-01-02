@@ -41,7 +41,7 @@ const MegaSwitch = () => {
           />
         </i>
         <span
-          className={`h-8 text-base font-normal leading-[calc(2rem+2px)] flex-shrink-0 ${
+          className={`h-8 text-base font-normal text-aligned-base flex-shrink-0 ${
             isMega ? 'text-[#333333]' : 'text-[#888888]'
           }`}
         >

@@ -34,12 +34,12 @@ const PokemonTypeQuizResult = () => {
       />
       <DesktopPokemonTypeResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
+        <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-[1.25rem]">
           문제 정답
         </h2>
         <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
           <li className="w-24 h-48 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-10 rounded-[1rem]">
-            <p className="w-full h-12 text-[1rem] text-primary-4 text-center leading-[calc(3rem+2px)]">
+            <p className="w-full h-12 text-[1rem] text-primary-4 text-center text-aligned-xl">
               문제 타입
             </p>
             <p className="w-full h-[4.5rem] text-[0.875rem] text-primary-4 text-center leading-[calc(4.5rem+2px)]">

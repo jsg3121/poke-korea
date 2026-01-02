@@ -30,7 +30,7 @@ const RegionSwitchComponent = () => {
         >
           <RegionIcon />
         </i>
-        <span className="h-8 text-base font-normal leading-[calc(2rem+2px)] text-black flex-shrink-0 px-1">
+        <span className="h-8 text-base font-normal text-aligned-base text-black flex-shrink-0 px-1">
           리전폼
         </span>
       </Link>

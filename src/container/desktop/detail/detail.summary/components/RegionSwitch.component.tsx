@@ -31,7 +31,7 @@ const RegionSwitch = () => {
           <RegionIcon className={isRegion ? 'grayscale-0' : 'grayscale'} />
         </i>
         <span
-          className={`h-8 text-base font-normal leading-[calc(2rem+2px)] ${isRegion ? 'text-[#333333]' : 'text-[#888888]'}`}
+          className={`h-8 text-base font-normal text-aligned-base ${isRegion ? 'text-[#333333]' : 'text-[#888888]'}`}
         >
           리전폼
         </span>

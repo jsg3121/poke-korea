@@ -31,7 +31,7 @@ const ShinySwitch = ({ searchParams }: ShinySwitchProps) => {
           />
         </i>
         <span
-          className={`h-8 text-base font-normal leading-[calc(2rem+2px)] ${isShiny ? 'text-[#333333]' : 'text-[#888888]'}`}
+          className={`h-8 text-base font-normal text-aligned-base ${isShiny ? 'text-[#333333]' : 'text-[#888888]'}`}
         >
           이로치
         </span>

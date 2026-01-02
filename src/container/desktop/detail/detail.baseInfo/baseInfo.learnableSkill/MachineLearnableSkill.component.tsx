@@ -46,7 +46,7 @@ const MachineLearnableSkillComponent = () => {
               movesType: 'MACHINE',
             },
           }}
-          className="text-[0.8rem] h-5 bg-primary-2 leading-[calc(1.25rem+2px)] px-3 text-primary-4 rounded-[0.375rem]"
+          className="text-[0.8rem] h-5 bg-primary-2 text-aligned-xs px-3 text-primary-4 rounded-[0.375rem]"
         >
           모든 세대 기술 보러가기
         </Link>
@@ -105,7 +105,7 @@ const MachineLearnableSkillComponent = () => {
                     <td className="text-center">
                       {skill.type && (
                         <span
-                          className={`w-[3.6rem] h-6 block px-2 rounded-[0.625rem] text-center text-[0.85rem] leading-[calc(1.5rem+2px)] font-semibold mx-auto chip-type-${skill.type.toLowerCase()}`}
+                          className={`w-[3.6rem] h-6 block px-2 rounded-[0.625rem] text-center text-[0.85rem] text-aligned-sm font-semibold mx-auto chip-type-${skill.type.toLowerCase()}`}
                         >
                           {PokemonTypes[skill.type]}
                         </span>

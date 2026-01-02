@@ -51,7 +51,7 @@ const MovesTableContainer = () => {
           기술 목록
         </h2>
         <div className="w-[11rem] h-[3rem] flex items-center justify-between">
-          <p className="h-[1.25rem] text-[1rem] leading-[calc(1.25rem+2px)] text-primary-4">
+          <p className="h-[1.25rem] text-[1rem] text-aligned-xs text-primary-4">
             습득 유형 :
           </p>
           <ToggleButtonComponent
