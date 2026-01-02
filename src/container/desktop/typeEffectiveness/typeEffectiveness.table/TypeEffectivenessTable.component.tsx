@@ -29,7 +29,7 @@ const TypeEffectivenessTableComponent = () => {
         <caption className="w-full h-8 caption-top mb-2">
           <h2
             id="pokemon-type-effectiveness-table"
-            className="h-8 text-[2rem] font-semibold leading-[calc(2rem+2px)] float-left text-primary-4"
+            className="h-8 text-[2rem] font-semibold text-aligned-base float-left text-primary-4"
           >
             타입별 상성 표
           </h2>

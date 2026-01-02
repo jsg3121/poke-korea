@@ -30,7 +30,7 @@ const AbilityQuizResult = () => {
       />
       <DesktopAbilityResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
+        <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-[1.25rem]">
           문제 정답
         </h2>
         <ul className="space-y-3">
@@ -48,7 +48,7 @@ const AbilityQuizResult = () => {
                 key={quiz.id}
                 className="w-full min-h-32 bg-white rounded-lg p-4 border border-gray-200"
               >
-                <p className="w-full h-8 text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-5 [&>svg]:h-5">
+                <p className="w-full h-8 text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-5 [&>svg]:h-5">
                   #{index + 1}{' '}
                   {isCorrect && (
                     <>
@@ -57,17 +57,17 @@ const AbilityQuizResult = () => {
                   )}
                 </p>
                 <div className="w-full min-h-8 flex gap-4">
-                  <p className="w-4/5 min-h-8 leading-[calc(2rem+2px)] text-left flex gap-1">
+                  <p className="w-4/5 min-h-8 text-aligned-base text-left flex gap-1">
                     <span className="font-bold">특성 :</span>{' '}
                     {quiz.abilityDescription}
                   </p>
                   <div className="w-1/5">
-                    <p className="h-8 text-[1rem] leading-[calc(2rem+2px)] shrink-0">
+                    <p className="h-8 text-[1rem] text-aligned-base shrink-0">
                       <span className="font-bold text-primary-1">정답 :</span>{' '}
                       {realAnswer}
                     </p>
                     <p
-                      className={`h-8 text-[1rem] leading-[calc(2rem+2px)] shrink-0 ${realAnswer === userAnswer ? 'text-green-700 font-bold' : 'text-red-700'}`}
+                      className={`h-8 text-[1rem] text-aligned-base shrink-0 ${realAnswer === userAnswer ? 'text-green-700 font-bold' : 'text-red-700'}`}
                     >
                       <span className="font-bold text-primary-1">
                         나의 답 :

@@ -3,8 +3,8 @@ import { useParams, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
-import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 import { getDamageTypeKorean } from '~/utils/skill.util'
+import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
 const MachineLearnableSkillComponent = () => {
   const { pokemonId } = useParams()
@@ -19,7 +19,7 @@ const MachineLearnableSkillComponent = () => {
   return (
     <section
       aria-labelledby="pokemon-machine-learnable-skill"
-      className="w-full h-[27rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="card-detail w-full h-[27rem]"
     >
       <InfoCardTitleComponent
         title="기술/비전 머신 습득 기술 정보"
@@ -46,7 +46,7 @@ const MachineLearnableSkillComponent = () => {
               movesType: 'MACHINE',
             },
           }}
-          className="text-[0.8rem] h-5 bg-primary-2 leading-[calc(1.25rem+2px)] px-3 text-primary-4 rounded-[0.375rem]"
+          className="text-[0.8rem] h-5 bg-primary-2 text-aligned-xs px-3 text-primary-4 rounded-[0.375rem]"
         >
           모든 세대 기술 보러가기
         </Link>
@@ -117,15 +117,13 @@ const MachineLearnableSkillComponent = () => {
                     <td className="text-center">{skill.accuracy || '-'}</td>
                     <td className="text-center">{skill.pp || '-'}</td>
                     <td
-                      className={`text-center
-                         ${
-                           getDamageTypeKorean(skill.damageType) === '물리'
-                             ? 'bg-[#fd8181]'
-                             : getDamageTypeKorean(skill.damageType) === '특수'
-                               ? 'bg-[#9b9bfa]'
-                               : 'bg-[#72d372]'
-                         }
-                      `}
+                      className={
+                        getDamageTypeKorean(skill.damageType) === '물리'
+                          ? 'badge-damage-physical'
+                          : getDamageTypeKorean(skill.damageType) === '특수'
+                            ? 'badge-damage-special'
+                            : 'badge-damage-status'
+                      }
                     >
                       {getDamageTypeKorean(skill.damageType)}
                     </td>

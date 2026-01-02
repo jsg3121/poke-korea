@@ -33,7 +33,7 @@ const ResultListComponents = ({
   return (
     <Fragment>
       <dt
-        className={`w-fit h-8 text-xl leading-[calc(2rem+2px)] text-left shadow-[1px_2px_6px_0_var(--color-primary-1)] px-4 rounded-2xl ${getBackgroundColor(importantPoint)}`}
+        className={`w-fit h-8 text-xl text-aligned-base text-left shadow-[1px_2px_6px_0_var(--color-primary-1)] px-4 rounded-2xl ${getBackgroundColor(importantPoint)}`}
       >
         {title}
       </dt>

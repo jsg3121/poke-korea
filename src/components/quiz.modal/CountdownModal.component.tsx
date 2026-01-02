@@ -30,7 +30,7 @@ const QuizCountDownModalComponents = ({
   })
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex-center z-50">
       <article className="bg-white rounded-[2rem] p-[1.5rem] w-[25rem] text-center">
         <header className="mb-[1rem]">
           <h2 className="text-[2rem] font-bold text-gray-800 mb-[1rem]">

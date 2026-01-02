@@ -33,14 +33,13 @@ const MoveCard = ({ moveData, moveLevel, generationId }: MoveCardProps) => {
             {moveData.nameKo}
           </strong>
           <span
-            className={`text-center w-14 h-[1.75rem] shrink-0 leading-8 rounded-[0.5rem] absolute top-2 right-2
-          ${
-            getDamageTypeKorean(moveData.damageType) === '물리'
-              ? 'bg-[#fd8181]'
-              : getDamageTypeKorean(moveData.damageType) === '특수'
-                ? 'bg-[#9b9bfa]'
-                : 'bg-[#72d372]'
-          }`}
+            className={`absolute top-2 right-2 ${
+              getDamageTypeKorean(moveData.damageType) === '물리'
+                ? 'badge-damage-physical'
+                : getDamageTypeKorean(moveData.damageType) === '특수'
+                  ? 'badge-damage-special'
+                  : 'badge-damage-status'
+            }`}
           >
             {getDamageTypeKorean(moveData.damageType)}
           </span>

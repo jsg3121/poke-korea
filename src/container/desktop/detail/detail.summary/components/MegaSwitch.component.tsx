@@ -23,7 +23,7 @@ const MegaSwitch = () => {
     >
       <Link
         href={megaHref}
-        className="w-32 h-8 flex items-center justify-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
+        className="w-32 h-8 flex-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
         aria-label="메가진화 모습 변환 스위치"
         replace
       >
@@ -41,7 +41,7 @@ const MegaSwitch = () => {
           />
         </i>
         <span
-          className={`h-8 text-base font-normal leading-[calc(2rem+2px)] flex-shrink-0 ${
+          className={`h-8 text-base font-normal text-aligned-base flex-shrink-0 ${
             isMega ? 'text-[#333333]' : 'text-[#888888]'
           }`}
         >

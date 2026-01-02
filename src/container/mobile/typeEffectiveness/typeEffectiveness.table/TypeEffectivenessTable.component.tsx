@@ -30,7 +30,7 @@ const TypeEffectivenessTableComponent = () => {
           <div className="w-full h-20 flex flex-col gap-3 items-start text-left">
             <h2
               id="pokemon-type-effectiveness-table"
-              className="h-6 text-[1.375rem] font-semibold leading-[calc(1.5rem+2px)] text-primary-4"
+              className="h-6 text-[1.375rem] font-semibold text-aligned-sm text-primary-4"
             >
               타입별 상성 표
             </h2>

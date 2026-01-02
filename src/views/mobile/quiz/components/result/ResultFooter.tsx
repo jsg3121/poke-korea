@@ -13,14 +13,14 @@ const ResultFooter = ({ onClickRetryButton }: ResultFooterProps) => {
   return (
     <div className="flex gap-[1rem] justify-center">
       <button
-        className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-2 text-white font-medium rounded-lg"
+        className="h-[3rem] text-aligned-xl px-[2rem] bg-primary-2 text-white font-medium rounded-lg"
         onClick={handleClickRetryButton}
       >
         다시 도전하기
       </button>
       <Link
         href={QUIZ_ROUTES.MAIN}
-        className="h-[3rem] leading-[calc(3rem+2px)] px-[2rem] bg-primary-3 text-black-2 font-medium rounded-lg"
+        className="h-[3rem] text-aligned-xl px-[2rem] bg-primary-3 text-black-2 font-medium rounded-lg"
       >
         다른 퀴즈 하러가기
       </Link>

@@ -30,7 +30,7 @@ const AbilityQuizResult = () => {
       />
       <MobileAbilityResultTopBanner />
       <article className="w-full h-fit py-[1rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-4 font-bold leading-[calc(2rem+2px)] text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-[1.25rem] border-b border-solid border-primary-4 mb-4">
           정답
         </h2>
         <ul className="w-full flex flex-col gap-[1rem] items-center relative">
@@ -46,7 +46,7 @@ const AbilityQuizResult = () => {
                 key={quiz.id}
                 className="w-full min-h-fit flex flex-col items-center bg-primary-4 rounded-[1rem] p-4"
               >
-                <span className="w-full text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]">
+                <span className="w-full text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]">
                   #{index + 1}{' '}
                   {userAnswer === realAnswer && (
                     <>
@@ -57,7 +57,7 @@ const AbilityQuizResult = () => {
                 <p className="w-full shrink-0 text-left text-[1.125rem] text-primary-1 py-2">
                   {quiz.abilityDescription}
                 </p>
-                <div className="w-full flex items-center justify-between mt-4">
+                <div className="w-full flex-between mt-4">
                   <p className="w-fit text-left text-[1rem] text-primary-1">
                     정답 :{' '}
                     <span className="font-bold text-[1.125rem]">
@@ -65,7 +65,7 @@ const AbilityQuizResult = () => {
                     </span>
                   </p>
                   <p
-                    className={`w-fit shrink-0 text-left flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]`}
+                    className={`w-fit shrink-0 text-left flex-items-gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]`}
                   >
                     나의 답 :{' '}
                     <span

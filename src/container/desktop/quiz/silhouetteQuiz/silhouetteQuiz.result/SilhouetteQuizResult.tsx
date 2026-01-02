@@ -32,18 +32,18 @@ const SilhouetteQuizResult = () => {
       />
       <DesktopSilhouetteResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
+        <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-[1.25rem]">
           문제 정답
         </h2>
-        <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+        <ul className="w-full h-52 flex-items-gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
           <li className="w-24 h-44 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-20 rounded-[1rem]">
             <p className="w-full h-24 text-[0.875rem] text-primary-4 text-center leading-[calc(5rem+2px)]">
               문제 포켓몬
             </p>
-            <p className="w-full h-10 text-[0.875rem] text-primary-4 text-center leading-[calc(2rem+2px)]">
+            <p className="w-full h-10 text-[0.875rem] text-primary-4 text-center text-aligned-base">
               정답
             </p>
-            <p className="w-full h-10 text-[0.875rem] text-primary-4 text-center leading-[calc(2rem+2px)]">
+            <p className="w-full h-10 text-[0.875rem] text-primary-4 text-center text-aligned-base">
               나의 답
             </p>
           </li>
@@ -71,12 +71,12 @@ const SilhouetteQuizResult = () => {
                   />
                 </i>
                 <p
-                  className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] text-primary-1 ${userAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'}`}
+                  className={`w-full h-10 text-center text-aligned-lg text-primary-1 ${userAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'}`}
                 >
                   {realAnswer}
                 </p>
                 <p
-                  className={`w-full h-10 text-center leading-[calc(2.5rem+2px)] relative ${realAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'} ${realAnswer === userAnswer ? 'font-bold text-green-700' : 'text-red-700'}`}
+                  className={`w-full h-10 text-center text-aligned-lg relative ${realAnswerTextSize === 'small' ? 'text-[0.75rem]' : 'text-[1rem]'} ${realAnswer === userAnswer ? 'font-bold text-green-700' : 'text-red-700'}`}
                 >
                   {userAnswer}
                 </p>

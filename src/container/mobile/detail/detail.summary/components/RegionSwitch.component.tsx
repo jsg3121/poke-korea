@@ -21,7 +21,7 @@ const RegionSwitchComponent = () => {
     <li role="button">
       <Link
         href={regionHref}
-        className={`w-26 h-8 flex items-center justify-center px-2 rounded-2xl bg-primary-4 active:text-[#333333] active:bg-primary-3 ${isRegion ? 'opacity-100' : 'opacity-65'}`}
+        className={`w-26 h-8 flex-center px-2 rounded-2xl bg-primary-4 active:text-[#333333] active:bg-primary-3 ${isRegion ? 'opacity-100' : 'opacity-65'}`}
         aria-label="리전폼 변환 스위치"
         replace
       >
@@ -30,7 +30,7 @@ const RegionSwitchComponent = () => {
         >
           <RegionIcon />
         </i>
-        <span className="h-8 text-base font-normal leading-[calc(2rem+2px)] text-black flex-shrink-0 px-1">
+        <span className="h-8 text-base font-normal text-aligned-base text-black flex-shrink-0 px-1">
           리전폼
         </span>
       </Link>

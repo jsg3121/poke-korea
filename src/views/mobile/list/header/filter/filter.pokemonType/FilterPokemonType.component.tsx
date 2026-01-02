@@ -49,7 +49,7 @@ const FilterPokemonTypeComponent = () => {
   return (
     <div className="w-[calc(100%-3rem)] mt-4 mx-auto">
       <div
-        className="w-full h-24 bg-primary-4 rounded-[2rem] flex items-center gap-4 overflow-x-scroll px-6"
+        className="w-full h-24 bg-primary-4 rounded-[2rem] flex-items-gap-4 overflow-x-scroll px-6"
         role="searchbox"
         aria-label="타입별 포켓몬 필터 검색"
       >
@@ -70,7 +70,7 @@ const FilterPokemonTypeComponent = () => {
           )
         })}
       </div>
-      <div className="w-full border-b border-solid border-primary-4 flex items-center justify-between mt-4 pb-4">
+      <div className="w-full border-b border-solid border-primary-4 flex-between mt-4 pb-4">
         <button
           className="h-10 flex items-center gap-1 bg-primary-4 rounded-[3rem] px-4"
           onClick={handleClickOpenFilter}
@@ -81,7 +81,7 @@ const FilterPokemonTypeComponent = () => {
             height="1.5rem"
             width="1.5rem"
           />
-          <span className="h-10 text-lg leading-[calc(2.5rem+2px)] text-primary-1">
+          <span className="h-10 text-lg text-aligned-lg text-primary-1">
             필터
           </span>
         </button>

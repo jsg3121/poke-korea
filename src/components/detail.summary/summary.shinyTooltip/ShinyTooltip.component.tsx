@@ -43,7 +43,7 @@ const ShinyTooltipComponent = () => {
     <Fragment>
       <button
         onClick={handleClickOpenModal}
-        className="w-[4.5rem] h-6 text-xs leading-[calc(1.5rem+2px)] text-center text-primary-1 bg-primary-4 rounded-xl"
+        className="w-[4.5rem] h-6 text-xs text-aligned-sm text-center text-primary-1 bg-primary-4 rounded-xl"
       >
         이로치란?
       </button>

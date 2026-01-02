@@ -82,7 +82,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               }),
           },
         }}
-        className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 leading-[calc(3rem+2px)]"
+        className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 text-aligned-xl"
       >
         {pokemonName.replace('_', ' ')}의 상세 정보 보러가기
       </Link>
@@ -100,7 +100,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               <span>No.{pokemonId}&nbsp;</span>
               <b className="font-bold">{pokemonName.replace('_', ' ')}</b>
             </h2>
-            <div className="w-full h-[2.5rem] flex items-center gap-2">
+            <div className="w-full h-[2.5rem] flex-items-gap-2">
               {((formDataLength > 1 && activeType === 'region') ||
                 pokemonInfo?.isFormChange) && (
                 <>
@@ -116,7 +116,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : ' bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
@@ -136,7 +136,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] leading-[calc(2rem+2px)] rounded-[0.5rem] px-2 ${
+                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : 'bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
@@ -153,7 +153,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 return (
                   <span
                     key={`${pokemonId}-type-${type}`}
-                    className={`w-12 h-[1.25rem] text-center text-[0.8rem] leading-[calc(1.25rem+2px)] rounded-[0.5rem] block chip-type-${type.toLowerCase()}`}
+                    className={`w-12 h-[1.25rem] text-center text-[0.8rem] text-aligned-xs rounded-[0.5rem] block chip-type-${type.toLowerCase()}`}
                   >
                     {PokemonTypes[type]}
                   </span>
@@ -171,7 +171,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             {activeType === 'region' && (
               <Link
                 href={`/detail/${pokemonId}/moves`}
-                className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
+                className="w-[13rem] h-6 bg-primary-3 text-center text-aligned-sm rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
                 replace
               >
                 <b className="font-bold ">일반폼</b> 기술 보러가기
@@ -180,7 +180,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             {pokemonInfo?.isRegionForm && activeType !== 'region' && (
               <Link
                 href={`/detail/${pokemonId}/moves?activeType=region`}
-                className="w-[13rem] h-6 bg-primary-3 text-center leading-[calc(1.5rem+2px)] rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
+                className="w-[13rem] h-6 bg-primary-3 text-center text-aligned-sm rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
                 replace
               >
                 <b className="font-bold ">리전폼</b> 기술 보러가기
@@ -190,7 +190,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
         </header>
         <nav
           ref={versionListRef}
-          className="w-full h-[4rem] flex items-center gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+          className="w-full h-[4rem] flex-items-gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
         >
           {versionGroup?.map((item) => {
             return (
@@ -211,7 +211,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   },
                 }}
                 className={`
-                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] leading-[calc(2rem+2px)] hover:bg-primary-2 hover:text-primary-4
+                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] text-aligned-base hover:bg-primary-2 hover:text-primary-4
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
                 `}
               >

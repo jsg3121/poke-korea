@@ -47,7 +47,7 @@ const ResultListData = ({
     <li className="w-full h-11">
       <Link
         href={getPokemonHref()}
-        className="w-full h-full flex items-center justify-between text-black-2 visited:text-black-2 active:text-black-2"
+        className="w-full h-full flex-between text-black-2 visited:text-black-2 active:text-black-2"
       >
         <p className="h-11 text-base leading-[2.75rem] text-black-2">{name}</p>
         <div ref={imgRef}>

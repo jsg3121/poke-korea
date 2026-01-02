@@ -50,7 +50,7 @@ const OptionsDesktop = ({
               return (
                 <button
                   key={types}
-                  className={`min-w-[3rem] h-7 px-3 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-full chip-type-${types.toLowerCase()} will-change-[filter] transition-all ${selectTypeFilter === types ? 'opacity-100 scale-105 ' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
+                  className={`min-w-[3rem] h-7 px-3 text-[0.875rem] text-aligned-md rounded-full chip-type-${types.toLowerCase()} will-change-[filter] transition-all ${selectTypeFilter === types ? 'opacity-100 scale-105 ' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
                   onClick={handleClickSelectTypeFilter(types)}
                 >
                   {typeName}
@@ -65,19 +65,19 @@ const OptionsDesktop = ({
           </p>
           <div className="flex flex-row items-center gap-3">
             <button
-              className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg bg-[#fd8181] text-white transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
+              className={`badge-damage-physical transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
               onClick={handleClickSelectDamageTypeFilter('물리')}
             >
               물리
             </button>
             <button
-              className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg bg-[#9b9bfa] text-white transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
+              className={`badge-damage-special transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
               onClick={handleClickSelectDamageTypeFilter('특수')}
             >
               특수
             </button>
             <button
-              className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg bg-[#72d372] text-white transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
+              className={`badge-damage-status transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
               onClick={handleClickSelectDamageTypeFilter('변화')}
             >
               변화
@@ -94,7 +94,7 @@ const OptionsDesktop = ({
               return (
                 <button
                   key={`generation-filter-key-${index + 1}`}
-                  className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white hover:opacity-80 hover:grayscale-0'}`}
+                  className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white hover:opacity-80 hover:grayscale-0'}`}
                   onClick={handleClickSelectgenerationId(generationId)}
                 >
                   {index + 1}
@@ -108,7 +108,7 @@ const OptionsDesktop = ({
         </li>
       </ul>
       <button
-        className="w-full h-6 bg-primary-3 rounded-md text-base leading-[calc(1.5rem+2px)] text-center"
+        className="w-full h-6 bg-primary-3 rounded-md text-base text-aligned-sm text-center"
         onClick={handleClickTriggerFilter}
       >
         필터 {isOpenFilter ? '닫기' : '열기'}

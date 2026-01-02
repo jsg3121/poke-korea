@@ -33,7 +33,7 @@ const TypeEffectivenessQuizResult = () => {
       />
       <DesktopTypeEffectivenessQuizResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
+        <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-[1.25rem]">
           문제 정답
         </h2>
         <ul className="space-y-3">
@@ -51,7 +51,7 @@ const TypeEffectivenessQuizResult = () => {
                 key={quiz.id}
                 className=" h-28 bg-white rounded-lg p-4 border border-gray-200"
               >
-                <p className="w-full h-8 text-primary-1 mb-4 font-bold flex items-center gap-2 [&>svg]:w-5 [&>svg]:h-5">
+                <p className="w-full h-8 text-primary-1 mb-4 font-bold flex-items-gap-2 [&>svg]:w-5 [&>svg]:h-5">
                   #{index + 1}{' '}
                   {isCorrect && (
                     <>
@@ -60,12 +60,12 @@ const TypeEffectivenessQuizResult = () => {
                   )}
                 </p>
                 <div className="h-8 grid grid-cols-3 gap-3">
-                  <p className="h-8 flex items-center gap-2">
-                    <span className="h-full leading-[calc(2rem+2px)] text-[1rem] text-primary-1">
+                  <p className="h-8 flex-items-gap-2">
+                    <span className="h-full text-aligned-base text-[1rem] text-primary-1">
                       공격:
                     </span>
                     <TagComponent type={quiz.attackingType as PokemonType} />
-                    <span className="h-full leading-[calc(2rem+2px)] text-[1.25rem] text-primary-1">
+                    <span className="h-full text-aligned-base text-[1.25rem] text-primary-1">
                       →
                     </span>
                     {quiz.defendingTypes.map((type, typeIndex) => (
@@ -75,20 +75,20 @@ const TypeEffectivenessQuizResult = () => {
                       />
                     ))}
                   </p>
-                  <p className="h-8 flex items-center gap-2">
-                    <span className="h-full text-[1rem] leading-[calc(2rem+2px)] text-primary-1 font-bold">
+                  <p className="h-8 flex-items-gap-2">
+                    <span className="h-full text-[1rem] text-aligned-base text-primary-1 font-bold">
                       정답:
                     </span>
-                    <span className="h-full text-[1rem] leading-[calc(2rem+2px)]">
+                    <span className="h-full text-[1rem] text-aligned-base">
                       {correctAnswer}
                     </span>
                   </p>
-                  <p className="h-8 flex items-center gap-2">
-                    <span className="h-full text-[1rem] leading-[calc(2rem+2px)] text-primary-1 font-bold">
+                  <p className="h-8 flex-items-gap-2">
+                    <span className="h-full text-[1rem] text-aligned-base text-primary-1 font-bold">
                       나의 답:
                     </span>
                     <span
-                      className={`h-full text-[1rem] leading-[calc(2rem+2px)] font-medium ${isCorrect ? 'text-green-700' : 'text-red-700'}`}
+                      className={`h-full text-[1rem] text-aligned-base font-medium ${isCorrect ? 'text-green-700' : 'text-red-700'}`}
                     >
                       {userAnswer}
                     </span>

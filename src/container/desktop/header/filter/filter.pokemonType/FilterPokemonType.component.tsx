@@ -50,7 +50,7 @@ const FilterPokemonTypeComponent = () => {
     <div
       role="searchbox"
       aria-label="타입별 포켓몬 필터 검색"
-      className="w-full max-w-[1280px] h-full flex items-center justify-between relative mx-auto px-5"
+      className="w-full max-w-[1280px] h-full flex-between relative mx-auto px-5"
     >
       {Object.entries(PokemonTypes).map(([types, typeName]) => {
         return (
@@ -69,7 +69,7 @@ const FilterPokemonTypeComponent = () => {
         )
       })}
       <button
-        className="w-24 h-8 flex items-center justify-center gap-2 bg-[#b8bfc9] rounded-2xl text-[#142129] font-medium leading-8 cursor-pointer"
+        className="w-24 h-8 flex-center gap-2 bg-[#b8bfc9] rounded-2xl text-[#142129] font-medium leading-8 cursor-pointer"
         onClick={handleClickOpenFilter}
       >
         <ImageComponent

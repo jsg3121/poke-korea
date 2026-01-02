@@ -45,7 +45,7 @@ const PokemonCardComponent = ({
   return (
     <Link href={`/detail/${pokemonData.number}`} className="block w-full">
       <article
-        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
+        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
@@ -102,7 +102,7 @@ const PokemonCardComponent = ({
               />
             ) : (
               // Placeholder: 이미지 로딩 전 스켈레톤 (모바일용)
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}

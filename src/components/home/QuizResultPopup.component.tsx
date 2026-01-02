@@ -29,7 +29,7 @@ const QuizResultPopup = ({
   return (
     <Portal containerId={id}>
       <aside
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn bg-black/65"
+        className="fixed inset-0 z-50 flex-center p-4 animate-fadeIn bg-black/65"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
@@ -78,7 +78,7 @@ const QuizResultPopup = ({
             </button>
             <Link
               href={`/quiz/${quizType}`}
-              className="w-full h-12 bg-primary-1 text-primary-4 text-center block leading-[calc(3rem+2px)] font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="w-full h-12 bg-primary-1 text-primary-4 text-center block text-aligned-xl font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
               aria-label="퀴즈 풀러 가기"
             >
               {QUIZ_TYPE[quizType]} 풀러 가기
