@@ -11,8 +11,10 @@ const SilhouetteQuizImage = ({ pokemonId }: SilhouetteQuizImageProps) => {
       <ImageComponent
         height="18rem"
         width="18rem"
-        src={`${imageMode}/${pokemonId}.webp?w=288&h=288`}
+        src={`${imageMode}/${pokemonId}.webp`}
         alt="실루엣 포켓몬"
+        imageSize={{ width: 288, height: 288 }}
+        fetchPriority="high"
         className="!brightness-0"
       />
     </div>

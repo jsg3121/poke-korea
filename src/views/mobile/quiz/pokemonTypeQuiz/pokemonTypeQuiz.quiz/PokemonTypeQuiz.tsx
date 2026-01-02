@@ -75,8 +75,13 @@ const PokemonTypeQuiz = () => {
                 <ImageComponent
                   width="8rem"
                   height="8rem"
-                  src={`${imageMode}/${option.id}.webp?w=150&h=150`}
+                  src={`${imageMode}/${option.id}.webp`}
                   alt={`${option.koreanName} 포켓몬 선택`}
+                  imageSize={{ width: 96, height: 96 }}
+                  densities={[1, 2]}
+                  sizes="8rem"
+                  fetchPriority={index === 0 ? 'high' : undefined}
+                  loading={index === 0 ? undefined : 'lazy'}
                   className="drop-shadow-[1px_1px_2px_#333333]"
                 />
                 <p className="text-base mt-3">{option.koreanName}</p>

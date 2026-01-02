@@ -56,8 +56,11 @@ const ResultListData = ({
               height="2rem"
               width="2rem"
               alt={`pokemon_id_${number} ${name}`}
-              src={`${imageMode}/${imagePath}.webp?w=40&h=40`}
-              fetchPriority="high"
+              src={`${imageMode}/${imagePath}.webp`}
+              imageSize={{ width: 24, height: 24 }}
+              densities={[1, 2]}
+              sizes="2rem"
+              loading="lazy"
               onLoad={handleImageLoad}
               onError={handleImageError}
               style={{

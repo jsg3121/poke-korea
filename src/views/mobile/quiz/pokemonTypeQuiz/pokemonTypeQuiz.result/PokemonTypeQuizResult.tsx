@@ -79,6 +79,10 @@ const PokemonTypeQuizResult = () => {
                       height="4rem"
                       src={`${imageMode}/${realAnswerId}.webp`}
                       alt={`정답 포켓몬 ${quiz.options[quiz.correctAnswerIndex].koreanName}`}
+                      imageSize={{ width: 48, height: 48 }}
+                      densities={[1, 2]}
+                      sizes="4rem"
+                      loading="lazy"
                     />
                   </div>
                   {userAnswerId === '건너뛰기' ? (
@@ -98,7 +102,15 @@ const PokemonTypeQuizResult = () => {
                       <ImageComponent
                         width={userAnswerId === realAnswerId ? '5rem' : '4rem'}
                         height={userAnswerId === realAnswerId ? '5rem' : '4rem'}
-                        src={`${imageMode}/${userAnswerId}.webp?w=80&h=80`}
+                        src={`${imageMode}/${userAnswerId}.webp`}
+                        alt={`선택 포켓몬`}
+                        imageSize={{
+                          width: userAnswerId === realAnswerId ? 60 : 48,
+                          height: userAnswerId === realAnswerId ? 60 : 48
+                        }}
+                        densities={[1, 2]}
+                        sizes={userAnswerId === realAnswerId ? '5rem' : '4rem'}
+                        loading="lazy"
                       />
                     </div>
                   )}

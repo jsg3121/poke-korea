@@ -91,8 +91,12 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
           <ImageComponent
             width="9rem"
             height="9rem"
-            src={`${imageMode}/${imagePath()}.webp?w=180&h=180`}
+            src={`${imageMode}/${imagePath()}.webp`}
             alt={pokemonName}
+            imageSize={{ width: 144, height: 144 }}
+            densities={[1, 2]}
+            sizes="9rem"
+            loading="lazy"
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
           <div className="h-[9rem] ml-4 flex flex-col">
