@@ -10,7 +10,7 @@ const QuizCardHeader = ({ quizDescription, quizName }: QuizCardHeaderProps) => {
     <Fragment>
       <h3
         id="silhouette-quiz-title"
-        className="text-[1.5rem] font-bold text-primary-1 mb-4 flex-items-gap-2"
+        className="text-2xl font-bold text-primary-1 mb-4 flex-items-gap-2"
       >
         {quizName}
       </h3>

@@ -245,7 +245,7 @@
     line-height: calc(1.5rem + 2px);
   }
   .badge-damage {
-    @apply w-14 h-7 text-[0.875rem] rounded-lg text-white text-center;
+    @apply w-14 h-7 text-sm rounded-lg text-white text-center;
     line-height: calc(1.75rem + 2px);
   }
   .badge-damage-physical {
@@ -296,7 +296,7 @@
 
   /* 7. 퀴즈 UI (12회 사용) */
   .btn-quiz-answer {
-    @apply h-[3rem] px-[1rem] text-[1rem] text-left rounded-[20rem] bg-primary-3 text-primary-1 transition-colors;
+    @apply h-[3rem] px-[1rem] text-base text-left rounded-[20rem] bg-primary-3 text-primary-1 transition-colors;
     line-height: calc(3rem + 2px);
   }
   .btn-quiz-answer:hover {

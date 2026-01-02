@@ -96,7 +96,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"
           />
           <div className="h-[9rem] ml-4 flex flex-col">
-            <h2 className="h-[2rem] text-[1.5rem] leading-[2rem+2px] justify-self-start">
+            <h2 className="h-[2rem] text-2xl leading-[2rem+2px] justify-self-start">
               <span>No.{pokemonId}&nbsp;</span>
               <b className="font-bold">{pokemonName.replace('_', ' ')}</b>
             </h2>
@@ -116,7 +116,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] text-aligned-base rounded-[0.5rem] px-2 ${
+                    className={`w-[6rem] h-[2rem] text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : ' bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
@@ -136,7 +136,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ),
                       },
                     }}
-                    className={`w-[6rem] h-[2rem] text-center text-[0.875rem] text-aligned-base rounded-[0.5rem] px-2 ${
+                    className={`w-[6rem] h-[2rem] text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : 'bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
@@ -211,7 +211,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   },
                 }}
                 className={`
-                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-[1rem] text-aligned-base hover:bg-primary-2 hover:text-primary-4
+                  w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-base text-aligned-base hover:bg-primary-2 hover:text-primary-4
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
                 `}
               >

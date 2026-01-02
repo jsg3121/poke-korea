@@ -20,7 +20,7 @@ const SilhouetteQuizBeforeStage = () => {
         description={QUIZ_CONFIG[0].description}
       />
       <article className="w-full h-[20rem] p-[1.5rem] rounded-[20px] bg-primary-4 flex flex-col items-center justify-between gap-[2rem]">
-        <ul className="w-full [&>li]:text-[1rem] [&>li]:leading-[1.8] [&>li]:text-primary-1 [&>li]:mb-[0.5rem]">
+        <ul className="w-full [&>li]:text-base [&>li]:leading-[1.8] [&>li]:text-primary-1 [&>li]:mb-[0.5rem]">
           <li>1. 검은 실루엣으로 가려진 포켓몬을 맞춰보세요!</li>
           <li>2. 4개의 선택지 중 정확한 포켓몬의 이름을 선택하세요.</li>
           <li>3. 너무 어렵다면 다음 문제로 넘어갈 수 있어요.</li>

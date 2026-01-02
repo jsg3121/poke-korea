@@ -34,7 +34,7 @@ const PokemonTypeQuizResult = () => {
       />
       <MobilePokemonTypeResultTopBanner />
       <article className="w-full h-fit py-[1rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-xl border-b border-solid border-primary-4 mb-4">
           정답
         </h2>
         <ul className="w-full flex flex-col gap-[1rem] items-center relative">
@@ -50,7 +50,7 @@ const PokemonTypeQuizResult = () => {
                 key={quiz.id}
                 className="w-full h-50 flex flex-col bg-primary-4 rounded-[1rem] p-4"
               >
-                <span className="w-full h-6 text-[1.25rem] text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]">
+                <span className="w-full h-6 text-xl text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem]">
                   #{index + 1}{' '}
                   {userAnswerId === realAnswerId && (
                     <>
@@ -59,13 +59,13 @@ const PokemonTypeQuizResult = () => {
                   )}
                 </span>
                 <div className="w-full h-6 bg-primary-1 flex mt-2">
-                  <p className="w-1/5 h-6 text-[1rem] text-aligned-xs text-primary-4 text-center">
+                  <p className="w-1/5 h-6 text-base text-aligned-xs text-primary-4 text-center">
                     문제 타입
                   </p>
-                  <p className="w-2/5 h-6 text-[1rem] text-aligned-xs text-primary-4 text-center">
+                  <p className="w-2/5 h-6 text-base text-aligned-xs text-primary-4 text-center">
                     정답 포켓몬
                   </p>
-                  <p className="w-2/5 h-6 text-[1rem] text-aligned-xs text-primary-4 text-center">
+                  <p className="w-2/5 h-6 text-base text-aligned-xs text-primary-4 text-center">
                     선택 포켓몬
                   </p>
                 </div>
@@ -82,7 +82,7 @@ const PokemonTypeQuizResult = () => {
                     />
                   </div>
                   {userAnswerId === '건너뛰기' ? (
-                    <p className="w-2/5 h-[6rem] leading-[6rem] text-center text-[1.125rem]">
+                    <p className="w-2/5 h-[6rem] leading-[6rem] text-center text-lg">
                       건너뛰기
                     </p>
                   ) : (

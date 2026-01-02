@@ -38,7 +38,7 @@ const SilhouetteQuizCardCntainer = ({
         <QuizCardHeader
           quizName={
             <>
-              <span className="text-[1.5rem]" aria-hidden="true">
+              <span className="text-2xl" aria-hidden="true">
                 🔍
               </span>
               실루엣 퀴즈

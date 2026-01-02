@@ -29,11 +29,11 @@ const MoveDetailCard = ({
     >
       <article className="w-full h-32 items-center flex gap-4 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative hover:scale-105 transition-transform">
         {moveLevel && (
-          <p className="w-16 h-24 shrink-0 text-center leading-[calc(6rem+2px)] bg-primary-1 text-white px-2 rounded-md text-[0.75rem] font-bold">
+          <p className="w-16 h-24 shrink-0 text-center leading-[calc(6rem+2px)] bg-primary-1 text-white px-2 rounded-md text-xs font-bold">
             Lv.{moveLevel}
           </p>
         )}
-        <h3 className="w-fit h-6 shrink-0 text-[1.125rem] text-aligned-sm font-bold text-gray-900 flex gap-1">
+        <h3 className="w-fit h-6 shrink-0 text-lg text-aligned-sm font-bold text-gray-900 flex gap-1">
           {moveData.nameKo}
           {moveData.type && (
             <span className="h-6 shrink-0">

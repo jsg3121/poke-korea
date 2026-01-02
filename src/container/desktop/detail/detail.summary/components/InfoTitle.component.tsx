@@ -9,7 +9,7 @@ const InfoTitle = ({ name }: InfoTitleProps) => {
   return (
     <h1
       data-name-size={fontSize}
-      className="w-[30rem] h-28 leading-[7rem] font-medium text-white-1 text-center data-[name-size=large]:text-[3rem] data-[name-size=medium]:text-[2.5rem] data-[name-size=small]:text-[1.8rem]"
+      className="w-[30rem] h-28 leading-[7rem] font-medium text-white-1 text-center data-[name-size=large]:text-5xl data-[name-size=medium]:text-[2.5rem] data-[name-size=small]:text-[1.8rem]"
     >
       {name}
     </h1>

@@ -24,7 +24,7 @@ const AbilitiesInfoComponent = () => {
                 )}
                 <Link
                   href={`/ability/${ability.abilityId}`}
-                  className="text-[0.75rem] text-primary-1 absolute right-0 underline underline-offset-4"
+                  className="text-xs text-primary-1 absolute right-0 underline underline-offset-4"
                 >
                   특성 정보 보러가기
                 </Link>

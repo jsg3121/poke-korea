@@ -28,15 +28,15 @@ const QuizMainDesktop = () => {
                 <article className="rounded-[1rem] overflow-hidden">
                   <header className="flex-items-gap-4 px-6 py-4 bg-primary-2 group-hover:bg-primary-3 transition-[background] duration-[0.15s]">
                     <span className="text-[2rem]">{quiz.icon}</span>
-                    <h2 className="text-[1.5rem] text-primary-4 font-bold group-hover:text-primary-1 transition-[color] duration-[0.15s]">
+                    <h2 className="text-2xl text-primary-4 font-bold group-hover:text-primary-1 transition-[color] duration-[0.15s]">
                       {quiz.title}
                     </h2>
                   </header>
                   <div className="p-6">
                     <p className="text-primary-1 mb-4">{quiz.description}</p>
-                    <p className="flex-between text-[0.875rem] text-gray-500">
+                    <p className="flex-between text-sm text-gray-500">
                       예상 소요시간: 5-10분
-                      <span className="text-blue-600 text-[0.875rem] font-medium">
+                      <span className="text-blue-600 text-sm font-medium">
                         시작하기 →
                       </span>
                     </p>

@@ -44,9 +44,9 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
         </div>
       </div>
       <div className="flex-between">
-        <p className="text-[0.75rem] text-primary-3">
+        <p className="text-xs text-primary-3">
           총{' '}
-          <strong className="text-[1rem] font-semibold text-primary-4">
+          <strong className="text-base font-semibold text-primary-4">
             {totalCount}
           </strong>
           개의 특성을 볼 수 있어요!

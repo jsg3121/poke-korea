@@ -84,7 +84,7 @@ const OptionsMobile = ({
             return (
               <button
                 key={types}
-                className={`min-w-[3rem] h-7 px-3 text-[0.875rem] text-aligned-md rounded-full chip-type-${types.toLowerCase()} will-change-[filter] transition-all ${selectTypeFilter === types ? 'opacity-100 scale-105 ' : 'opacity-60 grayscale'}`}
+                className={`min-w-[3rem] h-7 px-3 text-sm text-aligned-md rounded-full chip-type-${types.toLowerCase()} will-change-[filter] transition-all ${selectTypeFilter === types ? 'opacity-100 scale-105 ' : 'opacity-60 grayscale'}`}
                 onClick={handleClickSelectTypeFilter(types)}
               >
                 {typeName}
@@ -122,14 +122,14 @@ const OptionsMobile = ({
             return (
               <button
                 key={`generation-filter-key-${index + 1}`}
-                className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
+                className={`w-14 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
                 onClick={handleClickSelectgenerationId(generationId)}
               >
                 {index + 1}
               </button>
             )
           })}
-          <span className="w-full text-primary-3 text-[0.875rem] my-2">
+          <span className="w-full text-primary-3 text-sm my-2">
             선택하지 않으면 최신 세대 기준 스펙으로 나와요!
           </span>
         </div>
