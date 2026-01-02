@@ -102,8 +102,13 @@ const PokemonByAbilityCardComponent = ({
             <ImageComponent
               height={isMobile ? '8rem' : '10rem'}
               width={isMobile ? '8rem' : '10rem'}
+              imageSize={{
+                width: isMobile ? 96 : 160,
+                height: isMobile ? 96 : 160,
+              }}
+              densities={[1, 2]}
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
-              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
+              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
               sizes={isMobile ? '8rem' : '10rem'}
               fetchPriority="high"
             />
@@ -117,9 +122,15 @@ const PokemonByAbilityCardComponent = ({
               <ImageComponent
                 height={isMobile ? '8rem' : '10rem'}
                 width={isMobile ? '8rem' : '10rem'}
+                imageSize={{
+                  width: isMobile ? 128 : 160,
+                  height: isMobile ? 128 : 160,
+                }}
+                densities={[1, 2]}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
-                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp?${isMobile ? 'w=144&h=144' : 'w=240&h=240'}`}
+                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
                 sizes={isMobile ? '8rem' : '10rem'}
+                loading="lazy"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 style={{

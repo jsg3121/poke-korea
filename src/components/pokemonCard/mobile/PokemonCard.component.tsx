@@ -67,13 +67,12 @@ const PokemonCardComponent = ({
             <ImageComponent
               height="10rem"
               width="10rem"
+              imageSize={{ width: 120, height: 120 }}
+              densities={[1, 2]}
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-              src={`${imageMode}/${pokemonData.number}.webp?w=180&h=180`}
+              src={`${imageMode}/${pokemonData.number}.webp`}
+              sizes="10rem"
               fetchPriority="high"
-              imageSize={{
-                height: 140,
-                width: 140,
-              }}
             />
           </div>
         ) : (
@@ -86,13 +85,12 @@ const PokemonCardComponent = ({
               <ImageComponent
                 height="10rem"
                 width="10rem"
+                imageSize={{ width: 120, height: 120 }}
+                densities={[1, 2]}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-                src={`${imageMode}/${pokemonData.number}.webp?w=180&h=180`}
-                fetchPriority="high"
-                imageSize={{
-                  height: 140,
-                  width: 140,
-                }}
+                src={`${imageMode}/${pokemonData.number}.webp`}
+                sizes="10rem"
+                loading="lazy"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 style={{
