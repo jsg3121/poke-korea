@@ -2,15 +2,15 @@
 
 import Link from 'next/link'
 import BallComponent from '~/components/Ball.component'
+import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import {
-  pokemonNumberFormat,
-  getBackgroundColor,
-} from '~/module/pokemonCard.module'
-import ImageComponent from '~/components/Image.component'
-import { imageMode } from '~/module/buildMode'
 import { useLazyImage } from '~/hook/useLazyImage'
+import { imageMode } from '~/module/buildMode'
+import {
+  getBackgroundColor,
+  pokemonNumberFormat,
+} from '~/module/pokemonCard.module'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -41,7 +41,7 @@ const PokemonCardComponent = ({
   return (
     <Link href={`/detail/${pokemonData.number}`} className="w-56">
       <article
-        className="w-56 h-80 text-[#333333] border border-solid border-[#333333] rounded-[10px] block p-[0.83333333rem_0.55555556rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_#334150] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-[1.2] hover:z-10 before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
+        className="w-56 h-80 text-[#333333] border border-solid border-[#333333] rounded-[10px] block p-[0.83333333rem_0.55555556rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_#334150] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-[1.2] hover:z-10 card-corner-fold"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
