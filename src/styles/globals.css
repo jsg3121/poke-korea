@@ -188,9 +188,127 @@
   }
 }
 
-/* 모달 스크롤 방지 */
-html.project__detail--show {
-  overflow: hidden !important;
+/* 반복 패턴 컴포넌트 클래스 */
+@layer components {
+  /* 1. Leading 정렬 패턴 (228회 사용) */
+  .text-aligned-xs {
+    line-height: calc(1.25rem + 2px);
+  }
+  .text-aligned-sm {
+    line-height: calc(1.5rem + 2px);
+  }
+  .text-aligned-md {
+    line-height: calc(1.75rem + 2px);
+  }
+  .text-aligned-base {
+    line-height: calc(2rem + 2px);
+  }
+  .text-aligned-lg {
+    line-height: calc(2.5rem + 2px);
+  }
+  .text-aligned-xl {
+    line-height: calc(3rem + 2px);
+  }
+
+  /* 2. Flex 레이아웃 패턴 (152회 사용) */
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .flex-items-gap-2 {
+    @apply flex items-center gap-2;
+  }
+  .flex-items-gap-4 {
+    @apply flex items-center gap-4;
+  }
+
+  /* 3. 카드 스타일 (17회 사용) */
+  .card-detail {
+    @apply w-full h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl p-4;
+    box-shadow: 0 0 0px 3px var(--color-primary-4);
+  }
+  .card-list {
+    @apply w-full min-h-40 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl p-4 relative;
+    box-shadow: 0 0 0px 3px var(--color-primary-4);
+  }
+  .card-list-sm {
+    @apply w-full min-h-40 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl p-3 relative;
+    box-shadow: 0 0 0px 3px var(--color-primary-4);
+  }
+
+  /* 4. 타입 태그 & 배지 (37회 사용) */
+  .type-tag {
+    @apply w-[3.6rem] h-6 block px-2 rounded-[0.625rem] text-center font-semibold text-[0.85rem];
+    line-height: calc(1.5rem + 2px);
+  }
+  .badge-damage {
+    @apply w-14 h-7 text-[0.875rem] rounded-lg text-white text-center;
+    line-height: calc(1.75rem + 2px);
+  }
+  .badge-damage-physical {
+    @apply badge-damage bg-[#fd8181];
+  }
+  .badge-damage-special {
+    @apply badge-damage bg-[#9b9bfa];
+  }
+  .badge-damage-status {
+    @apply badge-damage bg-[#72d372];
+  }
+
+  /* 5. 높이-라인하이트 매칭 (111회 사용) */
+  .h-aligned-6 {
+    @apply h-6;
+    line-height: calc(1.5rem + 2px);
+  }
+  .h-aligned-7 {
+    @apply h-7;
+    line-height: calc(1.75rem + 2px);
+  }
+  .h-aligned-8 {
+    @apply h-8;
+    line-height: calc(2rem + 2px);
+  }
+  .h-aligned-10 {
+    @apply h-10;
+    line-height: calc(2.5rem + 2px);
+  }
+  .h-aligned-12 {
+    @apply h-12;
+    line-height: calc(3rem + 2px);
+  }
+
+  /* 6. 설명 리스트 (34회 사용) */
+  .dl-term {
+    @apply w-48 h-10 text-xl;
+    line-height: calc(2.5rem + 2px);
+  }
+  .dl-term::after {
+    content: ':';
+    float: right;
+  }
+  .dl-desc {
+    @apply h-10 text-xl font-semibold flex items-center gap-2;
+    line-height: calc(2.5rem + 2px);
+  }
+
+  /* 7. 퀴즈 UI (12회 사용) */
+  .btn-quiz-answer {
+    @apply h-[3rem] px-[1rem] text-[1rem] text-left rounded-[20rem] bg-primary-3 text-primary-1 transition-colors;
+    line-height: calc(3rem + 2px);
+  }
+  .btn-quiz-answer:hover {
+    @apply bg-primary-2 text-primary-4;
+  }
+
+  /* 8. 포켓몬 카드 코너 접힌 효과 (4회 사용) */
+  .card-corner-fold::before {
+    @apply content-[''] absolute top-0 left-0 block;
+    border-width: 1.5rem;
+    border-style: solid;
+    border-color: #334150 transparent transparent #334150;
+  }
 }
 
 /* 포켓몬 타입 색상 유틸리티 클래스 */

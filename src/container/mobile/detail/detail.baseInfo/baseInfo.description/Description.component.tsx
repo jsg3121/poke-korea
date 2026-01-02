@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import TagComponent from '~/components/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
-import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
 const DescriptionComponent = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -18,10 +18,7 @@ const DescriptionComponent = () => {
   } = activeTypeInfo
 
   return (
-    <section
-      aria-labelledby="pokemon-base-info"
-      className="h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
-    >
+    <section aria-labelledby="pokemon-base-info" className="card-detail">
       <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
       <dl className="w-full">
         <div className="w-full h-12 border-b border-primary-3 border-solid flex items-center gap-2 py-2 last:border-b-0 last:p-0">

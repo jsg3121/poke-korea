@@ -3,8 +3,8 @@ import { useParams, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
-import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 import { getDamageTypeKorean } from '~/utils/skill.util'
+import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
 const LevelLearnableSkillComponent = () => {
   const { pokemonId } = useParams()
@@ -19,7 +19,7 @@ const LevelLearnableSkillComponent = () => {
   return (
     <section
       aria-labelledby="pokemon-learnable-skill"
-      className="w-full h-[27rem] bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
+      className="card-detail w-full h-[27rem]"
     >
       <InfoCardTitleComponent
         title="레벨업 습득 기술 정보"

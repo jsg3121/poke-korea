@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import ImageComponent from '~/components/Image.component'
 import { imageMode } from '~/module/buildMode'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
-import ImageComponent from '~/components/Image.component'
 
 interface RelationPokemonComponentProps {
   evolutionId: Array<number>
@@ -14,7 +14,7 @@ const RelationPokemonComponent = ({
 }: RelationPokemonComponentProps) => {
   return (
     <section
-      className="w-full h-80 bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 mx-auto"
+      className="card-detail w-full h-80 mx-auto"
       aria-labelledby="pokemon-evelotion-chain"
     >
       <InfoCardTitleComponent title="진화 체인" id="pokemon-evelotion-chain" />

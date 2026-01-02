@@ -1,17 +1,14 @@
+import Link from 'next/link'
 import { useContext } from 'react'
 import { DetailContext } from '~/context/Detail.context'
 import InfoCardTitleComponent from '../components/InfoCardTitle.component'
-import Link from 'next/link'
 
 const AbilitiesInfoComponent = () => {
   const { activeTypeInfo } = useContext(DetailContext)
   const { abilities } = activeTypeInfo
 
   return (
-    <article
-      className="w-full h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
-      aria-label="포켓몬 특성 정보"
-    >
+    <article className="card-detail" aria-label="포켓몬 특성 정보">
       <InfoCardTitleComponent title="특성" />
       <dl className="w-full h-[calc(100%-4.25rem)] flex flex-col gap-4">
         {abilities.map((ability, index) => {
