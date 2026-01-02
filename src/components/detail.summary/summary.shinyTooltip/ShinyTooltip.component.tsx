@@ -1,6 +1,5 @@
 'use client'
-import 'dialog-polyfill/dist/dialog-polyfill.css'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
 import ShinyTooltipModalComponent from './shinyTooltip.modal/ShinyTooltipModal.component'
 
@@ -24,20 +23,6 @@ const ShinyTooltipComponent = () => {
   }
 
   useBodyScrollLock(isOpenDialog)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (dialogRef.current) {
-        import('dialog-polyfill')
-          .then((module) => {
-            module.default.registerDialog(dialogRef.current!)
-          })
-          .catch((err) => {
-            console.error('dialog-polyfill 로드 실패:', err)
-          })
-      }
-    }
-  }, [])
 
   return (
     <Fragment>
