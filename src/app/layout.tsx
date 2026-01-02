@@ -36,12 +36,12 @@ interface RootLayoutProps {
 const gmarket = localFont({
   src: [
     {
-      path: '../assets/font/GmarketSansMedium.woff2',
+      path: '../assets/font/GmarketSansMedium.subset.woff2',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../assets/font/GmarketSansBold.woff2',
+      path: '../assets/font/GmarketSansBold.subset.woff2',
       weight: '700',
       style: 'normal',
     },
