@@ -65,19 +65,19 @@ const OptionsDesktop = ({
           </p>
           <div className="flex flex-row items-center gap-3">
             <button
-              className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg bg-[#fd8181] text-white transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
+              className={`badge-damage-physical transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
               onClick={handleClickSelectDamageTypeFilter('물리')}
             >
               물리
             </button>
             <button
-              className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg bg-[#9b9bfa] text-white transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
+              className={`badge-damage-special transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
               onClick={handleClickSelectDamageTypeFilter('특수')}
             >
               특수
             </button>
             <button
-              className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg bg-[#72d372] text-white transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
+              className={`badge-damage-status transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80 hover:grayscale-0'}`}
               onClick={handleClickSelectDamageTypeFilter('변화')}
             >
               변화

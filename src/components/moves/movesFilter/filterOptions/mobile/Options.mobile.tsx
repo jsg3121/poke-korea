@@ -96,19 +96,19 @@ const OptionsMobile = ({
       {selectFilter === 'damageType' && (
         <div className="w-full h-28 flex items-start content-start flex-wrap gap-2 mt-4">
           <button
-            className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg bg-[#fd8181] text-white transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
+            className={`badge-damage-physical transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
             onClick={handleClickSelectDamageTypeFilter('물리')}
           >
             물리
           </button>
           <button
-            className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg bg-[#9b9bfa] text-white transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
+            className={`badge-damage-special transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
             onClick={handleClickSelectDamageTypeFilter('특수')}
           >
             특수
           </button>
           <button
-            className={`w-14 h-7 text-[0.875rem] text-aligned-md rounded-lg bg-[#72d372] text-white transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
+            className={`badge-damage-status transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
             onClick={handleClickSelectDamageTypeFilter('변화')}
           >
             변화

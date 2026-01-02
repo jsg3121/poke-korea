@@ -124,15 +124,13 @@ const LevelLearnableSkillComponent = () => {
                     <td className="text-center">{skill.accuracy || '-'}</td>
                     <td className="text-center">{skill.pp || '-'}</td>
                     <td
-                      className={`text-center
-                         ${
-                           getDamageTypeKorean(skill.damageType) === '물리'
-                             ? 'bg-[#fd8181]'
-                             : getDamageTypeKorean(skill.damageType) === '특수'
-                               ? 'bg-[#9b9bfa]'
-                               : 'bg-[#72d372]'
-                         }
-                      `}
+                      className={
+                        getDamageTypeKorean(skill.damageType) === '물리'
+                          ? 'badge-damage-physical'
+                          : getDamageTypeKorean(skill.damageType) === '특수'
+                            ? 'badge-damage-special'
+                            : 'badge-damage-status'
+                      }
                     >
                       {getDamageTypeKorean(skill.damageType)}
                     </td>

@@ -46,13 +46,13 @@ const MoveDetailCard = ({
           <div className="w-full h-full flex flex-col justify-center text-center relative after:absolute after:-right-0 after:bg-primary-3 after:top-0 after:h-full after:w-[2px]">
             <dt className="sr-only">위력</dt>
             <dd
-              className={`w-16 h-7 block shrink-0 px-3 text-[0.875rem] text-center text-aligned-md font-semibold rounded-lg text-white ${
+              className={
                 damageType === '물리'
-                  ? 'bg-[#fd8181]'
+                  ? 'badge-damage-physical'
                   : damageType === '특수'
-                    ? 'bg-[#9b9bfa]'
-                    : 'bg-[#72d372]'
-              }`}
+                    ? 'badge-damage-special'
+                    : 'badge-damage-status'
+              }
             >
               {damageType}
             </dd>
