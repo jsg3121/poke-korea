@@ -18,7 +18,7 @@ const MovesList = () => {
   return (
     <Fragment>
       <header className="w-full h-6 px-4">
-        <h2 className="h-6 leading-[1.5rem] text-[1.25rem] font-[500] text-primary-4">
+        <h2 className="h-6 leading-[1.5rem] text-xl font-[500] text-primary-4">
           기술 목록
         </h2>
       </header>

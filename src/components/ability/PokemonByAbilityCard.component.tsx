@@ -139,13 +139,13 @@ const PokemonByAbilityCardComponent = ({
         </div>
         <div className="w-full flex flex-wrap flex-center gap-2 px-2">
           {pokemonData.isHidden && (
-            <strong className="h-6 text-aligned-sm px-2 text-[0.75rem] bg-[#F8D030] text-[#333333] rounded-md font-bold">
+            <strong className="h-6 text-aligned-sm px-2 text-xs bg-[#F8D030] text-[#333333] rounded-md font-bold">
               숨겨진 특성
             </strong>
           )}
         </div>
         {formLabel && (
-          <p className="w-fit h-6 text-aligned-sm px-2 text-[0.75rem] bg-[#334150] text-white rounded-md font-medium mt-2 mx-auto">
+          <p className="w-fit h-6 text-aligned-sm px-2 text-xs bg-[#334150] text-white rounded-md font-medium mt-2 mx-auto">
             {formLabel}
           </p>
         )}

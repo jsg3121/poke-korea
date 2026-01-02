@@ -30,7 +30,7 @@ const AbilityQuizResult = () => {
       />
       <DesktopAbilityResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-[1.25rem]">
+        <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-xl">
           문제 정답
         </h2>
         <ul className="space-y-3">
@@ -62,12 +62,12 @@ const AbilityQuizResult = () => {
                     {quiz.abilityDescription}
                   </p>
                   <div className="w-1/5">
-                    <p className="h-8 text-[1rem] text-aligned-base shrink-0">
+                    <p className="h-8 text-base text-aligned-base shrink-0">
                       <span className="font-bold text-primary-1">정답 :</span>{' '}
                       {realAnswer}
                     </p>
                     <p
-                      className={`h-8 text-[1rem] text-aligned-base shrink-0 ${realAnswer === userAnswer ? 'text-green-700 font-bold' : 'text-red-700'}`}
+                      className={`h-8 text-base text-aligned-base shrink-0 ${realAnswer === userAnswer ? 'text-green-700 font-bold' : 'text-red-700'}`}
                     >
                       <span className="font-bold text-primary-1">
                         나의 답 :

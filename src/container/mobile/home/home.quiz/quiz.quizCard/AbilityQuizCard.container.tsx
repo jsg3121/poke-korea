@@ -43,7 +43,7 @@ const AbilityQuizCardContainer = ({
         quizDescription={abilityQuiz.question}
       />
       <div className="w-full h-40 mb-4 rounded-xl p-4 bg-white flex justify-center items-center">
-        <p className="text-primary-1 text-sm md:text-[1rem] leading-relaxed">
+        <p className="text-primary-1 text-sm md:text-base leading-relaxed">
           {abilityQuiz.abilityDescription}
         </p>
       </div>

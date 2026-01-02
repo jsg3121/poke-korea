@@ -32,7 +32,7 @@ const SilhouetteQuizResult = () => {
       />
       <MobileSilhouetteResultTopBanner />
       <article className="w-full h-fit py-[1rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-xl border-b border-solid border-primary-4 mb-4">
           정답
         </h2>
         <ul className="w-full flex flex-col gap-[1rem] items-center relative">
@@ -57,11 +57,9 @@ const SilhouetteQuizResult = () => {
                       </>
                     )}
                   </span>
-                  <p className="w-fit h-6 text-left text-[1rem] text-primary-1">
+                  <p className="w-fit h-6 text-left text-base text-primary-1">
                     정답 :{' '}
-                    <span className="font-bold text-[1.125rem]">
-                      {realAnswer}
-                    </span>
+                    <span className="font-bold text-lg">{realAnswer}</span>
                   </p>
                   <p
                     className={`w-fit h-6 shrink-0 text-left flex-items-gap-2 text-primary-1`}

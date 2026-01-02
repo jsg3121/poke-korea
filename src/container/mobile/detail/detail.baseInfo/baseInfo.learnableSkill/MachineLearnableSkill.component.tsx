@@ -99,7 +99,7 @@ const MachineLearnableSkillComponent = () => {
                 return (
                   <tr
                     key={`machine-moves-${skill.id}`}
-                    className="h-8 [&>td]:align-middle [&>td]: text-[0.875rem]"
+                    className="h-8 [&>td]:align-middle [&>td]: text-sm"
                   >
                     <td>{skill.nameKo}</td>
                     <td className="justify-items-center">

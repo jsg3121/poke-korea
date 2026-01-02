@@ -53,8 +53,8 @@ const PokemonByAbilityContainer = ({
       )}
       {pokemonList.length > 0 && (
         <Fragment>
-          <p className="w-[calc(100%-2.5rem)] mx-auto text-[1rem] text-primary-3 mb-8">
-            <span className="text-[1.25rem] font-bold">{totalCount}마리</span>의
+          <p className="w-[calc(100%-2.5rem)] mx-auto text-base text-primary-3 mb-8">
+            <span className="text-xl font-bold">{totalCount}마리</span>의
             포켓몬이 이 특성을 가지고 있어요
           </p>
           <div className="w-[calc(100%-2.5rem)] mx-auto grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between">

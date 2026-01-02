@@ -79,7 +79,7 @@ const PokemonTypeQuiz = () => {
                   alt={`${option.koreanName} 포켓몬 선택`}
                   className="drop-shadow-[1px_1px_2px_#333333]"
                 />
-                <p className="text-[1rem] mt-3">{option.koreanName}</p>
+                <p className="text-base mt-3">{option.koreanName}</p>
               </button>
             ))}
           </div>

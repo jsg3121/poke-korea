@@ -138,14 +138,12 @@ const PokemonBySkillCard = ({
                 {method.method === 'LEVEL_UP' ? (
                   <p className="bg-green-600 text-white rounded-md font-bold flex items-center px-2 gap-1">
                     <LevelUpIcon width={14} height={14} />
-                    <span className="h-6 text-aligned-sm text-[0.875rem]">
-                      레벨업
-                    </span>
+                    <span className="h-6 text-aligned-sm text-sm">레벨업</span>
                   </p>
                 ) : (
                   <p className="bg-slate-500 text-white rounded-md font-bold flex items-center px-2 gap-1">
                     <MachineMoveIcon width={20} height={20} />
-                    <span className="h-6 text-aligned-sm text-[0.875rem]">
+                    <span className="h-6 text-aligned-sm text-sm">
                       기술머신
                     </span>
                   </p>
@@ -155,7 +153,7 @@ const PokemonBySkillCard = ({
           })}
         </div>
         {formLabel && (
-          <p className="w-fit h-6 text-aligned-sm px-2 text-[0.75rem] bg-[#334150] text-white rounded-md font-medium mt-2 mx-auto">
+          <p className="w-fit h-6 text-aligned-sm px-2 text-xs bg-[#334150] text-white rounded-md font-medium mt-2 mx-auto">
             {formLabel}
           </p>
         )}

@@ -103,7 +103,7 @@ const LevelLearnableSkillComponent = () => {
                 return (
                   <tr
                     key={`level-moves-${skill.id}-${level}`}
-                    className="h-8 [&>td]:align-middle [&>td]: text-[0.875rem]"
+                    className="h-8 [&>td]:align-middle [&>td]: text-sm"
                   >
                     <td className="text-center">
                       {level === 0 ? '진화' : level === 1 ? '최초' : level}

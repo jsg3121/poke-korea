@@ -13,7 +13,7 @@ const ResultHeader = ({ headline, medal, subcopy }: ResultHeaderProps) => {
       <h1 className="w-full text-[2rem] font-bold text-center text-aligned-base text-primary-4">
         {headline}
       </h1>
-      <p className="w-full h-[1.25rem] text-[1.25rem] text-center text-primary-3 text-aligned-xs mt-[1.5rem]">
+      <p className="w-full h-[1.25rem] text-xl text-center text-primary-3 text-aligned-xs mt-[1.5rem]">
         {subcopy}
       </p>
     </header>

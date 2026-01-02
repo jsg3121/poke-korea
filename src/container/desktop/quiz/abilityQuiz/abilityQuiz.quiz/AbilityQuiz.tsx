@@ -48,8 +48,8 @@ const AbilityQuiz = () => {
         />
         <article className="w-full h-[25.5rem] rounded-[2rem] p-[2rem] mx-auto grid grid-cols-2 gap-4">
           <header className="col-span-2 mb-[2rem] p-[1.5rem] bg-primary-1 rounded-[1rem]">
-            <p className="text-[1rem] text-primary-3 mb-[0.5rem]">설명</p>
-            <h2 className="text-[1.125rem] leading-[1.6] text-primary-4">
+            <p className="text-base text-primary-3 mb-[0.5rem]">설명</p>
+            <h2 className="text-lg leading-[1.6] text-primary-4">
               {currentQuestion?.abilityDescription}
             </h2>
           </header>

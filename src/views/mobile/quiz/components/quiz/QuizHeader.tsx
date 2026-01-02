@@ -17,16 +17,16 @@ const QuizHeader = ({
     <header className="bg-white rounded-[1rem] shadow-md py-[1rem] px-[1rem] mb-[1rem]">
       <div className="flex-between mb-[0.75rem]">
         <div>
-          <h1 className="text-[1.25rem] font-bold text-gray-800">{quizName}</h1>
-          <p className="text-[0.875rem] text-gray-600">
+          <h1 className="text-xl font-bold text-gray-800">{quizName}</h1>
+          <p className="text-sm text-gray-600">
             문제 {currentQuestionIndex + 1} / 20
           </p>
         </div>
         <div className="text-right">
-          <div className="text-[1rem] font-medium text-purple-600">
+          <div className="text-base font-medium text-purple-600">
             {formatTimeShort(timeElapsed)}
           </div>
-          <div className="text-[0.75rem] text-gray-600">경과 시간</div>
+          <div className="text-xs text-gray-600">경과 시간</div>
         </div>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2">

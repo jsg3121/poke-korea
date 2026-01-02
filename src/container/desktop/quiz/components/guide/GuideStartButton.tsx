@@ -9,7 +9,7 @@ const GuideStartButton = ({ onClickStartButton }: GuideStartButtonProps) => {
 
   return (
     <button
-      className="h-[4rem] w-full bg-primary-2 rounded-[20px] text-[1.25rem] text-primary-4 hover:bg-primary-1 hover:scale-[1.025] transition-[transform] duration-[0.15s]"
+      className="h-[4rem] w-full bg-primary-2 rounded-[20px] text-xl text-primary-4 hover:bg-primary-1 hover:scale-[1.025] transition-[transform] duration-[0.15s]"
       onClick={handleChangeStage}
     >
       시작하기

@@ -56,13 +56,13 @@ const QuizResultPopup = ({
             {isCorrect ? '정답입니다!' : '오답입니다!'}
           </strong>
           {!isCorrect && (
-            <p className="h-12 text-[1rem] text-center">
-              정답 : <span className="text-[1.25rem] font-bold">{answer}</span>
+            <p className="h-12 text-base text-center">
+              정답 : <span className="text-xl font-bold">{answer}</span>
             </p>
           )}
           <p
             id="quiz-result-description"
-            className="text-center text-primary-2 mb-6 text-[1rem]"
+            className="text-center text-primary-2 mb-6 text-base"
           >
             {isCorrect
               ? '더 많은 퀴즈를 풀러 가볼까요?'

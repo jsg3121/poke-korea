@@ -47,11 +47,11 @@ const MovesTableContainer = () => {
   return (
     <section className="w-full h-fit px-4">
       <header className="w-full h-[4rem] pt-4 flex-between border-b border-solid border-primary-3 flex-wrap sticky top-[4rem] z-10 bg-primary-1 mb-3">
-        <h2 className="h-12 leading-[3rem] text-[1.5rem] font-[500] text-primary-4">
+        <h2 className="h-12 leading-[3rem] text-2xl font-[500] text-primary-4">
           기술 목록
         </h2>
         <div className="w-[11rem] h-[3rem] flex-between">
-          <p className="h-[1.25rem] text-[1rem] text-aligned-xs text-primary-4">
+          <p className="h-[1.25rem] text-base text-aligned-xs text-primary-4">
             습득 유형 :
           </p>
           <ToggleButtonComponent
