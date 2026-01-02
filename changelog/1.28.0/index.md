@@ -107,22 +107,53 @@
 
 ## 🚀 성능 개선 효과
 
+### 📊 Lighthouse 측정 결과 (실제 배포 환경)
+
+**측정 페이지**: 9개 주요 페이지 (홈, 도감, 상세, 기술/특성 도감 등)
+
+#### 평균 점수 개선
+
+- ✅ **Performance**: 75점 → 76점 (+1점)
+- ✅ **Best Practices**: 97점 → 99점 (+2점)
+- ✅ **Accessibility**: 97점 (유지)
+- ✅ **SEO**: 100점 (유지)
+
+#### Core Web Vitals 평균 개선
+
+- ✅ **LCP** (Largest Contentful Paint): 6,923ms → 6,239ms (**-9.9%**, 684ms 단축)
+- ✅ **FCP** (First Contentful Paint): 1,908ms → 1,795ms (**-5.9%**, 113ms 단축)
+- ✅ **TBT** (Total Blocking Time): 52ms → 45ms (**-13.5%**, 7ms 단축)
+- ✅ **SI** (Speed Index): 2,920ms → 2,748ms (**-5.9%**, 172ms 단축)
+- ✅ **CLS** (Cumulative Layout Shift): 0 (완벽 유지)
+
+#### 최고 개선 페이지
+
+1. **특성 도감화면**: Performance +7점, FCP 41.2% 개선, LCP 26.3% 개선
+2. **기술 도감화면**: Performance +4점, SI 31.3% 개선, LCP 19.6% 개선
+3. **포켓몬 상세 기술화면**: Performance +3점, LCP 19.6% 개선, TBT 24.6% 개선
+
+**상세 보고서**: [lighthouse-performance-report.md](./lighthouse-performance-report.md)
+
 ### 초기 로딩
 
-- ✅ 폰트 파일 크기 55.9% 감소
+- ✅ 폰트 파일 크기 55.9% 감소 (220KB → 97KB)
 - ✅ 이미지 대역폭 40-50% 절감 (DPR=1 환경)
 - ✅ CSS 번들 크기 감소 (패턴 추출 효과)
+- ✅ LCP 평균 9.9% 개선 (최대 26.3%)
 
 ### 사용자 경험
 
 - ✅ 고해상도 디스플레이 선명도 33% 향상
-- ✅ 웹폰트 로딩 최적화 (FOUT 개선)
+- ✅ 웹폰트 로딩 최적화 (FOUT 개선, FCP 최대 41.2% 개선)
 - ✅ 일관된 디자인 시스템
+- ✅ TBT 평균 13.5% 개선 (최대 43.9%)
 
 ### SEO & 접근성
 
-- ✅ PageSpeed Insights 점수 5-10점 향상 예상
-- ✅ Core Web Vitals 개선 (LCP, FCP, CLS)
+- ✅ Lighthouse Performance 평균 +1점 (최대 +7점)
+- ✅ Best Practices 평균 +2점
+- ✅ Core Web Vitals 전반적 개선 (LCP, FCP, TBT, SI)
+- ✅ CLS 0 완벽 유지
 - ✅ 모든 이미지에 alt 속성 추가
 
 ### 유지보수성
@@ -160,6 +191,7 @@
 - [CSS Variables](./css-variables.md)
 - [dialog-polyfill 제거](./remove-dialog-polyfill.md)
 - [이미지 최적화](./image-optimization.md)
+- [Lighthouse 성능 측정 결과](./lighthouse-performance-report.md)
 
 ---
 
