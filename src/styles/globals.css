@@ -2,24 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS 커스텀 속성 (CSS Variables) */
-:root {
-  --color-primary-1: #27374d;
-  --color-primary-2: #526d82;
-  --color-primary-3: #9db2bf;
-  --color-primary-4: #dde6ed;
-  --color-white-1: #ffffff;
-  --color-white-2: #dddddd;
-  --color-white-3: #f2f3f4;
-  --color-black-1: #000000;
-  --color-black-2: #333333;
-  --color-shadow-1: #eeeeee;
-  --color-shadow-2: #dddddd;
-  --color-shadow-3: #838383;
-}
+/* CSS 커스텀 속성 (CSS Variables) - Tailwind theme()로 참조 */
 
 /* 기본 스타일 재설정 */
 @layer base {
+  :root {
+    --color-primary-1: theme('colors.primary-1');
+    --color-primary-2: theme('colors.primary-2');
+    --color-primary-3: theme('colors.primary-3');
+    --color-primary-4: theme('colors.primary-4');
+    --color-white-1: theme('colors.white-1');
+    --color-white-2: theme('colors.white-2');
+    --color-white-3: theme('colors.white-3');
+    --color-black-1: theme('colors.black-1');
+    --color-black-2: theme('colors.black-2');
+    --color-shadow-1: theme('colors.shadow-1');
+    --color-shadow-2: theme('colors.shadow-2');
+    --color-shadow-3: theme('colors.shadow-3');
+  }
+
   * {
     @apply box-border;
     -webkit-tap-highlight-color: transparent !important;
