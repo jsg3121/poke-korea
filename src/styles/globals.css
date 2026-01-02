@@ -249,13 +249,13 @@
     line-height: calc(1.75rem + 2px);
   }
   .badge-damage-physical {
-    @apply badge-damage bg-[#fd8181];
+    @apply badge-damage bg-damage-physical;
   }
   .badge-damage-special {
-    @apply badge-damage bg-[#9b9bfa];
+    @apply badge-damage bg-damage-special;
   }
   .badge-damage-status {
-    @apply badge-damage bg-[#72d372];
+    @apply badge-damage bg-damage-status;
   }
 
   /* 5. 높이-라인하이트 매칭 (111회 사용) */
@@ -308,7 +308,8 @@
     @apply content-[''] absolute top-0 left-0 block;
     border-width: 1.5rem;
     border-style: solid;
-    border-color: #334150 transparent transparent #334150;
+    border-color: theme('colors.card-accent') transparent transparent
+      theme('colors.card-accent');
   }
 }
 

@@ -81,15 +81,15 @@ const PokemonByAbilityCardComponent = ({
       aria-label={`포켓몬 ${pokemonData.name} 카드 ${formLabel ? formLabel : ''}`}
     >
       <article
-        className="w-full h-[20rem] md:h-80 text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] md:p-[0.83333333rem_0.55555556rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] md:hover:scale-[1.2] md:hover:z-10"
+        className="w-full h-[20rem] md:h-80 text-black-2 border border-solid border-black-2 rounded-[10px] p-[0.75rem_0.5rem] md:p-[0.83333333rem_0.55555556rem] relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80),0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] md:hover:scale-[1.2] md:hover:z-10"
         style={gradientStyle}
       >
         <header className="w-full min-h-8 flex items-start justify-between pr-2 relative z-10">
           <i className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
           </i>
-          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-[#334150] pb-1 gap-2">
-            <p className="h-4 text-base leading-none font-medium text-[#333333]">
+          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-2">
+            <p className="h-4 text-base leading-none font-medium text-black-2">
               No.{pokemonNumber}
             </p>
             <h3 className="w-fit text-base leading-none font-semibold text-right text-black">
@@ -98,7 +98,7 @@ const PokemonByAbilityCardComponent = ({
           </div>
         </header>
         {isHighPriority ? (
-          <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
+          <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_rgb(51_51_51)] relative">
             <ImageComponent
               height={isMobile ? '8rem' : '10rem'}
               width={isMobile ? '8rem' : '10rem'}
@@ -111,7 +111,7 @@ const PokemonByAbilityCardComponent = ({
         ) : (
           <div
             ref={imgRef}
-            className="w-fit mx-auto mb-4 md:mb-2 drop-shadow-[2px_3px_2px_#333333] relative pr-2"
+            className="w-fit mx-auto mb-4 md:mb-2 drop-shadow-[2px_3px_2px_rgb(51_51_51)] relative pr-2"
           >
             {isVisible ? (
               <ImageComponent
@@ -139,13 +139,13 @@ const PokemonByAbilityCardComponent = ({
         </div>
         <div className="w-full flex flex-wrap flex-center gap-2 px-2">
           {pokemonData.isHidden && (
-            <strong className="h-6 text-aligned-sm px-2 text-xs bg-[#F8D030] text-[#333333] rounded-md font-bold">
+            <strong className="h-6 text-aligned-sm px-2 text-xs bg-type-electric text-black-2 rounded-md font-bold">
               숨겨진 특성
             </strong>
           )}
         </div>
         {formLabel && (
-          <p className="w-fit h-6 text-aligned-sm px-2 text-xs bg-[#334150] text-white rounded-md font-medium mt-2 mx-auto">
+          <p className="w-fit h-6 text-aligned-sm px-2 text-xs bg-card-accent text-white rounded-md font-medium mt-2 mx-auto">
             {formLabel}
           </p>
         )}
