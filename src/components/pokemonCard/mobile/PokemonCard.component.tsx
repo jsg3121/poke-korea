@@ -45,7 +45,7 @@ const PokemonCardComponent = ({
   return (
     <Link href={`/detail/${pokemonData.number}`} className="block w-full">
       <article
-        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold"
+        className="w-full h-[21rem] text-black-2 border border-solid border-black-2 rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80),0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
@@ -53,8 +53,8 @@ const PokemonCardComponent = ({
           <i className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
           </i>
-          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-[#334150] pb-1 gap-2">
-            <p className="h-4 text-base leading-none font-medium text-[#333333]">
+          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-2">
+            <p className="h-4 text-base leading-none font-medium text-black-2">
               No.{pokemonNumber}
             </p>
             <h3 className="w-fit text-base leading-none font-semibold text-right text-black">

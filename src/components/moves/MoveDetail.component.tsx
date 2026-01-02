@@ -49,7 +49,7 @@ const MoveDetailComponent = ({
         </dd>
         <dt className="font-semibold text-primary-3">분류:</dt>
         <dd
-          className={`py-1 rounded-full text-xl ${displayData.damageType === 'physical' ? 'text-[#fd8181]' : displayData.damageType === 'special' ? 'text-[#9b9bfa]' : 'text-[#72d372]'}`}
+          className={`py-1 rounded-full text-xl ${displayData.damageType === 'physical' ? 'text-damage-physical' : displayData.damageType === 'special' ? 'text-damage-special' : 'text-damage-status'}`}
         >
           {getDamageTypeKorean(displayData.damageType)}
         </dd>
@@ -73,7 +73,7 @@ const MoveDetailComponent = ({
         </dd>
         <dt className="text-xl font-semibold text-primary-3">분류:</dt>
         <dd
-          className={`py-1 rounded-full text-xl ${displayData.damageType === 'physical' ? 'text-[#fd8181]' : displayData.damageType === 'special' ? 'text-[#9b9bfa]' : 'text-[#72d372]'}`}
+          className={`py-1 rounded-full text-xl ${displayData.damageType === 'physical' ? 'text-damage-physical' : displayData.damageType === 'special' ? 'text-damage-special' : 'text-damage-status'}`}
         >
           {getDamageTypeKorean(displayData.damageType)}
         </dd>

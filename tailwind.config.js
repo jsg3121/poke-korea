@@ -22,6 +22,12 @@ module.exports = {
         'shadow-1': '#eeeeee',
         'shadow-2': '#dddddd',
         'shadow-3': '#838383',
+        // 데미지 타입 색상
+        'damage-physical': '#fd8181',
+        'damage-special': '#9b9bfa',
+        'damage-status': '#72d372',
+        // 카드 UI 색상
+        'card-accent': '#334150',
         // 포켓몬 타입 색상들
         'type-normal': '#A8A878',
         'type-fire': '#F08030',
