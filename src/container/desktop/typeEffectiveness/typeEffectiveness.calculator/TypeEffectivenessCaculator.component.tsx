@@ -79,7 +79,7 @@ const TypeEffectivenessCaculatorComponent = () => {
             disabled={selectTypeList.length === 0}
             onClick={handleClickResetType}
           >
-            <p className="h-[2rem] text-sm text-aligned-base text-[#333333] group-disabled:text-[#8b8b8b]">
+            <p className="h-8 text-sm text-aligned-base text-[#333333] group-disabled:text-[#8b8b8b]">
               초기화
             </p>
           </button>
