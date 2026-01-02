@@ -103,7 +103,7 @@ const LevelLearnableSkillComponent = () => {
                 return (
                   <tr
                     key={`level-moves-${skill.id}-${level}`}
-                    className="h-8 [&>td]:align-middle [&>td]: text-sm"
+                    className="h-8 [&>td]:align-middle text-sm"
                   >
                     <td className="text-center">
                       {level === 0 ? '진화' : level === 1 ? '최초' : level}
@@ -121,16 +121,18 @@ const LevelLearnableSkillComponent = () => {
                     <td className="text-center">{skill.power || '-'}</td>
                     <td className="text-center">{skill.accuracy || '-'}</td>
                     <td className="text-center">{skill.pp || '-'}</td>
-                    <td
-                      className={
-                        getDamageTypeKorean(skill.damageType) === '물리'
-                          ? 'badge-damage-physical'
-                          : getDamageTypeKorean(skill.damageType) === '특수'
-                            ? 'badge-damage-special'
-                            : 'badge-damage-status'
-                      }
-                    >
-                      {getDamageTypeKorean(skill.damageType)}
+                    <td>
+                      <span
+                        className={`w-full flex-center block ${
+                          getDamageTypeKorean(skill.damageType) === '물리'
+                            ? 'badge-damage-physical'
+                            : getDamageTypeKorean(skill.damageType) === '특수'
+                              ? 'badge-damage-special'
+                              : 'badge-damage-status'
+                        }`}
+                      >
+                        {getDamageTypeKorean(skill.damageType)}
+                      </span>
                     </td>
                   </tr>
                 )

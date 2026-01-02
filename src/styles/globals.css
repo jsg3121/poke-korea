@@ -241,21 +241,19 @@
 
   /* 4. 타입 태그 & 배지 (37회 사용) */
   .type-tag {
-    @apply w-[3.6rem] h-6 block px-2 rounded-[0.625rem] text-center font-semibold text-[0.85rem];
-    line-height: calc(1.5rem + 2px);
+    @apply w-[3.6rem] h-6 text-aligned-sm block px-2 rounded-[0.625rem] text-center font-semibold text-[0.85rem];
   }
   .badge-damage {
-    @apply w-14 h-7 text-sm rounded-lg text-white text-center;
-    line-height: calc(1.75rem + 2px);
+    @apply w-14 h-7 text-sm text-aligned-md rounded-lg text-center;
   }
   .badge-damage-physical {
-    @apply badge-damage bg-damage-physical;
+    @apply badge-damage bg-damage-physical text-primary-1;
   }
   .badge-damage-special {
-    @apply badge-damage bg-damage-special;
+    @apply badge-damage bg-damage-special text-primary-1;
   }
   .badge-damage-status {
-    @apply badge-damage bg-damage-status;
+    @apply badge-damage bg-damage-status text-primary-1;
   }
 
   /* 5. 높이-라인하이트 매칭 (111회 사용) */
