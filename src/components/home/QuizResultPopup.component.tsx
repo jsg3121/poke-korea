@@ -29,7 +29,7 @@ const QuizResultPopup = ({
   return (
     <Portal containerId={id}>
       <aside
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn bg-black/65"
+        className="fixed inset-0 z-50 flex-center p-4 animate-fadeIn bg-black/65"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
@@ -56,13 +56,13 @@ const QuizResultPopup = ({
             {isCorrect ? '정답입니다!' : '오답입니다!'}
           </strong>
           {!isCorrect && (
-            <p className="h-12 text-[1rem] text-center">
-              정답 : <span className="text-[1.25rem] font-bold">{answer}</span>
+            <p className="h-12 text-base text-center">
+              정답 : <span className="text-xl font-bold">{answer}</span>
             </p>
           )}
           <p
             id="quiz-result-description"
-            className="text-center text-primary-2 mb-6 text-[1rem]"
+            className="text-center text-primary-2 mb-6 text-base"
           >
             {isCorrect
               ? '더 많은 퀴즈를 풀러 가볼까요?'
@@ -78,7 +78,7 @@ const QuizResultPopup = ({
             </button>
             <Link
               href={`/quiz/${quizType}`}
-              className="w-full h-12 bg-primary-1 text-primary-4 text-center block leading-[calc(3rem+2px)] font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="w-full h-12 bg-primary-1 text-primary-4 text-center block text-aligned-xl font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
               aria-label="퀴즈 풀러 가기"
             >
               {QUIZ_TYPE[quizType]} 풀러 가기

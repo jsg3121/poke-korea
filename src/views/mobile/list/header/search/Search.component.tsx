@@ -60,7 +60,7 @@ const SearchComponent = () => {
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}
-          className={`w-[calc(100%-3rem)] h-16 bg-white rounded-[2.5rem] flex items-center justify-between gap-4 top-0 left-1/2 -translate-x-1/2 transition-[height] duration-200 px-6 ${
+          className={`w-[calc(100%-3rem)] h-16 bg-white rounded-[2.5rem] flex-between gap-4 top-0 left-1/2 -translate-x-1/2 transition-[height] duration-200 px-6 ${
             isScroll ? 'h-16 fixed top-4 z-[100]' : 'absolute'
           }`}
           role="search"

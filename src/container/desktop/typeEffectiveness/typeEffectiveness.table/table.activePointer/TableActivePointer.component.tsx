@@ -24,11 +24,11 @@ const TableActivePointerComponent = ({
   }
 
   return (
-    <div className="h-8 flex items-center gap-2 float-right">
+    <div className="h-8 flex-items-gap-2 float-right">
       <button
         type="button"
         data-effective="double"
-        className={`h-8 text-base leading-[calc(2rem+2px)] text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
+        className={`h-8 text-base text-aligned-base text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
           activeType === 'double' ? 'text-primary-4' : ''
         }`}
         aria-pressed={activeType === 'double'}
@@ -39,7 +39,7 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="half"
-        className={`h-8 text-base leading-[calc(2rem+2px)] text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
+        className={`h-8 text-base text-aligned-base text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
           activeType === 'half' ? 'text-primary-4' : ''
         }`}
         aria-pressed={activeType === 'half'}
@@ -50,7 +50,7 @@ const TableActivePointerComponent = ({
       <button
         type="button"
         data-effective="zero"
-        className={`h-8 text-base leading-[calc(2rem+2px)] text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
+        className={`h-8 text-base text-aligned-base text-primary-3 flex items-baseline cursor-pointer hover:text-primary-4 ${
           activeType === 'zero' ? 'text-primary-4' : ''
         }`}
         aria-pressed={activeType === 'zero'}

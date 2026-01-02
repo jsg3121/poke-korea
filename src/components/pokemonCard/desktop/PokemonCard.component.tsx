@@ -2,15 +2,15 @@
 
 import Link from 'next/link'
 import BallComponent from '~/components/Ball.component'
+import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import {
-  pokemonNumberFormat,
-  getBackgroundColor,
-} from '~/module/pokemonCard.module'
-import ImageComponent from '~/components/Image.component'
-import { imageMode } from '~/module/buildMode'
 import { useLazyImage } from '~/hook/useLazyImage'
+import { imageMode } from '~/module/buildMode'
+import {
+  getBackgroundColor,
+  pokemonNumberFormat,
+} from '~/module/pokemonCard.module'
 
 interface CardComponentProps {
   pokemonData: PokemonCardFragment
@@ -41,7 +41,7 @@ const PokemonCardComponent = ({
   return (
     <Link href={`/detail/${pokemonData.number}`} className="w-56">
       <article
-        className="w-56 h-80 text-[#333333] border border-solid border-[#333333] rounded-[10px] block p-[0.83333333rem_0.55555556rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_#334150] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-[1.2] hover:z-10 before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
+        className="w-56 h-80 text-black-2 border border-solid border-black-2 rounded-[10px] block p-[0.83333333rem_0.55555556rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-[1.2] hover:z-10 card-corner-fold"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
@@ -49,8 +49,8 @@ const PokemonCardComponent = ({
           <i className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
           </i>
-          <div className="w-full h-5 flex items-start justify-between border-b border-solid border-[#334150] pb-1">
-            <p className="h-4 text-base leading-none font-medium text-[#333333]">
+          <div className="w-full h-5 flex items-start justify-between border-b border-solid border-card-accent pb-1">
+            <p className="h-4 text-base leading-none font-medium text-black-2">
               No.{pokemonNumber}
             </p>
             <h3 className="w-full h-4 text-base leading-none font-semibold text-right text-black">
@@ -63,8 +63,10 @@ const PokemonCardComponent = ({
             <ImageComponent
               height="10rem"
               width="10rem"
+              imageSize={{ width: 160, height: 160 }}
+              densities={[1, 2]}
               alt={`pokemon_id_${pokemonData.number}`}
-              src={`${imageMode}/${pokemonData.number}.webp?w=240&h=240`}
+              src={`${imageMode}/${pokemonData.number}.webp`}
               sizes="10rem"
               fetchPriority="high"
             />
@@ -79,10 +81,12 @@ const PokemonCardComponent = ({
               <ImageComponent
                 height="10rem"
                 width="10rem"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
                 alt={`pokemon_id_${pokemonData.number}`}
-                src={`${imageMode}/${pokemonData.number}.webp?w=240&h=240`}
+                src={`${imageMode}/${pokemonData.number}.webp`}
                 sizes="10rem"
-                fetchPriority="high"
+                loading="lazy"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 style={{
@@ -92,7 +96,7 @@ const PokemonCardComponent = ({
               />
             ) : (
               // Placeholder: 이미지 로딩 전 스켈레톤
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}

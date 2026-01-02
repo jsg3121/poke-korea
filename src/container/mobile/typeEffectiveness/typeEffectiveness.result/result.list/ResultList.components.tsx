@@ -34,7 +34,7 @@ const ResultListComponents = ({
   return (
     <Fragment>
       <dt
-        className="w-fit h-7 text-base leading-[calc(1.75rem+2px)] text-left shadow-[1px_2px_6px_0_var(--color-primary-1)] rounded-2xl px-3"
+        className="w-fit h-7 text-base text-aligned-md text-left shadow-[1px_2px_6px_0_var(--color-primary-1)] rounded-2xl px-3"
         style={{ backgroundColor: getBackgroundColor(importantPoint) }}
       >
         {title}

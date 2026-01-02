@@ -20,7 +20,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/' ? 'font-bold' : ''}`}
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] text-aligned-sm text-primary-4 [&>svg]:h-8 ${pathname === '/' ? 'font-bold' : ''}`}
           >
             <TabHomeIcon />홈
           </Link>
@@ -30,7 +30,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/list"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/list' || pathname.includes('/detail') ? 'font-bold' : ''}`}
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] text-aligned-sm text-primary-4 [&>svg]:h-8 ${pathname === '/list' || pathname.includes('/detail') ? 'font-bold' : ''}`}
           >
             <PokeballIcon />
             포켓몬 도감
@@ -41,7 +41,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/moves"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'font-bold' : ''}`}
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] text-aligned-sm text-primary-4 [&>svg]:h-8 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'font-bold' : ''}`}
           >
             <MovesListIcon />
             기술 도감
@@ -52,7 +52,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/ability"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname.includes('/ability') ? 'font-bold' : ''}`}
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] text-aligned-sm text-primary-4 [&>svg]:h-8 ${pathname.includes('/ability') ? 'font-bold' : ''}`}
           >
             <AbilityIcon />
             특성 도감
@@ -63,7 +63,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/type-effectiveness"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname === '/type-effectiveness' ? 'font-bold' : ''}`}
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] text-aligned-sm text-primary-4 [&>svg]:h-8 ${pathname === '/type-effectiveness' ? 'font-bold' : ''}`}
           >
             <TypeEffectivenessIcon />
             상성 계산기
@@ -74,7 +74,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/quiz"
-            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] leading-[calc(1.5rem+2px)] text-primary-4 [&>svg]:h-8 ${pathname.includes('/quiz') ? 'font-bold' : ''}`}
+            className={`w-full h-full flex flex-col justify-end gap-2 items-center text-[10px] text-aligned-sm text-primary-4 [&>svg]:h-8 ${pathname.includes('/quiz') ? 'font-bold' : ''}`}
           >
             <QuizIcon />
             포켓몬 퀴즈

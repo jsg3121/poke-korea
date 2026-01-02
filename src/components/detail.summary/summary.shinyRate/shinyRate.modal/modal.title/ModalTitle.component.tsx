@@ -10,7 +10,7 @@ const ModalTitleComponent = ({ onClickClose }: ModalTitleComponentProps) => {
   }
 
   return (
-    <header className="w-full h-[4.5rem] border-b border-solid border-[#333333] bg-primary-4 flex items-center justify-between pt-6 pb-3 sticky top-0">
+    <header className="w-full h-[4.5rem] border-b border-solid border-[#333333] bg-primary-4 flex-between pt-6 pb-3 sticky top-0">
       <h2
         id="shiny-rate-title"
         className="h-12 text-[1.75rem] font-medium leading-[3rem]"

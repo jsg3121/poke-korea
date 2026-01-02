@@ -84,7 +84,7 @@ const OptionsMobile = ({
             return (
               <button
                 key={types}
-                className={`min-w-[3rem] h-7 px-3 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-full chip-type-${types.toLowerCase()} will-change-[filter] transition-all ${selectTypeFilter === types ? 'opacity-100 scale-105 ' : 'opacity-60 grayscale'}`}
+                className={`min-w-[3rem] h-7 px-3 text-sm text-aligned-md rounded-full chip-type-${types.toLowerCase()} will-change-[filter] transition-all ${selectTypeFilter === types ? 'opacity-100 scale-105 ' : 'opacity-60 grayscale'}`}
                 onClick={handleClickSelectTypeFilter(types)}
               >
                 {typeName}
@@ -96,19 +96,19 @@ const OptionsMobile = ({
       {selectFilter === 'damageType' && (
         <div className="w-full h-28 flex items-start content-start flex-wrap gap-2 mt-4">
           <button
-            className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg bg-[#fd8181] text-white transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
+            className={`badge-damage-physical transition-all ${selectDamageTypes === '물리' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
             onClick={handleClickSelectDamageTypeFilter('물리')}
           >
             물리
           </button>
           <button
-            className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg bg-[#9b9bfa] text-white transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
+            className={`badge-damage-special transition-all ${selectDamageTypes === '특수' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
             onClick={handleClickSelectDamageTypeFilter('특수')}
           >
             특수
           </button>
           <button
-            className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg bg-[#72d372] text-white transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
+            className={`badge-damage-status transition-all ${selectDamageTypes === '변화' ? 'opacity-100 scale-105' : 'opacity-60 grayscale'}`}
             onClick={handleClickSelectDamageTypeFilter('변화')}
           >
             변화
@@ -122,14 +122,14 @@ const OptionsMobile = ({
             return (
               <button
                 key={`generation-filter-key-${index + 1}`}
-                className={`w-14 h-7 text-[0.875rem] leading-[calc(1.75rem+2px)] rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
+                className={`w-14 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
                 onClick={handleClickSelectgenerationId(generationId)}
               >
                 {index + 1}
               </button>
             )
           })}
-          <span className="w-full text-primary-3 text-[0.875rem] my-2">
+          <span className="w-full text-primary-3 text-sm my-2">
             선택하지 않으면 최신 세대 기준 스펙으로 나와요!
           </span>
         </div>

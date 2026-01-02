@@ -115,8 +115,8 @@ const PokemonImageCompoment = () => {
           {imageList.map((item, index) => {
             const imageSrc =
               routerQuery.get('shinyMode') === 'shiny'
-                ? `${imageMode}/shiny/${item.imageCode}.webp?w=252&h=252`
-                : `${imageMode}/${item.imageCode}.webp?w=252&h=252`
+                ? `${imageMode}/shiny/${item.imageCode}.webp`
+                : `${imageMode}/${item.imageCode}.webp`
 
             const typeText = item.types
               ?.map((type) => PokemonTypes[type])
@@ -131,6 +131,9 @@ const PokemonImageCompoment = () => {
                   width="18rem"
                   height="18rem"
                   alt={altText}
+                  imageSize={{ width: 216, height: 216 }}
+                  densities={[1, 2]}
+                  sizes="18rem"
                   className="pokemon-main"
                   {...(normalFormImageList.length === 0
                     ? {

@@ -23,29 +23,28 @@ const MoveCard = ({ moveData, moveLevel, generationId }: MoveCardProps) => {
       <article
         className={`w-[calc(100%-1rem)] min-h-14 border-b border-solid border-primary-4 bg-primary-4 rounded-[1rem] mx-auto mb-4 p-2 relative hover:bg-gray-100 cursor-pointer transition-colors`}
       >
-        <header className="w-full h-[2rem] flex items-center border-b border-solid border-primary-3 mb-2">
+        <header className="w-full h-8 flex items-center border-b border-solid border-primary-3 mb-2">
           {moveLevel && (
-            <span className="w-[5rem] h-[2rem] shrink-0 leading-[2rem+2px] absolute top-2.5 left-2">
+            <span className="w-[5rem] h-8 shrink-0 leading-[2rem+2px] absolute top-2.5 left-2">
               레벨 : <b className="font-bold">{moveLevel}</b>
             </span>
           )}
-          <strong className="w-full h-[2rem] text-center block text-[1.2rem] leading-[2rem] font-[600]">
+          <strong className="w-full h-8 text-center block text-[1.2rem] leading-[2rem] font-[600]">
             {moveData.nameKo}
           </strong>
           <span
-            className={`text-center w-14 h-[1.75rem] shrink-0 leading-8 rounded-[0.5rem] absolute top-2 right-2
-          ${
-            getDamageTypeKorean(moveData.damageType) === '물리'
-              ? 'bg-[#fd8181]'
-              : getDamageTypeKorean(moveData.damageType) === '특수'
-                ? 'bg-[#9b9bfa]'
-                : 'bg-[#72d372]'
-          }`}
+            className={`absolute top-2 right-2 ${
+              getDamageTypeKorean(moveData.damageType) === '물리'
+                ? 'badge-damage-physical'
+                : getDamageTypeKorean(moveData.damageType) === '특수'
+                  ? 'badge-damage-special'
+                  : 'badge-damage-status'
+            }`}
           >
             {getDamageTypeKorean(moveData.damageType)}
           </span>
         </header>
-        <dl className="w-full flex flex-wrap items-center [&>dt]:h-[2rem] [&>dd]:font-[700] [&>dt]:leading-[2rem] [&>dd]:h-[2rem] [&>dd]:leading-[2rem] ">
+        <dl className="w-full flex flex-wrap items-center [&>dt]:h-8 [&>dd]:font-[700] [&>dt]:leading-[2rem] [&>dd]:h-8 [&>dd]:leading-[2rem] ">
           <dt className="text-left w-[12%]">타입&nbsp;:</dt>
           <dd className="text-center w-[18%] flex items-center">
             {moveData.type && <TagComponent type={moveData.type} />}

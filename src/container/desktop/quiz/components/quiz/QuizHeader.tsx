@@ -15,7 +15,7 @@ const QuizHeader = ({
 }: QuizHeaderProps) => {
   return (
     <header className="bg-white rounded-t-[2rem] shadow-md p-[1.5rem]">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex-between mb-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">{quizName}</h1>
           <p className="text-gray-600">문제 {currentQuestionIndex + 1} / 20</p>

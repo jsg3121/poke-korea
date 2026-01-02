@@ -51,24 +51,24 @@ const TypeEffectivenessQuiz = () => {
         />
         <article className="bg-white rounded-[1rem] shadow-md px-[1rem] flex flex-col py-[1.5rem]">
           <div className="text-center mb-[2rem]">
-            <h2 className="text-[1.25rem] font-bold text-gray-800 mb-4">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
               {currentQuestion?.question}
             </h2>
             {currentQuestion && (
-              <div className="h-120 flex items-center justify-center gap-4 py-8 border-y border-solid border-primary-3">
-                <p className="h-full flex items-center gap-2">
-                  <span className="h-6 text-[1rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+              <div className="h-120 flex-center gap-4 py-8 border-y border-solid border-primary-3">
+                <p className="h-full flex-items-gap-2">
+                  <span className="h-6 text-base text-primary-1 text-aligned-sm">
                     공격:
                   </span>
                   <TagComponent
                     type={currentQuestion.attackingType as PokemonType}
                   />
                 </p>
-                <span className="h-6 text-[1rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+                <span className="h-6 text-base text-primary-1 text-aligned-sm">
                   →
                 </span>
-                <p className="flex items-center gap-2">
-                  <span className="text-[1rem] text-gray-600">방어:</span>
+                <p className="flex-items-gap-2">
+                  <span className="text-base text-gray-600">방어:</span>
                   {currentQuestion.defendingTypes.map((type, index) => (
                     <TagComponent key={index} type={type as PokemonType} />
                   ))}
@@ -81,9 +81,9 @@ const TypeEffectivenessQuiz = () => {
               <button
                 key={index}
                 onClick={handleClickSelectAnswer(index)}
-                className="h-[3rem] px-[1rem] text-[1rem] text-left leading-[calc(3rem+2px)] rounded-[20rem] bg-primary-3 text-primary-1 transition-colors"
+                className="btn-quiz-answer"
               >
-                <span className="w-[1rem] leading-[calc(3rem+2px)] mr-[0.875rem] text-primary-1 font-bold ">
+                <span className="w-[1rem] text-aligned-xl mr-[0.875rem] text-primary-1 font-bold ">
                   {index + 1}
                 </span>
                 {option}

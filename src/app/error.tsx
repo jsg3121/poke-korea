@@ -44,7 +44,7 @@ const Error = () => {
           500
         </h1>
         <h2
-          className={`${isMobile ? 'text-[1.5rem]' : 'text-[2rem]'} mb-6 font-bold text-primary-3`}
+          className={`${isMobile ? 'text-2xl' : 'text-[2rem]'} mb-6 font-bold text-primary-3`}
         >
           에러가 발생했습니다!
         </h2>
@@ -56,7 +56,7 @@ const Error = () => {
         </p>
         <Link
           href="/"
-          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-[1.25rem] leading-[calc(3rem+2px)] text-white h-12 border-solid border-primary-4 border block`}
+          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-xl text-aligned-xl text-white h-12 border-solid border-primary-4 border block`}
         >
           홈으로 돌아가기
         </Link>

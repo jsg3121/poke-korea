@@ -52,7 +52,7 @@ const MainSearch = () => {
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}
-          className="w-[calc(100%-3.5rem)] h-full flex items-center justify-between"
+          className="w-[calc(100%-3.5rem)] h-full flex-between"
           role="search"
         >
           <InputComponents

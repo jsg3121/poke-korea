@@ -31,7 +31,7 @@ const MoveDetailComponent = ({
           </span>
         )}
         {!skillData.isAvailable && (
-          <span className="h-6 px-3 py-1 text-[0.875rem] leading-[calc(1rem+2px)] bg-red-300 text-primary-1 rounded-lg block mb-2">
+          <span className="h-6 px-3 py-1 text-sm leading-[calc(1rem+2px)] bg-red-300 text-primary-1 rounded-lg block mb-2">
             삭제된 기술
           </span>
         )}
@@ -41,7 +41,7 @@ const MoveDetailComponent = ({
         <dd className="py-1 rounded-full bg-primary-1 text-white">
           {displayData.type && (
             <span
-              className={`h-6 block px-3 text-[0.875rem] leading-[calc(1.5rem+2px)] rounded-full chip-type-${displayData.type.toLowerCase()}`}
+              className={`h-6 block px-3 text-sm text-aligned-sm rounded-full chip-type-${displayData.type.toLowerCase()}`}
             >
               {PokemonTypes[displayData.type]}
             </span>
@@ -49,7 +49,7 @@ const MoveDetailComponent = ({
         </dd>
         <dt className="font-semibold text-primary-3">분류:</dt>
         <dd
-          className={`py-1 rounded-full text-[1.25rem] ${displayData.damageType === 'physical' ? 'text-[#fd8181]' : displayData.damageType === 'special' ? 'text-[#9b9bfa]' : 'text-[#72d372]'}`}
+          className={`py-1 rounded-full text-xl ${displayData.damageType === 'physical' ? 'text-damage-physical' : displayData.damageType === 'special' ? 'text-damage-special' : 'text-damage-status'}`}
         >
           {getDamageTypeKorean(displayData.damageType)}
         </dd>
@@ -61,36 +61,34 @@ const MoveDetailComponent = ({
         <dd className="text-primary-4 font-bold">{displayData.pp}</dd>
       </dl>
       <dl className="flex items-center flex-wrap gap-2 mb-2 desktop:hidden">
-        <dt className="text-[1.25rem] font-semibold text-primary-3">타입:</dt>
+        <dt className="text-xl font-semibold text-primary-3">타입:</dt>
         <dd className="py-1 rounded-full bg-primary-1 text-white">
           {displayData.type && (
             <span
-              className={`h-6 block px-3 text-[0.875rem] leading-[calc(1.5rem+2px)] rounded-full chip-type-${displayData.type.toLowerCase()}`}
+              className={`h-6 block px-3 text-sm text-aligned-sm rounded-full chip-type-${displayData.type.toLowerCase()}`}
             >
               {PokemonTypes[displayData.type]}
             </span>
           )}
         </dd>
-        <dt className="text-[1.25rem] font-semibold text-primary-3">분류:</dt>
+        <dt className="text-xl font-semibold text-primary-3">분류:</dt>
         <dd
-          className={`py-1 rounded-full text-[1.25rem] ${displayData.damageType === 'physical' ? 'text-[#fd8181]' : displayData.damageType === 'special' ? 'text-[#9b9bfa]' : 'text-[#72d372]'}`}
+          className={`py-1 rounded-full text-xl ${displayData.damageType === 'physical' ? 'text-damage-physical' : displayData.damageType === 'special' ? 'text-damage-special' : 'text-damage-status'}`}
         >
           {getDamageTypeKorean(displayData.damageType)}
         </dd>
       </dl>
       <dl className="flex items-center flex-wrap gap-2 mb-8 desktop:hidden">
-        <dt className="text-[1.25rem] font-semibold text-primary-3">위력:</dt>
-        <dd className="text-[1.25rem] text-primary-4 font-bold">
+        <dt className="text-xl font-semibold text-primary-3">위력:</dt>
+        <dd className="text-xl text-primary-4 font-bold">
           {displayData.power}
         </dd>
-        <dt className="text-[1.25rem] font-semibold text-primary-3">명중률:</dt>
-        <dd className="text-[1.25rem] text-primary-4 font-bold">
+        <dt className="text-xl font-semibold text-primary-3">명중률:</dt>
+        <dd className="text-xl text-primary-4 font-bold">
           {displayData.accuracy}
         </dd>
-        <dt className="text-[1.25rem] font-semibold text-primary-3">PP:</dt>
-        <dd className="text-[1.25rem] text-primary-4 font-bold">
-          {displayData.pp}
-        </dd>
+        <dt className="text-xl font-semibold text-primary-3">PP:</dt>
+        <dd className="text-xl text-primary-4 font-bold">{displayData.pp}</dd>
       </dl>
       {isShowTooltip && (
         <span className="text-base text-primary-3 block mt-4">
@@ -98,7 +96,7 @@ const MoveDetailComponent = ({
         </span>
       )}
       {displayData.description && (
-        <p className="min-h-8 text-[1.725rem] leading-[calc(2rem+2px)] text-primary-4">
+        <p className="min-h-8 text-[1.725rem] text-aligned-base text-primary-4">
           {displayData.description}
         </p>
       )}

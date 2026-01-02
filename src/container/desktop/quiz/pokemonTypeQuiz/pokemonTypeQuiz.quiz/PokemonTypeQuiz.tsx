@@ -53,7 +53,7 @@ const PokemonTypeQuiz = () => {
         />
         <article className="w-full  rounded-[2rem] p-[2rem] mx-auto grid grid-cols-2 gap-4">
           {currentQuestion?.targetType ? (
-            <h2 className="w-full h-12 col-span-2 text-[1.75rem] text-primary-1 mb-4 text-center flex items-center justify-center gap-2">
+            <h2 className="w-full h-12 col-span-2 text-[1.75rem] text-primary-1 mb-4 text-center flex-center gap-2">
               다음 중{' '}
               <TagComponent type={currentQuestion?.targetType as PokemonType} />
               타입을 가진 포켓몬은?
@@ -72,8 +72,13 @@ const PokemonTypeQuiz = () => {
               <ImageComponent
                 width="8rem"
                 height="8rem"
-                src={`${imageMode}/${option.id}.webp?w=180&h=180`}
+                src={`${imageMode}/${option.id}.webp`}
                 alt={`${option.koreanName} 포켓몬 선택`}
+                imageSize={{ width: 128, height: 128 }}
+                densities={[1, 2]}
+                sizes="8rem"
+                fetchPriority={index === 0 ? 'high' : undefined}
+                loading={index === 0 ? undefined : 'lazy'}
                 className="drop-shadow-[1px_1px_2px_#333333]"
               />
               <p>{option.koreanName}</p>

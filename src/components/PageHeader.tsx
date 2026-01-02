@@ -9,9 +9,7 @@ const PageHeader = ({ description, title }: PageHeaderProps) => {
       <h1 className="h-16 text-[2.5rem] text-center leading-[4rem] text-primary-4 font-bold">
         {title}
       </h1>
-      <p className="w-full text-[1.25rem] text-primary-3 mx-auto">
-        {description}
-      </p>
+      <p className="w-full text-xl text-primary-3 mx-auto">{description}</p>
     </header>
   )
 }

@@ -44,7 +44,7 @@ const NotFound = () => {
           404
         </h1>
         <h2
-          className={`${isMobile ? 'text-[1.5rem]' : 'text-[2rem]'} mb-6 font-bold text-primary-3`}
+          className={`${isMobile ? 'text-2xl' : 'text-[2rem]'} mb-6 font-bold text-primary-3`}
         >
           페이지를 찾을 수 없습니다
         </h2>
@@ -55,7 +55,7 @@ const NotFound = () => {
         </strong>
         <Link
           href="/"
-          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-[1.25rem] leading-[calc(3rem+2px)] text-white h-12 border-solid border-primary-4 border block mb-12`}
+          className={`${isMobile ? 'w-1/2 mx-auto' : 'w-[15rem]'} text-xl text-aligned-xl text-white h-12 border-solid border-primary-4 border block mb-12`}
         >
           홈으로 돌아가기
         </Link>
@@ -72,9 +72,14 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/25.webp?w=200&h=200`}
+                src={`${imageMode}/25.webp`}
+                alt="피카츄 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 피카츄
               </p>
             </Link>
@@ -82,9 +87,14 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/6.webp?w=200&h=200`}
+                src={`${imageMode}/6.webp`}
+                alt="리자몽 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 리자몽
               </p>
             </Link>
@@ -92,9 +102,14 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/133.webp?w=200&h=200`}
+                src={`${imageMode}/133.webp`}
+                alt="이브이 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 이브이
               </p>
             </Link>
@@ -102,9 +117,14 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/150.webp?w=200&h=200`}
+                src={`${imageMode}/150.webp`}
+                alt="뮤츠 포켓몬"
+                imageSize={{ width: 160, height: 160 }}
+                densities={[1, 2]}
+                sizes="10rem"
+                loading="lazy"
               />
-              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 leading-[calc(2.5rem+2px)] transition-colors">
+              <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 뮤츠
               </p>
             </Link>

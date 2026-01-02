@@ -8,6 +8,21 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        base: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+        '6xl': '3.75rem',
+        '7xl': '4.5rem',
+        '8xl': '6rem',
+        '9xl': '8rem',
+      },
       colors: {
         // 기본 프로젝트 색상
         'primary-1': '#27374D',
@@ -22,6 +37,12 @@ module.exports = {
         'shadow-1': '#eeeeee',
         'shadow-2': '#dddddd',
         'shadow-3': '#838383',
+        // 데미지 타입 색상
+        'damage-physical': '#fd8181',
+        'damage-special': '#9b9bfa',
+        'damage-status': '#72d372',
+        // 카드 UI 색상
+        'card-accent': '#334150',
         // 포켓몬 타입 색상들
         'type-normal': '#A8A878',
         'type-fire': '#F08030',

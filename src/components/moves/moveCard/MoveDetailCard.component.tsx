@@ -29,11 +29,11 @@ const MoveDetailCard = ({
     >
       <article className="w-full h-32 items-center flex gap-4 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative hover:scale-105 transition-transform">
         {moveLevel && (
-          <p className="w-16 h-24 shrink-0 text-center leading-[calc(6rem+2px)] bg-primary-1 text-white px-2 rounded-md text-[0.75rem] font-bold">
+          <p className="w-16 h-24 shrink-0 text-center leading-[calc(6rem+2px)] bg-primary-1 text-white px-2 rounded-md text-xs font-bold">
             Lv.{moveLevel}
           </p>
         )}
-        <h3 className="w-fit h-6 shrink-0 text-[1.125rem] leading-[calc(1.5rem+2px)] font-bold text-gray-900 flex gap-1">
+        <h3 className="w-fit h-6 shrink-0 text-lg text-aligned-sm font-bold text-gray-900 flex gap-1">
           {moveData.nameKo}
           {moveData.type && (
             <span className="h-6 shrink-0">
@@ -46,13 +46,13 @@ const MoveDetailCard = ({
           <div className="w-full h-full flex flex-col justify-center text-center relative after:absolute after:-right-0 after:bg-primary-3 after:top-0 after:h-full after:w-[2px]">
             <dt className="sr-only">위력</dt>
             <dd
-              className={`w-16 h-7 block shrink-0 px-3 text-[0.875rem] text-center leading-[calc(1.75rem+2px)] font-semibold rounded-lg text-white ${
+              className={
                 damageType === '물리'
-                  ? 'bg-[#fd8181]'
+                  ? 'badge-damage-physical'
                   : damageType === '특수'
-                    ? 'bg-[#9b9bfa]'
-                    : 'bg-[#72d372]'
-              }`}
+                    ? 'badge-damage-special'
+                    : 'badge-damage-status'
+              }
             >
               {damageType}
             </dd>

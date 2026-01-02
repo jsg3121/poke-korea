@@ -33,7 +33,7 @@ const TypeEffectivenessQuizResult = () => {
       />
       <MobileTypeEffectivenessQuizResultTopBanner />
       <article className="w-full h-fit py-[1rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-4 font-bold leading-[calc(2rem+2px)] text-[1.25rem] border-b border-solid border-primary-4 mb-4">
+        <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-xl border-b border-solid border-primary-4 mb-4">
           정답
         </h2>
         <ul className="w-full flex flex-col gap-[1rem] items-center relative">
@@ -51,7 +51,7 @@ const TypeEffectivenessQuizResult = () => {
                 key={quiz.id}
                 className="w-full bg-primary-4 rounded-[1rem] p-4"
               >
-                <span className="w-full text-primary-1 font-bold flex items-center gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem] mb-4">
+                <span className="w-full text-primary-1 font-bold flex-items-gap-2 [&>svg]:w-[1.5rem] [&>svg]:h-[1.5rem] mb-4">
                   #{index + 1}{' '}
                   {userAnswer === correctAnswer && (
                     <>
@@ -60,31 +60,31 @@ const TypeEffectivenessQuizResult = () => {
                   )}
                 </span>
                 <div className="w-full flex items-center justify-start gap-2 mt-3 mb-6">
-                  <span className="h-6 text-[1rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+                  <span className="h-6 text-base text-primary-1 text-aligned-sm">
                     공격:
                   </span>
                   <TagComponent type={quiz.attackingType as PokemonType} />
-                  <span className="h-6 text-[1.25rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+                  <span className="h-6 text-xl text-primary-1 text-aligned-sm">
                     →
                   </span>
-                  <span className="h-6 text-[1rem] text-primary-1 leading-[calc(1.5rem+2px)]">
+                  <span className="h-6 text-base text-primary-1 text-aligned-sm">
                     방어:
                   </span>
                   {quiz.defendingTypes.map((type, typeIndex) => (
                     <TagComponent key={typeIndex} type={type as PokemonType} />
                   ))}
                 </div>
-                <div className="grid grid-cols-2 gap-3 text-[1rem]">
+                <div className="grid grid-cols-2 gap-3 text-base">
                   <div className="flex flex-col gap-1 text-left">
-                    <span className="text-primary-1 text-[1rem]">정답</span>
-                    <span className="font-medium text-green-700 text-[1rem]">
+                    <span className="text-primary-1 text-base">정답</span>
+                    <span className="font-medium text-green-700 text-base">
                       {correctAnswer}
                     </span>
                   </div>
                   <div className="flex flex-col gap-1 text-right">
-                    <span className="text-primary-1 text-[1rem]">나의 답</span>
+                    <span className="text-primary-1 text-base">나의 답</span>
                     <span
-                      className={`font-medium text-[1rem] ${
+                      className={`font-medium text-base ${
                         isCorrect ? 'text-green-700' : 'text-red-700'
                       }`}
                     >

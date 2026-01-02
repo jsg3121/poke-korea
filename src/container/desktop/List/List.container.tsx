@@ -1,8 +1,8 @@
 import { useContext } from 'react'
+import PokemonCardComponent from '~/components/pokemonCard/desktop/PokemonCard.component'
 import { ListContext } from '~/context/List.context'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
-import PokemonCardComponent from '~/components/pokemonCard/desktop/PokemonCard.component'
 
 const ListContainer = () => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
@@ -35,7 +35,7 @@ const ListContainer = () => {
               <PokemonCardComponent
                 key={`pokemon-id-${pokemon.id}`}
                 pokemonData={pokemon}
-                isHighPriority={index <= 20}
+                isHighPriority={index < 15}
               />
             )
           })}

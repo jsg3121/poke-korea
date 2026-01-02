@@ -77,7 +77,7 @@ const MoveDetailContainer = ({
       >
         <Link
           href={`/moves/${skillId}`}
-          className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] leading-[calc(2rem+2px)] text-center ${generationId ? 'bg-primary-4 text-primary-1' : 'bg-primary-2 text-primary-4'}`}
+          className={`h-8 w-[4.5rem] block rounded-md text-lg text-aligned-base text-center ${generationId ? 'bg-primary-4 text-primary-1' : 'bg-primary-2 text-primary-4'}`}
         >
           최신
         </Link>
@@ -88,7 +88,7 @@ const MoveDetailContainer = ({
               <Link
                 key={`generation-index-${9 - index}`}
                 href={`/moves/${skillId}/generation/${8 - index}`}
-                className={`h-8 w-[4.5rem] block rounded-md text-[1.125rem] leading-[calc(2rem+2px)] text-center ${parseInt(generationId, 10) === 8 - index ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+                className={`h-8 w-[4.5rem] block rounded-md text-lg text-aligned-base text-center ${parseInt(generationId, 10) === 8 - index ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
               >
                 {8 - index}세대
               </Link>
@@ -105,8 +105,8 @@ const MoveDetailContainer = ({
         )}
         {pokemonList.length > 0 && (
           <Fragment>
-            <h2 className="text-[1rem] text-primary-3 mb-4 px-4">
-              <span className="text-[1.25rem] font-bold">
+            <h2 className="text-base text-primary-3 mb-4 px-4">
+              <span className="text-xl font-bold">
                 {filteredTotalCount || totalCount}마리
               </span>
               의 포켓몬이 이 기술을 배울 수 있어요

@@ -23,7 +23,7 @@ const RegionSwitch = () => {
     >
       <Link
         href={regionHref}
-        className="w-28 h-8 flex items-center justify-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
+        className="w-28 h-8 flex-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
         aria-label="리전폼 변환 스위치"
         replace
       >
@@ -31,7 +31,7 @@ const RegionSwitch = () => {
           <RegionIcon className={isRegion ? 'grayscale-0' : 'grayscale'} />
         </i>
         <span
-          className={`h-8 text-base font-normal leading-[calc(2rem+2px)] ${isRegion ? 'text-[#333333]' : 'text-[#888888]'}`}
+          className={`h-8 text-base font-normal text-aligned-base ${isRegion ? 'text-[#333333]' : 'text-[#888888]'}`}
         >
           리전폼
         </span>

@@ -75,13 +75,13 @@ const DetailSummaryContainer = () => {
       </section>
       <InfoTitleComponent name={pokemonInfo.name ?? ''} />
       {isShiny && (
-        <div className="flex items-center gap-2 ml-5">
+        <div className="flex-items-gap-2 ml-5">
           <ShinyTooltipComponent />
           <ShinyRateComponent />
         </div>
       )}
       <ul
-        className="w-full h-12 flex items-center gap-4 mb-4 px-5"
+        className="w-full h-12 flex-items-gap-4 mb-4 px-5"
         aria-label="포켓몬 상대 변환 스위치 리스트"
       >
         <ShinySwitchComponent

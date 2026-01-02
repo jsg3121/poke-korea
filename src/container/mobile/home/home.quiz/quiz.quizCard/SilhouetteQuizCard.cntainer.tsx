@@ -38,7 +38,7 @@ const SilhouetteQuizCardCntainer = ({
         <QuizCardHeader
           quizName={
             <>
-              <span className="text-[1.5rem]" aria-hidden="true">
+              <span className="text-2xl" aria-hidden="true">
                 🔍
               </span>
               실루엣 퀴즈
@@ -46,12 +46,16 @@ const SilhouetteQuizCardCntainer = ({
           }
           quizDescription="이 실루엣은 어떤 포켓몬일까요?"
         />
-        <div className="w-full h-40 mb-4 rounded-xl p-4 flex items-center justify-center bg-white">
+        <div className="w-full h-40 mb-4 rounded-xl p-4 flex-center bg-white">
           <ImageComponent
             width="8rem"
             height="8rem"
-            src={`${imageMode}/${silhouetteQuiz.correctPokemonId}.webp?w=180&h=180`}
+            src={`${imageMode}/${silhouetteQuiz.correctPokemonId}.webp`}
             alt="포켓몬 실루엣 이미지"
+            imageSize={{ width: 96, height: 96 }}
+            densities={[1, 2]}
+            sizes="8rem"
+            loading="lazy"
             className="w-32 h-32 object-contain brightness-0"
           />
         </div>

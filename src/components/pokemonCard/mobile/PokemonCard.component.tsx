@@ -45,7 +45,7 @@ const PokemonCardComponent = ({
   return (
     <Link href={`/detail/${pokemonData.number}`} className="block w-full">
       <article
-        className="w-full h-[21rem] text-[#333333] border border-solid border-[#333333] rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_#334150,0_0_0px_0.25rem_#ffffff] cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:block before:border-t-[1.5rem] before:border-l-[1.5rem] before:border-r-[1.5rem] before:border-b-[1.5rem] before:border-t-[#334150] before:border-l-[#334150] before:border-r-transparent before:border-b-transparent"
+        className="w-full h-[21rem] text-black-2 border border-solid border-black-2 rounded-[10px] p-[0.75rem_0.5rem] relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80),0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
@@ -53,8 +53,8 @@ const PokemonCardComponent = ({
           <i className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
           </i>
-          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-[#334150] pb-1 gap-2">
-            <p className="h-4 text-base leading-none font-medium text-[#333333]">
+          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-2">
+            <p className="h-4 text-base leading-none font-medium text-black-2">
               No.{pokemonNumber}
             </p>
             <h3 className="w-fit text-base leading-none font-semibold text-right text-black">
@@ -67,13 +67,12 @@ const PokemonCardComponent = ({
             <ImageComponent
               height="10rem"
               width="10rem"
+              imageSize={{ width: 120, height: 120 }}
+              densities={[1, 2]}
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-              src={`${imageMode}/${pokemonData.number}.webp?w=180&h=180`}
+              src={`${imageMode}/${pokemonData.number}.webp`}
+              sizes="10rem"
               fetchPriority="high"
-              imageSize={{
-                height: 140,
-                width: 140,
-              }}
             />
           </div>
         ) : (
@@ -86,13 +85,12 @@ const PokemonCardComponent = ({
               <ImageComponent
                 height="10rem"
                 width="10rem"
+                imageSize={{ width: 120, height: 120 }}
+                densities={[1, 2]}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
-                src={`${imageMode}/${pokemonData.number}.webp?w=180&h=180`}
-                fetchPriority="high"
-                imageSize={{
-                  height: 140,
-                  width: 140,
-                }}
+                src={`${imageMode}/${pokemonData.number}.webp`}
+                sizes="10rem"
+                loading="lazy"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 style={{
@@ -102,7 +100,7 @@ const PokemonCardComponent = ({
               />
             ) : (
               // Placeholder: 이미지 로딩 전 스켈레톤 (모바일용)
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex items-center justify-center" />
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}

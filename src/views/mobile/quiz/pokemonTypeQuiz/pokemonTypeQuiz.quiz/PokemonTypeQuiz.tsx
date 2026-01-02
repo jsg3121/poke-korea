@@ -52,7 +52,7 @@ const PokemonTypeQuiz = () => {
           timeElapsed={timeElapsed}
         />
         <article className="bg-white rounded-[1rem] shadow-md px-[1rem] flex flex-col py-[1.5rem]">
-          <h2 className="w-full h-12 text-[1.375rem] leading-[calc(3rem+2px)] text-primary-1 text-center flex items-center justify-center gap-2 mb-4">
+          <h2 className="w-full h-12 text-[1.375rem] text-aligned-xl text-primary-1 text-center flex-center gap-2 mb-4">
             {currentQuestion?.targetType ? (
               <>
                 다음 중{' '}
@@ -75,11 +75,16 @@ const PokemonTypeQuiz = () => {
                 <ImageComponent
                   width="8rem"
                   height="8rem"
-                  src={`${imageMode}/${option.id}.webp?w=150&h=150`}
+                  src={`${imageMode}/${option.id}.webp`}
                   alt={`${option.koreanName} 포켓몬 선택`}
+                  imageSize={{ width: 96, height: 96 }}
+                  densities={[1, 2]}
+                  sizes="8rem"
+                  fetchPriority={index === 0 ? 'high' : undefined}
+                  loading={index === 0 ? undefined : 'lazy'}
                   className="drop-shadow-[1px_1px_2px_#333333]"
                 />
-                <p className="text-[1rem] mt-3">{option.koreanName}</p>
+                <p className="text-base mt-3">{option.koreanName}</p>
               </button>
             ))}
           </div>

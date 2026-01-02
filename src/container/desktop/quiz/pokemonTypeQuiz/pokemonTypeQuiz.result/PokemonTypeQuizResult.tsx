@@ -34,18 +34,18 @@ const PokemonTypeQuizResult = () => {
       />
       <DesktopPokemonTypeResultTopBanner />
       <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
-        <h2 className="w-full h-[3rem] text-primary-1 font-bold leading-[calc(2rem+2px)] text-[1.25rem]">
+        <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-xl">
           문제 정답
         </h2>
-        <ul className="w-full h-52 flex items-center gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
+        <ul className="w-full h-52 flex-items-gap-4 overflow-x-auto relative [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[10px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl">
           <li className="w-24 h-48 shrink-0 flex flex-col items-center bg-primary-1 sticky left-0 z-10 rounded-[1rem]">
-            <p className="w-full h-12 text-[1rem] text-primary-4 text-center leading-[calc(3rem+2px)]">
+            <p className="w-full h-12 text-base text-primary-4 text-center text-aligned-xl">
               문제 타입
             </p>
-            <p className="w-full h-[4.5rem] text-[0.875rem] text-primary-4 text-center leading-[calc(4.5rem+2px)]">
+            <p className="w-full h-[4.5rem] text-sm text-primary-4 text-center leading-[calc(4.5rem+2px)]">
               정답
             </p>
-            <p className="w-full h-[4.5rem] text-[0.875rem] text-primary-4 text-center leading-[calc(4.5rem+2px)]">
+            <p className="w-full h-[4.5rem] text-sm text-primary-4 text-center leading-[calc(4.5rem+2px)]">
               나의 답
             </p>
           </li>
@@ -61,11 +61,16 @@ const PokemonTypeQuizResult = () => {
                 <p className="w-20 h-12 flex items-center">
                   <TagComponent type={quiz.targetType as PokemonType} />
                 </p>
-                <div className="w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333]">
+                <div className="w-[4.5rem] h-[4.5rem] flex-center drop-shadow-[1px_1px_1px_#333333]">
                   <ImageComponent
                     width="3rem"
                     height="3rem"
                     src={`${imageMode}/${realAnswerId}.webp`}
+                    alt={`정답 포켓몬`}
+                    imageSize={{ width: 48, height: 48 }}
+                    densities={[1, 2]}
+                    sizes="3rem"
+                    loading="lazy"
                   />
                 </div>
                 {userAnswerId === '건너뛰기' ? (
@@ -74,7 +79,7 @@ const PokemonTypeQuizResult = () => {
                   </p>
                 ) : (
                   <div
-                    className={`w-[4.5rem] h-[4.5rem] flex items-center justify-center drop-shadow-[1px_1px_1px_#333333] ${userAnswerId === realAnswerId ? '' : 'opacity-70 grayscale'} relative`}
+                    className={`w-[4.5rem] h-[4.5rem] flex-center drop-shadow-[1px_1px_1px_#333333] ${userAnswerId === realAnswerId ? '' : 'opacity-70 grayscale'} relative`}
                   >
                     {userAnswerId === realAnswerId && (
                       <i className="w-4 h-4 block absolute top-0 right-0 z-10">
@@ -84,7 +89,15 @@ const PokemonTypeQuizResult = () => {
                     <ImageComponent
                       width={userAnswerId === realAnswerId ? '4rem' : '3rem'}
                       height={userAnswerId === realAnswerId ? '4rem' : '3rem'}
-                      src={`${imageMode}/${userAnswerId}.webp?w=80&h=80`}
+                      src={`${imageMode}/${userAnswerId}.webp`}
+                      alt={`선택 포켓몬`}
+                      imageSize={{
+                        width: userAnswerId === realAnswerId ? 64 : 48,
+                        height: userAnswerId === realAnswerId ? 64 : 48
+                      }}
+                      densities={[1, 2]}
+                      sizes={userAnswerId === realAnswerId ? '4rem' : '3rem'}
+                      loading="lazy"
                     />
                   </div>
                 )}

@@ -29,7 +29,7 @@ const HeaderContainer = () => {
         <Link
           href="https://forms.gle/BP9QVkj42xTJ5beQ8"
           target="_blank"
-          className="h-8 text-primary-4 absolute right-5 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex items-center gap-2"
+          className="h-8 text-primary-4 absolute right-5 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex-items-gap-2"
         >
           <FeedbackIcon width={16} height={16} />
           <span className="text-base mt-1">기능/오류 신고</span>
