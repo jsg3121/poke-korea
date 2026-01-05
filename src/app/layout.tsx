@@ -48,6 +48,7 @@ const gmarket = localFont({
   ],
   display: 'swap',
   preload: true,
+  fallback: ['system-ui', 'sans-serif'],
   variable: '--font-gmarket-sans',
 })
 
@@ -70,27 +71,23 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               name="google-adsense-account"
               content="ca-pub-6481622724376761"
             />
-            {/* 이미지 CDN - 최우선 */}
+            {/* 이미지 CDN - 최우선 (실제 사용됨) */}
             <link
               rel="preconnect"
               href="https://image-cdn.poke-korea.com"
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
-            {/* og 이미지 CDN - 최우선 */}
+            {/* og 이미지 CDN - SSR에서만 사용 */}
             <link
-              rel="preconnect"
+              rel="dns-prefetch"
               href="https://image.poke-korea.com"
-              crossOrigin=""
             />
-            <link rel="dns-prefetch" href="https://image.poke-korea.com" />
-            {/* GraphQL API */}
+            {/* GraphQL API - SSR에서 사용 */}
             <link
-              rel="preconnect"
+              rel="dns-prefetch"
               href="https://api.poke-korea.com"
-              crossOrigin=""
             />
-            <link rel="dns-prefetch" href="https://api.poke-korea.com" />
           </>
         )}
       </head>
