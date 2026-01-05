@@ -1,13 +1,13 @@
 'use client'
 
 import { Fragment } from 'react'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizCardHeader from '~/components/home/quiz/QuizCardHeader'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import ImageComponent from '~/components/Image.component'
 import { SilhouetteQuizQuestion } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import { useCorrectQuizCheck } from '../hooks/useCorrectQuizCheck'
-import QuizCardHeader from '../components/QuizCardHeader'
-import QuizAnswerButton from '../components/QuizAnswerButton'
 
 interface SilhouetteQuizCardCntainerProps {
   silhouetteQuiz: SilhouetteQuizQuestion
