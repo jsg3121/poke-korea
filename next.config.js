@@ -85,12 +85,17 @@ const nextConfig = {
       },
     ]
   },
-  webpack(config) {
+  webpack(config, { isServer }) {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     })
+
+    // 브라우저 타겟을 ES2022로 설정하여 불필요한 폴리필 제거
+    if (!isServer) {
+      config.target = ['web', 'es2022']
+    }
 
     return config
   },

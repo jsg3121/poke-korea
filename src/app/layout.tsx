@@ -48,6 +48,7 @@ const gmarket = localFont({
   ],
   display: 'swap',
   preload: true,
+  fallback: ['system-ui', 'sans-serif'],
   variable: '--font-gmarket-sans',
 })
 
@@ -70,26 +71,16 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               name="google-adsense-account"
               content="ca-pub-6481622724376761"
             />
-            {/* 이미지 CDN - 최우선 */}
+            {/* 이미지 CDN - 최우선 (실제 사용됨) */}
             <link
               rel="preconnect"
               href="https://image-cdn.poke-korea.com"
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
-            {/* og 이미지 CDN - 최우선 */}
-            <link
-              rel="preconnect"
-              href="https://image.poke-korea.com"
-              crossOrigin=""
-            />
+            {/* og 이미지 CDN - SSR에서만 사용 */}
             <link rel="dns-prefetch" href="https://image.poke-korea.com" />
-            {/* GraphQL API */}
-            <link
-              rel="preconnect"
-              href="https://api.poke-korea.com"
-              crossOrigin=""
-            />
+            {/* GraphQL API - SSR에서 사용 */}
             <link rel="dns-prefetch" href="https://api.poke-korea.com" />
           </>
         )}
@@ -111,11 +102,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="gtag-base"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
             <Script
               id="gtag-init"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];

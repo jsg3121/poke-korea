@@ -106,7 +106,7 @@ const PokemonTypeQuizResult = () => {
                         alt={`선택 포켓몬`}
                         imageSize={{
                           width: userAnswerId === realAnswerId ? 60 : 48,
-                          height: userAnswerId === realAnswerId ? 60 : 48
+                          height: userAnswerId === realAnswerId ? 60 : 48,
                         }}
                         densities={[1, 2]}
                         sizes={userAnswerId === realAnswerId ? '5rem' : '4rem'}

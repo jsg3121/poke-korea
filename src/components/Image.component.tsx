@@ -3,7 +3,7 @@ import { ImgHTMLAttributes } from 'react'
 interface ImageComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
   width: string
   height: string
-  imageSize?: {
+  imageSize: {
     width: number
     height: number
   }
@@ -16,7 +16,7 @@ const ImageComponent = ({
   height,
   imageSize,
   densities = [1, 2],
-  quality = 85,
+  quality = 75,
   src,
   ...imageProps
 }: ImageComponentProps) => {
@@ -24,14 +24,21 @@ const ImageComponent = ({
     if (!src || !densities || densities.length === 0) return undefined
 
     const baseUrl = src.split('?')[0]
-    const baseSize = imageSize?.width || 160
 
     return densities
       .map((density) => {
-        const size = Math.round(baseSize * density)
+        const size = Math.round(imageSize.width * density)
         return `${baseUrl}?w=${size}&h=${size}&q=${quality} ${density}x`
       })
       .join(', ')
+  }
+
+  // 기본 src에 1x 밀도 이미지 URL 생성
+  const generateDefaultSrc = () => {
+    if (!src) return src
+
+    const baseUrl = src.split('?')[0]
+    return `${baseUrl}?w=${imageSize.width}&h=${imageSize.height}&q=${quality}`
   }
 
   return (
@@ -39,10 +46,10 @@ const ImageComponent = ({
       <picture className="w-full h-full block">
         <img
           {...imageProps}
-          src={src}
+          src={generateDefaultSrc()}
           srcSet={generateSrcSet()}
-          width={imageSize?.width}
-          height={imageSize?.height}
+          width={imageSize.width}
+          height={imageSize.height}
         />
       </picture>
     </figure>
