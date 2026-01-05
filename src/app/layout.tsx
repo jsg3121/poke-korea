@@ -79,15 +79,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             />
             <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
             {/* og 이미지 CDN - SSR에서만 사용 */}
-            <link
-              rel="dns-prefetch"
-              href="https://image.poke-korea.com"
-            />
+            <link rel="dns-prefetch" href="https://image.poke-korea.com" />
             {/* GraphQL API - SSR에서 사용 */}
-            <link
-              rel="dns-prefetch"
-              href="https://api.poke-korea.com"
-            />
+            <link rel="dns-prefetch" href="https://api.poke-korea.com" />
           </>
         )}
       </head>
@@ -108,11 +102,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="gtag-base"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
             <Script
               id="gtag-init"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
