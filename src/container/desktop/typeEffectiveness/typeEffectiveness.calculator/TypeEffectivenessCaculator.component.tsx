@@ -63,6 +63,7 @@ const TypeEffectivenessCaculatorComponent = () => {
                   alt={`${typeName} 타입 필터 선택`}
                   height="1.5rem"
                   width="1.5rem"
+                  imageSize={{ width: 24, height: 24 }}
                   src={`/assets/type/${types.toLowerCase()}.svg`}
                 />
                 <p className="h-8 text-base text-aligned-base group-disabled:text-[#8b8b8b]">

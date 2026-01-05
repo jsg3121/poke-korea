@@ -23,6 +23,7 @@ const TypeResultChipComponents = ({
           alt={`${typeLabel} 타입 필터 선택`}
           height="1.5rem"
           width="1.5rem"
+          imageSize={{ width: 18, height: 18 }}
           src={`/assets/type/${typeValue.toLowerCase()}.svg`}
         />
       </i>

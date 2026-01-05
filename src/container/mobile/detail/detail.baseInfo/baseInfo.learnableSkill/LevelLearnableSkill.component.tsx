@@ -115,6 +115,7 @@ const LevelLearnableSkillComponent = () => {
                           alt={`${skill.type.toLowerCase()} 타입 필터 선택`}
                           height="1rem"
                           width="1rem"
+                          imageSize={{ width: 12, height: 12 }}
                           src={`/assets/type/${skill.type.toLowerCase()}.svg`}
                           loading="lazy"
                         />

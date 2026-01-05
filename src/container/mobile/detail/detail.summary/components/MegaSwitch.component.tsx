@@ -33,6 +33,7 @@ const MegaSwitchComponent = () => {
             alt="메가진화 보기"
             height="1.625rem"
             width="1.625rem"
+            imageSize={{ width: 20, height: 20 }}
             src="/assets/icons/mega.webp"
           />
         </i>
