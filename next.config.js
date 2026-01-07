@@ -144,15 +144,13 @@ const nextConfig = {
           ]
 
           // App Router의 layout 진입점 찾기
-          const targetLayoutKeys = ['main-app', 'app/layout']
+          const targetLayoutKey = 'pages/_app'
 
           Object.keys(entries).forEach((entryKey) => {
-            // layout 관련 진입점에 CSS 추가
-            const isLayoutEntry = targetLayoutKeys.some((key) =>
-              entryKey.includes(key),
-            )
-
-            if (isLayoutEntry && Array.isArray(entries[entryKey])) {
+            if (
+              entryKey.endsWith(targetLayoutKey) &&
+              Array.isArray(entries[entryKey])
+            ) {
               criticalCssFiles.forEach((cssFile) => {
                 if (!entries[entryKey].includes(cssFile)) {
                   entries[entryKey].unshift(cssFile)
