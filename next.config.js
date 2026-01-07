@@ -95,6 +95,75 @@ const nextConfig = {
     // 브라우저 타겟을 ES2022로 설정하여 불필요한 폴리필 제거
     if (!isServer) {
       config.target = ['web', 'es2022']
+
+      // CSS 파일 분리 설정
+      if (process.env.NODE_ENV === 'production') {
+        config.optimization = {
+          ...config.optimization,
+          splitChunks: {
+            ...config.optimization.splitChunks,
+            cacheGroups: {
+              ...config.optimization.splitChunks?.cacheGroups,
+              // Swiper CSS 분리
+              swiperStyles: {
+                name: 'swiper',
+                test: /[\\/]node_modules[\\/]swiper[\\/].*\.css$/,
+                chunks: 'all',
+                enforce: true,
+                priority: 30,
+              },
+              // Global CSS 분리
+              globalStyles: {
+                name: 'global',
+                test: /[\\/]src[\\/]styles[\\/]globals\.css$/,
+                chunks: 'all',
+                enforce: true,
+                priority: 25,
+              },
+              // 기타 CSS 파일들
+              styles: {
+                name: 'styles',
+                test: /\.css$/,
+                chunks: 'all',
+                enforce: true,
+                priority: 20,
+              },
+            },
+          },
+        }
+
+        const originalEntry = config.entry
+        config.entry = async () => {
+          const entries = await originalEntry()
+
+          // 빌드에 포함할 CSS 파일
+          const criticalCssFiles = [
+            './src/styles/globals.css',
+            'swiper/css',
+            'swiper/css/navigation',
+          ]
+
+          // App Router의 layout 진입점 찾기
+          const targetLayoutKeys = ['main-app', 'app/layout']
+
+          Object.keys(entries).forEach((entryKey) => {
+            // layout 관련 진입점에 CSS 추가
+            const isLayoutEntry = targetLayoutKeys.some((key) =>
+              entryKey.includes(key),
+            )
+
+            if (isLayoutEntry && Array.isArray(entries[entryKey])) {
+              criticalCssFiles.forEach((cssFile) => {
+                if (!entries[entryKey].includes(cssFile)) {
+                  entries[entryKey].unshift(cssFile)
+                }
+              })
+            }
+          })
+
+          return entries
+        }
+      }
     }
 
     return config

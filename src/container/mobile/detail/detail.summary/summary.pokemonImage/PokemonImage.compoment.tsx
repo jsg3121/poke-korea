@@ -1,8 +1,6 @@
 'use client'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
-import 'swiper/css'
-import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
 import ImageComponent from '~/components/Image.component'
