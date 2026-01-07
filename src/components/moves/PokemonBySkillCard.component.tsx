@@ -100,7 +100,7 @@ const PokemonBySkillCard = ({
                 width: isMobile ? 96 : 160,
                 height: isMobile ? 96 : 160,
               }}
-              densities={[1, 2]}
+              densities={[1, 1.5]}
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
               src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
               sizes={isMobile ? '8rem' : '10rem'}
@@ -120,7 +120,7 @@ const PokemonBySkillCard = ({
                   width: isMobile ? 96 : 160,
                   height: isMobile ? 96 : 160,
                 }}
-                densities={[1, 2]}
+                densities={[1, 1.5]}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
                 src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
                 sizes={isMobile ? '8rem' : '10rem'}

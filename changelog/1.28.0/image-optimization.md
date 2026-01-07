@@ -127,7 +127,7 @@ const generateSrcSet = () => {
 // After
 <ImageComponent
   imageSize={{ width: 160, height: 160 }}
-  densities={[1, 2]}
+  densities={[1, 1.5]}
   src={`${imageMode}/${pokemonData.number}.webp`}
   sizes="10rem"
   fetchPriority={isHighPriority ? "high" : undefined}
@@ -162,7 +162,7 @@ const generateSrcSet = () => {
 // After
 <ImageComponent
   imageSize={{ width: 120, height: 120 }}
-  densities={[1, 2]}
+  densities={[1, 1.5]}
   src={`${imageMode}/${pokemonData.number}.webp`}
   sizes="10rem"
   fetchPriority={isHighPriority ? "high" : undefined}
@@ -192,7 +192,7 @@ const generateSrcSet = () => {
     width: isMobile ? 96 : 160,
     height: isMobile ? 96 : 160,
   }}
-  densities={[1, 2]}
+  densities={[1, 1.5]}
   src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
   sizes={isMobile ? '8rem' : '10rem'}
 />

@@ -94,7 +94,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             src={`${imageMode}/${imagePath()}.webp`}
             alt={pokemonName}
             imageSize={{ width: 144, height: 144 }}
-            densities={[1, 2]}
+            densities={[1, 1.5]}
             sizes="9rem"
             loading="lazy"
             className="[filter:drop-shadow(0px_2px_2px_#000000)]"

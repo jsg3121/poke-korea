@@ -78,7 +78,7 @@ const PokemonTypeQuiz = () => {
                   src={`${imageMode}/${option.id}.webp`}
                   alt={`${option.koreanName} 포켓몬 선택`}
                   imageSize={{ width: 96, height: 96 }}
-                  densities={[1, 2]}
+                  densities={[1, 1.5]}
                   sizes="8rem"
                   fetchPriority={index === 0 ? 'high' : undefined}
                   loading={index === 0 ? undefined : 'lazy'}

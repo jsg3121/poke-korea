@@ -130,7 +130,7 @@ const PokemonImageCompoment = () => {
                   height="18rem"
                   alt={altText}
                   imageSize={{ width: 216, height: 216 }}
-                  densities={[1, 2]}
+                  densities={[1, 1.5]}
                   sizes="18rem"
                   className="pokemon-main"
                   {...(normalFormImageList.length === 0
