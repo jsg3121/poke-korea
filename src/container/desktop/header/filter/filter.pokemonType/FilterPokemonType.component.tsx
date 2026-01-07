@@ -77,6 +77,7 @@ const FilterPokemonTypeComponent = () => {
           src="/assets/image/filter.svg"
           height="1.5rem"
           width="1.5rem"
+          imageSize={{ width: 24, height: 24 }}
         />
         필터
       </button>

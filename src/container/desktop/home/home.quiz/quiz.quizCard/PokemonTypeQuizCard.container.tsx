@@ -1,12 +1,12 @@
 'use client'
 
+import { Fragment } from 'react'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizCardHeader from '~/components/home/quiz/QuizCardHeader'
+import QuizResultPopup from '~/components/home/QuizResultPopup.component'
+import TagComponent from '~/components/Tag.component'
 import { PokemonTypeQuizQuestion } from '~/graphql/typeGenerated'
 import { useCorrectQuizCheck } from '../hooks/useCorrectQuizCheck'
-import { Fragment } from 'react'
-import QuizResultPopup from '~/components/home/QuizResultPopup.component'
-import QuizAnswerButton from '../components/QuizAnswerButton'
-import QuizCardHeader from '../components/QuizCardHeader'
-import TagComponent from '~/components/Tag.component'
 
 interface PokemonTypeQuizCardContainerProps {
   pokemonTypeQuiz: PokemonTypeQuizQuestion

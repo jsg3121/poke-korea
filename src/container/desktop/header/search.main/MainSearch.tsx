@@ -48,7 +48,7 @@ const MainSearch = () => {
   }, [routerQuery.get('name')])
 
   return (
-    <div className="w-[30rem] h-12 absolute right-1/2 translate-x-1/2 top-0 rounded-[2rem] bg-white desktop-970:right-0 desktop-970:-translate-x-4">
+    <div className="w-[30rem] h-12 absolute right-1/2 translate-x-1/2 top-0 rounded-[2rem] bg-white">
       <FormProvider {...searchFormMethods}>
         <form
           onSubmit={handleSubmit(onSubmitSearch)}

@@ -82,6 +82,7 @@ const HeaderSearchContainer = () => {
           src="/assets/image/search.svg"
           width="2rem"
           height="2rem"
+          imageSize={{ width: 24, height: 24 }}
           alt="포켓몬 검색"
           className="icon-search"
         />

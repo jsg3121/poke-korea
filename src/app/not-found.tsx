@@ -75,7 +75,7 @@ const NotFound = () => {
                 src={`${imageMode}/25.webp`}
                 alt="피카츄 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
-                densities={[1, 2]}
+                densities={[1, 1.5]}
                 sizes="10rem"
                 loading="lazy"
               />
@@ -90,7 +90,7 @@ const NotFound = () => {
                 src={`${imageMode}/6.webp`}
                 alt="리자몽 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
-                densities={[1, 2]}
+                densities={[1, 1.5]}
                 sizes="10rem"
                 loading="lazy"
               />
@@ -105,7 +105,7 @@ const NotFound = () => {
                 src={`${imageMode}/133.webp`}
                 alt="이브이 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
-                densities={[1, 2]}
+                densities={[1, 1.5]}
                 sizes="10rem"
                 loading="lazy"
               />
@@ -120,7 +120,7 @@ const NotFound = () => {
                 src={`${imageMode}/150.webp`}
                 alt="뮤츠 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
-                densities={[1, 2]}
+                densities={[1, 1.5]}
                 sizes="10rem"
                 loading="lazy"
               />

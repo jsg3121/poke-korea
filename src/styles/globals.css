@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 폰트 정의 */
+@font-face {
+  font-family: 'Gmarket Sans';
+  src: url('/fonts/GmarketSansMedium.subset.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gmarket Sans';
+  src: url('/fonts/GmarketSansBold.subset.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* CSS 커스텀 속성 (CSS Variables) - Tailwind theme()로 참조 */
 
 /* 기본 스타일 재설정 */
@@ -123,6 +140,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     background-color: var(--color-primary-1);
+    font-family: 'Gmarket Sans', system-ui, sans-serif;
   }
 
   body {

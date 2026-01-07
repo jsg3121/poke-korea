@@ -35,7 +35,7 @@ const RelationPokemonComponent = ({
                   height="12rem"
                   alt={`포켓몬 ${name} 연관 포켓몬 ${id}`}
                   imageSize={{ width: 192, height: 192 }}
-                  densities={[1, 2]}
+                  densities={[1, 1.5]}
                   sizes="12rem"
                   loading="lazy"
                 />

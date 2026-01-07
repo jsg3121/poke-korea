@@ -1,14 +1,13 @@
 import { Metadata, Viewport } from 'next'
-import localFont from 'next/font/local'
 import Script from 'next/script'
 import { ReactNode } from 'react'
-import '~/styles/globals.css'
 import { getRobotsConfig } from '~/module/metadata.module'
 import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import Providers from './providers'
 import { headers } from 'next/headers'
 import { detectUserAgent } from '~/module/device.module'
 import { DeviceProvider } from '~/context/Device.context'
+import { getCssFiles, getFontFiles } from '~/utils/getCssFiles'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
@@ -33,33 +32,45 @@ interface RootLayoutProps {
   children: ReactNode
 }
 
-const gmarket = localFont({
-  src: [
-    {
-      path: '../assets/font/GmarketSansMedium.subset.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../assets/font/GmarketSansBold.subset.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-  display: 'swap',
-  preload: true,
-  variable: '--font-gmarket-sans',
-})
-
 export default async function RootLayout({ children }: RootLayoutProps) {
   const isProduction = process.env.NODE_ENV === 'production'
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
+  // 빌드된 CSS 파일 가져오기
+  const cssFiles = getCssFiles()
+  // 폰트 파일 가져오기
+  const fontFiles = getFontFiles()
+
   return (
-    <html lang="ko" className={gmarket.className}>
+    <html lang="ko">
       <head>
+        {/* Font preload - 최우선 */}
+        {fontFiles.map((font) => (
+          <link
+            key={`preload-font-${font.href}`}
+            rel="preload"
+            href={font.href}
+            as="font"
+            type={font.type}
+            crossOrigin="anonymous"
+          />
+        ))}
+        {/* CSS preload - 최우선 */}
+        {cssFiles.map((cssFile) => (
+          <link
+            key={`preload-${cssFile}`}
+            rel="preload"
+            href={cssFile}
+            as="style"
+            fetchPriority="high"
+          />
+        ))}
+        {/* CSS stylesheet - 실제 적용 */}
+        {cssFiles.map((cssFile) => (
+          <link key={`style-${cssFile}`} rel="stylesheet" href={cssFile} />
+        ))}
         {isProduction && (
           <>
             <meta
@@ -70,26 +81,16 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               name="google-adsense-account"
               content="ca-pub-6481622724376761"
             />
-            {/* 이미지 CDN - 최우선 */}
+            {/* 이미지 CDN - 최우선 (실제 사용됨) */}
             <link
               rel="preconnect"
               href="https://image-cdn.poke-korea.com"
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
-            {/* og 이미지 CDN - 최우선 */}
-            <link
-              rel="preconnect"
-              href="https://image.poke-korea.com"
-              crossOrigin=""
-            />
+            {/* og 이미지 CDN - SSR에서만 사용 */}
             <link rel="dns-prefetch" href="https://image.poke-korea.com" />
-            {/* GraphQL API */}
-            <link
-              rel="preconnect"
-              href="https://api.poke-korea.com"
-              crossOrigin=""
-            />
+            {/* GraphQL API - SSR에서 사용 */}
             <link rel="dns-prefetch" href="https://api.poke-korea.com" />
           </>
         )}
@@ -111,11 +112,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script
               id="gtag-base"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
             <Script
               id="gtag-init"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -126,7 +127,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               }}
             />
             {/* Naver Analytics */}
-            <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
+            <Script
+              id="naver-analytics"
+              src="//wcs.naver.net/wcslog.js"
+              strategy="lazyOnload"
+            />
             <Script
               id="naver-analytics-init"
               strategy="lazyOnload"

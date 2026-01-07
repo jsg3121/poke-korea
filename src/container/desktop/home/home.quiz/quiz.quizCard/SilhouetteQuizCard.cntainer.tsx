@@ -1,13 +1,13 @@
 'use client'
 
 import { Fragment } from 'react'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizCardHeader from '~/components/home/quiz/QuizCardHeader'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import ImageComponent from '~/components/Image.component'
 import { SilhouetteQuizQuestion } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import { useCorrectQuizCheck } from '../hooks/useCorrectQuizCheck'
-import QuizCardHeader from '../components/QuizCardHeader'
-import QuizAnswerButton from '../components/QuizAnswerButton'
 
 interface SilhouetteQuizCardCntainerProps {
   silhouetteQuiz: SilhouetteQuizQuestion
@@ -53,7 +53,7 @@ const SilhouetteQuizCardCntainer = ({
             src={`${imageMode}/${silhouetteQuiz.correctPokemonId}.webp`}
             alt="포켓몬 실루엣 이미지"
             imageSize={{ width: 128, height: 128 }}
-            densities={[1, 2]}
+            densities={[1, 1.5]}
             sizes="8rem"
             loading="lazy"
             className="w-32 h-32 object-contain brightness-0"

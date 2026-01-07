@@ -69,7 +69,7 @@ const SilhouetteQuizResult = () => {
                     src={`${imageMode}/${quiz.correctPokemonId}.webp`}
                     alt={`정답 포켓몬 ${realAnswer}`}
                     imageSize={{ width: 80, height: 80 }}
-                    densities={[1, 2]}
+                    densities={[1, 1.5]}
                     sizes="5rem"
                     loading="lazy"
                   />

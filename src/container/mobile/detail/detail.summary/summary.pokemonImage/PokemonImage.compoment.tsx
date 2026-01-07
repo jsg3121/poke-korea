@@ -1,8 +1,6 @@
 'use client'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
-import 'swiper/css'
-import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
 import ImageComponent from '~/components/Image.component'
@@ -132,7 +130,7 @@ const PokemonImageCompoment = () => {
                   height="18rem"
                   alt={altText}
                   imageSize={{ width: 216, height: 216 }}
-                  densities={[1, 2]}
+                  densities={[1, 1.5]}
                   sizes="18rem"
                   className="pokemon-main"
                   {...(normalFormImageList.length === 0
