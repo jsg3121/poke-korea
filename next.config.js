@@ -143,7 +143,6 @@ const nextConfig = {
             'swiper/css/navigation',
           ]
 
-          // App Router의 layout 진입점 찾기
           const targetLayoutKey = 'pages/_app'
 
           Object.keys(entries).forEach((entryKey) => {

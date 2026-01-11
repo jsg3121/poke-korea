@@ -127,13 +127,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               }}
             />
             {/* Naver Analytics */}
-            <Script
-              id="naver-analytics"
-              src="//wcs.naver.net/wcslog.js"
-            />
+            <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
             <Script
               id="naver-analytics-init"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               dangerouslySetInnerHTML={{
                 __html: `
                   if(!wcs_add) var wcs_add = {};
