@@ -44,17 +44,36 @@ src/app/detail/
 ```
 src/app/detail/
 ├── [pokemonId]/
-│   ├── [[...form]]/
-│   │   └── page.tsx    # 기본폼 + mega/region + formIndex 통합 처리
+│   ├── (form)/
+│   │   ├── modules/
+│   │   │   ├── parseFormParams.ts      # URL 파라미터 파싱 모듈
+│   │   │   ├── fetchDetailData.ts      # 데이터 페칭 모듈
+│   │   │   └── generateMetadata.ts     # 메타데이터 생성 모듈
+│   │   ├── mega/
+│   │   │   └── [[...index]]/
+│   │   │       └── page.tsx            # 메가진화 페이지
+│   │   ├── region/
+│   │   │   └── [[...index]]/
+│   │   │       └── page.tsx            # 리전폼 페이지
+│   │   └── page.tsx                    # 기본폼 페이지
 │   ├── moves/
 │   │   └── page.tsx
 │   └── opengraph-image.tsx
 ```
 
-- `[[...form]]` Optional Catch-all Segment 사용
-- `/detail/6`, `/detail/6/mega`, `/detail/6/mega/1` 모두 단일 페이지에서 처리
+- Route Groups `(form)`을 사용하여 기존 `moves` 라우트와의 충돌 해결
+- `[[...index]]` Optional Catch-all Segment로 formIndex 처리
+- 비즈니스 로직을 `modules/` 폴더로 분리하여 코드 가독성 향상
 
-### 2. 쿼리 최적화
+### 2. 비즈니스 로직 모듈화
+
+| 모듈                  | 역할                                   |
+| --------------------- | -------------------------------------- |
+| `parseFormParams.ts`  | URL path/query 파라미터에서 값 추출    |
+| `fetchDetailData.ts`  | activeType별 최적화된 데이터 페칭      |
+| `generateMetadata.ts` | SEO 메타데이터 생성                    |
+
+### 3. 쿼리 최적화
 
 activeType별 필요한 데이터만 페칭하도록 최적화:
 
@@ -64,19 +83,20 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 | mega       | megaEvolution 데이터만                          |
 | region     | regionForm + versionGroup                       |
 
-### 3. URL 파라미터 처리 방식 변경
+### 4. URL 파라미터 처리 방식 변경
 
 - `activeType`, `activeIndex` 쿼리 파라미터 → Path 세그먼트로 변경
 - `shinyMode`는 동일 콘텐츠의 다른 표현이므로 쿼리 파라미터 유지
+- 기본폼의 `activeIndex`는 쿼리 파라미터로 유지 (이미지 슬라이드 위치)
 
-### 4. 컴포넌트 수정
+### 5. 컴포넌트 수정
 
 - **Detail.context.tsx**: 서버에서 `activeType`, `activeIndex` props로 전달받아 처리
 - **스위치 컴포넌트**: Context에서 값을 가져와 Path 기반 URL 생성
 - **검색 결과 링크**: Path 기반 URL 생성 로직 변경
 - **이미지 슬라이더**: 슬라이드 변경 시 Path 기반 URL로 업데이트
 
-### 5. 301 리다이렉트 설정
+### 6. 301 리다이렉트 설정
 
 기존 쿼리 파라미터 URL → 새 Path URL로 영구 리다이렉트 (next.config.js)
 
@@ -96,13 +116,27 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 | URL 가독성      | 직관적인 URL 구조                   |
 | 키워드 노출     | URL에 mega, region 키워드 직접 노출 |
 
+## 📊 코드 최적화 결과
+
+| 항목                    | 변경 전                     | 변경 후                    |
+| ----------------------- | --------------------------- | -------------------------- |
+| page.tsx 라인 수        | ~388줄 (단일 파일)          | ~120줄 (페이지당)          |
+| 비즈니스 로직 분리      | 페이지 컴포넌트에 혼재      | modules/ 폴더로 분리       |
+| 데이터 페칭             | 모든 데이터 한번에 페칭     | activeType별 최적화        |
+| 코드 재사용성           | 낮음                        | 높음 (모듈 공유)           |
+
 ## 🔧 기술적 세부사항
 
 ### 수정 파일 목록
 
 | 파일                                                                                          | 변경 내용                            |
 | --------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `src/app/detail/[pokemonId]/[[...form]]/page.tsx`                                             | 신규 - 통합 상세 페이지              |
+| `src/app/detail/[pokemonId]/(form)/page.tsx`                                                  | 신규 - 기본폼 페이지                 |
+| `src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx`                                | 신규 - 메가진화 페이지               |
+| `src/app/detail/[pokemonId]/(form)/region/[[...index]]/page.tsx`                              | 신규 - 리전폼 페이지                 |
+| `src/app/detail/[pokemonId]/(form)/modules/parseFormParams.ts`                                | 신규 - URL 파라미터 파싱             |
+| `src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts`                                | 신규 - 데이터 페칭 로직              |
+| `src/app/detail/[pokemonId]/(form)/modules/generateMetadata.ts`                               | 신규 - 메타데이터 생성 로직          |
 | `src/app/detail/[pokemonId]/page.tsx`                                                         | 삭제                                 |
 | `src/context/Detail.context.tsx`                                                              | activeType, activeIndex props 추가   |
 | `src/container/desktop/header/header.search/**/ResultListData.tsx`                            | Path URL 생성                        |
@@ -148,3 +182,4 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 - shinyMode는 쿼리 파라미터로 유지 (동일 콘텐츠의 다른 표현)
 - 기존 URL이 검색엔진에 인덱싱되어 있을 수 있으므로 301 리다이렉트 필수
 - 기본폼 URL(`/detail/{number}`)은 경로 변경 없음 - 리다이렉트 불필요
+- Route Groups `(form)`을 사용하여 URL에는 영향 없이 파일 구조 정리
