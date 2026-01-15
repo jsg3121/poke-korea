@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
@@ -7,7 +8,6 @@ import {
   GetPokemonNormalFormImageListDocument,
   GetPokemonNormalFormLearnableSkillsDocument,
   GetPokemonNormalFormMetadataDocument,
-  GetPokemonRegionFormLearnableSkillsDocument,
   GetVersionGroupsDocument,
 } from '~/graphql/gqlGenerated'
 import {
@@ -22,8 +22,6 @@ import {
   type GetPokemonLearnableSkillsQueryVariables,
   type GetPokemonNormalFormLearnableSkillsQuery,
   type GetPokemonNormalFormLearnableSkillsQueryVariables,
-  type GetPokemonRegionFormLearnableSkillsQuery,
-  type GetPokemonRegionFormLearnableSkillsQueryVariables,
   type GetVersionGroupsQuery,
   type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
@@ -33,7 +31,7 @@ import { getRobotsConfig } from '~/module/metadata.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
 
-export const revalidate = 31536000 // 24시간마다 재생성
+export const revalidate = 31536000
 
 interface DetailMovesPageProps {
   params: Promise<{ pokemonId: string }>
@@ -56,6 +54,12 @@ export const generateMetadata = async ({
     movesType = 'LEVELUP',
     selectVersion,
   } = await searchParams
+
+  // region 쿼리 파라미터가 있으면 메타데이터 생성 스킵 (리다이렉트됨)
+  if (activeType === 'region') {
+    return {}
+  }
+
   const apolloClient = initializeApollo()
 
   const { data: pokemonDetail } = await apolloClient.query<
@@ -76,10 +80,6 @@ export const generateMetadata = async ({
       variables: {
         filter: {
           pokemonId: parseInt(pokemonId, 10),
-          ...(activeType === 'region' && {
-            activeType: 'REGION',
-            activeIndex: parseInt(activeIndex, 10),
-          }),
           ...(isNormalForm && {
             activeType: 'NORMAL',
             activeIndex: parseInt(activeIndex, 10),
@@ -114,25 +114,19 @@ export const generateMetadata = async ({
 
   const activeIndexQuery =
     activeIndex !== '0' ? `activeIndex=${activeIndex}` : undefined
-  const activeTypeQuery = activeType ? `activeType=${activeType}` : undefined
   const movesTypeQuery =
     movesType !== 'LEVELUP' ? `movesType=${movesType}` : undefined
   const selectVersionQuery = selectVersion
     ? `selectVersion=${selectVersion}`
     : undefined
 
-  const queryParams = [
-    activeIndexQuery,
-    activeTypeQuery,
-    movesTypeQuery,
-    selectVersionQuery,
-  ]
+  const queryParams = [activeIndexQuery, movesTypeQuery, selectVersionQuery]
     .filter((param) => param !== undefined)
     .join('&')
 
   const isSingleSeries = versionInfo.getVersionGroups?.length === 1
 
-  const title = `${pokemonName}${pokemonDetail.getPokemonDetail?.isRegionForm ? ' 리전폼' : ''}${version ? ` ${version.generationId}세대 ${version.nameKo} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
+  const title = `${pokemonName}${version ? ` ${version.generationId}세대 ${version.nameKo} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
   const description = isSingleSeries
     ? `${versionInfo.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
     : `${pokemonName}의 ${versionInfo.getVersionGroups?.[versionInfo.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionInfo.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
@@ -177,6 +171,21 @@ const DetailMovesPage = async ({
     activeIndex = '0',
     selectVersion,
   } = await searchParams
+
+  // region 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
+  if (activeType === 'region') {
+    const basePath =
+      activeIndex !== '0'
+        ? `/detail/${pokemonId}/moves/region/${activeIndex}`
+        : `/detail/${pokemonId}/moves/region`
+    const queryParams = []
+    if (movesType !== 'LEVELUP') queryParams.push(`movesType=${movesType}`)
+    if (selectVersion) queryParams.push(`selectVersion=${selectVersion}`)
+    const queryString =
+      queryParams.length > 0 ? `?${queryParams.join('&')}` : ''
+    redirect(`${basePath}${queryString}`)
+  }
+
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
@@ -200,12 +209,11 @@ const DetailMovesPage = async ({
 
   const [
     { data },
-    { data: regionFormLearnableSkill },
     { data: normalFormLearnableSkill },
     { data: versionGroup },
     { data: normalFormImageList },
   ] = await Promise.all([
-    activeType !== 'region' && !isNormalForm
+    !isNormalForm
       ? apolloClient.query<
           GetPokemonLearnableSkillsQuery,
           GetPokemonLearnableSkillsQueryVariables
@@ -222,29 +230,6 @@ const DetailMovesPage = async ({
                   ? LearnMethod['LEVEL_UP']
                   : LearnMethod['MACHINE'],
             },
-          },
-          fetchPolicy: 'cache-first',
-        })
-      : Promise.resolve({ data: null }),
-    activeType === 'region'
-      ? apolloClient.query<
-          GetPokemonRegionFormLearnableSkillsQuery,
-          GetPokemonRegionFormLearnableSkillsQueryVariables
-        >({
-          query: GetPokemonRegionFormLearnableSkillsDocument,
-          variables: {
-            filter: {
-              pokemonId: parseInt(pokemonId, 10),
-              formIndex: parseInt(activeIndex, 10),
-              learnMethod:
-                movesType === 'LEVELUP'
-                  ? LearnMethod['LEVEL_UP']
-                  : LearnMethod['MACHINE'],
-              ...(selectVersion && {
-                versionGroupId: parseInt(selectVersion, 10),
-              }),
-            },
-            pokemonId: parseInt(pokemonId, 10),
           },
           fetchPolicy: 'cache-first',
         })
@@ -278,10 +263,6 @@ const DetailMovesPage = async ({
       variables: {
         filter: {
           pokemonId: parseInt(pokemonId, 10),
-          ...(activeType === 'region' && {
-            activeType: 'REGION',
-            activeIndex: parseInt(activeIndex, 10),
-          }),
           ...(isNormalForm && {
             activeType: 'NORMAL',
             activeIndex: parseInt(activeIndex, 10),
@@ -305,63 +286,40 @@ const DetailMovesPage = async ({
   if (!pokemonInfoData.getPokemonDetail) return
 
   const getPokemonLearnableData = () => {
-    switch (activeType) {
-      case 'region': {
-        return {
-          levelUpSkills:
-            regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills
-              ?.levelUpSkills || [],
-          machineSkills:
-            regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills
-              ?.machineSkills || [],
-        }
+    if (isNormalForm) {
+      return {
+        levelUpSkills:
+          normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
+            ?.levelUpSkills || [],
+        machineSkills:
+          normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
+            ?.machineSkills || [],
       }
-      default: {
-        if (isNormalForm) {
-          return {
-            levelUpSkills:
-              normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
-                ?.levelUpSkills || [],
-            machineSkills:
-              normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
-                ?.machineSkills || [],
-          }
-        } else {
-          return {
-            levelUpSkills: data?.getPokemonLearnableSkills?.levelUpSkills || [],
-            machineSkills: data?.getPokemonLearnableSkills?.machineSkills || [],
-          }
-        }
+    } else {
+      return {
+        levelUpSkills: data?.getPokemonLearnableSkills?.levelUpSkills || [],
+        machineSkills: data?.getPokemonLearnableSkills?.machineSkills || [],
       }
     }
   }
 
   const pokemonLearnableData = getPokemonLearnableData()
 
-  const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[parseInt(activeIndex, 10)].name})` : ''}`
   const normalFormName =
     normalFormLearnableSkill?.getPokemonNormalForm?.[0].name ??
     pokemonInfoData.getPokemonDetail.name
   const pokemonName = isNormalForm
     ? normalFormName
-    : `${pokemonInfoData.getPokemonDetail.name}${activeType === 'region' ? regionFormSuffixText : ''}`
+    : pokemonInfoData.getPokemonDetail.name
 
-  const pokemonInfoTypes =
-    (activeType === 'region'
-      ? regionFormLearnableSkill?.getPokemonRegionForm?.[
-          parseInt(activeIndex, 10)
-        ].types
-      : isNormalForm
-        ? normalFormLearnableSkill?.getPokemonNormalForm?.[0].types
-        : pokemonInfoData.getPokemonDetail.types) ??
-    pokemonInfoData.getPokemonDetail.types
+  const pokemonInfoTypes = isNormalForm
+    ? (normalFormLearnableSkill?.getPokemonNormalForm?.[0].types ??
+      pokemonInfoData.getPokemonDetail.types)
+    : pokemonInfoData.getPokemonDetail.types
 
-  const formDataLength =
-    activeType === 'region'
-      ? (regionFormLearnableSkill?.getPokemonRegionForm?.length ?? 0)
-      : isNormalForm
-        ? (normalFormImageList.getPokemonNormalFormImageList?.length ?? 0)
-        : 0
+  const formDataLength = isNormalForm
+    ? (normalFormImageList.getPokemonNormalFormImageList?.length ?? 0)
+    : 0
 
   const initialValue = {
     pokemonInfo: {
@@ -369,7 +327,7 @@ const DetailMovesPage = async ({
       types: pokemonInfoTypes,
       isFormChange: pokemonInfoData.getPokemonDetail.isFormChange,
       isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
-      activeType: activeType,
+      activeType: undefined,
     },
     versionGroup: versionGroup.getVersionGroups,
     pokemonLearnableData,

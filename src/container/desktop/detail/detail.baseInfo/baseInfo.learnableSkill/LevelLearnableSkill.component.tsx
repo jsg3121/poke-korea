@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useContext } from 'react'
 import { DetailContext } from '~/context/Detail.context'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
@@ -8,13 +8,19 @@ import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
 const LevelLearnableSkillComponent = () => {
   const { pokemonId } = useParams()
-  const searchParams = useSearchParams()
-  const { activeTypeInfo } = useContext(DetailContext)
+  const { activeTypeInfo, activeType, activeIndex } = useContext(DetailContext)
 
-  const activeType = searchParams.get('activeType')
-  const activeIndex = searchParams.get('activeIndex') ?? '0'
   const levelUpSkills = activeTypeInfo.learnableSkills?.levelUpSkills
   const versionGroup = activeTypeInfo?.versionGroupInfo
+
+  const getMovesHref = () => {
+    if (activeType === 'region') {
+      return activeIndex > 0
+        ? `/detail/${pokemonId}/moves/region/${activeIndex}`
+        : `/detail/${pokemonId}/moves/region`
+    }
+    return `/detail/${pokemonId}/moves`
+  }
 
   return (
     <section
@@ -33,18 +39,7 @@ const LevelLearnableSkillComponent = () => {
           </b>
         </p>
         <Link
-          href={{
-            pathname: `/detail/${pokemonId}/moves`,
-            query: {
-              ...(activeType && {
-                activeType,
-              }),
-              ...(activeIndex &&
-                activeIndex !== '0' && {
-                  activeIndex: parseInt(activeIndex, 10),
-                }),
-            },
-          }}
+          href={getMovesHref()}
           className="text-[0.8rem] h-5 bg-primary-2 text-aligned-xs px-3 text-primary-4 rounded-[0.375rem]"
         >
           모든 세대 기술 보러가기

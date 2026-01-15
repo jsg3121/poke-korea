@@ -13,7 +13,10 @@ interface MovesHeaderContainerProps {
 }
 
 const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
-  const { pokemonId } = useParams()
+  const { pokemonId, index } = useParams<{
+    pokemonId: string
+    index?: string[]
+  }>()
   const searchParams = useSearchParams()
   const { pokemonInfo, formDataLength, normalFormInfo, versionGroup } =
     useContext(DetailMovesContext)
@@ -22,8 +25,10 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const lastVersionInfo = versionGroup?.[0]
   const firstVersionInfo = versionGroup?.[versionGroup.length - 1]
   const selectVersion = searchParams.get('selectVersion')
-  const activeType = searchParams.get('activeType')
-  const activeIndex = searchParams.get('activeIndex') ?? '0'
+  // Path 기반: pokemonInfo.activeType 사용, 쿼리 파라미터는 하위 호환용
+  const activeType = pokemonInfo?.activeType ?? searchParams.get('activeType')
+  // Path 기반: index 파라미터 사용, 쿼리 파라미터는 하위 호환용
+  const activeIndex = index?.[0] ?? searchParams.get('activeIndex') ?? '0'
 
   const activeGroupId = () => {
     if (selectVersion) {
@@ -70,18 +75,13 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   return (
     <Fragment>
       <Link
-        href={{
-          pathname: `/detail/${pokemonId}`,
-          query: {
-            ...(activeType && {
-              activeType,
-            }),
-            ...(activeIndex &&
-              activeIndex !== '0' && {
-                activeIndex: parseInt(activeIndex, 10),
-              }),
-          },
-        }}
+        href={
+          activeType === 'region'
+            ? activeIndex && activeIndex !== '0'
+              ? `/detail/${pokemonId}/region/${activeIndex}`
+              : `/detail/${pokemonId}/region`
+            : `/detail/${pokemonId}`
+        }
         className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 text-aligned-xl"
       >
         {pokemonName.replace('_', ' ')}의 상세 정보 보러가기
@@ -109,17 +109,20 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 pokemonInfo?.isFormChange) && (
                 <>
                   <Link
-                    href={{
-                      query: {
-                        ...(activeType && {
-                          activeType,
-                        }),
-                        activeIndex: Math.max(
-                          parseInt(activeIndex ?? '1', 10) - 1,
-                          0,
-                        ),
-                      },
-                    }}
+                    href={
+                      activeType === 'region'
+                        ? Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0) > 0
+                          ? `/detail/${pokemonId}/moves/region/${Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0)}`
+                          : `/detail/${pokemonId}/moves/region`
+                        : {
+                            query: {
+                              activeIndex: Math.max(
+                                parseInt(activeIndex ?? '1', 10) - 1,
+                                0,
+                              ),
+                            },
+                          }
+                    }
                     className={`w-[6rem] h-8 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
@@ -129,17 +132,18 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                     이전 폼으로
                   </Link>
                   <Link
-                    href={{
-                      query: {
-                        ...(activeType && {
-                          activeType,
-                        }),
-                        activeIndex: Math.min(
-                          parseInt(activeIndex ?? '0', 10) + 1,
-                          formDataLength - 1,
-                        ),
-                      },
-                    }}
+                    href={
+                      activeType === 'region'
+                        ? `/detail/${pokemonId}/moves/region/${Math.min(parseInt(activeIndex ?? '0', 10) + 1, formDataLength - 1)}`
+                        : {
+                            query: {
+                              activeIndex: Math.min(
+                                parseInt(activeIndex ?? '0', 10) + 1,
+                                formDataLength - 1,
+                              ),
+                            },
+                          }
+                    }
                     className={`w-[6rem] h-8 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
@@ -183,7 +187,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             )}
             {pokemonInfo?.isRegionForm && activeType !== 'region' && (
               <Link
-                href={`/detail/${pokemonId}/moves?activeType=region`}
+                href={`/detail/${pokemonId}/moves/region`}
                 className="w-[13rem] h-6 bg-primary-3 text-center text-aligned-sm rounded-[0.5rem] hover:bg-primary-2 hover:text-primary-4"
                 replace
               >
@@ -197,23 +201,30 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
           className="w-full h-[4rem] flex-items-gap-4 overflow-x-auto  [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
         >
           {versionGroup?.map((item) => {
+            const getVersionHref = () => {
+              if (activeType === 'region') {
+                const basePath =
+                  activeIndex && activeIndex !== '0'
+                    ? `/detail/${pokemonId}/moves/region/${activeIndex}`
+                    : `/detail/${pokemonId}/moves/region`
+                return `${basePath}?selectVersion=${item?.versionGroupId}`
+              }
+              return {
+                pathname: `/detail/${pokemonId}/moves`,
+                query: {
+                  selectVersion: item?.versionGroupId,
+                  ...(activeIndex &&
+                    activeIndex !== '0' && {
+                      activeIndex: parseInt(activeIndex, 10),
+                    }),
+                },
+              }
+            }
             return (
               <Link
                 data-item={item?.versionGroupId}
                 key={item?.name}
-                href={{
-                  pathname: `/detail/${pokemonId}/moves`,
-                  query: {
-                    selectVersion: item?.versionGroupId,
-                    ...(activeType && {
-                      activeType,
-                    }),
-                    ...(activeIndex &&
-                      activeIndex !== '0' && {
-                        activeIndex: parseInt(activeIndex, 10),
-                      }),
-                  },
-                }}
+                href={getVersionHref()}
                 className={`
                   w-fit h-8 shrink-0 px-4 rounded-[0.5rem] text-base text-aligned-base hover:bg-primary-2 hover:text-primary-4
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}

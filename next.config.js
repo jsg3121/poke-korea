@@ -47,6 +47,23 @@ const nextConfig = {
         destination: '/detail/:pokemonId/region',
         permanent: true,
       },
+      // 기존 쿼리 파라미터 URL → 새 Path URL (기술 페이지 리전폼)
+      {
+        source: '/detail/:pokemonId/moves',
+        has: [
+          { type: 'query', key: 'activeType', value: 'region' },
+          { type: 'query', key: 'activeIndex' },
+        ],
+        destination: '/detail/:pokemonId/moves/region/:activeIndex',
+        permanent: true,
+      },
+      {
+        source: '/detail/:pokemonId/moves',
+        has: [{ type: 'query', key: 'activeType', value: 'region' }],
+        missing: [{ type: 'query', key: 'activeIndex' }],
+        destination: '/detail/:pokemonId/moves/region',
+        permanent: true,
+      },
     ]
   },
   async headers() {
@@ -123,7 +140,7 @@ const nextConfig = {
         ],
       },
       {
-        // 상세 페이지 - 장기간 캐싱
+        // 기술 페이지 - 장기간 캐싱
         source: '/detail/:pokemonId/moves',
         headers: [
           {
@@ -133,7 +150,27 @@ const nextConfig = {
         ],
       },
       {
-        // 상세 페이지 - 장기간 캐싱
+        // 리전폼 기술 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/moves/region',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 리전폼 기술 페이지 (인덱스) - 장기간 캐싱
+        source: '/detail/:pokemonId/moves/region/:formIndex',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 기술 도감 페이지 - 장기간 캐싱
         source: '/moves',
         headers: [
           {

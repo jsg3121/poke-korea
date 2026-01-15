@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
@@ -8,13 +8,21 @@ import InfoCardTitleComponent from '../components/InfoCardTitle.component'
 
 const MachineLearnableSkillComponent = () => {
   const { pokemonId } = useParams()
-  const searchParams = useSearchParams()
-  const { activeTypeInfo } = useContext(DetailContext)
+  const { activeTypeInfo, activeType, activeIndex } = useContext(DetailContext)
 
-  const activeType = searchParams.get('activeType')
-  const activeIndex = searchParams.get('activeIndex') ?? '0'
   const machineSkills = activeTypeInfo?.learnableSkills?.machineSkills
   const versionGroup = activeTypeInfo?.versionGroupInfo
+
+  const getMovesHref = () => {
+    if (activeType === 'region') {
+      const basePath =
+        activeIndex > 0
+          ? `/detail/${pokemonId}/moves/region/${activeIndex}`
+          : `/detail/${pokemonId}/moves/region`
+      return `${basePath}?movesType=MACHINE`
+    }
+    return `/detail/${pokemonId}/moves?movesType=MACHINE`
+  }
 
   return (
     <section
@@ -33,19 +41,7 @@ const MachineLearnableSkillComponent = () => {
           </b>
         </p>
         <Link
-          href={{
-            pathname: `/detail/${pokemonId}/moves`,
-            query: {
-              ...(activeType && {
-                activeType,
-              }),
-              ...(activeIndex &&
-                activeIndex !== '0' && {
-                  activeIndex: parseInt(activeIndex, 10),
-                }),
-              movesType: 'MACHINE',
-            },
-          }}
+          href={getMovesHref()}
           className="text-[0.8rem] h-5 bg-primary-2 text-aligned-xs px-3 text-primary-4 rounded-[0.375rem]"
         >
           모든 세대 기술 보러가기

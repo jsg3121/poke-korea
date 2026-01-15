@@ -14,17 +14,27 @@
 ### 변경 전 URL 패턴
 
 ```
+# 상세 페이지
 /detail/6?activeType=mega
 /detail/6?activeType=mega&activeIndex=1
 /detail/19?activeType=region
+
+# 기술 페이지
+/detail/19/moves?activeType=region
+/detail/19/moves?activeType=region&activeIndex=1
 ```
 
 ### 변경 후 URL 패턴
 
 ```
+# 상세 페이지
 /detail/6/mega
 /detail/6/mega/1
 /detail/19/region
+
+# 기술 페이지
+/detail/19/moves/region
+/detail/19/moves/region/1
 ```
 
 ## ✨ 주요 변경사항
@@ -57,7 +67,10 @@ src/app/detail/
 │   │   │       └── page.tsx            # 리전폼 페이지
 │   │   └── page.tsx                    # 기본폼 페이지
 │   ├── moves/
-│   │   └── page.tsx
+│   │   ├── page.tsx                    # 기본폼 기술 페이지
+│   │   └── region/
+│   │       └── [[...index]]/
+│   │           └── page.tsx            # 리전폼 기술 페이지
 │   └── opengraph-image.tsx
 ```
 
@@ -67,11 +80,11 @@ src/app/detail/
 
 ### 2. 비즈니스 로직 모듈화
 
-| 모듈                  | 역할                                   |
-| --------------------- | -------------------------------------- |
-| `parseFormParams.ts`  | URL path/query 파라미터에서 값 추출    |
-| `fetchDetailData.ts`  | activeType별 최적화된 데이터 페칭      |
-| `generateMetadata.ts` | SEO 메타데이터 생성                    |
+| 모듈                  | 역할                                |
+| --------------------- | ----------------------------------- |
+| `parseFormParams.ts`  | URL path/query 파라미터에서 값 추출 |
+| `fetchDetailData.ts`  | activeType별 최적화된 데이터 페칭   |
+| `generateMetadata.ts` | SEO 메타데이터 생성                 |
 
 ### 3. 쿼리 최적화
 
@@ -101,10 +114,14 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 기존 쿼리 파라미터 URL → 새 Path URL로 영구 리다이렉트 (next.config.js)
 
 ```javascript
-// 예시
+// 예시 - 상세 페이지
 /detail/6?activeType=mega → /detail/6/mega
 /detail/6?activeType=mega&activeIndex=1 → /detail/6/mega/1
 /detail/19?activeType=region → /detail/19/region
+
+// 예시 - 기술 페이지
+/detail/19/moves?activeType=region → /detail/19/moves/region
+/detail/19/moves?activeType=region&activeIndex=1 → /detail/19/moves/region/1
 ```
 
 ## 📊 SEO 개선 효과
@@ -118,12 +135,12 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 
 ## 📊 코드 최적화 결과
 
-| 항목                    | 변경 전                     | 변경 후                    |
-| ----------------------- | --------------------------- | -------------------------- |
-| page.tsx 라인 수        | ~388줄 (단일 파일)          | ~120줄 (페이지당)          |
-| 비즈니스 로직 분리      | 페이지 컴포넌트에 혼재      | modules/ 폴더로 분리       |
-| 데이터 페칭             | 모든 데이터 한번에 페칭     | activeType별 최적화        |
-| 코드 재사용성           | 낮음                        | 높음 (모듈 공유)           |
+| 항목               | 변경 전                 | 변경 후              |
+| ------------------ | ----------------------- | -------------------- |
+| page.tsx 라인 수   | ~388줄 (단일 파일)      | ~120줄 (페이지당)    |
+| 비즈니스 로직 분리 | 페이지 컴포넌트에 혼재  | modules/ 폴더로 분리 |
+| 데이터 페칭        | 모든 데이터 한번에 페칭 | activeType별 최적화  |
+| 코드 재사용성      | 낮음                    | 높음 (모듈 공유)     |
 
 ## 🔧 기술적 세부사항
 
@@ -149,22 +166,36 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 | `src/container/mobile/detail/detail.summary/components/ShinySwitch.component.tsx`             | Path href 생성                       |
 | `src/container/desktop/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx` | Path URL 업데이트                    |
 | `src/container/mobile/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`  | Path URL 업데이트                    |
+| `src/container/desktop/detail/detail.moves/moves.header/MovesHeader.container.tsx`            | 상세 정보 링크 Path 기반 생성        |
+| `src/container/mobile/detail/detail.moves/moves.header/MovesHeader.container.tsx`             | 상세 정보 링크 Path 기반 생성        |
+| `src/container/desktop/detail/detail.baseInfo/baseInfo.learnableSkill/LevelLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
+| `src/container/desktop/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
+| `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/LevelLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
+| `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
+| `src/app/detail/[pokemonId]/moves/page.tsx`                                                   | region 쿼리 파라미터 리다이렉트 추가 |
+| `src/app/detail/[pokemonId]/moves/region/[[...index]]/page.tsx`                               | 신규 - 리전폼 기술 페이지            |
 | `src/module/generateDetailSeoMetaData.ts`                                                     | 캐노니컬 URL Path 기반 생성          |
 | `next.config.js`                                                                              | 301 리다이렉트 규칙 + 캐시 헤더 추가 |
 
 ## ✅ 테스트 체크리스트
 
 - [x] 빌드 성공 확인
-- [ ] 기본 포켓몬 상세 페이지 접근 (/detail/6)
-- [ ] 메가진화 페이지 접근 (/detail/6/mega)
-- [ ] 메가진화 두번째 폼 접근 (/detail/6/mega/1)
-- [ ] 리전폼 페이지 접근 (/detail/19/region)
-- [ ] 리전폼 두번째 폼 접근
-- [ ] 이로치 모드 토글 (쿼리 파라미터 유지)
-- [ ] 스위치 버튼 동작 확인
-- [ ] 이미지 슬라이더 formIndex 변경 시 URL 업데이트
-- [ ] 검색 결과에서 링크 정상 동작
-- [ ] 기존 쿼리 파라미터 URL 301 리다이렉트
+- [x] 기본 포켓몬 상세 페이지 접근 (/detail/6)
+- [x] 메가진화 페이지 접근 (/detail/6/mega)
+- [x] 메가진화 두번째 폼 접근 (/detail/6/mega/1)
+- [x] 리전폼 페이지 접근 (/detail/19/region)
+- [x] 리전폼 두번째 폼 접근
+- [x] 이로치 모드 토글 (쿼리 파라미터 유지)
+- [x] 스위치 버튼 동작 확인
+- [x] 이미지 슬라이더 formIndex 변경 시 URL 업데이트
+- [x] 검색 결과에서 링크 정상 동작
+- [x] 기존 쿼리 파라미터 URL 301 리다이렉트
+- [x] moves 페이지에서 상세 정보 보러가기 링크 정상 동작
+- [ ] 리전폼 기술 페이지 접근 (/detail/19/moves/region)
+- [ ] 리전폼 기술 페이지 폼 전환 동작 확인
+- [ ] 리전폼 기술 페이지 버전 선택 동작 확인
+- [ ] 상세 페이지에서 "더 많은 기술 보기" 링크 정상 동작 (리전폼)
+- [ ] 기존 쿼리 파라미터 URL 리다이렉트 (/detail/19/moves?activeType=region → /detail/19/moves/region)
 
 ## 📝 향후 작업
 
