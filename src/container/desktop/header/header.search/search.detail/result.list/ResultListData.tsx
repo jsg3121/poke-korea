@@ -29,13 +29,19 @@ const ResultListData = ({
   const getPokemonHref = () => {
     switch (formType) {
       case 'NORMAL_FORM': {
-        return `/detail/${number}?${formIndex > 0 && `activeIndex=${formIndex}`}`
+        return formIndex > 0
+          ? `/detail/${number}?activeIndex=${formIndex}`
+          : `/detail/${number}`
       }
       case 'MEGA': {
-        return `/detail/${number}?activeType=mega${formIndex > 0 ? `&activeIndex=${formIndex}` : ''}`
+        return formIndex > 0
+          ? `/detail/${number}/mega/${formIndex}`
+          : `/detail/${number}/mega`
       }
       case 'REGION_FORM': {
-        return `/detail/${number}?activeType=region${formIndex > 0 ? `&activeIndex=${formIndex}` : ''}`
+        return formIndex > 0
+          ? `/detail/${number}/region/${formIndex}`
+          : `/detail/${number}/region`
       }
       default: {
         return `/detail/${number}`

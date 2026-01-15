@@ -1,21 +1,20 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { useContext } from 'react'
 import RegionIcon from '~/assets/icons/region.svg'
+import { DetailContext } from '~/context/Detail.context'
 
 const RegionSwitchComponent = () => {
+  const { pokemonBaseInfo, activeType } = useContext(DetailContext)
   const routerQuery = useSearchParams()
 
-  const isRegion = routerQuery.get('activeType') === 'region' ? true : false
-  const isShiny = routerQuery.get('shinyMode') === 'shiny' ? true : false
+  const isRegion = activeType === 'region'
+  const isShiny = routerQuery.get('shinyMode') === 'shiny'
+  const shinyQuery = isShiny ? '?shinyMode=shiny' : ''
 
-  const regionHref = {
-    query: {
-      ...(isShiny && {
-        shinyMode: 'shiny',
-      }),
-      activeType: isRegion ? 'normal' : 'region',
-    },
-  }
+  const regionHref = isRegion
+    ? `/detail/${pokemonBaseInfo?.number}${shinyQuery}`
+    : `/detail/${pokemonBaseInfo?.number}/region${shinyQuery}`
 
   return (
     <li role="button">

@@ -1,19 +1,36 @@
+'use client'
+
 import Link from 'next/link'
+import { useContext } from 'react'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
+import { DetailContext } from '~/context/Detail.context'
 
 interface ShinySwitchProps {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
 const ShinySwitch = ({ searchParams }: ShinySwitchProps) => {
+  const { pokemonBaseInfo, activeType, activeIndex } = useContext(DetailContext)
   const isShiny = searchParams.shinyMode === 'shiny'
 
-  const switchHref = {
-    query: {
-      ...searchParams,
-      shinyMode: isShiny ? 'normal' : 'shiny',
-    },
+  const getBasePath = () => {
+    const baseUrl = `/detail/${pokemonBaseInfo?.number}`
+    if (activeType === 'mega') {
+      return activeIndex > 0
+        ? `${baseUrl}/mega/${activeIndex}`
+        : `${baseUrl}/mega`
+    }
+    if (activeType === 'region') {
+      return activeIndex > 0
+        ? `${baseUrl}/region/${activeIndex}`
+        : `${baseUrl}/region`
+    }
+    return baseUrl
   }
+
+  const switchHref = isShiny
+    ? getBasePath()
+    : `${getBasePath()}?shinyMode=shiny`
 
   return (
     <li

@@ -11,6 +11,44 @@ const nextConfig = {
   allowedDevOrigins: ['local.poke-korea.com'],
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      // 기존 쿼리 파라미터 URL → 새 Path URL (메가진화)
+      {
+        source: '/detail/:pokemonId',
+        has: [
+          { type: 'query', key: 'activeType', value: 'mega' },
+          { type: 'query', key: 'activeIndex' },
+        ],
+        destination: '/detail/:pokemonId/mega/:activeIndex',
+        permanent: true,
+      },
+      {
+        source: '/detail/:pokemonId',
+        has: [{ type: 'query', key: 'activeType', value: 'mega' }],
+        missing: [{ type: 'query', key: 'activeIndex' }],
+        destination: '/detail/:pokemonId/mega',
+        permanent: true,
+      },
+      // 기존 쿼리 파라미터 URL → 새 Path URL (리전폼)
+      {
+        source: '/detail/:pokemonId',
+        has: [
+          { type: 'query', key: 'activeType', value: 'region' },
+          { type: 'query', key: 'activeIndex' },
+        ],
+        destination: '/detail/:pokemonId/region/:activeIndex',
+        permanent: true,
+      },
+      {
+        source: '/detail/:pokemonId',
+        has: [{ type: 'query', key: 'activeType', value: 'region' }],
+        missing: [{ type: 'query', key: 'activeIndex' }],
+        destination: '/detail/:pokemonId/region',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
@@ -37,6 +75,46 @@ const nextConfig = {
       {
         // 상세 페이지 - 장기간 캐싱
         source: '/detail/:pokemonId',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 메가진화 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/mega',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 메가진화 페이지 (인덱스) - 장기간 캐싱
+        source: '/detail/:pokemonId/mega/:formIndex',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 리전폼 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/region',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 리전폼 페이지 (인덱스) - 장기간 캐싱
+        source: '/detail/:pokemonId/region/:formIndex',
         headers: [
           {
             key: 'Cache-Control',

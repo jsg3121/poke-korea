@@ -1,19 +1,20 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
+import { DetailContext } from '~/context/Detail.context'
 
 const MegaSwitch = () => {
+  const { pokemonBaseInfo, activeType } = useContext(DetailContext)
   const routerQuery = useSearchParams()
 
-  const isMega = routerQuery.get('activeType') === 'mega' ? true : false
-  const currentQuery = Object.fromEntries(routerQuery.entries())
+  const isMega = activeType === 'mega'
+  const isShiny = routerQuery.get('shinyMode') === 'shiny'
+  const shinyQuery = isShiny ? '?shinyMode=shiny' : ''
 
-  const megaHref = {
-    query: {
-      ...currentQuery,
-      activeType: isMega ? 'normal' : 'mega',
-    },
-  }
+  const megaHref = isMega
+    ? `/detail/${pokemonBaseInfo?.number}${shinyQuery}`
+    : `/detail/${pokemonBaseInfo?.number}/mega${shinyQuery}`
 
   return (
     <li

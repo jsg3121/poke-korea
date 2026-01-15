@@ -1,6 +1,5 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { ReactNode, createContext } from 'react'
 import {
   PokemonDetail,
@@ -18,6 +17,8 @@ interface IFDetailProviderProps {
   regionFormData?: Array<PokemonRegionForm>
   versionGroup?: Array<VersionGroup>
   normalFormImageList: Array<string>
+  activeType: TActiveType
+  activeIndex: number
   children: ReactNode
 }
 
@@ -27,12 +28,14 @@ interface IFDetailProps {
   regionFormInfo?: Array<PokemonRegionForm>
   normalForm?: Array<PokemonNormalForm>
   activeType: TActiveType
+  activeIndex: number
   activeTypeInfo: TActiveTypeInfo
   normalFormImageList: Array<string>
 }
 
 const DetailContext = createContext<IFDetailProps>({
   activeType: 'normal',
+  activeIndex: 0,
   normalFormImageList: [],
   activeTypeInfo: {
     activeType: 'normal',
@@ -56,14 +59,9 @@ const DetailProvider = ({
   regionFormData,
   versionGroup,
   normalFormImageList,
+  activeType,
+  activeIndex,
 }: IFDetailProviderProps) => {
-  const routerQuery = useSearchParams()
-
-  const activeType = routerQuery.get('activeType') as TActiveType
-  const activeIndex = routerQuery.get('activeIndex')
-    ? parseInt(routerQuery.get('activeIndex') as string, 10)
-    : 0
-
   const getTypes = () => {
     switch (activeType) {
       case 'mega': {
@@ -195,6 +193,7 @@ const DetailProvider = ({
   const initialValue: IFDetailProps = {
     pokemonBaseInfo,
     activeType,
+    activeIndex,
     normalForm,
     activeTypeInfo,
     megaEvolutions: megaEvolutionData,

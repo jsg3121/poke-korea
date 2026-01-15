@@ -1,10 +1,10 @@
 import {
-  PokemonType,
   PokemonDetail,
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
   PokemonStats,
+  PokemonType,
 } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TActiveType } from '../types/detailContext.type'
@@ -129,10 +129,17 @@ export const getSeoDescription: GetSeoDescriptionFn = ({
 }
 
 /**
- * @description 포켓몬 페이지 캐노니컬 url을 반환
+ * @description 포켓몬 페이지 캐노니컬 url을 반환 (Path 기반)
  * @param activeType 활성화된 포켓몬 모습
- * @param pokemonNumber  포켓몬 도감 번호
+ * @param activeIndex 활성화된 폼 인덱스
+ * @param pokemonNumber 포켓몬 도감 번호
  * @param isShiny 이로치 활성화 상태
+ *
+ * URL 패턴:
+ * - 기본: /detail/{number}
+ * - 메가진화: /detail/{number}/mega 또는 /detail/{number}/mega/{index}
+ * - 리전폼: /detail/{number}/region 또는 /detail/{number}/region/{index}
+ * - 이로치: ?shinyMode=shiny (쿼리 파라미터로 유지)
  */
 export const getSeoCanonicalUrl: GetSeoCanonicalUrlFn = ({
   activeType,
@@ -140,23 +147,25 @@ export const getSeoCanonicalUrl: GetSeoCanonicalUrlFn = ({
   pokemonNumber,
   isShiny,
 }) => {
-  const isNoramlActive = activeType === 'normal' || activeType === undefined
-  const isFirstActiveIndex = activeIndex === 0 || activeIndex === undefined
-
   const baseUrl = `https://poke-korea.com/detail/${pokemonNumber}`
-  const activeTypeQuery = isNoramlActive
-    ? undefined
-    : `activeType=${activeType}`
-  const activeIndexQuery = isFirstActiveIndex
-    ? undefined
-    : `activeIndex=${activeIndex}`
-  const shinyQuery = isShiny ? 'shinyMode=shiny' : undefined
+  const shinyQuery = isShiny ? '?shinyMode=shiny' : ''
 
-  const queryParams = [activeTypeQuery, activeIndexQuery, shinyQuery]
-    .filter((param) => param !== undefined)
-    .join('&')
+  // 메가진화
+  if (activeType === 'mega') {
+    const path =
+      activeIndex > 0 ? `${baseUrl}/mega/${activeIndex}` : `${baseUrl}/mega`
+    return `${path}${shinyQuery}`
+  }
 
-  return queryParams ? `${baseUrl}?${queryParams}` : baseUrl
+  // 리전폼
+  if (activeType === 'region') {
+    const path =
+      activeIndex > 0 ? `${baseUrl}/region/${activeIndex}` : `${baseUrl}/region`
+    return `${path}${shinyQuery}`
+  }
+
+  // 기본폼
+  return `${baseUrl}${shinyQuery}`
 }
 
 /**

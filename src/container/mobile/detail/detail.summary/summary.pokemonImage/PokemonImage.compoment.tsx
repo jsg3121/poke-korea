@@ -1,5 +1,5 @@
 'use client'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
@@ -14,11 +14,11 @@ const PokemonImageCompoment = () => {
     megaEvolutions,
     regionFormInfo,
     activeType,
+    activeIndex,
     normalFormImageList,
   } = useContext(DetailContext)
   const router = useRouter()
   const routerQuery = useSearchParams()
-  const pathname = usePathname()
 
   const getImageList = () => {
     switch (activeType) {
@@ -75,18 +75,31 @@ const PokemonImageCompoment = () => {
   }
 
   const handleSlideChange = (data: SwiperClass) => {
-    const params = new URLSearchParams(routerQuery)
+    const newIndex = data.activeIndex
+    const isShiny = routerQuery.get('shinyMode') === 'shiny'
+    const shinyQuery = isShiny ? '?shinyMode=shiny' : ''
+    const baseUrl = `/detail/${pokemonBaseInfo?.number}`
 
-    const activeIndex = data.activeIndex
-    params.set('activeIndex', activeIndex.toString())
+    let newPath: string
+    if (activeType === 'mega') {
+      newPath = newIndex > 0 ? `${baseUrl}/mega/${newIndex}` : `${baseUrl}/mega`
+    } else if (activeType === 'region') {
+      newPath =
+        newIndex > 0 ? `${baseUrl}/region/${newIndex}` : `${baseUrl}/region`
+    } else {
+      // 기본폼은 activeIndex를 쿼리 파라미터로 유지
+      const indexQuery = newIndex > 0 ? `activeIndex=${newIndex}` : ''
+      const queryString = [indexQuery, isShiny ? 'shinyMode=shiny' : '']
+        .filter(Boolean)
+        .join('&')
+      newPath = queryString ? `${baseUrl}?${queryString}` : baseUrl
+      router.replace(newPath, { scroll: false })
+      return
+    }
 
-    router.replace(`${pathname}?${params.toString()}`)
+    router.replace(`${newPath}${shinyQuery}`, { scroll: false })
   }
 
-  const defaultIndex = parseInt(
-    (routerQuery.get('activeIndex') as string) ?? '0',
-    10,
-  )
   const imageList = getImageList()
 
   return (
@@ -107,7 +120,7 @@ const PokemonImageCompoment = () => {
           onSlideChange={handleSlideChange}
           draggable={false}
           speed={150}
-          initialSlide={defaultIndex}
+          initialSlide={activeIndex}
           cssMode
         >
           {imageList.map((item, index) => {
@@ -138,7 +151,7 @@ const PokemonImageCompoment = () => {
                         fetchPriority: 'high',
                       }
                     : {
-                        ...(index === defaultIndex
+                        ...(index === activeIndex
                           ? {
                               fetchPriority: 'high',
                             }
