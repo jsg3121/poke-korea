@@ -19,7 +19,10 @@ const LevelLearnableSkillComponent = () => {
         ? `/detail/${pokemonId}/moves/region/${activeIndex}`
         : `/detail/${pokemonId}/moves/region`
     }
-    return `/detail/${pokemonId}/moves`
+    // 기본폼의 경우 activeIndex가 0이 아니면 쿼리 파라미터로 전달
+    return activeIndex > 0
+      ? `/detail/${pokemonId}/moves?activeIndex=${activeIndex}`
+      : `/detail/${pokemonId}/moves`
   }
 
   return (

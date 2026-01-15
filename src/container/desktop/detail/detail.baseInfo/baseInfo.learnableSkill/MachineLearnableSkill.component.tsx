@@ -21,7 +21,10 @@ const MachineLearnableSkillComponent = () => {
           : `/detail/${pokemonId}/moves/region`
       return `${basePath}?movesType=MACHINE`
     }
-    return `/detail/${pokemonId}/moves?movesType=MACHINE`
+    // 기본폼의 경우 activeIndex가 0이 아니면 쿼리 파라미터로 전달
+    const queryParams = ['movesType=MACHINE']
+    if (activeIndex > 0) queryParams.push(`activeIndex=${activeIndex}`)
+    return `/detail/${pokemonId}/moves?${queryParams.join('&')}`
   }
 
   return (

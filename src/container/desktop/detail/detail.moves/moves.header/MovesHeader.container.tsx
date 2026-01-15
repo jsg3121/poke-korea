@@ -80,7 +80,9 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             ? activeIndex && activeIndex !== '0'
               ? `/detail/${pokemonId}/region/${activeIndex}`
               : `/detail/${pokemonId}/region`
-            : `/detail/${pokemonId}`
+            : activeIndex && activeIndex !== '0'
+              ? `/detail/${pokemonId}?activeIndex=${activeIndex}`
+              : `/detail/${pokemonId}`
         }
         className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 text-aligned-xl"
       >
