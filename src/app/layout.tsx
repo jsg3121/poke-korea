@@ -9,6 +9,12 @@ import { detectUserAgent } from '~/module/device.module'
 import { DeviceProvider } from '~/context/Device.context'
 import { getCssFiles, getFontFiles } from '~/utils/getCssFiles'
 
+if (process.env.NODE_ENV === 'development') {
+  require('~/styles/globals.css')
+  require('swiper/css')
+  require('swiper/css/navigation')
+}
+
 export const viewport: Viewport = {
   themeColor: '#27374D',
   width: 'device-width',

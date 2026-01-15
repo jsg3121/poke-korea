@@ -1,8 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
-import { useDebounce } from '~/hook/useDebounce'
+import { useDebouncedCallback } from '~/hook/useDebounce'
 
 interface AbilitySearchProps {
   totalCount: number
@@ -13,22 +12,21 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const [debouncedKeyword, debounce] = useDebounce()
-
-  useEffect(() => {
+  const updateSearchParams = useDebouncedCallback((value: string) => {
     const queryString = new URLSearchParams(params)
-    queryString.set('search', debouncedKeyword.trim())
+    const trimmedValue = value.trim()
 
-    if (queryString.get('search')) {
+    if (trimmedValue) {
+      queryString.set('search', trimmedValue)
       router.replace(`${pathname}?${queryString}`, { scroll: false })
     } else {
+      queryString.delete('search')
       router.replace(`${pathname}`, { scroll: false })
     }
-  }, [debouncedKeyword])
+  })
 
   const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    debounce(value)
+    updateSearchParams(e.target.value)
   }
 
   return (
@@ -38,6 +36,7 @@ const AbilitySearchComponent = ({ totalCount }: AbilitySearchProps) => {
           <input
             type="search"
             onChange={handleChangeSearch}
+            defaultValue={params.get('search') || ''}
             placeholder="특성 이름으로 검색하세요"
             className="w-full h-12 px-4 border-2 border-solid border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none"
           />
