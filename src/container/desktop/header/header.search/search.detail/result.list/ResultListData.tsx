@@ -30,7 +30,7 @@ const ResultListData = ({
     switch (formType) {
       case 'NORMAL_FORM': {
         return formIndex > 0
-          ? `/detail/${number}?activeIndex=${formIndex}`
+          ? `/detail/${number}/form/${formIndex}`
           : `/detail/${number}`
       }
       case 'MEGA': {
