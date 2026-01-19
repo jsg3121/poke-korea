@@ -18,10 +18,12 @@
 /detail/6?activeType=mega
 /detail/6?activeType=mega&activeIndex=1
 /detail/19?activeType=region
+/detail/25?activeIndex=1  # 기본폼 (폼체인지)
 
 # 기술 페이지
 /detail/19/moves?activeType=region
 /detail/19/moves?activeType=region&activeIndex=1
+/detail/25/moves?activeIndex=1  # 기본폼 기술 (폼체인지)
 ```
 
 ### 변경 후 URL 패턴
@@ -31,10 +33,12 @@
 /detail/6/mega
 /detail/6/mega/1
 /detail/19/region
+/detail/25/form/1  # 기본폼 (폼체인지)
 
 # 기술 페이지
 /detail/19/moves/region
 /detail/19/moves/region/1
+/detail/25/moves/form/1  # 기본폼 기술 (폼체인지)
 ```
 
 ## ✨ 주요 변경사항
@@ -59,6 +63,9 @@ src/app/detail/
 │   │   │   ├── parseFormParams.ts      # URL 파라미터 파싱 모듈
 │   │   │   ├── fetchDetailData.ts      # 데이터 페칭 모듈
 │   │   │   └── generateMetadata.ts     # 메타데이터 생성 모듈
+│   │   ├── form/
+│   │   │   └── [[...index]]/
+│   │   │       └── page.tsx            # 기본폼 페이지 (폼체인지)
 │   │   ├── mega/
 │   │   │   └── [[...index]]/
 │   │   │       └── page.tsx            # 메가진화 페이지
@@ -68,6 +75,9 @@ src/app/detail/
 │   │   └── page.tsx                    # 기본폼 페이지
 │   ├── moves/
 │   │   ├── page.tsx                    # 기본폼 기술 페이지
+│   │   ├── form/
+│   │   │   └── [[...index]]/
+│   │   │       └── page.tsx            # 기본폼 기술 페이지 (폼체인지)
 │   │   └── region/
 │   │       └── [[...index]]/
 │   │           └── page.tsx            # 리전폼 기술 페이지
@@ -118,10 +128,12 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 /detail/6?activeType=mega → /detail/6/mega
 /detail/6?activeType=mega&activeIndex=1 → /detail/6/mega/1
 /detail/19?activeType=region → /detail/19/region
+/detail/25?activeIndex=1 → /detail/25/form/1  // 기본폼 (폼체인지)
 
 // 예시 - 기술 페이지
 /detail/19/moves?activeType=region → /detail/19/moves/region
 /detail/19/moves?activeType=region&activeIndex=1 → /detail/19/moves/region/1
+/detail/25/moves?activeIndex=1 → /detail/25/moves/form/1  // 기본폼 기술 (폼체인지)
 ```
 
 ## 📊 SEO 개선 효과
@@ -149,6 +161,7 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 | 파일                                                                                          | 변경 내용                            |
 | --------------------------------------------------------------------------------------------- | ------------------------------------ |
 | `src/app/detail/[pokemonId]/(form)/page.tsx`                                                  | 신규 - 기본폼 페이지                 |
+| `src/app/detail/[pokemonId]/(form)/form/[[...index]]/page.tsx`                                | 신규 - 기본폼 페이지 (폼체인지)      |
 | `src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx`                                | 신규 - 메가진화 페이지               |
 | `src/app/detail/[pokemonId]/(form)/region/[[...index]]/page.tsx`                              | 신규 - 리전폼 페이지                 |
 | `src/app/detail/[pokemonId]/(form)/modules/parseFormParams.ts`                                | 신규 - URL 파라미터 파싱             |
@@ -172,10 +185,11 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 | `src/container/desktop/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
 | `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/LevelLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
 | `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
-| `src/app/detail/[pokemonId]/moves/page.tsx`                                                   | region 쿼리 파라미터 리다이렉트 추가 |
+| `src/app/detail/[pokemonId]/moves/page.tsx`                                                   | region, activeIndex 쿼리 파라미터 리다이렉트 추가 |
+| `src/app/detail/[pokemonId]/moves/form/[[...index]]/page.tsx`                                 | 신규 - 기본폼 기술 페이지 (폼체인지) |
 | `src/app/detail/[pokemonId]/moves/region/[[...index]]/page.tsx`                               | 신규 - 리전폼 기술 페이지            |
-| `src/module/generateDetailSeoMetaData.ts`                                                     | 캐노니컬 URL Path 기반 생성          |
-| `next.config.js`                                                                              | 301 리다이렉트 규칙 + 캐시 헤더 추가 |
+| `src/module/generateDetailSeoMetaData.ts`                                                     | 캐노니컬 URL Path 기반 생성 (form 포함) |
+| `next.config.js`                                                                              | 301 리다이렉트 규칙 + 캐시 헤더 추가 (form 포함) |
 
 ## ✅ 테스트 체크리스트
 
@@ -191,11 +205,16 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 - [x] 검색 결과에서 링크 정상 동작
 - [x] 기존 쿼리 파라미터 URL 301 리다이렉트
 - [x] moves 페이지에서 상세 정보 보러가기 링크 정상 동작
-- [ ] 리전폼 기술 페이지 접근 (/detail/19/moves/region)
-- [ ] 리전폼 기술 페이지 폼 전환 동작 확인
-- [ ] 리전폼 기술 페이지 버전 선택 동작 확인
-- [ ] 상세 페이지에서 "더 많은 기술 보기" 링크 정상 동작 (리전폼)
-- [ ] 기존 쿼리 파라미터 URL 리다이렉트 (/detail/19/moves?activeType=region → /detail/19/moves/region)
+- [x] 리전폼 기술 페이지 접근 (/detail/19/moves/region)
+- [x] 리전폼 기술 페이지 폼 전환 동작 확인
+- [x] 리전폼 기술 페이지 버전 선택 동작 확인
+- [x] 상세 페이지에서 "더 많은 기술 보기" 링크 정상 동작 (리전폼)
+- [x] 기존 쿼리 파라미터 URL 리다이렉트 (/detail/19/moves?activeType=region → /detail/19/moves/region)
+- [x] 기본폼 페이지 접근 (/detail/25/form/1)
+- [x] 기본폼 기술 페이지 접근 (/detail/25/moves/form/1)
+- [x] 기본폼 폼 전환 동작 확인
+- [x] 기존 쿼리 파라미터 URL 리다이렉트 (/detail/25?activeIndex=1 → /detail/25/form/1)
+- [x] 기존 쿼리 파라미터 URL 리다이렉트 (/detail/25/moves?activeIndex=1 → /detail/25/moves/form/1)
 
 ## 📝 향후 작업
 

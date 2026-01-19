@@ -137,6 +137,7 @@ export const getSeoDescription: GetSeoDescriptionFn = ({
  *
  * URL 패턴:
  * - 기본: /detail/{number}
+ * - 기본폼 (폼체인지): /detail/{number}/form/{index}
  * - 메가진화: /detail/{number}/mega 또는 /detail/{number}/mega/{index}
  * - 리전폼: /detail/{number}/region 또는 /detail/{number}/region/{index}
  * - 이로치: ?shinyMode=shiny (쿼리 파라미터로 유지)
@@ -162,6 +163,11 @@ export const getSeoCanonicalUrl: GetSeoCanonicalUrlFn = ({
     const path =
       activeIndex > 0 ? `${baseUrl}/region/${activeIndex}` : `${baseUrl}/region`
     return `${path}${shinyQuery}`
+  }
+
+  // 기본폼 (폼체인지가 있는 경우 activeIndex > 0이면 Path 기반 URL 사용)
+  if (activeIndex > 0) {
+    return `${baseUrl}/form/${activeIndex}${shinyQuery}`
   }
 
   // 기본폼

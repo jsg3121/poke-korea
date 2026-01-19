@@ -33,14 +33,8 @@ const PokemonImageCompoment = () => {
       newPath =
         newIndex > 0 ? `${baseUrl}/region/${newIndex}` : `${baseUrl}/region`
     } else {
-      // 기본폼은 activeIndex를 쿼리 파라미터로 유지
-      const indexQuery = newIndex > 0 ? `activeIndex=${newIndex}` : ''
-      const queryString = [indexQuery, isShiny ? 'shinyMode=shiny' : '']
-        .filter(Boolean)
-        .join('&')
-      newPath = queryString ? `${baseUrl}?${queryString}` : baseUrl
-      router.replace(newPath, { scroll: false })
-      return
+      // 기본폼도 Path 기반 URL 사용
+      newPath = newIndex > 0 ? `${baseUrl}/form/${newIndex}` : baseUrl
     }
 
     router.replace(`${newPath}${shinyQuery}`, { scroll: false })

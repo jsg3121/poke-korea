@@ -64,6 +64,22 @@ const nextConfig = {
         destination: '/detail/:pokemonId/moves/region',
         permanent: true,
       },
+      // 기존 쿼리 파라미터 URL → 새 Path URL (기본폼 - normalForm)
+      {
+        source: '/detail/:pokemonId',
+        has: [{ type: 'query', key: 'activeIndex' }],
+        missing: [{ type: 'query', key: 'activeType' }],
+        destination: '/detail/:pokemonId/form/:activeIndex',
+        permanent: true,
+      },
+      // 기존 쿼리 파라미터 URL → 새 Path URL (기술 페이지 기본폼 - normalForm)
+      {
+        source: '/detail/:pokemonId/moves',
+        has: [{ type: 'query', key: 'activeIndex' }],
+        missing: [{ type: 'query', key: 'activeType' }],
+        destination: '/detail/:pokemonId/moves/form/:activeIndex',
+        permanent: true,
+      },
     ]
   },
   async headers() {
@@ -140,6 +156,26 @@ const nextConfig = {
         ],
       },
       {
+        // 기본폼 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/form',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 기본폼 페이지 (인덱스) - 장기간 캐싱
+        source: '/detail/:pokemonId/form/:formIndex',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
         // 기술 페이지 - 장기간 캐싱
         source: '/detail/:pokemonId/moves',
         headers: [
@@ -162,6 +198,26 @@ const nextConfig = {
       {
         // 리전폼 기술 페이지 (인덱스) - 장기간 캐싱
         source: '/detail/:pokemonId/moves/region/:formIndex',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 기본폼 기술 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/moves/form',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 기본폼 기술 페이지 (인덱스) - 장기간 캐싱
+        source: '/detail/:pokemonId/moves/form/:formIndex',
         headers: [
           {
             key: 'Cache-Control',

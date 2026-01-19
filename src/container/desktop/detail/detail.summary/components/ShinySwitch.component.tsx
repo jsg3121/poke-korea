@@ -25,7 +25,8 @@ const ShinySwitch = ({ searchParams }: ShinySwitchProps) => {
         ? `${baseUrl}/region/${activeIndex}`
         : `${baseUrl}/region`
     }
-    return baseUrl
+    // 기본폼도 activeIndex > 0이면 Path 기반 URL 사용
+    return activeIndex > 0 ? `${baseUrl}/form/${activeIndex}` : baseUrl
   }
 
   const switchHref = isShiny

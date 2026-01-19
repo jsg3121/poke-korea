@@ -81,7 +81,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               ? `/detail/${pokemonId}/region/${activeIndex}`
               : `/detail/${pokemonId}/region`
             : activeIndex && activeIndex !== '0'
-              ? `/detail/${pokemonId}?activeIndex=${activeIndex}`
+              ? `/detail/${pokemonId}/form/${activeIndex}`
               : `/detail/${pokemonId}`
         }
         className="w-fit h-[3rem] block bg-primary-2 rounded-[0.75rem] px-4 mb-4 text-primary-4 text-aligned-xl"
@@ -141,14 +141,9 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                         ? Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0) > 0
                           ? `/detail/${pokemonId}/moves/region/${Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0)}`
                           : `/detail/${pokemonId}/moves/region`
-                        : {
-                            query: {
-                              activeIndex: Math.max(
-                                parseInt(activeIndex ?? '1', 10) - 1,
-                                0,
-                              ),
-                            },
-                          }
+                        : Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0) > 0
+                          ? `/detail/${pokemonId}/moves/form/${Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0)}`
+                          : `/detail/${pokemonId}/moves`
                     }
                     className={`w-[4rem] h-8 shrink-0 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === '0'
@@ -162,14 +157,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                     href={
                       activeType === 'region'
                         ? `/detail/${pokemonId}/moves/region/${Math.min(parseInt(activeIndex ?? '0', 10) + 1, formDataLength - 1)}`
-                        : {
-                            query: {
-                              activeIndex: Math.min(
-                                parseInt(activeIndex ?? '0', 10) + 1,
-                                formDataLength - 1,
-                              ),
-                            },
-                          }
+                        : `/detail/${pokemonId}/moves/form/${Math.min(parseInt(activeIndex ?? '0', 10) + 1, formDataLength - 1)}`
                     }
                     className={`w-[4rem] h-8 shrink-0 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
                       activeIndex === `${formDataLength - 1}`
@@ -211,16 +199,12 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                     : `/detail/${pokemonId}/moves/region`
                 return `${basePath}?selectVersion=${item?.versionGroupId}`
               }
-              return {
-                pathname: `/detail/${pokemonId}/moves`,
-                query: {
-                  selectVersion: item?.versionGroupId,
-                  ...(activeIndex &&
-                    activeIndex !== '0' && {
-                      activeIndex: parseInt(activeIndex, 10),
-                    }),
-                },
-              }
+              // 기본폼도 Path 기반 URL 사용
+              const basePath =
+                activeIndex && activeIndex !== '0'
+                  ? `/detail/${pokemonId}/moves/form/${activeIndex}`
+                  : `/detail/${pokemonId}/moves`
+              return `${basePath}?selectVersion=${item?.versionGroupId}`
             }
             return (
               <Link
