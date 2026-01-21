@@ -275,14 +275,6 @@ const nextConfig = {
             ...config.optimization.splitChunks,
             cacheGroups: {
               ...config.optimization.splitChunks?.cacheGroups,
-              // Swiper CSS 분리
-              swiperStyles: {
-                name: 'swiper',
-                test: /[\\/]node_modules[\\/]swiper[\\/].*\.css$/,
-                chunks: 'all',
-                enforce: true,
-                priority: 30,
-              },
               // Global CSS 분리
               globalStyles: {
                 name: 'global',
@@ -308,11 +300,7 @@ const nextConfig = {
           const entries = await originalEntry()
 
           // 빌드에 포함할 CSS 파일
-          const criticalCssFiles = [
-            './src/styles/globals.css',
-            'swiper/css',
-            'swiper/css/navigation',
-          ]
+          const criticalCssFiles = ['./src/styles/globals.css']
 
           const targetLayoutKey = 'pages/_app'
 

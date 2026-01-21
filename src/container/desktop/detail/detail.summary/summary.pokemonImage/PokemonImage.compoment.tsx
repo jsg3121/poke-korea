@@ -1,12 +1,12 @@
 'use client'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
-import { Navigation } from 'swiper/modules'
-import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
 import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
-import { imageMode } from '~/module/buildMode'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+import IndicatorComponent from '../../../../../components/detail/Indicator.component'
+import NextFormButtonComponent from '../../../../../components/detail/NextFormButton.component'
+import PrevFormButtonComponent from '../../../../../components/detail/PrevFormButton.component'
+import { getAltText, getImageList, getImageSrc } from '~/module/image.module'
 
 const PokemonImageCompoment = () => {
   const {
@@ -17,150 +17,100 @@ const PokemonImageCompoment = () => {
     activeIndex,
     normalFormImageList,
   } = useContext(DetailContext)
-  const router = useRouter()
   const routerQuery = useSearchParams()
 
-  const handleSlideChange = (data: SwiperClass) => {
-    const newIndex = data.activeIndex
-    const isShiny = routerQuery.get('shinyMode') === 'shiny'
-    const shinyQuery = isShiny ? '?shinyMode=shiny' : ''
-    const baseUrl = `/detail/${pokemonBaseInfo?.number}`
+  const isShiny = routerQuery.get('shinyMode') === 'shiny'
 
-    let newPath: string
-    if (activeType === 'mega') {
-      newPath = newIndex > 0 ? `${baseUrl}/mega/${newIndex}` : `${baseUrl}/mega`
-    } else if (activeType === 'region') {
-      newPath =
-        newIndex > 0 ? `${baseUrl}/region/${newIndex}` : `${baseUrl}/region`
-    } else {
-      // 기본폼도 Path 기반 URL 사용
-      newPath = newIndex > 0 ? `${baseUrl}/form/${newIndex}` : baseUrl
-    }
+  const imageList = getImageList({
+    activeType,
+    normalFormImageList,
+    megaEvolutions,
+    regionFormInfo,
+    name: pokemonBaseInfo?.name ?? '',
+    types: pokemonBaseInfo?.types,
+    pokemonNumber: pokemonBaseInfo?.number,
+  })
+  const totalCount = imageList?.length ?? 0
+  const hasPrev = activeIndex > 0
+  const hasNext = activeIndex < totalCount - 1
+  const hasMultipleForms = totalCount > 1
 
-    router.replace(`${newPath}${shinyQuery}`, { scroll: false })
-  }
-
-  const getImageList = () => {
-    switch (activeType) {
-      case 'mega': {
-        const megaImages = megaEvolutions?.map((mega, index) => {
-          return {
-            imageCode: parseInt(
-              `1${mega.pokemonId.toString().padStart(3, '0')}${index
-                ?.toString()
-                .padStart(2, '0')}`,
-              10,
-            ),
-            types: mega.types,
-            name: mega.name,
-          }
-        })
-        return megaImages
-      }
-      case 'region': {
-        const regionImages = regionFormInfo?.map((region, index) => {
-          return {
-            imageCode: parseInt(
-              `2${region.pokemonId.toString().padStart(3, '0')}${index
-                ?.toString()
-                .padStart(2, '0')}`,
-              10,
-            ),
-            types: region.types,
-            name: region.name,
-          }
-        })
-        return regionImages
-      }
-      default: {
-        if (normalFormImageList && normalFormImageList.length > 0) {
-          const nomalFormImages = normalFormImageList?.map((imagePath) => {
-            return {
-              imageCode: imagePath,
-              types: pokemonBaseInfo?.types,
-              name: pokemonBaseInfo?.name,
-            }
-          })
-          return nomalFormImages
-        } else {
-          const pokemonData = {
-            imageCode: pokemonBaseInfo?.number,
-            types: pokemonBaseInfo?.types,
-            name: pokemonBaseInfo?.name,
-          }
-          return [pokemonData]
-        }
-      }
-    }
-  }
-
-  const imageList = getImageList()
+  const currentItem = imageList?.[activeIndex]
+  const prevItem = hasPrev ? imageList?.[activeIndex - 1] : null
+  const nextItem = hasNext ? imageList?.[activeIndex + 1] : null
 
   return (
-    <div
-      className="w-[30rem] h-[25rem] [filter:drop-shadow(0px_-3px_3px_#000000)] [&_.swiper-slide>figure]:mx-auto"
+    <article
+      className="w-[35rem] h-[25rem] [filter:drop-shadow(0px_-3px_3px_#000000)] flex items-center justify-center relative"
       aria-labelledby="pokemon-image-slide"
       role="region"
-      aria-roledescription="carousel"
     >
       <p className="sr-only" id="pokemon-image-slide">
         포켓몬 이미지 정보
       </p>
-      {imageList && (
-        <Swiper
-          key={`pokemon-id-${pokemonBaseInfo?.number}`}
-          navigation={true}
-          modules={[Navigation]}
-          onSlideChange={handleSlideChange}
-          draggable={false}
-          speed={150}
-          initialSlide={activeIndex}
-          cssMode
-        >
-          {imageList.map((item, index) => {
-            const imageSrc =
-              routerQuery.get('shinyMode') === 'shiny'
-                ? `${imageMode}/shiny/${item.imageCode}.webp`
-                : `${imageMode}/${item.imageCode}.webp`
-
-            const typeText = item.types
-              ?.map((type) => PokemonTypes[type])
-              .join('/')
-
-            const altText = `${typeText} 타입 포켓몬 ${item.name || pokemonBaseInfo?.name}${activeType === 'region' ? ' 리전폼' : ''}${routerQuery.get('shinyMode') === 'shiny' ? ' 이로치' : ''}의 이미지`
-
-            return (
-              <SwiperSlide key={`pokemon-image-id-${item.imageCode}`}>
-                <ImageComponent
-                  src={imageSrc}
-                  width="25rem"
-                  height="25rem"
-                  alt={altText}
-                  className="pokemon-main"
-                  {...(normalFormImageList.length === 0
-                    ? {
-                        fetchPriority: 'high',
-                      }
-                    : {
-                        ...(index === activeIndex
-                          ? {
-                              fetchPriority: 'high',
-                            }
-                          : {
-                              loading: 'lazy',
-                            }),
-                      })}
-                  imageSize={{
-                    width: 400,
-                    height: 400,
-                  }}
-                />
-              </SwiperSlide>
-            )
+      {hasMultipleForms && prevItem && (
+        <PrevFormButtonComponent
+          activeIndex={activeIndex}
+          activeType={activeType}
+          imageAlt={getAltText({
+            activeType,
+            isShiny,
+            name: pokemonBaseInfo?.name ?? '',
+            item: prevItem,
           })}
-        </Swiper>
+          imageSrc={getImageSrc({ imageCode: prevItem.imageCode, isShiny })}
+          name={prevItem.name}
+          pokemonNumber={pokemonBaseInfo?.number ?? 0}
+          isShiny={isShiny}
+        />
       )}
-    </div>
+      {currentItem && (
+        <div className="flex-center">
+          <ImageComponent
+            src={getImageSrc({ imageCode: currentItem.imageCode, isShiny })}
+            width="25rem"
+            height="25rem"
+            alt={getAltText({
+              activeType,
+              isShiny,
+              name: pokemonBaseInfo?.name ?? '',
+              item: currentItem,
+            })}
+            className="pokemon-main"
+            fetchPriority="high"
+            imageSize={{
+              width: 400,
+              height: 400,
+            }}
+          />
+        </div>
+      )}
+      {hasMultipleForms && nextItem && (
+        <NextFormButtonComponent
+          activeIndex={activeIndex}
+          activeType={activeType}
+          imageAlt={getAltText({
+            activeType,
+            isShiny,
+            name: pokemonBaseInfo?.name ?? '',
+            item: nextItem,
+          })}
+          imageSrc={getImageSrc({ imageCode: nextItem.imageCode, isShiny })}
+          name={nextItem.name}
+          pokemonNumber={pokemonBaseInfo?.number ?? 0}
+          isShiny={isShiny}
+        />
+      )}
+      {hasMultipleForms && (
+        <IndicatorComponent
+          activeIndex={activeIndex}
+          activeType={activeType}
+          isShiny={isShiny}
+          pokemonNumber={pokemonBaseInfo?.number ?? 0}
+          totalCount={totalCount}
+        />
+      )}
+    </article>
   )
 }
 
