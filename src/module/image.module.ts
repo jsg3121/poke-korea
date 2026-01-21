@@ -42,7 +42,7 @@ export const getImageList: GetImageListFn = ({
       const megaImages = megaEvolutions?.map((mega, index) => {
         return {
           imageCode: `1${mega.pokemonId.toString().padStart(3, '0')}${index
-            ?.toString()
+            .toString()
             .padStart(2, '0')}`,
           types: mega.types,
           name: mega.name,
@@ -54,7 +54,7 @@ export const getImageList: GetImageListFn = ({
       const regionImages = regionFormInfo?.map((region, index) => {
         return {
           imageCode: `2${region.pokemonId.toString().padStart(3, '0')}${index
-            ?.toString()
+            .toString()
             .padStart(2, '0')}`,
           types: region.types,
           name: region.name,
@@ -64,14 +64,14 @@ export const getImageList: GetImageListFn = ({
     }
     default: {
       if (normalFormImageList && normalFormImageList.length > 0) {
-        const nomalFormImages = normalFormImageList?.map((imagePath) => {
+        const normalFormImages = normalFormImageList?.map((imagePath) => {
           return {
             imageCode: imagePath,
             types: types,
             name: name,
           }
         })
-        return nomalFormImages
+        return normalFormImages
       } else {
         const pokemonData = {
           imageCode: pokemonNumber?.toString() || '',

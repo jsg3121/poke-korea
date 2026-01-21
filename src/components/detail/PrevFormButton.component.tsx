@@ -23,7 +23,7 @@ const PrevFormButtonComponent = ({
   isShiny,
 }: PrevFormButtonComponentProps) => {
   return (
-    <i className="absolute left-0 top-1/2 w-24 h-24 z-10">
+    <div className="absolute left-0 top-1/2 w-24 h-24 z-10">
       <Link
         href={getFormUrl({
           activeIndex: activeIndex - 1,
@@ -32,7 +32,7 @@ const PrevFormButtonComponent = ({
           isShiny,
         })}
         className="block w-full h-full opacity-60 hover:opacity-90 transition-opacity"
-        aria-label={`다음 폼: ${name}`}
+        aria-label={`이전 폼: ${name}`}
         prefetch={true}
       >
         <ImageComponent
@@ -44,7 +44,7 @@ const PrevFormButtonComponent = ({
           loading="lazy"
         />
       </Link>
-    </i>
+    </div>
   )
 }
 

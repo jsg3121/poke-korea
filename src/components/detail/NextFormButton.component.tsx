@@ -23,7 +23,7 @@ const NextFormButtonComponent = ({
   isShiny,
 }: NextFormButtonComponentProps) => {
   return (
-    <i className="absolute right-0 top-1/2 w-24 h-24 z-10">
+    <div className="absolute right-0 top-1/2 w-24 h-24 z-10">
       <Link
         href={getFormUrl({
           activeIndex: activeIndex + 1,
@@ -44,7 +44,7 @@ const NextFormButtonComponent = ({
           loading="lazy"
         />
       </Link>
-    </i>
+    </div>
   )
 }
 
