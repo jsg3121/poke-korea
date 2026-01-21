@@ -107,16 +107,28 @@ export const fetchNormalFormData = async (
  */
 export const fetchMegaEvolutionData = async (
   pokemonId: number,
-): Promise<PokemonMegaEvolution[]> => {
+): Promise<{
+  megaEvolutionData: PokemonMegaEvolution[]
+  versionGroupData: VersionGroup[]
+}> => {
   const apolloClient = initializeApollo()
 
-  const { data } = await apolloClient.query<GetPokemonMegaEvolutionQuery>({
-    query: GetPokemonMegaEvolutionDocument,
-    variables: { pokemonId },
-    fetchPolicy: 'cache-first',
-  })
+  const [{ data: megaData }, { data: versionGroup }] = await Promise.all([
+    apolloClient.query<GetPokemonMegaEvolutionQuery>({
+      query: GetPokemonMegaEvolutionDocument,
+      variables: { pokemonId },
+      fetchPolicy: 'cache-first',
+    }),
+    apolloClient.query<GetVersionGroupsQuery>({
+      query: GetVersionGroupsDocument,
+      fetchPolicy: 'cache-first',
+    }),
+  ])
 
-  return data?.getPokemonMegaEvolution ?? []
+  return {
+    megaEvolutionData: megaData?.getPokemonMegaEvolution ?? [],
+    versionGroupData: versionGroup?.getVersionGroups ?? [],
+  }
 }
 
 /**

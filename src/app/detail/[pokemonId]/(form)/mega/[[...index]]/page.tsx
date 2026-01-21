@@ -44,7 +44,7 @@ export const generateMetadata = async ({
     throw new Error('no pokemon data')
   }
 
-  const megaEvolutionData = await fetchMegaEvolutionData(parsedPokemonId)
+  const { megaEvolutionData } = await fetchMegaEvolutionData(parsedPokemonId)
 
   return generateDetailMetadata({
     pokemonDetail,
@@ -88,7 +88,8 @@ const MegaPage = async ({ params, searchParams }: MegaPageProps) => {
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
-  const megaEvolutionData = await fetchMegaEvolutionData(parsedPokemonId)
+  const { megaEvolutionData, versionGroupData } =
+    await fetchMegaEvolutionData(parsedPokemonId)
 
   const props = {
     pokemonBaseInfo: pokemonDetail,
@@ -96,7 +97,7 @@ const MegaPage = async ({ params, searchParams }: MegaPageProps) => {
     megaEvolutionData,
     regionFormData: [],
     isShinyInfo: isShiny,
-    versionGroup: undefined,
+    versionGroup: versionGroupData.length > 0 ? versionGroupData : undefined,
     normalFormImageList: [],
     activeType: 'mega' as const,
     activeIndex,
