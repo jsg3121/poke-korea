@@ -169,8 +169,11 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 | `src/app/detail/[pokemonId]/(form)/modules/generateMetadata.ts`                               | 신규 - 메타데이터 생성 로직          |
 | `src/app/detail/[pokemonId]/page.tsx`                                                         | 삭제                                 |
 | `src/context/Detail.context.tsx`                                                              | activeType, activeIndex props 추가   |
-| `src/container/desktop/header/header.search/**/ResultListData.tsx`                            | Path URL 생성                        |
-| `src/container/mobile/header/header.search/**/ResultListData.tsx`                             | Path URL 생성                        |
+| `src/container/desktop/header/header.search/**/ResultListData.tsx`                            | Path URL 생성 (NORMAL_FORM 포함)     |
+| `src/container/mobile/header/header.search/**/ResultListData.tsx`                             | Path URL 생성 (NORMAL_FORM 포함)     |
+| `src/components/ability/PokemonByAbilityCard.component.tsx`                                   | href 객체 → 경로 문자열 변환         |
+| `src/components/moves/PokemonBySkillCard.component.tsx`                                       | href 객체 → 경로 문자열 변환         |
+| `src/app/sitemap.ts`                                                                          | 메가/리전 URL 경로 기반으로 변경     |
 | `src/container/desktop/detail/detail.summary/components/MegaSwitch.component.tsx`             | Path href 생성                       |
 | `src/container/desktop/detail/detail.summary/components/RegionSwitch.component.tsx`           | Path href 생성                       |
 | `src/container/desktop/detail/detail.summary/components/ShinySwitch.component.tsx`            | Path href 생성                       |
@@ -215,10 +218,14 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 - [x] 기본폼 폼 전환 동작 확인
 - [x] 기존 쿼리 파라미터 URL 리다이렉트 (/detail/25?activeIndex=1 → /detail/25/form/1)
 - [x] 기존 쿼리 파라미터 URL 리다이렉트 (/detail/25/moves?activeIndex=1 → /detail/25/moves/form/1)
+- [x] 사이트맵 메가/리전 URL 경로 기반으로 변경
+- [x] 특성 도감 카드 링크 경로 기반으로 변경
+- [x] 기술 도감 카드 링크 경로 기반으로 변경
+- [x] 전체 코드에서 activeType/activeIndex 쿼리 파라미터 URL 사용 부분 확인 및 수정
 
 ## 📝 향후 작업
 
-- 사이트맵 업데이트 검토 (메가진화/리전폼 URL 추가)
+- ~~사이트맵 업데이트 검토 (메가진화/리전폼 URL 추가)~~ ✅ 완료
 - Google Search Console에서 인덱싱 상태 모니터링
 
 ## 🚀 머지 정보
