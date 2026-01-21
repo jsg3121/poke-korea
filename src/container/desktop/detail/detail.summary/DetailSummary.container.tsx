@@ -19,12 +19,11 @@ const DetailSummaryContainer = () => {
     regionFormInfo,
     normalForm,
     activeType,
+    activeIndex,
   } = useContext(DetailContext)
   const routerQuery = useSearchParams()
 
   const newColor = changeColor(pokemonBaseInfo?.types ?? [])
-  const indexQuery = parseInt(routerQuery.get('activeIndex') as string, 10)
-  const activeIndex = routerQuery.get('activeIndex') ? indexQuery : 0
   const isShiny = routerQuery.get('shinyMode') === 'shiny'
 
   const getPokemonInfo = () => {

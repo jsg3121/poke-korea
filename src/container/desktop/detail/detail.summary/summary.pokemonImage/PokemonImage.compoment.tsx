@@ -1,5 +1,5 @@
 'use client'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
@@ -14,21 +14,30 @@ const PokemonImageCompoment = () => {
     megaEvolutions,
     regionFormInfo,
     activeType,
+    activeIndex,
     normalFormImageList,
   } = useContext(DetailContext)
   const router = useRouter()
   const routerQuery = useSearchParams()
-  const pathname = usePathname()
 
   const handleSlideChange = (data: SwiperClass) => {
-    const params = new URLSearchParams(routerQuery)
+    const newIndex = data.activeIndex
+    const isShiny = routerQuery.get('shinyMode') === 'shiny'
+    const shinyQuery = isShiny ? '?shinyMode=shiny' : ''
+    const baseUrl = `/detail/${pokemonBaseInfo?.number}`
 
-    const activeIndex = data.activeIndex
-    params.set('activeIndex', activeIndex.toString())
+    let newPath: string
+    if (activeType === 'mega') {
+      newPath = newIndex > 0 ? `${baseUrl}/mega/${newIndex}` : `${baseUrl}/mega`
+    } else if (activeType === 'region') {
+      newPath =
+        newIndex > 0 ? `${baseUrl}/region/${newIndex}` : `${baseUrl}/region`
+    } else {
+      // 기본폼도 Path 기반 URL 사용
+      newPath = newIndex > 0 ? `${baseUrl}/form/${newIndex}` : baseUrl
+    }
 
-    router.replace(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    })
+    router.replace(`${newPath}${shinyQuery}`, { scroll: false })
   }
 
   const getImageList = () => {
@@ -85,10 +94,6 @@ const PokemonImageCompoment = () => {
     }
   }
 
-  const defaultIndex = parseInt(
-    (routerQuery.get('activeIndex') as string) ?? '0',
-    10,
-  )
   const imageList = getImageList()
 
   return (
@@ -109,7 +114,7 @@ const PokemonImageCompoment = () => {
           onSlideChange={handleSlideChange}
           draggable={false}
           speed={150}
-          initialSlide={defaultIndex}
+          initialSlide={activeIndex}
           cssMode
         >
           {imageList.map((item, index) => {
@@ -137,7 +142,7 @@ const PokemonImageCompoment = () => {
                         fetchPriority: 'high',
                       }
                     : {
-                        ...(index === defaultIndex
+                        ...(index === activeIndex
                           ? {
                               fetchPriority: 'high',
                             }

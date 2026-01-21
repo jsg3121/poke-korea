@@ -152,7 +152,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
 
     const megaPages = megaData.getPokemonList.map((pokemon: PokemonList) => ({
-      url: `https://poke-korea.com/detail/${pokemon.number}?activeType=mega`,
+      url: `https://poke-korea.com/detail/${pokemon.number}/mega`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
@@ -160,7 +160,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const regionPages = regionData.getPokemonList.map(
       (pokemon: PokemonList) => ({
-        url: `https://poke-korea.com/detail/${pokemon.number}?activeType=region`,
+        url: `https://poke-korea.com/detail/${pokemon.number}/region`,
         lastModified: new Date(),
         changeFrequency: 'daily',
         priority: 0.7,
