@@ -20,20 +20,6 @@ const ImageComponent = ({
   src,
   ...imageProps
 }: ImageComponentProps) => {
-  // AVIF srcSet 생성 (고밀도 디스플레이 지원)
-  const generateAvifSrcSet = () => {
-    if (!src || !densities || densities.length === 0) return undefined
-
-    const baseUrl = src.split('?')[0]
-
-    return densities
-      .map((density) => {
-        const size = Math.round(imageSize.width * density)
-        return `${baseUrl}?w=${size}&h=${size}&q=80&format=avif ${density}x`
-      })
-      .join(', ')
-  }
-
   // WebP srcSet 생성 (고밀도 디스플레이 지원)
   const generateWebpSrcSet = () => {
     if (!src || !densities || densities.length === 0) return undefined
@@ -59,7 +45,6 @@ const ImageComponent = ({
   return (
     <figure className="relative" style={{ width, height }}>
       <picture className="w-full h-full block">
-        <source type="image/avif" srcSet={generateAvifSrcSet()} />
         <source type="image/webp" srcSet={generateWebpSrcSet()} />
         <img
           {...imageProps}
