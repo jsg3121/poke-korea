@@ -3,10 +3,10 @@ import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
-import IndicatorComponent from './components/Indicator.component'
-import NextFormButtonComponent from './components/NextFormButton.component'
-import PrevFormButtonComponent from './components/PrevFormButton.component'
-import { getAltText, getImageList, getImageSrc } from './module/image.module'
+import IndicatorComponent from '../../../../../components/detail/Indicator.component'
+import NextFormButtonComponent from '../../../../../components/detail/NextFormButton.component'
+import PrevFormButtonComponent from '../../../../../components/detail/PrevFormButton.component'
+import { getAltText, getImageList, getImageSrc } from '~/module/image.module'
 
 const PokemonImageCompoment = () => {
   const {
@@ -41,14 +41,13 @@ const PokemonImageCompoment = () => {
 
   return (
     <article
-      className="w-[30rem] h-[25rem] [filter:drop-shadow(0px_-3px_3px_#000000)] flex items-center justify-center relative"
+      className="w-[35rem] h-[25rem] [filter:drop-shadow(0px_-3px_3px_#000000)] flex items-center justify-center relative"
       aria-labelledby="pokemon-image-slide"
       role="region"
     >
       <p className="sr-only" id="pokemon-image-slide">
         포켓몬 이미지 정보
       </p>
-      {/* 이전 폼 미리보기 */}
       {hasMultipleForms && prevItem && (
         <PrevFormButtonComponent
           activeIndex={activeIndex}
@@ -65,7 +64,6 @@ const PokemonImageCompoment = () => {
           isShiny={isShiny}
         />
       )}
-      {/* 현재 폼 이미지 */}
       {currentItem && (
         <div className="flex-center">
           <ImageComponent

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { TActiveType } from '~/types/detailContext.type'
-import { getFormUrl } from '../module/image.module'
+import { getFormUrl } from '../../module/image.module'
 
 interface IndicatorComponentProps {
   activeType: TActiveType
@@ -20,8 +20,8 @@ const IndicatorComponent = ({
   isShiny,
 }: IndicatorComponentProps) => {
   return (
-    <i className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-      {new Array(totalCount).map((_, index) => (
+    <i className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2">
+      {new Array(totalCount).fill('').map((_, index) => (
         <Link
           key={`indicator-${index}`}
           href={getFormUrl({
@@ -30,7 +30,7 @@ const IndicatorComponent = ({
             activeType,
             isShiny,
           })}
-          className={`w-3 h-3 rounded-full transition-all ${
+          className={`w-2 h-2 rounded-full transition-all ${
             index === activeIndex
               ? 'bg-white scale-125'
               : 'bg-white/40 hover:bg-white/70'

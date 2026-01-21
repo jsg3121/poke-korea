@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
-import { getFormUrl } from '../module/image.module'
+import { getFormUrl } from '../../module/image.module'
 import { TActiveType } from '~/types/detailContext.type'
 
 interface NextFormButtonComponentProps {
@@ -23,7 +23,7 @@ const NextFormButtonComponent = ({
   isShiny,
 }: NextFormButtonComponentProps) => {
   return (
-    <i className="absolute right-0 top-1/2 -translate-y-1/2 w-24 h-24 z-10">
+    <i className="absolute right-0 top-1/2 w-24 h-24 z-10">
       <Link
         href={getFormUrl({
           activeIndex: activeIndex + 1,
@@ -31,7 +31,7 @@ const NextFormButtonComponent = ({
           activeType,
           isShiny,
         })}
-        className="block w-full h-full opacity-50 hover:opacity-80 transition-opacity"
+        className="block w-full h-full opacity-60 hover:opacity-90 transition-opacity"
         aria-label={`다음 폼: ${name}`}
         prefetch={true}
       >
