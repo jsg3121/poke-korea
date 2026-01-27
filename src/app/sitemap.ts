@@ -167,6 +167,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
+    // 기본폼 변환 가능 포켓몬 상세 페이지들 (isFormChange가 true인 포켓몬)
+    const formChangePages = data.getPokemonList
+      .filter((pokemon: PokemonList) => pokemon.isFormChange)
+      .map((pokemon: PokemonList) => ({
+        url: `https://poke-korea.com/detail/${pokemon.number}/form`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.7,
+      }))
+
+    // 기본폼 변환 가능 포켓몬 기술 페이지들
+    const formChangeMovesPages = data.getPokemonList
+      .filter((pokemon: PokemonList) => pokemon.isFormChange)
+      .map((pokemon: PokemonList) => ({
+        url: `https://poke-korea.com/detail/${pokemon.number}/moves/form`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.7,
+      }))
+
+    // 리전폼 포켓몬 기술 페이지들
+    const regionMovesPages = regionData.getPokemonList.map(
+      (pokemon: PokemonList) => ({
+        url: `https://poke-korea.com/detail/${pokemon.number}/moves/region`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.7,
+      }),
+    )
+
     const typeFilterMovesPages = Object.values(PokemonType).map((type) => {
       return {
         url: `https://poke-korea.com/moves?typeFilter=${type}`,
@@ -295,12 +325,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...shinyPages,
       ...megaPages,
       ...regionPages,
+      ...formChangePages,
       ...typeFilterListPages,
       ...generationFilterListPages,
       ...booleanFilterListPages,
       ...typeFilterMovesPages,
       ...damageTypeFilterMovesPages,
       ...basicDetailMovesPages,
+      ...formChangeMovesPages,
+      ...regionMovesPages,
       ...abilityDetailPages,
       ...moveDetailPages,
       ...moveGenerationPages,

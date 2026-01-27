@@ -11,8 +11,6 @@ import { getCssFiles, getFontFiles } from '~/utils/getCssFiles'
 
 if (process.env.NODE_ENV === 'development') {
   require('~/styles/globals.css')
-  require('swiper/css')
-  require('swiper/css/navigation')
 }
 
 export const viewport: Viewport = {
