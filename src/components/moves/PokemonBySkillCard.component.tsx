@@ -56,21 +56,39 @@ const PokemonBySkillCard = ({
 
   const formLabel = getFormTypeLabel()
 
+  // Path 기반 URL 생성
+  const getPokemonHref = () => {
+    const baseUrl = `/detail/${pokemonData.number}`
+
+    if (pokemonData.formType === 'MEGA') {
+      const megaIndex = pokemonData.imagePath
+        ? parseInt(pokemonData.imagePath[pokemonData.imagePath.length - 1], 10)
+        : 0
+      return megaIndex > 0 ? `${baseUrl}/mega/${megaIndex}` : `${baseUrl}/mega`
+    }
+
+    if (pokemonData.formType === 'REGION') {
+      const regionIndex = pokemonData.imagePath
+        ? parseInt(pokemonData.imagePath[pokemonData.imagePath.length - 1], 10)
+        : 0
+      return regionIndex > 0
+        ? `${baseUrl}/region/${regionIndex}`
+        : `${baseUrl}/region`
+    }
+
+    if (pokemonData.formType === 'NORMAL') {
+      const formIndex = pokemonData.imagePath
+        ? parseInt(pokemonData.imagePath.split('_')[1], 10)
+        : 0
+      return formIndex > 0 ? `${baseUrl}/form/${formIndex}` : baseUrl
+    }
+
+    return baseUrl
+  }
+
   return (
     <Link
-      href={{
-        pathname: `/detail/${pokemonData.number}`,
-        query: {
-          ...(pokemonData.formType === 'REGION' && {
-            activeType: 'region',
-            activeIndex:
-              pokemonData.imagePath?.[pokemonData.imagePath.length - 1] ?? 0,
-          }),
-          ...(pokemonData.formType === 'NORMAL' && {
-            activeIndex: pokemonData.imagePath?.split('_')[1] ?? 0,
-          }),
-        },
-      }}
+      href={getPokemonHref()}
       className="block w-full md:w-56"
       aria-label={`포켓몬 ${pokemonData.name} 카드 ${formLabel ? formLabel : ''}`}
     >

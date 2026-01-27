@@ -6,6 +6,10 @@ import { join } from 'path'
  * 빌드된 CSS 파일들을 동적으로 찾아서 반환합니다.
  */
 export function getCssFiles(): string[] {
+  if (process.env.NODE_ENV === 'development') {
+    return []
+  }
+
   try {
     const cssDir = join(process.cwd(), '.next', 'static', 'css')
     const files = readdirSync(cssDir)
@@ -29,6 +33,10 @@ export function getFontFiles(): Array<{
   href: string
   type: string
 }> {
+  if (process.env.NODE_ENV === 'development') {
+    return []
+  }
+
   const fontFiles: Array<{ href: string; type: string }> = []
 
   try {
@@ -87,28 +95,5 @@ export function getFontFiles(): Array<{
   } catch (error) {
     console.warn('Font files not found:', error)
     return []
-  }
-}
-
-/**
- * 메인 CSS 파일 하나만 가져옵니다.
- * 일반적으로 가장 큰 파일이 메인 CSS입니다.
- */
-export function getMainCssFile(): string | null {
-  try {
-    const cssDir = join(process.cwd(), '.next', 'static', 'css')
-    const files = readdirSync(cssDir)
-
-    const cssFiles = files.filter((file) => file.endsWith('.css'))
-
-    if (cssFiles.length === 0) {
-      return null
-    }
-
-    // 첫 번째 CSS 파일 반환 (보통 메인 파일)
-    return `/_next/static/css/${cssFiles[0]}`
-  } catch (error) {
-    console.warn('Main CSS file not found:', error)
-    return null
   }
 }

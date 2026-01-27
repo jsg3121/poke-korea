@@ -1,0 +1,99 @@
+import { Metadata } from 'next'
+import {
+  PokemonDetail,
+  PokemonMegaEvolution,
+  PokemonNormalForm,
+  PokemonRegionForm,
+} from '~/graphql/typeGenerated'
+import {
+  getPokemonNameByType,
+  getPokemonTypes,
+  getSeoCanonicalUrl,
+  getSeoDescription,
+  getSeoTitle,
+} from '~/module/generateDetailSeoMetaData'
+import { getRobotsConfig } from '~/module/metadata.module'
+import { TActiveType } from '~/types/detailContext.type'
+
+interface GenerateDetailMetadataParams {
+  pokemonDetail: PokemonDetail
+  activeType: TActiveType
+  activeIndex: number
+  isShiny: boolean
+  normalFormData?: PokemonNormalForm[]
+  megaEvolutionData?: PokemonMegaEvolution[]
+  regionFormData?: PokemonRegionForm[]
+}
+
+/**
+ * 포켓몬 상세 페이지 메타데이터 생성
+ */
+export const generateDetailMetadata = ({
+  pokemonDetail,
+  activeType,
+  activeIndex,
+  isShiny,
+  normalFormData = [],
+  megaEvolutionData = [],
+  regionFormData = [],
+}: GenerateDetailMetadataParams): Metadata => {
+  const commonParams = {
+    pokemonDetail,
+    activeType,
+    activeIndex,
+    normalForm: normalFormData,
+    megaEvolutionData,
+    regionFormData,
+  }
+
+  const types = getPokemonTypes(commonParams)
+
+  const pokemonNameByType = getPokemonNameByType({
+    activeType,
+    megaEvolutionName: megaEvolutionData[activeIndex]?.name ?? '',
+    regionFormPlace: regionFormData[activeIndex]?.region ?? '',
+    pokemonBaseInfoName: pokemonDetail.name,
+    isShiny,
+  })
+
+  const title = getSeoTitle({
+    pokemonName: pokemonNameByType,
+    pokemonNumber: pokemonDetail.number,
+  })
+
+  const canonicalUrl = getSeoCanonicalUrl({
+    activeType,
+    activeIndex,
+    pokemonNumber: pokemonDetail.number,
+    isShiny,
+  })
+
+  const description = getSeoDescription({
+    generation: pokemonDetail.generation,
+    pokemonNumber: pokemonDetail.number,
+    pokemonName: pokemonNameByType,
+    types,
+  })
+
+  return {
+    title,
+    description,
+    robots: getRobotsConfig(),
+    openGraph: {
+      type: 'website',
+      url: canonicalUrl,
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType}`,
+      description,
+      locale: 'ko_KR',
+      siteName: '포케 코리아',
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType} | 포케코리아`,
+      description,
+    },
+  }
+}

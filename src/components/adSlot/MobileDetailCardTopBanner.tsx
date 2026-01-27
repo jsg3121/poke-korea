@@ -10,7 +10,7 @@ const MobileDetailCardTopBanner = () => {
       className="w-[calc(100%-3rem)] h-fit text-center mx-auto"
     >
       <ins
-        className="adsbygoogle w-[320px] h-[100px] block mx-auto"
+        className="adsbygoogle w-[320px] h-[100px] block mx-auto mt-4"
         data-ad-client="ca-pub-6481622724376761"
         data-ad-slot="2700260468"
       ></ins>
