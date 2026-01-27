@@ -29,7 +29,7 @@ const ImageComponent = ({
     return densities
       .map((density) => {
         const size = Math.round(imageSize.width * density)
-        return `${baseUrl}?w=${size}&h=${size}&q=${quality}&format=webp ${density}x`
+        return `${baseUrl}?w=${size}&h=${size}&q=${quality} ${density}x`
       })
       .join(', ')
   }
@@ -39,7 +39,7 @@ const ImageComponent = ({
     if (!src) return src
 
     const baseUrl = src.split('?')[0]
-    return `${baseUrl}?w=${imageSize.width}&h=${imageSize.height}&q=${quality}&format=webp`
+    return `${baseUrl}?w=${imageSize.width}&h=${imageSize.height}&q=${quality}`
   }
 
   return (
