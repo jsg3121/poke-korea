@@ -22,11 +22,10 @@ const DetailBaseInfoContainer = () => {
       className="w-full flex flex-col gap-12 py-8 px-5 mx-auto"
       aria-label="포켓몬 상세 정보"
     >
+      {isGigantamaxMode && <GmaxMoveInfoComponent />}
       <DescriptionComponent />
       <AbilitiesInfoComponent />
-      {isGigantamaxMode ? (
-        <GmaxMoveInfoComponent />
-      ) : (
+      {!isGigantamaxMode && (
         <>
           <LevelLearnableSkillComponent />
           <MachineLearnableSkillComponent />

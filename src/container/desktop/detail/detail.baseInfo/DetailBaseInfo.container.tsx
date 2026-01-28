@@ -24,12 +24,11 @@ const DetailBaseInfoContainer = () => {
       className="w-full max-w-[1280px] grid gap-8 grid-cols-[repeat(auto-fit,minmax(calc(50%-1rem),1fr))] mx-auto "
       aria-label="포켓몬 상세 정보"
     >
+      {isGigantamaxMode && <GmaxMoveInfoComponent />}
       <DescriptionComponent />
       <AbilitiesInfoComponent />
       <DesktopDetailCardBanner />
-      {isGigantamaxMode ? (
-        <GmaxMoveInfoComponent />
-      ) : (
+      {!isGigantamaxMode && (
         <>
           <LevelLearnableSkillComponent />
           <MachineLearnableSkillComponent />
