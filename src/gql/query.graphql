@@ -613,3 +613,20 @@ query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
     totalCount
   }
 }
+
+query GetPokemonGigantamax($pokemonId: Int!) {
+  getPokemonGigantamaxByPokemonId(pokemonId: $pokemonId) {
+    id
+    name
+    formName
+    imagePath
+    gigantamaxCode
+    gmaxMove {
+      id
+      nameKo
+      type
+      power
+      effect
+    }
+  }
+}
