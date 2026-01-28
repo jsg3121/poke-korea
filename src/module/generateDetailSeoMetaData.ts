@@ -14,6 +14,7 @@ type GetPokemonNameByTypeParams = {
   pokemonBaseInfoName: string
   megaEvolutionName: string
   regionFormPlace: string
+  gigantamaxName: string
   isShiny: boolean
 }
 type GetPokemonNameByTypeFn = (params: GetPokemonNameByTypeParams) => string
@@ -76,6 +77,7 @@ export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
   pokemonBaseInfoName,
   megaEvolutionName,
   regionFormPlace,
+  gigantamaxName,
   isShiny,
 }) => {
   const shinyText = isShiny ? ' 이로치' : ''
@@ -87,6 +89,9 @@ export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
     case 'region': {
       const regionFormText = `${pokemonBaseInfoName} ${regionFormPlace} 리전폼`
       return `${regionFormText}${shinyText}`
+    }
+    case 'gigantamax': {
+      return `${gigantamaxName}${shinyText}`
     }
     default: {
       return `${pokemonBaseInfoName}${shinyText}`
@@ -165,6 +170,15 @@ export const getSeoCanonicalUrl: GetSeoCanonicalUrlFn = ({
     return `${path}${shinyQuery}`
   }
 
+  // 거다이맥스
+  if (activeType === 'gigantamax') {
+    const path =
+      activeIndex > 0
+        ? `${baseUrl}/gigantamax/${activeIndex}`
+        : `${baseUrl}/gigantamax`
+    return `${path}${shinyQuery}`
+  }
+
   // 기본폼 (폼체인지가 있는 경우 activeIndex > 0이면 Path 기반 URL 사용)
   if (activeIndex > 0) {
     return `${baseUrl}/form/${activeIndex}${shinyQuery}`
@@ -213,6 +227,9 @@ export const getPokemonTypes: GetPokemonTypesFn = ({
       return megaEvolutionData?.[activeIndex]?.types || pokemonDetail.types
     case 'region':
       return regionFormData?.[activeIndex]?.types || pokemonDetail.types
+    case 'gigantamax':
+      // 거다이맥스는 타입이 변경되지 않으므로 기본 포켓몬 타입 사용
+      return pokemonDetail.types
     default:
       return normalForm?.[activeIndex]?.types || pokemonDetail.types
   }
@@ -238,6 +255,9 @@ export const getPokemonStats: GetPokemonStatsFn = ({
         regionFormData?.[activeIndex]?.regionFormStats ||
         pokemonDetail.pokemonStats
       )
+    case 'gigantamax':
+      // 거다이맥스는 스탯이 변경되지 않으므로 기본 포켓몬 스탯 사용
+      return pokemonDetail.pokemonStats
     default:
       return (
         normalForm?.[activeIndex]?.normalFormStats || pokemonDetail.pokemonStats

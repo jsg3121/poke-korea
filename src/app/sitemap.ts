@@ -3,12 +3,14 @@ import {
   GetPokemonListDocument,
   GetAbilityListPaginatedDocument,
   GetPokemonSkillListDocument,
+  GetPokemonGigantamaxListDocument,
 } from '~/graphql/gqlGenerated'
 import {
   PokemonList,
   PokemonType,
   AbilityEdge,
   PokemonSkillEdge,
+  PokemonGigantamax,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
@@ -86,6 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { data },
       { data: megaData },
       { data: regionData },
+      { data: gigantamaxData },
       { data: abilityData },
       { data: skillsData },
     ] = await Promise.all([
@@ -110,6 +113,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             isRegionForm: true,
           },
         },
+      }),
+      apolloClient.query({
+        query: GetPokemonGigantamaxListDocument,
       }),
       apolloClient.query({
         query: GetAbilityListPaginatedDocument,
@@ -166,6 +172,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
       }),
     )
+
+    // 거다이맥스 페이지들 (pokemonId 기준 중복 제거)
+    const uniqueGigantamaxPokemonIds = [
+      ...new Set(
+        gigantamaxData.getPokemonGigantamaxList?.map(
+          (gmax: PokemonGigantamax) => gmax.pokemonId,
+        ) ?? [],
+      ),
+    ]
+    const gigantamaxPages = uniqueGigantamaxPokemonIds.map((pokemonId) => ({
+      url: `https://poke-korea.com/detail/${pokemonId}/gigantamax`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.7,
+    }))
 
     // 기본폼 변환 가능 포켓몬 상세 페이지들 (isFormChange가 true인 포켓몬)
     const formChangePages = data.getPokemonList
@@ -236,6 +257,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
       {
         url: 'https://poke-korea.com/list?isRegion=true',
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      },
+      {
+        url: 'https://poke-korea.com/list?isGigantamax=true',
         lastModified: new Date(),
         changeFrequency: 'daily',
         priority: 0.8,
@@ -325,6 +352,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...shinyPages,
       ...megaPages,
       ...regionPages,
+      ...gigantamaxPages,
       ...formChangePages,
       ...typeFilterListPages,
       ...generationFilterListPages,

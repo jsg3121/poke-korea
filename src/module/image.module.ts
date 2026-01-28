@@ -1,6 +1,7 @@
 // Path 기반 URL 생성
 
 import {
+  PokemonGigantamax,
   PokemonMegaEvolution,
   PokemonRegionForm,
   PokemonType,
@@ -22,6 +23,7 @@ type GetImageListParams = {
   normalFormImageList: Array<string>
   megaEvolutions?: Array<PokemonMegaEvolution>
   regionFormInfo?: Array<PokemonRegionForm>
+  gigantamaxInfo?: Array<PokemonGigantamax>
   pokemonNumber?: number
 }
 type GetImageListFn = (
@@ -35,6 +37,7 @@ export const getImageList: GetImageListFn = ({
   normalFormImageList,
   megaEvolutions,
   regionFormInfo,
+  gigantamaxInfo,
   pokemonNumber,
 }) => {
   switch (activeType) {
@@ -61,6 +64,16 @@ export const getImageList: GetImageListFn = ({
         }
       })
       return regionImages
+    }
+    case 'gigantamax': {
+      const gigantamaxImages = gigantamaxInfo?.map((gmax) => {
+        return {
+          imageCode: gmax.imagePath,
+          types: types,
+          name: gmax.name,
+        }
+      })
+      return gigantamaxImages
     }
     default: {
       if (normalFormImageList && normalFormImageList.length > 0) {
@@ -109,6 +122,10 @@ export const getFormUrl: GetFormUrlFn = ({
     return activeIndex > 0
       ? `${baseUrl}/region/${activeIndex}${shinyQuery}`
       : `${baseUrl}/region${shinyQuery}`
+  } else if (activeType === 'gigantamax') {
+    return activeIndex > 0
+      ? `${baseUrl}/gigantamax/${activeIndex}${shinyQuery}`
+      : `${baseUrl}/gigantamax${shinyQuery}`
   } else {
     return activeIndex > 0
       ? `${baseUrl}/form/${activeIndex}${shinyQuery}`
@@ -125,8 +142,8 @@ type GetImageSrcFn = (params: GetImageSrcParams) => string
 export const getImageSrc: GetImageSrcFn = ({ isShiny, imageCode }) => {
   if (!imageCode) return ''
   return isShiny
-    ? `${imageMode}/shiny/${imageCode}.webp`
-    : `${imageMode}/${imageCode}.webp`
+    ? `${imageMode}/shiny/${imageCode}`
+    : `${imageMode}/${imageCode}`
 }
 
 type GetAltTextParams = {
@@ -147,5 +164,11 @@ export const getAltText: GetAltTextFn = ({
   const typeText = item.types
     ?.map((type) => PokemonTypes[type as keyof typeof PokemonTypes])
     .join('/')
-  return `${typeText} 타입 포켓몬 ${item.name || name}${activeType === 'region' ? ' 리전폼' : ''}${isShiny ? ' 이로치' : ''}의 이미지`
+  const formText =
+    activeType === 'region'
+      ? ' 리전폼'
+      : activeType === 'gigantamax'
+        ? ' 거다이맥스'
+        : ''
+  return `${typeText} 타입 포켓몬 ${item.name || name}${formText}${isShiny ? ' 이로치' : ''}의 이미지`
 }

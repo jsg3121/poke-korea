@@ -8,7 +8,7 @@ import DetailMobile from '~/views/mobile/detail/Detail.mobile'
 import { generatePokemonJsonLd } from '../../../../../../constants/pokemonJsonLd'
 import { SHINY_QNA_JSON_LD } from '../../../../../../constants/shinyJsonLd'
 import {
-  fetchNormalFormData,
+  fetchGigantamaxData,
   fetchPokemonDetail,
 } from '../../modules/fetchDetailData'
 import { generateDetailMetadata } from '../../modules/generateMetadata'
@@ -16,7 +16,7 @@ import { parseIndexParam } from '../../modules/parseFormParams'
 
 export const revalidate = 31536000
 
-interface NormalFormPageProps {
+interface GigantamaxPageProps {
   params: Promise<{ pokemonId: string; index?: string[] }>
   searchParams: Promise<{
     shinyMode?: string
@@ -28,7 +28,7 @@ interface NormalFormPageProps {
 export const generateMetadata = async ({
   params,
   searchParams,
-}: NormalFormPageProps): Promise<Metadata> => {
+}: GigantamaxPageProps): Promise<Metadata> => {
   const { pokemonId, index } = await params
   const parsedPokemonId = parseInt(pokemonId, 10)
 
@@ -36,12 +36,7 @@ export const generateMetadata = async ({
     notFound()
   }
 
-  const { activeIndex, isValid } = parseIndexParam(index)
-
-  if (!isValid) {
-    return {}
-  }
-
+  const { activeIndex } = parseIndexParam(index)
   const query = await searchParams
   const isShiny = query.shinyMode === 'shiny'
 
@@ -51,21 +46,21 @@ export const generateMetadata = async ({
     throw new Error('no pokemon data')
   }
 
-  const { normalFormData } = await fetchNormalFormData(
-    parsedPokemonId,
-    activeIndex,
-  )
+  const { gigantamaxData } = await fetchGigantamaxData(parsedPokemonId)
 
   return generateDetailMetadata({
     pokemonDetail,
-    activeType: 'normal',
+    activeType: 'gigantamax',
     activeIndex,
     isShiny,
-    normalFormData,
+    gigantamaxData,
   })
 }
 
-const NormalFormPage = async ({ params, searchParams }: NormalFormPageProps) => {
+const GigantamaxPage = async ({
+  params,
+  searchParams,
+}: GigantamaxPageProps) => {
   const { pokemonId, index } = await params
   const query = await searchParams
 
@@ -75,7 +70,7 @@ const NormalFormPage = async ({ params, searchParams }: NormalFormPageProps) => 
     const queryParams = query.shinyMode ? `?shinyMode=${query.shinyMode}` : ''
     const indexPath = parsedIndex > 0 ? `/${parsedIndex}` : ''
     permanentRedirect(
-      `/detail/${pokemonId}/form${indexPath}${queryParams}`,
+      `/detail/${pokemonId}/gigantamax${indexPath}${queryParams}`,
       RedirectType.replace,
     )
   }
@@ -93,7 +88,7 @@ const NormalFormPage = async ({ params, searchParams }: NormalFormPageProps) => 
   const { activeIndex, isValid } = parseIndexParam(index)
 
   if (!isValid) {
-    permanentRedirect(`/detail/${pokemonId}/form`, RedirectType.replace)
+    permanentRedirect(`/detail/${pokemonId}/gigantamax`, RedirectType.replace)
   }
 
   const isShiny = query.shinyMode === 'shiny'
@@ -104,34 +99,35 @@ const NormalFormPage = async ({ params, searchParams }: NormalFormPageProps) => 
     notFound()
   }
 
-  // 폼 변경이 불가능한 포켓몬인 경우 기본 상세 페이지로 리다이렉트
-  if (!pokemonDetail.isFormChange) {
+  // 거다이맥스 불가능한 포켓몬인 경우 기본 상세 페이지로 리다이렉트
+  if (!pokemonDetail.isGigantamax) {
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
-  const { normalFormData, versionGroupData, normalFormImageList } =
-    await fetchNormalFormData(parsedPokemonId, activeIndex)
+  const { gigantamaxData } = await fetchGigantamaxData(parsedPokemonId)
 
   const props = {
     pokemonBaseInfo: pokemonDetail,
-    normalForm: normalFormData,
+    normalForm: [],
     megaEvolutionData: [],
     regionFormData: [],
+    gigantamaxData,
     isShinyInfo: isShiny,
-    versionGroup: versionGroupData.length > 0 ? versionGroupData : undefined,
-    normalFormImageList,
-    activeType: 'normal' as const,
+    versionGroup: undefined,
+    normalFormImageList: [],
+    activeType: 'gigantamax' as const,
     activeIndex,
   }
 
   const pokemonJsonLd = generatePokemonJsonLd({
     pokemonDetail,
-    activeType: 'normal',
+    activeType: 'gigantamax',
     activeIndex,
     isShiny,
-    normalForm: normalFormData,
+    normalForm: [],
     megaEvolutionData: [],
     regionFormData: [],
+    gigantamaxData,
   })
 
   return (
@@ -157,4 +153,4 @@ const NormalFormPage = async ({ params, searchParams }: NormalFormPageProps) => 
   )
 }
 
-export default NormalFormPage
+export default GigantamaxPage

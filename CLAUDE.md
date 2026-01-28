@@ -13,6 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 모든 코드에 대해선 반드시 이슈가 발생할 가능성이 있는지 테스트를 진행하고, 어떤 부분을 개선해야할 지는 답변으로만 명시
 - **IMPORTANT**: 모든 작업을 진행하기 전에 반드시 현재 브랜치를 확인하고, 적절한 브랜치에서 작업 중인지 검증할 것. 신규 작업 시작 시 적절한 브랜치 생성 여부를 확인할 것.
 - **CRITICAL**: 모든 코드 작업을 완료한 후에는 반드시 해당 버전의 changelog 파일을 작성할 것. changelog 작성 없이 작업을 완료했다고 보고하지 말 것.
+- **CRITICAL**: 복잡한 기능 구현 시 각 작업 단계를 나누어 진행하고, 각 단계마다 사용자에게 확인을 받을 것. 한 번에 여러 파일을 수정하지 말고, 단계별로 검토 후 진행할 것.
 
 ## Development Commands
 
