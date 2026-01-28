@@ -1,4 +1,5 @@
 import {
+  GetPokemonGigantamaxDocument,
   GetPokemonMegaEvolutionDocument,
   GetPokemonNormalFormDocument,
   GetPokemonNormalFormImageListDocument,
@@ -7,6 +8,7 @@ import {
   PokemonDetailDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  GetPokemonGigantamaxQuery,
   GetPokemonMegaEvolutionQuery,
   GetPokemonNormalFormImageListQuery,
   GetPokemonNormalFormImageListQueryVariables,
@@ -16,6 +18,7 @@ import {
   GetVersionGroupsQuery,
   PokemonDetail,
   PokemonDetailQuery,
+  PokemonGigantamax,
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
@@ -157,5 +160,26 @@ export const fetchRegionFormData = async (
   return {
     regionFormData: regionData?.getPokemonRegionForm ?? [],
     versionGroupData: versionGroup?.getVersionGroups ?? [],
+  }
+}
+
+/**
+ * 거다이맥스 데이터 페칭
+ */
+export const fetchGigantamaxData = async (
+  pokemonId: number,
+): Promise<{
+  gigantamaxData: PokemonGigantamax[]
+}> => {
+  const apolloClient = initializeApollo()
+
+  const { data } = await apolloClient.query<GetPokemonGigantamaxQuery>({
+    query: GetPokemonGigantamaxDocument,
+    variables: { pokemonId },
+    fetchPolicy: 'cache-first',
+  })
+
+  return {
+    gigantamaxData: data?.getPokemonGigantamaxByPokemonId ?? [],
   }
 }

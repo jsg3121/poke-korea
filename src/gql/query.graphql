@@ -75,6 +75,7 @@ query PokemonDetail($pokemonId: ID!) {
     isFormChange
     isMegaEvolution
     isRegionForm
+    isGigantamax
     types
     number
     typePrimary
@@ -617,12 +618,15 @@ query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
 query GetPokemonGigantamax($pokemonId: Int!) {
   getPokemonGigantamaxByPokemonId(pokemonId: $pokemonId) {
     id
+    pokemonId
     name
     formName
     imagePath
     gigantamaxCode
     gmaxMove {
       id
+      identifier
+      pokemonId
       nameKo
       type
       power
