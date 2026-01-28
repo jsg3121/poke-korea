@@ -634,3 +634,23 @@ query GetPokemonGigantamax($pokemonId: Int!) {
     }
   }
 }
+
+query GetPokemonGigantamaxList {
+  getPokemonGigantamaxList {
+    id
+    pokemonId
+    name
+    formName
+    imagePath
+    gigantamaxCode
+    gmaxMove {
+      id
+      identifier
+      nameKo
+      type
+      power
+      effect
+      pokemonId
+    }
+  }
+}

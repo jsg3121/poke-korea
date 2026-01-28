@@ -168,6 +168,61 @@ case 'gigantamax': {
 | `src/container/desktop/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx` | gigantamaxInfo 전달 추가           |
 | `src/container/mobile/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`  | gigantamaxInfo 전달 추가           |
 
+### 8. SEO / JSON-LD 거다이맥스 지원 보완 (2026-01-29)
+
+거다이맥스 페이지에서 JSON-LD 구조화 데이터가 올바르게 생성되지 않던 문제 수정.
+
+**수정 내용**:
+
+- `src/constants/pokemonJsonLd.ts`: `gigantamaxData` 파라미터 추가, `getImageList`에 gigantamax 케이스 추가, `displayName`에 거다이맥스 이름 전달, `getAbilities`에 gigantamax 케이스 추가
+- `src/module/generateDetailSeoMetaData.ts`: `getPokemonTypes`에 gigantamax 케이스 추가, `getPokemonStats`에 gigantamax 케이스 추가
+- `src/app/detail/[pokemonId]/(form)/gigantamax/[[...index]]/page.tsx`: `generatePokemonJsonLd` 호출 시 `gigantamaxData` 전달
+
+**기존 문제점**:
+
+1. `generatePokemonJsonLd`에서 `gigantamaxName`이 항상 빈 문자열로 전달됨
+2. `getPokemonTypes`, `getPokemonStats`에서 gigantamax 케이스 미처리 (default로 빠짐)
+3. `getImageList`, `getAbilities`에서 gigantamax 케이스 미처리
+
+**수정 후**:
+
+```typescript
+// pokemonJsonLd.ts - gigantamaxData 파라미터 추가
+interface PokemonJsonLdProps {
+  // ...
+  gigantamaxData?: PokemonGigantamax[]
+}
+
+// getImageList에 gigantamax 케이스 추가
+case 'gigantamax': {
+  const gigantamaxImages = gigantamaxData?.map((gmax) => ({
+    imageCode: gmax.imagePath,
+  }))
+  return gigantamaxImages
+}
+
+// displayName에 올바른 거다이맥스 이름 전달
+gigantamaxName: gigantamaxData?.[activeIndex]?.name || '',
+
+// getAbilities에 gigantamax 케이스 추가
+case 'gigantamax':
+  return pokemonDetail.pokemonAbilityList
+```
+
+### 9. 사이트맵에 거다이맥스 페이지 추가 (2026-01-29)
+
+사이트맵에 거다이맥스 관련 페이지가 누락되어 있던 문제 수정.
+
+**수정 내용**:
+
+- `src/gql/query.graphql`: `GetPokemonGigantamaxList` 쿼리 추가
+- `src/app/sitemap.ts`: 거다이맥스 상세 페이지 및 리스트 필터 페이지 추가
+
+**추가된 사이트맵 URL**:
+
+1. 거다이맥스 상세 페이지: `/detail/{pokemonId}/gigantamax`
+2. 거다이맥스 필터 리스트 페이지: `/list?isGigantamax=true`
+
 ## ✅ 테스트 체크리스트
 
 - [x] 빌드 성공 확인
@@ -180,10 +235,14 @@ case 'gigantamax': {
 - [ ] 리스트 페이지 필터 모달에서 거다이맥스 옵션 표시 확인
 - [ ] 거다이맥스 필터 적용 시 올바른 포켓몬 리스트 표시 확인
 - [ ] 모바일 뷰에서 동일 기능 동작 확인
+- [x] 거다이맥스 페이지 JSON-LD에 올바른 포켓몬 이름 표시 확인
+- [x] 거다이맥스 페이지 JSON-LD에 올바른 이미지 경로 표시 확인
+- [x] 사이트맵에 거다이맥스 상세 페이지 URL 포함 확인
+- [x] 사이트맵에 거다이맥스 필터 리스트 페이지 URL 포함 확인
 
 ## 📝 향후 작업
 
-- 사이트맵에 거다이맥스 URL 추가 검토
+- 없음
 
 ## 🚀 머지 정보
 

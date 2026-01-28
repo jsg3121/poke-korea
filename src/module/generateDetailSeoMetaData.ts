@@ -227,6 +227,9 @@ export const getPokemonTypes: GetPokemonTypesFn = ({
       return megaEvolutionData?.[activeIndex]?.types || pokemonDetail.types
     case 'region':
       return regionFormData?.[activeIndex]?.types || pokemonDetail.types
+    case 'gigantamax':
+      // 거다이맥스는 타입이 변경되지 않으므로 기본 포켓몬 타입 사용
+      return pokemonDetail.types
     default:
       return normalForm?.[activeIndex]?.types || pokemonDetail.types
   }
@@ -252,6 +255,9 @@ export const getPokemonStats: GetPokemonStatsFn = ({
         regionFormData?.[activeIndex]?.regionFormStats ||
         pokemonDetail.pokemonStats
       )
+    case 'gigantamax':
+      // 거다이맥스는 스탯이 변경되지 않으므로 기본 포켓몬 스탯 사용
+      return pokemonDetail.pokemonStats
     default:
       return (
         normalForm?.[activeIndex]?.normalFormStats || pokemonDetail.pokemonStats

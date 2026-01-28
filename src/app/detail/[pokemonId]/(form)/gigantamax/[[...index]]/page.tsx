@@ -127,6 +127,7 @@ const GigantamaxPage = async ({
     normalForm: [],
     megaEvolutionData: [],
     regionFormData: [],
+    gigantamaxData,
   })
 
   return (

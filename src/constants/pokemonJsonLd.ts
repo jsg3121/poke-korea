@@ -1,5 +1,6 @@
 import {
   PokemonDetail,
+  PokemonGigantamax,
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
@@ -22,6 +23,7 @@ interface PokemonJsonLdProps {
   normalForm?: PokemonNormalForm[]
   megaEvolutionData?: PokemonMegaEvolution[]
   regionFormData?: PokemonRegionForm[]
+  gigantamaxData?: PokemonGigantamax[]
 }
 
 export const generatePokemonJsonLd = ({
@@ -32,6 +34,7 @@ export const generatePokemonJsonLd = ({
   normalForm,
   megaEvolutionData,
   regionFormData,
+  gigantamaxData,
 }: PokemonJsonLdProps) => {
   // 공통 함수들 사용
   const commonParams = {
@@ -71,6 +74,14 @@ export const generatePokemonJsonLd = ({
         })
         return regionImages
       }
+      case 'gigantamax': {
+        const gigantamaxImages = gigantamaxData?.map((gmax) => {
+          return {
+            imageCode: gmax.imagePath,
+          }
+        })
+        return gigantamaxImages
+      }
       default: {
         if (normalForm && normalForm.length > 0) {
           const nomalFormImages = normalForm?.map((form) => {
@@ -97,7 +108,7 @@ export const generatePokemonJsonLd = ({
     pokemonBaseInfoName: pokemonDetail.name,
     megaEvolutionName: megaEvolutionData?.[activeIndex]?.name || '',
     regionFormPlace: regionFormData?.[activeIndex]?.region || '',
-    gigantamaxName: '',
+    gigantamaxName: gigantamaxData?.[activeIndex]?.name || '',
     isShiny,
   })
 
@@ -115,6 +126,10 @@ export const generatePokemonJsonLd = ({
       }
       case 'region': {
         return regionFormData?.[activeIndex].regionFormAbilityList ?? []
+      }
+      case 'gigantamax': {
+        // 거다이맥스는 별도 특성이 없으므로 기본 포켓몬 특성 사용
+        return pokemonDetail.pokemonAbilityList
       }
       default: {
         return (
