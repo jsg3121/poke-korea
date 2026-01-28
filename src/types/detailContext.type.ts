@@ -5,7 +5,7 @@ import {
   VersionGroup,
 } from '~/graphql/typeGenerated'
 
-export type TActiveType = 'normal' | 'mega' | 'region'
+export type TActiveType = 'normal' | 'mega' | 'region' | 'gigantamax'
 
 export type TVersionGroupInfo = {
   levelUpSkillVersion?: VersionGroup
@@ -22,6 +22,7 @@ export type TActiveTypeInfo = {
   abilities: Array<PokemonAbilityList>
   isRegion: boolean
   isMega: boolean
+  isGigantamax: boolean
   learnableSkills?: PokemonDetailSkills
   versionGroupInfo: TVersionGroupInfo
 }
