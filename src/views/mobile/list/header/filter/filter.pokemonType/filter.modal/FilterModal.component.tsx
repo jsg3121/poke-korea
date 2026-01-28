@@ -30,6 +30,7 @@ const FilterModalComponent = ({
       isEvolution: routerQuery.get('isEvolution') ?? null,
       isMega: routerQuery.get('isMega') ?? null,
       isRegion: routerQuery.get('isRegion') ?? null,
+      isGigantamax: routerQuery.get('isGigantamax') ?? null,
     },
   })
 
@@ -149,6 +150,19 @@ const FilterModalComponent = ({
                   <RadioGroupComponent
                     options={RadioOptions}
                     {...register('isRegion')}
+                  />
+                </div>
+              </div>
+              <div className="mb-8 w-full">
+                <div className="w-full">
+                  <p className="text-lg font-medium leading-[1.125rem] text-primary-3">
+                    거다이맥스 가능 포켓몬 포함
+                  </p>
+                </div>
+                <div className="mt-2">
+                  <RadioGroupComponent
+                    options={RadioOptions}
+                    {...register('isGigantamax')}
                   />
                 </div>
               </div>
