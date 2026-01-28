@@ -101,7 +101,33 @@ src/app/detail/[pokemonId]/(form)/gigantamax/
 )}
 ```
 
-### 6. 리스트 페이지 필터 추가
+### 6. 이미지 모듈 거다이맥스 지원 추가
+
+**src/module/image.module.ts**:
+
+- `getImageList`: gigantamax 케이스 추가, `imagePath` 필드로 이미지 코드 생성
+- `getFormUrl`: gigantamax URL 패턴 생성 로직 추가
+- `getAltText`: 거다이맥스 폼 텍스트 처리 추가
+
+```typescript
+case 'gigantamax': {
+  const gigantamaxImages = gigantamaxInfo?.map((gmax) => {
+    return {
+      imageCode: gmax.imagePath,
+      types: types,
+      name: gmax.name,
+    }
+  })
+  return gigantamaxImages
+}
+```
+
+**PokemonImage.compoment.tsx** (desktop/mobile):
+
+- `DetailContext`에서 `gigantamaxInfo` 가져오기
+- `getImageList` 호출 시 `gigantamaxInfo` 전달
+
+### 7. 리스트 페이지 필터 추가
 
 **FilterModal.component.tsx**:
 
@@ -138,6 +164,9 @@ src/app/detail/[pokemonId]/(form)/gigantamax/
 | `src/views/mobile/list/header/filter/filter.pokemonType/filter.modal/types/filterForm.type.ts` | isGigantamax 타입 추가             |
 | `src/views/mobile/list/header/filter/filter.pokemonType/filter.modal/FilterModal.component.tsx` | 거다이맥스 필터 UI 추가           |
 | `src/app/list/page.tsx`                                                                      | isGigantamax 필터 로직 및 메타데이터 |
+| `src/module/image.module.ts`                                                                 | gigantamax 이미지 리스트/URL/alt 지원 |
+| `src/container/desktop/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx` | gigantamaxInfo 전달 추가           |
+| `src/container/mobile/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`  | gigantamaxInfo 전달 추가           |
 
 ## ✅ 테스트 체크리스트
 
@@ -146,6 +175,7 @@ src/app/detail/[pokemonId]/(form)/gigantamax/
 - [ ] 스위치 클릭 시 `/detail/{id}/gigantamax` URL로 이동 확인
 - [ ] 거다이맥스 모드에서 전용 기술 정보 표시 확인
 - [ ] 거다이맥스 모드에서 레벨업/기술머신 기술 숨김 확인
+- [ ] 거다이맥스 모드에서 전용 이미지(imagePath) 표시 확인
 - [ ] 이로치 모드 토글 시 쿼리 파라미터 유지 확인
 - [ ] 리스트 페이지 필터 모달에서 거다이맥스 옵션 표시 확인
 - [ ] 거다이맥스 필터 적용 시 올바른 포켓몬 리스트 표시 확인
@@ -154,7 +184,6 @@ src/app/detail/[pokemonId]/(form)/gigantamax/
 ## 📝 향후 작업
 
 - 사이트맵에 거다이맥스 URL 추가 검토
-- 거다이맥스 전용 이미지 표시 (이미지 경로 확인 필요)
 
 ## 🚀 머지 정보
 
