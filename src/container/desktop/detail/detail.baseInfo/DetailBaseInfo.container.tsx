@@ -6,14 +6,18 @@ import { DetailContext } from '~/context/Detail.context'
 import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
 import AbilitiesInfoComponent from './baseInfo.abilities/AbilitiesInfo.component'
 import DescriptionComponent from './baseInfo.description/Description.component'
+import GmaxMoveInfoComponent from './baseInfo.gmaxMove/GmaxMoveInfo.component'
 import LevelLearnableSkillComponent from './baseInfo.learnableSkill/LevelLearnableSkill.component'
 import MachineLearnableSkillComponent from './baseInfo.learnableSkill/MachineLearnableSkill.component'
 import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
 
 const DetailBaseInfoContainer = () => {
-  const { pokemonBaseInfo, activeTypeInfo } = useContext(DetailContext)
+  const { pokemonBaseInfo, activeTypeInfo, activeType } =
+    useContext(DetailContext)
 
   if (!pokemonBaseInfo) return <></> // TODO : 에러 페이지 및 잘못된 페이지로 처리하기
+
+  const isGigantamaxMode = activeType === 'gigantamax'
 
   return (
     <section
@@ -23,8 +27,14 @@ const DetailBaseInfoContainer = () => {
       <DescriptionComponent />
       <AbilitiesInfoComponent />
       <DesktopDetailCardBanner />
-      <LevelLearnableSkillComponent />
-      <MachineLearnableSkillComponent />
+      {isGigantamaxMode ? (
+        <GmaxMoveInfoComponent />
+      ) : (
+        <>
+          <LevelLearnableSkillComponent />
+          <MachineLearnableSkillComponent />
+        </>
+      )}
       <TypesInfo type={activeTypeInfo.types} />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemonComponent
