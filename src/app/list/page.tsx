@@ -25,7 +25,8 @@ export const revalidate = 31536000 // 1년
 export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
-  const { type, isMega, isRegion, isEvolution, generation } = await searchParams
+  const { type, isMega, isRegion, isGigantamax, isEvolution, generation } =
+    await searchParams
 
   // 필터에 따른 타이틀 및 설명 생성 (const 기반 불변 로직)
   const buildMetadata = () => {
@@ -81,6 +82,15 @@ export async function generateMetadata({
           }
         : null
 
+    const gigantamaxData =
+      isGigantamax === 'true'
+        ? {
+            titleSuffix: '거다이맥스',
+            descPrefix: '거다이맥스 포켓몬',
+            filter: '거다이맥스',
+          }
+        : null
+
     const evolutionData =
       isEvolution === 'true'
         ? { suffix: '(진화 가능)', filter: '진화 가능' }
@@ -94,6 +104,7 @@ export async function generateMetadata({
       (generationData ? `${generationData.titleSuffix} 포켓몬 도감` : null) ||
       (megaData ? `${megaData.titleSuffix} 포켓몬 도감` : null) ||
       (regionData ? `${regionData.titleSuffix} 포켓몬 도감` : null) ||
+      (gigantamaxData ? `${gigantamaxData.titleSuffix} 포켓몬 도감` : null) ||
       '포켓몬 도감'
 
     // 타이틀 접미사 조합
@@ -102,6 +113,9 @@ export async function generateMetadata({
       megaData && (typeData || generationData) ? megaData.titleSuffix : null,
       regionData && (typeData || generationData || megaData)
         ? regionData.titleSuffix
+        : null,
+      gigantamaxData && (typeData || generationData || megaData || regionData)
+        ? gigantamaxData.titleSuffix
         : null,
     ].filter(Boolean) as string[]
 
@@ -112,6 +126,7 @@ export async function generateMetadata({
 
     // 설명 조합
     const baseDescPrefix =
+      gigantamaxData?.descPrefix ||
       regionData?.descPrefix ||
       megaData?.descPrefix ||
       generationData?.descPrefix ||
@@ -128,6 +143,7 @@ export async function generateMetadata({
       generationData?.filter,
       megaData?.filter,
       regionData?.filter,
+      gigantamaxData?.filter,
       evolutionData?.filter,
     ].filter(Boolean) as string[]
 
@@ -148,9 +164,14 @@ export async function generateMetadata({
 
   // Canonical URL 생성
   const queryString = new URLSearchParams(
-    Object.entries({ type, isMega, isRegion, isEvolution, generation }).filter(
-      ([_, v]) => v !== undefined,
-    ) as [string, string][],
+    Object.entries({
+      type,
+      isMega,
+      isRegion,
+      isGigantamax,
+      isEvolution,
+      generation,
+    }).filter(([_, v]) => v !== undefined) as [string, string][],
   ).toString()
   const canonicalUrl = queryString
     ? `https://poke-korea.com/list?${queryString}`
@@ -193,6 +214,7 @@ type searchParamsKey =
   | 'type'
   | 'isMega'
   | 'isRegion'
+  | 'isGigantamax'
   | 'isEvolution'
   | 'generation'
 
@@ -209,7 +231,7 @@ const ListPage = async ({ searchParams }: PageProps) => {
 
   const apolloClient = initializeApollo()
 
-  const { type, isMega, isRegion, isEvolution, generation, name } =
+  const { type, isMega, isRegion, isGigantamax, isEvolution, generation, name } =
     await searchParams
 
   const filterInput: PokemonFilterInput = {
@@ -222,6 +244,7 @@ const ListPage = async ({ searchParams }: PageProps) => {
     ...(type && { types: changeTypeArrayToString(type as string) }),
     isMegaEvolution: toBooleanOrUndefined(isMega as string),
     isRegionForm: toBooleanOrUndefined(isRegion as string),
+    isGigantamax: toBooleanOrUndefined(isGigantamax as string),
     isEvolution: toBooleanOrUndefined(isEvolution as string),
   }
 
