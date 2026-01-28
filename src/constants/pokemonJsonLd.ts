@@ -97,6 +97,7 @@ export const generatePokemonJsonLd = ({
     pokemonBaseInfoName: pokemonDetail.name,
     megaEvolutionName: megaEvolutionData?.[activeIndex]?.name || '',
     regionFormPlace: regionFormData?.[activeIndex]?.region || '',
+    gigantamaxName: '',
     isShiny,
   })
 

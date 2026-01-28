@@ -14,6 +14,7 @@ type GetPokemonNameByTypeParams = {
   pokemonBaseInfoName: string
   megaEvolutionName: string
   regionFormPlace: string
+  gigantamaxName: string
   isShiny: boolean
 }
 type GetPokemonNameByTypeFn = (params: GetPokemonNameByTypeParams) => string
@@ -76,6 +77,7 @@ export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
   pokemonBaseInfoName,
   megaEvolutionName,
   regionFormPlace,
+  gigantamaxName,
   isShiny,
 }) => {
   const shinyText = isShiny ? ' 이로치' : ''
@@ -87,6 +89,9 @@ export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
     case 'region': {
       const regionFormText = `${pokemonBaseInfoName} ${regionFormPlace} 리전폼`
       return `${regionFormText}${shinyText}`
+    }
+    case 'gigantamax': {
+      return `${gigantamaxName}${shinyText}`
     }
     default: {
       return `${pokemonBaseInfoName}${shinyText}`
@@ -162,6 +167,15 @@ export const getSeoCanonicalUrl: GetSeoCanonicalUrlFn = ({
   if (activeType === 'region') {
     const path =
       activeIndex > 0 ? `${baseUrl}/region/${activeIndex}` : `${baseUrl}/region`
+    return `${path}${shinyQuery}`
+  }
+
+  // 거다이맥스
+  if (activeType === 'gigantamax') {
+    const path =
+      activeIndex > 0
+        ? `${baseUrl}/gigantamax/${activeIndex}`
+        : `${baseUrl}/gigantamax`
     return `${path}${shinyQuery}`
   }
 
