@@ -36,7 +36,7 @@ const GigantamaxSwitchComponent = () => {
             height="1.625rem"
             width="1.625rem"
             imageSize={{ width: 20, height: 20 }}
-            src="/assets/icons/gigantamax.webp"
+            src="/assets/icons/gmax.webp"
           />
         </i>
         <span className="h-8 text-base font-normal text-aligned-base text-black flex-shrink-0">

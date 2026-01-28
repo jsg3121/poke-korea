@@ -18,13 +18,13 @@ const GigantamaxSwitch = () => {
 
   return (
     <li
-      className={`relative -left-11 transition-[left] duration-200 ease-out hover:-left-28 ${
-        isGigantamax ? '-left-28' : ''
+      className={`relative -left-11 transition-[left] duration-200 ease-out hover:-left-32 ${
+        isGigantamax ? '-left-32' : ''
       }`}
     >
       <Link
         href={gigantamaxHref}
-        className="w-32 h-8 flex-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
+        className="w-36 h-8 flex-center gap-1 px-4 pl-2 rounded-l-full bg-primary-4 cursor-pointer active:text-[#333333] active:bg-primary-3"
         aria-label="거다이맥스 모습 변환 스위치"
         replace
       >
@@ -39,7 +39,7 @@ const GigantamaxSwitch = () => {
             height="1.625rem"
             width="1.625rem"
             imageSize={{ width: 26, height: 26 }}
-            src="/assets/icons/gigantamax.webp"
+            src="/assets/icons/gmax.webp"
           />
         </i>
         <span
