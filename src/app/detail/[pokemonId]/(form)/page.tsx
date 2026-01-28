@@ -21,6 +21,7 @@ interface DetailPageProps {
   searchParams: Promise<{
     shinyMode?: string
     activeIndex?: string
+    activeType?: 'region' | 'mega'
   }>
 }
 
@@ -62,6 +63,26 @@ export const generateMetadata = async ({
 const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
   const { pokemonId } = await params
   const query = await searchParams
+
+  // activeType=region 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
+  if (query.activeType === 'region') {
+    const queryParams = query.shinyMode ? `?shinyMode=${query.shinyMode}` : ''
+    const indexPath =
+      query.activeIndex && query.activeIndex !== '0'
+        ? `/${query.activeIndex}`
+        : ''
+    redirect(`/detail/${pokemonId}/region${indexPath}${queryParams}`)
+  }
+
+  // activeType=mega 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
+  if (query.activeType === 'mega') {
+    const queryParams = query.shinyMode ? `?shinyMode=${query.shinyMode}` : ''
+    const indexPath =
+      query.activeIndex && query.activeIndex !== '0'
+        ? `/${query.activeIndex}`
+        : ''
+    redirect(`/detail/${pokemonId}/mega${indexPath}${queryParams}`)
+  }
 
   // activeIndex 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
   if (query.activeIndex && query.activeIndex !== '0') {

@@ -20,6 +20,8 @@ interface NormalFormPageProps {
   params: Promise<{ pokemonId: string; index?: string[] }>
   searchParams: Promise<{
     shinyMode?: string
+    activeType?: string
+    activeIndex?: string
   }>
 }
 
@@ -66,6 +68,17 @@ export const generateMetadata = async ({
 const NormalFormPage = async ({ params, searchParams }: NormalFormPageProps) => {
   const { pokemonId, index } = await params
   const query = await searchParams
+
+  // activeType 또는 activeIndex 쿼리 파라미터가 남아있으면 제거하고 리다이렉트
+  if (query.activeType || query.activeIndex) {
+    const { activeIndex: parsedIndex } = parseIndexParam(index)
+    const queryParams = query.shinyMode ? `?shinyMode=${query.shinyMode}` : ''
+    const indexPath = parsedIndex > 0 ? `/${parsedIndex}` : ''
+    permanentRedirect(
+      `/detail/${pokemonId}/form${indexPath}${queryParams}`,
+      RedirectType.replace,
+    )
+  }
 
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
