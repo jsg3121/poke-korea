@@ -25,6 +25,11 @@ const ShinySwitchComponent = ({ searchParams }: ShinySwitchComponentProps) => {
         ? `${baseUrl}/region/${activeIndex}`
         : `${baseUrl}/region`
     }
+    if (activeType === 'gigantamax') {
+      return activeIndex > 0
+        ? `${baseUrl}/gigantamax/${activeIndex}`
+        : `${baseUrl}/gigantamax`
+    }
     // 기본폼도 activeIndex > 0이면 Path 기반 URL 사용
     return activeIndex > 0 ? `${baseUrl}/form/${activeIndex}` : baseUrl
   }

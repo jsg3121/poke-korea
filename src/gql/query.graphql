@@ -75,6 +75,7 @@ query PokemonDetail($pokemonId: ID!) {
     isFormChange
     isMegaEvolution
     isRegionForm
+    isGigantamax
     types
     number
     typePrimary
@@ -611,5 +612,45 @@ query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
       endCursor
     }
     totalCount
+  }
+}
+
+query GetPokemonGigantamax($pokemonId: Int!) {
+  getPokemonGigantamaxByPokemonId(pokemonId: $pokemonId) {
+    id
+    pokemonId
+    name
+    formName
+    imagePath
+    gigantamaxCode
+    gmaxMove {
+      id
+      identifier
+      pokemonId
+      nameKo
+      type
+      power
+      effect
+    }
+  }
+}
+
+query GetPokemonGigantamaxList {
+  getPokemonGigantamaxList {
+    id
+    pokemonId
+    name
+    formName
+    imagePath
+    gigantamaxCode
+    gmaxMove {
+      id
+      identifier
+      nameKo
+      type
+      power
+      effect
+      pokemonId
+    }
   }
 }

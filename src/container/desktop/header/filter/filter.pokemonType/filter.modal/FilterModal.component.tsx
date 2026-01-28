@@ -30,6 +30,7 @@ const FilterModalComponent = ({
       isEvolution: routerQuery.get('isEvolution') ?? null,
       isMega: routerQuery.get('isMega') ?? null,
       isRegion: routerQuery.get('isRegion') ?? null,
+      isGigantamax: routerQuery.get('isGigantamax') ?? null,
     },
   })
 
@@ -80,7 +81,7 @@ const FilterModalComponent = ({
     <div className="w-screen h-screen bg-black/70 fixed top-0 left-0 z-[100]">
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmitFilter)}>
-          <section className="w-[30rem] h-[40rem] rounded-2xl bg-primary-1 p-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <section className="w-[30rem] h-[44rem] rounded-2xl bg-primary-1 p-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <header className="h-12 border-b border-solid border-[#e2e2e2] mb-4 pb-4 flex items-start justify-between">
               <p className="h-8 text-2xl font-semibold leading-8 text-primary-4">
                 추가 필터 검색
@@ -162,6 +163,19 @@ const FilterModalComponent = ({
                   <RadioGroupComponent
                     options={RadioOptions}
                     {...register('isEvolution')}
+                  />
+                </div>
+              </div>
+              <div className="mb-8 w-full">
+                <div className="w-full">
+                  <p className="text-lg font-medium leading-[1.125rem] text-primary-3">
+                    거다이맥스 가능 포켓몬 포함
+                  </p>
+                </div>
+                <div className="mt-2">
+                  <RadioGroupComponent
+                    options={RadioOptions}
+                    {...register('isGigantamax')}
                   />
                 </div>
               </div>

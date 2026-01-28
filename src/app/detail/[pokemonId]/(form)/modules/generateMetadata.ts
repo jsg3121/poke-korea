@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import {
   PokemonDetail,
+  PokemonGigantamax,
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
@@ -23,6 +24,7 @@ interface GenerateDetailMetadataParams {
   normalFormData?: PokemonNormalForm[]
   megaEvolutionData?: PokemonMegaEvolution[]
   regionFormData?: PokemonRegionForm[]
+  gigantamaxData?: PokemonGigantamax[]
 }
 
 /**
@@ -36,6 +38,7 @@ export const generateDetailMetadata = ({
   normalFormData = [],
   megaEvolutionData = [],
   regionFormData = [],
+  gigantamaxData = [],
 }: GenerateDetailMetadataParams): Metadata => {
   const commonParams = {
     pokemonDetail,
@@ -52,6 +55,7 @@ export const generateDetailMetadata = ({
     activeType,
     megaEvolutionName: megaEvolutionData[activeIndex]?.name ?? '',
     regionFormPlace: regionFormData[activeIndex]?.region ?? '',
+    gigantamaxName: gigantamaxData[activeIndex]?.name ?? '',
     pokemonBaseInfoName: pokemonDetail.name,
     isShiny,
   })

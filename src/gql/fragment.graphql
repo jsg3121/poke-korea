@@ -35,6 +35,7 @@ fragment PokemonCard on PokemonList {
   types
   isRegionForm
   isMegaEvolution
+  isGigantamax
   pokemonStats {
     ...PokemonStats
   }

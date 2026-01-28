@@ -5,6 +5,7 @@ import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/Sh
 import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
 import { DetailContext } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
+import GigantamaxSwitch from './components/GigantamaxSwitch.component'
 import InfoTitle from './components/InfoTitle.component'
 import MegaSwitch from './components/MegaSwitch.component'
 import RegionSwitch from './components/RegionSwitch.component'
@@ -17,6 +18,7 @@ const DetailSummaryContainer = () => {
     pokemonBaseInfo,
     megaEvolutions,
     regionFormInfo,
+    gigantamaxInfo,
     normalForm,
     activeType,
     activeIndex,
@@ -39,6 +41,11 @@ const DetailSummaryContainer = () => {
           stats:
             regionFormInfo?.[activeIndex].regionFormStats ??
             pokemonBaseInfo?.pokemonStats,
+        }
+      case 'gigantamax':
+        return {
+          name: gigantamaxInfo?.[activeIndex]?.name,
+          stats: pokemonBaseInfo?.pokemonStats,
         }
       default:
         return {
@@ -94,6 +101,7 @@ const DetailSummaryContainer = () => {
             />
             {pokemonBaseInfo?.isMegaEvolution && <MegaSwitch />}
             {pokemonBaseInfo?.isRegionForm && <RegionSwitch />}
+            {pokemonBaseInfo?.isGigantamax && <GigantamaxSwitch />}
           </ul>
           {pokemonBaseInfo && pokemonInfo.stats && (
             <StatsComponent {...pokemonInfo.stats} />

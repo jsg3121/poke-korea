@@ -3,6 +3,7 @@
 import { ReactNode, createContext } from 'react'
 import {
   PokemonDetail,
+  PokemonGigantamax,
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
@@ -15,6 +16,7 @@ interface IFDetailProviderProps {
   normalForm: Array<PokemonNormalForm>
   megaEvolutionData?: Array<PokemonMegaEvolution>
   regionFormData?: Array<PokemonRegionForm>
+  gigantamaxData?: Array<PokemonGigantamax>
   versionGroup?: Array<VersionGroup>
   normalFormImageList: Array<string>
   activeType: TActiveType
@@ -26,6 +28,7 @@ interface IFDetailProps {
   pokemonBaseInfo?: PokemonDetail
   megaEvolutions?: Array<PokemonMegaEvolution>
   regionFormInfo?: Array<PokemonRegionForm>
+  gigantamaxInfo?: Array<PokemonGigantamax>
   normalForm?: Array<PokemonNormalForm>
   activeType: TActiveType
   activeIndex: number
@@ -47,6 +50,7 @@ const DetailContext = createContext<IFDetailProps>({
     abilities: [],
     isMega: false,
     isRegion: false,
+    isGigantamax: false,
     versionGroupInfo: {},
   },
 })
@@ -57,6 +61,7 @@ const DetailProvider = ({
   normalForm,
   megaEvolutionData,
   regionFormData,
+  gigantamaxData,
   versionGroup,
   normalFormImageList,
   activeType,
@@ -184,6 +189,7 @@ const DetailProvider = ({
     generation: pokemonBaseInfo.generation,
     isMega: pokemonBaseInfo.isMegaEvolution ?? false,
     isRegion: pokemonBaseInfo.isRegionForm ?? false,
+    isGigantamax: pokemonBaseInfo.isGigantamax ?? false,
     types,
     abilities: abilities ?? [],
     learnableSkills: learnableSkills ?? undefined,
@@ -198,6 +204,7 @@ const DetailProvider = ({
     activeTypeInfo,
     megaEvolutions: megaEvolutionData,
     regionFormInfo: regionFormData,
+    gigantamaxInfo: gigantamaxData,
     normalFormImageList,
   }
 
