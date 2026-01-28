@@ -3,4 +3,5 @@ export type FilterFormType = {
   isMega: string | null
   isRegion: string | null
   isEvolution: string | null
+  isGigantamax: string | null
 }
