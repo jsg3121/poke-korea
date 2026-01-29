@@ -10,6 +10,12 @@ export const POKEMON_TYPE_QUIZ_JSON_LD = {
     name: '포케 코리아',
     url: 'https://poke-korea.com',
   },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -46,6 +52,12 @@ export const ABILITY_QUIZ_JSON_LD = {
     '@type': 'WebSite',
     name: '포케 코리아',
     url: 'https://poke-korea.com',
+  },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
   },
   breadcrumb: {
     '@type': 'BreadcrumbList',
@@ -84,6 +96,12 @@ export const SILHOUETTE_QUIZ_JSON_LD = {
     name: '포케 코리아',
     url: 'https://poke-korea.com',
   },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -121,6 +139,12 @@ export const TYPE_EFFECTIVENESS_QUIZ_JSON_LD = {
     '@type': 'WebSite',
     name: '포케 코리아',
     url: 'https://poke-korea.com',
+  },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
   },
   breadcrumb: {
     '@type': 'BreadcrumbList',
@@ -219,5 +243,10 @@ export const QUIZ_WEBPAGE_JSON_LD = {
       },
     ],
   },
-  image: 'https://poke-korea.com/assets/image/ogImage.png',
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
 }
