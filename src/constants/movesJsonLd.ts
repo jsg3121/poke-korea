@@ -28,7 +28,12 @@ export const MOVES_WEBPAGE_JSON_LD = {
       },
     ],
   },
-  image: 'https://poke-korea.com/assets/image/ogImage.png',
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
 }
 
 export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
@@ -66,7 +71,12 @@ export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
       },
     ],
   },
-  image: 'https://poke-korea.com/assets/image/ogImage.png',
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
 })
 
 export const getMoveDetailGenerationJsonLd = (
@@ -114,5 +124,10 @@ export const getMoveDetailGenerationJsonLd = (
       },
     ],
   },
-  image: 'https://poke-korea.com/assets/image/ogImage.png',
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
 })
