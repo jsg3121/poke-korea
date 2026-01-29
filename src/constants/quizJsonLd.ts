@@ -172,7 +172,7 @@ export const QUIZ_WEBPAGE_JSON_LD = {
       {
         '@type': 'ListItem',
         position: 2,
-        name: '타입 상성 계산기',
+        name: '포켓몬 퀴즈',
         item: 'https://poke-korea.com/quiz',
       },
     ],
