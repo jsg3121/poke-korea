@@ -147,6 +147,48 @@ export const TYPE_EFFECTIVENESS_QUIZ_JSON_LD = {
   },
 }
 
+// 퀴즈 목록 ItemList JSON-LD
+export const QUIZ_ITEMLIST_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '포켓몬 퀴즈 목록',
+  description: '포켓몬의 실루엣, 특성, 타입, 상성 정보를 활용한 4가지 퀴즈',
+  numberOfItems: 4,
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: '포켓몬 실루엣 퀴즈',
+      url: 'https://poke-korea.com/quiz/silhouette',
+      description:
+        '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: '포켓몬 특성 퀴즈',
+      url: 'https://poke-korea.com/quiz/ability',
+      description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: '포켓몬 타입 퀴즈',
+      url: 'https://poke-korea.com/quiz/pokemon-type',
+      description:
+        '특정 타입을 보고 해당 타입을 가지고 있는 포켓몬을 맞춰보세요!',
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: '포켓몬 타입 상성 퀴즈',
+      url: 'https://poke-korea.com/quiz/type-effectiveness',
+      description:
+        '공격하는 타입과 방어하는 타입을 확인하고, 어떤 효과를 가지는지 답을 선택해 맞춰보세요!',
+    },
+  ],
+}
+
 export const QUIZ_WEBPAGE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',

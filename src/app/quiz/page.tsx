@@ -1,7 +1,10 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import { QUIZ_WEBPAGE_JSON_LD } from '~/constants/quizJsonLd'
+import {
+  QUIZ_ITEMLIST_JSON_LD,
+  QUIZ_WEBPAGE_JSON_LD,
+} from '~/constants/quizJsonLd'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import QuizMainDesktop from '~/views/desktop/quiz/QuizMain.desktop'
@@ -53,10 +56,17 @@ const QuizMainPage = async () => {
     <Fragment>
       {isMobile ? <QuizMainMobile /> : <QuizMainDesktop />}
       <script
-        id="type-effectiveness-quiz-jsonLd"
+        id="quiz-webpage-jsonLd"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(QUIZ_WEBPAGE_JSON_LD),
+        }}
+      />
+      <script
+        id="quiz-itemlist-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(QUIZ_ITEMLIST_JSON_LD),
         }}
       />
     </Fragment>
