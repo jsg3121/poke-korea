@@ -44,13 +44,13 @@ export const generateMetadata = async ({
   const queryParams = `${typeFilter || damageTypeFilter ? '?' : ''}${params.toString()}`
   const title =
     !typeFilter && !damageTypeFilter
-      ? '포켓몬 기술 도감 - 포케코리아'
-      : `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} 유형` : ''} ${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 기술 목록 - 포케코리아`
+      ? '포켓몬 기술 도감 (모든 기술) | 포케 코리아'
+      : `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} ` : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입 ` : ''}기술 목록 | 포케 코리아`
 
   const description =
     !typeFilter && !damageTypeFilter
-      ? '1세대부터 9세대까지 900개 이상의 포켓몬 기술을 한곳에서 확인하세요. 타입과 데미지 유형 필터로 원하는 기술을 빠르게 검색!'
-      : `포케코리아에서${damageTypeFilter ? ` ${damageTypeFilter} 유형의` : ''}${typeFilter ? ` ${PokemonTypes[typeFilter]} 타입을 가지고 있는` : ''} 포켓몬의 모든 기술을 한눈에 확인하세요. 1세대부터 9세대 까지 모든 기술을 확인하실 수 있습니다.`
+      ? '1세대부터 9세대까지 900개 이상의 포켓몬 기술을 타입·데미지 유형별로 검색하세요. 위력, 명중률, 배울 수 있는 포켓몬까지 한눈에 확인할 수 있습니다.'
+      : `${damageTypeFilter ? `${damageTypeFilter} 유형` : ''}${damageTypeFilter && typeFilter ? ' · ' : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 포켓몬 기술을 모아보세요. 위력, 명중률, 세대별 변경사항과 배울 수 있는 포켓몬 목록까지 확인할 수 있습니다.`
   const canonicalUrl = `https://poke-korea.com/moves${queryParams}`
 
   const metadata: Metadata = {
