@@ -1,4 +1,3 @@
-import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
 import FooterDesktop from '~/container/desktop/footer/Footer.container'
@@ -7,47 +6,15 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
-import { getRobotsConfig } from '~/module/metadata.module'
 import SilhouetteQuizDesktop from '~/container/desktop/quiz/silhouetteQuiz/SilhouetteQuiz.desktop'
 import SilhouetteQuizMobile from '~/views/mobile/quiz/silhouetteQuiz/SilhouetteQuiz.mobile'
 import MobileTabBar from '~/components/MobileTabBar'
 import { SILHOUETTE_QUIZ_JSON_LD } from '~/constants/quizJsonLd'
+import { QUIZ_SILHOUETTE_META } from '~/constants/seoMetaData'
 
 export const revalidate = 31536000
 
-export const metadata: Metadata = {
-  title: '포켓몬 실루엣 퀴즈 | 포케 코리아',
-  description: '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
-  robots: getRobotsConfig(),
-  openGraph: {
-    title: '포켓몬 실루엣 퀴즈 | 포케 코리아',
-    description:
-      '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
-    url: 'https://poke-korea.com/quiz/silhouette',
-    type: 'website',
-    siteName: '포케 코리아',
-    locale: 'ko_KR',
-    images: [
-      {
-        url: 'https://poke-korea.com/assets/image/ogImage.png',
-        width: 1200,
-        height: 630,
-        alt: '실루엣 퀴즈 | 포케 코리아',
-        type: 'image/png',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://poke-korea.com/quiz/silhouette',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: '포켓몬 실루엣 퀴즈 | 포케 코리아',
-    description:
-      '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
-    images: ['https://poke-korea.com/assets/image/ogImage.png'],
-  },
-}
+export const metadata = QUIZ_SILHOUETTE_META
 
 const SilhouetteQuizPage = async () => {
   const headersList = headers()
