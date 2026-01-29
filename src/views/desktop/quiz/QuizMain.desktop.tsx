@@ -23,6 +23,7 @@ const QuizMainDesktop = () => {
               <Link
                 key={quiz.type}
                 href={quiz.route}
+                aria-label={`${quiz.title} 시작하기`}
                 className="group block bg-primary-4 rounded-[1rem] hover:scale-105 transition-[transform] duration-[0.15s]"
               >
                 <article className="rounded-[1rem] overflow-hidden">
@@ -37,7 +38,8 @@ const QuizMainDesktop = () => {
                     <p className="flex-between text-sm text-gray-500">
                       예상 소요시간: 5-10분
                       <span className="text-blue-600 text-sm font-medium">
-                        시작하기 →
+                        {quiz.title} 시작하기{' '}
+                        <span aria-hidden="true">→</span>
                       </span>
                     </p>
                   </div>

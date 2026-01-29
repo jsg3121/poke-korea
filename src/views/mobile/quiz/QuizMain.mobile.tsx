@@ -45,6 +45,7 @@ const QuizMainMobile = () => {
               <Link
                 key={quiz.type}
                 href={quiz.route}
+                aria-label={`${quiz.title} 시작하기`}
                 className="block bg-primary-4 rounded-[1rem]"
               >
                 <article className="rounded-[1rem] overflow-hidden">
@@ -59,7 +60,8 @@ const QuizMainMobile = () => {
                     <p className="flex-between text-sm text-gray-500">
                       예상 소요시간: 5-10분
                       <span className="text-blue-600 text-sm font-medium">
-                        시작하기 →
+                        {quiz.title} 시작하기{' '}
+                        <span aria-hidden="true">→</span>
                       </span>
                     </p>
                   </div>
