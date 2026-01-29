@@ -5,6 +5,7 @@ import {
   MOVES_TYPE_ITEMLIST_JSON_LD,
   MOVES_WEBPAGE_JSON_LD,
 } from '~/constants/movesJsonLd'
+import { MOVES_MAIN_META } from '~/constants/seoMetaData'
 import { MovesProvider } from '~/context/Moves.context'
 import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
 import {
@@ -35,6 +36,11 @@ export const generateMetadata = async ({
   searchParams,
 }: MovesPageProps): Promise<Metadata> => {
   const { damageTypeFilter, typeFilter } = await searchParams
+
+  if (!typeFilter && !damageTypeFilter) {
+    return MOVES_MAIN_META
+  }
+
   const params = new URLSearchParams()
 
   if (typeFilter) {
@@ -44,19 +50,11 @@ export const generateMetadata = async ({
     params.set('damageTypeFilter', damageTypeFilter)
   }
 
-  const queryParams = `${typeFilter || damageTypeFilter ? '?' : ''}${params.toString()}`
-  const title =
-    !typeFilter && !damageTypeFilter
-      ? '포켓몬 기술 도감 (모든 기술) | 포케 코리아'
-      : `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} ` : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입 ` : ''}기술 목록 | 포케 코리아`
+  const title = `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} ` : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입 ` : ''}기술 목록 | 포케 코리아`
+  const description = `${damageTypeFilter ? `${damageTypeFilter} 유형` : ''}${damageTypeFilter && typeFilter ? ' · ' : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 포켓몬 기술을 모아보세요. 위력, 명중률, 세대별 변경사항과 배울 수 있는 포켓몬 목록까지 확인할 수 있습니다.`
+  const canonicalUrl = `https://poke-korea.com/moves?${params.toString()}`
 
-  const description =
-    !typeFilter && !damageTypeFilter
-      ? '1세대부터 9세대까지 900개 이상의 포켓몬 기술을 타입·데미지 유형별로 검색하세요. 위력, 명중률, 배울 수 있는 포켓몬까지 한눈에 확인할 수 있습니다.'
-      : `${damageTypeFilter ? `${damageTypeFilter} 유형` : ''}${damageTypeFilter && typeFilter ? ' · ' : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 포켓몬 기술을 모아보세요. 위력, 명중률, 세대별 변경사항과 배울 수 있는 포켓몬 목록까지 확인할 수 있습니다.`
-  const canonicalUrl = `https://poke-korea.com/moves${queryParams}`
-
-  const metadata: Metadata = {
+  return {
     title,
     description,
     robots: getRobotsConfig(),
@@ -87,8 +85,6 @@ export const generateMetadata = async ({
       images: ['https://poke-korea.com/assets/image/ogImage.png'],
     },
   }
-
-  return metadata
 }
 
 export default async function MovesPage({ searchParams }: MovesPageProps) {
