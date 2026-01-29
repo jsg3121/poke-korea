@@ -1,0 +1,115 @@
+# CLAUDE.md 지침 문서 전면 업데이트 (claude-md)
+
+## 📋 작업 개요
+
+**브랜치**: `feature/1.32.0-claude-md`
+**작업 유형**: 문서 개선
+**작업 기간**: 2026-01-29
+**담당**: Claude Code
+
+## 🎯 작업 목표
+
+CLAUDE.md 지침 문서를 실제 프로젝트 구조·설정에 맞게 전면 재작성하여 Claude Code의 코드 작업 정확도를 높이고, 영어로 작성된 지침을 한국어로 통일한다.
+
+## ✨ 주요 변경사항
+
+### 변경 1: 영어 지침 한글화
+
+- 문서 설명문 (`This file provides guidance...`) → 한국어로 변환
+- 섹션 제목 전체 한글화 (`Response Rules` → `응답 규칙`, `Development Commands` → `개발 명령어` 등)
+- `Architecture Overview` → `아키텍처 패턴`, `Important Conventions` → `코딩 컨벤션` 등
+
+### 변경 2: 프로젝트 폴더 구조 상세화
+
+- `src/` 하위 전체 디렉토리를 트리 형태로 상세 기술
+- 각 디렉토리의 역할과 포함 파일 수/패턴 명시
+- `components/`, `container/`, `context/`, `hook/`, `module/`, `constants/` 등 주요 파일 나열
+
+### 변경 3: 페이지 라우트 맵 신규 추가
+
+- `src/app/` 하위 전체 라우트 구조를 트리 형태로 문서화
+- 각 페이지의 URL 경로와 역할 주석
+- 동적 라우트 패턴 (`[pokemonId]`, `[[...index]]` 등) 명시
+- 라우트 그룹 `(form)` 설명
+
+### 변경 4: SEO 구성 개요 섹션 신규 추가
+
+- 적용 기법 8가지 (Metadata API, JSON-LD, Sitemap, Robots, Canonical, OG, 동적 OG 이미지, SEO 모듈) 테이블 정리
+- 관련 파일 위치 안내
+- SEO 적용 현황 요약 (커버리지, JSON-LD, 리다이렉트)
+
+### 변경 5: 기술 스택 테이블 정확도 개선
+
+- `package.json` 기반 실제 버전 번호 반영
+- 누락된 의존성 추가: `React Hook Form`, `Chart.js`, `Immer`, `cssnano`, `PM2`
+- 브라우저 지원 범위 (`browserslist`) 반영
+
+### 변경 6: 코딩 컨벤션 구체화
+
+- 파일 네이밍 규칙에 `뷰 (데스크톱/모바일)` 패턴 추가
+- `.prettierrc` 설정값 테이블로 구체적 명시 (semi, singleQuote, tabWidth 등)
+- `.eslintrc` 주요 규칙 나열 (no-unused-vars, no-explicit-any, ignorePatterns 등)
+- Tailwind 커스텀 설정 반영 (브레이크포인트, 색상 체계)
+
+### 변경 7: Next.js 설정 섹션 신규 추가
+
+- `next.config.js` 주요 항목 테이블 (reactStrictMode, removeConsole, redirects, headers, webpack)
+
+### 변경 8: GraphQL 연동 정보 정확도 개선
+
+- 생성 파일 3개 정확히 반영 (`schema.graphql`, `gqlGenerated.ts`, `typeGenerated.ts`)
+- `codegen.ts` 설정 파일 언급 추가
+
+### 변경 9: 개발 명령어 보강
+
+- `npm run start:local` 명령어 추가 (기존 문서에 누락)
+
+## 📊 최적화 결과
+
+| 항목 | 변경 전 | 변경 후 | 비고 |
+| ---- | ------- | ------- | ---- |
+| 문서 섹션 수 | 6개 | 10개 | 신규 4개 추가 |
+| 영어 지침 | 일부 영어 혼재 | 전체 한국어 | 100% 한글화 |
+| 폴더 구조 | 5줄 개요 | 80줄 상세 트리 | 전체 디렉토리 반영 |
+| 라우트 맵 | 없음 | 44줄 전체 맵 | 신규 |
+| SEO 정보 | 없음 | 개요 테이블 + 현황 | 신규 |
+| 기술 스택 | 5항목 | 12항목 + 버전 | 실제 package.json 기반 |
+
+## 🔧 기술적 세부사항
+
+**수정된 파일**:
+
+- [CLAUDE.md](../../CLAUDE.md) — 전면 재작성
+
+**참고한 설정 파일**:
+
+- `package.json` (의존성 버전, scripts, browserslist)
+- `.eslintrc` (린트 규칙)
+- `.prettierrc` (포맷팅 규칙)
+- `tsconfig.json` (TypeScript 설정, path alias)
+- `next.config.js` (리다이렉트, 캐싱, webpack)
+- `tailwind.config.js` (커스텀 색상, 브레이크포인트)
+- `codegen.ts` (GraphQL 코드 생성)
+
+## ✅ 테스트 체크리스트
+
+- [x] 마크다운 린트 경고 해결 (테이블 공백, 코드 블록 언어, bare URL)
+- [ ] 실제 프로젝트 디렉토리 구조와 문서 내용 일치 확인
+- [ ] 기술 스택 버전 번호가 package.json과 일치하는지 확인
+- [ ] 새로운 Claude Code 세션에서 지침이 올바르게 적용되는지 확인
+
+## 📝 향후 작업
+
+- 프로젝트에 변경사항이 생길 때마다 CLAUDE.md 동기화 유지
+- 새로운 페이지/컴포넌트 추가 시 라우트 맵 및 폴더 구조 업데이트
+
+## 🚀 머지 정보
+
+**머지 대상**: `feature/1.32.0`
+**머지 예정일**: TBD
+**관련 PR**: TBD
+
+## 📌 참고 사항
+
+- 기존 `버전 관리 및 릴리즈` 섹션(브랜치 전략, Changelog 관리)은 내용 변경 없이 그대로 유지
+- `응답 규칙` 섹션도 기존 내용 그대로 유지
