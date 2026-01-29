@@ -4,6 +4,7 @@ export const POKEMON_TYPE_QUIZ_JSON_LD = {
   '@type': 'WebPage',
   name: '포켓몬 타입 퀴즈',
   description: '특정 타입을 보고 해당 타입을 가지고 있는 포켓몬을 맞춰보세요!',
+  url: 'https://poke-korea.com/quiz/pokemon-type',
   inLanguage: 'ko-KR',
   isPartOf: {
     '@type': 'WebSite',
@@ -47,6 +48,7 @@ export const ABILITY_QUIZ_JSON_LD = {
   '@type': 'WebPage',
   name: '포켓몬 특성 퀴즈',
   description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
+  url: 'https://poke-korea.com/quiz/ability',
   inLanguage: 'ko-KR',
   isPartOf: {
     '@type': 'WebSite',
@@ -90,6 +92,7 @@ export const SILHOUETTE_QUIZ_JSON_LD = {
   '@type': 'WebPage',
   name: '포켓몬 실루엣 퀴즈',
   description: '검게 가려진 포켓몬의 실루엣을 보고 어떤 포켓몬인지 맞춰보세요!',
+  url: 'https://poke-korea.com/quiz/silhouette',
   inLanguage: 'ko-KR',
   isPartOf: {
     '@type': 'WebSite',
@@ -134,6 +137,7 @@ export const TYPE_EFFECTIVENESS_QUIZ_JSON_LD = {
   name: '포켓몬 타입 상성 퀴즈',
   description:
     '공격하는 타입과 방어하는 타입을 확인하고, 어떤 효과를 가지는지 답을 선택해 맞춰보세요!',
+  url: 'https://poke-korea.com/quiz/type-effectiveness',
   inLanguage: 'ko-KR',
   isPartOf: {
     '@type': 'WebSite',
