@@ -1,7 +1,10 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import { MOVES_WEBPAGE_JSON_LD } from '~/constants/movesJsonLd'
+import {
+  MOVES_TYPE_ITEMLIST_JSON_LD,
+  MOVES_WEBPAGE_JSON_LD,
+} from '~/constants/movesJsonLd'
 import { MovesProvider } from '~/context/Moves.context'
 import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
 import {
@@ -131,10 +134,17 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
         {isMobile ? <MovesMobile /> : <MovesDesktop />}
       </MovesProvider>
       <script
-        id="type-effectiveness-webpage-jsonLd"
+        id="moves-webpage-jsonLd"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(MOVES_WEBPAGE_JSON_LD),
+        }}
+      />
+      <script
+        id="moves-type-itemlist-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(MOVES_TYPE_ITEMLIST_JSON_LD),
         }}
       />
     </Fragment>
