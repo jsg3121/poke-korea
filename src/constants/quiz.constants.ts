@@ -42,7 +42,7 @@ export const QUIZ_CONFIG = [
   },
 ] as const
 
-export const QUIZ_DESCRIPTION_LIST = {
+export const QUIZ_DESCRIPTION_LIST_DATA = {
   silhouette: {
     sections: [
       {

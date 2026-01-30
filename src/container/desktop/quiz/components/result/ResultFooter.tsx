@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import {
   QUIZ_ROUTES,
-  QUIZ_DESCRIPTION_LIST,
+  QUIZ_DESCRIPTION_LIST_DATA,
   QUIZ_CROSS_LINKS,
 } from '~/constants/quiz.constants'
 
 interface ResultFooterProps {
   onClickRetryButton: () => void
-  quizType: keyof typeof QUIZ_DESCRIPTION_LIST
+  quizType: keyof typeof QUIZ_DESCRIPTION_LIST_DATA
 }
 
 const ResultFooter = ({ onClickRetryButton, quizType }: ResultFooterProps) => {
@@ -15,7 +15,7 @@ const ResultFooter = ({ onClickRetryButton, quizType }: ResultFooterProps) => {
     onClickRetryButton()
   }
 
-  const descriptionData = QUIZ_DESCRIPTION_LIST[quizType]
+  const descriptionData = QUIZ_DESCRIPTION_LIST_DATA[quizType]
   const quizTypeKey =
     quizType === 'pokemonType'
       ? 'pokemon-type'

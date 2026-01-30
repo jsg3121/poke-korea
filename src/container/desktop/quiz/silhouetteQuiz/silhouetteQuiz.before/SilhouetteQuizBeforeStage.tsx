@@ -3,14 +3,17 @@
 import Link from 'next/link'
 import DesktopSilhouetteGuideBottomBanner from '~/components/adSlot/DesktopSilhouetteGuideBottomBanner'
 import PageHeader from '~/components/PageHeader'
-import { QUIZ_CONFIG, QUIZ_DESCRIPTION_LIST } from '~/constants/quiz.constants'
+import {
+  QUIZ_CONFIG,
+  QUIZ_DESCRIPTION_LIST_DATA,
+} from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import GuideStartButton from '../../components/guide/GuideStartButton'
 import OtherQuizLink from './components/OtherQuizLink'
 
 const SilhouetteQuizBeforeStage = () => {
   const { onChangeStage } = useSilhouetteQuizContext()
-  const seoContent = QUIZ_DESCRIPTION_LIST.silhouette
+  const seoContent = QUIZ_DESCRIPTION_LIST_DATA.silhouette
 
   const handleClickChangeStage = () => {
     onChangeStage('QUIZ')

@@ -1,72 +1,41 @@
 import Link from 'next/link'
-import {
-  QUIZ_ROUTES,
-  QUIZ_DESCRIPTION_LIST,
-  QUIZ_CROSS_LINKS,
-} from '~/constants/quiz.constants'
+import { QuizType } from '~/types/quiz.type'
+import OtherQuizLink from '../../silhouetteQuiz/silhouetteQuiz.before/components/OtherQuizLink'
 
 interface ResultFooterProps {
   onClickRetryButton: () => void
-  quizType?: keyof typeof QUIZ_DESCRIPTION_LIST
+  quizType: QuizType
+  relationPageHref: string
+  relationPageHrefLabel: string
 }
 
-const ResultFooter = ({ onClickRetryButton, quizType }: ResultFooterProps) => {
+const ResultFooter = ({
+  onClickRetryButton,
+  relationPageHref,
+  relationPageHrefLabel,
+  quizType,
+}: ResultFooterProps) => {
   const handleClickRetryButton = () => {
     onClickRetryButton()
   }
 
-  const seoContent = quizType ? QUIZ_DESCRIPTION_LIST[quizType] : null
-  const quizTypeKey =
-    quizType === 'pokemonType'
-      ? 'pokemon-type'
-      : quizType === 'typeEffectiveness'
-        ? 'type-effectiveness'
-        : quizType
-
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-[1rem] justify-center">
+      <OtherQuizLink currentQuiz={quizType} />
+      <div className="w-full flex gap-[1rem] justify-center">
         <button
-          className="h-[3rem] text-aligned-xl px-[2rem] bg-primary-2 text-white font-medium rounded-lg"
+          className="w-2/5 h-[3rem] shrink-0 text-aligned-xl text-center bg-primary-2 text-white font-medium rounded-lg"
           onClick={handleClickRetryButton}
         >
           다시 도전하기
         </button>
         <Link
-          href={QUIZ_ROUTES.MAIN}
-          className="h-[3rem] text-aligned-xl px-[2rem] bg-primary-3 text-black-2 font-medium rounded-lg"
+          href={relationPageHref}
+          className="w-3/5 h-[3rem] text-aligned-xl text-center bg-primary-3 text-black-2 font-medium rounded-lg"
         >
-          다른 퀴즈 하러가기
+          {relationPageHrefLabel}
         </Link>
       </div>
-      {seoContent && (
-        <div className="flex flex-col gap-3 mt-2">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {seoContent.relatedLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-blue-600 hover:underline"
-              >
-                {link.text} →
-              </Link>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2 justify-center">
-            {QUIZ_CROSS_LINKS.filter((link) => link.type !== quizTypeKey).map(
-              (link) => (
-                <Link
-                  key={link.type}
-                  href={link.route}
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  {link.title} →
-                </Link>
-              ),
-            )}
-          </div>
-        </div>
-      )}
     </div>
   )
 }

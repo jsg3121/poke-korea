@@ -20,7 +20,7 @@ const AbilityQuizResult = () => {
   if (!result) return null
 
   return (
-    <section className="w-[calc(100%-40px)] mx-auto pt-[1rem]">
+    <section className="w-full px-4 pt-[1rem]">
       <ResultHeader headline={headline} medal={medal} subcopy={subcopy} />
       <ResultSummary
         averageTime={result.averageTime}

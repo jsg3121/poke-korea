@@ -3,14 +3,17 @@
 import Link from 'next/link'
 import MobileSilhouetteGuideBottomBanner from '~/components/adSlot/MobileSilhouetteGuideBottomBanner'
 import PageHeader from '~/components/mobile/PageHeader'
-import { QUIZ_CONFIG, QUIZ_DESCRIPTION_LIST } from '~/constants/quiz.constants'
+import {
+  QUIZ_CONFIG,
+  QUIZ_DESCRIPTION_LIST_DATA,
+} from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import GuideStartButton from '../../components/guide/GuideStartButton'
 import OtherQuizLink from './components/OtherQuizLink'
 
 const SilhouetteQuizBeforeStage = () => {
   const { onChangeStage } = useSilhouetteQuizContext()
-  const seoContent = QUIZ_DESCRIPTION_LIST.silhouette
+  const seoContent = QUIZ_DESCRIPTION_LIST_DATA.silhouette
 
   const handleClickStartButton = () => {
     onChangeStage('QUIZ')
@@ -22,7 +25,7 @@ const SilhouetteQuizBeforeStage = () => {
         title={QUIZ_CONFIG[0].title}
         description={QUIZ_CONFIG[0].description}
       />
-      <section className="w-full mt-4 p-6 rounded-[20px] bg-primary-4">
+      <section className="w-full mt-4 p-6 rounded-[1rem] bg-primary-4 mb-4">
         <h2 className="text-2xl font-bold text-primary-1 mb-3">실루엣 퀴즈</h2>
         {seoContent.sections.map((section) => (
           <article key={section.title} className="mb-4 last:mb-0">

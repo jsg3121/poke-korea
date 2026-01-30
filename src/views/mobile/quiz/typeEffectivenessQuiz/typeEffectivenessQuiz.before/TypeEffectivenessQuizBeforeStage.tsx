@@ -5,7 +5,7 @@ import MobileTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/Mo
 import PageHeader from '~/components/mobile/PageHeader'
 import {
   QUIZ_CONFIG,
-  QUIZ_DESCRIPTION_LIST,
+  QUIZ_DESCRIPTION_LIST_DATA,
   QUIZ_CROSS_LINKS,
 } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
@@ -13,7 +13,7 @@ import GuideStartButton from '../../components/guide/GuideStartButton'
 
 const TypeEffectivenessQuizBeforeStage = () => {
   const { onChangeStage } = useTypeEffectivenessQuizContext()
-  const seoContent = QUIZ_DESCRIPTION_LIST.typeEffectiveness
+  const seoContent = QUIZ_DESCRIPTION_LIST_DATA.typeEffectiveness
 
   const handleClickStartButton = () => {
     onChangeStage('QUIZ')
