@@ -3,7 +3,10 @@ import { Fragment } from 'react'
 import DesktopQuizMainBottomBanner from '~/components/adSlot/DesktopQuizMainBottomBanner'
 import DesktopQuizMainTopBanner from '~/components/adSlot/DesktopQuizMainTopBanner'
 import PageHeader from '~/components/PageHeader'
-import { QUIZ_CONFIG } from '~/constants/quiz.constants'
+import {
+  QUIZ_CONFIG,
+  QUIZ_MAIN_SEO_CONTENT,
+} from '~/constants/quiz.constants'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 
@@ -18,7 +21,24 @@ const QuizMainDesktop = () => {
             description="다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!"
           />
           <DesktopQuizMainTopBanner />
-          <div className="grid grid-cols-2 gap-6 mx-auto pt-10">
+          <article className="mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
+            <h2 className="text-xl font-bold text-primary-1 mb-4">
+              {QUIZ_MAIN_SEO_CONTENT.title}
+            </h2>
+            <div className="space-y-3">
+              {QUIZ_MAIN_SEO_CONTENT.descriptions.map(
+                (desc, index) => (
+                  <p
+                    key={index}
+                    className="text-primary-1 leading-relaxed"
+                  >
+                    {desc}
+                  </p>
+                ),
+              )}
+            </div>
+          </article>
+          <div className="grid grid-cols-2 gap-6 mx-auto pt-6">
             {QUIZ_CONFIG.map((quiz) => (
               <Link
                 key={quiz.type}
@@ -34,7 +54,9 @@ const QuizMainDesktop = () => {
                     </h2>
                   </header>
                   <div className="p-6">
-                    <p className="text-primary-1 mb-4">{quiz.description}</p>
+                    <p className="text-primary-1 mb-4">
+                      {quiz.description}
+                    </p>
                     <p className="flex-between text-sm text-gray-500">
                       예상 소요시간: 5-10분
                       <span className="text-blue-600 text-sm font-medium">
@@ -48,7 +70,9 @@ const QuizMainDesktop = () => {
             ))}
           </div>
           <article className="mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
-            <h2 className="text-xl font-bold text-primary-1 mb-4">퀴즈 안내</h2>
+            <h2 className="text-xl font-bold text-primary-1 mb-4">
+              퀴즈 안내
+            </h2>
             <ul className="space-y-2 text-primary-1">
               <li className="flex-items-gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
