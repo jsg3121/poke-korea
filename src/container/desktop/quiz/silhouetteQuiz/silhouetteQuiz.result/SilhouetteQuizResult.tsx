@@ -92,6 +92,8 @@ const SilhouetteQuizResult = () => {
       <ResultFooter
         onClickRetryButton={handleClickRetryQuiz}
         quizType="silhouette"
+        relationPageHref="/list"
+        relationPageHrefLabel="포켓몬 확인하러 가기"
       />
     </section>
   )
