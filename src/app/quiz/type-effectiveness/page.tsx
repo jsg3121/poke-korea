@@ -9,7 +9,10 @@ import { detectUserAgent } from '~/module/device.module'
 import TypeEffectivenessQuizDesktop from '~/container/desktop/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.desktop'
 import TypeEffectivenessQuizMobile from '~/views/mobile/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.mobile'
 import MobileTabBar from '~/components/MobileTabBar'
-import { TYPE_EFFECTIVENESS_QUIZ_JSON_LD } from '~/constants/quizJsonLd'
+import {
+  TYPE_EFFECTIVENESS_QUIZ_JSON_LD,
+  TYPE_EFFECTIVENESS_QUIZ_HOWTO_JSON_LD,
+} from '~/constants/quizJsonLd'
 import { QUIZ_TYPE_EFFECTIVENESS_META } from '~/constants/seoMetaData'
 
 export const revalidate = 31536000 // 24시간마다 재생성
@@ -46,6 +49,13 @@ const TypeEffectivenessQuizPage = async () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(TYPE_EFFECTIVENESS_QUIZ_JSON_LD),
+        }}
+      />
+      <script
+        id="type-effectiveness-quiz-howto-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(TYPE_EFFECTIVENESS_QUIZ_HOWTO_JSON_LD),
         }}
       />
     </Fragment>
