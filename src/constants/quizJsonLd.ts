@@ -4,7 +4,7 @@ export const POKEMON_TYPE_QUIZ_JSON_LD = {
   '@type': 'WebPage',
   name: '포켓몬 타입 퀴즈 (20문제)',
   description:
-    '불꽃, 물, 풀 등 특정 타입을 가진 포켓몬을 골라보세요! 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
+    '포켓몬 타입 퀴즈는 특정 타입이 주어졌을 때, 해당 타입을 가진 포켓몬을 골라내는 퀴즈입니다. 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
   url: 'https://poke-korea.com/quiz/pokemon-type',
   inLanguage: 'ko-KR',
   isPartOf: {
@@ -49,7 +49,7 @@ export const ABILITY_QUIZ_JSON_LD = {
   '@type': 'WebPage',
   name: '포켓몬 특성 퀴즈 (20문제)',
   description:
-    '포켓몬 특성 설명을 보고 정답 특성을 골라보세요! 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
+    '특성 퀴즈는 포켓몬 특성의 설명을 읽고 어떤 특성인지 맞추는 퀴즈입니다. 배틀에서 중요한 역할을 하는 특성들을 얼마나 잘 알고 있는지 테스트해보세요. 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
   url: 'https://poke-korea.com/quiz/ability',
   inLanguage: 'ko-KR',
   isPartOf: {
@@ -94,7 +94,7 @@ export const SILHOUETTE_QUIZ_JSON_LD = {
   '@type': 'WebPage',
   name: '포켓몬 실루엣 퀴즈 (20문제)',
   description:
-    '검은 실루엣만 보고 포켓몬 이름을 맞춰보세요! 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
+    '실루엣 퀴즈는 검은 그림자로 가려진 포켓몬의 외형만 보고 어떤 포켓몬인지 맞추는 퀴즈입니다. 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
   url: 'https://poke-korea.com/quiz/silhouette',
   inLanguage: 'ko-KR',
   isPartOf: {
@@ -139,7 +139,7 @@ export const TYPE_EFFECTIVENESS_QUIZ_JSON_LD = {
   '@type': 'WebPage',
   name: '포켓몬 타입 상성 퀴즈 (20문제)',
   description:
-    '공격·방어 타입 조합의 데미지 배수를 맞춰보세요! 2배·0.5배·0배 등 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
+    '타입 상성 퀴즈는 공격 타입과 방어 타입의 조합을 보고 데미지 배수를 맞추는 퀴즈입니다. 포켓몬 배틀의 핵심인 타입 상성표를 확인해보세요. 4지선다 20문제, 완료 후 정답과 결과를 바로 확인할 수 있습니다.',
   url: 'https://poke-korea.com/quiz/type-effectiveness',
   inLanguage: 'ko-KR',
   isPartOf: {
