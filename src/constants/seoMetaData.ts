@@ -15,6 +15,52 @@ export const TYPE_EFFECTIVNESS_SEO_META = {
   canonicalUrl: 'https://poke-korea.com/type-effectiveness',
 }
 
+/** 기술 도감 메타데이터 생성 헬퍼 */
+const createMovesMetadata = (
+  title: string,
+  description: string,
+  path: string,
+  imageAlt: string,
+): Metadata => ({
+  title,
+  description,
+  robots: getRobotsConfig(),
+  openGraph: {
+    title,
+    description,
+    url: `${SITE_URL}${path}`,
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'ko_KR',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: imageAlt,
+        type: 'image/png',
+      },
+    ],
+  },
+  alternates: {
+    canonical: `${SITE_URL}${path}`,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [OG_IMAGE_URL],
+  },
+})
+
+/** 기술 도감 메인 (필터 없음) 메타데이터 */
+export const MOVES_MAIN_META: Metadata = createMovesMetadata(
+  '포켓몬 기술 도감 (1~9세대 전체) | 포케 코리아',
+  '1세대부터 9세대까지 900개 이상의 포켓몬 기술을 타입·데미지 유형별로 검색하세요. 위력, 명중률, 배울 수 있는 포켓몬까지 한눈에 확인할 수 있습니다.',
+  '/moves',
+  '포켓몬 기술 도감 | 포케 코리아',
+)
+
 /** 퀴즈 페이지 메타데이터 생성 헬퍼 */
 const createQuizMetadata = (
   title: string,

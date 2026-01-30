@@ -1,3 +1,24 @@
+import { PokemonTypes } from '~/types/pokemonTypes.types'
+
+const SITE_URL = 'https://poke-korea.com'
+
+export const MOVES_TYPE_ITEMLIST_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '포켓몬 기술 타입별 목록',
+  description:
+    '18가지 포켓몬 타입별로 분류된 기술 목록입니다. 원하는 타입을 선택해 해당 기술을 확인하세요.',
+  numberOfItems: Object.keys(PokemonTypes).length,
+  itemListElement: Object.entries(PokemonTypes).map(
+    ([typeEnum, typeName], index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: `${typeName} 타입 기술`,
+      url: `${SITE_URL}/moves?typeFilter=${typeEnum}`,
+    }),
+  ),
+}
+
 export const MOVES_WEBPAGE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -28,7 +49,12 @@ export const MOVES_WEBPAGE_JSON_LD = {
       },
     ],
   },
-  image: 'https://poke-korea.com/assets/image/ogImage.png',
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
 }
 
 export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
@@ -66,7 +92,12 @@ export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
       },
     ],
   },
-  image: 'https://poke-korea.com/assets/image/ogImage.png',
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
 })
 
 export const getMoveDetailGenerationJsonLd = (
@@ -114,5 +145,10 @@ export const getMoveDetailGenerationJsonLd = (
       },
     ],
   },
-  image: 'https://poke-korea.com/assets/image/ogImage.png',
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: 'https://poke-korea.com/assets/image/ogImage.png',
+    width: 1200,
+    height: 630,
+  },
 })
