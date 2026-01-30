@@ -62,18 +62,18 @@ const AbilityQuizBeforeStage = () => {
           다른 퀴즈도 도전해보세요
         </h3>
         <ul className="space-y-2">
-          {QUIZ_CROSS_LINKS.filter(
-            (link) => link.type !== 'ability',
-          ).map((link) => (
-            <li key={link.type}>
-              <Link
-                href={link.route}
-                className="text-sm text-blue-600 hover:underline"
-              >
-                {link.title} →
-              </Link>
-            </li>
-          ))}
+          {QUIZ_CROSS_LINKS.filter((link) => link.type !== 'ability').map(
+            (link) => (
+              <li key={link.type}>
+                <Link
+                  href={link.route}
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  {link.title} →
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       </article>
       <MobileAbilityGuideBottomBanner />

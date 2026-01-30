@@ -81,7 +81,10 @@ const AbilityQuizResult = () => {
           })}
         </ul>
       </article>
-      <ResultFooter onClickRetryButton={handleClickRetryQuiz} />
+      <ResultFooter
+        onClickRetryButton={handleClickRetryQuiz}
+        quizType="ability"
+      />
     </section>
   )
 }

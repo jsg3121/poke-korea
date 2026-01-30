@@ -99,7 +99,10 @@ const TypeEffectivenessQuizResult = () => {
           })}
         </ul>
       </article>
-      <ResultFooter onClickRetryButton={handleClickRetryQuiz} />
+      <ResultFooter
+        onClickRetryButton={handleClickRetryQuiz}
+        quizType="typeEffectiveness"
+      />
     </section>
   )
 }

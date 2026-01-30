@@ -89,7 +89,10 @@ const SilhouetteQuizResult = () => {
           })}
         </ul>
       </article>
-      <ResultFooter onClickRetryButton={handleClickRetryQuiz} />
+      <ResultFooter
+        onClickRetryButton={handleClickRetryQuiz}
+        quizType="silhouette"
+      />
     </section>
   )
 }

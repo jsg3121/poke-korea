@@ -40,9 +40,7 @@ const PokemonTypeQuizBeforeStage = () => {
             <h3 className="text-lg font-bold text-primary-1 mb-2">
               {section.title}
             </h3>
-            <p className="text-primary-1 leading-relaxed">
-              {section.content}
-            </p>
+            <p className="text-primary-1 leading-relaxed">{section.content}</p>
           </div>
         ))}
         <div className="mt-6 pt-6 border-t border-gray-200">
@@ -62,18 +60,18 @@ const PokemonTypeQuizBeforeStage = () => {
           다른 퀴즈도 도전해보세요
         </h3>
         <ul className="space-y-2">
-          {QUIZ_CROSS_LINKS.filter(
-            (link) => link.type !== 'pokemon-type',
-          ).map((link) => (
-            <li key={link.type}>
-              <Link
-                href={link.route}
-                className="text-blue-600 hover:underline"
-              >
-                {link.title} →
-              </Link>
-            </li>
-          ))}
+          {QUIZ_CROSS_LINKS.filter((link) => link.type !== 'pokemon-type').map(
+            (link) => (
+              <li key={link.type}>
+                <Link
+                  href={link.route}
+                  className="text-blue-600 hover:underline"
+                >
+                  {link.title} →
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       </article>
       <DesktopPokemonTypeGuideBottomBanner />

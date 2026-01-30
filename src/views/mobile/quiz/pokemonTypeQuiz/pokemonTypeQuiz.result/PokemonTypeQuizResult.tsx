@@ -120,7 +120,10 @@ const PokemonTypeQuizResult = () => {
           })}
         </ul>
       </article>
-      <ResultFooter onClickRetryButton={handleClickRetryQuiz} />
+      <ResultFooter
+        onClickRetryButton={handleClickRetryQuiz}
+        quizType="pokemonType"
+      />
     </section>
   )
 }
