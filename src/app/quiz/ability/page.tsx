@@ -9,7 +9,10 @@ import { detectUserAgent } from '~/module/device.module'
 import AbilityQuizDesktop from '~/container/desktop/quiz/abilityQuiz/AbilityQuiz.desktop'
 import AbilityQuizMobile from '~/views/mobile/quiz/abilityQuiz/AbilityQuiz.mobile'
 import MobileTabBar from '~/components/MobileTabBar'
-import { ABILITY_QUIZ_JSON_LD } from '~/constants/quizJsonLd'
+import {
+  ABILITY_QUIZ_JSON_LD,
+  ABILITY_QUIZ_HOWTO_JSON_LD,
+} from '~/constants/quizJsonLd'
 import { QUIZ_ABILITY_META } from '~/constants/seoMetaData'
 
 export const revalidate = 31536000
@@ -46,6 +49,13 @@ const AbilityQuizPage = async () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(ABILITY_QUIZ_JSON_LD),
+        }}
+      />
+      <script
+        id="ability-quiz-howto-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(ABILITY_QUIZ_HOWTO_JSON_LD),
         }}
       />
     </Fragment>

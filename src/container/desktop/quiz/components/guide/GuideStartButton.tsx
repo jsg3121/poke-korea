@@ -4,6 +4,7 @@ interface GuideStartButtonProps {
 
 const GuideStartButton = ({ onClickStartButton }: GuideStartButtonProps) => {
   const handleChangeStage = () => {
+    window.scrollTo(0, 0)
     onClickStartButton()
   }
 
