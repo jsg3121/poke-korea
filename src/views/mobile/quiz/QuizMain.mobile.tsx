@@ -4,7 +4,7 @@ import MobileQuizMainBottomBanner from '~/components/adSlot/MobileQuizMainBottom
 import MobileQuizMainTopBanner from '~/components/adSlot/MobileQuizMainTopBanner'
 import PageHeader from '~/components/mobile/PageHeader'
 import MobileTabBar from '~/components/MobileTabBar'
-import { QUIZ_CONFIG, QUIZ_MAIN_SEO_CONTENT } from '~/constants/quiz.constants'
+import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
 
@@ -21,7 +21,7 @@ const QuizMainMobile = () => {
           <MobileQuizMainTopBanner />
           <article className="w-[calc(100%-2.5rem)] mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
             <h2 className="text-xl font-bold text-primary-1 mb-4">
-              {QUIZ_MAIN_SEO_CONTENT.title}
+              포켓몬 퀴즈에 도전하세요!
             </h2>
             <div className="space-y-3">
               <p className="text-primary-1 leading-relaxed">

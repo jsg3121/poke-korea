@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import DesktopQuizMainBottomBanner from '~/components/adSlot/DesktopQuizMainBottomBanner'
 import DesktopQuizMainTopBanner from '~/components/adSlot/DesktopQuizMainTopBanner'
 import PageHeader from '~/components/PageHeader'
-import { QUIZ_CONFIG, QUIZ_MAIN_SEO_CONTENT } from '~/constants/quiz.constants'
+import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 
@@ -20,7 +20,7 @@ const QuizMainDesktop = () => {
           <DesktopQuizMainTopBanner />
           <article className="mt-6 bg-primary-4 rounded-[1rem] p-6 mx-auto">
             <h2 className="text-xl font-bold text-primary-1 mb-4">
-              {QUIZ_MAIN_SEO_CONTENT.title}
+              포켓몬 퀴즈에 도전하세요!
             </h2>
             <div className="space-y-3">
               <p className="text-primary-1 leading-relaxed">
