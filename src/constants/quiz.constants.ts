@@ -64,7 +64,7 @@ export const QUIZ_DESCRIPTION_LIST_DATA = {
     relatedLinks: [
       {
         href: '/list',
-        text: '도감 페이지으로 포켓몬 확인하러 가기 →',
+        text: '도감 페이지로 포켓몬 확인하러 가기 →',
       },
     ],
   },
