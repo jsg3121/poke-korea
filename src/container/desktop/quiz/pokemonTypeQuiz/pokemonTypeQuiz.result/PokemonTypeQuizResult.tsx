@@ -108,7 +108,9 @@ const PokemonTypeQuizResult = () => {
       </article>
       <ResultFooter
         onClickRetryButton={handleClickRetryQuiz}
-        quizType="pokemonType"
+        quizType="pokemon-type"
+        relationPageHref="/list"
+        relationPageHrefLabel="포켓몬 도감 확인하기"
       />
     </section>
   )

@@ -71,7 +71,7 @@ export const QUIZ_DESCRIPTION_LIST_DATA = {
   ability: {
     sections: [
       {
-        title: '특성 퀴즈?',
+        title: '',
         content:
           '특성 퀴즈는 포켓몬 특성의 설명을 읽고 어떤 특성인지 맞추는 퀴즈입니다. 배틀에서 중요한 역할을 하는 특성들을 얼마나 잘 알고 있는지 테스트해보세요.',
       },
@@ -96,7 +96,7 @@ export const QUIZ_DESCRIPTION_LIST_DATA = {
   pokemonType: {
     sections: [
       {
-        title: '포켓몬 타입 퀴즈?',
+        title: '',
         content:
           '포켓몬 타입 퀴즈는 특정 타입이 주어졌을 때, 해당 타입을 가진 포켓몬을 골라내는 퀴즈입니다. 평소에 알고 있다고 생각했던 포켓몬의 타입이 정확한지 확인해볼 수 있습니다.',
       },
@@ -121,7 +121,7 @@ export const QUIZ_DESCRIPTION_LIST_DATA = {
   typeEffectiveness: {
     sections: [
       {
-        title: '타입 상성 퀴즈?',
+        title: '',
         content:
           '타입 상성 퀴즈는 공격 타입과 방어 타입의 조합을 보고 데미지 배수를 맞추는 퀴즈입니다. 포켓몬 배틀의 핵심인 타입 상성표를 얼마나 정확하게 알고 있는지 확인해보세요.',
       },

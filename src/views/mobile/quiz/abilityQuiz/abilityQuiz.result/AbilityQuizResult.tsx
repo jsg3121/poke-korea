@@ -81,6 +81,8 @@ const AbilityQuizResult = () => {
       <ResultFooter
         onClickRetryButton={handleClickRetryQuiz}
         quizType="ability"
+        relationPageHref="/ability"
+        relationPageHrefLabel="특성 도감 확인하기"
       />
     </section>
   )

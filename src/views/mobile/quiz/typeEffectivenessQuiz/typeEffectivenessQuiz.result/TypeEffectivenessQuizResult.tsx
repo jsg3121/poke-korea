@@ -99,7 +99,9 @@ const TypeEffectivenessQuizResult = () => {
       </article>
       <ResultFooter
         onClickRetryButton={handleClickRetryQuiz}
-        quizType="typeEffectiveness"
+        quizType="type-effectiveness"
+        relationPageHref="/type-effectiveness"
+        relationPageHrefLabel="타입 상성 계산기"
       />
     </section>
   )
