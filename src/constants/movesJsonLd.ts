@@ -1,3 +1,5 @@
+import { PokemonTypes } from '~/types/pokemonTypes.types'
+
 const SITE_URL = 'https://poke-korea.com'
 
 export const MOVES_TYPE_ITEMLIST_JSON_LD = {
@@ -6,117 +8,15 @@ export const MOVES_TYPE_ITEMLIST_JSON_LD = {
   name: '포켓몬 기술 타입별 목록',
   description:
     '18가지 포켓몬 타입별로 분류된 기술 목록입니다. 원하는 타입을 선택해 해당 기술을 확인하세요.',
-  numberOfItems: 18,
-  itemListElement: [
-    {
+  numberOfItems: Object.keys(PokemonTypes).length,
+  itemListElement: Object.entries(PokemonTypes).map(
+    ([typeEnum, typeName], index) => ({
       '@type': 'ListItem',
-      position: 1,
-      name: '노말 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=NORMAL`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: '불꽃 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=FIRE`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: '물 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=WATER`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: '풀 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=GRASS`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 5,
-      name: '전기 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=ELECTRIC`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 6,
-      name: '얼음 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=ICE`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 7,
-      name: '격투 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=FIGHTING`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 8,
-      name: '독 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=POISON`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 9,
-      name: '땅 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=GROUND`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 10,
-      name: '비행 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=FLYING`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 11,
-      name: '에스퍼 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=PSYCHIC`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 12,
-      name: '벌레 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=BUG`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 13,
-      name: '바위 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=ROCK`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 14,
-      name: '고스트 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=GHOST`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 15,
-      name: '드래곤 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=DRAGON`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 16,
-      name: '악 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=DARK`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 17,
-      name: '강철 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=STEEL`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 18,
-      name: '페어리 타입 기술',
-      url: `${SITE_URL}/moves?typeFilter=FAIRY`,
-    },
-  ],
+      position: index + 1,
+      name: `${typeName} 타입 기술`,
+      url: `${SITE_URL}/moves?typeFilter=${typeEnum}`,
+    }),
+  ),
 }
 
 export const MOVES_WEBPAGE_JSON_LD = {
