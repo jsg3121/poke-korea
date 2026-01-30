@@ -5,7 +5,7 @@ import DesktopAbilityGuideBottomBanner from '~/components/adSlot/DesktopAbilityG
 import PageHeader from '~/components/PageHeader'
 import {
   QUIZ_CONFIG,
-  QUIZ_SEO_CONTENT,
+  QUIZ_DESCRIPTION_LIST,
   QUIZ_CROSS_LINKS,
 } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
@@ -13,7 +13,7 @@ import GuideStartButton from '../../components/guide/GuideStartButton'
 
 const AbilityQuizBeforeStage = () => {
   const { onChangeStage } = useAbilityQuizContext()
-  const seoContent = QUIZ_SEO_CONTENT.ability
+  const seoContent = QUIZ_DESCRIPTION_LIST.ability
 
   const handleClickChangeStage = () => {
     onChangeStage('QUIZ')

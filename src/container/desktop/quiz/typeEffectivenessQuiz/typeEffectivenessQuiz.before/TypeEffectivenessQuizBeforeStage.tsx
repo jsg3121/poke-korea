@@ -4,7 +4,7 @@ import Link from 'next/link'
 import DesktopTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/DesktopTypeEffectivenessQuizGuideBottomBanner'
 import {
   QUIZ_CONFIG,
-  QUIZ_SEO_CONTENT,
+  QUIZ_DESCRIPTION_LIST,
   QUIZ_CROSS_LINKS,
 } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
@@ -13,7 +13,7 @@ import PageHeader from '~/components/PageHeader'
 
 const TypeEffectivenessQuizBeforeStage = () => {
   const { onChangeStage } = useTypeEffectivenessQuizContext()
-  const seoContent = QUIZ_SEO_CONTENT.typeEffectiveness
+  const seoContent = QUIZ_DESCRIPTION_LIST.typeEffectiveness
 
   const handleClickChangeStage = () => {
     onChangeStage('QUIZ')

@@ -42,11 +42,11 @@ export const QUIZ_CONFIG = [
   },
 ] as const
 
-export const QUIZ_SEO_CONTENT = {
+export const QUIZ_DESCRIPTION_LIST = {
   silhouette: {
     sections: [
       {
-        title: '실루엣 퀴즈?',
+        title: '',
         content:
           '실루엣 퀴즈는 검은 그림자로 가려진 포켓몬의 외형만 보고 어떤 포켓몬인지 맞추는 퀴즈입니다. 포켓몬의 전체적인 실루엣, 귀나 꼬리 같은 특징적인 부위를 단서로 정답을 골라야 합니다.',
       },
@@ -64,7 +64,7 @@ export const QUIZ_SEO_CONTENT = {
     relatedLinks: [
       {
         href: '/list',
-        text: '정답이 궁금하다면 포켓몬 도감에서 확인해보세요',
+        text: '도감 페이지으로 포켓몬 확인하러 가기 →',
       },
     ],
   },
@@ -148,22 +148,22 @@ export const QUIZ_SEO_CONTENT = {
 export const QUIZ_CROSS_LINKS = [
   {
     type: 'silhouette',
-    title: '실루엣 퀴즈',
+    title: '실루엣 퀴즈 →',
     route: QUIZ_ROUTES.SILHOUETTE,
   },
   {
     type: 'ability',
-    title: '특성 퀴즈',
+    title: '특성 퀴즈 →',
     route: QUIZ_ROUTES.ABILITY,
   },
   {
     type: 'pokemon-type',
-    title: '포켓몬 타입 퀴즈',
+    title: '포켓몬 타입 퀴즈 →',
     route: QUIZ_ROUTES.POKEMON_TYPE,
   },
   {
     type: 'type-effectiveness',
-    title: '타입 상성 퀴즈',
+    title: '타입 상성 퀴즈 →',
     route: QUIZ_ROUTES.TYPE_EFFECTIVENESS,
   },
 ] as const

@@ -24,11 +24,11 @@ const QuizMainMobile = () => {
               포켓몬 퀴즈에 도전하세요!
             </h2>
             <div className="space-y-3">
-              <p className="text-primary-1 leading-relaxed">
+              <p className="text-primary-1 leading-6">
                 포케 코리아 퀴즈는 포켓몬에 대한 다양한 지식을 테스트할 수 있는
                 4종류의 퀴즈를 제공합니다.
               </p>
-              <p className="text-primary-1 leading-relaxed">
+              <p className="text-primary-1 leading-6">
                 <b className="font-bold">실루엣 퀴즈</b>,{' '}
                 <b className="font-bold">특성 퀴즈</b>,{' '}
                 <b className="font-bold">타입 퀴즈</b>,{' '}
@@ -37,7 +37,7 @@ const QuizMainMobile = () => {
                 유형으로 구성되어 있으며, 각 퀴즈는 20문제 4지선다 객관식으로
                 진행됩니다.
               </p>
-              <p className="text-primary-1 leading-relaxed">
+              <p className="text-primary-1 leading-6">
                 초보 트레이너부터 포켓몬 마스터까지, 자신의 포켓몬 지식 수준을
                 확인해보세요. 퀴즈를 완료하면 정답률과 소요 시간을 바로 확인할
                 수 있습니다.

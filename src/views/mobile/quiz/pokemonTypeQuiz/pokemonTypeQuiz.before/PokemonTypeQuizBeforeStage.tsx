@@ -5,7 +5,7 @@ import MobilePokemonTypeGuideBottomBanner from '~/components/adSlot/MobilePokemo
 import PageHeader from '~/components/mobile/PageHeader'
 import {
   QUIZ_CONFIG,
-  QUIZ_SEO_CONTENT,
+  QUIZ_DESCRIPTION_LIST,
   QUIZ_CROSS_LINKS,
 } from '~/constants/quiz.constants'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
@@ -13,14 +13,14 @@ import GuideStartButton from '../../components/guide/GuideStartButton'
 
 const PokemonTypeQuizBeforeStage = () => {
   const { onChangeStage } = usePokemonTypeQuizContext()
-  const seoContent = QUIZ_SEO_CONTENT.pokemonType
+  const seoContent = QUIZ_DESCRIPTION_LIST.pokemonType
 
   const handleClickStartButton = () => {
     onChangeStage('QUIZ')
   }
 
   return (
-    <section className="h-full w-full mx-auto px-[20px]">
+    <section className="h-full w-full px-4">
       <PageHeader
         title={QUIZ_CONFIG[2].title}
         description={QUIZ_CONFIG[2].description}

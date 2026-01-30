@@ -5,7 +5,7 @@ import MobileAbilityGuideBottomBanner from '~/components/adSlot/MobileAbilityGui
 import PageHeader from '~/components/mobile/PageHeader'
 import {
   QUIZ_CONFIG,
-  QUIZ_SEO_CONTENT,
+  QUIZ_DESCRIPTION_LIST,
   QUIZ_CROSS_LINKS,
 } from '~/constants/quiz.constants'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
@@ -13,14 +13,14 @@ import GuideStartButton from '../../components/guide/GuideStartButton'
 
 const AbilityQuizBeforeStage = () => {
   const { onChangeStage } = useAbilityQuizContext()
-  const seoContent = QUIZ_SEO_CONTENT.ability
+  const seoContent = QUIZ_DESCRIPTION_LIST.ability
 
   const handleClickStartButton = () => {
     onChangeStage('QUIZ')
   }
 
   return (
-    <section className="h-full w-full mx-auto px-[20px]">
+    <section className="h-full w-full px-4">
       <PageHeader
         description={QUIZ_CONFIG[1].description}
         title={QUIZ_CONFIG[1].title}

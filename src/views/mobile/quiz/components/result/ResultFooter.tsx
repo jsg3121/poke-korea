@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import {
   QUIZ_ROUTES,
-  QUIZ_SEO_CONTENT,
+  QUIZ_DESCRIPTION_LIST,
   QUIZ_CROSS_LINKS,
 } from '~/constants/quiz.constants'
 
 interface ResultFooterProps {
   onClickRetryButton: () => void
-  quizType?: keyof typeof QUIZ_SEO_CONTENT
+  quizType?: keyof typeof QUIZ_DESCRIPTION_LIST
 }
 
 const ResultFooter = ({ onClickRetryButton, quizType }: ResultFooterProps) => {
@@ -15,7 +15,7 @@ const ResultFooter = ({ onClickRetryButton, quizType }: ResultFooterProps) => {
     onClickRetryButton()
   }
 
-  const seoContent = quizType ? QUIZ_SEO_CONTENT[quizType] : null
+  const seoContent = quizType ? QUIZ_DESCRIPTION_LIST[quizType] : null
   const quizTypeKey =
     quizType === 'pokemonType'
       ? 'pokemon-type'
