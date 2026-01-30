@@ -79,7 +79,7 @@ export async function generateMetadata({
   }
 
   const damageTypeKo = getDamageTypeKorean(generationData.damageType)
-  const title = `${skill.nameKo} (${generation}세대) - ${generationData.type || ''} ${damageTypeKo} 기술 (위력 ${generationData.power || '-'} · 명중 ${generationData.accuracy || '-'}) | 포켓몬 기술 도감`
+  const title = `${skill.nameKo} (${generation}세대) - ${[generationData.type, damageTypeKo].filter(Boolean).join(' ')} 기술 (위력 ${generationData.power || '-'} · 명중 ${generationData.accuracy || '-'}) | 포켓몬 기술 도감`
   const description = `${skill.nameKo} ${generation}세대 기술 정보${generationData.description ? `: ${generationData.description}` : ''} | 타입: ${generationData.type || '없음'}, 위력: ${generationData.power || '-'}, 명중률: ${generationData.accuracy || '-'}. 세대별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
 
   return {
