@@ -89,7 +89,7 @@ export const QUIZ_DESCRIPTION_LIST_DATA = {
     relatedLinks: [
       {
         href: '/ability',
-        text: '특성을 더 자세히 알아보려면 특성 도감을 확인하세요',
+        text: '특성을 더 자세히 알아보려면 특성 도감을 확인하세요. →',
       },
     ],
   },
@@ -114,7 +114,7 @@ export const QUIZ_DESCRIPTION_LIST_DATA = {
     relatedLinks: [
       {
         href: '/list',
-        text: '포켓몬 타입 정보를 도감에서 확인해보세요',
+        text: '포켓몬 타입 정보를 도감에서 확인해보세요. →',
       },
     ],
   },
@@ -139,7 +139,7 @@ export const QUIZ_DESCRIPTION_LIST_DATA = {
     relatedLinks: [
       {
         href: '/type-effectiveness',
-        text: '타입 상성 계산기로 직접 계산해보세요',
+        text: '타입 상성 계산기로 직접 계산해보세요. →',
       },
     ],
   },

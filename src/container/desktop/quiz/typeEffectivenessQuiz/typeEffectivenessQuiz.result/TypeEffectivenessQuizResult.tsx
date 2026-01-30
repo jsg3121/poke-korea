@@ -103,7 +103,7 @@ const TypeEffectivenessQuizResult = () => {
         onClickRetryButton={handleClickRetryQuiz}
         quizType="type-effectiveness"
         relationPageHref="/type-effectiveness"
-        relationPageHrefLabel="타입 상성 계산기"
+        relationPageHrefLabel="타입 상성 계산 하러 가기"
       />
     </section>
   )
