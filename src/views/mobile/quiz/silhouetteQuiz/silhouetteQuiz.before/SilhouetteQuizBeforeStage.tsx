@@ -8,8 +8,8 @@ import {
   QUIZ_DESCRIPTION_LIST_DATA,
 } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
+import OtherQuizLink from '../../components/common/OtherQuizLink'
 import GuideStartButton from '../../components/guide/GuideStartButton'
-import OtherQuizLink from './components/OtherQuizLink'
 
 const SilhouetteQuizBeforeStage = () => {
   const { onChangeStage } = useSilhouetteQuizContext()

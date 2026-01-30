@@ -8,7 +8,7 @@ interface OtherQuizLinkProps {
 
 const OtherQuizLink = ({ currentQuiz }: OtherQuizLinkProps) => {
   return (
-    <article className="w-full mt-6 p-[3rem] rounded-[20px] bg-primary-4">
+    <article className="w-full mt-6 p-6 rounded-[1rem] bg-primary-4">
       <h3 className="text-lg font-bold text-primary-1 mb-4">
         다른 퀴즈도 도전해보세요
       </h3>

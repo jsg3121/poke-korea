@@ -8,8 +8,8 @@ import {
   QUIZ_DESCRIPTION_LIST_DATA,
 } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
+import OtherQuizLink from '../../components/common/OtherQuizLink'
 import GuideStartButton from '../../components/guide/GuideStartButton'
-import OtherQuizLink from './components/OtherQuizLink'
 
 const SilhouetteQuizBeforeStage = () => {
   const { onChangeStage } = useSilhouetteQuizContext()
@@ -25,7 +25,7 @@ const SilhouetteQuizBeforeStage = () => {
         title={QUIZ_CONFIG[0].title}
         description={QUIZ_CONFIG[0].description}
       />
-      <section className="w-full mt-6 p-6 rounded-[20px] bg-primary-4">
+      <section className="w-full mt-6 p-6 rounded-[1rem] bg-primary-4">
         <h2 className="text-2xl font-bold text-primary-1 mb-3">실루엣 퀴즈</h2>
         {seoContent.sections.map((section) => (
           <div key={section.title} className="mb-6 last:mb-0">

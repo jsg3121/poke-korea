@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { QuizType } from '~/types/quiz.type'
-import OtherQuizLink from '../../silhouetteQuiz/silhouetteQuiz.before/components/OtherQuizLink'
+import OtherQuizLink from '../common/OtherQuizLink'
 
 interface ResultFooterProps {
   onClickRetryButton: () => void
