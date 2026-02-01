@@ -1,4 +1,3 @@
-import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
 import FooterDesktop from '~/container/desktop/footer/Footer.container'
@@ -7,45 +6,18 @@ import FooterMobile from '~/container/mobile/footer/Footer.container'
 import HeaderMobile from '~/container/mobile/header/Header.container'
 import { AbilityQuizProvider } from '~/context/AbilityQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
-import { getRobotsConfig } from '~/module/metadata.module'
 import AbilityQuizDesktop from '~/container/desktop/quiz/abilityQuiz/AbilityQuiz.desktop'
 import AbilityQuizMobile from '~/views/mobile/quiz/abilityQuiz/AbilityQuiz.mobile'
 import MobileTabBar from '~/components/MobileTabBar'
-import { ABILITY_QUIZ_JSON_LD } from '~/constants/quizJsonLd'
+import {
+  ABILITY_QUIZ_JSON_LD,
+  ABILITY_QUIZ_HOWTO_JSON_LD,
+} from '~/constants/quizJsonLd'
+import { QUIZ_ABILITY_META } from '~/constants/seoMetaData'
 
 export const revalidate = 31536000
 
-export const metadata: Metadata = {
-  title: '포켓몬 특성 퀴즈 | 포케 코리아',
-  description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
-  robots: getRobotsConfig(),
-  openGraph: {
-    title: '포켓몬 특성 퀴즈 | 포케 코리아',
-    description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
-    url: 'https://poke-korea.com/quiz/ability',
-    type: 'website',
-    siteName: '포케 코리아',
-    locale: 'ko_KR',
-    images: [
-      {
-        url: 'https://poke-korea.com/assets/image/ogImage.png',
-        width: 1200,
-        height: 630,
-        alt: '특성 퀴즈 | 포케 코리아',
-        type: 'image/png',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://poke-korea.com/quiz/ability',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: '포켓몬 특성 퀴즈 | 포케 코리아',
-    description: '포켓몬의 특성 설명을 보고 어떤 특성의 설명인지 맞춰보세요!',
-    images: ['https://poke-korea.com/assets/image/ogImage.png'],
-  },
-}
+export const metadata = QUIZ_ABILITY_META
 
 const AbilityQuizPage = async () => {
   const headersList = headers()
@@ -77,6 +49,13 @@ const AbilityQuizPage = async () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(ABILITY_QUIZ_JSON_LD),
+        }}
+      />
+      <script
+        id="ability-quiz-howto-jsonLd"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(ABILITY_QUIZ_HOWTO_JSON_LD),
         }}
       />
     </Fragment>

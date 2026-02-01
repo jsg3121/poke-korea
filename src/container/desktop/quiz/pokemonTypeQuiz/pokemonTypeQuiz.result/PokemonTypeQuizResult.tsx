@@ -33,7 +33,7 @@ const PokemonTypeQuizResult = () => {
         totalTime={result.totalTime}
       />
       <DesktopPokemonTypeResultTopBanner />
-      <article className="w-full h-fit bg-primary-4 rounded-[2rem] py-[1rem] px-[2rem] mb-[2rem]">
+      <article className="w-full h-fit bg-primary-4 rounded-[1rem] py-[1rem] px-[2rem]">
         <h2 className="w-full h-[3rem] text-primary-1 font-bold text-aligned-base text-xl">
           문제 정답
         </h2>
@@ -106,7 +106,12 @@ const PokemonTypeQuizResult = () => {
           })}
         </ul>
       </article>
-      <ResultFooter onClickRetryButton={handleClickRetryQuiz} />
+      <ResultFooter
+        onClickRetryButton={handleClickRetryQuiz}
+        quizType="pokemon-type"
+        relationPageHref="/list"
+        relationPageHrefLabel="포켓몬 도감 확인하기"
+      />
     </section>
   )
 }

@@ -22,7 +22,7 @@ const SilhouetteQuizResult = () => {
   }
 
   return (
-    <section className="w-[calc(100%-40px)] mx-auto pt-[1rem]">
+    <section className="w-full px-4 pt-[1rem]">
       <ResultHeader headline={headline} medal={medal} subcopy={subcopy} />
       <ResultSummary
         averageTime={result.averageTime}
@@ -31,7 +31,7 @@ const SilhouetteQuizResult = () => {
         totalTime={result.totalTime}
       />
       <MobileSilhouetteResultTopBanner />
-      <article className="w-full h-fit py-[1rem] mb-[2rem]">
+      <article className="w-full h-fit py-[1rem]">
         <h2 className="w-full h-[3rem] text-primary-4 font-bold text-aligned-base text-xl border-b border-solid border-primary-4 mb-4">
           정답
         </h2>
@@ -89,7 +89,12 @@ const SilhouetteQuizResult = () => {
           })}
         </ul>
       </article>
-      <ResultFooter onClickRetryButton={handleClickRetryQuiz} />
+      <ResultFooter
+        onClickRetryButton={handleClickRetryQuiz}
+        quizType="silhouette"
+        relationPageHref="/list"
+        relationPageHrefLabel="포켓몬 확인하러 가기"
+      />
     </section>
   )
 }
