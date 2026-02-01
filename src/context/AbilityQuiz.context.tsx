@@ -106,6 +106,7 @@ export const AbilityQuizProvider = ({ children }: AbilityQuizProviderProps) => {
     }))
 
     if (isLastQuestion) {
+      window.scrollTo(0, 0)
       setQuizViewStage('RESULT')
       onCloseTimer()
     }

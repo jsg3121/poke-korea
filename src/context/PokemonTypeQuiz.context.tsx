@@ -121,6 +121,7 @@ export const PokemonTypeQuizProvider = ({
     }))
 
     if (isLastQuestion) {
+      window.scrollTo(0, 0)
       setQuizViewStage('RESULT')
       onCloseTimer()
     }
