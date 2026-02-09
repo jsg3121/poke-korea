@@ -1,7 +1,7 @@
-import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { permanentRedirect } from 'next/navigation'
 import { Fragment } from 'react'
+import { HOME_META } from '~/constants/seoMetaData'
 import {
   GetDailyQuizPreviewDocument,
   GetDailyRandomPokemonDocument,
@@ -19,48 +19,7 @@ import HomeMobile from '~/views/mobile/home/Home.mobile'
 
 export const revalidate = 3600 // 1시간
 
-export const metadata: Metadata = {
-  title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
-  description:
-    '1025마리 포켓몬 도감, 타입 상성 계산기, 800개 이상 기술 정보, 300개 이상 특성 정보, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
-  openGraph: {
-    type: 'website',
-    url: 'https://poke-korea.com/',
-    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
-    locale: 'ko_KR',
-    description:
-      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
-    images: [
-      {
-        url: 'https://poke-korea.com/assets/image/ogImage.png',
-        width: 1200,
-        height: 630,
-        alt: '빠르고 정확한 포켓몬 도감 - 포케코리아',
-        type: 'image/png',
-      },
-    ],
-    siteName: '포케 코리아',
-  },
-  alternates: {
-    canonical: 'https://poke-korea.com/',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
-    description:
-      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
-    images: ['https://poke-korea.com/assets/image/ogImage.png'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-    },
-  },
-}
+export const metadata = HOME_META
 
 type searchParamsKey =
   | 'name'

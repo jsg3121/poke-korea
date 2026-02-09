@@ -5,13 +5,11 @@ import { Fragment } from 'react'
 import { getMoveDetailJsonLd } from '~/constants/movesJsonLd'
 import { PokemonLearnInfoEdge } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
-import { getRobotsConfig } from '~/module/metadata.module'
-import { getDamageTypeKorean } from '~/utils/skill.util'
 import MoveDetailDesktop from '~/views/desktop/moves/MoveDetail.desktop'
 import MoveDetailMobile from '~/views/mobile/moves/MoveDetail.mobile'
 import { fetchMoveDetailQueries } from './_fetch/moveDetail.fetch'
 import { fetchMoveDetailMetadata } from './_fetch/moveDetailMetadata.fetch'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { generateMoveDetailMetadata } from './_metadata/generateMoveDetailMetadata'
 
 export const revalidate = 31536000 // 1년
 
@@ -44,42 +42,15 @@ export async function generateMetadata({
     }
   }
 
-  const moveType = `${skill.type ? PokemonTypes[skill.type] : '노말'} 타입`
-  const damageTypeKo = getDamageTypeKorean(skill.damageType)
-  const title = `${skill.nameKo} - ${[moveType, damageTypeKo].filter(Boolean).join(' ')} 기술 (위력 ${skill.power || '-'} · 명중 ${skill.accuracy || '-'}) | 포켓몬 기술 도감`
-  const description = `${skill.nameKo}${skill.description ? `: ${skill.description}` : ''} | 타입: ${skill.type || '없음'}, 위력: ${skill.power || '-'}, 명중률: ${skill.accuracy || '-'}. 세대별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
-
-  return {
-    title,
-    description,
-    robots: getRobotsConfig(),
-    openGraph: {
-      type: 'website',
-      url: `https://poke-korea.com/moves/${skillId}`,
-      title,
-      description,
-      locale: 'ko_KR',
-      images: [
-        {
-          url: 'https://poke-korea.com/assets/image/ogImage.png',
-          width: 1200,
-          height: 630,
-          alt: `${skill.nameKo} - 기술 도감`,
-          type: 'image/png',
-        },
-      ],
-      siteName: '포케 코리아',
-    },
-    alternates: {
-      canonical: `https://poke-korea.com/moves/${skillId}`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: ['https://poke-korea.com/assets/image/ogImage.png'],
-    },
-  }
+  return generateMoveDetailMetadata({
+    skillId,
+    nameKo: skill.nameKo,
+    description: skill.description,
+    type: skill.type,
+    power: skill.power,
+    accuracy: skill.accuracy,
+    damageType: skill.damageType,
+  })
 }
 
 const MoveDetailPage = async ({ params }: PageProps) => {
