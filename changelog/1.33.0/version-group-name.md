@@ -15,12 +15,12 @@
 
 ### 변경 1: GraphQL 쿼리/프래그먼트 필드 추가
 
-`VergionGroup` 프래그먼트와 `GetVersionGroups` 쿼리에 신규 필드 추가.
+`VersionGroup` 프래그먼트와 `GetVersionGroups` 쿼리에 신규 필드 추가.
 
 **변경 전:**
 
 ```graphql
-fragment VergionGroup on VersionGroup {
+fragment VersionGroup on VersionGroup {
   versionGroupId
   name
   nameKo
@@ -31,7 +31,7 @@ fragment VergionGroup on VersionGroup {
 **변경 후:**
 
 ```graphql
-fragment VergionGroup on VersionGroup {
+fragment VersionGroup on VersionGroup {
   versionGroupId
   name
   nameKo

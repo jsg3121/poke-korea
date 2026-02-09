@@ -41,7 +41,7 @@ fragment PokemonCard on PokemonList {
   }
 }
 
-fragment VergionGroup on VersionGroup {
+fragment VersionGroup on VersionGroup {
   versionGroupId
   name
   nameKo
