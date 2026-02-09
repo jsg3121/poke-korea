@@ -188,6 +188,7 @@ const RegionMovesPage = async ({
       name: pokemonName,
       imagePath: undefined,
     },
+    currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,
     currentMovesType: movesType,
   }

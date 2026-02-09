@@ -34,6 +34,7 @@ interface IDetailMovesProviderProps {
     name?: string
     imagePath?: string
   }
+  currentActiveIndex: number
   currentVersionGroupId?: number
   currentMovesType?: 'LEVELUP' | 'MACHINE'
   children: ReactNode
@@ -48,12 +49,14 @@ interface IDetailMovesProps {
     name?: string
     imagePath?: string
   }
+  currentActiveIndex: number
   currentVersionGroupId?: number
   currentMovesType?: 'LEVELUP' | 'MACHINE'
 }
 
 const DetailMovesContext = createContext<IDetailMovesProps>({
   formDataLength: 0,
+  currentActiveIndex: 0,
 })
 
 const DetailMovesProvider = ({
@@ -62,6 +65,7 @@ const DetailMovesProvider = ({
   formDataLength,
   normalFormInfo,
   versionGroup,
+  currentActiveIndex,
   currentVersionGroupId,
   currentMovesType,
   children,
@@ -72,6 +76,7 @@ const DetailMovesProvider = ({
     formDataLength,
     normalFormInfo,
     versionGroup,
+    currentActiveIndex,
     currentVersionGroupId,
     currentMovesType,
   }

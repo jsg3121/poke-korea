@@ -221,6 +221,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
       name: normalFormName,
       imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0]?.imagePath,
     },
+    currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,
     currentMovesType: movesType,
   }

@@ -8,20 +8,20 @@ import { buildMovesPath } from '~/module/movesParams.module'
 import ToggleButtonComponent from './components/Toggle.component'
 
 const MovesTableContainer = () => {
-  const { pokemonId, index } = useParams<{
+  const { pokemonId } = useParams<{
     pokemonId: string
-    index?: string[]
   }>()
   const router = useRouter()
   const {
     pokemonLearnableData,
     versionGroup,
     pokemonInfo,
+    currentActiveIndex,
     currentVersionGroupId,
     currentMovesType,
   } = useContext(DetailMovesContext)
 
-  const activeIndex = index?.[0] ?? '0'
+  const activeIndex = currentActiveIndex
   const activeType = pokemonInfo?.activeType
 
   const activeVersionId = `${
@@ -48,10 +48,10 @@ const MovesTableContainer = () => {
       activeType:
         activeType === 'region'
           ? 'region'
-          : activeIndex && activeIndex !== '0'
+          : activeIndex > 0
             ? 'normalForm'
             : undefined,
-      activeIndex: activeIndex ? parseInt(activeIndex, 10) : undefined,
+      activeIndex,
       versionGroupId: currentVersionGroupId,
       movesType: value as 'LEVELUP' | 'MACHINE',
     })
