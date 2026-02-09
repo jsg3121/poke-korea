@@ -46,6 +46,8 @@ fragment VergionGroup on VersionGroup {
   name
   nameKo
   generationId
+  baseVersionGroupId
+  baseVersionGroupName
 }
 
 fragment LearnableSkillPokemonInfo on PokemonDetail {

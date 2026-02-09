@@ -179,10 +179,10 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
             })}
           </p>
           <p className="w-full h-[1.5rem] mb-1">
-            최초 등장 버전 : {firstVersionInfo?.nameKo}
+            최초 등장 버전 : {firstVersionInfo?.baseVersionGroupName}
           </p>
           <p className="w-full h-[1.5rem]">
-            최신 등장 버전 : {lastVersionInfo?.nameKo}
+            최신 등장 버전 : {lastVersionInfo?.baseVersionGroupName}
           </p>
         </header>
         <nav
@@ -216,7 +216,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
                 `}
               >
-                {item?.nameKo}
+                {item?.baseVersionGroupName}
               </Link>
             )
           })}

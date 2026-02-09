@@ -39,14 +39,14 @@ export async function generateMovesMetadata({
   const movesTypeText = movesType === 'LEVELUP' ? '레벨업 습득' : '머신 습득'
 
   const title = version
-    ? `${pokemonName} ${version.generationId}세대 ${version.nameKo} 시리즈 ${movesTypeText} 기술 정보`
+    ? `${pokemonName} ${version.generationId}세대 ${version.baseVersionGroupName} 시리즈 ${movesTypeText} 기술 정보`
     : `${pokemonName} ${movesTypeText} 기술 정보`
 
   const isSingleSeries = versionInfo.getVersionGroups?.length === 1
   const versionGroups = versionInfo.getVersionGroups
   const description = isSingleSeries
-    ? `${versionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-    : `${pokemonName}의 ${versionGroups?.[versionGroups.length - 1].nameKo} 시리즈부터 ${versionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
+    ? `${versionGroups?.[0].baseVersionGroupName}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
+    : `${pokemonName}의 ${versionGroups?.[versionGroups.length - 1].baseVersionGroupName} 시리즈부터 ${versionGroups?.[0].baseVersionGroupName} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
 
   const canonicalUrl = `https://poke-korea.com${canonicalPath}`
 

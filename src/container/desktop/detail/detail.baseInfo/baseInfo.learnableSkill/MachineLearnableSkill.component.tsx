@@ -41,7 +41,7 @@ const MachineLearnableSkillComponent = () => {
         <p>
           버전 정보 :{' '}
           <b className="font-bold">
-            {versionGroup?.machineSkillVersion?.nameKo}
+            {versionGroup?.machineSkillVersion?.baseVersionGroupName}
           </b>
         </p>
         <Link
