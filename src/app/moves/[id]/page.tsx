@@ -11,6 +11,7 @@ import MoveDetailDesktop from '~/views/desktop/moves/MoveDetail.desktop'
 import MoveDetailMobile from '~/views/mobile/moves/MoveDetail.mobile'
 import { fetchMoveDetailQueries } from './_fetch/moveDetail.fetch'
 import { fetchMoveDetailMetadata } from './_fetch/moveDetailMetadata.fetch'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 export const revalidate = 31536000 // 1년
 
@@ -43,8 +44,9 @@ export async function generateMetadata({
     }
   }
 
+  const moveType = `${skill.type ? PokemonTypes[skill.type] : '노말'} 타입`
   const damageTypeKo = getDamageTypeKorean(skill.damageType)
-  const title = `${skill.nameKo} - ${[skill.type, damageTypeKo].filter(Boolean).join(' ')} 기술 (위력 ${skill.power || '-'} · 명중 ${skill.accuracy || '-'}) | 포켓몬 기술 도감`
+  const title = `${skill.nameKo} - ${[moveType, damageTypeKo].filter(Boolean).join(' ')} 기술 (위력 ${skill.power || '-'} · 명중 ${skill.accuracy || '-'}) | 포켓몬 기술 도감`
   const description = `${skill.nameKo}${skill.description ? `: ${skill.description}` : ''} | 타입: ${skill.type || '없음'}, 위력: ${skill.power || '-'}, 명중률: ${skill.accuracy || '-'}. 세대별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
 
   return {
