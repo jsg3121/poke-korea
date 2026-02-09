@@ -3,24 +3,15 @@ import { headers } from 'next/headers'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
-  GetPokemonLearnableSkillsDocument,
-  GetPokemonNormalFormImageListDocument,
-  GetPokemonNormalFormLearnableSkillsDocument,
   GetPokemonNormalFormMetadataDocument,
   GetVersionGroupsDocument,
 } from '~/graphql/gqlGenerated'
 import {
-  GetPokemonNormalFormImageListQuery,
-  GetPokemonNormalFormImageListQueryVariables,
   GetPokemonNormalFormMetadataQuery,
   GetPokemonNormalFormMetadataQueryVariables,
   LearnMethod,
   type GetDetailMovesPokemonInfoQuery,
   type GetDetailMovesPokemonInfoQueryVariables,
-  type GetPokemonLearnableSkillsQuery,
-  type GetPokemonLearnableSkillsQueryVariables,
-  type GetPokemonNormalFormLearnableSkillsQuery,
-  type GetPokemonNormalFormLearnableSkillsQueryVariables,
   type GetVersionGroupsQuery,
   type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
@@ -29,6 +20,7 @@ import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
+import { fetchDefaultMovesQueries } from '../_fetch/defaultMoves.fetch'
 
 export const revalidate = 31536000
 
@@ -127,84 +119,17 @@ const MachineMovesPage = async ({ params }: MachineMovesPageProps) => {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const apolloClient = initializeApollo()
-
-  const [{ data: pokemonInfoData }] = await Promise.all([
-    apolloClient.query<
-      GetDetailMovesPokemonInfoQuery,
-      GetDetailMovesPokemonInfoQueryVariables
-    >({
-      query: GetDetailMovesPokemonInfoDocument,
-      variables: { pokemonId },
-      fetchPolicy: 'cache-first',
-    }),
-  ])
-
-  const isNormalForm = !!pokemonInfoData.getPokemonDetail?.isFormChange
-
-  const [
-    { data },
-    { data: normalFormLearnableSkill },
-    { data: versionGroup },
-    { data: normalFormImageList },
-  ] = await Promise.all([
-    !isNormalForm
-      ? apolloClient.query<
-          GetPokemonLearnableSkillsQuery,
-          GetPokemonLearnableSkillsQueryVariables
-        >({
-          query: GetPokemonLearnableSkillsDocument,
-          variables: {
-            filter: {
-              pokemonId: parseInt(pokemonId, 10),
-              learnMethod: LearnMethod['MACHINE'],
-            },
-          },
-          fetchPolicy: 'cache-first',
-        })
-      : Promise.resolve({ data: null }),
-    isNormalForm
-      ? apolloClient.query<
-          GetPokemonNormalFormLearnableSkillsQuery,
-          GetPokemonNormalFormLearnableSkillsQueryVariables
-        >({
-          query: GetPokemonNormalFormLearnableSkillsDocument,
-          variables: {
-            filter: {
-              pokemonId: parseInt(pokemonId, 10),
-              formIndex: 0,
-              learnMethod: LearnMethod['MACHINE'],
-            },
-            pokemonId: parseInt(pokemonId, 10),
-            activeIndex: 0,
-          },
-          fetchPolicy: 'cache-first',
-        })
-      : Promise.resolve({ data: null }),
-    apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
-      query: GetVersionGroupsDocument,
-      variables: {
-        filter: {
-          pokemonId: parseInt(pokemonId, 10),
-          ...(isNormalForm && {
-            activeType: 'NORMAL',
-            activeIndex: 0,
-          }),
-        },
-      },
-      fetchPolicy: 'cache-first',
-    }),
-    apolloClient.query<
-      GetPokemonNormalFormImageListQuery,
-      GetPokemonNormalFormImageListQueryVariables
-    >({
-      query: GetPokemonNormalFormImageListDocument,
-      variables: {
-        pokemonId: parseInt(pokemonId, 10),
-      },
-      fetchPolicy: 'cache-first',
-    }),
-  ])
+  const {
+    pokemonInfoData,
+    isNormalForm,
+    data,
+    normalFormLearnableSkill,
+    versionGroup,
+    normalFormImageList,
+  } = await fetchDefaultMovesQueries({
+    pokemonId,
+    learnMethod: LearnMethod['MACHINE'],
+  })
 
   if (!pokemonInfoData.getPokemonDetail) return
 
