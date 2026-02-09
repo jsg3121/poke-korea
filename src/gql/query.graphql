@@ -451,6 +451,8 @@ query GetVersionGroups($filter: GetVersionGroupsInput) {
     name
     nameKo
     generationId
+    baseVersionGroupId
+    baseVersionGroupName
   }
 }
 

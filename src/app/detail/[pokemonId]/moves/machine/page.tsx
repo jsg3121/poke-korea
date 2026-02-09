@@ -98,6 +98,7 @@ const MachineMovesPage = async ({ params }: MachineMovesPageProps) => {
       name: normalFormName,
       imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0].imagePath,
     },
+    currentActiveIndex: 0,
     currentVersionGroupId: undefined,
     currentMovesType: 'MACHINE' as const,
   }

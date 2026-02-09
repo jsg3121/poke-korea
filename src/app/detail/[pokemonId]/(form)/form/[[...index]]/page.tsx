@@ -65,7 +65,10 @@ export const generateMetadata = async ({
   })
 }
 
-const NormalFormPage = async ({ params, searchParams }: NormalFormPageProps) => {
+const NormalFormPage = async ({
+  params,
+  searchParams,
+}: NormalFormPageProps) => {
   const { pokemonId, index } = await params
   const query = await searchParams
 

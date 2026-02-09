@@ -41,7 +41,7 @@ const MachineLearnableSkillComponent = () => {
         <p>
           최신 :{' '}
           <b className="font-bold">
-            {versionGroup?.machineSkillVersion?.nameKo}
+            {versionGroup?.machineSkillVersion?.baseVersionGroupName}
           </b>
         </p>
         <Link

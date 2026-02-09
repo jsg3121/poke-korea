@@ -12,7 +12,7 @@ import { fetchRegionMovesQueries } from '../../_fetch/regionMoves.fetch'
 export const revalidate = 31536000
 
 interface RegionMovesPageProps {
-  params: Promise<{ pokemonId: string; segments?: string[] }>
+  params: Promise<{ pokemonId: string; index?: string[] }>
   searchParams: Promise<{
     selectVersion?: string
     movesType?: 'LEVELUP' | 'MACHINE'
@@ -23,7 +23,7 @@ export const generateMetadata = async ({
   params,
   searchParams,
 }: RegionMovesPageProps): Promise<Metadata> => {
-  const { pokemonId, segments } = await params
+  const { pokemonId, index: segments } = await params
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
@@ -60,10 +60,10 @@ export const generateMetadata = async ({
 
   const isSingleSeries = versionGroup?.getVersionGroups?.length === 1
 
-  const title = `${pokemonName} 리전폼${version ? ` ${version.generationId}세대 ${version.nameKo} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
+  const title = `${pokemonName} 리전폼${version ? ` ${version.generationId}세대 ${version.baseVersionGroupName} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
   const description = isSingleSeries
-    ? `${versionGroup?.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-    : `${pokemonName}의 ${versionGroup?.getVersionGroups?.[versionGroup?.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionGroup?.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
+    ? `${versionGroup?.getVersionGroups?.[0].baseVersionGroupName}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
+    : `${pokemonName}의 ${versionGroup?.getVersionGroups?.[versionGroup?.getVersionGroups.length - 1].baseVersionGroupName} 시리즈부터 ${versionGroup?.getVersionGroups?.[0].baseVersionGroupName} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
 
   const canonicalUrl = `https://poke-korea.com${buildMovesPath({
     pokemonId,
@@ -104,7 +104,7 @@ const RegionMovesPage = async ({
   params,
   searchParams,
 }: RegionMovesPageProps) => {
-  const { pokemonId, segments } = await params
+  const { pokemonId, index: segments } = await params
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
@@ -188,6 +188,7 @@ const RegionMovesPage = async ({
       name: pokemonName,
       imagePath: undefined,
     },
+    currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,
     currentMovesType: movesType,
   }

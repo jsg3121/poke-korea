@@ -14,15 +14,15 @@ interface MovesHeaderContainerProps {
 }
 
 const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
-  const { pokemonId, index } = useParams<{
+  const { pokemonId } = useParams<{
     pokemonId: string
-    index?: string[]
   }>()
   const {
     pokemonInfo,
     formDataLength,
     normalFormInfo,
     versionGroup,
+    currentActiveIndex,
     currentVersionGroupId,
     currentMovesType,
   } = useContext(DetailMovesContext)
@@ -31,7 +31,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const lastVersionInfo = versionGroup?.[0]
   const firstVersionInfo = versionGroup?.[versionGroup.length - 1]
   const activeType = pokemonInfo?.activeType
-  const activeIndex = index?.[0] ?? '0'
+  const activeIndex = currentActiveIndex
 
   const activeGroupId = () => {
     if (currentVersionGroupId) {
@@ -44,11 +44,8 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
   const imagePath = () => {
     switch (activeType) {
       case 'region': {
-        return `2${pokemonId.toString().padStart(3, '0')}${parseInt(
-          activeIndex ?? '0',
-          10,
-        )
-          ?.toString()
+        return `2${pokemonId.toString().padStart(3, '0')}${activeIndex
+          .toString()
           .padStart(2, '0')}`
       }
 
@@ -76,10 +73,10 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
       <Link
         href={
           activeType === 'region'
-            ? activeIndex && activeIndex !== '0'
+            ? activeIndex > 0
               ? `/detail/${pokemonId}/region/${activeIndex}`
               : `/detail/${pokemonId}/region`
-            : activeIndex && activeIndex !== '0'
+            : activeIndex > 0
               ? `/detail/${pokemonId}/form/${activeIndex}`
               : `/detail/${pokemonId}`
         }
@@ -112,15 +109,15 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   <Link
                     href={
                       activeType === 'region'
-                        ? Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0) > 0
-                          ? `/detail/${pokemonId}/moves/region/${Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0)}`
+                        ? Math.max(activeIndex - 1, 0) > 0
+                          ? `/detail/${pokemonId}/moves/region/${Math.max(activeIndex - 1, 0)}`
                           : `/detail/${pokemonId}/moves/region`
-                        : Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0) > 0
-                          ? `/detail/${pokemonId}/moves/form/${Math.max(parseInt(activeIndex ?? '1', 10) - 1, 0)}`
+                        : Math.max(activeIndex - 1, 0) > 0
+                          ? `/detail/${pokemonId}/moves/form/${Math.max(activeIndex - 1, 0)}`
                           : `/detail/${pokemonId}/moves`
                     }
                     className={`w-[6rem] h-8 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
-                      activeIndex === '0'
+                      activeIndex === 0
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : ' bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
                     }`}
@@ -130,11 +127,11 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   <Link
                     href={
                       activeType === 'region'
-                        ? `/detail/${pokemonId}/moves/region/${Math.min(parseInt(activeIndex ?? '0', 10) + 1, formDataLength - 1)}`
-                        : `/detail/${pokemonId}/moves/form/${Math.min(parseInt(activeIndex ?? '0', 10) + 1, formDataLength - 1)}`
+                        ? `/detail/${pokemonId}/moves/region/${Math.min(activeIndex + 1, formDataLength - 1)}`
+                        : `/detail/${pokemonId}/moves/form/${Math.min(activeIndex + 1, formDataLength - 1)}`
                     }
                     className={`w-[6rem] h-8 text-center text-sm text-aligned-base rounded-[0.5rem] px-2 ${
-                      activeIndex === `${formDataLength - 1}`
+                      activeIndex === formDataLength - 1
                         ? 'bg-primary-3 text-primary-2 select-none cursor-default pointer-events-none'
                         : 'bg-primary-1 text-primary-4 hover:bg-primary-2 hover:text-primary-4 '
                     }`}
@@ -158,10 +155,10 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
               })}
             </p>
             <p className="w-full h-[1.5rem] mb-1">
-              최초 등장 버전 : {firstVersionInfo?.nameKo}
+              최초 등장 버전 : {firstVersionInfo?.baseVersionGroupName}
             </p>
             <p className="w-full h-[1.5rem]">
-              최신 등장 버전 : {lastVersionInfo?.nameKo}
+              최신 등장 버전 : {lastVersionInfo?.baseVersionGroupName}
             </p>
           </div>
           <div className="shrink-0 flex align-center gap-2 ml-auto ">
@@ -196,12 +193,10 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                 activeType:
                   activeType === 'region'
                     ? 'region'
-                    : activeIndex && activeIndex !== '0'
+                    : activeIndex > 0
                       ? 'normalForm'
                       : undefined,
-                activeIndex: activeIndex
-                  ? parseInt(activeIndex, 10)
-                  : undefined,
+                activeIndex,
                 versionGroupId: item?.versionGroupId,
                 movesType: currentMovesType,
               })
@@ -216,7 +211,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
                   ${item?.versionGroupId === activeGroupId() ? 'bg-primary-1 text-primary-4' : 'bg-primary-3 text-primary-1'}
                 `}
               >
-                {item?.nameKo}
+                {item?.baseVersionGroupName}
               </Link>
             )
           })}

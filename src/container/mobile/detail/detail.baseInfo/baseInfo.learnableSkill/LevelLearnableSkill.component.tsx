@@ -38,7 +38,7 @@ const LevelLearnableSkillComponent = () => {
         <p>
           최신 :{' '}
           <b className="font-bold">
-            {versionGroup?.levelUpSkillVersion?.nameKo}
+            {versionGroup?.levelUpSkillVersion?.baseVersionGroupName}
           </b>
         </p>
         <Link

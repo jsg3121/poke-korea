@@ -41,11 +41,13 @@ fragment PokemonCard on PokemonList {
   }
 }
 
-fragment VergionGroup on VersionGroup {
+fragment VersionGroup on VersionGroup {
   versionGroupId
   name
   nameKo
   generationId
+  baseVersionGroupId
+  baseVersionGroupName
 }
 
 fragment LearnableSkillPokemonInfo on PokemonDetail {

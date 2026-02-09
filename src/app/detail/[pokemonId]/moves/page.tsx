@@ -158,6 +158,7 @@ const DetailMovesPage = async ({
       name: normalFormName,
       imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0].imagePath,
     },
+    currentActiveIndex: 0,
     currentVersionGroupId: undefined,
     currentMovesType: 'LEVELUP' as const,
   }

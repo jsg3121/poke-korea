@@ -111,6 +111,7 @@ const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
       name: normalFormName,
       imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0].imagePath,
     },
+    currentActiveIndex: 0,
     currentVersionGroupId: parsedVersionId,
     currentMovesType: 'LEVELUP' as const,
   }
