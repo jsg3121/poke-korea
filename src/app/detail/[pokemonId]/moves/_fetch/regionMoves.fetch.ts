@@ -45,7 +45,11 @@ export async function fetchRegionMovesQueries({
     !pokemonInfoData.getPokemonDetail ||
     !pokemonInfoData.getPokemonDetail.isRegionForm
   ) {
-    return { pokemonInfoData }
+    return {
+      pokemonInfoData,
+      regionFormLearnableSkill: null,
+      versionGroup: null,
+    }
   }
 
   const learnMethod =

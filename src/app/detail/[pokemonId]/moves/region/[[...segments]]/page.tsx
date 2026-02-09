@@ -22,6 +22,7 @@ import { getRobotsConfig } from '~/module/metadata.module'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
+import { fetchRegionMovesQueries } from '../../_fetch/regionMoves.fetch'
 
 export const revalidate = 31536000
 
@@ -189,16 +190,13 @@ const RegionMovesPage = async ({
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const apolloClient = initializeApollo()
-
-  const { data: pokemonInfoData } = await apolloClient.query<
-    GetDetailMovesPokemonInfoQuery,
-    GetDetailMovesPokemonInfoQueryVariables
-  >({
-    query: GetDetailMovesPokemonInfoDocument,
-    variables: { pokemonId },
-    fetchPolicy: 'cache-first',
-  })
+  const { pokemonInfoData, regionFormLearnableSkill, versionGroup } =
+    await fetchRegionMovesQueries({
+      pokemonId,
+      activeIndex,
+      versionGroupId,
+      movesType,
+    })
 
   if (
     !pokemonInfoData.getPokemonDetail ||
@@ -206,42 +204,6 @@ const RegionMovesPage = async ({
   ) {
     notFound()
   }
-
-  const [{ data: regionFormLearnableSkill }, { data: versionGroup }] =
-    await Promise.all([
-      apolloClient.query<
-        GetPokemonRegionFormLearnableSkillsQuery,
-        GetPokemonRegionFormLearnableSkillsQueryVariables
-      >({
-        query: GetPokemonRegionFormLearnableSkillsDocument,
-        variables: {
-          filter: {
-            pokemonId: parseInt(pokemonId, 10),
-            formIndex: activeIndex,
-            learnMethod:
-              movesType === 'LEVELUP'
-                ? LearnMethod['LEVEL_UP']
-                : LearnMethod['MACHINE'],
-            ...(versionGroupId && { versionGroupId }),
-          },
-          pokemonId: parseInt(pokemonId, 10),
-        },
-        fetchPolicy: 'cache-first',
-      }),
-      apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>(
-        {
-          query: GetVersionGroupsDocument,
-          variables: {
-            filter: {
-              pokemonId: parseInt(pokemonId, 10),
-              activeType: 'REGION',
-              activeIndex,
-            },
-          },
-          fetchPolicy: 'cache-first',
-        },
-      ),
-    ])
 
   const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[activeIndex]?.name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.name})` : ''}`
   const pokemonName = `${pokemonInfoData.getPokemonDetail.name}${regionFormSuffixText}`
@@ -270,7 +232,7 @@ const RegionMovesPage = async ({
       isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
       activeType: 'region' as const,
     },
-    versionGroup: versionGroup.getVersionGroups,
+    versionGroup: versionGroup?.getVersionGroups,
     pokemonLearnableData,
     formDataLength,
     normalFormInfo: {

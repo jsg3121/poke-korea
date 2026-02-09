@@ -9,24 +9,14 @@ import {
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
-  GetPokemonLearnableSkillsDocument,
-  GetPokemonNormalFormImageListDocument,
-  GetPokemonNormalFormLearnableSkillsDocument,
   GetPokemonNormalFormMetadataDocument,
   GetVersionGroupsDocument,
 } from '~/graphql/gqlGenerated'
 import {
-  GetPokemonNormalFormImageListQuery,
-  GetPokemonNormalFormImageListQueryVariables,
   GetPokemonNormalFormMetadataQuery,
   GetPokemonNormalFormMetadataQueryVariables,
-  LearnMethod,
   type GetDetailMovesPokemonInfoQuery,
   type GetDetailMovesPokemonInfoQueryVariables,
-  type GetPokemonLearnableSkillsQuery,
-  type GetPokemonLearnableSkillsQueryVariables,
-  type GetPokemonNormalFormLearnableSkillsQuery,
-  type GetPokemonNormalFormLearnableSkillsQueryVariables,
   type GetVersionGroupsQuery,
   type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
@@ -36,6 +26,7 @@ import { getRobotsConfig } from '~/module/metadata.module'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
+import { fetchFormMovesQueries } from '../../_fetch/formMoves.fetch'
 
 export const revalidate = 31536000
 
@@ -192,16 +183,14 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const apolloClient = initializeApollo()
-
-  const { data: pokemonInfoData } = await apolloClient.query<
-    GetDetailMovesPokemonInfoQuery,
-    GetDetailMovesPokemonInfoQueryVariables
-  >({
-    query: GetDetailMovesPokemonInfoDocument,
-    variables: { pokemonId },
-    fetchPolicy: 'cache-first',
+  const fetchResult = await fetchFormMovesQueries({
+    pokemonId,
+    activeIndex,
+    versionGroupId,
+    movesType,
   })
+
+  const { pokemonInfoData } = fetchResult
 
   // isFormChange가 없으면 기본 moves 페이지로 리다이렉트
   if (
@@ -218,75 +207,8 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     )
   }
 
-  const [
-    { data },
-    { data: normalFormLearnableSkill },
-    { data: versionGroup },
-    { data: normalFormImageList },
-  ] = await Promise.all([
-    activeIndex === 0
-      ? apolloClient.query<
-          GetPokemonLearnableSkillsQuery,
-          GetPokemonLearnableSkillsQueryVariables
-        >({
-          query: GetPokemonLearnableSkillsDocument,
-          variables: {
-            filter: {
-              pokemonId: parseInt(pokemonId, 10),
-              ...(versionGroupId && { versionGroupId }),
-              learnMethod:
-                movesType === 'LEVELUP'
-                  ? LearnMethod['LEVEL_UP']
-                  : LearnMethod['MACHINE'],
-            },
-          },
-          fetchPolicy: 'cache-first',
-        })
-      : Promise.resolve({ data: null }),
-    activeIndex > 0
-      ? apolloClient.query<
-          GetPokemonNormalFormLearnableSkillsQuery,
-          GetPokemonNormalFormLearnableSkillsQueryVariables
-        >({
-          query: GetPokemonNormalFormLearnableSkillsDocument,
-          variables: {
-            filter: {
-              pokemonId: parseInt(pokemonId, 10),
-              ...(versionGroupId && { versionGroupId }),
-              formIndex: activeIndex,
-              learnMethod:
-                movesType === 'LEVELUP'
-                  ? LearnMethod['LEVEL_UP']
-                  : LearnMethod['MACHINE'],
-            },
-            pokemonId: parseInt(pokemonId, 10),
-            activeIndex,
-          },
-          fetchPolicy: 'cache-first',
-        })
-      : Promise.resolve({ data: null }),
-    apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
-      query: GetVersionGroupsDocument,
-      variables: {
-        filter: {
-          pokemonId: parseInt(pokemonId, 10),
-          activeType: 'NORMAL',
-          activeIndex,
-        },
-      },
-      fetchPolicy: 'cache-first',
-    }),
-    apolloClient.query<
-      GetPokemonNormalFormImageListQuery,
-      GetPokemonNormalFormImageListQueryVariables
-    >({
-      query: GetPokemonNormalFormImageListDocument,
-      variables: {
-        pokemonId: parseInt(pokemonId, 10),
-      },
-      fetchPolicy: 'cache-first',
-    }),
-  ])
+  const { data, normalFormLearnableSkill, versionGroup, normalFormImageList } =
+    fetchResult
 
   const getPokemonLearnableData = () => {
     if (activeIndex > 0) {
@@ -320,7 +242,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
         pokemonInfoData.getPokemonDetail.types)
       : pokemonInfoData.getPokemonDetail.types
 
-  const formDataLength = normalFormImageList.getPokemonNormalFormImageList
+  const formDataLength = normalFormImageList?.getPokemonNormalFormImageList
     ?.length
     ? normalFormImageList.getPokemonNormalFormImageList.length
     : 0
@@ -333,7 +255,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
       isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
       activeType: undefined,
     },
-    versionGroup: versionGroup.getVersionGroups,
+    versionGroup: versionGroup?.getVersionGroups,
     pokemonLearnableData,
     formDataLength,
     normalFormInfo: {

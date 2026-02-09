@@ -52,7 +52,13 @@ export async function fetchFormMovesQueries({
     !pokemonInfoData.getPokemonDetail ||
     !pokemonInfoData.getPokemonDetail.isFormChange
   ) {
-    return { pokemonInfoData }
+    return {
+      pokemonInfoData,
+      data: null,
+      normalFormLearnableSkill: null,
+      versionGroup: null,
+      normalFormImageList: null,
+    }
   }
 
   const learnMethod =
