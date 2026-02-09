@@ -31,6 +31,7 @@ export async function fetchRegionMovesQueries({
   movesType,
 }: FetchRegionMovesParams) {
   const apolloClient = initializeApollo()
+  const pokemonIdNumber = parseInt(pokemonId, 10)
 
   const { data: pokemonInfoData } = await apolloClient.query<
     GetDetailMovesPokemonInfoQuery,
@@ -64,12 +65,12 @@ export async function fetchRegionMovesQueries({
         query: GetPokemonRegionFormLearnableSkillsDocument,
         variables: {
           filter: {
-            pokemonId: parseInt(pokemonId, 10),
+            pokemonId: pokemonIdNumber,
             formIndex: activeIndex,
             learnMethod,
             ...(versionGroupId && { versionGroupId }),
           },
-          pokemonId: parseInt(pokemonId, 10),
+          pokemonId: pokemonIdNumber,
         },
         fetchPolicy: 'cache-first',
       }),
@@ -78,7 +79,7 @@ export async function fetchRegionMovesQueries({
           query: GetVersionGroupsDocument,
           variables: {
             filter: {
-              pokemonId: parseInt(pokemonId, 10),
+              pokemonId: pokemonIdNumber,
               activeType: 'REGION',
               activeIndex,
             },

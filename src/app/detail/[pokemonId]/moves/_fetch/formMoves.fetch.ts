@@ -38,6 +38,7 @@ export async function fetchFormMovesQueries({
   movesType,
 }: FetchFormMovesParams) {
   const apolloClient = initializeApollo()
+  const pokemonIdNumber = parseInt(pokemonId, 10)
 
   const { data: pokemonInfoData } = await apolloClient.query<
     GetDetailMovesPokemonInfoQuery,
@@ -78,7 +79,7 @@ export async function fetchFormMovesQueries({
           query: GetPokemonLearnableSkillsDocument,
           variables: {
             filter: {
-              pokemonId: parseInt(pokemonId, 10),
+              pokemonId: pokemonIdNumber,
               ...(versionGroupId && { versionGroupId }),
               learnMethod,
             },
@@ -94,12 +95,12 @@ export async function fetchFormMovesQueries({
           query: GetPokemonNormalFormLearnableSkillsDocument,
           variables: {
             filter: {
-              pokemonId: parseInt(pokemonId, 10),
+              pokemonId: pokemonIdNumber,
               ...(versionGroupId && { versionGroupId }),
               formIndex: activeIndex,
               learnMethod,
             },
-            pokemonId: parseInt(pokemonId, 10),
+            pokemonId: pokemonIdNumber,
             activeIndex,
           },
           fetchPolicy: 'cache-first',
@@ -109,7 +110,7 @@ export async function fetchFormMovesQueries({
       query: GetVersionGroupsDocument,
       variables: {
         filter: {
-          pokemonId: parseInt(pokemonId, 10),
+          pokemonId: pokemonIdNumber,
           activeType: 'NORMAL',
           activeIndex,
         },
@@ -122,7 +123,7 @@ export async function fetchFormMovesQueries({
     >({
       query: GetPokemonNormalFormImageListDocument,
       variables: {
-        pokemonId: parseInt(pokemonId, 10),
+        pokemonId: pokemonIdNumber,
       },
       fetchPolicy: 'cache-first',
     }),
