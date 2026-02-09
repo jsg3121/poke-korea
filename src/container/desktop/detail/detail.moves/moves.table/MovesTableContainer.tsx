@@ -1,43 +1,61 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useContext } from 'react'
 import MoveDetailCard from '~/components/moves/moveCard/MoveDetailCard.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
+import { buildMovesPath } from '~/module/movesParams.module'
 import ToggleButtonComponent from './components/Toggle.component'
 
 const MovesTableContainer = () => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+  const { pokemonId, index } = useParams<{
+    pokemonId: string
+    index?: string[]
+  }>()
   const router = useRouter()
-  const { pokemonLearnableData, versionGroup } = useContext(DetailMovesContext)
+  const {
+    pokemonLearnableData,
+    versionGroup,
+    pokemonInfo,
+    currentVersionGroupId,
+    currentMovesType,
+  } = useContext(DetailMovesContext)
 
-  const selectVersionParam = searchParams.get('selectVersion')
+  const activeIndex = index?.[0] ?? '0'
+  const activeType = pokemonInfo?.activeType
+
   const activeVersionId = `${
-    selectVersionParam ?? versionGroup?.[0].versionGroupId.toString()
-  }_${searchParams.get('activeIndex')}`
+    currentVersionGroupId ?? versionGroup?.[0].versionGroupId.toString()
+  }_${activeIndex}`
 
   // 현재 선택된 버전 그룹의 세대 ID 가져오기
   const currentGenerationId =
     versionGroup?.find((version) => {
       return (
         version.versionGroupId ===
-        parseInt(
-          selectVersionParam ?? versionGroup[0].versionGroupId.toString(),
-          10,
-        )
+        (currentVersionGroupId ?? versionGroup[0].versionGroupId)
       )
     })?.generationId ??
     versionGroup?.[0].generationId ??
     9
 
-  const defaultToggleStatus = searchParams.get('movesType')
+  const defaultToggleStatus = currentMovesType ?? 'LEVELUP'
   const isToogleChecked = defaultToggleStatus === 'MACHINE' ? false : true
 
   const handleClickCheckToggle = (value: string) => {
-    const params = new URLSearchParams(searchParams)
-    params.set('movesType', value)
-    router.replace(`${pathname}?${params.toString()}`)
+    const newPath = buildMovesPath({
+      pokemonId,
+      activeType:
+        activeType === 'region'
+          ? 'region'
+          : activeIndex && activeIndex !== '0'
+            ? 'normalForm'
+            : undefined,
+      activeIndex: activeIndex ? parseInt(activeIndex, 10) : undefined,
+      versionGroupId: currentVersionGroupId,
+      movesType: value as 'LEVELUP' | 'MACHINE',
+    })
+    router.replace(newPath)
   }
 
   if (!pokemonLearnableData) {
@@ -62,7 +80,7 @@ const MovesTableContainer = () => {
         </div>
       </header>
       <div className="w-full flex flex-col gap-6 py-6">
-        {defaultToggleStatus === null || defaultToggleStatus === 'LEVELUP'
+        {defaultToggleStatus === 'LEVELUP'
           ? pokemonLearnableData.levelUpSkills.map((move, index) => {
               const level =
                 move.level === 0

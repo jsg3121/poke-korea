@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { Fragment, useContext, useEffect, useRef } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import { imageMode } from '~/module/buildMode'
+import { buildMovesPath } from '~/module/movesParams.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 interface MovesHeaderContainerProps {
@@ -17,26 +18,24 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
     pokemonId: string
     index?: string[]
   }>()
-  const searchParams = useSearchParams()
-  const { pokemonInfo, formDataLength, normalFormInfo, versionGroup } =
-    useContext(DetailMovesContext)
+  const {
+    pokemonInfo,
+    formDataLength,
+    normalFormInfo,
+    versionGroup,
+    currentVersionGroupId,
+    currentMovesType,
+  } = useContext(DetailMovesContext)
   const versionListRef = useRef<HTMLElement>(null)
 
   const lastVersionInfo = versionGroup?.[0]
   const firstVersionInfo = versionGroup?.[versionGroup.length - 1]
-  const selectVersion = searchParams.get('selectVersion')
-  // Path 기반: pokemonInfo.activeType 사용, 쿼리 파라미터는 하위 호환용
-  const activeType = pokemonInfo?.activeType ?? searchParams.get('activeType')
-  // Path 기반: index 파라미터 사용, 쿼리 파라미터는 하위 호환용
-  const activeIndex = index?.[0] ?? searchParams.get('activeIndex') ?? '0'
+  const activeType = pokemonInfo?.activeType
+  const activeIndex = index?.[0] ?? '0'
 
   const activeGroupId = () => {
-    if (selectVersion) {
-      const versionGroupId = versionGroup?.find((version) => {
-        return version?.versionGroupId.toString() === selectVersion
-      })
-
-      return versionGroupId?.versionGroupId
+    if (currentVersionGroupId) {
+      return currentVersionGroupId
     } else {
       return versionGroup?.[0]?.versionGroupId
     }
@@ -192,19 +191,20 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
         >
           {versionGroup?.map((item) => {
             const getVersionHref = () => {
-              if (activeType === 'region') {
-                const basePath =
-                  activeIndex && activeIndex !== '0'
-                    ? `/detail/${pokemonId}/moves/region/${activeIndex}`
-                    : `/detail/${pokemonId}/moves/region`
-                return `${basePath}?selectVersion=${item?.versionGroupId}`
-              }
-              // 기본폼도 Path 기반 URL 사용
-              const basePath =
-                activeIndex && activeIndex !== '0'
-                  ? `/detail/${pokemonId}/moves/form/${activeIndex}`
-                  : `/detail/${pokemonId}/moves`
-              return `${basePath}?selectVersion=${item?.versionGroupId}`
+              return buildMovesPath({
+                pokemonId,
+                activeType:
+                  activeType === 'region'
+                    ? 'region'
+                    : activeIndex && activeIndex !== '0'
+                      ? 'normalForm'
+                      : undefined,
+                activeIndex: activeIndex
+                  ? parseInt(activeIndex, 10)
+                  : undefined,
+                versionGroupId: item?.versionGroupId,
+                movesType: currentMovesType,
+              })
             }
             return (
               <Link
