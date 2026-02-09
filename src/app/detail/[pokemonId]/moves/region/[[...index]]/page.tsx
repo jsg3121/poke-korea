@@ -3,11 +3,11 @@ import { headers } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import { detectUserAgent } from '~/module/device.module'
-import { getRobotsConfig } from '~/module/metadata.module'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
 import { fetchRegionMovesQueries } from '../../_fetch/regionMoves.fetch'
+import { generateRegionMovesMetadata } from '../../_metadata/generateFormMovesMetadata'
 
 export const revalidate = 31536000
 
@@ -58,13 +58,6 @@ export const generateMetadata = async ({
   const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[activeIndex]?.name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.name})` : ''}`
   const pokemonName = `${pokemonInfoData.getPokemonDetail?.name}${regionFormSuffixText}`
 
-  const isSingleSeries = versionGroup?.getVersionGroups?.length === 1
-
-  const title = `${pokemonName} 리전폼${version ? ` ${version.generationId}세대 ${version.baseVersionGroupName} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
-  const description = isSingleSeries
-    ? `${versionGroup?.getVersionGroups?.[0].baseVersionGroupName}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-    : `${pokemonName}의 ${versionGroup?.getVersionGroups?.[versionGroup?.getVersionGroups.length - 1].baseVersionGroupName} 시리즈부터 ${versionGroup?.getVersionGroups?.[0].baseVersionGroupName} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-
   const canonicalUrl = `https://poke-korea.com${buildMovesPath({
     pokemonId,
     activeType: 'region',
@@ -73,31 +66,13 @@ export const generateMetadata = async ({
     movesType,
   })}`
 
-  return {
-    title,
-    description,
-    robots: getRobotsConfig(),
-    openGraph: {
-      type: 'website',
-      url: canonicalUrl,
-      title,
-      description,
-      locale: 'ko_KR',
-      images: [
-        {
-          url: 'https://poke-korea.com/assets/image/ogImage.png',
-          width: 1200,
-          height: 630,
-          alt: title,
-          type: 'image/png',
-        },
-      ],
-      siteName: '포케 코리아',
-    },
-    alternates: {
-      canonical: canonicalUrl,
-    },
-  }
+  return generateRegionMovesMetadata({
+    pokemonName,
+    movesType,
+    canonicalUrl,
+    version,
+    versionGroups: versionGroup?.getVersionGroups,
+  })
 }
 
 const RegionMovesPage = async ({

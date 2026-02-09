@@ -4,7 +4,7 @@ import {
   QUIZ_ITEMLIST_JSON_LD,
   QUIZ_WEBPAGE_JSON_LD,
 } from '~/constants/quizJsonLd'
-import { QUIZ_MAIN_META } from '~/constants/seoMetaData'
+import { QUIZ_MAIN_META } from './_metadata/quizMetadata'
 import { detectUserAgent } from '~/module/device.module'
 import QuizMainDesktop from '~/views/desktop/quiz/QuizMain.desktop'
 import QuizMainMobile from '~/views/mobile/quiz/QuizMain.mobile'

@@ -13,7 +13,7 @@ import {
   ABILITY_QUIZ_JSON_LD,
   ABILITY_QUIZ_HOWTO_JSON_LD,
 } from '~/constants/quizJsonLd'
-import { QUIZ_ABILITY_META } from '~/constants/seoMetaData'
+import { QUIZ_ABILITY_META } from '../_metadata/quizMetadata'
 
 export const revalidate = 31536000
 
