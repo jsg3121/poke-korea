@@ -1,7 +1,7 @@
 import { headers } from 'next/headers'
 import { permanentRedirect } from 'next/navigation'
 import { Fragment } from 'react'
-import { HOME_META } from '~/constants/seoMetaData'
+import { HOME_META } from './_metadata/homeMetadata'
 import {
   GetDailyQuizPreviewDocument,
   GetDailyRandomPokemonDocument,

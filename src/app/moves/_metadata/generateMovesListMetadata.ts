@@ -1,8 +1,15 @@
 import { Metadata } from 'next'
-import { MOVES_MAIN_META } from '~/constants/seoMetaData'
+import { createMetadata } from '~/constants/seoMetaData'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { getRobotsConfig } from '~/module/metadata.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+
+const MOVES_MAIN_META = createMetadata(
+  '포켓몬 기술 도감 (1~9세대 전체) | 포케 코리아',
+  '1세대부터 9세대까지 900개 이상의 포켓몬 기술을 타입·데미지 유형별로 검색하세요. 위력, 명중률, 배울 수 있는 포켓몬까지 한눈에 확인할 수 있습니다.',
+  '/moves',
+  '포켓몬 기술 도감 | 포케 코리아',
+)
 
 interface MovesListMetadataParams {
   typeFilter?: PokemonType

@@ -13,7 +13,7 @@ import {
   POKEMON_TYPE_QUIZ_JSON_LD,
   POKEMON_TYPE_QUIZ_HOWTO_JSON_LD,
 } from '~/constants/quizJsonLd'
-import { QUIZ_POKEMON_TYPE_META } from '~/constants/seoMetaData'
+import { QUIZ_POKEMON_TYPE_META } from '../_metadata/quizMetadata'
 
 export const revalidate = 31536000 // 24시간마다 재생성
 

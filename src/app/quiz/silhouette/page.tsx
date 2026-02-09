@@ -13,7 +13,7 @@ import {
   SILHOUETTE_QUIZ_JSON_LD,
   SILHOUETTE_QUIZ_HOWTO_JSON_LD,
 } from '~/constants/quizJsonLd'
-import { QUIZ_SILHOUETTE_META } from '~/constants/seoMetaData'
+import { QUIZ_SILHOUETTE_META } from '../_metadata/quizMetadata'
 
 export const revalidate = 31536000
 

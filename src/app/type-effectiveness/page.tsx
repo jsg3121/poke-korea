@@ -1,6 +1,6 @@
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import { TYPE_EFFECTIVENESS_META } from '~/constants/seoMetaData'
+import { TYPE_EFFECTIVENESS_META } from './_metadata/typeEffectivenessMetadata'
 import {
   TYPE_EFFECTIVENESS_ITEMLIST_JSON_LD,
   TYPE_EFFECTIVENESS_WEBPAGE_JSON_LD,

@@ -1,7 +1,7 @@
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
 import { ABILITY_WEBPAGE_JSON_LD } from '~/constants/abilityJsonLd'
-import { ABILITY_LIST_META } from '~/constants/seoMetaData'
+import { ABILITY_LIST_META } from './_metadata/abilityListMetadata'
 import { GetAbilityListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
   AbilityEdge,
