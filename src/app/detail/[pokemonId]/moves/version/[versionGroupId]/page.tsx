@@ -2,26 +2,13 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import {
-  GetDetailMovesPokemonInfoDocument,
-  GetPokemonNormalFormMetadataDocument,
-  GetVersionGroupsDocument,
-} from '~/graphql/gqlGenerated'
-import {
-  GetPokemonNormalFormMetadataQuery,
-  GetPokemonNormalFormMetadataQueryVariables,
-  LearnMethod,
-  type GetDetailMovesPokemonInfoQuery,
-  type GetDetailMovesPokemonInfoQueryVariables,
-  type GetVersionGroupsQuery,
-  type GetVersionGroupsQueryVariables,
-} from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { LearnMethod } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
 import { fetchDefaultMovesQueries } from '../../_fetch/defaultMoves.fetch'
+import { fetchDefaultMovesMetadata } from '../../_fetch/defaultMovesMetadata.fetch'
 
 export const revalidate = 31536000
 
@@ -39,43 +26,8 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const apolloClient = initializeApollo()
-
-  const { data: pokemonDetail } = await apolloClient.query<
-    GetDetailMovesPokemonInfoQuery,
-    GetDetailMovesPokemonInfoQueryVariables
-  >({
-    query: GetDetailMovesPokemonInfoDocument,
-    variables: { pokemonId },
-    fetchPolicy: 'cache-first',
-  })
-  const isNormalForm = !!pokemonDetail.getPokemonDetail?.isFormChange
-
-  const [{ data: versionInfo }, { data: normalFormData }] = await Promise.all([
-    apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
-      query: GetVersionGroupsDocument,
-      variables: {
-        filter: {
-          pokemonId: parseInt(pokemonId, 10),
-          ...(isNormalForm && {
-            activeType: 'NORMAL',
-            activeIndex: 0,
-          }),
-        },
-      },
-      fetchPolicy: 'cache-first',
-    }),
-    apolloClient.query<
-      GetPokemonNormalFormMetadataQuery,
-      GetPokemonNormalFormMetadataQueryVariables
-    >({
-      query: GetPokemonNormalFormMetadataDocument,
-      variables: {
-        pokemonId: parseInt(pokemonId, 10),
-        activeIndex: 0,
-      },
-    }),
-  ])
+  const { pokemonDetail, isNormalForm, versionInfo, normalFormData } =
+    await fetchDefaultMovesMetadata({ pokemonId })
 
   const version = versionInfo.getVersionGroups?.find(
     (v) => v.versionGroupId === parsedVersionId,

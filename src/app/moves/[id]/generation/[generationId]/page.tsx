@@ -3,19 +3,14 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 import { getMoveDetailGenerationJsonLd } from '~/constants/movesJsonLd'
-import { GetPokemonSkillDetailDocument } from '~/graphql/gqlGenerated'
-import {
-  GetPokemonSkillDetailQuery,
-  GetPokemonSkillDetailQueryVariables,
-  PokemonLearnInfoEdge,
-} from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { PokemonLearnInfoEdge } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 import MoveDetailDesktop from '~/views/desktop/moves/MoveDetail.desktop'
 import MoveDetailMobile from '~/views/mobile/moves/MoveDetail.mobile'
 import { fetchMoveDetailQueries } from '../../_fetch/moveDetail.fetch'
+import { fetchMoveDetailMetadata } from '../../_fetch/moveDetailMetadata.fetch'
 
 export const revalidate = 31536000 // 1년
 
@@ -39,23 +34,10 @@ export async function generateMetadata({
     }
   }
 
-  const apolloClient = initializeApollo()
-
-  const { data } = await apolloClient.query<
-    GetPokemonSkillDetailQuery,
-    GetPokemonSkillDetailQueryVariables
-  >({
-    query: GetPokemonSkillDetailDocument,
-    variables: {
-      filter: {
-        skillId,
-        generationId: generation,
-      },
-    },
-    fetchPolicy: 'network-only',
+  const { skill } = await fetchMoveDetailMetadata({
+    skillId,
+    generationId: generation,
   })
-
-  const skill = data?.getPokemonSkillDetail
 
   if (!skill) {
     return {

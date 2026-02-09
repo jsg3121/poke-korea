@@ -2,21 +2,6 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import {
-  GetDetailMovesPokemonInfoDocument,
-  GetPokemonRegionFormLearnableSkillsDocument,
-  GetVersionGroupsDocument,
-} from '~/graphql/gqlGenerated'
-import {
-  LearnMethod,
-  type GetDetailMovesPokemonInfoQuery,
-  type GetDetailMovesPokemonInfoQueryVariables,
-  type GetPokemonRegionFormLearnableSkillsQuery,
-  type GetPokemonRegionFormLearnableSkillsQueryVariables,
-  type GetVersionGroupsQuery,
-  type GetVersionGroupsQueryVariables,
-} from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
@@ -52,69 +37,33 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const apolloClient = initializeApollo()
+  const { pokemonInfoData, regionFormLearnableSkill, versionGroup } =
+    await fetchRegionMovesQueries({
+      pokemonId,
+      activeIndex,
+      versionGroupId,
+      movesType,
+    })
 
-  const { data: pokemonDetail } = await apolloClient.query<
-    GetDetailMovesPokemonInfoQuery,
-    GetDetailMovesPokemonInfoQueryVariables
-  >({
-    query: GetDetailMovesPokemonInfoDocument,
-    variables: { pokemonId },
-    fetchPolicy: 'cache-first',
-  })
-
-  if (!pokemonDetail.getPokemonDetail?.isRegionForm) {
+  if (!pokemonInfoData.getPokemonDetail?.isRegionForm) {
     return {}
   }
 
-  const [{ data: versionInfo }, { data: regionFormData }] = await Promise.all([
-    apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
-      query: GetVersionGroupsDocument,
-      variables: {
-        filter: {
-          pokemonId: parseInt(pokemonId, 10),
-          activeType: 'REGION',
-          activeIndex,
-        },
-      },
-      fetchPolicy: 'cache-first',
-    }),
-    apolloClient.query<
-      GetPokemonRegionFormLearnableSkillsQuery,
-      GetPokemonRegionFormLearnableSkillsQueryVariables
-    >({
-      query: GetPokemonRegionFormLearnableSkillsDocument,
-      variables: {
-        filter: {
-          pokemonId: parseInt(pokemonId, 10),
-          formIndex: activeIndex,
-          learnMethod:
-            movesType === 'LEVELUP'
-              ? LearnMethod['LEVEL_UP']
-              : LearnMethod['MACHINE'],
-          ...(versionGroupId && { versionGroupId }),
-        },
-        pokemonId: parseInt(pokemonId, 10),
-      },
-      fetchPolicy: 'cache-first',
-    }),
-  ])
-
   const version = versionGroupId
-    ? versionInfo.getVersionGroups?.find(
+    ? versionGroup?.getVersionGroups?.find(
         (v) => v.versionGroupId === versionGroupId,
       )
-    : versionInfo.getVersionGroups?.[0]
+    : versionGroup?.getVersionGroups?.[0]
 
-  const regionFormSuffixText = `${regionFormData ? ` ${regionFormData.getPokemonRegionForm?.[activeIndex]?.region}의 모습` : ''} ${regionFormData.getPokemonRegionForm?.[activeIndex]?.name ? `(${regionFormData.getPokemonRegionForm?.[activeIndex]?.name})` : ''}`
-  const pokemonName = `${pokemonDetail.getPokemonDetail?.name}${regionFormSuffixText}`
+  const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[activeIndex]?.name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.name})` : ''}`
+  const pokemonName = `${pokemonInfoData.getPokemonDetail?.name}${regionFormSuffixText}`
 
-  const isSingleSeries = versionInfo.getVersionGroups?.length === 1
+  const isSingleSeries = versionGroup?.getVersionGroups?.length === 1
 
   const title = `${pokemonName} 리전폼${version ? ` ${version.generationId}세대 ${version.nameKo} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
   const description = isSingleSeries
-    ? `${versionInfo.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-    : `${pokemonName}의 ${versionInfo.getVersionGroups?.[versionInfo.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionInfo.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
+    ? `${versionGroup?.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
+    : `${pokemonName}의 ${versionGroup?.getVersionGroups?.[versionGroup?.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionGroup?.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
 
   const canonicalUrl = `https://poke-korea.com${buildMovesPath({
     pokemonId,
