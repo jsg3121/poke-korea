@@ -80,6 +80,32 @@ const nextConfig = {
         destination: '/detail/:pokemonId/moves/form/:activeIndex',
         permanent: true,
       },
+      // 기존 쿼리 파라미터 URL → 새 Path URL (기술 페이지 버전 선택 + MACHINE)
+      {
+        source: '/detail/:pokemonId/moves',
+        has: [
+          { type: 'query', key: 'selectVersion' },
+          { type: 'query', key: 'movesType', value: 'MACHINE' },
+        ],
+        destination: '/detail/:pokemonId/moves/version/:selectVersion/machine',
+        permanent: true,
+      },
+      // 기존 쿼리 파라미터 URL → 새 Path URL (기술 페이지 버전 선택)
+      {
+        source: '/detail/:pokemonId/moves',
+        has: [{ type: 'query', key: 'selectVersion' }],
+        missing: [{ type: 'query', key: 'movesType' }],
+        destination: '/detail/:pokemonId/moves/version/:selectVersion',
+        permanent: true,
+      },
+      // 기존 쿼리 파라미터 URL → 새 Path URL (기술 페이지 MACHINE만)
+      {
+        source: '/detail/:pokemonId/moves',
+        has: [{ type: 'query', key: 'movesType', value: 'MACHINE' }],
+        missing: [{ type: 'query', key: 'selectVersion' }],
+        destination: '/detail/:pokemonId/moves/machine',
+        permanent: true,
+      },
     ]
   },
   async headers() {
@@ -218,6 +244,36 @@ const nextConfig = {
       {
         // 기본폼 기술 페이지 (인덱스) - 장기간 캐싱
         source: '/detail/:pokemonId/moves/form/:formIndex',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 머신 습득 기술 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/moves/machine',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 버전별 기술 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/moves/version/:versionGroupId',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000',
+          },
+        ],
+      },
+      {
+        // 버전별 머신 기술 페이지 - 장기간 캐싱
+        source: '/detail/:pokemonId/moves/version/:versionGroupId/machine',
         headers: [
           {
             key: 'Cache-Control',

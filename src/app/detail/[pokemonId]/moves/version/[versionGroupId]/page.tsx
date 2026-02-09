@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
@@ -33,35 +33,17 @@ import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mo
 
 export const revalidate = 31536000
 
-interface DetailMovesPageProps {
-  params: Promise<{ pokemonId: string }>
-  searchParams: Promise<{
-    activeType?: 'region' | 'normalForm'
-    activeIndex?: string
-    selectVersion?: string
-    movesType?: 'LEVELUP' | 'MACHINE'
-  }>
+interface VersionMovesPageProps {
+  params: Promise<{ pokemonId: string; versionGroupId: string }>
 }
 
 export const generateMetadata = async ({
   params,
-  searchParams,
-}: DetailMovesPageProps): Promise<Metadata> => {
-  const { pokemonId } = await params
-  const {
-    activeIndex = '0',
-    activeType,
-    movesType = 'LEVELUP',
-    selectVersion,
-  } = await searchParams
+}: VersionMovesPageProps): Promise<Metadata> => {
+  const { pokemonId, versionGroupId } = await params
 
-  // 쿼리 파라미터가 있으면 메타데이터 생성 스킵 (리다이렉트됨)
-  if (
-    activeType === 'region' ||
-    activeIndex !== '0' ||
-    selectVersion ||
-    movesType !== 'LEVELUP'
-  ) {
+  const parsedVersionId = parseInt(versionGroupId, 10)
+  if (isNaN(parsedVersionId) || parsedVersionId <= 0) {
     return {}
   }
 
@@ -72,9 +54,7 @@ export const generateMetadata = async ({
     GetDetailMovesPokemonInfoQueryVariables
   >({
     query: GetDetailMovesPokemonInfoDocument,
-    variables: {
-      pokemonId,
-    },
+    variables: { pokemonId },
     fetchPolicy: 'cache-first',
   })
   const isNormalForm = !!pokemonDetail.getPokemonDetail?.isFormChange
@@ -105,19 +85,25 @@ export const generateMetadata = async ({
     }),
   ])
 
-  const version = versionInfo.getVersionGroups?.[0]
+  const version = versionInfo.getVersionGroups?.find(
+    (v) => v.versionGroupId === parsedVersionId,
+  )
+  if (!version) {
+    return {}
+  }
+
   const pokemonName = isNormalForm
     ? normalFormData.getPokemonNormalForm?.[0].name.replace('_', ' ')
     : pokemonDetail.getPokemonDetail?.name
 
   const isSingleSeries = versionInfo.getVersionGroups?.length === 1
 
-  const title = `${pokemonName}${version ? ` ${version.generationId}세대 ${version.nameKo} 시리즈` : ''} 레벨업 습득 기술 정보`
+  const title = `${pokemonName} ${version.generationId}세대 ${version.nameKo} 시리즈 레벨업 습득 기술 정보`
   const description = isSingleSeries
     ? `${versionInfo.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
     : `${pokemonName}의 ${versionInfo.getVersionGroups?.[versionInfo.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionInfo.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
 
-  const canonicalUrl = `https://poke-korea.com/detail/${pokemonId}/moves`
+  const canonicalUrl = `https://poke-korea.com/detail/${pokemonId}/moves/version/${versionGroupId}`
 
   return {
     title,
@@ -146,43 +132,12 @@ export const generateMetadata = async ({
   }
 }
 
-const DetailMovesPage = async ({
-  params,
-  searchParams,
-}: DetailMovesPageProps) => {
-  const { pokemonId } = await params
-  const {
-    activeType,
-    movesType = 'LEVELUP',
-    activeIndex = '0',
-    selectVersion,
-  } = await searchParams
+const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
+  const { pokemonId, versionGroupId } = await params
 
-  // region 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
-  if (activeType === 'region') {
-    const basePath =
-      activeIndex !== '0'
-        ? `/detail/${pokemonId}/moves/region/${activeIndex}`
-        : `/detail/${pokemonId}/moves/region`
-    const versionPath = selectVersion ? `/version/${selectVersion}` : ''
-    const machinePath = movesType === 'MACHINE' ? '/machine' : ''
-    redirect(`${basePath}${versionPath}${machinePath}`)
-  }
-
-  // activeIndex 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
-  if (activeIndex !== '0') {
-    const basePath = `/detail/${pokemonId}/moves/form/${activeIndex}`
-    const versionPath = selectVersion ? `/version/${selectVersion}` : ''
-    const machinePath = movesType === 'MACHINE' ? '/machine' : ''
-    redirect(`${basePath}${versionPath}${machinePath}`)
-  }
-
-  // selectVersion 또는 movesType 쿼리파라미터가 있으면 Path 기반으로 리다이렉트
-  if (selectVersion || movesType !== 'LEVELUP') {
-    const basePath = `/detail/${pokemonId}/moves`
-    const versionPath = selectVersion ? `/version/${selectVersion}` : ''
-    const machinePath = movesType === 'MACHINE' ? '/machine' : ''
-    redirect(`${basePath}${versionPath}${machinePath}`)
+  const parsedVersionId = parseInt(versionGroupId, 10)
+  if (isNaN(parsedVersionId) || parsedVersionId <= 0) {
+    notFound()
   }
 
   const headersList = headers()
@@ -197,9 +152,7 @@ const DetailMovesPage = async ({
       GetDetailMovesPokemonInfoQueryVariables
     >({
       query: GetDetailMovesPokemonInfoDocument,
-      variables: {
-        pokemonId,
-      },
+      variables: { pokemonId },
       fetchPolicy: 'cache-first',
     }),
   ])
@@ -221,13 +174,8 @@ const DetailMovesPage = async ({
           variables: {
             filter: {
               pokemonId: parseInt(pokemonId, 10),
-              ...(selectVersion && {
-                versionGroupId: parseInt(selectVersion, 10),
-              }),
-              learnMethod:
-                movesType === 'LEVELUP'
-                  ? LearnMethod['LEVEL_UP']
-                  : LearnMethod['MACHINE'],
+              versionGroupId: parsedVersionId,
+              learnMethod: LearnMethod['LEVEL_UP'],
             },
           },
           fetchPolicy: 'cache-first',
@@ -242,17 +190,12 @@ const DetailMovesPage = async ({
           variables: {
             filter: {
               pokemonId: parseInt(pokemonId, 10),
-              ...(selectVersion && {
-                versionGroupId: parseInt(selectVersion, 10),
-              }),
-              formIndex: parseInt(activeIndex, 10),
-              learnMethod:
-                movesType === 'LEVELUP'
-                  ? LearnMethod['LEVEL_UP']
-                  : LearnMethod['MACHINE'],
+              versionGroupId: parsedVersionId,
+              formIndex: 0,
+              learnMethod: LearnMethod['LEVEL_UP'],
             },
             pokemonId: parseInt(pokemonId, 10),
-            activeIndex: parseInt(activeIndex, 10),
+            activeIndex: 0,
           },
           fetchPolicy: 'cache-first',
         })
@@ -264,7 +207,7 @@ const DetailMovesPage = async ({
           pokemonId: parseInt(pokemonId, 10),
           ...(isNormalForm && {
             activeType: 'NORMAL',
-            activeIndex: parseInt(activeIndex, 10),
+            activeIndex: 0,
           }),
         },
       },
@@ -335,7 +278,7 @@ const DetailMovesPage = async ({
       name: normalFormName,
       imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0].imagePath,
     },
-    currentVersionGroupId: undefined,
+    currentVersionGroupId: parsedVersionId,
     currentMovesType: 'LEVELUP' as const,
   }
 
@@ -350,4 +293,4 @@ const DetailMovesPage = async ({
   )
 }
 
-export default DetailMovesPage
+export default VersionMovesPage

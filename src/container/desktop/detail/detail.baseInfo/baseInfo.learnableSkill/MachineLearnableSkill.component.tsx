@@ -19,14 +19,13 @@ const MachineLearnableSkillComponent = () => {
         activeIndex > 0
           ? `/detail/${pokemonId}/moves/region/${activeIndex}`
           : `/detail/${pokemonId}/moves/region`
-      return `${basePath}?movesType=MACHINE`
+      return `${basePath}/machine`
     }
-    // 기본폼도 activeIndex > 0이면 Path 기반 URL 사용
     const basePath =
       activeIndex > 0
         ? `/detail/${pokemonId}/moves/form/${activeIndex}`
         : `/detail/${pokemonId}/moves`
-    return `${basePath}?movesType=MACHINE`
+    return `${basePath}/machine`
   }
 
   return (

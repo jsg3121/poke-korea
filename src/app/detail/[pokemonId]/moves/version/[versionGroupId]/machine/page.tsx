@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { notFound, permanentRedirect, RedirectType } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
@@ -33,40 +33,17 @@ import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mo
 
 export const revalidate = 31536000
 
-interface FormMovesPageProps {
-  params: Promise<{ pokemonId: string; index?: string[] }>
-  searchParams: Promise<{
-    selectVersion?: string
-    movesType?: 'LEVELUP' | 'MACHINE'
-  }>
-}
-
-const parseIndexParam = (
-  index?: string[],
-): { activeIndex: number; isValid: boolean } => {
-  if (!index || index.length === 0) {
-    return { activeIndex: 0, isValid: true }
-  }
-  const [indexStr] = index
-  const activeIndex = parseInt(indexStr, 10)
-  if (isNaN(activeIndex) || activeIndex < 0 || activeIndex > 100) {
-    return { activeIndex: 0, isValid: false }
-  }
-  if (index.length > 1) {
-    return { activeIndex, isValid: false }
-  }
-  return { activeIndex, isValid: true }
+interface VersionMachineMovesPageProps {
+  params: Promise<{ pokemonId: string; versionGroupId: string }>
 }
 
 export const generateMetadata = async ({
   params,
-  searchParams,
-}: FormMovesPageProps): Promise<Metadata> => {
-  const { pokemonId, index } = await params
-  const { movesType = 'LEVELUP', selectVersion } = await searchParams
+}: VersionMachineMovesPageProps): Promise<Metadata> => {
+  const { pokemonId, versionGroupId } = await params
 
-  const { activeIndex, isValid } = parseIndexParam(index)
-  if (!isValid) {
+  const parsedVersionId = parseInt(versionGroupId, 10)
+  if (isNaN(parsedVersionId) || parsedVersionId <= 0) {
     return {}
   }
 
@@ -77,16 +54,10 @@ export const generateMetadata = async ({
     GetDetailMovesPokemonInfoQueryVariables
   >({
     query: GetDetailMovesPokemonInfoDocument,
-    variables: {
-      pokemonId,
-    },
+    variables: { pokemonId },
     fetchPolicy: 'cache-first',
   })
-
-  // isFormChange가 없으면 기본 페이지로
-  if (!pokemonDetail.getPokemonDetail?.isFormChange) {
-    return {}
-  }
+  const isNormalForm = !!pokemonDetail.getPokemonDetail?.isFormChange
 
   const [{ data: versionInfo }, { data: normalFormData }] = await Promise.all([
     apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
@@ -94,8 +65,10 @@ export const generateMetadata = async ({
       variables: {
         filter: {
           pokemonId: parseInt(pokemonId, 10),
-          activeType: 'NORMAL',
-          activeIndex,
+          ...(isNormalForm && {
+            activeType: 'NORMAL',
+            activeIndex: 0,
+          }),
         },
       },
       fetchPolicy: 'cache-first',
@@ -107,45 +80,30 @@ export const generateMetadata = async ({
       query: GetPokemonNormalFormMetadataDocument,
       variables: {
         pokemonId: parseInt(pokemonId, 10),
-        activeIndex,
+        activeIndex: 0,
       },
     }),
   ])
 
-  const activeVersionInfo = () => {
-    return selectVersion
-      ? versionInfo.getVersionGroups?.find((version) => {
-          return version.versionGroupId === parseInt(selectVersion, 10)
-        })
-      : versionInfo.getVersionGroups?.[0]
+  const version = versionInfo.getVersionGroups?.find(
+    (v) => v.versionGroupId === parsedVersionId,
+  )
+  if (!version) {
+    return {}
   }
-  const version = activeVersionInfo()
-  const pokemonName =
-    normalFormData.getPokemonNormalForm?.[0]?.name?.replace('_', ' ') ??
-    pokemonDetail.getPokemonDetail?.name
 
-  const movesTypeQuery =
-    movesType !== 'LEVELUP' ? `movesType=${movesType}` : undefined
-  const selectVersionQuery = selectVersion
-    ? `selectVersion=${selectVersion}`
-    : undefined
-
-  const queryParams = [movesTypeQuery, selectVersionQuery]
-    .filter((param) => param !== undefined)
-    .join('&')
+  const pokemonName = isNormalForm
+    ? normalFormData.getPokemonNormalForm?.[0].name.replace('_', ' ')
+    : pokemonDetail.getPokemonDetail?.name
 
   const isSingleSeries = versionInfo.getVersionGroups?.length === 1
 
-  const title = `${pokemonName}${version ? ` ${version.generationId}세대 ${version.nameKo} 시리즈` : ''}${movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'} 기술 정보`
+  const title = `${pokemonName} ${version.generationId}세대 ${version.nameKo} 시리즈 머신 습득 기술 정보`
   const description = isSingleSeries
     ? `${versionInfo.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
     : `${pokemonName}의 ${versionInfo.getVersionGroups?.[versionInfo.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionInfo.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
 
-  const pathUrl =
-    activeIndex > 0
-      ? `/detail/${pokemonId}/moves/form/${activeIndex}`
-      : `/detail/${pokemonId}/moves/form`
-  const canonicalUrl = `https://poke-korea.com${pathUrl}${queryParams ? `?${queryParams}` : ''}`
+  const canonicalUrl = `https://poke-korea.com/detail/${pokemonId}/moves/version/${versionGroupId}/machine`
 
   return {
     title,
@@ -174,12 +132,13 @@ export const generateMetadata = async ({
   }
 }
 
-const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
-  const { pokemonId, index } = await params
-  const { movesType = 'LEVELUP', selectVersion } = await searchParams
+const VersionMachineMovesPage = async ({
+  params,
+}: VersionMachineMovesPageProps) => {
+  const { pokemonId, versionGroupId } = await params
 
-  const { activeIndex, isValid } = parseIndexParam(index)
-  if (!isValid) {
+  const parsedVersionId = parseInt(versionGroupId, 10)
+  if (isNaN(parsedVersionId) || parsedVersionId <= 0) {
     notFound()
   }
 
@@ -189,32 +148,18 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
 
   const apolloClient = initializeApollo()
 
-  const { data: pokemonInfoData } = await apolloClient.query<
-    GetDetailMovesPokemonInfoQuery,
-    GetDetailMovesPokemonInfoQueryVariables
-  >({
-    query: GetDetailMovesPokemonInfoDocument,
-    variables: {
-      pokemonId,
-    },
-    fetchPolicy: 'cache-first',
-  })
+  const [{ data: pokemonInfoData }] = await Promise.all([
+    apolloClient.query<
+      GetDetailMovesPokemonInfoQuery,
+      GetDetailMovesPokemonInfoQueryVariables
+    >({
+      query: GetDetailMovesPokemonInfoDocument,
+      variables: { pokemonId },
+      fetchPolicy: 'cache-first',
+    }),
+  ])
 
-  // isFormChange가 없으면 기본 moves 페이지로 리다이렉트
-  if (
-    !pokemonInfoData.getPokemonDetail ||
-    !pokemonInfoData.getPokemonDetail.isFormChange
-  ) {
-    const queryParams = []
-    if (movesType !== 'LEVELUP') queryParams.push(`movesType=${movesType}`)
-    if (selectVersion) queryParams.push(`selectVersion=${selectVersion}`)
-    const queryString =
-      queryParams.length > 0 ? `?${queryParams.join('&')}` : ''
-    permanentRedirect(
-      `/detail/${pokemonId}/moves${queryString}`,
-      RedirectType.replace,
-    )
-  }
+  const isNormalForm = !!pokemonInfoData.getPokemonDetail?.isFormChange
 
   const [
     { data },
@@ -222,7 +167,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     { data: versionGroup },
     { data: normalFormImageList },
   ] = await Promise.all([
-    activeIndex === 0
+    !isNormalForm
       ? apolloClient.query<
           GetPokemonLearnableSkillsQuery,
           GetPokemonLearnableSkillsQueryVariables
@@ -231,19 +176,14 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
           variables: {
             filter: {
               pokemonId: parseInt(pokemonId, 10),
-              ...(selectVersion && {
-                versionGroupId: parseInt(selectVersion, 10),
-              }),
-              learnMethod:
-                movesType === 'LEVELUP'
-                  ? LearnMethod['LEVEL_UP']
-                  : LearnMethod['MACHINE'],
+              versionGroupId: parsedVersionId,
+              learnMethod: LearnMethod['MACHINE'],
             },
           },
           fetchPolicy: 'cache-first',
         })
       : Promise.resolve({ data: null }),
-    activeIndex > 0
+    isNormalForm
       ? apolloClient.query<
           GetPokemonNormalFormLearnableSkillsQuery,
           GetPokemonNormalFormLearnableSkillsQueryVariables
@@ -252,17 +192,12 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
           variables: {
             filter: {
               pokemonId: parseInt(pokemonId, 10),
-              ...(selectVersion && {
-                versionGroupId: parseInt(selectVersion, 10),
-              }),
-              formIndex: activeIndex,
-              learnMethod:
-                movesType === 'LEVELUP'
-                  ? LearnMethod['LEVEL_UP']
-                  : LearnMethod['MACHINE'],
+              versionGroupId: parsedVersionId,
+              formIndex: 0,
+              learnMethod: LearnMethod['MACHINE'],
             },
             pokemonId: parseInt(pokemonId, 10),
-            activeIndex,
+            activeIndex: 0,
           },
           fetchPolicy: 'cache-first',
         })
@@ -272,8 +207,10 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
       variables: {
         filter: {
           pokemonId: parseInt(pokemonId, 10),
-          activeType: 'NORMAL',
-          activeIndex,
+          ...(isNormalForm && {
+            activeType: 'NORMAL',
+            activeIndex: 0,
+          }),
         },
       },
       fetchPolicy: 'cache-first',
@@ -290,8 +227,10 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     }),
   ])
 
+  if (!pokemonInfoData.getPokemonDetail) return
+
   const getPokemonLearnableData = () => {
-    if (activeIndex > 0) {
+    if (isNormalForm) {
       return {
         levelUpSkills:
           normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
@@ -311,20 +250,19 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
   const pokemonLearnableData = getPokemonLearnableData()
 
   const normalFormName =
-    normalFormLearnableSkill?.getPokemonNormalForm?.[0]?.name ??
+    normalFormLearnableSkill?.getPokemonNormalForm?.[0].name ??
     pokemonInfoData.getPokemonDetail.name
-  const pokemonName =
-    activeIndex > 0 ? normalFormName : pokemonInfoData.getPokemonDetail.name
+  const pokemonName = isNormalForm
+    ? normalFormName
+    : pokemonInfoData.getPokemonDetail.name
 
-  const pokemonInfoTypes =
-    activeIndex > 0
-      ? (normalFormLearnableSkill?.getPokemonNormalForm?.[0]?.types ??
-        pokemonInfoData.getPokemonDetail.types)
-      : pokemonInfoData.getPokemonDetail.types
+  const pokemonInfoTypes = isNormalForm
+    ? (normalFormLearnableSkill?.getPokemonNormalForm?.[0].types ??
+      pokemonInfoData.getPokemonDetail.types)
+    : pokemonInfoData.getPokemonDetail.types
 
-  const formDataLength = normalFormImageList.getPokemonNormalFormImageList
-    ?.length
-    ? normalFormImageList.getPokemonNormalFormImageList.length
+  const formDataLength = isNormalForm
+    ? (normalFormImageList.getPokemonNormalFormImageList?.length ?? 0)
     : 0
 
   const initialValue = {
@@ -340,8 +278,10 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     formDataLength,
     normalFormInfo: {
       name: normalFormName,
-      imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0]?.imagePath,
+      imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0].imagePath,
     },
+    currentVersionGroupId: parsedVersionId,
+    currentMovesType: 'MACHINE' as const,
   }
 
   return (
@@ -355,4 +295,4 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
   )
 }
 
-export default FormMovesPage
+export default VersionMachineMovesPage

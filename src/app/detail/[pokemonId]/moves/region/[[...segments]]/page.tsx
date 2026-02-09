@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import {
   GetDetailMovesPokemonInfoDocument,
@@ -19,44 +19,34 @@ import {
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
+import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
 
 export const revalidate = 31536000
 
 interface RegionMovesPageProps {
-  params: Promise<{ pokemonId: string; index?: string[] }>
+  params: Promise<{ pokemonId: string; segments?: string[] }>
   searchParams: Promise<{
     selectVersion?: string
     movesType?: 'LEVELUP' | 'MACHINE'
   }>
 }
 
-const parseIndexParam = (
-  index?: string[],
-): { activeIndex: number; isValid: boolean } => {
-  if (!index || index.length === 0) {
-    return { activeIndex: 0, isValid: true }
-  }
-  const [indexStr] = index
-  const activeIndex = parseInt(indexStr, 10)
-  if (isNaN(activeIndex) || activeIndex < 0 || activeIndex > 100) {
-    return { activeIndex: 0, isValid: false }
-  }
-  if (index.length > 1) {
-    return { activeIndex, isValid: false }
-  }
-  return { activeIndex, isValid: true }
-}
-
 export const generateMetadata = async ({
   params,
   searchParams,
 }: RegionMovesPageProps): Promise<Metadata> => {
-  const { pokemonId, index } = await params
-  const { movesType = 'LEVELUP', selectVersion } = await searchParams
+  const { pokemonId, segments } = await params
+  const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
+    await searchParams
 
-  const { activeIndex, isValid } = parseIndexParam(index)
+  if (legacyMovesType || legacySelectVersion) {
+    return {}
+  }
+
+  const { activeIndex, versionGroupId, movesType, isValid } =
+    parseFormSegments(segments)
   if (!isValid) {
     return {}
   }
@@ -68,9 +58,7 @@ export const generateMetadata = async ({
     GetDetailMovesPokemonInfoQueryVariables
   >({
     query: GetDetailMovesPokemonInfoDocument,
-    variables: {
-      pokemonId,
-    },
+    variables: { pokemonId },
     fetchPolicy: 'cache-first',
   })
 
@@ -103,9 +91,7 @@ export const generateMetadata = async ({
             movesType === 'LEVELUP'
               ? LearnMethod['LEVEL_UP']
               : LearnMethod['MACHINE'],
-          ...(selectVersion && {
-            versionGroupId: parseInt(selectVersion, 10),
-          }),
+          ...(versionGroupId && { versionGroupId }),
         },
         pokemonId: parseInt(pokemonId, 10),
       },
@@ -113,27 +99,14 @@ export const generateMetadata = async ({
     }),
   ])
 
-  const activeVersionInfo = () => {
-    return selectVersion
-      ? versionInfo.getVersionGroups?.find((version) => {
-          return version.versionGroupId === parseInt(selectVersion, 10)
-        })
-      : versionInfo.getVersionGroups?.[0]
-  }
-  const version = activeVersionInfo()
+  const version = versionGroupId
+    ? versionInfo.getVersionGroups?.find(
+        (v) => v.versionGroupId === versionGroupId,
+      )
+    : versionInfo.getVersionGroups?.[0]
 
   const regionFormSuffixText = `${regionFormData ? ` ${regionFormData.getPokemonRegionForm?.[activeIndex]?.region}의 모습` : ''} ${regionFormData.getPokemonRegionForm?.[activeIndex]?.name ? `(${regionFormData.getPokemonRegionForm?.[activeIndex]?.name})` : ''}`
   const pokemonName = `${pokemonDetail.getPokemonDetail?.name}${regionFormSuffixText}`
-
-  const movesTypeQuery =
-    movesType !== 'LEVELUP' ? `movesType=${movesType}` : undefined
-  const selectVersionQuery = selectVersion
-    ? `selectVersion=${selectVersion}`
-    : undefined
-
-  const queryParams = [movesTypeQuery, selectVersionQuery]
-    .filter((param) => param !== undefined)
-    .join('&')
 
   const isSingleSeries = versionInfo.getVersionGroups?.length === 1
 
@@ -142,11 +115,13 @@ export const generateMetadata = async ({
     ? `${versionInfo.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
     : `${pokemonName}의 ${versionInfo.getVersionGroups?.[versionInfo.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionInfo.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
 
-  const pathUrl =
-    activeIndex > 0
-      ? `/detail/${pokemonId}/moves/region/${activeIndex}`
-      : `/detail/${pokemonId}/moves/region`
-  const canonicalUrl = `https://poke-korea.com${pathUrl}${queryParams ? `?${queryParams}` : ''}`
+  const canonicalUrl = `https://poke-korea.com${buildMovesPath({
+    pokemonId,
+    activeType: 'region',
+    activeIndex,
+    versionGroupId,
+    movesType,
+  })}`
 
   return {
     title,
@@ -179,10 +154,33 @@ const RegionMovesPage = async ({
   params,
   searchParams,
 }: RegionMovesPageProps) => {
-  const { pokemonId, index } = await params
-  const { movesType = 'LEVELUP', selectVersion } = await searchParams
+  const { pokemonId, segments } = await params
+  const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
+    await searchParams
 
-  const { activeIndex, isValid } = parseIndexParam(index)
+  // 레거시 쿼리파라미터가 있으면 Path 기반으로 리다이렉트
+  if (legacyMovesType || legacySelectVersion) {
+    const firstSegment = segments?.[0]
+    const legacyIndex =
+      firstSegment && firstSegment !== 'version' && firstSegment !== 'machine'
+        ? parseInt(firstSegment, 10)
+        : 0
+    const resolvedMovesType = legacyMovesType ?? 'LEVELUP'
+    redirect(
+      buildMovesPath({
+        pokemonId,
+        activeType: 'region',
+        activeIndex: isNaN(legacyIndex) ? 0 : legacyIndex,
+        versionGroupId: legacySelectVersion
+          ? parseInt(legacySelectVersion, 10)
+          : undefined,
+        movesType: resolvedMovesType,
+      }),
+    )
+  }
+
+  const { activeIndex, versionGroupId, movesType, isValid } =
+    parseFormSegments(segments)
   if (!isValid) {
     notFound()
   }
@@ -198,9 +196,7 @@ const RegionMovesPage = async ({
     GetDetailMovesPokemonInfoQueryVariables
   >({
     query: GetDetailMovesPokemonInfoDocument,
-    variables: {
-      pokemonId,
-    },
+    variables: { pokemonId },
     fetchPolicy: 'cache-first',
   })
 
@@ -226,9 +222,7 @@ const RegionMovesPage = async ({
               movesType === 'LEVELUP'
                 ? LearnMethod['LEVEL_UP']
                 : LearnMethod['MACHINE'],
-            ...(selectVersion && {
-              versionGroupId: parseInt(selectVersion, 10),
-            }),
+            ...(versionGroupId && { versionGroupId }),
           },
           pokemonId: parseInt(pokemonId, 10),
         },
@@ -283,6 +277,8 @@ const RegionMovesPage = async ({
       name: pokemonName,
       imagePath: undefined,
     },
+    currentVersionGroupId: versionGroupId,
+    currentMovesType: movesType,
   }
 
   return (
