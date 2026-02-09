@@ -24,44 +24,45 @@ export async function fetchMoveDetailQueries({
 }: FetchMoveDetailParams) {
   const apolloClient = initializeApollo()
 
-  const { data: skillData } = await apolloClient.query<
-    GetPokemonSkillDetailQuery,
-    GetPokemonSkillDetailQueryVariables
-  >({
-    query: GetPokemonSkillDetailDocument,
-    variables: {
-      filter: {
-        skillId,
-        generationId,
+  const [{ data: skillData }, { data: pokemonData }] = await Promise.all([
+    apolloClient.query<
+      GetPokemonSkillDetailQuery,
+      GetPokemonSkillDetailQueryVariables
+    >({
+      query: GetPokemonSkillDetailDocument,
+      variables: {
+        filter: {
+          skillId,
+          generationId,
+        },
       },
-    },
-    fetchPolicy: 'network-only',
-  })
+      fetchPolicy: 'network-only',
+    }),
+    apolloClient.query<
+      GetPokemonsBySkillQuery,
+      GetPokemonsBySkillQueryVariables
+    >({
+      query: GetPokemonsBySkillDocument,
+      variables: {
+        input: {
+          filter: {
+            skillId,
+            generationId,
+          },
+          pagination: {
+            first: 30,
+          },
+        },
+      },
+      fetchPolicy: 'network-only',
+    }),
+  ])
 
   const skill = skillData?.getPokemonSkillDetail
 
   if (!skill) {
     return { skill: null, pokemonData: null }
   }
-
-  const { data: pokemonData } = await apolloClient.query<
-    GetPokemonsBySkillQuery,
-    GetPokemonsBySkillQueryVariables
-  >({
-    query: GetPokemonsBySkillDocument,
-    variables: {
-      input: {
-        filter: {
-          skillId,
-          generationId,
-        },
-        pagination: {
-          first: 30,
-        },
-      },
-    },
-    fetchPolicy: 'network-only',
-  })
 
   return {
     skill,
