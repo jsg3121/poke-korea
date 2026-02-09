@@ -18,7 +18,7 @@ import { fetchDefaultMovesMetadata } from '../../_fetch/defaultMovesMetadata.fet
 export const revalidate = 31536000
 
 interface FormMovesPageProps {
-  params: Promise<{ pokemonId: string; segments?: string[] }>
+  params: Promise<{ pokemonId: string; index?: string[] }>
   searchParams: Promise<{
     selectVersion?: string
     movesType?: 'LEVELUP' | 'MACHINE'
@@ -29,7 +29,7 @@ export const generateMetadata = async ({
   params,
   searchParams,
 }: FormMovesPageProps): Promise<Metadata> => {
-  const { pokemonId, segments } = await params
+  const { pokemonId, index: segments } = await params
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
@@ -107,7 +107,7 @@ export const generateMetadata = async ({
 }
 
 const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
-  const { pokemonId, segments } = await params
+  const { pokemonId, index: segments } = await params
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 

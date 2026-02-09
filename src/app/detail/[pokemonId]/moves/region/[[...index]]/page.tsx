@@ -12,7 +12,7 @@ import { fetchRegionMovesQueries } from '../../_fetch/regionMoves.fetch'
 export const revalidate = 31536000
 
 interface RegionMovesPageProps {
-  params: Promise<{ pokemonId: string; segments?: string[] }>
+  params: Promise<{ pokemonId: string; index?: string[] }>
   searchParams: Promise<{
     selectVersion?: string
     movesType?: 'LEVELUP' | 'MACHINE'
@@ -23,7 +23,7 @@ export const generateMetadata = async ({
   params,
   searchParams,
 }: RegionMovesPageProps): Promise<Metadata> => {
-  const { pokemonId, segments } = await params
+  const { pokemonId, index: segments } = await params
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
@@ -104,7 +104,7 @@ const RegionMovesPage = async ({
   params,
   searchParams,
 }: RegionMovesPageProps) => {
-  const { pokemonId, segments } = await params
+  const { pokemonId, index: segments } = await params
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
