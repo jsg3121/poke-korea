@@ -14,6 +14,7 @@ import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import AbilityDetailDesktop from '~/views/desktop/ability/AbilityDetail.desktop'
 import AbilityDetailMobile from '~/views/mobile/ability/AbilityDetail.mobile'
+import { fetchAbilityDetailQueries } from './_fetch/abilityDetail.fetch'
 
 export const revalidate = 31536000 // 1년
 
@@ -111,25 +112,9 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const apolloClient = initializeApollo()
-
-  const { data } = await apolloClient.query<
-    GetPokemonByAbilityQuery,
-    GetPokemonByAbilityQueryVariables
-  >({
-    query: GetPokemonByAbilityDocument,
-    variables: {
-      input: {
-        filter: {
-          abilityId,
-          includeHidden: true,
-        },
-        pagination: {
-          first: 20,
-        },
-      },
-    },
-    fetchPolicy: 'network-only',
+  const { data } = await fetchAbilityDetailQueries({
+    abilityId,
+    first: 20,
   })
 
   const ability = data?.getPokemonByAbility?.ability

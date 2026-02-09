@@ -3,15 +3,10 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 import { getMoveDetailJsonLd } from '~/constants/movesJsonLd'
-import {
-  GetPokemonSkillDetailDocument,
-  GetPokemonsBySkillDocument,
-} from '~/graphql/gqlGenerated'
+import { GetPokemonSkillDetailDocument } from '~/graphql/gqlGenerated'
 import {
   GetPokemonSkillDetailQuery,
   GetPokemonSkillDetailQueryVariables,
-  GetPokemonsBySkillQuery,
-  GetPokemonsBySkillQueryVariables,
   PokemonLearnInfoEdge,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
@@ -20,6 +15,7 @@ import { getRobotsConfig } from '~/module/metadata.module'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 import MoveDetailDesktop from '~/views/desktop/moves/MoveDetail.desktop'
 import MoveDetailMobile from '~/views/mobile/moves/MoveDetail.mobile'
+import { fetchMoveDetailQueries } from './_fetch/moveDetail.fetch'
 
 export const revalidate = 31536000 // 1년
 
@@ -114,53 +110,19 @@ const MoveDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const apolloClient = initializeApollo()
-
-  // 기술 상세 정보 조회
-  const { data: skillData } = await apolloClient.query<
-    GetPokemonSkillDetailQuery,
-    GetPokemonSkillDetailQueryVariables
-  >({
-    query: GetPokemonSkillDetailDocument,
-    variables: {
-      filter: {
-        skillId,
-        generationId: 9,
-      },
-    },
-    fetchPolicy: 'network-only',
+  const { skill, pokemonData } = await fetchMoveDetailQueries({
+    skillId,
+    generationId: 9,
   })
-
-  const skill = skillData?.getPokemonSkillDetail
 
   if (!skill) {
     notFound()
   }
 
-  // 이 기술을 배울 수 있는 포켓몬 목록 조회
-  const { data: pokemonData } = await apolloClient.query<
-    GetPokemonsBySkillQuery,
-    GetPokemonsBySkillQueryVariables
-  >({
-    query: GetPokemonsBySkillDocument,
-    variables: {
-      input: {
-        filter: {
-          skillId,
-          generationId: 9,
-        },
-        pagination: {
-          first: 30,
-        },
-      },
-    },
-    fetchPolicy: 'network-only',
-  })
-
   const pokemonList =
-    pokemonData?.getPokemonsBySkill?.edges.map((edge: PokemonLearnInfoEdge) => {
-      return edge.node
-    }) || []
+    pokemonData?.getPokemonsBySkill?.edges.map(
+      (edge: PokemonLearnInfoEdge) => edge.node,
+    ) || []
 
   const jsonLd = getMoveDetailJsonLd(skillId, skill.nameKo)
 
