@@ -3,13 +3,7 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 import { getAbilityDetailJsonLd } from '~/constants/abilityJsonLd'
-import { GetPokemonByAbilityDocument } from '~/graphql/gqlGenerated'
-import {
-  GetPokemonByAbilityQuery,
-  GetPokemonByAbilityQueryVariables,
-  PokemonByAbilityEdge,
-} from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { PokemonByAbilityEdge } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
 import { getRobotsConfig } from '~/module/metadata.module'
 import AbilityDetailDesktop from '~/views/desktop/ability/AbilityDetail.desktop'
@@ -36,25 +30,9 @@ export async function generateMetadata({
     }
   }
 
-  const apolloClient = initializeApollo()
-
-  const { data } = await apolloClient.query<
-    GetPokemonByAbilityQuery,
-    GetPokemonByAbilityQueryVariables
-  >({
-    query: GetPokemonByAbilityDocument,
-    variables: {
-      input: {
-        filter: {
-          abilityId,
-          includeHidden: true,
-        },
-        pagination: {
-          first: 1,
-        },
-      },
-    },
-    fetchPolicy: 'network-only',
+  const { data } = await fetchAbilityDetailQueries({
+    abilityId,
+    first: 1,
   })
 
   const ability = data?.getPokemonByAbility?.ability

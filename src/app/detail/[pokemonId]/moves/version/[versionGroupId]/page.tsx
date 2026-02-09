@@ -2,26 +2,12 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import {
-  GetDetailMovesPokemonInfoDocument,
-  GetPokemonNormalFormMetadataDocument,
-  GetVersionGroupsDocument,
-} from '~/graphql/gqlGenerated'
-import {
-  GetPokemonNormalFormMetadataQuery,
-  GetPokemonNormalFormMetadataQueryVariables,
-  LearnMethod,
-  type GetDetailMovesPokemonInfoQuery,
-  type GetDetailMovesPokemonInfoQueryVariables,
-  type GetVersionGroupsQuery,
-  type GetVersionGroupsQueryVariables,
-} from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { LearnMethod } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
-import { getRobotsConfig } from '~/module/metadata.module'
 import DetailMovesDesktop from '~/views/desktop/detail/detail.moves/DetailMoves.desktop'
 import DetailMovesMobile from '~/views/mobile/detail/detail.moves/DetailMoves.mobile'
 import { fetchDefaultMovesQueries } from '../../_fetch/defaultMoves.fetch'
+import { generateMovesMetadata } from '../../_metadata/generateMovesMetadata'
 
 export const revalidate = 31536000
 
@@ -39,89 +25,12 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const apolloClient = initializeApollo()
-
-  const { data: pokemonDetail } = await apolloClient.query<
-    GetDetailMovesPokemonInfoQuery,
-    GetDetailMovesPokemonInfoQueryVariables
-  >({
-    query: GetDetailMovesPokemonInfoDocument,
-    variables: { pokemonId },
-    fetchPolicy: 'cache-first',
+  return generateMovesMetadata({
+    pokemonId,
+    movesType: 'LEVELUP',
+    versionGroupId: parsedVersionId,
+    canonicalPath: `/detail/${pokemonId}/moves/version/${versionGroupId}`,
   })
-  const isNormalForm = !!pokemonDetail.getPokemonDetail?.isFormChange
-
-  const [{ data: versionInfo }, { data: normalFormData }] = await Promise.all([
-    apolloClient.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
-      query: GetVersionGroupsDocument,
-      variables: {
-        filter: {
-          pokemonId: parseInt(pokemonId, 10),
-          ...(isNormalForm && {
-            activeType: 'NORMAL',
-            activeIndex: 0,
-          }),
-        },
-      },
-      fetchPolicy: 'cache-first',
-    }),
-    apolloClient.query<
-      GetPokemonNormalFormMetadataQuery,
-      GetPokemonNormalFormMetadataQueryVariables
-    >({
-      query: GetPokemonNormalFormMetadataDocument,
-      variables: {
-        pokemonId: parseInt(pokemonId, 10),
-        activeIndex: 0,
-      },
-    }),
-  ])
-
-  const version = versionInfo.getVersionGroups?.find(
-    (v) => v.versionGroupId === parsedVersionId,
-  )
-  if (!version) {
-    return {}
-  }
-
-  const pokemonName = isNormalForm
-    ? normalFormData.getPokemonNormalForm?.[0].name.replace('_', ' ')
-    : pokemonDetail.getPokemonDetail?.name
-
-  const isSingleSeries = versionInfo.getVersionGroups?.length === 1
-
-  const title = `${pokemonName} ${version.generationId}세대 ${version.nameKo} 시리즈 레벨업 습득 기술 정보`
-  const description = isSingleSeries
-    ? `${versionInfo.getVersionGroups?.[0].nameKo}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-    : `${pokemonName}의 ${versionInfo.getVersionGroups?.[versionInfo.getVersionGroups.length - 1].nameKo} 시리즈부터 ${versionInfo.getVersionGroups?.[0].nameKo} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-
-  const canonicalUrl = `https://poke-korea.com/detail/${pokemonId}/moves/version/${versionGroupId}`
-
-  return {
-    title,
-    description,
-    robots: getRobotsConfig(),
-    openGraph: {
-      type: 'website',
-      url: canonicalUrl,
-      title,
-      description,
-      locale: 'ko_KR',
-      images: [
-        {
-          url: 'https://poke-korea.com/assets/image/ogImage.png',
-          width: 1200,
-          height: 630,
-          alt: title,
-          type: 'image/png',
-        },
-      ],
-      siteName: '포케 코리아',
-    },
-    alternates: {
-      canonical: canonicalUrl,
-    },
-  }
 }
 
 const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
