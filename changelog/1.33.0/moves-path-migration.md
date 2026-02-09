@@ -16,6 +16,7 @@
 ### 변경 1: URL 구조 변경
 
 **변경 전**:
+
 ```
 /detail/{id}/moves?selectVersion=5&movesType=MACHINE
 /detail/{id}/moves/form/1?selectVersion=5&movesType=MACHINE
@@ -23,15 +24,16 @@
 ```
 
 **변경 후**:
+
 ```
 /detail/{id}/moves                                          → 기본 (최신 버전, LEVELUP)
 /detail/{id}/moves/machine                                  → 최신 버전, MACHINE
-/detail/{id}/moves/version/{verId}                          → 버전 선택, LEVELUP
-/detail/{id}/moves/version/{verId}/machine                  → 버전 선택, MACHINE
-/detail/{id}/moves/form/{index}/version/{verId}             → 폼체인지 + 버전 선택
-/detail/{id}/moves/form/{index}/version/{verId}/machine     → 폼체인지 + 버전 선택 + MACHINE
-/detail/{id}/moves/region/{index}/version/{verId}           → 리전폼 + 버전 선택
-/detail/{id}/moves/region/{index}/version/{verId}/machine   → 리전폼 + 버전 선택 + MACHINE
+/detail/{id}/moves/version/{versionGroupId}                          → 버전 선택, LEVELUP
+/detail/{id}/moves/version/{versionGroupId}/machine                  → 버전 선택, MACHINE
+/detail/{id}/moves/form/{index}/version/{versionGroupId}             → 폼체인지 + 버전 선택
+/detail/{id}/moves/form/{index}/version/{versionGroupId}/machine     → 폼체인지 + 버전 선택 + MACHINE
+/detail/{id}/moves/region/{index}/version/{versionGroupId}           → 리전폼 + 버전 선택
+/detail/{id}/moves/region/{index}/version/{versionGroupId}/machine   → 리전폼 + 버전 선택 + MACHINE
 ```
 
 ### 변경 2: 파싱 유틸리티 모듈 신규 생성
@@ -52,73 +54,75 @@
 
 ### 변경 4: 새 라우트 파일 3개 생성
 
-| 파일 | 용도 |
-|------|------|
-| `moves/machine/page.tsx` | 최신 버전 + MACHINE 고정 |
-| `moves/version/[versionGroupId]/page.tsx` | 특정 버전 + LEVELUP |
-| `moves/version/[versionGroupId]/machine/page.tsx` | 특정 버전 + MACHINE |
+| 파일                                              | 용도                     |
+| ------------------------------------------------- | ------------------------ |
+| `moves/machine/page.tsx`                          | 최신 버전 + MACHINE 고정 |
+| `moves/version/[versionGroupId]/page.tsx`         | 특정 버전 + LEVELUP      |
+| `moves/version/[versionGroupId]/machine/page.tsx` | 특정 버전 + MACHINE      |
 
 ### 변경 5: 기존 라우트 파일 3개 수정
 
-| 파일 | 변경 내용 |
-|------|-----------|
-| `moves/page.tsx` | 레거시 쿼리파라미터 → Path URL redirect 추가, canonical URL 정리 |
-| `moves/form/[[...segments]]/page.tsx` | `[[...index]]` → `[[...segments]]` 리네이밍, `parseFormSegments()` 적용 |
-| `moves/region/[[...segments]]/page.tsx` | form과 동일 패턴 적용 |
+| 파일                                    | 변경 내용                                                               |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| `moves/page.tsx`                        | 레거시 쿼리파라미터 → Path URL redirect 추가, canonical URL 정리        |
+| `moves/form/[[...segments]]/page.tsx`   | `[[...index]]` → `[[...segments]]` 리네이밍, `parseFormSegments()` 적용 |
+| `moves/region/[[...segments]]/page.tsx` | form과 동일 패턴 적용                                                   |
 
 ### 변경 6: 클라이언트 컴포넌트 6개 수정
 
-| 파일 | 변경 내용 |
-|------|-----------|
-| Desktop `MovesHeader.container.tsx` | `?selectVersion=X` → `/version/X` Path 기반, Context에서 버전 읽기 |
-| Mobile `MovesHeader.container.tsx` | 동일 |
-| Desktop `MovesTableContainer.tsx` | `?movesType=X` → Path 기반 네비게이션, Context 사용 |
-| Mobile `MovesTableContainer.tsx` | 동일 |
-| Desktop `MachineLearnableSkill.component.tsx` | `?movesType=MACHINE` → `/machine` |
-| Mobile `MachineLearnableSkill.component.tsx` | 동일 |
+| 파일                                          | 변경 내용                                                          |
+| --------------------------------------------- | ------------------------------------------------------------------ |
+| Desktop `MovesHeader.container.tsx`           | `?selectVersion=X` → `/version/X` Path 기반, Context에서 버전 읽기 |
+| Mobile `MovesHeader.container.tsx`            | 동일                                                               |
+| Desktop `MovesTableContainer.tsx`             | `?movesType=X` → Path 기반 네비게이션, Context 사용                |
+| Mobile `MovesTableContainer.tsx`              | 동일                                                               |
+| Desktop `MachineLearnableSkill.component.tsx` | `?movesType=MACHINE` → `/machine`                                  |
+| Mobile `MachineLearnableSkill.component.tsx`  | 동일                                                               |
 
 ### 변경 7: next.config.js 리다이렉트/캐싱 추가
 
 **리다이렉트 (영구 301):**
+
 - `?selectVersion=X&movesType=MACHINE` → `/version/X/machine`
 - `?selectVersion=X` → `/version/X`
 - `?movesType=MACHINE` → `/machine`
 
 **캐싱 헤더:**
+
 - `/detail/:pokemonId/moves/machine` → 1년 캐시
 - `/detail/:pokemonId/moves/version/:versionGroupId` → 1년 캐시
 - `/detail/:pokemonId/moves/version/:versionGroupId/machine` → 1년 캐시
 
 ## 📊 최적화 결과
 
-| 항목 | 변경 전 | 변경 후 |
-|------|---------|---------|
-| 쿼리파라미터 의존 URL 수 | `selectVersion`, `movesType` 2개 | 0개 |
-| Path 기반 라우트 수 | 3개 (기본, form, region) | 6개 (+machine, version, version/machine) |
-| canonical URL 쿼리파라미터 | 있음 | 없음 (완전 Path 기반) |
-| 클라이언트 `useSearchParams` 사용 | MovesHeader 2개, MovesTable 2개 | 0개 (Context 전환) |
+| 항목                              | 변경 전                          | 변경 후                                  |
+| --------------------------------- | -------------------------------- | ---------------------------------------- |
+| 쿼리파라미터 의존 URL 수          | `selectVersion`, `movesType` 2개 | 0개                                      |
+| Path 기반 라우트 수               | 3개 (기본, form, region)         | 6개 (+machine, version, version/machine) |
+| canonical URL 쿼리파라미터        | 있음                             | 없음 (완전 Path 기반)                    |
+| 클라이언트 `useSearchParams` 사용 | MovesHeader 2개, MovesTable 2개  | 0개 (Context 전환)                       |
 
 ## 🔧 기술적 세부사항
 
 ### 수정된 파일 전체 목록 (15개)
 
-| # | 파일 | 작업 |
-|---|------|------|
-| 1 | `src/module/movesParams.module.ts` | **신규** - 파싱/빌더 유틸 |
-| 2 | `src/context/DetailMoves.context.tsx` | **수정** - Context 필드 추가 |
-| 3 | `src/app/detail/[pokemonId]/moves/machine/page.tsx` | **신규** |
-| 4 | `src/app/detail/[pokemonId]/moves/version/[versionGroupId]/page.tsx` | **신규** |
-| 5 | `src/app/detail/[pokemonId]/moves/version/[versionGroupId]/machine/page.tsx` | **신규** |
-| 6 | `src/app/detail/[pokemonId]/moves/page.tsx` | **수정** |
-| 7 | `src/app/detail/[pokemonId]/moves/form/[[...segments]]/page.tsx` | **수정** (리네이밍) |
-| 8 | `src/app/detail/[pokemonId]/moves/region/[[...segments]]/page.tsx` | **수정** (리네이밍) |
-| 9 | `src/container/desktop/.../MovesHeader.container.tsx` | **수정** |
-| 10 | `src/container/mobile/.../MovesHeader.container.tsx` | **수정** |
-| 11 | `src/container/desktop/.../MovesTableContainer.tsx` | **수정** |
-| 12 | `src/container/mobile/.../MovesTableContainer.tsx` | **수정** |
-| 13 | `src/container/desktop/.../MachineLearnableSkill.component.tsx` | **수정** |
-| 14 | `src/container/mobile/.../MachineLearnableSkill.component.tsx` | **수정** |
-| 15 | `next.config.js` | **수정** - 리다이렉트 + 캐싱 |
+| #   | 파일                                                                         | 작업                         |
+| --- | ---------------------------------------------------------------------------- | ---------------------------- |
+| 1   | `src/module/movesParams.module.ts`                                           | **신규** - 파싱/빌더 유틸    |
+| 2   | `src/context/DetailMoves.context.tsx`                                        | **수정** - Context 필드 추가 |
+| 3   | `src/app/detail/[pokemonId]/moves/machine/page.tsx`                          | **신규**                     |
+| 4   | `src/app/detail/[pokemonId]/moves/version/[versionGroupId]/page.tsx`         | **신규**                     |
+| 5   | `src/app/detail/[pokemonId]/moves/version/[versionGroupId]/machine/page.tsx` | **신규**                     |
+| 6   | `src/app/detail/[pokemonId]/moves/page.tsx`                                  | **수정**                     |
+| 7   | `src/app/detail/[pokemonId]/moves/form/[[...segments]]/page.tsx`             | **수정** (리네이밍)          |
+| 8   | `src/app/detail/[pokemonId]/moves/region/[[...segments]]/page.tsx`           | **수정** (리네이밍)          |
+| 9   | `src/container/desktop/.../MovesHeader.container.tsx`                        | **수정**                     |
+| 10  | `src/container/mobile/.../MovesHeader.container.tsx`                         | **수정**                     |
+| 11  | `src/container/desktop/.../MovesTableContainer.tsx`                          | **수정**                     |
+| 12  | `src/container/mobile/.../MovesTableContainer.tsx`                           | **수정**                     |
+| 13  | `src/container/desktop/.../MachineLearnableSkill.component.tsx`              | **수정**                     |
+| 14  | `src/container/mobile/.../MachineLearnableSkill.component.tsx`               | **수정**                     |
+| 15  | `next.config.js`                                                             | **수정** - 리다이렉트 + 캐싱 |
 
 ## ✅ 테스트 체크리스트
 
