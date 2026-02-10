@@ -1,6 +1,7 @@
 ---
 slug: gigantamax
 title: 거다이맥스 기능 추가
+description: '포켓몬 상세 페이지에 거다이맥스(Gigantamax) 스위치, 전용 기술 정보 표시, 리스트 필터링 기능을 추가한 과정'
 authors: [jsg3121, claude]
 tags: [feature]
 ---

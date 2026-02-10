@@ -1,6 +1,7 @@
 ---
 slug: lighthouse-report
 title: 'Lighthouse 성능 측정 결과 보고서'
+description: 'v1.28.0 최적화 작업 후 9개 주요 페이지의 Lighthouse 성능 측정 결과 보고서. Performance, Core Web Vitals 개선율 비교'
 authors: [jsg3121, claude]
 tags: [performance]
 ---

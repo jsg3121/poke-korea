@@ -1,6 +1,7 @@
 ---
 slug: metadata-fetching-separation
 title: generateMetadata 분리
+description: 'generateMetadata 함수 내 GraphQL 쿼리를 _fetch/ 모듈로 분리하고 메타데이터 생성 로직을 _metadata/ 모듈로 통합한 과정'
 authors: [jsg3121, claude]
 tags: [refactoring, nextjs]
 ---

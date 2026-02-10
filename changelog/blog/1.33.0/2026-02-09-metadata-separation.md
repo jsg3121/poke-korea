@@ -1,6 +1,7 @@
 ---
 slug: metadata-separation
 title: 메타데이터 분리
+description: '각 page.tsx에 인라인으로 작성된 generateMetadata 함수와 정적 metadata 상수를 _metadata/ 폴더로 분리한 리팩토링 과정'
 authors: [jsg3121, claude]
 tags: [refactoring, nextjs]
 ---

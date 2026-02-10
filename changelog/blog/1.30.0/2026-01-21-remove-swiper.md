@@ -1,6 +1,7 @@
 ---
 slug: remove-swiper
 title: 'Swiper 제거 및 Link 기반 네비게이션 전환'
+description: 'Path 기반 URL 전환 후 Swiper 슬라이드 애니메이션과 페이지 로딩 충돌 문제를 Link 기반 네비게이션으로 해결하고 번들 사이즈를 감소시킨 과정'
 authors: [jsg3121, claude]
 tags: [ux, refactoring, performance]
 ---

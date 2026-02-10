@@ -393,12 +393,14 @@ changelog/blog/{version}/{날짜}-{작업기능명}.md
 ---
 slug: { 작업기능명 }
 title: '{작업 제목}'
+description: '{작업 목표를 기반으로 한 80~120자 내외의 요약}'
 authors: [jsg3121, claude]
 tags: [{ 태그1 }, { 태그2 }]
 ---
 ```
 
 - **slug**: URL 경로 (`/{slug}`)
+- **description**: 검색 결과 스니펫에 표시될 한 줄 요약 (80~120자, 작업 목표 기반)
 - **authors**: `authors.yml`에 정의된 작성자 ID (`jsg3121`, `claude`)
 - **tags**: `tags.yml`에 정의된 태그 (`refactoring`, `performance`, `bug-fix`, `seo`, `ux`, `feature`, `feature-improvement`, `docs`, `css`, `nextjs`, `graphql`)
 
@@ -507,6 +509,7 @@ touch changelog/blog/${VERSION}/${TODAY}-${WORK_NAME}.md
 ---
 slug: { 작업기능명 }
 title: '{작업 제목}'
+description: '{작업 목표를 기반으로 한 80~120자 내외의 요약}'
 authors: [jsg3121, claude]
 tags: [{ 태그1 }, { 태그2 }]
 ---

@@ -1,6 +1,7 @@
 ---
 slug: data-fetching-separation
 title: 페이지 데이터 페칭 분리
+description: 'moves 관련 page.tsx에서 중복 실행되는 GraphQL 쿼리 로직을 별도 _fetch/ 모듈로 분리하여 코드 응집도를 개선한 과정'
 authors: [jsg3121, claude]
 tags: [refactoring, nextjs]
 ---

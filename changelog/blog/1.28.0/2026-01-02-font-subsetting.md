@@ -1,6 +1,7 @@
 ---
 slug: font-subsetting
 title: 'Font Subsetting 최적화'
+description: 'Gmarket Sans 웹폰트에 Font Subsetting을 적용하여 번들 크기를 최적화하고 초기 로딩 성능을 개선한 과정'
 authors: [jsg3121, claude]
 tags: [performance]
 ---

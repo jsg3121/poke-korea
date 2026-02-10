@@ -1,6 +1,7 @@
 ---
 slug: fix-mega-version-info
 title: 메가진화 폼 버전 정보 버그 수정
+description: '메가진화 포켓몬 상세 페이지에서 습득 기술의 버전 정보가 표시되지 않는 버그를 수정한 과정'
 authors: [jsg3121, claude]
 tags: [bug-fix]
 ---

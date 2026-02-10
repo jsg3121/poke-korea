@@ -7,6 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       allow: ['/'],
       disallow: '/image',
     },
-    sitemap: 'https://poke-korea.com/sitemap.xml',
+    sitemap: [
+      'https://poke-korea.com/sitemap.xml',
+      'https://poke-korea.com/changelog/sitemap.xml',
+    ],
   }
 }

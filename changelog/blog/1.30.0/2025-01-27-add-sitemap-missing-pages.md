@@ -1,6 +1,7 @@
 ---
 slug: add-sitemap-missing-pages
 title: 사이트맵 누락 페이지 추가
+description: '사이트맵에 누락된 페이지들을 추가하여 검색 엔진이 모든 페이지를 정상적으로 크롤링할 수 있도록 개선한 과정'
 authors: [jsg3121, claude]
 tags: [seo]
 ---

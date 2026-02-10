@@ -1,6 +1,7 @@
 ---
 slug: version-group-name
 title: '버전 그룹명 baseVersionGroupName 적용'
+description: '백엔드에서 추가된 baseVersionGroupName 필드를 적용하여 버전 시리즈명 표시를 개선한 과정'
 authors: [jsg3121, claude]
 tags: [feature-improvement, graphql]
 ---

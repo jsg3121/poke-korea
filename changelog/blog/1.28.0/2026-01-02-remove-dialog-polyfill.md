@@ -1,6 +1,7 @@
 ---
 slug: remove-dialog-polyfill
 title: 'dialog-polyfill 제거'
+description: '모든 타겟 브라우저가 네이티브 dialog를 지원하므로 불필요한 dialog-polyfill 라이브러리를 제거하여 번들 크기를 줄이고 코드를 간소화한 과정'
 authors: [jsg3121, claude]
 tags: [refactoring]
 ---

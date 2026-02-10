@@ -1,6 +1,7 @@
 ---
 slug: home-optimization
 title: 홈 페이지 공통 컴포넌트 최적화
+description: '홈 페이지의 모바일/데스크톱 컴포넌트에서 중복 코드를 제거하고 공통 컴포넌트를 추출하여 유지보수성을 향상시킨 과정'
 authors: [jsg3121, claude]
 tags: [performance]
 ---

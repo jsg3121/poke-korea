@@ -1,6 +1,7 @@
 ---
 slug: seo-path-url
 title: SEO Path 기반 URL 전환
+description: '포켓몬 상세 페이지의 메가진화, 리전폼 URL을 쿼리 파라미터 방식에서 Path 기반으로 전환하여 SEO를 최적화한 과정'
 authors: [jsg3121, claude]
 tags: [seo, refactoring]
 ---

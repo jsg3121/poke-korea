@@ -1,6 +1,7 @@
 ---
 slug: typography
 title: '타이포그래피 스케일 표준화'
+description: 'Tailwind 표준으로 매핑 가능한 커스텀 폰트 크기를 표준 유틸리티 클래스로 통일하여 일관성과 유지보수성을 향상시킨 과정'
 authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---

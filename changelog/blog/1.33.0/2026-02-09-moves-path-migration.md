@@ -1,6 +1,7 @@
 ---
 slug: moves-path-migration
 title: Moves 페이지 쿼리파라미터 → Path 기반 URL 전환
+description: '포켓몬 습득 기술 페이지의 버전 선택과 기술 유형 쿼리파라미터를 Path 기반 URL로 전환하여 SEO 일관성을 확보한 과정'
 authors: [jsg3121, claude]
 tags: [seo, refactoring]
 ---

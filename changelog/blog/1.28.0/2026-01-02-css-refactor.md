@@ -1,6 +1,7 @@
 ---
 slug: css-refactor
 title: 'CSS 최적화 리팩토링'
+description: 'Tailwind CSS @layer components를 활용하여 9개 패턴, 157개 파일, 500회 이상의 CSS 클래스 중복을 제거하고 재사용 가능한 패턴으로 추출한 리팩토링 과정'
 authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---

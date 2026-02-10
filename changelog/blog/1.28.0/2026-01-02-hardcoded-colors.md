@@ -1,6 +1,7 @@
 ---
 slug: hardcoded-colors
 title: '하드코딩 색상 변수화'
+description: '인라인으로 하드코딩된 데미지 타입, 카드 UI 색상 값을 Tailwind Config 변수로 통합하여 색상 중앙 관리 체계를 완성한 과정'
 authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---

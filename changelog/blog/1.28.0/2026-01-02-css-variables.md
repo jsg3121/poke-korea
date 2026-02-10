@@ -1,6 +1,7 @@
 ---
 slug: css-variables
 title: 'CSS Variables 중복 제거 및 단일 진실 공급원 구축'
+description: 'Tailwind Config와 CSS Variables에 중복 정의된 색상 값을 단일 진실 공급원(Single Source of Truth)으로 통합하여 유지보수성을 향상시킨 과정'
 authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---

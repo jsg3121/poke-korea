@@ -1,6 +1,7 @@
 ---
 slug: image-optimization
 title: '이미지 최적화 - Responsive Images and srcset 구현'
+description: 'PageSpeed Insights의 Properly size images 경고를 해결하고 DPR에 최적화된 반응형 이미지(srcset)를 구현한 과정'
 authors: [jsg3121, claude]
 tags: [performance]
 ---
