@@ -1,30 +1,123 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Poke-Korea Dev Blog - Dark mode only
+ * 색상 체계: poke-korea 서비스 색상 기반
+ *
+ * primary-1: #27374D (진한 남색 - 배경)
+ * primary-2: #526D82 (중간 남색 - 포인트/링크)
+ * primary-3: #9DB2BF (밝은 남색 - 보조 텍스트)
+ * primary-4: #e0e7ec (밝은 회색 - 본문 텍스트)
  */
 
-/* You can override the default Infima variables here. */
+/* 다크모드 전용이므로 :root는 최소한만 설정 */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #526D82;
+  --ifm-color-primary-dark: #496274;
+  --ifm-color-primary-darker: #455c6e;
+  --ifm-color-primary-darkest: #394c5a;
+  --ifm-color-primary-light: #5b7890;
+  --ifm-color-primary-lighter: #617e96;
+  --ifm-color-primary-lightest: #7693a8;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  /* primary 색상 - 링크, 버튼 등 */
+  --ifm-color-primary: #9DB2BF;
+  --ifm-color-primary-dark: #89a3b3;
+  --ifm-color-primary-darker: #7f9bab;
+  --ifm-color-primary-darkest: #5f8295;
+  --ifm-color-primary-light: #b1c1cb;
+  --ifm-color-primary-lighter: #bbc9d1;
+  --ifm-color-primary-lightest: #d9e1e6;
+
+  /* 배경 색상 */
+  --ifm-background-color: #1a2535;
+  --ifm-background-surface-color: #1f2f42;
+
+  /* 텍스트 색상 */
+  --ifm-font-color-base: #e0e7ec;
+  --ifm-font-color-secondary: #9DB2BF;
+
+  /* navbar */
+  --ifm-navbar-background-color: #27374D;
+  --ifm-navbar-link-color: #e0e7ec;
+  --ifm-navbar-link-hover-color: #9DB2BF;
+
+  /* footer */
+  --ifm-footer-background-color: #27374D;
+  --ifm-footer-color: #9DB2BF;
+
+  /* 카드/테이블 */
+  --ifm-card-background-color: #1f2f42;
+  --ifm-table-stripe-background: rgba(39, 55, 77, 0.3);
+  --ifm-table-border-color: #334150;
+
+  /* 코드 블록 */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-code-background: rgba(39, 55, 77, 0.6);
+
+  /* 사이드바 */
+  --ifm-menu-color: #9DB2BF;
+  --ifm-menu-color-active: #e0e7ec;
+  --ifm-menu-color-background-active: rgba(82, 109, 130, 0.2);
+
+  /* 태그 */
+  --ifm-tag-background-color: rgba(82, 109, 130, 0.25);
+  --ifm-tag-border-color: #526D82;
+}
+
+/* navbar 스타일 강화 */
+.navbar {
+  border-bottom: 1px solid #334150;
+}
+
+/* 사이드바 구분선 */
+.theme-blog-sidebar {
+  border-right: 1px solid #334150;
+}
+
+/* 블로그 포스트 카드 */
+article {
+  border-bottom: 1px solid #334150;
+}
+
+/* 태그 스타일 */
+.tag_node_modules-\@docusaurus-theme-classic-lib-theme-Tag-styles-module {
+  border-color: #526D82 !important;
+}
+
+/* 테이블 스타일 */
+table {
+  border-color: #334150;
+}
+
+table th {
+  background-color: rgba(39, 55, 77, 0.5);
+}
+
+/* 인라인 코드 */
+[data-theme='dark'] code {
+  background-color: rgba(39, 55, 77, 0.6);
+  border: 1px solid #334150;
+}
+
+/* 블록쿼트 */
+[data-theme='dark'] blockquote {
+  border-left-color: #526D82;
+  background-color: rgba(39, 55, 77, 0.2);
+}
+
+/* 스크롤바 */
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: #1a2535;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #526D82;
+  border-radius: 4px;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: #9DB2BF;
 }
