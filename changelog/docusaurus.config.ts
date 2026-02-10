@@ -11,8 +11,8 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://blog.poke-korea.com',
-  baseUrl: '/',
+  url: 'https://poke-korea.com',
+  baseUrl: '/changelog/',
 
   organizationName: 'jsg3121',
   projectName: 'poke-korea',
