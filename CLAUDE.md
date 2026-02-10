@@ -63,8 +63,13 @@ poke-korea/
 ├── public/                          # 정적 자산
 │   ├── fonts/                       #   서브셋 웹폰트 (GmarketSans woff2)
 │   └── assets/                      #   아이콘, 이미지, 타입 SVG(18종)
-├── changelog/                       # 버전별 작업 로그
-│   ├── 1.28.0/ ~ 1.31.0/
+├── changelog/                       # Docusaurus 개발 블로그 (별도 빌드)
+│   ├── blog/                        #   블로그 포스트 (버전별 폴더)
+│   │   ├── 1.28.0/ ~ 1.33.0/       #     버전별 마크다운 파일
+│   │   ├── authors.yml              #     작성자 정의
+│   │   └── tags.yml                 #     태그 정의
+│   ├── docusaurus.config.ts         #   Docusaurus 설정
+│   └── package.json                 #   별도 의존성 관리
 ├── src/
 │   ├── app/                         # Next.js App Router 페이지 (라우트)
 │   ├── assets/                      # SVG 컴포넌트용 원본 자산
@@ -361,27 +366,59 @@ feature/{version}
 5. 2~4번 작업이 반복되다 해당 버전의 모든 작업이 완료됐을 때 main을 향하는 릴리즈 PR 생성
 6. 릴리즈 PR을 통해 배포
 
-### Changelog 관리
+### Changelog 관리 (Docusaurus 블로그)
+
+`changelog/` 폴더는 Docusaurus 기반 개발 블로그 프로젝트입니다. 마크다운 파일을 추가하면 자동으로 블로그 포스트가 생성됩니다.
 
 #### 폴더 및 파일 구조
 
 ```text
-changelog/{version}/{작업기능명}.md
-예: changelog/1.28.0/refactor.md
-예: changelog/1.28.0/seo-optimization.md
+changelog/blog/{version}/{날짜}-{작업기능명}.md
+예: changelog/blog/1.28.0/2026-01-02-css-refactor.md
+예: changelog/blog/1.34.0/2026-02-15-new-feature.md
 ```
 
-- **루트 폴더**: `changelog/`
-- **버전 폴더**: `changelog/{version}/` — 신규 버전 루트 브랜치명과 동일
-- **작업 파일**: `{작업기능명}.md` — 각 기능 브랜치의 작업 내용 기록
+- **Docusaurus 프로젝트 루트**: `changelog/`
+- **블로그 콘텐츠 폴더**: `changelog/blog/`
+- **버전 폴더**: `changelog/blog/{version}/` — 신규 버전 루트 브랜치명과 동일
+- **작업 파일**: `{YYYY-MM-DD}-{작업기능명}.md` — Docusaurus가 날짜를 자동 파싱
+- **작성자 정의**: `changelog/blog/authors.yml`
+- **태그 정의**: `changelog/blog/tags.yml`
+
+#### Docusaurus frontmatter 필수 항목
+
+모든 블로그 포스트 파일 최상단에 다음 frontmatter를 포함해야 합니다:
+
+```yaml
+---
+slug: {작업기능명}
+title: "{작업 제목}"
+authors: [claude]
+tags: [{태그1}, {태그2}]
+---
+```
+
+- **slug**: URL 경로 (`/{slug}`)
+- **authors**: `authors.yml`에 정의된 작성자 ID (`jsg3121`, `claude`)
+- **tags**: `tags.yml`에 정의된 태그 (`refactoring`, `performance`, `bug-fix`, `seo`, `ux`, `feature`, `feature-improvement`, `docs`, `css`, `nextjs`, `graphql`)
+
+#### truncate 마커
+
+본문 중 목록 페이지에서 보여줄 요약과 상세 내용의 경계에 `<!-- truncate -->` 마커를 삽입합니다. 일반적으로 작업 목표 섹션 아래에 배치합니다.
+
+#### MDX 주의사항
+
+Docusaurus는 MDX를 사용하므로 코드블록 밖에서 다음 문법을 주의해야 합니다:
+
+- `{변수}` → JSX expression으로 해석됨 → 백틱으로 감싸기: `` `{변수}` ``
+- `<숫자` → JSX 태그로 해석됨 → `&lt;숫자`로 이스케이프
+- `{ key: value }` → 백틱으로 감싸기: `` `{ key: value }` ``
 
 #### 로그 작성 시점
 
 1. **작업 브랜치 생성 시**: 해당 버전 폴더에 작업 파일 생성
 2. **주요 변경사항 발생 시**: 실시간으로 로그 업데이트
 3. **루트 브랜치 PR 생성 전**: 최종 검토 및 완성
-4. **루트 브랜치 머지 후**: PR 링크 추가
-5. **main 릴리즈 PR 머지 후**: 릴리즈 날짜 추가
 
 #### 로그 필수 섹션
 
@@ -390,9 +427,6 @@ changelog/{version}/{작업기능명}.md
 - ✨ **주요 변경사항**: 구체적인 변경 내용을 패턴별/기능별로 정리
 - 📊 **최적화 결과**: 통계, 감소량, 개선율 등 정량적 지표
 - 🔧 **기술적 세부사항**: 수정된 파일, 추가된 코드, 기술 스택
-- ✅ **테스트 체크리스트**: 확인해야 할 항목들
-- 📝 **향후 작업**: 남은 작업이나 개선 사항
-- 🚀 **머지 정보**: 머지 대상, 예정일, 관련 PR
 - 📌 **참고 사항**: 주의사항, 특이사항
 
 #### 로그 선택 섹션 (해당 시)
@@ -401,32 +435,13 @@ changelog/{version}/{작업기능명}.md
 - 🔍 **SEO 개선**: SEO 관련 변경사항
 - 🚀 **성능 개선**: 성능 최적화 결과
 - 🎨 **디자인 변경**: UI/UX 변경사항
-- 🔨 **Breaking Changes**: 하위 호환성이 깨지는 변경
 
 #### 로그 작성 가이드라인
 
 1. **명확한 제목**: 각 섹션의 제목은 명확하고 구체적으로
 2. **코드 예시**: 변경사항은 Before/After 코드 블록으로 명확히 설명
-3. **파일 링크**: 변경된 파일은 상대 경로로 링크 (`[파일명](../src/...)`)
-4. **통계 제공**: 정량적 지표 포함 (파일 수, 변경 횟수, 문자 수 감소율 등)
-5. **이모지 활용**: 가독성을 위해 적절한 이모지 사용
-6. **테이블 활용**: 비교 데이터는 마크다운 테이블로 정리
-7. **체크리스트**: 테스트 항목은 GitHub 체크박스 형식 사용
-
-#### 권장 이모지
-
-- 📋 작업 개요
-- 🎯 작업 목표
-- ✨ 주요 변경사항
-- 📊 통계/결과
-- 🔧 기술적 세부사항
-- 🐛 버그 수정
-- 🔍 SEO
-- 🚀 성능 개선
-- 🎨 디자인
-- 📝 문서
-- ✅ 테스트/체크리스트
-- 📌 참고사항
+3. **통계 제공**: 정량적 지표 포함 (파일 수, 변경 횟수, 문자 수 감소율 등)
+4. **테이블 활용**: 비교 데이터는 마크다운 테이블로 정리
 
 ### 새 작업 시작 시 체크리스트
 
@@ -445,13 +460,13 @@ Claude가 새로운 작업 요청을 받았을 때:
    ```
 
 3. **Changelog 폴더 확인**:
-   - `changelog/{version}/` 폴더 존재 여부 확인
-   - 없으면 생성: `mkdir -p changelog/{version}`
+   - `changelog/blog/{version}/` 폴더 존재 여부 확인
+   - 없으면 생성: `mkdir -p changelog/blog/{version}`
 
 4. **Changelog 파일 생성**:
    - 작업 브랜치명에서 작업 기능명 추출
-   - `changelog/{version}/{작업기능명}.md` 파일 생성
-   - 템플릿에 따라 초기 구조 작성
+   - `changelog/blog/{version}/{YYYY-MM-DD}-{작업기능명}.md` 파일 생성
+   - Docusaurus frontmatter + 템플릿에 따라 초기 구조 작성
 
 5. **로그 실시간 업데이트**:
    - 주요 변경사항 발생 시 해당 changelog 파일 업데이트
@@ -459,8 +474,7 @@ Claude가 새로운 작업 요청을 받았을 때:
 
 6. **작업 완료 시**:
    - Changelog 최종 검토 및 완성
-   - 테스트 체크리스트 작성
-   - 머지 정보 업데이트
+   - MDX 파싱 이슈 없는지 확인 (코드블록 밖 `{}`, `<숫자` 등)
 
 ### Changelog 자동화 가이드
 
@@ -474,29 +488,40 @@ git branch --show-current
 # 2. 버전 및 작업명 추출
 VERSION="1.28.0"
 WORK_NAME="refactor"
+TODAY=$(date +%Y-%m-%d)
 
 # 3. Changelog 폴더 생성
-mkdir -p changelog/${VERSION}
+mkdir -p changelog/blog/${VERSION}
 
 # 4. Changelog 파일 생성
-touch changelog/${VERSION}/${WORK_NAME}.md
+touch changelog/blog/${VERSION}/${TODAY}-${WORK_NAME}.md
 ```
 
 #### 로그 작성 템플릿
 
 ```markdown
-# {작업명} ({작업기능명})
+---
+slug: {작업기능명}
+title: "{작업 제목}"
+authors: [claude]
+tags: [{태그1}, {태그2}]
+---
+
+# {작업명}
+
+> **작업 날짜**: YYYY-MM-DD
+> **브랜치**: `feature/{version}-{작업기능명}`
 
 ## 📋 작업 개요
 
-**브랜치**: `feature/{version}-{작업기능명}`
 **작업 유형**: [기능 추가/버그 수정/리팩토링/성능 개선/SEO/디자인]
-**작업 기간**: YYYY-MM-DD
 **담당**: [담당자명 또는 작업 주체]
 
 ## 🎯 작업 목표
 
 [이 작업의 목적과 해결하려는 문제를 명확히 기술]
+
+<!-- truncate -->
 
 ## ✨ 주요 변경사항
 
@@ -512,10 +537,6 @@ touch changelog/${VERSION}/${WORK_NAME}.md
 // 새 코드
 \`\`\`
 
-**주요 영향 파일**:
-
-- [파일명](../src/...)
-
 ## 📊 최적화 결과
 
 | 항목 | 변경 전 | 변경 후 | 개선율 |
@@ -526,26 +547,31 @@ touch changelog/${VERSION}/${WORK_NAME}.md
 
 [상세한 기술 설명]
 
-## ✅ 테스트 체크리스트
-
-- [ ] 테스트 항목 1
-- [ ] 테스트 항목 2
-
-## 📝 향후 작업
-
-[남은 작업이나 개선 사항]
-
-## 🚀 머지 정보
-
-**머지 대상**: `feature/{version}`
-**머지 예정일**: TBD
-**관련 PR**: TBD
-
 ## 📌 참고 사항
 
 [주의사항, 특이사항]
 ```
 
+#### 사용 가능한 태그 목록
+
+`changelog/blog/tags.yml`에 정의된 태그만 사용:
+
+| 태그 ID             | 설명           |
+| ------------------- | -------------- |
+| `refactoring`       | 리팩토링       |
+| `performance`       | 성능 최적화    |
+| `bug-fix`           | 버그 수정      |
+| `seo`               | SEO 개선       |
+| `ux`                | UX/UI 개선     |
+| `feature`           | 신규 기능      |
+| `feature-improvement` | 기능 개선    |
+| `docs`              | 문서           |
+| `css`               | CSS/스타일링   |
+| `nextjs`            | Next.js 관련   |
+| `graphql`           | GraphQL 관련   |
+
+새로운 태그가 필요한 경우 `changelog/blog/tags.yml`에 추가 후 사용합니다.
+
 ### 참고 문서
 
-- Changelog 예시: [changelog/1.28.0/refactor.md](changelog/1.28.0/refactor.md)
+- Changelog 예시: [changelog/blog/1.28.0/2026-01-02-css-refactor.md](changelog/blog/1.28.0/2026-01-02-css-refactor.md)
