@@ -1,7 +1,7 @@
 ---
 slug: fix-mega-version-info
 title: 메가진화 폼 버전 정보 버그 수정
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [bug-fix]
 ---
 
@@ -30,11 +30,12 @@ tags: [bug-fix]
 
 ### 1. fetchMegaEvolutionData 함수 수정
 
-**파일**: [src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts](../../src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts)
+**파일**: [src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts](<../../src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts>)
 
 메가진화 데이터 조회 시 버전 그룹도 함께 조회하도록 수정
 
 **변경 전**:
+
 ```typescript
 export const fetchMegaEvolutionData = async (
   pokemonId: number,
@@ -52,6 +53,7 @@ export const fetchMegaEvolutionData = async (
 ```
 
 **변경 후**:
+
 ```typescript
 export const fetchMegaEvolutionData = async (
   pokemonId: number,
@@ -82,9 +84,10 @@ export const fetchMegaEvolutionData = async (
 
 ### 2. 메가진화 페이지에서 versionGroup 전달
 
-**파일**: [src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx](../../src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx)
+**파일**: [src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx](<../../src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx>)
 
 **변경 전**:
+
 ```typescript
 const megaEvolutionData = await fetchMegaEvolutionData(parsedPokemonId)
 
@@ -96,6 +99,7 @@ const props = {
 ```
 
 **변경 후**:
+
 ```typescript
 const { megaEvolutionData, versionGroupData } =
   await fetchMegaEvolutionData(parsedPokemonId)

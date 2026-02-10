@@ -1,7 +1,7 @@
 ---
 slug: data-fetching-separation
 title: 페이지 데이터 페칭 분리
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [refactoring, nextjs]
 ---
 
@@ -24,13 +24,14 @@ tags: [refactoring, nextjs]
 
 ### 변경 1: `detail/moves/_fetch/` 모듈 생성 (3개)
 
-| 파일 | 대상 페이지 | 설명 |
-|------|------------|------|
-| `defaultMoves.fetch.ts` | 기본형 4개 (default, machine, version, version/machine) | `learnMethod`와 `versionGroupId`만 다른 공통 쿼리 |
-| `formMoves.fetch.ts` | form 페이지 | `activeIndex` 기반 조건부 쿼리 (0이면 일반, >0이면 NormalForm) |
-| `regionMoves.fetch.ts` | region 페이지 | region 전용 `GetPokemonRegionFormLearnableSkills` 쿼리 |
+| 파일                    | 대상 페이지                                             | 설명                                                           |
+| ----------------------- | ------------------------------------------------------- | -------------------------------------------------------------- |
+| `defaultMoves.fetch.ts` | 기본형 4개 (default, machine, version, version/machine) | `learnMethod`와 `versionGroupId`만 다른 공통 쿼리              |
+| `formMoves.fetch.ts`    | form 페이지                                             | `activeIndex` 기반 조건부 쿼리 (0이면 일반, >0이면 NormalForm) |
+| `regionMoves.fetch.ts`  | region 페이지                                           | region 전용 `GetPokemonRegionFormLearnableSkills` 쿼리         |
 
 **변경 전** (각 page.tsx에 인라인):
+
 ```typescript
 const apolloClient = initializeApollo()
 const [{ data: pokemonInfoData }] = await Promise.all([...])
@@ -39,9 +40,19 @@ const [{ data }, { data: normalFormLearnableSkill }, ...] = await Promise.all([.
 ```
 
 **변경 후** (page.tsx에서 호출):
+
 ```typescript
-const { pokemonInfoData, isNormalForm, data, normalFormLearnableSkill, versionGroup, normalFormImageList } =
-  await fetchDefaultMovesQueries({ pokemonId, learnMethod: LearnMethod['MACHINE'] })
+const {
+  pokemonInfoData,
+  isNormalForm,
+  data,
+  normalFormLearnableSkill,
+  versionGroup,
+  normalFormImageList,
+} = await fetchDefaultMovesQueries({
+  pokemonId,
+  learnMethod: LearnMethod['MACHINE'],
+})
 ```
 
 ### 변경 2: `moves/[id]/_fetch/moveDetail.fetch.ts` 생성
@@ -60,17 +71,17 @@ const { pokemonInfoData, isNormalForm, data, normalFormLearnableSkill, versionGr
 
 ## 📊 최적화 결과
 
-| 페이지 | 제거된 인라인 쿼리 줄 수 (약) |
-|--------|---------------------------|
-| `detail/.../moves/page.tsx` | ~90줄 |
-| `detail/.../moves/machine/page.tsx` | ~87줄 |
-| `detail/.../moves/version/.../page.tsx` | ~80줄 |
-| `detail/.../moves/version/.../machine/page.tsx` | ~80줄 |
-| `detail/.../moves/form/.../page.tsx` | ~90줄 |
-| `detail/.../moves/region/.../page.tsx` | ~55줄 |
-| `moves/[id]/page.tsx` | ~40줄 |
-| `moves/[id]/generation/.../page.tsx` | ~50줄 |
-| `ability/[id]/page.tsx` | ~20줄 |
+| 페이지                                          | 제거된 인라인 쿼리 줄 수 (약) |
+| ----------------------------------------------- | ----------------------------- |
+| `detail/.../moves/page.tsx`                     | ~90줄                         |
+| `detail/.../moves/machine/page.tsx`             | ~87줄                         |
+| `detail/.../moves/version/.../page.tsx`         | ~80줄                         |
+| `detail/.../moves/version/.../machine/page.tsx` | ~80줄                         |
+| `detail/.../moves/form/.../page.tsx`            | ~90줄                         |
+| `detail/.../moves/region/.../page.tsx`          | ~55줄                         |
+| `moves/[id]/page.tsx`                           | ~40줄                         |
+| `moves/[id]/generation/.../page.tsx`            | ~50줄                         |
+| `ability/[id]/page.tsx`                         | ~20줄                         |
 
 ## 🔧 기술적 세부사항
 

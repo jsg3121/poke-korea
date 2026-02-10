@@ -1,7 +1,7 @@
 ---
 slug: seo-path-url
 title: SEO Path 기반 URL 전환
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [seo, refactoring]
 ---
 
@@ -167,41 +167,41 @@ activeType별 필요한 데이터만 페칭하도록 최적화:
 
 ### 수정 파일 목록
 
-| 파일                                                                                          | 변경 내용                            |
-| --------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `src/app/detail/[pokemonId]/(form)/page.tsx`                                                  | 신규 - 기본폼 페이지                 |
-| `src/app/detail/[pokemonId]/(form)/form/[[...index]]/page.tsx`                                | 신규 - 기본폼 페이지 (폼체인지)      |
-| `src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx`                                | 신규 - 메가진화 페이지               |
-| `src/app/detail/[pokemonId]/(form)/region/[[...index]]/page.tsx`                              | 신규 - 리전폼 페이지                 |
-| `src/app/detail/[pokemonId]/(form)/modules/parseFormParams.ts`                                | 신규 - URL 파라미터 파싱             |
-| `src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts`                                | 신규 - 데이터 페칭 로직              |
-| `src/app/detail/[pokemonId]/(form)/modules/generateMetadata.ts`                               | 신규 - 메타데이터 생성 로직          |
-| `src/app/detail/[pokemonId]/page.tsx`                                                         | 삭제                                 |
-| `src/context/Detail.context.tsx`                                                              | activeType, activeIndex props 추가   |
-| `src/container/desktop/header/header.search/**/ResultListData.tsx`                            | Path URL 생성 (NORMAL_FORM 포함)     |
-| `src/container/mobile/header/header.search/**/ResultListData.tsx`                             | Path URL 생성 (NORMAL_FORM 포함)     |
-| `src/components/ability/PokemonByAbilityCard.component.tsx`                                   | href 객체 → 경로 문자열 변환         |
-| `src/components/moves/PokemonBySkillCard.component.tsx`                                       | href 객체 → 경로 문자열 변환         |
-| `src/app/sitemap.ts`                                                                          | 메가/리전 URL 경로 기반으로 변경     |
-| `src/container/desktop/detail/detail.summary/components/MegaSwitch.component.tsx`             | Path href 생성                       |
-| `src/container/desktop/detail/detail.summary/components/RegionSwitch.component.tsx`           | Path href 생성                       |
-| `src/container/desktop/detail/detail.summary/components/ShinySwitch.component.tsx`            | Path href 생성                       |
-| `src/container/mobile/detail/detail.summary/components/MegaSwitch.component.tsx`              | Path href 생성                       |
-| `src/container/mobile/detail/detail.summary/components/RegionSwitch.component.tsx`            | Path href 생성                       |
-| `src/container/mobile/detail/detail.summary/components/ShinySwitch.component.tsx`             | Path href 생성                       |
-| `src/container/desktop/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx` | Path URL 업데이트                    |
-| `src/container/mobile/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`  | Path URL 업데이트                    |
-| `src/container/desktop/detail/detail.moves/moves.header/MovesHeader.container.tsx`            | 상세 정보 링크 Path 기반 생성        |
-| `src/container/mobile/detail/detail.moves/moves.header/MovesHeader.container.tsx`             | 상세 정보 링크 Path 기반 생성        |
-| `src/container/desktop/detail/detail.baseInfo/baseInfo.learnableSkill/LevelLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
-| `src/container/desktop/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
-| `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/LevelLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
-| `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성 |
-| `src/app/detail/[pokemonId]/moves/page.tsx`                                                   | region, activeIndex 쿼리 파라미터 리다이렉트 추가 |
-| `src/app/detail/[pokemonId]/moves/form/[[...index]]/page.tsx`                                 | 신규 - 기본폼 기술 페이지 (폼체인지) |
-| `src/app/detail/[pokemonId]/moves/region/[[...index]]/page.tsx`                               | 신규 - 리전폼 기술 페이지            |
-| `src/module/generateDetailSeoMetaData.ts`                                                     | 캐노니컬 URL Path 기반 생성 (form 포함) |
-| `next.config.js`                                                                              | 301 리다이렉트 규칙 + 캐시 헤더 추가 (form 포함) |
+| 파일                                                                                                       | 변경 내용                                         |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| `src/app/detail/[pokemonId]/(form)/page.tsx`                                                               | 신규 - 기본폼 페이지                              |
+| `src/app/detail/[pokemonId]/(form)/form/[[...index]]/page.tsx`                                             | 신규 - 기본폼 페이지 (폼체인지)                   |
+| `src/app/detail/[pokemonId]/(form)/mega/[[...index]]/page.tsx`                                             | 신규 - 메가진화 페이지                            |
+| `src/app/detail/[pokemonId]/(form)/region/[[...index]]/page.tsx`                                           | 신규 - 리전폼 페이지                              |
+| `src/app/detail/[pokemonId]/(form)/modules/parseFormParams.ts`                                             | 신규 - URL 파라미터 파싱                          |
+| `src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts`                                             | 신규 - 데이터 페칭 로직                           |
+| `src/app/detail/[pokemonId]/(form)/modules/generateMetadata.ts`                                            | 신규 - 메타데이터 생성 로직                       |
+| `src/app/detail/[pokemonId]/page.tsx`                                                                      | 삭제                                              |
+| `src/context/Detail.context.tsx`                                                                           | activeType, activeIndex props 추가                |
+| `src/container/desktop/header/header.search/**/ResultListData.tsx`                                         | Path URL 생성 (NORMAL_FORM 포함)                  |
+| `src/container/mobile/header/header.search/**/ResultListData.tsx`                                          | Path URL 생성 (NORMAL_FORM 포함)                  |
+| `src/components/ability/PokemonByAbilityCard.component.tsx`                                                | href 객체 → 경로 문자열 변환                      |
+| `src/components/moves/PokemonBySkillCard.component.tsx`                                                    | href 객체 → 경로 문자열 변환                      |
+| `src/app/sitemap.ts`                                                                                       | 메가/리전 URL 경로 기반으로 변경                  |
+| `src/container/desktop/detail/detail.summary/components/MegaSwitch.component.tsx`                          | Path href 생성                                    |
+| `src/container/desktop/detail/detail.summary/components/RegionSwitch.component.tsx`                        | Path href 생성                                    |
+| `src/container/desktop/detail/detail.summary/components/ShinySwitch.component.tsx`                         | Path href 생성                                    |
+| `src/container/mobile/detail/detail.summary/components/MegaSwitch.component.tsx`                           | Path href 생성                                    |
+| `src/container/mobile/detail/detail.summary/components/RegionSwitch.component.tsx`                         | Path href 생성                                    |
+| `src/container/mobile/detail/detail.summary/components/ShinySwitch.component.tsx`                          | Path href 생성                                    |
+| `src/container/desktop/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`              | Path URL 업데이트                                 |
+| `src/container/mobile/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`               | Path URL 업데이트                                 |
+| `src/container/desktop/detail/detail.moves/moves.header/MovesHeader.container.tsx`                         | 상세 정보 링크 Path 기반 생성                     |
+| `src/container/mobile/detail/detail.moves/moves.header/MovesHeader.container.tsx`                          | 상세 정보 링크 Path 기반 생성                     |
+| `src/container/desktop/detail/detail.baseInfo/baseInfo.learnableSkill/LevelLearnableSkill.component.tsx`   | 기술 링크 Path 기반 생성                          |
+| `src/container/desktop/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx` | 기술 링크 Path 기반 생성                          |
+| `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/LevelLearnableSkill.component.tsx`    | 기술 링크 Path 기반 생성                          |
+| `src/container/mobile/detail/detail.baseInfo/baseInfo.learnableSkill/MachineLearnableSkill.component.tsx`  | 기술 링크 Path 기반 생성                          |
+| `src/app/detail/[pokemonId]/moves/page.tsx`                                                                | region, activeIndex 쿼리 파라미터 리다이렉트 추가 |
+| `src/app/detail/[pokemonId]/moves/form/[[...index]]/page.tsx`                                              | 신규 - 기본폼 기술 페이지 (폼체인지)              |
+| `src/app/detail/[pokemonId]/moves/region/[[...index]]/page.tsx`                                            | 신규 - 리전폼 기술 페이지                         |
+| `src/module/generateDetailSeoMetaData.ts`                                                                  | 캐노니컬 URL Path 기반 생성 (form 포함)           |
+| `next.config.js`                                                                                           | 301 리다이렉트 규칙 + 캐시 헤더 추가 (form 포함)  |
 
 ## 📝 향후 작업
 

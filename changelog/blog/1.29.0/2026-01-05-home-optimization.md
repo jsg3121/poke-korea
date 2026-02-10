@@ -1,7 +1,7 @@
 ---
 slug: home-optimization
 title: 홈 페이지 공통 컴포넌트 최적화
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [performance]
 ---
 

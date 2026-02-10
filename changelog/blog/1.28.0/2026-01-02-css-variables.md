@@ -1,7 +1,7 @@
 ---
 slug: css-variables
 title: 'CSS Variables 중복 제거 및 단일 진실 공급원 구축'
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---
 

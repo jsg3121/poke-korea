@@ -391,10 +391,10 @@ changelog/blog/{version}/{날짜}-{작업기능명}.md
 
 ```yaml
 ---
-slug: {작업기능명}
-title: "{작업 제목}"
-authors: [claude]
-tags: [{태그1}, {태그2}]
+slug: { 작업기능명 }
+title: '{작업 제목}'
+authors: [jsg3121, claude]
+tags: [{ 태그1 }, { 태그2 }]
 ---
 ```
 
@@ -448,6 +448,7 @@ Docusaurus는 MDX를 사용하므로 코드블록 밖에서 다음 문법을 주
 Claude가 새로운 작업 요청을 받았을 때:
 
 1. **브랜치 확인**:
+
    - 현재 작업 중인 브랜치 형식 확인 (`git branch --show-current`)
    - 루트 브랜치: `feature/{version}` (예: `feature/1.28.0`)
    - 작업 브랜치: `feature/{version}-{작업기능명}` (예: `feature/1.28.0-refactor`)
@@ -460,15 +461,18 @@ Claude가 새로운 작업 요청을 받았을 때:
    ```
 
 3. **Changelog 폴더 확인**:
+
    - `changelog/blog/{version}/` 폴더 존재 여부 확인
    - 없으면 생성: `mkdir -p changelog/blog/{version}`
 
 4. **Changelog 파일 생성**:
+
    - 작업 브랜치명에서 작업 기능명 추출
    - `changelog/blog/{version}/{YYYY-MM-DD}-{작업기능명}.md` 파일 생성
    - Docusaurus frontmatter + 템플릿에 따라 초기 구조 작성
 
 5. **로그 실시간 업데이트**:
+
    - 주요 변경사항 발생 시 해당 changelog 파일 업데이트
    - 통계 정보 업데이트 (파일 수, 변경 횟수, 감소율 등)
 
@@ -501,10 +505,10 @@ touch changelog/blog/${VERSION}/${TODAY}-${WORK_NAME}.md
 
 ```markdown
 ---
-slug: {작업기능명}
-title: "{작업 제목}"
-authors: [claude]
-tags: [{태그1}, {태그2}]
+slug: { 작업기능명 }
+title: '{작업 제목}'
+authors: [jsg3121, claude]
+tags: [{ 태그1 }, { 태그2 }]
 ---
 
 # {작업명}
@@ -556,19 +560,19 @@ tags: [{태그1}, {태그2}]
 
 `changelog/blog/tags.yml`에 정의된 태그만 사용:
 
-| 태그 ID             | 설명           |
-| ------------------- | -------------- |
-| `refactoring`       | 리팩토링       |
-| `performance`       | 성능 최적화    |
-| `bug-fix`           | 버그 수정      |
-| `seo`               | SEO 개선       |
-| `ux`                | UX/UI 개선     |
-| `feature`           | 신규 기능      |
+| 태그 ID               | 설명         |
+| --------------------- | ------------ |
+| `refactoring`         | 리팩토링     |
+| `performance`         | 성능 최적화  |
+| `bug-fix`             | 버그 수정    |
+| `seo`                 | SEO 개선     |
+| `ux`                  | UX/UI 개선   |
+| `feature`             | 신규 기능    |
 | `feature-improvement` | 기능 개선    |
-| `docs`              | 문서           |
-| `css`               | CSS/스타일링   |
-| `nextjs`            | Next.js 관련   |
-| `graphql`           | GraphQL 관련   |
+| `docs`                | 문서         |
+| `css`                 | CSS/스타일링 |
+| `nextjs`              | Next.js 관련 |
+| `graphql`             | GraphQL 관련 |
 
 새로운 태그가 필요한 경우 `changelog/blog/tags.yml`에 추가 후 사용합니다.
 

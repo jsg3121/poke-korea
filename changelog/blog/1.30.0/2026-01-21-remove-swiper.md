@@ -1,7 +1,7 @@
 ---
 slug: remove-swiper
-title: "Swiper 제거 및 Link 기반 네비게이션 전환"
-authors: [claude]
+title: 'Swiper 제거 및 Link 기반 네비게이션 전환'
+authors: [jsg3121, claude]
 tags: [ux, refactoring, performance]
 ---
 

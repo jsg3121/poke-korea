@@ -1,7 +1,7 @@
 ---
 slug: hardcoded-colors
-title: "하드코딩 색상 변수화"
-authors: [claude]
+title: '하드코딩 색상 변수화'
+authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---
 

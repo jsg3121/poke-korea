@@ -1,7 +1,7 @@
 ---
 slug: add-sitemap-missing-pages
 title: 사이트맵 누락 페이지 추가
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [seo]
 ---
 
@@ -26,13 +26,14 @@ tags: [seo]
 
 **추가된 페이지 유형**:
 
-| 페이지 유형 | URL 패턴 | 설명 |
-|------------|---------|------|
-| 기본폼 상세 페이지 | `/detail/:number/form` | `isFormChange`가 true인 포켓몬 |
-| 기본폼 기술 페이지 | `/detail/:number/moves/form` | `isFormChange`가 true인 포켓몬의 기술 페이지 |
+| 페이지 유형        | URL 패턴                       | 설명                                         |
+| ------------------ | ------------------------------ | -------------------------------------------- |
+| 기본폼 상세 페이지 | `/detail/:number/form`         | `isFormChange`가 true인 포켓몬               |
+| 기본폼 기술 페이지 | `/detail/:number/moves/form`   | `isFormChange`가 true인 포켓몬의 기술 페이지 |
 | 리전폼 기술 페이지 | `/detail/:number/moves/region` | `isRegionForm`이 true인 포켓몬의 기술 페이지 |
 
 **변경 전**:
+
 ```typescript
 // 모든 페이지들을 합쳐서 반환
 return [
@@ -47,6 +48,7 @@ return [
 ```
 
 **변경 후**:
+
 ```typescript
 // 기본폼 변환 가능 포켓몬 상세 페이지들 (isFormChange가 true인 포켓몬)
 const formChangePages = data.getPokemonList
@@ -85,18 +87,19 @@ return [
   ...shinyPages,
   ...megaPages,
   ...regionPages,
-  ...formChangePages,           // 추가
+  ...formChangePages, // 추가
   ...typeFilterListPages,
   // ...
   ...basicDetailMovesPages,
-  ...formChangeMovesPages,      // 추가
-  ...regionMovesPages,          // 추가
+  ...formChangeMovesPages, // 추가
+  ...regionMovesPages, // 추가
   ...abilityDetailPages,
   // ...
 ]
 ```
 
 **주요 영향 파일**:
+
 - [src/app/sitemap.ts](../../src/app/sitemap.ts)
 
 ## 🔧 기술적 세부사항

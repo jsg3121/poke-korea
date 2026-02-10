@@ -1,7 +1,7 @@
 ---
 slug: gigantamax
 title: 거다이맥스 기능 추가
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [feature]
 ---
 
@@ -88,26 +88,28 @@ src/app/detail/[pokemonId]/(form)/gigantamax/
 
 ### 4. 컴포넌트 추가
 
-| 컴포넌트                                | 위치                                       | 설명                         |
-| --------------------------------------- | ------------------------------------------ | ---------------------------- |
-| `GigantamaxSwitch.component.tsx`        | desktop/detail/detail.summary/components/  | 데스크톱 거다이맥스 스위치   |
-| `GigantamaxSwitch.component.tsx`        | mobile/detail/detail.summary/components/   | 모바일 거다이맥스 스위치     |
-| `GmaxMoveInfo.component.tsx`            | desktop/detail/detail.baseInfo/baseInfo.gmaxMove/ | 데스크톱 전용 기술 정보 |
-| `GmaxMoveInfo.component.tsx`            | mobile/detail/detail.baseInfo/baseInfo.gmaxMove/  | 모바일 전용 기술 정보   |
+| 컴포넌트                         | 위치                                              | 설명                       |
+| -------------------------------- | ------------------------------------------------- | -------------------------- |
+| `GigantamaxSwitch.component.tsx` | desktop/detail/detail.summary/components/         | 데스크톱 거다이맥스 스위치 |
+| `GigantamaxSwitch.component.tsx` | mobile/detail/detail.summary/components/          | 모바일 거다이맥스 스위치   |
+| `GmaxMoveInfo.component.tsx`     | desktop/detail/detail.baseInfo/baseInfo.gmaxMove/ | 데스크톱 전용 기술 정보    |
+| `GmaxMoveInfo.component.tsx`     | mobile/detail/detail.baseInfo/baseInfo.gmaxMove/  | 모바일 전용 기술 정보      |
 
 ### 5. DetailBaseInfo 조건부 렌더링
 
 거다이맥스 모드일 때 레벨업/기술머신 습득 기술 대신 거다이맥스 전용 기술 표시:
 
 ```tsx
-{isGigantamaxMode ? (
-  <GmaxMoveInfoComponent />
-) : (
-  <>
-    <LevelLearnableSkillComponent />
-    <MachineLearnableSkillComponent />
-  </>
-)}
+{
+  isGigantamaxMode ? (
+    <GmaxMoveInfoComponent />
+  ) : (
+    <>
+      <LevelLearnableSkillComponent />
+      <MachineLearnableSkillComponent />
+    </>
+  )
+}
 ```
 
 ### 6. 이미지 모듈 거다이맥스 지원 추가
@@ -151,31 +153,31 @@ case 'gigantamax': {
 
 ## 📊 변경 파일 목록
 
-| 파일                                                                                         | 변경 내용                            |
-| -------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `src/gql/query.graphql`                                                                      | GetPokemonGigantamax 쿼리 추가       |
-| `src/gql/fragment.graphql`                                                                   | PokemonCard에 isGigantamax 추가      |
-| `src/types/detailContext.type.ts`                                                            | TActiveType에 gigantamax 추가        |
-| `src/context/Detail.context.tsx`                                                             | gigantamaxData, isGigantamax 추가    |
-| `src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts`                               | fetchGigantamaxData 함수 추가        |
-| `src/app/detail/[pokemonId]/(form)/modules/generateMetadata.ts`                              | gigantamaxData 파라미터 추가         |
-| `src/app/detail/[pokemonId]/(form)/gigantamax/[[...index]]/page.tsx`                         | 신규 - 거다이맥스 라우트 페이지      |
-| `src/module/generateDetailSeoMetaData.ts`                                                    | gigantamax URL/이름 처리 추가        |
-| `src/constants/pokemonJsonLd.ts`                                                             | gigantamaxName 파라미터 추가         |
-| `src/container/desktop/detail/detail.summary/DetailSummary.container.tsx`                    | GigantamaxSwitch 렌더링 추가         |
-| `src/container/desktop/detail/detail.summary/components/GigantamaxSwitch.component.tsx`      | 신규 - 데스크톱 스위치 컴포넌트      |
-| `src/container/desktop/detail/detail.baseInfo/DetailBaseInfo.container.tsx`                  | GmaxMoveInfo 조건부 렌더링           |
-| `src/container/desktop/detail/detail.baseInfo/baseInfo.gmaxMove/GmaxMoveInfo.component.tsx`  | 신규 - 데스크톱 전용 기술 컴포넌트   |
-| `src/container/mobile/detail/detail.summary/DetailSummary.container.tsx`                     | GigantamaxSwitch 렌더링 추가         |
-| `src/container/mobile/detail/detail.summary/components/GigantamaxSwitch.component.tsx`       | 신규 - 모바일 스위치 컴포넌트        |
-| `src/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container.tsx`                   | GmaxMoveInfo 조건부 렌더링           |
-| `src/container/mobile/detail/detail.baseInfo/baseInfo.gmaxMove/GmaxMoveInfo.component.tsx`   | 신규 - 모바일 전용 기술 컴포넌트     |
-| `src/views/mobile/list/header/filter/filter.pokemonType/filter.modal/types/filterForm.type.ts` | isGigantamax 타입 추가             |
-| `src/views/mobile/list/header/filter/filter.pokemonType/filter.modal/FilterModal.component.tsx` | 거다이맥스 필터 UI 추가           |
-| `src/app/list/page.tsx`                                                                      | isGigantamax 필터 로직 및 메타데이터 |
-| `src/module/image.module.ts`                                                                 | gigantamax 이미지 리스트/URL/alt 지원 |
-| `src/container/desktop/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx` | gigantamaxInfo 전달 추가           |
-| `src/container/mobile/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`  | gigantamaxInfo 전달 추가           |
+| 파일                                                                                            | 변경 내용                             |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------- |
+| `src/gql/query.graphql`                                                                         | GetPokemonGigantamax 쿼리 추가        |
+| `src/gql/fragment.graphql`                                                                      | PokemonCard에 isGigantamax 추가       |
+| `src/types/detailContext.type.ts`                                                               | TActiveType에 gigantamax 추가         |
+| `src/context/Detail.context.tsx`                                                                | gigantamaxData, isGigantamax 추가     |
+| `src/app/detail/[pokemonId]/(form)/modules/fetchDetailData.ts`                                  | fetchGigantamaxData 함수 추가         |
+| `src/app/detail/[pokemonId]/(form)/modules/generateMetadata.ts`                                 | gigantamaxData 파라미터 추가          |
+| `src/app/detail/[pokemonId]/(form)/gigantamax/[[...index]]/page.tsx`                            | 신규 - 거다이맥스 라우트 페이지       |
+| `src/module/generateDetailSeoMetaData.ts`                                                       | gigantamax URL/이름 처리 추가         |
+| `src/constants/pokemonJsonLd.ts`                                                                | gigantamaxName 파라미터 추가          |
+| `src/container/desktop/detail/detail.summary/DetailSummary.container.tsx`                       | GigantamaxSwitch 렌더링 추가          |
+| `src/container/desktop/detail/detail.summary/components/GigantamaxSwitch.component.tsx`         | 신규 - 데스크톱 스위치 컴포넌트       |
+| `src/container/desktop/detail/detail.baseInfo/DetailBaseInfo.container.tsx`                     | GmaxMoveInfo 조건부 렌더링            |
+| `src/container/desktop/detail/detail.baseInfo/baseInfo.gmaxMove/GmaxMoveInfo.component.tsx`     | 신규 - 데스크톱 전용 기술 컴포넌트    |
+| `src/container/mobile/detail/detail.summary/DetailSummary.container.tsx`                        | GigantamaxSwitch 렌더링 추가          |
+| `src/container/mobile/detail/detail.summary/components/GigantamaxSwitch.component.tsx`          | 신규 - 모바일 스위치 컴포넌트         |
+| `src/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container.tsx`                      | GmaxMoveInfo 조건부 렌더링            |
+| `src/container/mobile/detail/detail.baseInfo/baseInfo.gmaxMove/GmaxMoveInfo.component.tsx`      | 신규 - 모바일 전용 기술 컴포넌트      |
+| `src/views/mobile/list/header/filter/filter.pokemonType/filter.modal/types/filterForm.type.ts`  | isGigantamax 타입 추가                |
+| `src/views/mobile/list/header/filter/filter.pokemonType/filter.modal/FilterModal.component.tsx` | 거다이맥스 필터 UI 추가               |
+| `src/app/list/page.tsx`                                                                         | isGigantamax 필터 로직 및 메타데이터  |
+| `src/module/image.module.ts`                                                                    | gigantamax 이미지 리스트/URL/alt 지원 |
+| `src/container/desktop/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`   | gigantamaxInfo 전달 추가              |
+| `src/container/mobile/detail/detail.summary/summary.pokemonImage/PokemonImage.compoment.tsx`    | gigantamaxInfo 전달 추가              |
 
 ### 8. SEO / JSON-LD 거다이맥스 지원 보완 (2026-01-29)
 

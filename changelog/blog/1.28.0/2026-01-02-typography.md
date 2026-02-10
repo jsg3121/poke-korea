@@ -1,7 +1,7 @@
 ---
 slug: typography
-title: "타이포그래피 스케일 표준화"
-authors: [claude]
+title: '타이포그래피 스케일 표준화'
+authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---
 
@@ -30,7 +30,7 @@ tags: [refactoring, css]
 ### 유지하는 것
 
 ✅ **반응형 기본 폰트 크기 시스템** (12px/14px/16px + rem 단위)
-✅ **현재 line-height 시스템** (``calc({height} + 2px)`` 패턴)
+✅ **현재 line-height 시스템** (`calc({height} + 2px)` 패턴)
 ✅ **비표준 폰트 크기** (`text-[1.725rem]`, `text-[2rem]`, `text-[2.5rem]` 등)
 
 ---
@@ -259,7 +259,7 @@ fontSize: {
 **적용 결과**:
 
 - 모든 기존 line-height 패턴 100% 보존
-- ``calc({height} + 2px)`` 패턴 유지
+- `calc({height} + 2px)` 패턴 유지
 - Phase 1 `.text-aligned-*` 클래스 유지
 - 시각적 렌더링 변화 전혀 없음
 
@@ -268,7 +268,7 @@ fontSize: {
 **기존 동작 모두 유지**:
 
 1. **rem 단위 기반 반응형**: 변화 없음
-2. **line-height 시스템**: ``calc({height} + 2px)`` 유지
+2. **line-height 시스템**: `calc({height} + 2px)` 유지
 3. **Phase 1 커스텀 클래스**: `.text-aligned-*` 유지
 4. **시각적 렌더링**: 완전히 동일 (크기 변화 없음)
 

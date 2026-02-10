@@ -1,7 +1,7 @@
 ---
 slug: version-group-name
-title: "버전 그룹명 baseVersionGroupName 적용"
-authors: [claude]
+title: '버전 그룹명 baseVersionGroupName 적용'
+authors: [jsg3121, claude]
 tags: [feature-improvement, graphql]
 ---
 
@@ -76,12 +76,12 @@ SEO 메타데이터(title, description)에서 버전 시리즈명 표시를 `bas
 
 ### 수정 파일
 
-| #   | 파일                                                                  | 변경 내용                                              |
-| --- | --------------------------------------------------------------------- | ------------------------------------------------------ |
-| 1   | `src/gql/fragment.graphql`                                            | `baseVersionGroupId`, `baseVersionGroupName` 필드 추가 |
-| 2   | `src/gql/query.graphql`                                               | `GetVersionGroups` 쿼리에 동일 필드 추가               |
-| 3   | `src/container/desktop/.../MovesHeader.container.tsx`                 | `nameKo` → `baseVersionGroupName` (3곳)                |
-| 4   | `src/container/mobile/.../MovesHeader.container.tsx`                  | `nameKo` → `baseVersionGroupName` (3곳)                |
+| #   | 파일                                                  | 변경 내용                                              |
+| --- | ----------------------------------------------------- | ------------------------------------------------------ |
+| 1   | `src/gql/fragment.graphql`                            | `baseVersionGroupId`, `baseVersionGroupName` 필드 추가 |
+| 2   | `src/gql/query.graphql`                               | `GetVersionGroups` 쿼리에 동일 필드 추가               |
+| 3   | `src/container/desktop/.../MovesHeader.container.tsx` | `nameKo` → `baseVersionGroupName` (3곳)                |
+| 4   | `src/container/mobile/.../MovesHeader.container.tsx`  | `nameKo` → `baseVersionGroupName` (3곳)                |
 
 ## 📌 참고 사항
 

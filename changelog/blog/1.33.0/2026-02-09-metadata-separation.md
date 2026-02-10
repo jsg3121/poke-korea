@@ -1,7 +1,7 @@
 ---
 slug: metadata-separation
 title: 메타데이터 분리
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [refactoring, nextjs]
 ---
 
@@ -28,35 +28,36 @@ tags: [refactoring, nextjs]
 
 각 `page.tsx`에서 인라인으로 작성된 `generateMetadata` 로직을 `_metadata/` 폴더의 전용 모듈로 추출했습니다.
 
-| 페이지 | 생성된 메타데이터 모듈 |
-| --- | --- |
-| `list/page.tsx` | `list/_metadata/generateListMetadata.ts` |
-| `moves/page.tsx` | `moves/_metadata/generateMovesListMetadata.ts` |
-| `ability/[id]/page.tsx` | `ability/[id]/_metadata/generateAbilityDetailMetadata.ts` |
-| `moves/[id]/page.tsx` | `moves/[id]/_metadata/generateMoveDetailMetadata.ts` |
-| `moves/[id]/generation/[generationId]/page.tsx` | 동일 파일 (generateMoveDetailGenerationMetadata) |
-| `detail/[pokemonId]/moves/form/[[...index]]/page.tsx` | `detail/[pokemonId]/moves/_metadata/generateFormMovesMetadata.ts` |
-| `detail/[pokemonId]/moves/region/[[...index]]/page.tsx` | 동일 파일 (generateRegionMovesMetadata) |
+| 페이지                                                  | 생성된 메타데이터 모듈                                            |
+| ------------------------------------------------------- | ----------------------------------------------------------------- |
+| `list/page.tsx`                                         | `list/_metadata/generateListMetadata.ts`                          |
+| `moves/page.tsx`                                        | `moves/_metadata/generateMovesListMetadata.ts`                    |
+| `ability/[id]/page.tsx`                                 | `ability/[id]/_metadata/generateAbilityDetailMetadata.ts`         |
+| `moves/[id]/page.tsx`                                   | `moves/[id]/_metadata/generateMoveDetailMetadata.ts`              |
+| `moves/[id]/generation/[generationId]/page.tsx`         | 동일 파일 (generateMoveDetailGenerationMetadata)                  |
+| `detail/[pokemonId]/moves/form/[[...index]]/page.tsx`   | `detail/[pokemonId]/moves/_metadata/generateFormMovesMetadata.ts` |
+| `detail/[pokemonId]/moves/region/[[...index]]/page.tsx` | 동일 파일 (generateRegionMovesMetadata)                           |
 
 ### 변경 2: 정적 메타데이터 상수 분리 (8개 페이지)
 
 `seoMetaData.ts`에 있던 페이지별 메타데이터 상수들을 각 라우트의 `_metadata/` 폴더로 이동했습니다.
 
-| 상수명 | 이동 경로 |
-| --- | --- |
-| `HOME_META` | `app/_metadata/homeMetadata.ts` |
-| `ABILITY_LIST_META` | `app/ability/_metadata/abilityListMetadata.ts` |
-| `TYPE_EFFECTIVENESS_META` | `app/type-effectiveness/_metadata/typeEffectivenessMetadata.ts` |
-| `MOVES_MAIN_META` | `app/moves/_metadata/generateMovesListMetadata.ts` (로컬 상수) |
-| `QUIZ_MAIN_META` | `app/quiz/_metadata/quizMetadata.ts` |
-| `QUIZ_SILHOUETTE_META` | 동일 파일 |
-| `QUIZ_ABILITY_META` | 동일 파일 |
-| `QUIZ_POKEMON_TYPE_META` | 동일 파일 |
-| `QUIZ_TYPE_EFFECTIVENESS_META` | 동일 파일 |
+| 상수명                         | 이동 경로                                                       |
+| ------------------------------ | --------------------------------------------------------------- |
+| `HOME_META`                    | `app/_metadata/homeMetadata.ts`                                 |
+| `ABILITY_LIST_META`            | `app/ability/_metadata/abilityListMetadata.ts`                  |
+| `TYPE_EFFECTIVENESS_META`      | `app/type-effectiveness/_metadata/typeEffectivenessMetadata.ts` |
+| `MOVES_MAIN_META`              | `app/moves/_metadata/generateMovesListMetadata.ts` (로컬 상수)  |
+| `QUIZ_MAIN_META`               | `app/quiz/_metadata/quizMetadata.ts`                            |
+| `QUIZ_SILHOUETTE_META`         | 동일 파일                                                       |
+| `QUIZ_ABILITY_META`            | 동일 파일                                                       |
+| `QUIZ_POKEMON_TYPE_META`       | 동일 파일                                                       |
+| `QUIZ_TYPE_EFFECTIVENESS_META` | 동일 파일                                                       |
 
 ### 변경 3: `seoMetaData.ts` 정리
 
 **변경 전**:
+
 ```typescript
 // 13개의 메타데이터 상수 + createMetadata 헬퍼 + createMovesMetadata, createQuizMetadata 헬퍼
 export const HOME_META = { ... }
@@ -66,6 +67,7 @@ export const QUIZ_MAIN_META = { ... }
 ```
 
 **변경 후**:
+
 ```typescript
 // 공통 헬퍼 함수만 유지
 export const createMetadata = (
@@ -78,12 +80,12 @@ export const createMetadata = (
 
 ## 📊 최적화 결과
 
-| 항목 | 변경 전 | 변경 후 | 개선 내용 |
-| --- | --- | --- | --- |
-| `seoMetaData.ts` 역할 | 13개 상수 + 3개 헬퍼 | 1개 헬퍼만 | 단일 책임 원칙 적용 |
-| 인라인 메타데이터 페이지 | 14개 (58.4%) | 0개 (0%) | 전체 분리 완료 |
-| 분리된 메타데이터 페이지 | 10개 (41.6%) | 24개 (100%) | 100% 커버리지 |
-| 생성된 `_metadata` 모듈 | - | 10개 파일 | 라우트별 메타데이터 모듈화 |
+| 항목                     | 변경 전              | 변경 후     | 개선 내용                  |
+| ------------------------ | -------------------- | ----------- | -------------------------- |
+| `seoMetaData.ts` 역할    | 13개 상수 + 3개 헬퍼 | 1개 헬퍼만  | 단일 책임 원칙 적용        |
+| 인라인 메타데이터 페이지 | 14개 (58.4%)         | 0개 (0%)    | 전체 분리 완료             |
+| 분리된 메타데이터 페이지 | 10개 (41.6%)         | 24개 (100%) | 100% 커버리지              |
+| 생성된 `_metadata` 모듈  | -                    | 10개 파일   | 라우트별 메타데이터 모듈화 |
 
 ## 🔧 기술적 세부사항
 

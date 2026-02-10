@@ -1,7 +1,7 @@
 ---
 slug: moves-path-migration
 title: Moves 페이지 쿼리파라미터 → Path 기반 URL 전환
-authors: [claude]
+authors: [jsg3121, claude]
 tags: [seo, refactoring]
 ---
 

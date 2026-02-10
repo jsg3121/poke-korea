@@ -1,7 +1,7 @@
 ---
 slug: css-refactor
-title: "CSS 최적화 리팩토링"
-authors: [claude]
+title: 'CSS 최적화 리팩토링'
+authors: [jsg3121, claude]
 tags: [refactoring, css]
 ---
 
