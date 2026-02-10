@@ -11,5 +11,13 @@ module.exports = {
         PORT: 80,
       },
     },
+    {
+      name: 'poke-korea-blog',
+      cwd: './changelog',
+      script: 'npx',
+      args: 'docusaurus serve --port 3001 --no-open',
+      instances: 1,
+      exec_mode: 'fork',
+    },
   ],
 }
