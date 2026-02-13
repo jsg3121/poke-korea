@@ -27,11 +27,13 @@ Google Search Console에서 `/src/...`, `/changelog/*.md`, `/package.json`, `/CL
 ### 변경 1: robots.ts Disallow 규칙 추가
 
 **변경 전**:
+
 ```typescript
 disallow: '/image',
 ```
 
 **변경 후**:
+
 ```typescript
 disallow: [
   '/image',
@@ -44,11 +46,11 @@ disallow: [
 
 ## 🔍 원인 분석
 
-| 경로 패턴 | 노출 원인 |
-| --- | --- |
+| 경로 패턴                                      | 노출 원인                                                     |
+| ---------------------------------------------- | ------------------------------------------------------------- |
 | `/src/components/...`, `/src/constants/...` 등 | Next.js webpack 빌드 번들의 청크 파일 내 소스 경로 메타데이터 |
-| `/changelog/*.md` | Docusaurus 블로그의 마크다운 원본 파일 경로 참조 |
-| `/package.json`, `/CLAUDE.md` | 빌드 번들 내 프로젝트 루트 파일 경로 문자열 |
+| `/changelog/*.md`                              | Docusaurus 블로그의 마크다운 원본 파일 경로 참조              |
+| `/package.json`, `/CLAUDE.md`                  | 빌드 번들 내 프로젝트 루트 파일 경로 문자열                   |
 
 Google 크롤러가 JavaScript 번들을 파싱하면서 내부 문자열을 URL로 오인하여 크롤링을 시도했으며, 해당 경로는 실제 페이지가 아니므로 404 응답이 반환됨.
 
