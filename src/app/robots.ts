@@ -5,7 +5,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: ['/'],
-      disallow: '/image',
+      disallow: [
+        '/image',
+        '/src/',
+        '/changelog/*.md',
+        '/package.json',
+        '/CLAUDE.md',
+      ],
     },
     sitemap: [
       'https://poke-korea.com/sitemap.xml',
