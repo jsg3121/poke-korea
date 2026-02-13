@@ -20,10 +20,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:docs": "cd changelog && npm run build",
     "start": "next start",
-    "start:prod": "next build && pm2 restart ecosystem.config.js --env production",
     "start:local": "npm run build && npm run start",
     "codegen": "graphql-codegen --config codegen.ts",
+    "deploy": "npm run build:docs && next build && pm2 restart ecosystem.config.js --env production",
     "lint": "next lint"
   },
   "dependencies": {
