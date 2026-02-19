@@ -42,7 +42,7 @@ const DetailSearch = () => {
   const pokemonList = (data && data.searchPokemonWithAllForms) || []
 
   useEffect(() => {
-    if (searchKeyword !== '' && searchKeyword.length >= 2) {
+    if (searchKeyword !== '') {
       searchPokemon()
     }
 
@@ -71,7 +71,7 @@ const DetailSearch = () => {
         <input
           type="text"
           name="search-pokemon"
-          placeholder="포켓몬 검색 (2글자 이상 입력 필수)"
+          placeholder="포켓몬 검색"
           autoComplete="off"
           onChange={handleChangeKeyword}
           className=" w-[calc(100%-5rem)] h-8 text-base font-normal leading-8 border-0 p-0 cursor-text bg-transparent absolute left-[1.38888889rem] transition-[top] duration-300 placeholder:text-[#999999] placeholder:text-[0.83333333rem]"
