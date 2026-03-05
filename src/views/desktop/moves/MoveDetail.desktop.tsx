@@ -7,7 +7,7 @@ interface MoveDetailDesktopProps {
   initialSkill: PokemonSkillDetail
   initialPokemonList: Array<PokemonLearnInfo>
   totalCount: number
-  selectedGeneration?: number
+  selectedVersionGroupId?: number
 }
 
 const MoveDetailDesktop = ({
@@ -15,7 +15,7 @@ const MoveDetailDesktop = ({
   initialSkill,
   initialPokemonList,
   totalCount,
-  selectedGeneration,
+  selectedVersionGroupId,
 }: MoveDetailDesktopProps) => {
   return (
     <main className="w-full h-full pt-40">
@@ -25,7 +25,7 @@ const MoveDetailDesktop = ({
         initialSkill={initialSkill}
         initialPokemonList={initialPokemonList}
         totalCount={totalCount}
-        selectedGeneration={selectedGeneration}
+        selectedVersionGroupId={selectedVersionGroupId}
       />
     </main>
   )

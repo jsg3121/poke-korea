@@ -12,7 +12,7 @@ import { initializeApollo } from '~/module/apolloClient'
 
 interface FetchMoveDetailParams {
   skillId: number
-  generationId: number
+  versionGroupId?: number
 }
 
 /**
@@ -20,7 +20,7 @@ interface FetchMoveDetailParams {
  */
 export async function fetchMoveDetailQueries({
   skillId,
-  generationId,
+  versionGroupId,
 }: FetchMoveDetailParams) {
   const apolloClient = initializeApollo()
 
@@ -33,7 +33,7 @@ export async function fetchMoveDetailQueries({
       variables: {
         filter: {
           skillId,
-          generationId,
+          versionGroupId,
         },
       },
       fetchPolicy: 'network-only',
@@ -47,7 +47,7 @@ export async function fetchMoveDetailQueries({
         input: {
           filter: {
             skillId,
-            generationId,
+            versionGroupId,
           },
           pagination: {
             first: 30,

@@ -33,7 +33,6 @@ export async function generateMetadata({
 
   const { skill } = await fetchMoveDetailMetadata({
     skillId,
-    generationId: 9,
   })
 
   if (!skill) {
@@ -67,7 +66,6 @@ const MoveDetailPage = async ({ params }: PageProps) => {
 
   const { skill, pokemonData } = await fetchMoveDetailQueries({
     skillId,
-    generationId: 9,
   })
 
   if (!skill) {

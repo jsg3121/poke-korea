@@ -7,7 +7,7 @@ import { initializeApollo } from '~/module/apolloClient'
 
 interface FetchMoveDetailMetadataParams {
   skillId: number
-  generationId: number
+  versionGroupId?: number
 }
 
 /**
@@ -15,7 +15,7 @@ interface FetchMoveDetailMetadataParams {
  */
 export async function fetchMoveDetailMetadata({
   skillId,
-  generationId,
+  versionGroupId,
 }: FetchMoveDetailMetadataParams) {
   const apolloClient = initializeApollo()
 
@@ -27,7 +27,7 @@ export async function fetchMoveDetailMetadata({
     variables: {
       filter: {
         skillId,
-        generationId,
+        versionGroupId,
       },
     },
     fetchPolicy: 'network-only',
