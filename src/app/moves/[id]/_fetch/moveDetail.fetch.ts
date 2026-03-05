@@ -67,17 +67,13 @@ export async function fetchMoveDetailQueries({
     return { skill: null, pokemonData: null, versionGroups: null }
   }
 
-  const versionGroupIds = skill.generations.map((gen) => gen.versionGroupId)
-
   const { data: versionGroupData } = await apolloClient.query<
     GetVersionGroupsQuery,
     GetVersionGroupsQueryVariables
   >({
     query: GetVersionGroupsDocument,
     variables: {
-      filter: {
-        versionGroupIds,
-      },
+      filter: {},
     },
     fetchPolicy: 'cache-first',
   })
