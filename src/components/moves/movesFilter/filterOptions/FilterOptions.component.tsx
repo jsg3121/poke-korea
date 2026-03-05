@@ -1,7 +1,9 @@
 'use client'
 
+import { useContext } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useDevice } from '~/context/Device.context'
+import { MovesContext } from '~/context/Moves.context'
 import OptionsDesktop from './desktop/Options.desktop'
 import OptionsMobile from './mobile/Options.mobile'
 
@@ -10,9 +12,10 @@ const FilterOptionsComponent = () => {
   const pathname = usePathname()
   const router = useRouter()
   const { isMobile } = useDevice()
+  const { versionGroups } = useContext(MovesContext)
   const typeFilter = params.get('typeFilter') ?? ''
   const damageTypeFilter = params.get('damageTypeFilter') ?? ''
-  const generationId = params.get('generationId') ?? ''
+  const versionGroupId = params.get('versionGroupId') ?? ''
 
   const handleClickSelectTypeFilter = (types: string) => {
     const queryString = new URLSearchParams(params)
@@ -33,12 +36,12 @@ const FilterOptionsComponent = () => {
     }
     router.replace(`${pathname}?${queryString}`)
   }
-  const handleClickSelectgenerationId = (id: string) => {
+  const handleClickSelectVersionGroupId = (id: string) => {
     const queryString = new URLSearchParams(params)
-    if (generationId === id) {
-      queryString.delete('generationId')
+    if (versionGroupId === id) {
+      queryString.delete('versionGroupId')
     } else {
-      queryString.set('generationId', id)
+      queryString.set('versionGroupId', id)
     }
     router.replace(`${pathname}?${queryString}`)
   }
@@ -47,11 +50,12 @@ const FilterOptionsComponent = () => {
     return (
       <OptionsMobile
         selectDamageTypes={damageTypeFilter}
-        selectGenerationId={generationId}
+        selectVersionGroupId={versionGroupId}
         selectTypeFilter={typeFilter}
+        versionGroups={versionGroups}
         onClickSelectDamageTypeFilter={handleClickSelectDamageTypeFilter}
         onClickSelectTypeFilter={handleClickSelectTypeFilter}
-        onClickSelectgenerationId={handleClickSelectgenerationId}
+        onClickSelectVersionGroupId={handleClickSelectVersionGroupId}
       />
     )
   }
@@ -59,11 +63,12 @@ const FilterOptionsComponent = () => {
   return (
     <OptionsDesktop
       selectDamageTypes={damageTypeFilter}
-      selectGenerationId={generationId}
+      selectVersionGroupId={versionGroupId}
       selectTypeFilter={typeFilter}
+      versionGroups={versionGroups}
       onClickSelectDamageTypeFilter={handleClickSelectDamageTypeFilter}
       onClickSelectTypeFilter={handleClickSelectTypeFilter}
-      onClickSelectgenerationId={handleClickSelectgenerationId}
+      onClickSelectVersionGroupId={handleClickSelectVersionGroupId}
     />
   )
 }

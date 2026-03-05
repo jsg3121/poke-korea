@@ -1,25 +1,28 @@
 'use client'
 import { Fragment, useEffect, useState } from 'react'
+import { VersionGroup } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-type FilterOptionsTypes = 'types' | 'damageType' | 'generationId'
+type FilterOptionsTypes = 'types' | 'damageType' | 'versionGroupId'
 
 interface OptionsMobileProps {
   selectTypeFilter: string
   selectDamageTypes: string
-  selectGenerationId: string
+  selectVersionGroupId: string
+  versionGroups: Array<VersionGroup>
   onClickSelectTypeFilter: (types: string) => void
   onClickSelectDamageTypeFilter: (damageTypes: string) => void
-  onClickSelectgenerationId: (id: string) => void
+  onClickSelectVersionGroupId: (id: string) => void
 }
 
 const OptionsMobile = ({
   selectTypeFilter,
   selectDamageTypes,
-  selectGenerationId,
+  selectVersionGroupId,
+  versionGroups,
   onClickSelectDamageTypeFilter,
   onClickSelectTypeFilter,
-  onClickSelectgenerationId,
+  onClickSelectVersionGroupId,
 }: OptionsMobileProps) => {
   const [selectFilter, setSelectFilter] = useState<FilterOptionsTypes | null>(
     null,
@@ -31,8 +34,8 @@ const OptionsMobile = ({
   const handleClickSelectDamageTypeFilter = (damageTypes: string) => () => {
     onClickSelectDamageTypeFilter(damageTypes)
   }
-  const handleClickSelectgenerationId = (id: string) => () => {
-    onClickSelectgenerationId(id)
+  const handleClickSelectVersionGroupId = (id: string) => () => {
+    onClickSelectVersionGroupId(id)
   }
 
   const handleClickOpenFilterOpion = (value: FilterOptionsTypes) => () => {
@@ -45,10 +48,10 @@ const OptionsMobile = ({
 
   // 모든 필터가 초기화되면 열린 옵션 패널 닫기
   useEffect(() => {
-    if (!selectTypeFilter && !selectDamageTypes && !selectGenerationId) {
+    if (!selectTypeFilter && !selectDamageTypes && !selectVersionGroupId) {
       setSelectFilter(null)
     }
-  }, [selectTypeFilter, selectDamageTypes, selectGenerationId])
+  }, [selectTypeFilter, selectDamageTypes, selectVersionGroupId])
 
   return (
     <Fragment>
@@ -71,10 +74,10 @@ const OptionsMobile = ({
         </li>
         <li className="h-6 flex flex-col items-start gap-3">
           <button
-            className={`${selectFilter === 'generationId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-24 text-left`}
-            onClick={handleClickOpenFilterOpion('generationId')}
+            className={`${selectFilter === 'versionGroupId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-24 text-left`}
+            onClick={handleClickOpenFilterOpion('versionGroupId')}
           >
-            첫 등장 세대{' '}
+            버전{' '}
           </button>
         </li>
       </ul>
@@ -115,22 +118,22 @@ const OptionsMobile = ({
           </button>
         </div>
       )}
-      {selectFilter === 'generationId' && (
-        <div className="w-full h-28 flex items-start content-start flex-wrap gap-2 mt-4">
-          {new Array(9).fill('').map((_, index) => {
-            const generationId = (index + 1).toString()
+      {selectFilter === 'versionGroupId' && (
+        <div className="w-full h-auto flex items-start content-start flex-wrap gap-2 mt-4">
+          {versionGroups.map((vg) => {
+            const vgId = vg.versionGroupId.toString()
             return (
               <button
-                key={`generation-filter-key-${index + 1}`}
-                className={`w-14 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
-                onClick={handleClickSelectgenerationId(generationId)}
+                key={`version-filter-key-${vg.versionGroupId}`}
+                className={`px-3 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectVersionGroupId === vgId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
+                onClick={handleClickSelectVersionGroupId(vgId)}
               >
-                {index + 1}
+                {vg.nameKo}
               </button>
             )
           })}
           <span className="w-full text-primary-3 text-sm my-2">
-            선택하지 않으면 최신 세대 기준 스펙으로 나와요!
+            선택하지 않으면 최신 버전 기준 스펙으로 나와요!
           </span>
         </div>
       )}

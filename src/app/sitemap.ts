@@ -331,20 +331,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 기술 세대별 상세 페이지들 (해당 기술이 등장한 세대부터 9세대까지만)
-    const moveGenerationPages: MetadataRoute.Sitemap = []
-    for (const edge of skillsData.getPokemonSkillList.edges) {
-      const firstGen = edge.node.firstGenerationId || 1
-      for (let gen = firstGen; gen <= 9; gen++) {
-        moveGenerationPages.push({
-          url: `https://poke-korea.com/moves/${edge.node.id}/generation/${gen}`,
-          lastModified: new Date(),
-          changeFrequency: 'daily',
-          priority: 0.6,
-        })
-      }
-    }
-
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
@@ -364,7 +350,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...regionMovesPages,
       ...abilityDetailPages,
       ...moveDetailPages,
-      ...moveGenerationPages,
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)

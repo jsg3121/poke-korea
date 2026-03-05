@@ -80,6 +80,12 @@ const nextConfig = {
         destination: '/detail/:pokemonId/moves/form/:activeIndex',
         permanent: true,
       },
+      // 기존 세대별 기술 URL → 버전별 기술 URL 리다이렉트
+      {
+        source: '/moves/:id/generation/:generationId',
+        destination: '/moves/:id',
+        permanent: true,
+      },
       // 기존 쿼리 파라미터 URL → 새 Path URL (기술 페이지 버전 선택 + MACHINE)
       {
         source: '/detail/:pokemonId/moves',
