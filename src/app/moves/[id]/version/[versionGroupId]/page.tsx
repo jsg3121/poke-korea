@@ -79,7 +79,7 @@ const MoveDetailVersionPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const { skill, pokemonData } = await fetchMoveDetailQueries({
+  const { skill, pokemonData, versionGroups } = await fetchMoveDetailQueries({
     skillId,
     versionGroupId,
   })
@@ -116,6 +116,7 @@ const MoveDetailVersionPage = async ({ params }: PageProps) => {
           initialPokemonList={pokemonList}
           totalCount={pokemonData?.getPokemonsBySkill?.totalCount ?? 0}
           selectedVersionGroupId={versionGroupId}
+          versionGroups={versionGroups}
         />
       ) : (
         <MoveDetailDesktop
@@ -124,6 +125,7 @@ const MoveDetailVersionPage = async ({ params }: PageProps) => {
           initialPokemonList={pokemonList}
           totalCount={pokemonData?.getPokemonsBySkill?.totalCount ?? 0}
           selectedVersionGroupId={versionGroupId}
+          versionGroups={versionGroups}
         />
       )}
       <script

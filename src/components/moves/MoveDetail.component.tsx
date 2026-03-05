@@ -1,23 +1,30 @@
 import {
   PokemonSkillDetail,
   PokemonSkillGeneration,
+  VersionGroup,
 } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 
 interface MoveDetailComponentProps {
   skillData: PokemonSkillDetail
-  selectedGenerationData?: PokemonSkillGeneration
-  isShowTooltip?: boolean
+  selectedVersionData?: PokemonSkillGeneration
+  versionGroups?: Array<VersionGroup> | null
 }
 
 const MoveDetailComponent = ({
   skillData,
-  selectedGenerationData,
-  isShowTooltip = false,
+  selectedVersionData,
+  versionGroups,
 }: MoveDetailComponentProps) => {
-  // 선택된 세대 데이터가 있으면 그것을 우선 사용, 없으면 기본 skillData 사용
-  const displayData = selectedGenerationData || skillData
+  // 선택된 버전 데이터가 있으면 그것을 우선 사용, 없으면 기본 skillData 사용
+  const displayData = selectedVersionData || skillData
+
+  const versionName = selectedVersionData
+    ? versionGroups?.find(
+        (vg) => vg.versionGroupId === selectedVersionData.versionGroupId,
+      )?.nameKo
+    : undefined
 
   return (
     <section className="w-full mx-auto min-h-32 pb-4 relative px-4 md:px-0 md:mb-4">
@@ -25,9 +32,9 @@ const MoveDetailComponent = ({
         <h1 className="text-[2.5rem] text-primary-4 font-bold">
           {skillData.nameKo}
         </h1>
-        {selectedGenerationData && (
+        {versionName && (
           <span className="px-3 py-1 rounded-lg text-primary-3 text-lg font-medium">
-            {selectedGenerationData.generationId}세대
+            {versionName}
           </span>
         )}
         {!skillData.isAvailable && (
@@ -90,11 +97,6 @@ const MoveDetailComponent = ({
         <dt className="text-xl font-semibold text-primary-3">PP:</dt>
         <dd className="text-xl text-primary-4 font-bold">{displayData.pp}</dd>
       </dl>
-      {isShowTooltip && (
-        <span className="text-base text-primary-3 block mt-4">
-          * 공식 번역이 없어 번역중이니 조금만 기다려주세요!
-        </span>
-      )}
       {displayData.description && (
         <p className="min-h-8 text-[1.725rem] text-aligned-base text-primary-4">
           {displayData.description}

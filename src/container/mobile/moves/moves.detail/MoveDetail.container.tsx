@@ -4,7 +4,11 @@ import { useParams } from 'next/navigation'
 import { Fragment } from 'react'
 import MoveDetailComponent from '~/components/moves/MoveDetail.component'
 import PokemonBySkillCard from '~/components/moves/PokemonBySkillCard.component'
-import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
+import {
+  PokemonLearnInfo,
+  PokemonSkillDetail,
+  VersionGroup,
+} from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 import FooterContainer from '../../footer/Footer.container'
@@ -12,16 +16,18 @@ import Link from 'next/link'
 import MobileMovesDetailTopBanner from '~/components/adSlot/MobileMovesDetailTopBanner'
 import MobileMovesDetailBottomBanner from '~/components/adSlot/MobileMovesDetailBottomBanner'
 
-interface MoveDetailContainerProps {
+export interface MoveDetailContainerProps {
   skillId: number
   initialSkill: PokemonSkillDetail
   initialPokemonList: Array<PokemonLearnInfo>
   totalCount: number
+  selectedVersionGroupId?: number
+  versionGroups?: Array<VersionGroup> | null
 }
 
 type ParamsType = {
   id: string
-  generationId: string
+  versionGroupId: string
 }
 
 const MoveDetailContainer = ({
@@ -29,9 +35,15 @@ const MoveDetailContainer = ({
   initialSkill,
   initialPokemonList,
   totalCount,
+  selectedVersionGroupId,
+  versionGroups,
 }: MoveDetailContainerProps) => {
-  const { generationId } = useParams<ParamsType>()
-  const selectedGeneration = parseInt(generationId ?? 9, 10)
+  const { versionGroupId: versionGroupIdParam } = useParams<ParamsType>()
+  const currentVersionGroupId = selectedVersionGroupId
+    ? selectedVersionGroupId
+    : versionGroupIdParam
+      ? parseInt(versionGroupIdParam, 10)
+      : undefined
 
   const {
     pokemonList,
@@ -41,7 +53,7 @@ const MoveDetailContainer = ({
     totalCount: filteredTotalCount,
   } = usePokemonsBySkill({
     skillId,
-    generationId: selectedGeneration,
+    versionGroupId: currentVersionGroupId,
     initialPokemonList,
   })
 
@@ -52,48 +64,47 @@ const MoveDetailContainer = ({
     dependencies: [pokemonList],
   })
 
-  // 선택된 세대의 정보 가져오기
-  const selectedGenerationData = initialSkill.generations.find(
-    (gen) => gen.generationId === selectedGeneration,
-  )
+  // 선택된 버전의 정보 가져오기
+  const selectedVersionData = currentVersionGroupId
+    ? initialSkill.generations.find(
+        (gen) => gen.versionGroupId === currentVersionGroupId,
+      )
+    : undefined
 
   return (
     <section className="w-full max-w-[1280px] h-full mx-auto pt-4 pb-8">
       <MoveDetailComponent
         skillData={initialSkill}
-        selectedGenerationData={selectedGenerationData}
-        isShowTooltip={parseInt(generationId, 10) < 6}
+        selectedVersionData={selectedVersionData}
+        versionGroups={versionGroups}
       />
       <MobileMovesDetailTopBanner />
       <h2
-        id="previous-generation"
+        id="version-info"
         className="h-12 text-[1.375rem] text-primary-4 border-t border-solid border-primary-4 pt-4 px-4"
       >
-        세대 정보
+        버전별 정보
       </h2>
       <nav
         className="w-full min-h-18 flex flex-wrap items-center gap-3 px-4 mt-4"
-        aria-labelledby="previous-generation"
+        aria-labelledby="version-info"
       >
         <Link
           href={`/moves/${skillId}`}
-          className={`h-8 w-[4.5rem] block rounded-md text-lg text-aligned-base text-center ${generationId ? 'bg-primary-4 text-primary-1' : 'bg-primary-2 text-primary-4'}`}
+          className={`h-8 px-4 block rounded-md text-lg text-aligned-base text-center ${!currentVersionGroupId ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
         >
           최신
         </Link>
-        {new Array(9 - initialSkill.firstGenerationId)
-          .fill('')
-          .map((_, index) => {
-            return (
-              <Link
-                key={`generation-index-${9 - index}`}
-                href={`/moves/${skillId}/generation/${8 - index}`}
-                className={`h-8 w-[4.5rem] block rounded-md text-lg text-aligned-base text-center ${parseInt(generationId, 10) === 8 - index ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
-              >
-                {8 - index}세대
-              </Link>
-            )
-          })}
+        {versionGroups &&
+          versionGroups.map((vg) => (
+            <Link
+              key={`version-group-${vg.versionGroupId}`}
+              href={`/moves/${skillId}/version/${vg.versionGroupId}`}
+              className={`h-8 px-4 block rounded-md text-lg text-aligned-base text-center ${currentVersionGroupId === vg.versionGroupId ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+            >
+              {vg.nameKo}
+            </Link>
+          ))}
       </nav>
       <div className="mt-8">
         {pokemonList.length === 0 && !loading && (
