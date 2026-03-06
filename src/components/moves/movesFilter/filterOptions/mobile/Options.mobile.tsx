@@ -2,24 +2,24 @@
 import { Fragment, useEffect, useState } from 'react'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-type FilterOptionsTypes = 'types' | 'damageType' | 'generationId'
+type FilterOptionsTypes = 'types' | 'damageType' | 'firstGenerationId'
 
 interface OptionsMobileProps {
   selectTypeFilter: string
   selectDamageTypes: string
-  selectGenerationId: string
+  selectFirstGenerationId: string
   onClickSelectTypeFilter: (types: string) => void
   onClickSelectDamageTypeFilter: (damageTypes: string) => void
-  onClickSelectgenerationId: (id: string) => void
+  onClickSelectFirstGenerationId: (id: string) => void
 }
 
 const OptionsMobile = ({
   selectTypeFilter,
   selectDamageTypes,
-  selectGenerationId,
+  selectFirstGenerationId,
   onClickSelectDamageTypeFilter,
   onClickSelectTypeFilter,
-  onClickSelectgenerationId,
+  onClickSelectFirstGenerationId,
 }: OptionsMobileProps) => {
   const [selectFilter, setSelectFilter] = useState<FilterOptionsTypes | null>(
     null,
@@ -31,8 +31,8 @@ const OptionsMobile = ({
   const handleClickSelectDamageTypeFilter = (damageTypes: string) => () => {
     onClickSelectDamageTypeFilter(damageTypes)
   }
-  const handleClickSelectgenerationId = (id: string) => () => {
-    onClickSelectgenerationId(id)
+  const handleClickSelectFirstGenerationId = (id: string) => () => {
+    onClickSelectFirstGenerationId(id)
   }
 
   const handleClickOpenFilterOpion = (value: FilterOptionsTypes) => () => {
@@ -45,10 +45,10 @@ const OptionsMobile = ({
 
   // 모든 필터가 초기화되면 열린 옵션 패널 닫기
   useEffect(() => {
-    if (!selectTypeFilter && !selectDamageTypes && !selectGenerationId) {
+    if (!selectTypeFilter && !selectDamageTypes && !selectFirstGenerationId) {
       setSelectFilter(null)
     }
-  }, [selectTypeFilter, selectDamageTypes, selectGenerationId])
+  }, [selectTypeFilter, selectDamageTypes, selectFirstGenerationId])
 
   return (
     <Fragment>
@@ -71,10 +71,10 @@ const OptionsMobile = ({
         </li>
         <li className="h-6 flex flex-col items-start gap-3">
           <button
-            className={`${selectFilter === 'generationId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-24 text-left`}
-            onClick={handleClickOpenFilterOpion('generationId')}
+            className={`${selectFilter === 'firstGenerationId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-24 text-left`}
+            onClick={handleClickOpenFilterOpion('firstGenerationId')}
           >
-            첫 등장 세대{' '}
+            첫 등장 세대
           </button>
         </li>
       </ul>
@@ -115,23 +115,20 @@ const OptionsMobile = ({
           </button>
         </div>
       )}
-      {selectFilter === 'generationId' && (
-        <div className="w-full h-28 flex items-start content-start flex-wrap gap-2 mt-4">
+      {selectFilter === 'firstGenerationId' && (
+        <div className="w-full h-auto flex items-start content-start flex-wrap gap-2 mt-4">
           {new Array(9).fill('').map((_, index) => {
-            const generationId = (index + 1).toString()
+            const genId = (index + 1).toString()
             return (
               <button
                 key={`generation-filter-key-${index + 1}`}
-                className={`w-14 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectGenerationId === generationId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
-                onClick={handleClickSelectgenerationId(generationId)}
+                className={`w-14 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectFirstGenerationId === genId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
+                onClick={handleClickSelectFirstGenerationId(genId)}
               >
-                {index + 1}
+                {index + 1}세대
               </button>
             )
           })}
-          <span className="w-full text-primary-3 text-sm my-2">
-            선택하지 않으면 최신 세대 기준 스펙으로 나와요!
-          </span>
         </div>
       )}
     </Fragment>

@@ -12,12 +12,12 @@ const FilterHeaderComponent = () => {
   const typeFilter = params.get('typeFilter')
   const damageTypeFilter = params.get('damageTypeFilter')
   const searchFilter = params.get('search')
-  const generationId = params.get('generationId')
+  const firstGenerationId = params.get('firstGenerationId')
   const isActiveFilter = !!(
     typeFilter ||
     damageTypeFilter ||
     searchFilter ||
-    generationId
+    firstGenerationId
   )
 
   const handleClickResetFilter = () => {
@@ -35,7 +35,7 @@ const FilterHeaderComponent = () => {
       </p>
       <div className="flex items-center gap-3 md:gap-4">
         <button
-          className={`flex gap-1 items-center text-primary-4 text-base md:text-xs md:text-base ${!isActiveFilter && 'disabled:grayscale disabled:opacity-50'}`}
+          className={`flex gap-1 items-center text-primary-4 text-base md:text-base ${!isActiveFilter && 'disabled:grayscale disabled:opacity-50'}`}
           disabled={!isActiveFilter}
           onClick={handleClickResetFilter}
         >

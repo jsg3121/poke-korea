@@ -7,7 +7,8 @@ import { getDamageTypeKorean } from '~/utils/skill.util'
 interface MoveDetailBaseParams {
   skillId: number
   nameKo: string
-  generation?: number
+  versionGroupId?: number
+  versionGroupName?: string
   description?: string | null
   type?: PokemonType | null
   power?: number | null
@@ -18,7 +19,8 @@ interface MoveDetailBaseParams {
 const createMoveDetailMetadata = ({
   skillId,
   nameKo,
-  generation,
+  versionGroupId,
+  versionGroupName,
   description: skillDescription,
   type: skillType,
   power,
@@ -27,16 +29,18 @@ const createMoveDetailMetadata = ({
 }: MoveDetailBaseParams): Metadata => {
   const moveType = `${skillType ? PokemonTypes[skillType] : '노말'} 타입`
   const damageTypeKo = getDamageTypeKorean(damageType)
-  const genLabel = generation ? ` (${generation}세대)` : ''
-  const genAltLabel = generation ? `${generation}세대 기술 도감` : '기술 도감'
+  const versionLabel = versionGroupName ? ` (${versionGroupName})` : ''
+  const versionAltLabel = versionGroupName
+    ? `${versionGroupName} 기술 도감`
+    : '기술 도감'
 
-  const title = `${nameKo}${genLabel} - ${[moveType, damageTypeKo].filter(Boolean).join(' ')} 기술 (위력 ${power || '-'} · 명중 ${accuracy || '-'}) | 포켓몬 기술 도감`
-  const description = generation
-    ? `${nameKo} ${generation}세대 기술 정보${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${skillType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 세대별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
-    : `${nameKo}${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${skillType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 세대별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
+  const title = `${nameKo}${versionLabel} - ${[moveType, damageTypeKo].filter(Boolean).join(' ')} 기술 (위력 ${power || '-'} · 명중 ${accuracy || '-'}) | 포켓몬 기술 도감`
+  const description = versionGroupId
+    ? `${nameKo} ${versionGroupName || ''} 기술 정보${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${moveType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 버전별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
+    : `${nameKo}${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${moveType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 버전별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
 
-  const canonicalUrl = generation
-    ? `https://poke-korea.com/moves/${skillId}/generation/${generation}`
+  const canonicalUrl = versionGroupId
+    ? `https://poke-korea.com/moves/${skillId}/version/${versionGroupId}`
     : `https://poke-korea.com/moves/${skillId}`
 
   return {
@@ -54,7 +58,7 @@ const createMoveDetailMetadata = ({
           url: 'https://poke-korea.com/assets/image/ogImage.png',
           width: 1200,
           height: 630,
-          alt: `${nameKo} - ${genAltLabel}`,
+          alt: `${nameKo} - ${versionAltLabel}`,
           type: 'image/png',
         },
       ],
@@ -73,10 +77,10 @@ const createMoveDetailMetadata = ({
 }
 
 export const generateMoveDetailMetadata = (
-  params: Omit<MoveDetailBaseParams, 'generation'>,
+  params: Omit<MoveDetailBaseParams, 'versionGroupId' | 'versionGroupName'>,
 ): Metadata => createMoveDetailMetadata(params)
 
-export const generateMoveDetailGenerationMetadata = (
-  params: Required<Pick<MoveDetailBaseParams, 'generation'>> &
-    Omit<MoveDetailBaseParams, 'generation'>,
+export const generateMoveDetailVersionMetadata = (
+  params: Required<Pick<MoveDetailBaseParams, 'versionGroupId'>> &
+    Omit<MoveDetailBaseParams, 'versionGroupId'>,
 ): Metadata => createMoveDetailMetadata(params)

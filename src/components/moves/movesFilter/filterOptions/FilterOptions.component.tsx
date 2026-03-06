@@ -12,7 +12,7 @@ const FilterOptionsComponent = () => {
   const { isMobile } = useDevice()
   const typeFilter = params.get('typeFilter') ?? ''
   const damageTypeFilter = params.get('damageTypeFilter') ?? ''
-  const generationId = params.get('generationId') ?? ''
+  const firstGenerationId = params.get('firstGenerationId') ?? ''
 
   const handleClickSelectTypeFilter = (types: string) => {
     const queryString = new URLSearchParams(params)
@@ -33,12 +33,13 @@ const FilterOptionsComponent = () => {
     }
     router.replace(`${pathname}?${queryString}`)
   }
-  const handleClickSelectgenerationId = (id: string) => {
+
+  const handleClickSelectFirstGenerationId = (id: string) => {
     const queryString = new URLSearchParams(params)
-    if (generationId === id) {
-      queryString.delete('generationId')
+    if (firstGenerationId === id) {
+      queryString.delete('firstGenerationId')
     } else {
-      queryString.set('generationId', id)
+      queryString.set('firstGenerationId', id)
     }
     router.replace(`${pathname}?${queryString}`)
   }
@@ -47,11 +48,11 @@ const FilterOptionsComponent = () => {
     return (
       <OptionsMobile
         selectDamageTypes={damageTypeFilter}
-        selectGenerationId={generationId}
+        selectFirstGenerationId={firstGenerationId}
         selectTypeFilter={typeFilter}
         onClickSelectDamageTypeFilter={handleClickSelectDamageTypeFilter}
         onClickSelectTypeFilter={handleClickSelectTypeFilter}
-        onClickSelectgenerationId={handleClickSelectgenerationId}
+        onClickSelectFirstGenerationId={handleClickSelectFirstGenerationId}
       />
     )
   }
@@ -59,11 +60,11 @@ const FilterOptionsComponent = () => {
   return (
     <OptionsDesktop
       selectDamageTypes={damageTypeFilter}
-      selectGenerationId={generationId}
+      selectFirstGenerationId={firstGenerationId}
       selectTypeFilter={typeFilter}
       onClickSelectDamageTypeFilter={handleClickSelectDamageTypeFilter}
       onClickSelectTypeFilter={handleClickSelectTypeFilter}
-      onClickSelectgenerationId={handleClickSelectgenerationId}
+      onClickSelectFirstGenerationId={handleClickSelectFirstGenerationId}
     />
   )
 }

@@ -10,7 +10,7 @@ import {
 interface UsePokemonsBySkillProps {
   skillId: number
   method?: LearnMethod
-  generationId?: number
+  versionGroupId?: number
   initialPokemonList?: Array<PokemonLearnInfo>
   pageSize?: number
 }
@@ -18,7 +18,7 @@ interface UsePokemonsBySkillProps {
 export const usePokemonsBySkill = ({
   skillId,
   method,
-  generationId,
+  versionGroupId,
   initialPokemonList = [],
   pageSize = 30,
 }: UsePokemonsBySkillProps) => {
@@ -28,7 +28,7 @@ export const usePokemonsBySkill = ({
         filter: {
           skillId,
           method,
-          generationId,
+          versionGroupId,
         },
         pagination: {
           first: pageSize,
@@ -47,7 +47,7 @@ export const usePokemonsBySkill = ({
           filter: {
             skillId,
             method,
-            generationId,
+            versionGroupId,
           },
           pagination: {
             first: pageSize,

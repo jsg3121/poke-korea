@@ -1,18 +1,21 @@
 import {
   GetPokemonSkillDetailDocument,
   GetPokemonsBySkillDocument,
+  GetVersionGroupsDocument,
 } from '~/graphql/gqlGenerated'
 import {
   type GetPokemonSkillDetailQuery,
   type GetPokemonSkillDetailQueryVariables,
   type GetPokemonsBySkillQuery,
   type GetPokemonsBySkillQueryVariables,
+  type GetVersionGroupsQuery,
+  type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
 interface FetchMoveDetailParams {
   skillId: number
-  generationId: number
+  versionGroupId?: number
 }
 
 /**
@@ -20,7 +23,7 @@ interface FetchMoveDetailParams {
  */
 export async function fetchMoveDetailQueries({
   skillId,
-  generationId,
+  versionGroupId,
 }: FetchMoveDetailParams) {
   const apolloClient = initializeApollo()
 
@@ -33,7 +36,7 @@ export async function fetchMoveDetailQueries({
       variables: {
         filter: {
           skillId,
-          generationId,
+          versionGroupId,
         },
       },
       fetchPolicy: 'network-only',
@@ -47,7 +50,7 @@ export async function fetchMoveDetailQueries({
         input: {
           filter: {
             skillId,
-            generationId,
+            versionGroupId,
           },
           pagination: {
             first: 30,
@@ -61,11 +64,23 @@ export async function fetchMoveDetailQueries({
   const skill = skillData?.getPokemonSkillDetail
 
   if (!skill) {
-    return { skill: null, pokemonData: null }
+    return { skill: null, pokemonData: null, versionGroups: null }
   }
+
+  const { data: versionGroupData } = await apolloClient.query<
+    GetVersionGroupsQuery,
+    GetVersionGroupsQueryVariables
+  >({
+    query: GetVersionGroupsDocument,
+    variables: {
+      filter: { skillId },
+    },
+    fetchPolicy: 'cache-first',
+  })
 
   return {
     skill,
     pokemonData,
+    versionGroups: versionGroupData?.getVersionGroups ?? null,
   }
 }

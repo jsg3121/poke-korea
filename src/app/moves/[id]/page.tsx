@@ -33,7 +33,6 @@ export async function generateMetadata({
 
   const { skill } = await fetchMoveDetailMetadata({
     skillId,
-    generationId: 9,
   })
 
   if (!skill) {
@@ -65,9 +64,8 @@ const MoveDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const { skill, pokemonData } = await fetchMoveDetailQueries({
+  const { skill, pokemonData, versionGroups } = await fetchMoveDetailQueries({
     skillId,
-    generationId: 9,
   })
 
   if (!skill) {
@@ -89,6 +87,7 @@ const MoveDetailPage = async ({ params }: PageProps) => {
           initialSkill={skill}
           initialPokemonList={pokemonList}
           totalCount={pokemonData?.getPokemonsBySkill?.totalCount ?? 0}
+          versionGroups={versionGroups}
         />
       ) : (
         <MoveDetailDesktop
@@ -96,6 +95,7 @@ const MoveDetailPage = async ({ params }: PageProps) => {
           initialSkill={skill}
           initialPokemonList={pokemonList}
           totalCount={pokemonData?.getPokemonsBySkill?.totalCount ?? 0}
+          versionGroups={versionGroups}
         />
       )}
       <script

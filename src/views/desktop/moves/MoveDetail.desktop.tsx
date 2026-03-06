@@ -1,4 +1,8 @@
-import { PokemonLearnInfo, PokemonSkillDetail } from '~/graphql/typeGenerated'
+import {
+  PokemonLearnInfo,
+  PokemonSkillDetail,
+  VersionGroup,
+} from '~/graphql/typeGenerated'
 import MoveDetailContainer from '~/container/desktop/moves/moves.detail/MoveDetail.container'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 
@@ -7,7 +11,8 @@ interface MoveDetailDesktopProps {
   initialSkill: PokemonSkillDetail
   initialPokemonList: Array<PokemonLearnInfo>
   totalCount: number
-  selectedGeneration?: number
+  selectedVersionGroupId?: number
+  versionGroups?: Array<VersionGroup> | null
 }
 
 const MoveDetailDesktop = ({
@@ -15,7 +20,8 @@ const MoveDetailDesktop = ({
   initialSkill,
   initialPokemonList,
   totalCount,
-  selectedGeneration,
+  selectedVersionGroupId,
+  versionGroups,
 }: MoveDetailDesktopProps) => {
   return (
     <main className="w-full h-full pt-40">
@@ -25,7 +31,8 @@ const MoveDetailDesktop = ({
         initialSkill={initialSkill}
         initialPokemonList={initialPokemonList}
         totalCount={totalCount}
-        selectedGeneration={selectedGeneration}
+        selectedVersionGroupId={selectedVersionGroupId}
+        versionGroups={versionGroups}
       />
     </main>
   )

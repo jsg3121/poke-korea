@@ -61,7 +61,7 @@ export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   name: `포켓몬 ${skillName} 기술 정보 - 포케 코리아`,
-  description: `${skillName} 기술의 세대별 정보와 이 기술을 배울 수 있는 포켓몬 목록을 확인하세요.`,
+  description: `${skillName} 기술의 버전별 정보와 이 기술을 배울 수 있는 포켓몬 목록을 확인하세요.`,
   url: `https://poke-korea.com/moves/${skillId}`,
   inLanguage: 'ko-KR',
   isPartOf: {
@@ -100,16 +100,17 @@ export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
   },
 })
 
-export const getMoveDetailGenerationJsonLd = (
+export const getMoveDetailVersionJsonLd = (
   skillId: number,
   skillName: string,
-  generationId: number,
+  versionGroupId: number,
+  versionGroupName: string,
 ) => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: `포켓몬 ${skillName} 기술 정보 (${generationId}세대) - 포케 코리아`,
-  description: `${skillName} 기술의 ${generationId}세대 정보와 이 기술을 배울 수 있는 포켓몬 목록을 확인하세요.`,
-  url: `https://poke-korea.com/moves/${skillId}/generation/${generationId}`,
+  name: `포켓몬 ${skillName} (${versionGroupName}) 기술 정보 - 포케 코리아`,
+  description: `${skillName} ${versionGroupName} 버전의 기술 정보와 이 기술을 배울 수 있는 포켓몬 목록을 확인하세요.`,
+  url: `https://poke-korea.com/moves/${skillId}/version/${versionGroupId}`,
   inLanguage: 'ko-KR',
   isPartOf: {
     '@type': 'WebSite',
@@ -136,12 +137,6 @@ export const getMoveDetailGenerationJsonLd = (
         position: 3,
         name: skillName,
         item: `https://poke-korea.com/moves/${skillId}`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: `${generationId}세대`,
-        item: `https://poke-korea.com/moves/${skillId}/generation/${generationId}`,
       },
     ],
   },

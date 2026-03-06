@@ -571,6 +571,7 @@ query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
       id
       skillId
       generationId
+      versionGroupId
       isAvailable
       type
       power
@@ -597,14 +598,13 @@ query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
         methods {
           method
         }
-        generationId
+        versionGroupId
         formType
         formCode
         formName
         types
         region
         imagePath
-        formType
       }
     }
     pageInfo {

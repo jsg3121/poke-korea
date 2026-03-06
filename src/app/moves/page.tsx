@@ -24,7 +24,7 @@ interface MovesPageProps {
     typeFilter: PokemonType
     damageTypeFilter: string
     search: string
-    generationId: string
+    firstGenerationId: string
   }>
 }
 
@@ -33,9 +33,14 @@ export const revalidate = 31536000 // 24시간마다 재생성
 export const generateMetadata = async ({
   searchParams,
 }: MovesPageProps): Promise<Metadata> => {
-  const { damageTypeFilter, typeFilter } = await searchParams
+  const { damageTypeFilter, typeFilter, firstGenerationId } = await searchParams
+  const parsedGenId = parseInt(firstGenerationId, 10)
 
-  return generateMovesListMetadata({ typeFilter, damageTypeFilter })
+  return generateMovesListMetadata({
+    typeFilter,
+    damageTypeFilter,
+    firstGenerationId: parsedGenId || undefined,
+  })
 }
 
 export default async function MovesPage({ searchParams }: MovesPageProps) {
@@ -43,14 +48,17 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-  const { damageTypeFilter, typeFilter, search, generationId } =
+  const { damageTypeFilter, typeFilter, search, firstGenerationId } =
     await searchParams
 
+  const parsedGenerationId = parseInt(firstGenerationId, 10)
   const movesFilter: PokemonSkillFilterInput = {
     damageType: getDamageTypeEnglish(damageTypeFilter),
     type: typeFilter,
     name: search,
-    generationId: parseInt(generationId, 10),
+    ...(parsedGenerationId && {
+      generationId: parsedGenerationId,
+    }),
   }
 
   const { data } = await client.query({

@@ -14,13 +14,15 @@ const MOVES_MAIN_META = createMetadata(
 interface MovesListMetadataParams {
   typeFilter?: PokemonType
   damageTypeFilter?: string
+  firstGenerationId?: number
 }
 
 export const generateMovesListMetadata = ({
   typeFilter,
   damageTypeFilter,
+  firstGenerationId,
 }: MovesListMetadataParams): Metadata => {
-  if (!typeFilter && !damageTypeFilter) {
+  if (!typeFilter && !damageTypeFilter && !firstGenerationId) {
     return MOVES_MAIN_META
   }
 
@@ -32,9 +34,13 @@ export const generateMovesListMetadata = ({
   if (damageTypeFilter) {
     params.set('damageTypeFilter', damageTypeFilter)
   }
+  if (firstGenerationId) {
+    params.set('firstGenerationId', firstGenerationId.toString())
+  }
 
-  const title = `포켓몬 ${damageTypeFilter ? `${damageTypeFilter} ` : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입 ` : ''}기술 목록 | 포케 코리아`
-  const description = `${damageTypeFilter ? `${damageTypeFilter} 유형` : ''}${damageTypeFilter && typeFilter ? ' · ' : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 포켓몬 기술을 모아보세요. 위력, 명중률, 세대별 변경사항과 배울 수 있는 포켓몬 목록까지 확인할 수 있습니다.`
+  const genLabel = firstGenerationId ? `${firstGenerationId}세대 ` : ''
+  const title = `포켓몬 ${genLabel}${damageTypeFilter ? `${damageTypeFilter} ` : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입 ` : ''}기술 목록 | 포케 코리아`
+  const description = `${firstGenerationId ? `${firstGenerationId}세대` : ''}${firstGenerationId && (damageTypeFilter || typeFilter) ? ' · ' : ''}${damageTypeFilter ? `${damageTypeFilter} 유형` : ''}${damageTypeFilter && typeFilter ? ' · ' : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 포켓몬 기술을 모아보세요. 위력, 명중률, 세대별 변경사항과 배울 수 있는 포켓몬 목록까지 확인할 수 있습니다.`
   const canonicalUrl = `https://poke-korea.com/moves?${params.toString()}`
 
   return {
