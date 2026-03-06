@@ -33,9 +33,14 @@ export const revalidate = 31536000 // 24시간마다 재생성
 export const generateMetadata = async ({
   searchParams,
 }: MovesPageProps): Promise<Metadata> => {
-  const { damageTypeFilter, typeFilter } = await searchParams
+  const { damageTypeFilter, typeFilter, firstGenerationId } = await searchParams
+  const parsedGenId = parseInt(firstGenerationId, 10)
 
-  return generateMovesListMetadata({ typeFilter, damageTypeFilter })
+  return generateMovesListMetadata({
+    typeFilter,
+    damageTypeFilter,
+    firstGenerationId: parsedGenId || undefined,
+  })
 }
 
 export default async function MovesPage({ searchParams }: MovesPageProps) {

@@ -61,11 +61,13 @@ const MoveDetailComponent = ({
           {getDamageTypeKorean(displayData.damageType)}
         </dd>
         <dt className="font-semibold text-primary-3">위력:</dt>
-        <dd className="text-primary-4 font-bold">{displayData.power}</dd>
+        <dd className="text-primary-4 font-bold">{displayData.power ?? '-'}</dd>
         <dt className="font-semibold text-primary-3">명중률:</dt>
-        <dd className="text-primary-4 font-bold">{displayData.accuracy}</dd>
+        <dd className="text-primary-4 font-bold">
+          {displayData.accuracy ?? '-'}
+        </dd>
         <dt className="font-semibold text-primary-3">PP:</dt>
-        <dd className="text-primary-4 font-bold">{displayData.pp}</dd>
+        <dd className="text-primary-4 font-bold">{displayData.pp ?? '-'}</dd>
       </dl>
       <dl className="flex items-center flex-wrap gap-2 mb-2 desktop:hidden">
         <dt className="text-xl font-semibold text-primary-3">타입:</dt>

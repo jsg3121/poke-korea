@@ -92,6 +92,7 @@ node {
 | JSON-LD | `getMoveDetailGenerationJsonLd` → `getMoveDetailVersionJsonLd`, URL 경로 변경 |
 | Sitemap | 세대별 URL (기술 x 9세대) 제거, 기본 상세 URL만 유지 |
 | 리다이렉트 | `/moves/:id/generation/:gen` → `/moves/:id` 301 리다이렉트 추가 |
+| 리스트 메타데이터 | `firstGenerationId` 필터 시 title/description/canonical URL에 세대 정보 반영 |
 
 ### 6. 첫 등장 세대 필터 추가
 
