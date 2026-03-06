@@ -73,7 +73,7 @@ export async function fetchMoveDetailQueries({
   >({
     query: GetVersionGroupsDocument,
     variables: {
-      filter: {},
+      filter: { skillId },
     },
     fetchPolicy: 'cache-first',
   })
