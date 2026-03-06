@@ -95,11 +95,11 @@ node {
 
 ### 6. 첫 등장 세대 필터 추가
 
-기술 리스트에서 `firstGenerationId` 필드를 활용한 **첫 등장 세대** 클라이언트 사이드 필터를 추가했습니다.
+기술 리스트에서 **첫 등장 세대** 필터를 추가했습니다.
 
-- 백엔드 `PokemonSkillFilterInput`에 `generationId` 서버 필터가 없으므로 클라이언트에서 필터링
-- `MovesProvider`에 `firstGenerationId` prop 전달 → `skillList`를 `skill.firstGenerationId`로 필터
-- 필터 선택 시 `totalCount`도 필터된 목록 기준으로 표시
+- 백엔드 `PokemonSkillFilterInput`에 `generationId` 서버 필터 추가 → 다른 필터(타입, 유형)와 동일하게 서버 사이드 필터링
+- `movesFilter`에 `generationId`를 포함하여 쿼리 요청 시 서버에서 필터링된 결과 반환
+- 무한 스크롤과 정상 호환 (서버 페이지네이션 기준 `hasNextPage`/`totalCount` 그대로 사용)
 - 데스크톱/모바일 모두 1~9세대 버튼 UI 제공
 
 ### 7. 기술 리스트 버전 필터 제거

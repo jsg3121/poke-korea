@@ -12,7 +12,6 @@ interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>
   totalCount: number
   movesFilter: PokemonSkillFilterInput
-  firstGenerationId?: number
   children: ReactNode
 }
 
@@ -35,7 +34,6 @@ export const MovesProvider = ({
   initialSkills,
   totalCount,
   movesFilter,
-  firstGenerationId,
   children,
 }: MovesProviderProps) => {
   const { data, loading, fetchMore } = useGetPokemonSkillListQuery({
@@ -65,20 +63,16 @@ export const MovesProvider = ({
     })
   }
 
-  const allSkills = extractNodesFromEdges(
+  const skillList = extractNodesFromEdges(
     data?.getPokemonSkillList?.edges,
     initialSkills,
   )
-
-  const skillList = firstGenerationId
-    ? allSkills.filter((skill) => skill.firstGenerationId === firstGenerationId)
-    : allSkills
 
   const value = {
     skillList,
     hasNextPage: data?.getPokemonSkillList.pageInfo.hasNextPage,
     loading,
-    totalCount: firstGenerationId ? skillList.length : totalCount,
+    totalCount,
     loadMore,
   }
 

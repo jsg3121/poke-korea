@@ -46,10 +46,14 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const { damageTypeFilter, typeFilter, search, firstGenerationId } =
     await searchParams
 
+  const parsedGenerationId = parseInt(firstGenerationId, 10)
   const movesFilter: PokemonSkillFilterInput = {
     damageType: getDamageTypeEnglish(damageTypeFilter),
     type: typeFilter,
     name: search,
+    ...(parsedGenerationId && {
+      generationId: parsedGenerationId,
+    }),
   }
 
   const { data } = await client.query({
@@ -76,7 +80,6 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
         initialSkills={skillList}
         totalCount={totalCount}
         movesFilter={movesFilter}
-        firstGenerationId={parseInt(firstGenerationId, 10) || undefined}
       >
         {isMobile ? <MovesMobile /> : <MovesDesktop />}
       </MovesProvider>
