@@ -111,7 +111,7 @@ const MoveDetailContainer = ({
       <nav
         ref={versionListRef}
         data-item={999}
-        className="w-[clac(100%-2rem)] h-16 flex-items-gap-2 mx-4 overflow-x-auto mt-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+        className="w-[calc(100%-2rem)] h-16 flex-items-gap-2 mx-4 overflow-x-auto mt-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
         aria-labelledby="version-info"
       >
         <Link

@@ -104,11 +104,12 @@ export const getMoveDetailVersionJsonLd = (
   skillId: number,
   skillName: string,
   versionGroupId: number,
+  versionGroupName: string,
 ) => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: `포켓몬 ${skillName} 기술 정보 - 포케 코리아`,
-  description: `${skillName} 기술의 버전별 정보와 이 기술을 배울 수 있는 포켓몬 목록을 확인하세요.`,
+  name: `포켓몬 ${skillName} (${versionGroupName}) 기술 정보 - 포케 코리아`,
+  description: `${skillName} ${versionGroupName} 버전의 기술 정보와 이 기술을 배울 수 있는 포켓몬 목록을 확인하세요.`,
   url: `https://poke-korea.com/moves/${skillId}/version/${versionGroupId}`,
   inLanguage: 'ko-KR',
   isPartOf: {

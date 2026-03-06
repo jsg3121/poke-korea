@@ -33,7 +33,7 @@ export async function generateMetadata({
     }
   }
 
-  const { skill } = await fetchMoveDetailMetadata({
+  const { skill, versionGroups } = await fetchMoveDetailMetadata({
     skillId,
     versionGroupId,
   })
@@ -54,10 +54,15 @@ export async function generateMetadata({
     }
   }
 
+  const versionGroupName =
+    versionGroups?.find((vg) => vg.versionGroupId === versionGroupId)?.nameKo ??
+    undefined
+
   return generateMoveDetailVersionMetadata({
     skillId,
     nameKo: skill.nameKo,
     versionGroupId,
+    versionGroupName,
     description: versionData.description,
     type: versionData.type,
     power: versionData.power,
@@ -101,10 +106,15 @@ const MoveDetailVersionPage = async ({ params }: PageProps) => {
       (edge: PokemonLearnInfoEdge) => edge.node,
     ) || []
 
+  const versionGroupName =
+    versionGroups?.find((vg) => vg.versionGroupId === versionGroupId)?.nameKo ??
+    ''
+
   const jsonLd = getMoveDetailVersionJsonLd(
     skillId,
     skill.nameKo,
     versionGroupId,
+    versionGroupName,
   )
 
   return (

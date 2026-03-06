@@ -69,7 +69,7 @@ node {
 버전 그룹 이름(한국어)을 하드코딩 상수 대신 `getVersionGroups` API에서 동적으로 조회합니다.
 
 - 기술 상세 페이지: `fetchMoveDetailQueries`에서 스킬의 `generations[].versionGroupId`를 추출 후 `getVersionGroups` API 호출
-- 기술 리스트 페이지: `moves/page.tsx`에서 `getVersionGroups` API 호출 후 `MovesProvider`에 전달
+- 기술 리스트 페이지에서는 버전 필터가 제거되어 `getVersionGroups` API를 호출하지 않음 (섹션 7 참고)
 
 ### 4. UI 변경
 

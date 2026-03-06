@@ -36,8 +36,8 @@ const createMoveDetailMetadata = ({
 
   const title = `${nameKo}${versionLabel} - ${[moveType, damageTypeKo].filter(Boolean).join(' ')} 기술 (위력 ${power || '-'} · 명중 ${accuracy || '-'}) | 포켓몬 기술 도감`
   const description = versionGroupId
-    ? `${nameKo} ${versionGroupName || ''} 기술 정보${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${skillType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 버전별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
-    : `${nameKo}${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${skillType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 버전별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
+    ? `${nameKo} ${versionGroupName || ''} 기술 정보${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${moveType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 버전별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
+    : `${nameKo}${skillDescription ? `: ${skillDescription}` : ''} | 타입: ${moveType || '없음'}, 위력: ${power || '-'}, 명중률: ${accuracy || '-'}. 버전별 변경사항과 배울 수 있는 포켓몬 목록을 확인하세요.`
 
   const canonicalUrl = versionGroupId
     ? `https://poke-korea.com/moves/${skillId}/version/${versionGroupId}`
