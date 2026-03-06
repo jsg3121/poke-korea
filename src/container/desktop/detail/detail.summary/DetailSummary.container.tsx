@@ -90,6 +90,12 @@ const DetailSummaryContainer = () => {
         <section className="relative -z-[1]" aria-label="포켓몬 이미지">
           <PokemonImageCompoment />
           <InfoTitle name={pokemonInfo.name ?? ''} />
+          {isShiny && (
+            <p className="text-xs text-primary-3 absolute bottom-0 left-0">
+              ※ 일부 포켓몬은 이로치 이미지가 아직 적용되지 않았으며, 확인되는
+              대로 업데이트될 예정입니다.
+            </p>
+          )}
         </section>
         <section className="h-[32.375rem] flex items-start relative z-10">
           <ul

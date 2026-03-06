@@ -19,7 +19,7 @@ const DetailBaseInfoContainer = () => {
 
   return (
     <section
-      className="w-full flex flex-col gap-12 py-8 px-5 mx-auto"
+      className="w-full flex flex-col gap-12 py-8 px-4 mx-auto"
       aria-label="포켓몬 상세 정보"
     >
       {isGigantamaxMode && <GmaxMoveInfoComponent />}

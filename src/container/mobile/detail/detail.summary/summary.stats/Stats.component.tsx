@@ -4,7 +4,7 @@ import StatChartComponent from './components/StatChart.component'
 const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
   return (
     <article
-      className="w-[calc(100%-40px)] h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 mx-auto"
+      className="w-[calc(100%-2rem)] h-full bg-primary-4 border-[3px] border-solid border-primary-1 rounded-2xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 mx-auto"
       aria-label="포켓몬 능력치 정보"
     >
       <header className="w-full h-16 border-b border-solid border-primary-1">

@@ -81,13 +81,19 @@ const DetailSummaryContainer = () => {
       </section>
       <InfoTitleComponent name={pokemonInfo.name ?? ''} />
       {isShiny && (
-        <div className="flex-items-gap-2 ml-5">
-          <ShinyTooltipComponent />
-          <ShinyRateComponent />
-        </div>
+        <>
+          <p className="w-full px-4 text-xs text-primary-3 mb-2">
+            ※ 일부 포켓몬은 이로치 이미지가 아직 적용되지 않았으며,
+            <br /> 확인되는 대로 업데이트될 예정입니다.
+          </p>
+          <div className="flex-items-gap-2 ml-4">
+            <ShinyTooltipComponent />
+            <ShinyRateComponent />
+          </div>
+        </>
       )}
       <ul
-        className="w-full h-12 flex-items-gap-4 mb-4 px-5"
+        className="w-full h-12 flex-items-gap-4 mb-4 px-4"
         aria-label="포켓몬 상대 변환 스위치 리스트"
       >
         <ShinySwitchComponent

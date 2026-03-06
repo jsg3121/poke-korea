@@ -45,7 +45,7 @@ const ModalDescriptionComponent = () => {
       </span>
       <span className="w-full text-xs leading-5 font-medium text-primary-2 block">
         * 이로치 이미지는 일반 포켓몬 이미지에서 색상을 변경한 이미지이므로,
-        공식 이미지가 아닌 점 참고 부탁드립니다.
+        <strong>공식 이미지가 아닌 점 참고 부탁드립니다.</strong>
       </span>
     </div>
   )
