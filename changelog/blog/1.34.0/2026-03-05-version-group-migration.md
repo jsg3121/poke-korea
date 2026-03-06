@@ -80,9 +80,9 @@ node {
 
 **기술 리스트 필터**:
 
-- 기존: "첫 등장 세대" + 1~9 숫자 버튼
-- 변경: "버전" + API 기반 동적 버전 그룹 버튼 (게임명 표시)
-- 안내 문구: "최신 세대" → "최신 버전"
+- 기존 "첫 등장 세대" 필터를 유지하되, 버전별 필터는 리스트에서 제거
+- 기술 리스트에서는 `firstGenerationId` 기반 클라이언트 사이드 필터만 제공
+- 버전별 필터는 기술 상세 페이지에서만 지원
 
 ### 5. SEO 수정
 
@@ -102,13 +102,21 @@ node {
 - 필터 선택 시 `totalCount`도 필터된 목록 기준으로 표시
 - 데스크톱/모바일 모두 1~9세대 버튼 UI 제공
 
-### 7. QA 중 발견된 버그 수정
+### 7. 기술 리스트 버전 필터 제거
+
+기술 리스트 페이지에서 버전(`versionGroupId`) 필터를 제거했습니다.
+
+- `FilterOptions`, `Options.desktop`, `Options.mobile`에서 버전 필터 UI 제거
+- `FilterHeader`에서 `versionGroupId` 초기화 조건 제거
+- `moves/page.tsx`에서 `getVersionGroups` API 호출 제거
+- `Moves.context.tsx`에서 `versionGroups` prop/context 제거
+- 버전별 필터는 기술 상세 페이지에서만 지원
+
+### 8. QA 중 발견된 버그 수정
 
 | 이슈 | 원인 | 해결 |
 | ------ | ------ | ------ |
-| 버전 필터 선택 시 초기화 버튼 미활성화 | `FilterHeader`에서 `generationId`로 체크 | `versionGroupId`로 변경 |
 | 기술 상세에서 일부 버전만 표시 | `getVersionGroups`에 스킬 버전만 필터링 | 빈 필터 `{}`로 전체 버전 조회 |
-| 첫 등장 세대 필터 선택 시 초기화 버튼 미활성화 | `isActiveFilter`에 `firstGenerationId` 미포함 | 조건에 추가 |
 
 ## 📊 최적화 결과
 

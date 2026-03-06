@@ -2,11 +2,7 @@
 
 import { createContext, ReactNode } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
-import {
-  PokemonSkill,
-  PokemonSkillFilterInput,
-  VersionGroup,
-} from '~/graphql/typeGenerated'
+import { PokemonSkill, PokemonSkillFilterInput } from '~/graphql/typeGenerated'
 import {
   mergePagedResults,
   extractNodesFromEdges,
@@ -16,7 +12,6 @@ interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>
   totalCount: number
   movesFilter: PokemonSkillFilterInput
-  versionGroups: Array<VersionGroup>
   firstGenerationId?: number
   children: ReactNode
 }
@@ -27,7 +22,6 @@ type ContextType = {
   totalCount: number
   hasNextPage?: boolean
   loadMore: () => void
-  versionGroups: Array<VersionGroup>
 }
 
 export const MovesContext = createContext<ContextType>({
@@ -35,14 +29,12 @@ export const MovesContext = createContext<ContextType>({
   loading: false,
   totalCount: 0,
   loadMore: () => null,
-  versionGroups: [],
 })
 
 export const MovesProvider = ({
   initialSkills,
   totalCount,
   movesFilter,
-  versionGroups,
   firstGenerationId,
   children,
 }: MovesProviderProps) => {
@@ -79,9 +71,7 @@ export const MovesProvider = ({
   )
 
   const skillList = firstGenerationId
-    ? allSkills.filter(
-        (skill) => skill.firstGenerationId === firstGenerationId,
-      )
+    ? allSkills.filter((skill) => skill.firstGenerationId === firstGenerationId)
     : allSkills
 
   const value = {
@@ -90,7 +80,6 @@ export const MovesProvider = ({
     loading,
     totalCount: firstGenerationId ? skillList.length : totalCount,
     loadMore,
-    versionGroups,
   }
 
   return <MovesContext.Provider value={value}>{children}</MovesContext.Provider>

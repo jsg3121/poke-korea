@@ -1,35 +1,24 @@
 'use client'
 import { Fragment, useEffect, useState } from 'react'
-import { VersionGroup } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-type FilterOptionsTypes =
-  | 'types'
-  | 'damageType'
-  | 'versionGroupId'
-  | 'firstGenerationId'
+type FilterOptionsTypes = 'types' | 'damageType' | 'firstGenerationId'
 
 interface OptionsMobileProps {
   selectTypeFilter: string
   selectDamageTypes: string
-  selectVersionGroupId: string
   selectFirstGenerationId: string
-  versionGroups: Array<VersionGroup>
   onClickSelectTypeFilter: (types: string) => void
   onClickSelectDamageTypeFilter: (damageTypes: string) => void
-  onClickSelectVersionGroupId: (id: string) => void
   onClickSelectFirstGenerationId: (id: string) => void
 }
 
 const OptionsMobile = ({
   selectTypeFilter,
   selectDamageTypes,
-  selectVersionGroupId,
   selectFirstGenerationId,
-  versionGroups,
   onClickSelectDamageTypeFilter,
   onClickSelectTypeFilter,
-  onClickSelectVersionGroupId,
   onClickSelectFirstGenerationId,
 }: OptionsMobileProps) => {
   const [selectFilter, setSelectFilter] = useState<FilterOptionsTypes | null>(
@@ -41,9 +30,6 @@ const OptionsMobile = ({
   }
   const handleClickSelectDamageTypeFilter = (damageTypes: string) => () => {
     onClickSelectDamageTypeFilter(damageTypes)
-  }
-  const handleClickSelectVersionGroupId = (id: string) => () => {
-    onClickSelectVersionGroupId(id)
   }
   const handleClickSelectFirstGenerationId = (id: string) => () => {
     onClickSelectFirstGenerationId(id)
@@ -59,20 +45,10 @@ const OptionsMobile = ({
 
   // 모든 필터가 초기화되면 열린 옵션 패널 닫기
   useEffect(() => {
-    if (
-      !selectTypeFilter &&
-      !selectDamageTypes &&
-      !selectVersionGroupId &&
-      !selectFirstGenerationId
-    ) {
+    if (!selectTypeFilter && !selectDamageTypes && !selectFirstGenerationId) {
       setSelectFilter(null)
     }
-  }, [
-    selectTypeFilter,
-    selectDamageTypes,
-    selectVersionGroupId,
-    selectFirstGenerationId,
-  ])
+  }, [selectTypeFilter, selectDamageTypes, selectFirstGenerationId])
 
   return (
     <Fragment>
@@ -91,14 +67,6 @@ const OptionsMobile = ({
             onClick={handleClickOpenFilterOpion('damageType')}
           >
             기술 유형
-          </button>
-        </li>
-        <li className="h-6 flex flex-col items-start gap-3">
-          <button
-            className={`${selectFilter === 'versionGroupId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-14 text-left`}
-            onClick={handleClickOpenFilterOpion('versionGroupId')}
-          >
-            버전
           </button>
         </li>
         <li className="h-6 flex flex-col items-start gap-3">
@@ -145,25 +113,6 @@ const OptionsMobile = ({
           >
             변화
           </button>
-        </div>
-      )}
-      {selectFilter === 'versionGroupId' && (
-        <div className="w-full h-auto flex items-start content-start flex-wrap gap-2 mt-4">
-          {versionGroups.map((vg) => {
-            const vgId = vg.versionGroupId.toString()
-            return (
-              <button
-                key={`version-filter-key-${vg.versionGroupId}`}
-                className={`px-3 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectVersionGroupId === vgId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
-                onClick={handleClickSelectVersionGroupId(vgId)}
-              >
-                {vg.nameKo}
-              </button>
-            )
-          })}
-          <span className="w-full text-primary-3 text-sm my-2">
-            선택하지 않으면 최신 버전 기준 스펙으로 나와요!
-          </span>
         </div>
       )}
       {selectFilter === 'firstGenerationId' && (

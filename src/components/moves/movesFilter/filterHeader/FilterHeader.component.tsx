@@ -12,13 +12,11 @@ const FilterHeaderComponent = () => {
   const typeFilter = params.get('typeFilter')
   const damageTypeFilter = params.get('damageTypeFilter')
   const searchFilter = params.get('search')
-  const versionGroupId = params.get('versionGroupId')
   const firstGenerationId = params.get('firstGenerationId')
   const isActiveFilter = !!(
     typeFilter ||
     damageTypeFilter ||
     searchFilter ||
-    versionGroupId ||
     firstGenerationId
   )
 

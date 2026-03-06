@@ -6,16 +6,11 @@ import {
   MOVES_WEBPAGE_JSON_LD,
 } from '~/constants/movesJsonLd'
 import { MovesProvider } from '~/context/Moves.context'
-import {
-  GetPokemonSkillListDocument,
-  GetVersionGroupsDocument,
-} from '~/graphql/gqlGenerated'
+import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
 import {
   PokemonSkillEdge,
   PokemonSkillFilterInput,
   PokemonType,
-  type GetVersionGroupsQuery,
-  type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -29,7 +24,6 @@ interface MovesPageProps {
     typeFilter: PokemonType
     damageTypeFilter: string
     search: string
-    versionGroupId: string
     firstGenerationId: string
   }>
 }
@@ -49,48 +43,32 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-  const {
-    damageTypeFilter,
-    typeFilter,
-    search,
-    versionGroupId,
-    firstGenerationId,
-  } = await searchParams
+  const { damageTypeFilter, typeFilter, search, firstGenerationId } =
+    await searchParams
 
-  const parsedVersionGroupId = parseInt(versionGroupId, 10)
   const movesFilter: PokemonSkillFilterInput = {
     damageType: getDamageTypeEnglish(damageTypeFilter),
     type: typeFilter,
     name: search,
-    ...(parsedVersionGroupId && {
-      versionGroupId: parsedVersionGroupId,
-    }),
   }
 
-  const [{ data }, { data: versionGroupData }] = await Promise.all([
-    client.query({
-      query: GetPokemonSkillListDocument,
-      variables: {
-        input: {
-          filter: movesFilter,
-          pagination: {
-            first: 20,
-          },
+  const { data } = await client.query({
+    query: GetPokemonSkillListDocument,
+    variables: {
+      input: {
+        filter: movesFilter,
+        pagination: {
+          first: 20,
         },
       },
-    }),
-    client.query<GetVersionGroupsQuery, GetVersionGroupsQueryVariables>({
-      query: GetVersionGroupsDocument,
-      fetchPolicy: 'cache-first',
-    }),
-  ])
+    },
+  })
 
   const skillList =
     data?.getPokemonSkillList?.edges?.map(
       (edge: PokemonSkillEdge) => edge.node,
     ) || []
   const totalCount = data?.getPokemonSkillList?.totalCount || 0
-  const versionGroups = versionGroupData?.getVersionGroups ?? []
 
   return (
     <Fragment>
@@ -98,7 +76,6 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
         initialSkills={skillList}
         totalCount={totalCount}
         movesFilter={movesFilter}
-        versionGroups={versionGroups}
         firstGenerationId={parseInt(firstGenerationId, 10) || undefined}
       >
         {isMobile ? <MovesMobile /> : <MovesDesktop />}

@@ -1,30 +1,23 @@
 'use client'
 
 import { Fragment, useState } from 'react'
-import { VersionGroup } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 interface OptionsDesktopProps {
   selectTypeFilter: string
   selectDamageTypes: string
-  selectVersionGroupId: string
   selectFirstGenerationId: string
-  versionGroups: Array<VersionGroup>
   onClickSelectTypeFilter: (types: string) => void
   onClickSelectDamageTypeFilter: (damageTypes: string) => void
-  onClickSelectVersionGroupId: (id: string) => void
   onClickSelectFirstGenerationId: (id: string) => void
 }
 
 const OptionsDesktop = ({
   selectTypeFilter,
   selectDamageTypes,
-  selectVersionGroupId,
   selectFirstGenerationId,
-  versionGroups,
   onClickSelectDamageTypeFilter,
   onClickSelectTypeFilter,
-  onClickSelectVersionGroupId,
   onClickSelectFirstGenerationId,
 }: OptionsDesktopProps) => {
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
@@ -34,9 +27,6 @@ const OptionsDesktop = ({
   }
   const handleClickSelectDamageTypeFilter = (damageTypes: string) => () => {
     onClickSelectDamageTypeFilter(damageTypes)
-  }
-  const handleClickSelectVersionGroupId = (id: string) => () => {
-    onClickSelectVersionGroupId(id)
   }
   const handleClickSelectFirstGenerationId = (id: string) => () => {
     onClickSelectFirstGenerationId(id)
@@ -92,28 +82,6 @@ const OptionsDesktop = ({
             >
               변화
             </button>
-          </div>
-        </li>
-        <li className="flex flex-row items-center gap-3">
-          <p className="shrink-0 text-primary-4 font-semibold text-sm min-w-[4rem] pt-1">
-            버전
-          </p>
-          <div className="flex flex-row items-center flex-wrap gap-3">
-            {versionGroups.map((vg) => {
-              const vgId = vg.versionGroupId.toString()
-              return (
-                <button
-                  key={`version-filter-key-${vg.versionGroupId}`}
-                  className={`px-3 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectVersionGroupId === vgId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white hover:opacity-80 hover:grayscale-0'}`}
-                  onClick={handleClickSelectVersionGroupId(vgId)}
-                >
-                  {vg.nameKo}
-                </button>
-              )
-            })}
-            <span className="text-primary-3 text-sm self-end">
-              선택하지 않으면 최신 버전 기준 스펙으로 나와요!
-            </span>
           </div>
         </li>
         <li className="flex flex-row items-center gap-3">
