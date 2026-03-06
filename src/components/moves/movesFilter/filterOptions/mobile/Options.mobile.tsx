@@ -3,26 +3,34 @@ import { Fragment, useEffect, useState } from 'react'
 import { VersionGroup } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-type FilterOptionsTypes = 'types' | 'damageType' | 'versionGroupId'
+type FilterOptionsTypes =
+  | 'types'
+  | 'damageType'
+  | 'versionGroupId'
+  | 'firstGenerationId'
 
 interface OptionsMobileProps {
   selectTypeFilter: string
   selectDamageTypes: string
   selectVersionGroupId: string
+  selectFirstGenerationId: string
   versionGroups: Array<VersionGroup>
   onClickSelectTypeFilter: (types: string) => void
   onClickSelectDamageTypeFilter: (damageTypes: string) => void
   onClickSelectVersionGroupId: (id: string) => void
+  onClickSelectFirstGenerationId: (id: string) => void
 }
 
 const OptionsMobile = ({
   selectTypeFilter,
   selectDamageTypes,
   selectVersionGroupId,
+  selectFirstGenerationId,
   versionGroups,
   onClickSelectDamageTypeFilter,
   onClickSelectTypeFilter,
   onClickSelectVersionGroupId,
+  onClickSelectFirstGenerationId,
 }: OptionsMobileProps) => {
   const [selectFilter, setSelectFilter] = useState<FilterOptionsTypes | null>(
     null,
@@ -37,6 +45,9 @@ const OptionsMobile = ({
   const handleClickSelectVersionGroupId = (id: string) => () => {
     onClickSelectVersionGroupId(id)
   }
+  const handleClickSelectFirstGenerationId = (id: string) => () => {
+    onClickSelectFirstGenerationId(id)
+  }
 
   const handleClickOpenFilterOpion = (value: FilterOptionsTypes) => () => {
     if (selectFilter === value) {
@@ -48,10 +59,20 @@ const OptionsMobile = ({
 
   // 모든 필터가 초기화되면 열린 옵션 패널 닫기
   useEffect(() => {
-    if (!selectTypeFilter && !selectDamageTypes && !selectVersionGroupId) {
+    if (
+      !selectTypeFilter &&
+      !selectDamageTypes &&
+      !selectVersionGroupId &&
+      !selectFirstGenerationId
+    ) {
       setSelectFilter(null)
     }
-  }, [selectTypeFilter, selectDamageTypes, selectVersionGroupId])
+  }, [
+    selectTypeFilter,
+    selectDamageTypes,
+    selectVersionGroupId,
+    selectFirstGenerationId,
+  ])
 
   return (
     <Fragment>
@@ -74,10 +95,18 @@ const OptionsMobile = ({
         </li>
         <li className="h-6 flex flex-col items-start gap-3">
           <button
-            className={`${selectFilter === 'versionGroupId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-24 text-left`}
+            className={`${selectFilter === 'versionGroupId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-14 text-left`}
             onClick={handleClickOpenFilterOpion('versionGroupId')}
           >
-            버전{' '}
+            버전
+          </button>
+        </li>
+        <li className="h-6 flex flex-col items-start gap-3">
+          <button
+            className={`${selectFilter === 'firstGenerationId' ? 'text-primary-4 text-[1.075rem]' : 'text-primary-3 text-base'} leading-[1.5rem+2px] w-24 text-left`}
+            onClick={handleClickOpenFilterOpion('firstGenerationId')}
+          >
+            첫 등장 세대
           </button>
         </li>
       </ul>
@@ -135,6 +164,22 @@ const OptionsMobile = ({
           <span className="w-full text-primary-3 text-sm my-2">
             선택하지 않으면 최신 버전 기준 스펙으로 나와요!
           </span>
+        </div>
+      )}
+      {selectFilter === 'firstGenerationId' && (
+        <div className="w-full h-auto flex items-start content-start flex-wrap gap-2 mt-4">
+          {new Array(9).fill('').map((_, index) => {
+            const genId = (index + 1).toString()
+            return (
+              <button
+                key={`generation-filter-key-${index + 1}`}
+                className={`w-14 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectFirstGenerationId === genId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white'}`}
+                onClick={handleClickSelectFirstGenerationId(genId)}
+              >
+                {index + 1}세대
+              </button>
+            )
+          })}
         </div>
       )}
     </Fragment>

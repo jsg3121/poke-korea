@@ -30,6 +30,7 @@ interface MovesPageProps {
     damageTypeFilter: string
     search: string
     versionGroupId: string
+    firstGenerationId: string
   }>
 }
 
@@ -48,8 +49,13 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
   const headersList = headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
-  const { damageTypeFilter, typeFilter, search, versionGroupId } =
-    await searchParams
+  const {
+    damageTypeFilter,
+    typeFilter,
+    search,
+    versionGroupId,
+    firstGenerationId,
+  } = await searchParams
 
   const parsedVersionGroupId = parseInt(versionGroupId, 10)
   const movesFilter: PokemonSkillFilterInput = {
@@ -93,6 +99,7 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
         totalCount={totalCount}
         movesFilter={movesFilter}
         versionGroups={versionGroups}
+        firstGenerationId={parseInt(firstGenerationId, 10) || undefined}
       >
         {isMobile ? <MovesMobile /> : <MovesDesktop />}
       </MovesProvider>

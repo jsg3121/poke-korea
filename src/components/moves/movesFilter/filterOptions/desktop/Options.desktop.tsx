@@ -8,20 +8,24 @@ interface OptionsDesktopProps {
   selectTypeFilter: string
   selectDamageTypes: string
   selectVersionGroupId: string
+  selectFirstGenerationId: string
   versionGroups: Array<VersionGroup>
   onClickSelectTypeFilter: (types: string) => void
   onClickSelectDamageTypeFilter: (damageTypes: string) => void
   onClickSelectVersionGroupId: (id: string) => void
+  onClickSelectFirstGenerationId: (id: string) => void
 }
 
 const OptionsDesktop = ({
   selectTypeFilter,
   selectDamageTypes,
   selectVersionGroupId,
+  selectFirstGenerationId,
   versionGroups,
   onClickSelectDamageTypeFilter,
   onClickSelectTypeFilter,
   onClickSelectVersionGroupId,
+  onClickSelectFirstGenerationId,
 }: OptionsDesktopProps) => {
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
 
@@ -34,6 +38,9 @@ const OptionsDesktop = ({
   const handleClickSelectVersionGroupId = (id: string) => () => {
     onClickSelectVersionGroupId(id)
   }
+  const handleClickSelectFirstGenerationId = (id: string) => () => {
+    onClickSelectFirstGenerationId(id)
+  }
 
   const handleClickTriggerFilter = () => {
     setIsOpenFilter((prev) => !prev)
@@ -42,7 +49,7 @@ const OptionsDesktop = ({
   return (
     <Fragment>
       <ul
-        className={`w-full flex gap-3 flex-col justify-evenly will-change-[height] overflow-hidden transition-all duration-200 ${isOpenFilter ? 'h-48 mb-4' : 'h-0'}`}
+        className={`w-full flex gap-3 flex-col justify-evenly will-change-[height] overflow-hidden transition-all duration-200 ${isOpenFilter ? 'h-auto mb-4' : 'h-0'}`}
       >
         <li className="flex flex-row items-center gap-3">
           <p className="shrink-0 text-primary-4 font-semibold text-sm min-w-[4rem] pt-1">
@@ -107,6 +114,25 @@ const OptionsDesktop = ({
             <span className="text-primary-3 text-sm self-end">
               선택하지 않으면 최신 버전 기준 스펙으로 나와요!
             </span>
+          </div>
+        </li>
+        <li className="flex flex-row items-center gap-3">
+          <p className="shrink-0 text-primary-4 font-semibold text-sm min-w-[4rem] pt-1">
+            첫 등장 세대
+          </p>
+          <div className="flex flex-row items-center flex-wrap gap-3">
+            {new Array(9).fill('').map((_, index) => {
+              const genId = (index + 1).toString()
+              return (
+                <button
+                  key={`generation-filter-key-${index + 1}`}
+                  className={`w-14 h-7 text-sm text-aligned-md rounded-lg transition-all ${selectFirstGenerationId === genId ? 'opacity-100 scale-105 bg-primary-4 text-primary-1' : 'opacity-60 grayscale bg-primary-3 text-white hover:opacity-80 hover:grayscale-0'}`}
+                  onClick={handleClickSelectFirstGenerationId(genId)}
+                >
+                  {index + 1}세대
+                </button>
+              )
+            })}
           </div>
         </li>
       </ul>

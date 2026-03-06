@@ -93,6 +93,23 @@ node {
 | Sitemap | 세대별 URL (기술 x 9세대) 제거, 기본 상세 URL만 유지 |
 | 리다이렉트 | `/moves/:id/generation/:gen` → `/moves/:id` 301 리다이렉트 추가 |
 
+### 6. 첫 등장 세대 필터 추가
+
+기술 리스트에서 `firstGenerationId` 필드를 활용한 **첫 등장 세대** 클라이언트 사이드 필터를 추가했습니다.
+
+- 백엔드 `PokemonSkillFilterInput`에 `generationId` 서버 필터가 없으므로 클라이언트에서 필터링
+- `MovesProvider`에 `firstGenerationId` prop 전달 → `skillList`를 `skill.firstGenerationId`로 필터
+- 필터 선택 시 `totalCount`도 필터된 목록 기준으로 표시
+- 데스크톱/모바일 모두 1~9세대 버튼 UI 제공
+
+### 7. QA 중 발견된 버그 수정
+
+| 이슈 | 원인 | 해결 |
+| ------ | ------ | ------ |
+| 버전 필터 선택 시 초기화 버튼 미활성화 | `FilterHeader`에서 `generationId`로 체크 | `versionGroupId`로 변경 |
+| 기술 상세에서 일부 버전만 표시 | `getVersionGroups`에 스킬 버전만 필터링 | 빈 필터 `{}`로 전체 버전 조회 |
+| 첫 등장 세대 필터 선택 시 초기화 버튼 미활성화 | `isActiveFilter`에 `firstGenerationId` 미포함 | 조건에 추가 |
+
 ## 📊 최적화 결과
 
 | 항목 | 변경 전 | 변경 후 |
@@ -128,12 +145,13 @@ node {
 - `src/container/desktop/moves/moves.detail/MoveDetail.container.tsx`
 - `src/container/mobile/moves/moves.detail/MoveDetail.container.tsx`
 
-**컴포넌트** (4개):
+**컴포넌트** (5개):
 
 - `src/components/moves/MoveDetail.component.tsx`
 - `src/components/moves/movesFilter/filterOptions/FilterOptions.component.tsx`
 - `src/components/moves/movesFilter/filterOptions/desktop/Options.desktop.tsx`
 - `src/components/moves/movesFilter/filterOptions/mobile/Options.mobile.tsx`
+- `src/components/moves/movesFilter/filterHeader/FilterHeader.component.tsx`
 
 **훅 & 컨텍스트** (2개):
 
@@ -151,7 +169,7 @@ node {
 
 - `src/app/moves/[id]/generation/[generationId]/page.tsx` (폴더 전체)
 
-### 총 변경 파일: 23개 (신규 1개, 삭제 1개, 수정 21개)
+### 총 변경 파일: 24개 (신규 1개, 삭제 1개, 수정 22개)
 
 ## 📌 참고 사항
 
