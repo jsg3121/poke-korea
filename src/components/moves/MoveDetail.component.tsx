@@ -28,12 +28,12 @@ const MoveDetailComponent = ({
 
   return (
     <section className="w-full mx-auto min-h-32 pb-4 relative px-4 md:px-0 md:mb-4">
-      <header className="flex items-end gap-4 mb-4">
+      <header className="flex items-end gap-4 mb-4 mobile:flex-col mobile:items-start">
         <h1 className="text-[2.5rem] text-primary-4 font-bold">
           {skillData.nameKo}
         </h1>
         {versionName && (
-          <span className="px-3 py-1 rounded-lg text-primary-3 text-lg font-medium">
+          <span className="px-3 py-1 rounded-lg text-primary-3 text-lg font-medium mobile:p-0">
             {versionName}
           </span>
         )}
@@ -87,7 +87,7 @@ const MoveDetailComponent = ({
           {getDamageTypeKorean(displayData.damageType)}
         </dd>
       </dl>
-      <dl className="flex items-center flex-wrap gap-2 mb-8 desktop:hidden">
+      <dl className="flex items-center flex-wrap gap-2 mb-4 desktop:hidden">
         <dt className="text-xl font-semibold text-primary-3">위력:</dt>
         <dd className="text-xl text-primary-4 font-bold">
           {displayData.power}
@@ -100,7 +100,7 @@ const MoveDetailComponent = ({
         <dd className="text-xl text-primary-4 font-bold">{displayData.pp}</dd>
       </dl>
       {displayData.description && (
-        <p className="min-h-8 text-[1.725rem] text-aligned-base text-primary-4">
+        <p className="min-h-8 text-[1.725rem] text-aligned-base text-primary-4 mobile:text-[1.25rem]">
           {displayData.description}
         </p>
       )}

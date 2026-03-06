@@ -1,7 +1,7 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import MoveDetailComponent from '~/components/moves/MoveDetail.component'
 import PokemonBySkillCard from '~/components/moves/PokemonBySkillCard.component'
 import {
@@ -39,6 +39,8 @@ const MoveDetailContainer = ({
   versionGroups,
 }: MoveDetailContainerProps) => {
   const { versionGroupId: versionGroupIdParam } = useParams<ParamsType>()
+  const versionListRef = useRef<HTMLElement>(null)
+
   const currentVersionGroupId = selectedVersionGroupId
     ? selectedVersionGroupId
     : versionGroupIdParam
@@ -71,6 +73,27 @@ const MoveDetailContainer = ({
       )
     : undefined
 
+  const activeGroupId = () => {
+    if (currentVersionGroupId) {
+      return currentVersionGroupId
+    } else {
+      return 999 // 최신 버튼 활성화인 상태
+    }
+  }
+
+  useEffect(() => {
+    if (versionListRef.current) {
+      const activeLink = versionListRef.current.querySelector(
+        `a[data-item='${activeGroupId()}']`,
+      )
+      activeLink?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
+      })
+    }
+  }, [])
+
   return (
     <section className="w-full max-w-[1280px] h-full mx-auto pt-4 pb-8">
       <MoveDetailComponent
@@ -86,12 +109,15 @@ const MoveDetailContainer = ({
         버전별 정보
       </h2>
       <nav
-        className="w-full min-h-18 flex flex-wrap items-center gap-3 px-4 mt-4"
+        ref={versionListRef}
+        data-item={999}
+        className="w-[clac(100%-2rem)] h-16 flex-items-gap-2 mx-4 overflow-x-auto mt-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
         aria-labelledby="version-info"
       >
         <Link
           href={`/moves/${skillId}`}
-          className={`h-8 px-4 block rounded-md text-lg text-aligned-base text-center ${!currentVersionGroupId ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+          className={`w-fit h-8 shrink-0 px-4 block rounded-md text-lg text-aligned-base text-center ${!currentVersionGroupId ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+          scroll={false}
         >
           최신
         </Link>
@@ -99,8 +125,10 @@ const MoveDetailContainer = ({
           versionGroups.map((vg) => (
             <Link
               key={`version-group-${vg.versionGroupId}`}
+              data-item={vg.versionGroupId}
               href={`/moves/${skillId}/version/${vg.versionGroupId}`}
-              className={`h-8 px-4 block rounded-md text-lg text-aligned-base text-center ${currentVersionGroupId === vg.versionGroupId ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+              className={`w-fit h-8 shrink-0 px-4 block rounded-md text-lg text-aligned-base text-center ${currentVersionGroupId === vg.versionGroupId ? 'bg-primary-2 text-primary-4' : 'bg-primary-4 text-primary-1'}`}
+              scroll={false}
             >
               {vg.nameKo}
             </Link>
