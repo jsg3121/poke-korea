@@ -1,104 +1,102 @@
-# Poke Korea
+<div align="center">
 
-한국어 포켓몬 정보 웹사이트
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="public/assets/image/logo.svg">
+  <source media="(prefers-color-scheme: light)" srcset="public/assets/image/logo-dark.svg">
+  <img alt="Poke Korea" src="public/assets/image/logo-dark.svg" width="300">
+</picture>
 
-## 📅 최근 업데이트 (2025.07.23)
+### 한국어 포켓몬 정보 웹사이트
 
-### ✨ 현재 기술 스택
+[![Next.js](https://img.shields.io/badge/Next.js-14-000000?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![GraphQL](https://img.shields.io/badge/GraphQL-E10098?logo=graphql&logoColor=white)](https://graphql.org/)
 
-프로젝트는 Next.js App Router와 Tailwind CSS를 사용하여 최신 웹 기술로 구성되어 있습니다.
+[poke-korea.com](https://poke-korea.com)
 
-#### 현재 사용 중인 기술
+</div>
 
-**Core Framework**
+---
 
-- Next.js: `14.2.15` (App Router 사용)
-- React: `18.3.1`
-- React-DOM: `18.3.1`
-- TypeScript: `5.7.2`
+## 소개
 
-**GraphQL & Data Fetching**
+Poke Korea는 한국 트레이너를 위한 포켓몬 정보 웹사이트입니다. 포켓몬 도감, 기술, 특성, 타입 상성 등 게임 플레이에 필요한 데이터를 한국어로 제공합니다.
 
-- Apollo Client: `3.11.8`
-- GraphQL: `16.9.0`
-- GraphQL Codegen으로 타입 자동 생성
+## 주요 기능
 
-**Styling**
+- **포켓몬 도감** - 전 세대 포켓몬 정보 (폼체인지, 메가진화, 리전폼, 거다이맥스 포함)
+- **기술 도감** - 세대별 기술 데이터 및 습득 포켓몬 목록
+- **특성 도감** - 특성 효과 및 보유 포켓몬 목록
+- **타입 상성 계산기** - 공격/방어 타입 상성 계산
+- **포켓몬 퀴즈** - 실루엣, 특성, 타입, 타입 상성 퀴즈
 
-- Tailwind CSS: `3.4.17` 
-- PostCSS: `8.5.4`
-- Autoprefixer: `10.4.21`
+## 기술 스택
 
-**Development Tools**
+| 영역        | 기술                      |
+| ----------- | ------------------------- |
+| 프레임워크  | Next.js (App Router)      |
+| 언어        | TypeScript (strict)       |
+| 스타일링    | Tailwind CSS              |
+| 데이터 페칭 | Apollo Client + GraphQL   |
+| 폼 관리     | React Hook Form           |
+| 차트        | Chart.js                  |
+| 상태 관리   | React Context API + Immer |
+| 코드 생성   | GraphQL Code Generator    |
 
-- ESLint: `8.57.1`
-- TypeScript ESLint: `7.18.0`
-- Prettier integration
+## 주요 특징
 
-#### 주요 특징
+- Server Components 기반 SSR/SSG 최적화
+- 모바일/데스크톱 이중 레이아웃 구조 (User Agent 기반 서버 사이드 감지)
+- 5,000개 이상 URL 동적 사이트맵 및 SEO 메타데이터
+- JSON-LD 구조화 데이터 적용
+- 무한 스크롤 기반 대용량 리스트 처리
 
-- ✅ App Router로 Server Components 최적화 적용
-- ✅ Tailwind CSS로 유틸리티 기반 스타일링
-- ✅ 모바일/데스크톱 반응형 이중 구조 유지
-- ✅ GraphQL 코드 생성으로 타입 안전성 보장
-- ✅ 가상 스크롤로 대용량 리스트 최적화
+## 시작하기
 
-## 🛠️ 개발 환경
+### 요구사항
 
-### 시작하기
+- Node.js 18+
+- GraphQL API 서버 (`localhost:4000/graphql`)
+
+### 설치 및 실행
 
 ```bash
+# 의존성 설치
+npm install
+
 # 개발 서버 실행
 npm run dev
 
 # 프로덕션 빌드
 npm run build
 
-# 프로덕션 서버 실행
-npm run start
-
-# ESLint 실행
-npm run lint
-
 # GraphQL 타입 생성
 npm run codegen
 ```
 
-### 환경 요구사항
-
-- Node.js 18+
-- GraphQL 서버 (localhost:4000/graphql)
-
-### 기술 스택
-
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS
-- **Data Fetching**: Apollo Client + GraphQL
-- **Language**: TypeScript
-- **UI**: 모바일/데스크톱 반응형 디자인
-
-## 📁 프로젝트 구조
+## 프로젝트 구조
 
 ```
 src/
 ├── app/               # Next.js App Router 페이지
-│   ├── layout.tsx    # 루트 레이아웃
-│   ├── page.tsx      # 메인 페이지
-│   ├── detail/       # 포켓몬 상세 페이지
-│   └── type-effectiveness/  # 타입 상성 계산기
-├── container/         # 디바이스별 컨테이너 컴포넌트
-│   ├── desktop/      # 데스크톱 전용 컴포넌트
-│   └── mobile/       # 모바일 전용 컴포넌트
-├── views/            # 페이지 레벨 뷰 컴포넌트
-├── components/       # 공통 UI 컴포넌트
-├── context/          # React Context 상태 관리
-├── hook/             # 커스텀 React 훅
-├── gql/              # GraphQL 쿼리 및 프래그먼트
-└── graphql/          # 생성된 GraphQL 타입
+├── views/             # 디바이스별 페이지 뷰 (desktop/mobile)
+├── container/         # 비즈니스 로직 컨테이너 (desktop/mobile)
+├── components/        # 공용 UI 컴포넌트
+├── context/           # React Context 상태 관리
+├── hook/              # 커스텀 React 훅
+├── gql/               # GraphQL 쿼리/프래그먼트 원본
+├── graphql/           # 자동 생성된 GraphQL 타입 (수정 금지)
+├── module/            # 유틸리티 모듈
+├── constants/         # 상수 정의
+├── types/             # TypeScript 타입 정의
+└── styles/            # 전역 스타일
 ```
 
-## 🔗 관련 링크
+## Changelog
 
-- [Next.js 15 문서](https://nextjs.org/docs)
-- [Apollo Client 문서](https://www.apollographql.com/docs/react/)
-- [TypeScript 문서](https://www.typescriptlang.org/docs/)
+개발 변경사항은 [Changelog 블로그](https://poke-korea.com/changelog)에서 확인할 수 있습니다.
+
+## 라이선스
+
+이 프로젝트는 개인 프로젝트로, 포켓몬 관련 모든 이미지 및 데이터의 저작권은 Nintendo / Creatures Inc. / GAME FREAK inc.에 있습니다.
