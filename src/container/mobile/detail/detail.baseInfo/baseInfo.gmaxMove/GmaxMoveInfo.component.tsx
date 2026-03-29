@@ -51,8 +51,10 @@ const GmaxMoveInfoComponent = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="h-8 [&>td]:align-middle text-base">
-              <td className="text-center font-semibold">{gmaxMove.nameKo}</td>
+            <tr className="h-10 [&>td]:align-middle text-base border-b border-solid border-primary-3">
+              <td className="text-center font-semibold text-lg">
+                {gmaxMove.nameKo}
+              </td>
               <td className="text-center justify-items-center">
                 {gmaxMove.type && <TagComponent type={gmaxMove.type} />}
               </td>
@@ -72,12 +74,12 @@ const GmaxMoveInfoComponent = () => {
         </table>
         {gmaxMove.effect && (
           <div className="mt-2 p-2 bg-primary-5 rounded-lg">
-            <h3 className="text-[1.25rem] font-bold mb-2">기술 효과</h3>
+            <h3 className="text-base font-bold mb-2">기술 효과</h3>
             <p className="text-base leading-relaxed">{gmaxMove.effect}</p>
           </div>
         )}
         <div className="mt-2 p-2 bg-amber-50 rounded-lg border border-amber-200">
-          <h3 className="text-[1.25rem] font-bold mb-2 text-amber-800">
+          <h3 className="text-base font-bold mb-2 text-amber-800">
             다이맥스 기술 정보
           </h3>
           <p className="text-base leading-relaxed text-amber-700">

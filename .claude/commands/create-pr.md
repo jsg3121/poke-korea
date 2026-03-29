@@ -24,7 +24,27 @@ Pull Request를 생성해줘.
 
 - `.github/PULL_REQUEST_TEMPLATE.md` 템플릿 형식을 반드시 따른다
 - 커밋 히스토리와 변경된 파일을 분석하여 작업 유형 체크박스를 선택한다
+- 템플릿 내 작업 유형의 경우 실제 작업사항에 포함되지 않은 미체크 항목도 같이 포함하여 작성한다.
 - 작업 사항은 변경 내용을 카테고리별로 그룹핑하여 상세히 작성한다
+
+## Label 규칙
+
+- PR 본문의 작업 유형 체크박스에서 체크된 항목에 대응하는 GitHub Label을 `--label` 옵션으로 지정한다
+- 작업 유형과 라벨의 매핑:
+
+| 작업 유형                  | Label             |
+| -------------------------- | ----------------- |
+| ✨ 새 기능 (New Feature)   | `feature`         |
+| 🐛 버그 수정 (Bug Fix)     | `bug`             |
+| 🚨 핫픽스 (Hotfix)         | `hotfix`          |
+| 🔧 리팩토링 (Refactoring)  | `refactor`        |
+| 🚀 성능 개선 (Performance) | `performance`     |
+| 🔍 SEO 개선 (SEO)          | `seo`             |
+| 🎨 디자인 변경 (Design)    | `design`          |
+| 📝 문서 (Documentation)    | `documentation`   |
+| 🔨 Breaking Changes        | `breaking-change` |
+
+- 여러 유형에 해당하면 `--label`을 복수로 지정한다
 
 ## 주의사항
 
