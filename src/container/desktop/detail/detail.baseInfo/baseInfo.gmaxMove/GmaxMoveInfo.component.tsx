@@ -55,7 +55,9 @@ const GmaxMoveInfoComponent = () => {
           </thead>
           <tbody>
             <tr className="h-12 [&>td]:align-middle text-base">
-              <td className="text-center font-semibold">{gmaxMove.nameKo}</td>
+              <td className="text-center font-semibold text-xl">
+                {gmaxMove.nameKo}
+              </td>
               <td className="text-center justify-items-center">
                 {gmaxMove.type && <TagComponent type={gmaxMove.type} />}
               </td>
