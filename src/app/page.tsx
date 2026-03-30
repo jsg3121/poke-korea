@@ -17,7 +17,7 @@ import { detectUserAgent } from '~/module/device.module'
 import HomeDesktop from '~/views/desktop/home/Home.desktop'
 import HomeMobile from '~/views/mobile/home/Home.mobile'
 
-export const revalidate = 3600 // 1시간
+export const dynamic = 'force-dynamic'
 
 export const metadata = HOME_META
 

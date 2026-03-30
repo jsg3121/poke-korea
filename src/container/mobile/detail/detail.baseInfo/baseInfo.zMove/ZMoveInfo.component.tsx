@@ -79,7 +79,9 @@ const ZMoveInfoComponent = () => {
                 key={zMove.id}
                 className="h-10 [&>td]:align-middle text-base border-b border-solid border-primary-3 last:border-b-0"
               >
-                <td className="text-center font-semibold text-lg">
+                <td
+                  className={`text-center font-semibold ${zMove.zSkill.nameKo.length > 6 ? 'text-base' : 'text-lg'}`}
+                >
                   {zMove.zSkill.nameKo}
                 </td>
                 <td className="text-center justify-items-center">
