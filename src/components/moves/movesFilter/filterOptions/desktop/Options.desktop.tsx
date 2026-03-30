@@ -39,7 +39,7 @@ const OptionsDesktop = ({
   return (
     <Fragment>
       <ul
-        className={`w-full flex gap-3 flex-col justify-evenly will-change-[height] overflow-hidden transition-all duration-200 ${isOpenFilter ? 'h-auto mb-4' : 'h-0'}`}
+        className={`w-full flex gap-3 flex-col justify-evenly will-change-[height] overflow-hidden transition-all duration-200 ${isOpenFilter ? 'h-28 mb-4' : 'h-0'}`}
       >
         <li className="flex flex-row items-center gap-3">
           <p className="shrink-0 text-primary-4 font-semibold text-sm min-w-[4rem] pt-1">
