@@ -37,6 +37,11 @@ const MoveDetailComponent = ({
             {versionName}
           </span>
         )}
+        {skillData.zMoves && skillData.isAvailable && (
+          <span className="h-6 px-3 py-1 text-sm leading-[calc(1rem+2px)] bg-sky-400 text-white rounded-lg block mb-2">
+            Z기술
+          </span>
+        )}
         {!skillData.isAvailable && (
           <span className="h-6 px-3 py-1 text-sm leading-[calc(1rem+2px)] bg-red-300 text-primary-1 rounded-lg block mb-2">
             삭제된 기술

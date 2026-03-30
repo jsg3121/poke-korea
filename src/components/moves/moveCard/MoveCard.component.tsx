@@ -31,6 +31,11 @@ const MoveCard = ({ moveData, moveLevel, generationId }: MoveCardProps) => {
           )}
           <strong className="w-full h-8 text-center block text-[1.2rem] leading-[2rem] font-[600]">
             {moveData.nameKo}
+            {moveData.zMoves && (
+              <span className="ml-1 h-6 px-2 text-xs leading-[calc(1.5rem+2px)] rounded-full bg-sky-400 text-white inline-block align-middle">
+                Z기술
+              </span>
+            )}
           </strong>
           <span
             className={`absolute top-2 right-2 ${
