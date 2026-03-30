@@ -22,6 +22,11 @@ const MoveCard = ({ moveData }: MoveCardProps) => {
           <h3 className="w-full h-6 text-lg text-aligned-sm font-bold text-gray-900 flex gap-1">
             <span className="h-4 text-base text-primary-2">{moveData.id}.</span>
             {moveData.nameKo}
+            {moveData.zMoves && (
+              <span className="h-6 px-2 text-xs text-aligned-sm rounded-full bg-sky-400 text-white">
+                Z기술
+              </span>
+            )}
             {moveData.type && (
               <span
                 className={`h-6 px-3 text-sm text-aligned-sm rounded-full chip-type-${moveData.type.toLowerCase()}`}

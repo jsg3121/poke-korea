@@ -134,6 +134,23 @@ query PokemonDetail($pokemonId: ID!) {
         }
       }
     }
+    exclusiveZMoves {
+      id
+      zSkill {
+        skillId
+        nameKo
+        type
+        damageType
+        power
+      }
+      baseSkill {
+        skillId
+        nameKo
+        type
+        damageType
+        power
+      }
+    }
   }
 }
 
@@ -208,6 +225,23 @@ query GetPokemonRegionForm($pokemonId: Int) {
         }
       }
     }
+    exclusiveZMoves {
+      id
+      zSkill {
+        skillId
+        nameKo
+        type
+        damageType
+        power
+      }
+      baseSkill {
+        skillId
+        nameKo
+        type
+        damageType
+        power
+      }
+    }
   }
 }
 
@@ -262,6 +296,23 @@ query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
           signatureMoves
           zMoves
         }
+      }
+    }
+    exclusiveZMoves {
+      id
+      zSkill {
+        skillId
+        nameKo
+        type
+        damageType
+        power
+      }
+      baseSkill {
+        skillId
+        nameKo
+        type
+        damageType
+        power
       }
     }
   }
