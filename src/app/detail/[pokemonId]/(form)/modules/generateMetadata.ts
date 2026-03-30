@@ -16,6 +16,31 @@ import {
 import { getRobotsConfig } from '~/module/metadata.module'
 import { TActiveType } from '~/types/detailContext.type'
 
+const OG_IMAGE_BASE = 'https://image.poke-korea.com/og-images'
+
+function getOgImageUrls(
+  pokemonId: number,
+  activeType: TActiveType,
+  activeIndex: number,
+) {
+  const folder =
+    activeType === 'normal'
+      ? activeIndex > 0
+        ? 'form'
+        : 'default'
+      : activeType
+
+  const fileId =
+    folder === 'default' || folder === 'gigantamax'
+      ? `${pokemonId}`
+      : `${pokemonId}-${activeIndex}`
+
+  return {
+    large: `${OG_IMAGE_BASE}/${folder}/${fileId}-large.png`,
+    medium: `${OG_IMAGE_BASE}/${folder}/${fileId}-medium.png`,
+  }
+}
+
 interface GenerateDetailMetadataParams {
   pokemonDetail: PokemonDetail
   activeType: TActiveType
@@ -79,6 +104,8 @@ export const generateDetailMetadata = ({
     types,
   })
 
+  const ogImages = getOgImageUrls(pokemonDetail.number, activeType, activeIndex)
+
   return {
     title,
     description,
@@ -90,6 +117,20 @@ export const generateDetailMetadata = ({
       description,
       locale: 'ko_KR',
       siteName: '포케 코리아',
+      images: [
+        {
+          url: ogImages.large,
+          width: 1200,
+          height: 630,
+          alt: `No. ${pokemonDetail.number} ${pokemonNameByType}`,
+        },
+        {
+          url: ogImages.medium,
+          width: 800,
+          height: 800,
+          alt: `No. ${pokemonDetail.number} ${pokemonNameByType}`,
+        },
+      ],
     },
     alternates: {
       canonical: canonicalUrl,
@@ -98,6 +139,7 @@ export const generateDetailMetadata = ({
       card: 'summary_large_image',
       title: `No. ${pokemonDetail.number} ${pokemonNameByType} | 포케코리아`,
       description,
+      images: [ogImages.large],
     },
   }
 }
