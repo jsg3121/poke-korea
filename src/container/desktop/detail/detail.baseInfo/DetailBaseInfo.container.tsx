@@ -9,6 +9,7 @@ import DescriptionComponent from './baseInfo.description/Description.component'
 import GmaxMoveInfoComponent from './baseInfo.gmaxMove/GmaxMoveInfo.component'
 import LevelLearnableSkillComponent from './baseInfo.learnableSkill/LevelLearnableSkill.component'
 import MachineLearnableSkillComponent from './baseInfo.learnableSkill/MachineLearnableSkill.component'
+import ZMoveInfoComponent from './baseInfo.zMove/ZMoveInfo.component'
 import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
 
 const DetailBaseInfoContainer = () => {
@@ -30,6 +31,7 @@ const DetailBaseInfoContainer = () => {
       <DesktopDetailCardBanner />
       {!isGigantamaxMode && (
         <>
+          <ZMoveInfoComponent />
           <LevelLearnableSkillComponent />
           <MachineLearnableSkillComponent />
         </>
