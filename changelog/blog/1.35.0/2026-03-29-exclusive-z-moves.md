@@ -65,7 +65,7 @@ exclusiveZMoves {
 - **기술 상세 페이지** (`MoveDetail.component.tsx`): 기술명 옆에 "Z기술" 뱃지
 - **기술 도감 리스트 카드** (`MoveListCard.component.tsx`): 기술명 옆에 "Z기술" 뱃지
 - **기술 카드** (`MoveCard.component.tsx`): 기술명 옆에 "Z기술" 뱃지
-- 뱃지 스타일: `bg-yellow-400` 배경의 라운드 뱃지
+- 뱃지 스타일: `bg-sky-400` 배경의 라운드 뱃지
 
 ## 기술적 세부사항
 
