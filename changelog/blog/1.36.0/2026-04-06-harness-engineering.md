@@ -43,17 +43,23 @@ tags: [feature, docs]
 | `rendering.md` | Next.js 설정, GraphQL 연동, 페이지 라우트 맵 |
 | `changelog.md` | Docusaurus 기반 changelog 관리 규칙 및 템플릿 |
 
-### 변경 3: 에이전트 3개 도입
+### 변경 3: 에이전트 4개 도입
 
 | 에이전트 | 역할 |
 |----------|------|
 | `seo-specialist` | SEO 전문가 — 메타태그, JSON-LD, OG 이미지, sitemap |
 | `ui-publisher` | UI 구현 전문가 — 컴포넌트 구현, desktop/mobile 분리 패턴 |
 | `graphql-specialist` | GraphQL 전문가 — 쿼리/스키마 변경, codegen 관리 |
+| `tool-designer` | 도구/계산기 설계 전문가 — 게임 메커니즘 기반 로직, 계산 모듈 설계 |
 
-### 변경 4: 스킬 9개 구성
+에이전트 협업 패턴에 도구/계산기 체인도 추가되었습니다:
 
-기존 `commands/` 4개를 `skills/`로 이전하고, 신규 5개를 추가했습니다.
+- **새 도구/계산기 추가**: tool-designer → graphql-specialist → ui-publisher → seo-specialist
+- **기존 도구 개선**: tool-designer → ui-publisher
+
+### 변경 4: 스킬 12개 구성
+
+기존 `commands/` 4개를 `skills/`로 이전하고, 신규 8개를 추가했습니다.
 
 | 스킬 | 유형 | 설명 |
 |------|------|------|
@@ -65,6 +71,9 @@ tags: [feature, docs]
 | `/seo-audit` | 신규 | SEO 메타태그/JSON-LD/sitemap 감사 |
 | `/code-review` | 신규 | 서브에이전트 기반 코드 리뷰 |
 | `/component-builder` | 신규 | desktop/mobile 컴포넌트 스캐폴딩 |
+| `/feature-plan` | 신규 | 신규 기능 기획서 작성 (요구사항/설계 정리) |
+| `/page-scaffold` | 신규 | 새 페이지 풀 세트 스캐폴딩 (page + views + container + context + SEO) |
+| `/competitive-audit` | 신규 | 경쟁 사이트 특정 기능 비교 분석 |
 | `/research` | 신규 | 외부 정보 조사 (자동 트리거) |
 
 ### 변경 5: Hooks 자동화 4개
@@ -91,8 +100,8 @@ tags: [feature, docs]
 |------|---------|---------|------|
 | CLAUDE.md 라인 수 | 585줄 | ~130줄 | 약 78% 감소 |
 | 하네스 파일 수 | 5개 | 30+개 | 체계적 분리 |
-| 커스텀 명령어 | 4개 (commands) | 9개 (skills) | 5개 신규 추가 |
-| 에이전트 | 0개 | 3개 | 도메인 전문가 도입 |
+| 커스텀 명령어 | 4개 (commands) | 12개 (skills) | 8개 신규 추가 |
+| 에이전트 | 0개 | 4개 | 도메인 전문가 도입 |
 | Hooks | 0개 | 4개 | 자동화 체계 구축 |
 | ADR | 없음 | 템플릿 + 1건 | 의사결정 추적 시작 |
 
@@ -136,12 +145,16 @@ tags: [feature, docs]
 │   ├── seo-audit.md
 │   ├── code-review.md
 │   ├── component-builder.md
+│   ├── feature-plan.md
+│   ├── page-scaffold.md
+│   ├── competitive-audit.md
 │   └── research.md
 └── agents/
     ├── index.md
     ├── seo-specialist.md
     ├── ui-publisher.md
-    └── graphql-specialist.md
+    ├── graphql-specialist.md
+    └── tool-designer.md
 ```
 
 ### 삭제된 파일
