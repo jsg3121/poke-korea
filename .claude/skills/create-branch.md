@@ -8,7 +8,7 @@
 ## 실행 절차
 
 1. 현재 브랜치 확인 (`git branch --show-current`)
-2. CLUADE.md 파일내 브랜치 버전 관리 규칙을 참고한다.
+2. `.claude/conventions/guides/workflow.md` 파일내 브랜치 버전 관리 규칙을 참고한다.
 3. 최근 github의 브랜치 히스토리를 파악한다.
 4. changelog의 버전별 폴더를 확인하여 마지막 생성 버전을 확인한다.
 5. 사용자에게 어떤 기능을 위한 작업인지 확인을 받는다.
