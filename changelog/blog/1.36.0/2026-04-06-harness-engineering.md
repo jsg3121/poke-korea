@@ -98,12 +98,14 @@ tags: [feature, docs]
 
 | 항목 | 변경 전 | 변경 후 | 비고 |
 |------|---------|---------|------|
-| CLAUDE.md 라인 수 | 585줄 | ~130줄 | 약 78% 감소 |
-| 하네스 파일 수 | 5개 | 30+개 | 체계적 분리 |
-| 커스텀 명령어 | 4개 (commands) | 12개 (skills) | 8개 신규 추가 |
-| 에이전트 | 0개 | 4개 | 도메인 전문가 도입 |
+| CLAUDE.md 라인 수 | 585줄 | ~155줄 | 약 73% 감소 |
+| 하네스 파일 수 | 5개 | 50+개 | 체계적 분리 |
+| 커스텀 스킬 | 4개 (commands) | 14개 (skills, 폴더 구조) | 10개 신규 추가 |
+| 에이전트 | 0개 | 8개 | 개발 4 + 성장 분석 4 |
 | Hooks | 0개 | 4개 | 자동화 체계 구축 |
 | ADR | 없음 | 템플릿 + 1건 | 의사결정 추적 시작 |
+| 스펙 문서 | 없음 | 4개 | 서비스/지표/타겟/경쟁사 |
+| 분석 출력 폴더 | 없음 | 3개 | weekly/experiments/insights |
 
 ## 🔧 기술적 세부사항
 
@@ -167,9 +169,83 @@ tags: [feature, docs]
 └── reply-review.md
 ```
 
+### 변경 8: 스킬 구조를 폴더/SKILL.md 방식으로 전환
+
+기존 단일 `.md` 파일 스킬을 `폴더/SKILL.md` + `references/` 구조로 전환했습니다.
+
+**변경 전**:
+
+```
+skills/
+├── create-branch.md
+├── create-pr.md
+└── ...
+```
+
+**변경 후**:
+
+```
+skills/
+├── create-branch/
+│   └── SKILL.md
+├── competitive-audit/
+│   ├── SKILL.md
+│   └── references/
+│       └── competitor-sites.md
+└── ...
+```
+
+- 기존 13개 스킬 전부 폴더 구조로 마이그레이션
+- `references/` 폴더를 통해 스킬별 참조 문서 내장 가능
+
+### 변경 9: 성장 분석 에이전트 4개 추가
+
+| 에이전트 | 역할 |
+|----------|------|
+| `growth-analyst` | 유입/퍼널/리텐션 데이터 분석 |
+| `competitive-watcher` | 경쟁사 동향, 시장점유율 모니터링 |
+| `user-insight-analyst` | 사용자 행동 패턴, VOC, 이탈 원인 분석 |
+| `growth-strategist` | 세 에이전트 결과 종합 → 실행 액션 도출 |
+
+성장 분석 워크플로우:
+
+```
+growth-analyst + competitive-watcher + user-insight-analyst (병렬)
+    → growth-strategist (취합 → 액션 도출)
+```
+
+### 변경 10: 성장 분석 스킬 2개 추가
+
+| 스킬 | 유형 | 설명 |
+|------|------|------|
+| `/weekly-growth-review` | 자동 트리거 | 주간 성장 리뷰 (4개 에이전트 병렬 실행 후 종합) |
+| `/growth-sprint` | 자동 트리거 | 성장 실험 설계 (ICE 점수 기반 우선순위) |
+
+각 스킬에 `references/` 포함:
+
+- `weekly-growth-review/references/metrics-definition.md` — 핵심 지표 정의
+- `growth-sprint/references/experiment-template.md` — 실험 설계 템플릿
+
+### 변경 11: specs/ 및 outputs/ 폴더 추가
+
+```
+.claude/
+├── specs/                     # 서비스/성장 분석 스펙
+│   ├── service-overview.md    #   서비스 현황
+│   ├── metrics-baseline.md    #   핵심 지표 기준값
+│   ├── target-segment.md      #   타겟 사용자 정의
+│   └── competitor-map.md      #   경쟁사 목록 및 포지셔닝
+└── outputs/                   # 성장 분석 결과 누적 저장
+    ├── weekly/                #   주간 성장 리뷰 결과
+    ├── experiments/           #   성장 실험 설계서 및 결과
+    └── insights/              #   개별 인사이트 메모
+```
+
 ## 📌 참고 사항
 
 - configDeck(`github.com/jsg3121/configDeck`) 하네스 구조를 참고하되, poke-korea 프로젝트 특성(Next.js, GraphQL, SEO 중심)에 맞게 재구성
 - Progressive Disclosure 원칙: 필요한 문서만 참조하여 컨텍스트 윈도우 효율화
 - hooks는 즉시 동작 검증됨 (pre-bash-guard가 `rm -rf` 명령 차단 확인)
 - 새 세션부터 skills/ 기반 슬래시 커맨드가 동작합니다
+- specs/ 파일의 `<!-- 입력 -->` 부분은 실제 서비스 데이터로 채워야 성장 분석 에이전트가 정상 동작합니다
+- 성장 분석은 사업 분석(분기 단위)이 방향을 잡고, 성장 하네스(주간 단위)가 실행/측정을 담당하는 구조입니다
