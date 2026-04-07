@@ -104,19 +104,33 @@ src/
 ├── conventions/guides/    # 코딩/스타일링/린팅/워크플로우 규칙
 ├── seo/guides/            # SEO 가이드라인
 ├── decisions/             # ADR (아키텍처 의사결정 기록)
-├── skills/                # 슬래시 커맨드 (9개)
-└── agents/                # 도메인 전문 에이전트 (3개)
+├── skills/                # 슬래시 커맨드 (14개)
+└── agents/                # 도메인 전문 에이전트 (8개)
 ```
 
 ### 에이전트
+
+#### 개발 에이전트
 
 | 에이전트 | 역할 |
 | -------- | ---- |
 | `seo-specialist` | 메타태그, JSON-LD, OG 이미지, sitemap |
 | `ui-publisher` | 컴포넌트 구현, desktop/mobile 분리 패턴 |
 | `graphql-specialist` | 쿼리/스키마 변경, codegen 관리 |
+| `tool-designer` | 도구/계산기 비즈니스 로직 설계 |
+
+#### 성장 분석 에이전트
+
+| 에이전트 | 역할 |
+| -------- | ---- |
+| `growth-analyst` | 유입/퍼널/리텐션 데이터 분석 |
+| `competitive-watcher` | 경쟁사 동향 모니터링 |
+| `user-insight-analyst` | 사용자 행동/VOC 분석 |
+| `growth-strategist` | 성장 전략 종합 → 실행 액션 도출 |
 
 ### 스킬
+
+#### 개발 스킬
 
 | 명령어 | 설명 |
 | ------ | ---- |
@@ -128,7 +142,17 @@ src/
 | `/seo-audit` | SEO 감사 |
 | `/code-review` | 서브에이전트 기반 코드 리뷰 |
 | `/component-builder` | desktop/mobile 컴포넌트 스캐폴딩 |
+| `/feature-plan` | 신규 기능 기획서 작성 |
+| `/page-scaffold` | 페이지 풀 세트 스캐폴딩 |
+| `/competitive-audit` | 경쟁 사이트 기능 분석 |
 | `/research` | 외부 정보 조사 |
+
+#### 성장 분석 스킬
+
+| 명령어 | 설명 |
+| ------ | ---- |
+| `/weekly-growth-review` | 주간 성장 리뷰 및 핵심 지표 점검 |
+| `/growth-sprint` | 성장 실험 설계 및 Sprint 계획 수립 |
 
 ### Hooks
 

@@ -7,7 +7,7 @@ set -euo pipefail
 INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
 
-# 파일 경로가 없거나 src/ 하위가 아니면 스킵
+# 파일 경로가 없으면 스킵
 if [ -z "$FILE_PATH" ]; then
   exit 0
 fi

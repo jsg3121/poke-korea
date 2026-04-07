@@ -139,24 +139,30 @@ tags: [feature, docs]
 │       └── ADR-0001-harness-engineering.md
 ├── skills/
 │   ├── index.md
-│   ├── create-branch.md
-│   ├── create-pr.md
-│   ├── review-pr.md
-│   ├── reply-review.md
-│   ├── lint-check.md
-│   ├── seo-audit.md
-│   ├── code-review.md
-│   ├── component-builder.md
-│   ├── feature-plan.md
-│   ├── page-scaffold.md
-│   ├── competitive-audit.md
-│   └── research.md
+│   ├── create-branch/SKILL.md
+│   ├── create-pr/SKILL.md
+│   ├── review-pr/SKILL.md
+│   ├── reply-review/SKILL.md
+│   ├── lint-check/SKILL.md
+│   ├── seo-audit/SKILL.md
+│   ├── code-review/SKILL.md
+│   ├── component-builder/SKILL.md
+│   ├── feature-plan/SKILL.md
+│   ├── page-scaffold/SKILL.md
+│   ├── competitive-audit/SKILL.md
+│   ├── research/SKILL.md
+│   ├── weekly-growth-review/SKILL.md
+│   └── growth-sprint/SKILL.md
 └── agents/
     ├── index.md
     ├── seo-specialist.md
     ├── ui-publisher.md
     ├── graphql-specialist.md
-    └── tool-designer.md
+    ├── tool-designer.md
+    ├── growth-analyst.md
+    ├── competitive-watcher.md
+    ├── user-insight-analyst.md
+    └── growth-strategist.md
 ```
 
 ### 삭제된 파일

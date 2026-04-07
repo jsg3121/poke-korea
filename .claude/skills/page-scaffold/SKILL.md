@@ -37,7 +37,9 @@ src/
 ### page.tsx
 
 ```tsx
+import { headers } from 'next/headers'
 import { Metadata } from 'next'
+import { detectUserAgent } from '~/module/device.module'
 import {Name}Desktop from '~/views/desktop/{Name}.desktop'
 import {Name}Mobile from '~/views/mobile/{Name}.mobile'
 
@@ -55,13 +57,12 @@ export const metadata: Metadata = {
   },
 }
 
-const {Name}Page = () => {
-  return (
-    <>
-      <{Name}Desktop />
-      <{Name}Mobile />
-    </>
-  )
+const {Name}Page = async () => {
+  const headersList = await headers()
+  const userAgent = headersList.get('user-agent') || ''
+  const isMobile = detectUserAgent(userAgent)
+
+  return isMobile ? <{Name}Mobile /> : <{Name}Desktop />
 }
 
 export default {Name}Page

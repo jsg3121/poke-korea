@@ -27,7 +27,7 @@ DANGEROUS_PATTERNS=(
   "git checkout -- ."
   "DROP TABLE"
   "DROP DATABASE"
-  "truncate"
+  "truncate table"
 )
 
 for PATTERN in "${DANGEROUS_PATTERNS[@]}"; do
