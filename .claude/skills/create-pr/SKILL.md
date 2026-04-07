@@ -32,17 +32,17 @@ Pull Request를 생성해줘.
 - PR 본문의 작업 유형 체크박스에서 체크된 항목에 대응하는 GitHub Label을 `--label` 옵션으로 지정한다
 - 작업 유형과 라벨의 매핑:
 
-| 작업 유형                  | Label             |
-| -------------------------- | ----------------- |
-| ✨ 새 기능 (New Feature)   | `feature`         |
-| 🐛 버그 수정 (Bug Fix)     | `bug`             |
-| 🚨 핫픽스 (Hotfix)         | `hotfix`          |
-| 🔧 리팩토링 (Refactoring)  | `refactor`        |
-| 🚀 성능 개선 (Performance) | `performance`     |
-| 🔍 SEO 개선 (SEO)          | `seo`             |
-| 🎨 디자인 변경 (Design)    | `design`          |
-| 📝 문서 (Documentation)    | `documentation`   |
-| 🔨 Breaking Changes        | `breaking-change` |
+| 작업 ��형 | Label |
+|-----------|-------|
+| ✨ 새 기능 (New Feature) | `feature` |
+| 🐛 버그 수정 (Bug Fix) | `bug` |
+| 🚨 핫픽스 (Hotfix) | `hotfix` |
+| 🔧 리팩토링 (Refactoring) | `refactor` |
+| 🚀 성능 개선 (Performance) | `performance` |
+| 🔍 SEO 개선 (SEO) | `seo` |
+| 🎨 디자인 변경 (Design) | `design` |
+| 📝 문서 (Documentation) | `documentation` |
+| 🔨 Breaking Changes | `breaking-change` |
 
 - 여러 유형에 해당하면 `--label`을 복수로 지정한다
 

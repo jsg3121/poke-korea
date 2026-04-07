@@ -93,6 +93,76 @@ src/
 └── styles/            # 전역 스타일
 ```
 
+## Claude Code 하네스
+
+`.claude/` 디렉토리를 중심으로 Claude Code의 에이전트, 스킬, 자동화를 관리합니다.
+
+```
+.claude/
+├── settings.json          # 권한 설정 및 hooks 등록
+├── hooks/                 # 자동화 스크립트
+├── conventions/guides/    # 코딩/스타일링/린팅/워크플로우 규칙
+├── seo/guides/            # SEO 가이드라인
+├── decisions/             # ADR (아키텍처 의사결정 기록)
+├── skills/                # 슬래시 커맨드 (14개)
+└── agents/                # 도메인 전문 에이전트 (8개)
+```
+
+### 에이전트
+
+#### 개발 에이전트
+
+| 에이전트 | 역할 |
+| -------- | ---- |
+| `seo-specialist` | 메타태그, JSON-LD, OG 이미지, sitemap |
+| `ui-publisher` | 컴포넌트 구현, desktop/mobile 분리 패턴 |
+| `graphql-specialist` | 쿼리/스키마 변경, codegen 관리 |
+| `tool-designer` | 도구/계산기 비즈니스 로직 설계 |
+
+#### 성장 분석 에이전트
+
+| 에이전트 | 역할 |
+| -------- | ---- |
+| `growth-analyst` | 유입/퍼널/리텐션 데이터 분석 |
+| `competitive-watcher` | 경쟁사 동향 모니터링 |
+| `user-insight-analyst` | 사용자 행동/VOC 분석 |
+| `growth-strategist` | 성장 전략 종합 → 실행 액션 도출 |
+
+### 스킬
+
+#### 개발 스킬
+
+| 명령어 | 설명 |
+| ------ | ---- |
+| `/create-branch` | 신규 버전 브랜치 생성 |
+| `/create-pr` | Pull Request 생성 |
+| `/review-pr` | PR 리뷰 코멘트 분석 |
+| `/reply-review` | PR 리뷰 답글 작성 |
+| `/lint-check` | Prettier + ESLint 전체 검사 |
+| `/seo-audit` | SEO 감사 |
+| `/code-review` | 서브에이전트 기반 코드 리뷰 |
+| `/component-builder` | desktop/mobile 컴포넌트 스캐폴딩 |
+| `/feature-plan` | 신규 기능 기획서 작성 |
+| `/page-scaffold` | 페이지 풀 세트 스캐폴딩 |
+| `/competitive-audit` | 경쟁 사이트 기능 분석 |
+| `/research` | 외부 정보 조사 |
+
+#### 성장 분석 스킬
+
+| 명령어 | 설명 |
+| ------ | ---- |
+| `/weekly-growth-review` | 주간 성장 리뷰 및 핵심 지표 점검 |
+| `/growth-sprint` | 성장 실험 설계 및 Sprint 계획 수립 |
+
+### Hooks
+
+| Hook | 시점 | 동작 |
+| ---- | ---- | ---- |
+| `post-edit-format.sh` | 파일 수정 후 | 자동 prettier 포맷팅 |
+| `pre-bash-guard.sh` | 명령어 실행 전 | 위험 명령어 차단 (`rm -rf`, `git push --force` 등) |
+| `stop-changelog-check.sh` | 작업 완료 시 | changelog 파일 존재 여부 검증 |
+| `notify.sh` | 입력 대기 시 | macOS 데스크톱 알림 |
+
 ## Changelog
 
 개발 변경사항은 [Changelog 블로그](https://poke-korea.com/changelog)에서 확인할 수 있습니다.
