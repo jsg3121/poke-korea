@@ -28,9 +28,9 @@ export const generateMetadata = async ({
 
 const ChampionsDetailPage = async ({ params }: PageProps) => {
   const { pokemonId } = await params
-  const parsedPokemonId = parseInt(pokemonId, 10)
+  const externalDexId = parseInt(pokemonId, 10)
 
-  if (isNaN(parsedPokemonId) || parsedPokemonId <= 0) {
+  if (isNaN(externalDexId) || externalDexId <= 0) {
     notFound()
   }
 
@@ -45,7 +45,7 @@ const ChampionsDetailPage = async ({ params }: PageProps) => {
     GetChampionsPokemonDetailQueryVariables
   >({
     query: GetChampionsPokemonDetailDocument,
-    variables: { pokemonId: parsedPokemonId },
+    variables: { externalDexId },
   })
 
   const detail = data?.getChampionsPokemonDetail

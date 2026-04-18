@@ -1,8 +1,6 @@
-import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import ChampionsMetaSection from '~/components/champions/ChampionsMetaSection.component'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 import {
   getBackgroundColor,
   pokemonNumberFormat,
@@ -16,8 +14,11 @@ const ChampionsDetailContainer = ({
   detail,
 }: ChampionsDetailContainerProps) => {
   const { pokemon, meta } = detail
-  const pokemonNumber = pokemonNumberFormat(pokemon.number)
+  const pokemonNumber = pokemonNumberFormat(pokemon.pokemonNumber)
   const backgroundColor = getBackgroundColor(pokemon.types)
+  const displayName = pokemon.formName
+    ? `${pokemon.name} (${pokemon.formName})`
+    : pokemon.name
 
   const gradientStyle =
     backgroundColor.length === 1
@@ -34,20 +35,19 @@ const ChampionsDetailContainer = ({
       >
         <header className="flex justify-between items-center mb-3">
           <span className="text-base font-medium">No.{pokemonNumber}</span>
-          <h1 className="text-lg font-bold">{pokemon.name}</h1>
+          <h1 className="text-lg font-bold">{displayName}</h1>
         </header>
 
         <div className="flex justify-center mb-3">
-          <ImageComponent
-            height="10rem"
-            width="10rem"
-            imageSize={{ width: 160, height: 160 }}
-            densities={[1, 1.5]}
-            alt={pokemon.name}
-            src={`${imageMode}/${pokemon.number}.webp`}
-            sizes="10rem"
-            fetchPriority="high"
-          />
+          {pokemon.imagePath && (
+            <img
+              src={pokemon.imagePath}
+              alt={displayName}
+              width={160}
+              height={160}
+              className="w-40 h-40 object-contain"
+            />
+          )}
         </div>
 
         <div className="flex gap-2 justify-center mb-3">
@@ -61,18 +61,16 @@ const ChampionsDetailContainer = ({
           <dt>공격</dt>
           <dt>방어</dt>
           <dt>스피드</dt>
-          <dd>{pokemon.pokemonStats?.hp ?? '-'}</dd>
-          <dd>{pokemon.pokemonStats?.attack ?? '-'}</dd>
-          <dd>{pokemon.pokemonStats?.defense ?? '-'}</dd>
-          <dd>{pokemon.pokemonStats?.speed ?? '-'}</dd>
+          <dd>{pokemon.stats?.hp ?? '-'}</dd>
+          <dd>{pokemon.stats?.attack ?? '-'}</dd>
+          <dd>{pokemon.stats?.defense ?? '-'}</dd>
+          <dd>{pokemon.stats?.speed ?? '-'}</dd>
           <dt>특공</dt>
           <dt>특방</dt>
           <dt className="col-span-2">합계</dt>
-          <dd>{pokemon.pokemonStats?.specialAttack ?? '-'}</dd>
-          <dd>{pokemon.pokemonStats?.specialDefense ?? '-'}</dd>
-          <dd className="col-span-2 font-bold">
-            {pokemon.pokemonStats?.total ?? '-'}
-          </dd>
+          <dd>{pokemon.stats?.specialAttack ?? '-'}</dd>
+          <dd>{pokemon.stats?.specialDefense ?? '-'}</dd>
+          <dd className="col-span-2 font-bold">{pokemon.stats?.total ?? '-'}</dd>
         </dl>
       </article>
 

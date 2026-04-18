@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 
 interface ChampionsTierGroupProps {
@@ -18,6 +16,9 @@ const ChampionsTierGroup = ({ tier, pokemons }: ChampionsTierGroupProps) => {
     (a, b) => (b.usageRate ?? 0) - (a.usageRate ?? 0),
   )
 
+  const getDisplayName = (pokemon: ChampionsMetaSummaryFragment) =>
+    pokemon.formName ? `${pokemon.name} (${pokemon.formName})` : pokemon.name
+
   return (
     <div className="border border-gray-200 rounded-xl overflow-hidden">
       <div className="flex items-center gap-3 p-4 bg-gray-50 border-b border-gray-200">
@@ -31,16 +32,16 @@ const ChampionsTierGroup = ({ tier, pokemons }: ChampionsTierGroupProps) => {
             href={`/champions/pokedex/${pokemon.pokemonId}`}
             className="flex flex-col items-center p-2 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            <ImageComponent
-              height="3rem"
-              width="3rem"
-              imageSize={{ width: 48, height: 48 }}
-              densities={[1, 2]}
-              alt={pokemon.name ?? `pokemon_${pokemon.pokemonId}`}
-              src={`${imageMode}/${pokemon.imagePath ?? pokemon.pokemonId}.webp`}
-              sizes="3rem"
-              loading="lazy"
-            />
+            {pokemon.imagePath && (
+              <img
+                src={pokemon.imagePath}
+                alt={getDisplayName(pokemon) ?? ''}
+                width={48}
+                height={48}
+                className="w-12 h-12 object-contain"
+                loading="lazy"
+              />
+            )}
             <span className="text-xs text-gray-500 mt-1">
               {pokemon.usageRate?.toFixed(1)}%
             </span>

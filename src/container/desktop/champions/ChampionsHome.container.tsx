@@ -1,8 +1,6 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
 import ChampionsTierBadge from '~/components/champions/ChampionsTierBadge.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 
 interface ChampionsHomeContainerProps {
   topPokemons: ChampionsMetaSummaryFragment[]
@@ -11,6 +9,9 @@ interface ChampionsHomeContainerProps {
 const ChampionsHomeContainer = ({
   topPokemons,
 }: ChampionsHomeContainerProps) => {
+  const getDisplayName = (pokemon: ChampionsMetaSummaryFragment) =>
+    pokemon.formName ? `${pokemon.name} (${pokemon.formName})` : pokemon.name
+
   return (
     <>
       <header className="mb-10 text-center">
@@ -18,7 +19,7 @@ const ChampionsHomeContainer = ({
           포켓몬 챔피언스
         </h1>
         <p className="text-primary-4 mt-2">
-          포켓몬 챔피언스 170종+ 도감, 티어 리스트, 메타 분석
+          포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석
         </p>
       </header>
 
@@ -60,16 +61,16 @@ const ChampionsHomeContainer = ({
               <span className="text-sm font-bold text-primary-4 mb-2">
                 #{index + 1}
               </span>
-              <ImageComponent
-                height="5rem"
-                width="5rem"
-                imageSize={{ width: 80, height: 80 }}
-                densities={[1, 2]}
-                alt={pokemon.name ?? `pokemon_${pokemon.pokemonId}`}
-                src={`${imageMode}/${pokemon.imagePath ?? pokemon.pokemonId}.webp`}
-                sizes="5rem"
-                loading="lazy"
-              />
+              {pokemon.imagePath && (
+                <img
+                  src={pokemon.imagePath}
+                  alt={getDisplayName(pokemon) ?? ''}
+                  width={80}
+                  height={80}
+                  className="w-20 h-20 object-contain"
+                  loading="lazy"
+                />
+              )}
               <div className="mt-3 flex items-center gap-2">
                 <ChampionsTierBadge tier={pokemon.tier} />
               </div>

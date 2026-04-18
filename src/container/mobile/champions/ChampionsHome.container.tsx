@@ -1,8 +1,6 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
 import ChampionsTierBadge from '~/components/champions/ChampionsTierBadge.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 
 interface ChampionsHomeContainerProps {
   topPokemons: ChampionsMetaSummaryFragment[]
@@ -18,7 +16,7 @@ const ChampionsHomeContainer = ({
           포켓몬 챔피언스
         </h1>
         <p className="text-sm text-primary-4 mt-2">
-          포켓몬 챔피언스 170종+ 도감, 티어 리스트, 메타 분석
+          포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석
         </p>
       </header>
 
@@ -60,16 +58,16 @@ const ChampionsHomeContainer = ({
               <span className="text-xs font-bold text-primary-4">
                 #{index + 1}
               </span>
-              <ImageComponent
-                height="3rem"
-                width="3rem"
-                imageSize={{ width: 48, height: 48 }}
-                densities={[1, 2]}
-                alt={pokemon.name ?? `pokemon_${pokemon.pokemonId}`}
-                src={`${imageMode}/${pokemon.imagePath ?? pokemon.pokemonId}.webp`}
-                sizes="3rem"
-                loading="lazy"
-              />
+              {pokemon.imagePath && (
+                <img
+                  src={pokemon.imagePath}
+                  alt={pokemon.name ?? ''}
+                  width={48}
+                  height={48}
+                  className="w-12 h-12 object-contain"
+                  loading="lazy"
+                />
+              )}
               <ChampionsTierBadge tier={pokemon.tier} />
               <span className="text-[10px] text-primary-4 mt-1">
                 {pokemon.usageRate?.toFixed(0)}%
