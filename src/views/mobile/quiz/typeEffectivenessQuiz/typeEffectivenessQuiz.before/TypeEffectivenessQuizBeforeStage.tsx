@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import MobileTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/MobileTypeEffectivenessQuizGuideBottomBanner'
 import PageHeader from '~/components/mobile/PageHeader'
 import {
   QUIZ_CONFIG,
@@ -55,7 +54,6 @@ const TypeEffectivenessQuizBeforeStage = () => {
         </div>
       </section>
       <OtherQuizLink currentQuiz="type-effectiveness" />
-      <MobileTypeEffectivenessQuizGuideBottomBanner />
     </section>
   )
 }

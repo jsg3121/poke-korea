@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import MobileAbilityGuideBottomBanner from '~/components/adSlot/MobileAbilityGuideBottomBanner'
 import PageHeader from '~/components/mobile/PageHeader'
 import {
   QUIZ_CONFIG,
@@ -53,7 +52,6 @@ const AbilityQuizBeforeStage = () => {
         </div>
       </section>
       <OtherQuizLink currentQuiz="ability" />
-      <MobileAbilityGuideBottomBanner />
     </section>
   )
 }

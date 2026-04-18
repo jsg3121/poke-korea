@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import DesktopAbilityGuideBottomBanner from '~/components/adSlot/DesktopAbilityGuideBottomBanner'
 import PageHeader from '~/components/PageHeader'
 import {
   QUIZ_CONFIG,
@@ -49,7 +48,6 @@ const AbilityQuizBeforeStage = () => {
         </div>
       </section>
       <OtherQuizLink currentQuiz="ability" />
-      <DesktopAbilityGuideBottomBanner />
     </section>
   )
 }

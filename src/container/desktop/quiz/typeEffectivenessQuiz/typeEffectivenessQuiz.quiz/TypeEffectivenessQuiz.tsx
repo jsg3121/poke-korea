@@ -1,6 +1,5 @@
 'use client'
 import { Fragment, useState } from 'react'
-import DesktopAbilityQuizBottomBanner from '~/components/adSlot/DesktopAbilityQuizBottomBanner'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
 import TagComponent from '~/components/Tag.component'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
@@ -89,7 +88,6 @@ const TypeEffectivenessQuiz = () => {
           <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
-      <DesktopAbilityQuizBottomBanner />
     </Fragment>
   )
 }

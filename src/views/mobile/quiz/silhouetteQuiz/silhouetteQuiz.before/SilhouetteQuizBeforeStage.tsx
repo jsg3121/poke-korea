@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import MobileSilhouetteGuideBottomBanner from '~/components/adSlot/MobileSilhouetteGuideBottomBanner'
 import PageHeader from '~/components/mobile/PageHeader'
 import {
   QUIZ_CONFIG,
@@ -53,7 +52,6 @@ const SilhouetteQuizBeforeStage = () => {
         </div>
       </section>
       <OtherQuizLink currentQuiz="silhouette" />
-      <MobileSilhouetteGuideBottomBanner />
     </section>
   )
 }
