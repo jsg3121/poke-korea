@@ -2,6 +2,7 @@
 
 import MobileListTopBanner from '~/components/adSlot/MobileListTopBanner'
 import MobileTabBar from '~/components/MobileTabBar'
+import HeaderContainer from '~/container/mobile/header/Header.container'
 import ChampionsPokedexContainer from '~/container/mobile/champions/ChampionsPokedex.container'
 import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
 import { ChampionsPokemonCardFragment } from '~/graphql/typeGenerated'
@@ -26,6 +27,7 @@ const ChampionsPokedexMobile = ({
       endCursor={endCursor}
       totalCount={totalCount}
     >
+      <HeaderContainer />
       <MobileListTopBanner />
       <ChampionsPokedexContainer />
       <MobileTabBar />

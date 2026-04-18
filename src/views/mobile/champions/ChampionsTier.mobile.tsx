@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import MobileListTopBanner from '~/components/adSlot/MobileListTopBanner'
 import MobileTabBar from '~/components/MobileTabBar'
+import HeaderContainer from '~/container/mobile/header/Header.container'
 import ChampionsTierContainer from '~/container/mobile/champions/ChampionsTier.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
@@ -21,25 +22,23 @@ interface ChampionsTierMobileProps {
 
 const ChampionsTierMobile = ({ tierGroups }: ChampionsTierMobileProps) => {
   return (
-    <div className="w-full min-h-screen pb-20">
-      <nav className="px-4 py-3">
-        <Link
-          href="/champions"
-          className="text-sm text-gray-500 hover:text-primary-1"
-        >
-          &larr; 챔피언스 홈
-        </Link>
-      </nav>
-
+    <>
+      <HeaderContainer />
       <MobileListTopBanner />
-
-      <div className="px-4 mt-6">
+      <section className="w-full min-h-dvh px-4 py-6">
+        <nav className="mb-4">
+          <Link
+            href="/champions"
+            className="text-sm text-gray-500 hover:text-primary-1"
+          >
+            &larr; 챔피언스 홈
+          </Link>
+        </nav>
         <ChampionsTierContainer tierGroups={tierGroups} />
-      </div>
-
+      </section>
       <FooterContainer />
       <MobileTabBar />
-    </div>
+    </>
   )
 }
 

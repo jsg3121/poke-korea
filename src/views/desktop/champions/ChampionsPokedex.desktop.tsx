@@ -1,6 +1,7 @@
 'use client'
 
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
+import HeaderContainer from '~/container/desktop/header/Header.container'
 import ChampionsPokedexContainer from '~/container/desktop/champions/ChampionsPokedex.container'
 import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
 import { ChampionsPokemonCardFragment } from '~/graphql/typeGenerated'
@@ -25,7 +26,9 @@ const ChampionsPokedexDesktop = ({
       endCursor={endCursor}
       totalCount={totalCount}
     >
-      <div className="h-40" />
+      <div className="h-40">
+        <HeaderContainer />
+      </div>
       <DesktopListTopBanner />
       <ChampionsPokedexContainer />
     </ChampionsPokedexProvider>

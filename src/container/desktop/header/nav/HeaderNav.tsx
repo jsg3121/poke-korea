@@ -69,6 +69,16 @@ const HeaderNav = () => {
             포켓몬 퀴즈
           </Link>
         </li>
+        <li
+          className={`min-w-fit h-full px-4 ${pathname.includes('/champions') ? 'border-b-4 border-solid border-primary-4' : ''}`}
+        >
+          <Link
+            href="/champions"
+            className={`w-full h-12 text-base leading-[calc(4rem+2px)] text-primary-4 ${pathname.includes('/champions') ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
+          >
+            챔피언스
+          </Link>
+        </li>
       </ul>
     </nav>
   )
