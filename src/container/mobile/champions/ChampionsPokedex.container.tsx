@@ -22,7 +22,12 @@ const ChampionsPokedexContainer = () => {
         <h1 className="text-xl font-bold text-primary-1">
           포켓몬 챔피언스 도감
         </h1>
-        <p className="text-sm text-gray-500 mt-1">총 {totalCount}종의 포켓몬</p>
+        <p className="text-sm text-gray-500 mt-1">
+          총 {totalCount}종+의 포켓몬
+          <span className="text-xs text-gray-400 ml-2">
+            (리전폼/폼체인지는 상세 페이지에서 확인)
+          </span>
+        </p>
       </header>
       {pokemonList.length === 0 && (
         <div className="w-full h-20">
