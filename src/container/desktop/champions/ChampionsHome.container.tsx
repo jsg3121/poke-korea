@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import ChampionsTierBadge from '~/components/champions/ChampionsTierBadge.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { imageMode } from '~/module/buildMode'
 
 interface ChampionsHomeContainerProps {
   topPokemons: ChampionsMetaSummaryFragment[]
@@ -63,7 +64,7 @@ const ChampionsHomeContainer = ({
               </span>
               {pokemon.imagePath && (
                 <img
-                  src={pokemon.imagePath}
+                  src={`${imageMode}/${pokemon.imagePath}.webp`}
                   alt={getDisplayName(pokemon) ?? ''}
                   width={80}
                   height={80}

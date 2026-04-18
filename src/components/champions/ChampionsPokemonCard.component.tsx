@@ -5,6 +5,7 @@ import BallComponent from '~/components/Ball.component'
 import TagComponent from '~/components/Tag.component'
 import { ChampionsPokemonCardFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
+import { imageMode } from '~/module/buildMode'
 import {
   getBackgroundColor,
   pokemonNumberFormat,
@@ -65,7 +66,7 @@ const ChampionsPokemonCard = ({
           <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
             {pokemonData.imagePath && (
               <img
-                src={pokemonData.imagePath}
+                src={`${imageMode}/${pokemonData.imagePath}.webp`}
                 alt={displayName}
                 width={160}
                 height={160}
@@ -82,7 +83,7 @@ const ChampionsPokemonCard = ({
             {isVisible ? (
               pokemonData.imagePath && (
                 <img
-                  src={pokemonData.imagePath}
+                  src={`${imageMode}/${pokemonData.imagePath}.webp`}
                   alt={displayName}
                   width={160}
                   height={160}

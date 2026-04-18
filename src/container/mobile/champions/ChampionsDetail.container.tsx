@@ -1,6 +1,7 @@
 import TagComponent from '~/components/Tag.component'
 import ChampionsMetaSection from '~/components/champions/ChampionsMetaSection.component'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
+import { imageMode } from '~/module/buildMode'
 import {
   getBackgroundColor,
   pokemonNumberFormat,
@@ -41,7 +42,7 @@ const ChampionsDetailContainer = ({
         <div className="flex justify-center mb-3">
           {pokemon.imagePath && (
             <img
-              src={pokemon.imagePath}
+              src={`${imageMode}/${pokemon.imagePath}.webp`}
               alt={displayName}
               width={160}
               height={160}

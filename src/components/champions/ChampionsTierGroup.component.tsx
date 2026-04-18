@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { imageMode } from '~/module/buildMode'
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 
 interface ChampionsTierGroupProps {
@@ -34,7 +35,7 @@ const ChampionsTierGroup = ({ tier, pokemons }: ChampionsTierGroupProps) => {
           >
             {pokemon.imagePath && (
               <img
-                src={pokemon.imagePath}
+                src={`${imageMode}/${pokemon.imagePath}.webp`}
                 alt={getDisplayName(pokemon) ?? ''}
                 width={48}
                 height={48}

@@ -1,3 +1,5 @@
+import { imageMode } from '~/module/buildMode'
+
 interface ChampionsPartnerListProps {
   title: string
   items: Array<{
@@ -21,7 +23,7 @@ const ChampionsPartnerList = ({ title, items }: ChampionsPartnerListProps) => {
             <div className="flex items-center gap-2">
               {item.imagePath && (
                 <img
-                  src={item.imagePath}
+                  src={`${imageMode}/${item.imagePath}.webp`}
                   alt={item.name}
                   width={24}
                   height={24}
