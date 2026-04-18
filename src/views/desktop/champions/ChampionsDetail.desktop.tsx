@@ -5,20 +5,13 @@ import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 import ChampionsDetailContainer from '~/container/desktop/champions/ChampionsDetail.container'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
-import {
-  ChampionsPokemonCardFragment,
-  ChampionsMetaStatsFragment,
-} from '~/graphql/typeGenerated'
+import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 
 interface ChampionsDetailDesktopProps {
-  pokemon: ChampionsPokemonCardFragment
-  metaStats: ChampionsMetaStatsFragment | null | undefined
+  detail: ChampionsPokemonDetailFragment
 }
 
-const ChampionsDetailDesktop = ({
-  pokemon,
-  metaStats,
-}: ChampionsDetailDesktopProps) => {
+const ChampionsDetailDesktop = ({ detail }: ChampionsDetailDesktopProps) => {
   return (
     <>
       <div className="h-40">
@@ -34,7 +27,7 @@ const ChampionsDetailDesktop = ({
             &larr; 챔피언스 도감으로 돌아가기
           </Link>
         </nav>
-        <ChampionsDetailContainer pokemon={pokemon} metaStats={metaStats} />
+        <ChampionsDetailContainer detail={detail} />
       </section>
       <FooterContainer />
     </>

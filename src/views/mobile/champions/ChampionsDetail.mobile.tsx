@@ -6,20 +6,13 @@ import MobileTabBar from '~/components/MobileTabBar'
 import HeaderContainer from '~/container/mobile/header/Header.container'
 import ChampionsDetailContainer from '~/container/mobile/champions/ChampionsDetail.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
-import {
-  ChampionsPokemonCardFragment,
-  ChampionsMetaStatsFragment,
-} from '~/graphql/typeGenerated'
+import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 
 interface ChampionsDetailMobileProps {
-  pokemon: ChampionsPokemonCardFragment
-  metaStats: ChampionsMetaStatsFragment | null | undefined
+  detail: ChampionsPokemonDetailFragment
 }
 
-const ChampionsDetailMobile = ({
-  pokemon,
-  metaStats,
-}: ChampionsDetailMobileProps) => {
+const ChampionsDetailMobile = ({ detail }: ChampionsDetailMobileProps) => {
   return (
     <>
       <HeaderContainer />
@@ -33,7 +26,7 @@ const ChampionsDetailMobile = ({
             &larr; 챔피언스 도감
           </Link>
         </nav>
-        <ChampionsDetailContainer pokemon={pokemon} metaStats={metaStats} />
+        <ChampionsDetailContainer detail={detail} />
       </section>
       <FooterContainer />
       <MobileTabBar />

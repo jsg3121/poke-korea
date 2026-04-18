@@ -1,10 +1,7 @@
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import ChampionsMetaSection from '~/components/champions/ChampionsMetaSection.component'
-import {
-  ChampionsPokemonCardFragment,
-  ChampionsMetaStatsFragment,
-} from '~/graphql/typeGenerated'
+import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import {
   getBackgroundColor,
@@ -12,14 +9,13 @@ import {
 } from '~/module/pokemonCard.module'
 
 interface ChampionsDetailContainerProps {
-  pokemon: ChampionsPokemonCardFragment
-  metaStats: ChampionsMetaStatsFragment | null | undefined
+  detail: ChampionsPokemonDetailFragment
 }
 
 const ChampionsDetailContainer = ({
-  pokemon,
-  metaStats,
+  detail,
 }: ChampionsDetailContainerProps) => {
+  const { pokemon, meta } = detail
   const pokemonNumber = pokemonNumberFormat(pokemon.number)
   const backgroundColor = getBackgroundColor(pokemon.types)
 
@@ -62,24 +58,30 @@ const ChampionsDetailContainer = ({
 
         <dl className="grid grid-cols-2 gap-1 text-sm">
           <dt>체력</dt>
-          <dd className="text-right">{pokemon.stats.hp}</dd>
+          <dd className="text-right">{pokemon.pokemonStats?.hp ?? '-'}</dd>
           <dt>공격</dt>
-          <dd className="text-right">{pokemon.stats.attack}</dd>
+          <dd className="text-right">{pokemon.pokemonStats?.attack ?? '-'}</dd>
           <dt>방어</dt>
-          <dd className="text-right">{pokemon.stats.defense}</dd>
+          <dd className="text-right">{pokemon.pokemonStats?.defense ?? '-'}</dd>
           <dt>특수공격</dt>
-          <dd className="text-right">{pokemon.stats.specialAttack}</dd>
+          <dd className="text-right">
+            {pokemon.pokemonStats?.specialAttack ?? '-'}
+          </dd>
           <dt>특수방어</dt>
-          <dd className="text-right">{pokemon.stats.specialDefense}</dd>
+          <dd className="text-right">
+            {pokemon.pokemonStats?.specialDefense ?? '-'}
+          </dd>
           <dt>스피드</dt>
-          <dd className="text-right">{pokemon.stats.speed}</dd>
+          <dd className="text-right">{pokemon.pokemonStats?.speed ?? '-'}</dd>
           <dt className="font-bold">합계</dt>
-          <dd className="text-right font-bold">{pokemon.stats.total}</dd>
+          <dd className="text-right font-bold">
+            {pokemon.pokemonStats?.total ?? '-'}
+          </dd>
         </dl>
       </article>
 
       <div className="flex-1">
-        <ChampionsMetaSection metaStats={metaStats} />
+        <ChampionsMetaSection meta={meta} />
       </div>
     </div>
   )

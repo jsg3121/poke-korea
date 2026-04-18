@@ -1,15 +1,10 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
 import {
-  GetChampionsPokemonListDocument,
-  GetChampionsMetaStatsDocument,
-} from '~/graphql/gqlGenerated'
-import {
-  GetChampionsPokemonListQuery,
-  GetChampionsPokemonListQueryVariables,
-  GetChampionsMetaStatsQuery,
-  GetChampionsMetaStatsQueryVariables,
+  GetChampionsPokemonDetailQuery,
+  GetChampionsPokemonDetailQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -45,32 +40,17 @@ const ChampionsDetailPage = async ({ params }: PageProps) => {
 
   const apolloClient = initializeApollo()
 
-  const [listResult, metaResult] = await Promise.all([
-    apolloClient.query<
-      GetChampionsPokemonListQuery,
-      GetChampionsPokemonListQueryVariables
-    >({
-      query: GetChampionsPokemonListDocument,
-      variables: {
-        input: {
-          filter: { search: String(parsedPokemonId) },
-          pagination: { first: 1 },
-        },
-      },
-    }),
-    apolloClient.query<
-      GetChampionsMetaStatsQuery,
-      GetChampionsMetaStatsQueryVariables
-    >({
-      query: GetChampionsMetaStatsDocument,
-      variables: { pokemonId: parsedPokemonId },
-    }),
-  ])
+  const { data } = await apolloClient.query<
+    GetChampionsPokemonDetailQuery,
+    GetChampionsPokemonDetailQueryVariables
+  >({
+    query: GetChampionsPokemonDetailDocument,
+    variables: { pokemonId: parsedPokemonId },
+  })
 
-  const pokemon = listResult.data?.getChampionsPokemonList?.edges?.[0]?.node
-  const metaStats = metaResult.data?.getChampionsMetaStats
+  const detail = data?.getChampionsPokemonDetail
 
-  if (!pokemon) {
+  if (!detail?.pokemon) {
     notFound()
   }
 
@@ -99,7 +79,7 @@ const ChampionsDetailPage = async ({ params }: PageProps) => {
       {
         '@type': 'ListItem',
         position: 4,
-        name: pokemon.name,
+        name: detail.pokemon.name,
         item: `https://poke-korea.com/champions/pokedex/${pokemonId}`,
       },
     ],
@@ -113,9 +93,9 @@ const ChampionsDetailPage = async ({ params }: PageProps) => {
       />
       <main className="w-full min-h-screen">
         {isMobile ? (
-          <ChampionsDetailMobile pokemon={pokemon} metaStats={metaStats} />
+          <ChampionsDetailMobile detail={detail} />
         ) : (
-          <ChampionsDetailDesktop pokemon={pokemon} metaStats={metaStats} />
+          <ChampionsDetailDesktop detail={detail} />
         )}
       </main>
     </>

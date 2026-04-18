@@ -65,8 +65,8 @@ const ChampionsHomeContainer = ({
                 width="5rem"
                 imageSize={{ width: 80, height: 80 }}
                 densities={[1, 2]}
-                alt={`pokemon_${pokemon.pokemonId}`}
-                src={`${imageMode}/${pokemon.pokemonId}.webp`}
+                alt={pokemon.name ?? `pokemon_${pokemon.pokemonId}`}
+                src={`${imageMode}/${pokemon.imagePath ?? pokemon.pokemonId}.webp`}
                 sizes="5rem"
                 loading="lazy"
               />

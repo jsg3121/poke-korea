@@ -143,8 +143,55 @@ fragment ChampionsMetaStats on ChampionsMetaStats {
 
 fragment ChampionsMetaSummary on ChampionsMetaStats {
   pokemonId
+  name
+  imagePath
   usageRate
   winRate
   tier
   isStale
+}
+
+fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
+  pokemon {
+    id
+    number
+    name
+    generation
+    types
+    typePrimary
+    typeSecondary
+    pokemonStats {
+      ...PokemonStats
+    }
+    pokemonAbilityList {
+      abilityId
+      name
+      description
+      isHidden
+    }
+  }
+  meta {
+    pokemonId
+    name
+    imagePath
+    usageRate
+    winRate
+    tier
+    topMoves {
+      ...ChampionsMetaMove
+    }
+    topItems {
+      ...ChampionsMetaItem
+    }
+    topAbilities {
+      ...ChampionsMetaAbility
+    }
+    topPartners {
+      ...ChampionsMetaPartner
+    }
+    source
+    updatedAt
+    isStale
+  }
+  availableForms
 }

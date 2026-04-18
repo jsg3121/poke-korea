@@ -1,10 +1,7 @@
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import ChampionsMetaSection from '~/components/champions/ChampionsMetaSection.component'
-import {
-  ChampionsPokemonCardFragment,
-  ChampionsMetaStatsFragment,
-} from '~/graphql/typeGenerated'
+import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import {
   getBackgroundColor,
@@ -12,14 +9,13 @@ import {
 } from '~/module/pokemonCard.module'
 
 interface ChampionsDetailContainerProps {
-  pokemon: ChampionsPokemonCardFragment
-  metaStats: ChampionsMetaStatsFragment | null | undefined
+  detail: ChampionsPokemonDetailFragment
 }
 
 const ChampionsDetailContainer = ({
-  pokemon,
-  metaStats,
+  detail,
 }: ChampionsDetailContainerProps) => {
+  const { pokemon, meta } = detail
   const pokemonNumber = pokemonNumberFormat(pokemon.number)
   const backgroundColor = getBackgroundColor(pokemon.types)
 
@@ -65,21 +61,23 @@ const ChampionsDetailContainer = ({
           <dt>공격</dt>
           <dt>방어</dt>
           <dt>스피드</dt>
-          <dd>{pokemon.stats.hp}</dd>
-          <dd>{pokemon.stats.attack}</dd>
-          <dd>{pokemon.stats.defense}</dd>
-          <dd>{pokemon.stats.speed}</dd>
+          <dd>{pokemon.pokemonStats?.hp ?? '-'}</dd>
+          <dd>{pokemon.pokemonStats?.attack ?? '-'}</dd>
+          <dd>{pokemon.pokemonStats?.defense ?? '-'}</dd>
+          <dd>{pokemon.pokemonStats?.speed ?? '-'}</dd>
           <dt>특공</dt>
           <dt>특방</dt>
           <dt className="col-span-2">합계</dt>
-          <dd>{pokemon.stats.specialAttack}</dd>
-          <dd>{pokemon.stats.specialDefense}</dd>
-          <dd className="col-span-2 font-bold">{pokemon.stats.total}</dd>
+          <dd>{pokemon.pokemonStats?.specialAttack ?? '-'}</dd>
+          <dd>{pokemon.pokemonStats?.specialDefense ?? '-'}</dd>
+          <dd className="col-span-2 font-bold">
+            {pokemon.pokemonStats?.total ?? '-'}
+          </dd>
         </dl>
       </article>
 
       <div className="px-4 mt-6">
-        <ChampionsMetaSection metaStats={metaStats} />
+        <ChampionsMetaSection meta={meta} />
       </div>
     </>
   )
