@@ -77,3 +77,74 @@ fragment PokemonWithAbilityInfo on PokemonWithAbility {
   region
   types
 }
+
+# ========== Champions Fragments ==========
+
+fragment ChampionsPokemonCard on ChampionsPokemon {
+  id
+  pokemonId
+  name
+  number
+  types
+  typePrimary
+  typeSecondary
+  stats {
+    ...PokemonStats
+  }
+  availableForms
+  abilities {
+    abilityId
+    isHidden
+  }
+}
+
+fragment ChampionsMetaMove on ChampionsMetaMove {
+  name
+  usageRate
+}
+
+fragment ChampionsMetaItem on ChampionsMetaItem {
+  name
+  usageRate
+}
+
+fragment ChampionsMetaAbility on ChampionsMetaAbility {
+  name
+  usageRate
+}
+
+fragment ChampionsMetaPartner on ChampionsMetaPartner {
+  pokemonId
+  name
+  usageRate
+}
+
+fragment ChampionsMetaStats on ChampionsMetaStats {
+  pokemonId
+  usageRate
+  winRate
+  tier
+  topMoves {
+    ...ChampionsMetaMove
+  }
+  topItems {
+    ...ChampionsMetaItem
+  }
+  topAbilities {
+    ...ChampionsMetaAbility
+  }
+  topPartners {
+    ...ChampionsMetaPartner
+  }
+  source
+  updatedAt
+  isStale
+}
+
+fragment ChampionsMetaSummary on ChampionsMetaStats {
+  pokemonId
+  usageRate
+  winRate
+  tier
+  isStale
+}

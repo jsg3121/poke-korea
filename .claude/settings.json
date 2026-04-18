@@ -14,7 +14,8 @@
       "Bash(mkdir:*)",
       "Read",
       "Glob",
-      "Grep"
+      "Grep",
+      "mcp__postgres-local__query"
     ]
   },
   "hooks": {

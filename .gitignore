@@ -36,4 +36,9 @@ next-env.d.ts
 
 /src/graphql
 
-/analyzer
+# claude analyzer data (sensitive)
+/.claude/analyzer/*.csv
+/.claude/analyzer/*.txt
+
+# playwright screenshots
+/.claude/playwright
