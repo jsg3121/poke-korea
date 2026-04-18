@@ -1,9 +1,12 @@
 'use client'
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
+import MobileListInfeedBanner from '~/components/adSlot/MobileListInfeedBanner'
 import PokemonCardComponent from '~/components/pokemonCard/mobile/PokemonCard.component'
 import { ListContext } from '~/context/List.context'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
+
+const AD_INTERVAL = 10
 
 const ListContainer = () => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
@@ -32,12 +35,15 @@ const ListContainer = () => {
       {pokemonList.length > 0 && (
         <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5">
           {pokemonList.map((pokemon, index) => {
+            const showAd = (index + 1) % AD_INTERVAL === 0
             return (
-              <PokemonCardComponent
-                key={`pokemon-id-${pokemon.id}`}
-                pokemonData={pokemon}
-                isHighPriority={index < 6}
-              />
+              <Fragment key={`pokemon-id-${pokemon.id}`}>
+                <PokemonCardComponent
+                  pokemonData={pokemon}
+                  isHighPriority={index < 6}
+                />
+                {showAd && <MobileListInfeedBanner />}
+              </Fragment>
             )
           })}
         </div>
