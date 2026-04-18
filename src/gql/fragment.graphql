@@ -152,6 +152,9 @@ fragment ChampionsMetaSummary on ChampionsMetaStats {
   name
   formName
   imagePath
+  types
+  typePrimary
+  typeSecondary
   usageRate
   winRate
   tier

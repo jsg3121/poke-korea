@@ -1,0 +1,120 @@
+'use client'
+
+import Link from 'next/link'
+import BallComponent from '~/components/Ball.component'
+import TagComponent from '~/components/Tag.component'
+import ChampionsTierBadge, {
+  getTierColors,
+} from '~/components/champions/ChampionsTierBadge.component'
+import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { useLazyImage } from '~/hook/useLazyImage'
+import { imageMode } from '~/module/buildMode'
+import { getBackgroundColor } from '~/module/pokemonCard.module'
+
+interface ChampionsTopCardMobileProps {
+  pokemonData: ChampionsMetaSummaryFragment
+  isHighPriority?: boolean
+}
+
+const ChampionsTopCardMobile = ({
+  pokemonData,
+  isHighPriority = false,
+}: ChampionsTopCardMobileProps) => {
+  const displayName = pokemonData.formName
+    ? `${pokemonData.name} (${pokemonData.formName})`
+    : pokemonData.name
+
+  const backgroundColor = getBackgroundColor(pokemonData.types ?? [])
+  const tierColors = getTierColors(pokemonData.tier)
+
+  const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
+    useLazyImage({
+      rootMargin: '200px',
+      threshold: 0.1,
+    })
+
+  const gradientStyle =
+    backgroundColor.length === 1
+      ? { backgroundColor: backgroundColor[0] }
+      : {
+          backgroundImage: `linear-gradient(135deg, ${backgroundColor[0]} 35%, ${backgroundColor[1]} 65%)`,
+        }
+
+  return (
+    <Link
+      href={`/champions/pokedex/${pokemonData.pokemonId}`}
+      className="block w-full"
+    >
+      <article
+        className="w-full h-[15rem] text-black-2 border border-solid border-black-2 rounded-[10px] p-[0.5rem] outline-[0.2rem] outline relative overflow-hidden shadow-[inset_8px_0_0_0_rgb(51_65_80)] cursor-pointer card-corner-fold"
+        style={{ ...gradientStyle, outlineColor: tierColors.outlineColor }}
+        aria-label={`챔피언스 ${pokemonData.tier}티어 ${displayName} 카드`}
+      >
+        <header className="w-full flex items-start justify-between pr-1 relative z-10">
+          <div className="w-5 h-5 flex-shrink-0 mr-1 relative">
+            <BallComponent />
+            <ChampionsTierBadge tier={pokemonData.tier} variant="ribbon" />
+          </div>
+          <div className="w-full flex items-center justify-end border-b border-solid border-card-accent pb-1">
+            <h3 className="flex-1 text-xs leading-none font-semibold text-right text-black truncate">
+              {displayName}
+            </h3>
+          </div>
+        </header>
+
+        {isHighPriority ? (
+          <div className="w-fit mx-auto my-1 drop-shadow-[2px_3px_2px_#333333] relative">
+            {pokemonData.imagePath && (
+              <img
+                src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                alt={displayName ?? ''}
+                width={90}
+                height={90}
+                className="w-[5.5rem] h-[5.5rem] object-contain"
+              />
+            )}
+          </div>
+        ) : (
+          <div
+            ref={imgRef}
+            className="w-fit mx-auto my-1 drop-shadow-[2px_3px_2px_#333333] relative"
+            aria-description="포켓몬 이미지"
+          >
+            {isVisible ? (
+              pokemonData.imagePath && (
+                <img
+                  src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                  alt={displayName ?? ''}
+                  width={90}
+                  height={90}
+                  className="w-[5.5rem] h-[5.5rem] object-contain"
+                  loading="lazy"
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
+                  style={{
+                    opacity: isLoaded ? 1 : 0,
+                    transition: 'opacity 0.3s ease-in-out',
+                  }}
+                />
+              )
+            ) : (
+              <div className="w-[5.5rem] h-[5.5rem] bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
+            )}
+          </div>
+        )}
+
+        <div
+          className="flex items-center gap-1 px-1 mb-1"
+          aria-description="포켓몬 타입 정보"
+        >
+          {pokemonData.types?.map((item, index) => {
+            return <TagComponent key={`${item}-id-${index}`} type={item} />
+          })}
+        </div>
+
+      </article>
+    </Link>
+  )
+}
+
+export default ChampionsTopCardMobile
