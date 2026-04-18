@@ -1,6 +1,7 @@
 # CLAUDE.md
 
 이 파일은 Claude Code(claude.ai/code)가 본 저장소의 코드를 다룰 때 참고하는 지침 문서입니다.
+상세 규칙은 `.claude/` 하위 문서에서 관리합니다. 이 파일에는 핵심 요약만 둡니다.
 
 ---
 
@@ -56,178 +57,29 @@
 
 ---
 
-## 프로젝트 폴더 구조
+## 프로젝트 폴더 구조 (요약)
 
 ```text
 poke-korea/
-├── public/                          # 정적 자산
-│   ├── fonts/                       #   서브셋 웹폰트 (GmarketSans woff2)
-│   └── assets/                      #   아이콘, 이미지, 타입 SVG(18종)
-├── changelog/                       # Docusaurus 개발 블로그 (별도 빌드)
-│   ├── blog/                        #   블로그 포스트 (버전별 폴더)
-│   │   ├── 1.28.0/ ~ 1.33.0/       #     버전별 마크다운 파일
-│   │   ├── authors.yml              #     작성자 정의
-│   │   └── tags.yml                 #     태그 정의
-│   ├── docusaurus.config.ts         #   Docusaurus 설정
-│   └── package.json                 #   별도 의존성 관리
+├── public/                 # 정적 자산 (폰트, 아이콘, 이미지, 타입 SVG)
+├── changelog/              # Docusaurus 개발 블로그 (별도 빌드)
 ├── src/
-│   ├── app/                         # Next.js App Router 페이지 (라우트)
-│   ├── assets/                      # SVG 컴포넌트용 원본 자산
-│   ├── components/                  # 공유 UI 컴포넌트
-│   │   ├── ability/                 #   특성 관련 컴포넌트 (5개)
-│   │   ├── adSlot/                  #   광고 배너 컴포넌트 (48개, device별)
-│   │   ├── detail/                  #   상세 페이지 UI (인디케이터, 폼 전환 버튼)
-│   │   ├── detail.summary/          #   이로치 확률·툴팁 관련 (10개)
-│   │   ├── home/                    #   홈 퀴즈 팝업·버튼 (3개)
-│   │   ├── mobile/                  #   모바일 전용 컴포넌트
-│   │   ├── moves/                   #   기술 관련 컴포넌트 (11개)
-│   │   ├── pokemonCard/             #   포켓몬 카드 (desktop/mobile 분리)
-│   │   ├── quiz.modal/              #   퀴즈 카운트다운 모달
-│   │   └── *.component.tsx          #   공용 컴포넌트 (Ball, Checkbox, Image, Portal, Radio, Tag 등)
-│   ├── constants/                   # 상수 정의
-│   │   ├── *JsonLd.ts               #   JSON-LD 구조화 데이터 (7개)
-│   │   ├── seoMetaData.ts           #   SEO 메타데이터 상수
-│   │   ├── adSense.ts               #   Google AdSense 설정
-│   │   └── quiz.constants.ts        #   퀴즈 상수
-│   ├── container/                   # 컨테이너 컴포넌트 (비즈니스 로직 담당)
-│   │   ├── desktop/                 #   데스크톱 전용 (header, footer, detail, list, home 등)
-│   │   └── mobile/                  #   모바일 전용 (동일 구조)
-│   ├── context/                     # React Context (10개)
-│   │   ├── Device.context.tsx       #   기기 감지 (mobile/desktop)
-│   │   ├── Detail.context.tsx       #   포켓몬 상세 상태
-│   │   ├── List.context.tsx         #   도감 리스트 상태
-│   │   ├── Moves.context.tsx        #   기술 도감 상태
-│   │   ├── TypeEffectiveness.context.tsx  #   타입 상성 상태
-│   │   └── *Quiz.context.tsx        #   퀴즈 상태 (4종)
-│   ├── gql/                         # GraphQL 원본 파일
-│   │   ├── fragment.graphql         #   프래그먼트 정의
-│   │   └── query.graphql            #   쿼리 정의
-│   ├── graphql/                     # GraphQL 코드 생성 결과 (자동 생성, 직접 수정 금지)
-│   │   ├── schema.graphql           #   스키마 AST
-│   │   ├── gqlGenerated.ts          #   React Apollo 훅
-│   │   └── typeGenerated.ts         #   TypeScript 타입
-│   ├── hook/                        # 커스텀 React 훅 (14개)
-│   │   ├── useInfiniteScroll.ts     #   무한 스크롤
-│   │   ├── useDebounce.ts           #   디바운스
-│   │   ├── useLazyImage.ts          #   이미지 지연 로딩
-│   │   ├── useBodyScrollLock.ts     #   스크롤 잠금
-│   │   ├── useOutSideClick.ts       #   외부 클릭 감지
-│   │   ├── useQuizTimer.ts          #   퀴즈 타이머
-│   │   └── ...                      #   그 외 (useCountdown, useHeaderScroll 등)
-│   ├── module/                      # 유틸리티 모듈 (19개)
-│   │   ├── apolloClient.ts          #   Apollo Client 설정 (SSR/SSG 지원)
-│   │   ├── generateDetailSeoMetaData.ts  #   상세 페이지 SEO 메타데이터 생성
-│   │   ├── metadata.module.ts       #   robots 설정 등 공통 메타데이터
-│   │   ├── ogImage.module.ts        #   OG 이미지 생성
-│   │   ├── filter.module.ts         #   필터 로직
-│   │   ├── changeType.ts            #   타입 변환
-│   │   ├── changeColor.ts           #   색상 변환
-│   │   └── ...                      #   그 외 (image, list, quiz, device 등)
-│   ├── styles/                      # 전역 스타일
-│   │   └── globals.css              #   Tailwind 지시문 + 전역 CSS
-│   ├── types/                       # TypeScript 타입 정의 (5개)
-│   │   ├── common.types.d.ts        #   공통 타입
-│   │   ├── global.d.ts              #   전역 타입 (SVG 모듈 등)
-│   │   ├── pokemonTypes.types.ts    #   포켓몬 타입 정의
-│   │   ├── detailContext.type.ts    #   상세 Context 타입
-│   │   └── quiz.type.ts             #   퀴즈 타입
-│   ├── utils/                       # 유틸리티 함수 (3개)
-│   │   ├── getCssFiles.ts           #   CSS 파일 경로 추출
-│   │   ├── quiz.util.ts             #   퀴즈 유틸
-│   │   └── skill.util.ts            #   기술 유틸
-│   └── views/                       # 페이지 뷰 컴포넌트
-│       ├── desktop/                 #   데스크톱 뷰 (*.desktop.tsx)
-│       └── mobile/                  #   모바일 뷰 (*.mobile.tsx)
-├── .eslintrc                        # ESLint 설정
-├── .prettierrc                      # Prettier 설정
-├── codegen.ts                       # GraphQL Code Generator 설정
-├── ecosystem.config.js              # PM2 배포 설정
-├── next.config.js                   # Next.js 설정 (리다이렉트, 캐싱, webpack)
-├── postcss.config.js                # PostCSS 설정
-├── tailwind.config.js               # Tailwind CSS 설정
-└── tsconfig.json                    # TypeScript 설정
+│   ├── app/                # Next.js App Router 페이지 (라우트)
+│   ├── assets/             # SVG 컴포넌트용 원본 자산
+│   ├── components/         # 공유 UI 컴포넌트
+│   ├── constants/          # 상수 정의 (JSON-LD, SEO, AdSense, 퀴즈)
+│   ├── container/          # 컨테이너 컴포넌트 (desktop/mobile 분리)
+│   ├── context/            # React Context (10개)
+│   ├── gql/                # GraphQL 원본 파일 (수정 후 codegen 필수)
+│   ├── graphql/            # GraphQL 코드 생성 결과 (자동 생성, 직접 수정 금지)
+│   ├── hook/               # 커스텀 React 훅 (14개)
+│   ├── module/             # 유틸리티 모듈 (19개)
+│   ├── styles/             # 전역 스타일
+│   ├── types/              # TypeScript 타입 정의
+│   ├── utils/              # 유틸리티 함수
+│   └── views/              # 페이지 뷰 컴포넌트 (desktop/mobile 분리)
+└── .claude/                # 하네스 중심 허브 (아래 참조)
 ```
-
----
-
-## 페이지 라우트 맵
-
-```text
-src/app/
-├── layout.tsx                                  # 루트 레이아웃 (공통 메타·프로바이더·GA·폰트)
-├── page.tsx                                    # 홈 (/)
-├── providers.tsx                               # 전역 프로바이더 (Apollo, Device 등)
-├── error.tsx                                   # 에러 페이지
-├── not-found.tsx                               # 404 페이지
-├── robots.ts                                   # robots.txt 동적 생성
-├── sitemap.ts                                  # sitemap.xml 동적 생성 (5,000+ URL)
-│
-├── list/
-│   └── page.tsx                                # 포켓몬 도감 리스트 (/list)
-│
-├── detail/[pokemonId]/
-│   ├── opengraph-image.tsx                     # 동적 OG 이미지 생성
-│   ├── (form)/                                 # 라우트 그룹: 폼별 상세
-│   │   ├── page.tsx                            #   기본 상세 (/detail/:id)
-│   │   ├── form/[[...index]]/page.tsx          #   폼체인지 (/detail/:id/form/:index?)
-│   │   ├── mega/[[...index]]/page.tsx          #   메가진화 (/detail/:id/mega/:index?)
-│   │   ├── region/[[...index]]/page.tsx        #   리전폼 (/detail/:id/region/:index?)
-│   │   └── gigantamax/[[...index]]/page.tsx    #   거다이맥스 (/detail/:id/gigantamax)
-│   └── moves/                                  # 습득 기술
-│       ├── page.tsx                            #   기본 기술 (/detail/:id/moves)
-│       ├── form/[[...index]]/page.tsx          #   폼체인지 기술
-│       └── region/[[...index]]/page.tsx        #   리전폼 기술
-│
-├── ability/
-│   ├── page.tsx                                # 특성 도감 (/ability)
-│   └── [id]/page.tsx                           # 특성 상세 (/ability/:id)
-│
-├── moves/
-│   ├── page.tsx                                # 기술 도감 (/moves)
-│   ├── [id]/page.tsx                           # 기술 상세 (/moves/:id)
-│   └── [id]/generation/[generationId]/page.tsx # 세대별 기술 (/moves/:id/generation/:gen)
-│
-├── type-effectiveness/
-│   └── page.tsx                                # 타입 상성 계산기 (/type-effectiveness)
-│
-└── quiz/
-    ├── page.tsx                                # 퀴즈 메인 (/quiz)
-    ├── silhouette/page.tsx                     # 실루엣 퀴즈
-    ├── ability/page.tsx                        # 특성 퀴즈
-    ├── pokemon-type/page.tsx                   # 타입 퀴즈
-    └── type-effectiveness/page.tsx             # 타입 상성 퀴즈
-```
-
----
-
-## 아키텍처 패턴
-
-### 디바이스 반응형 구조
-
-모바일/데스크톱 레이아웃을 이중 컨테이너 패턴으로 분리합니다:
-
-- `src/container/desktop/` — 데스크톱 전용 컨테이너
-- `src/container/mobile/` — 모바일 전용 컨테이너
-- `src/views/desktop/` / `src/views/mobile/` — 디바이스별 페이지 뷰
-- `DeviceProvider` 컨텍스트에서 서버 사이드 User Agent 기반 기기 감지
-
-```tsx
-const { isMobile } = useDevice()
-return isMobile ? <MobileComponent /> : <DesktopComponent />
-```
-
-### GraphQL 연동
-
-| 항목              | 설명                                                                                        |
-| ----------------- | ------------------------------------------------------------------------------------------- |
-| 스키마 엔드포인트 | `http://localhost:4000/graphql` (개발) / `https://api.poke-korea.com` (프로덕션)            |
-| 원본 파일         | `src/gql/fragment.graphql`, `src/gql/query.graphql`                                         |
-| 생성 파일         | `src/graphql/schema.graphql`, `src/graphql/gqlGenerated.ts`, `src/graphql/typeGenerated.ts` |
-| Apollo 설정       | `src/module/apolloClient.ts` (SSR/SSG 지원)                                                 |
-| 코드 생성 설정    | `codegen.ts`                                                                                |
-
-`src/gql/` 파일 수정 후 반드시 `npm run codegen` 실행하여 타입을 재생성해야 합니다.
-`src/graphql/` 내 파일은 자동 생성되므로 직접 수정하지 않습니다.
 
 ### 컴포넌트 계층 구조
 
@@ -235,350 +87,161 @@ return isMobile ? <MobileComponent /> : <DesktopComponent />
 page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로직) → components (UI)
 ```
 
-- **page.tsx**: 라우트 엔트리, 메타데이터 설정, 데이터 패칭
-- **views**: 디바이스별 페이지 레이아웃 조합
-- **container**: 상태 관리·로직 처리, desktop/mobile 분리
-- **components**: 재사용 가능한 순수 UI 컴포넌트
-
 ---
 
-## 코딩 컨벤션
+## .claude/ 하네스 구조
 
-### 파일 네이밍
-
-| 유형          | 패턴                                | 예시                    |
-| ------------- | ----------------------------------- | ----------------------- |
-| 컴포넌트      | `이름.component.tsx`                | `Tag.component.tsx`     |
-| 컨테이너      | `이름.container.tsx`                | `List.container.tsx`    |
-| 컨텍스트      | `이름.context.tsx`                  | `Device.context.tsx`    |
-| 커스텀 훅     | `use이름.ts`                        | `useDebounce.ts`        |
-| 타입 정의     | `이름.type.ts` 또는 `이름.types.ts` | `detailContext.type.ts` |
-| 모듈          | `이름.module.ts`                    | `metadata.module.ts`    |
-| 뷰 (데스크톱) | `이름.desktop.tsx`                  | `Home.desktop.tsx`      |
-| 뷰 (모바일)   | `이름.mobile.tsx`                   | `Home.mobile.tsx`       |
-
-### 경로 별칭
-
-- `~/` 접두어로 모든 내부 모듈 import (`tsconfig.json`에서 `src/*`에 매핑)
-
-```tsx
-import { useDevice } from '~/context/Device.context'
-```
-
-### 스타일링
-
-- Tailwind CSS 유틸리티 클래스 우선 사용
-- 전역 스타일: `src/styles/globals.css`
-- SVG는 `@svgr/webpack`을 통해 React 컴포넌트로 import
-- 커스텀 브레이크포인트: `mobile` (max: 768px), `desktop` (min: 769px)
-- 포켓몬 타입별 커스텀 색상: `type-fire`, `type-water` 등 18종 정의
-- 프로젝트 색상 체계: `primary-1` ~ `primary-4`, `white-1` ~ `white-3`, `black-1` ~ `black-2`
-
-### 코드 포맷팅 (Prettier)
-
-| 규칙             | 설정값                             |
-| ---------------- | ---------------------------------- |
-| 세미콜론         | 사용 안 함 (`semi: false`)         |
-| 따옴표           | 작은따옴표 (`singleQuote: true`)   |
-| JSX 따옴표       | 큰따옴표 (`jsxSingleQuote: false`) |
-| 탭 크기          | 2칸 (`tabWidth: 2`)                |
-| 줄 길이          | 80자 (`printWidth: 80`)            |
-| 후행 쉼표        | 모든 곳 (`trailingComma: all`)     |
-| 화살표 함수 괄호 | 항상 (`arrowParens: always`)       |
-| 줄 끝            | LF (`endOfLine: lf`)               |
-
-### ESLint 주요 규칙
-
-- TypeScript strict 규칙 적용 (`@typescript-eslint/recommended`)
-- React Hooks 규칙 적용 (`react-hooks/rules-of-hooks`: warn)
-- 미사용 변수 에러 (`@typescript-eslint/no-unused-vars`: error, `_` 접두어 예외)
-- `any` 타입 경고 (`@typescript-eslint/no-explicit-any`: warn)
-- import/export 유효성 검사
-- Prettier 연동 (`prettier/prettier`: warn)
-- 접근성 규칙 (`jsx-a11y/aria-role`)
-- `.js`, `.jsx` 파일은 lint 무시 (`ignorePatterns`)
-
----
-
-## SEO 구성 개요
-
-### 적용 기법
-
-| 기법                     | 설명                                                              | 관련 파일                                            |
-| ------------------------ | ----------------------------------------------------------------- | ---------------------------------------------------- |
-| Next.js Metadata API     | 각 페이지별 `metadata` export 또는 `generateMetadata()` 동적 생성 | 각 `page.tsx`                                        |
-| JSON-LD 구조화 데이터    | WebSite, WebPage, BreadcrumbList, ItemList, FAQPage, Thing 스키마 | `src/constants/*JsonLd.ts` (7개)                     |
-| 동적 사이트맵            | GraphQL 데이터 기반 5,000+ URL 동적 생성                          | `src/app/sitemap.ts`                                 |
-| Robots 설정              | 환경별 분기 (프로덕션: index/follow, 개발: noindex)               | `src/app/robots.ts`, `src/module/metadata.module.ts` |
-| Canonical URL            | 모든 페이지에 Path 기반 canonical URL 설정                        | 각 `page.tsx`                                        |
-| OpenGraph / Twitter Card | 모든 주요 페이지에 OG 태그 + Twitter `summary_large_image`        | 각 `page.tsx`                                        |
-| 동적 OG 이미지           | 포켓몬 상세 페이지별 개별 OG 이미지 생성                          | `src/app/detail/[pokemonId]/opengraph-image.tsx`     |
-| SEO 메타데이터 모듈      | 포켓몬명·타입·능력치 기반 동적 title/description 생성             | `src/module/generateDetailSeoMetaData.ts`            |
-
-### SEO 적용 현황
-
-- **메타데이터 커버리지**: title, description, OG, Twitter Card, canonical — 전 페이지 100%
-- **JSON-LD**: 포켓몬 상세(능력치·특성 포함), 특성, 기술, 퀴즈, 타입 상성 등 주요 페이지 적용
-- **리다이렉트**: 레거시 쿼리 파라미터 URL → Path 기반 URL 영구 리다이렉트 (`next.config.js`)
-
----
-
-## Next.js 설정 (`next.config.js`) 주요 항목
-
-| 항목              | 설명                                                                       |
-| ----------------- | -------------------------------------------------------------------------- |
-| `reactStrictMode` | `true`                                                                     |
-| `removeConsole`   | 프로덕션에서 console 제거                                                  |
-| `poweredByHeader` | `false` (X-Powered-By 헤더 비활성화)                                       |
-| `redirects`       | 레거시 쿼리 파라미터 → Path URL 영구 리다이렉트 (메가진화, 리전폼, 기본폼) |
-| `headers`         | 페이지별 Cache-Control 설정 (상세·리스트: 1년 캐시, 홈: SWR)               |
-| `webpack`         | SVG → React 컴포넌트 변환, 프로덕션 CSS 분리 최적화, ES2022 타겟           |
-
----
-
-## 버전 관리 및 릴리즈
-
-### 브랜치 전략
-
-#### 브랜치 네이밍 규칙
+`.claude/` 디렉토리가 기획, 의사결정, 컨벤션, 스킬, 에이전트의 중심 허브입니다.
+각 폴더에 `index.md`가 있어 진입 시 먼저 읽으면 됩니다.
 
 ```text
-feature/{version}
-예: feature/1.25.0, feature/1.26.0
+.claude/
+├── settings.json              # Claude Code 권한 설정 (프로젝트 공유용)
+├── settings.local.json        # 로컬 권한 오버라이드
+├── conventions/               # 코딩/워크플로우 규칙
+│   └── guides/
+│       ├── coding.md          #   코딩 컨벤션 (네이밍, 경로 별칭, 컴포넌트 계층)
+│       ├── styling.md         #   스타일링 (Tailwind, 색상 체계, 브레이크포인트)
+│       ├── linting.md         #   린팅 (ESLint, Prettier 설정)
+│       ├── workflow.md        #   워크플로우 (브랜치 전략, 버전 관리)
+│       ├── rendering.md       #   렌더링 (SSR/ISR, Apollo, GraphQL 연동)
+│       └── changelog.md       #   Changelog 관리 (Docusaurus 블로그)
+├── decisions/                 # ADR (의사결정 기록)
+│   ├── template.md            #   ADR 작성 템플릿
+│   └── records/               #   ADR 기록
+├── specs/                     # 서비스/비즈니스 분석 스펙
+│   ├── service-overview.md    #   서비스 현황 (현재 지표 포함)
+│   ├── metrics-baseline.md    #   핵심 지표 기준값
+│   ├── target-segment.md      #   타겟 사용자 정의
+│   └── competitor-map.md      #   경쟁사 목록 및 포지셔닝
+├── skills/                    # 커스텀 스킬 (폴더/SKILL.md 구조)
+│   ├── create-pr/             #   /create-pr (조건부 검증 포함)
+│   ├── lint-check/            #   /lint-check
+│   ├── seo-audit/             #   /seo-audit
+│   ├── a11y-check/            #   /a11y-check (WCAG 접근성 검사)
+│   ├── code-review/           #   /code-review
+│   ├── component-builder/     #   /component-builder
+│   ├── research/              #   /research (자동 트리거)
+│   ├── test-writer/           #   /test-writer (Vitest 단위 테스트)
+│   ├── e2e-test/              #   /e2e-test (Playwright E2E 테스트)
+│   └── biz-strategy/          #   /biz-strategy (비즈니스 전략 파이프라인, references/ 포함)
+├── agents/                    # 에이전트 정의
+│   ├── index.md               #   에이전트 목록 및 활용 패턴
+│   ├── product-planner.md     #   기획서(SPEC) 작성/관리
+│   ├── config-maker.md        #   설정 파일 스키마/옵션/생성 로직
+│   ├── seo-specialist.md      #   SEO 설계/구현 (메타태그, JSON-LD, hreflang)
+│   ├── ui-publisher.md        #   Astro/Svelte 컴포넌트 구현
+│   ├── ux-designer.md         #   사용자 플로우, 레이아웃, 인터랙션 설계
+│   ├── qa-agent.md            #   QA 오케스트레이터 (서브에이전트 조율)
+│   ├── unit-tester.md         #   Vitest 단위 테스트 실행/분석 (qa-agent 전용)
+│   ├── e2e-tester.md          #   Playwright E2E 테스트 실행/분석 (qa-agent 전용)
+│   ├── static-analyzer.md     #   ESLint/Prettier/TS 정적 분석 (qa-agent 전용)
+│   ├── market-intelligence.md #   시장/경쟁사/트렌드 조사
+│   ├── business-analyst.md    #   서비스 경쟁력/포지셔닝 분석
+│   └── strategy-planner.md    #   MI+BA 종합 후 전략 방향 도출
+└── research/                  # 리서치 보고서 저장
+    └── reports/               #   MI-/BA-/STR- 보고서
 ```
 
-- 모든 새로운 작업은 `feature/{version}` 형식의 브랜치에서 진행
-- 버전 번호는 [Semantic Versioning](https://semver.org/lang/ko/) 준수
-  - **Major (X.0.0)**: 대규모 변경, Breaking Changes
-  - **Minor (1.X.0)**: 새로운 기능 추가, 하위 호환성 유지
-  - **Patch (1.26.X)**: 버그 수정, 소규모 개선
-- 브랜치는 사용자가 직접 생성하므로, 새로운 작업 시작 시 브랜치 생성 여부 확인 필요
+### 상세 문서 참조 가이드
 
-#### 워크플로우
+| 작업 유형      | 참조할 문서                                                                     |
+| -------------- | ------------------------------------------------------------------------------- |
+| 코드 작성      | `.claude/conventions/guides/coding.md`, `.claude/conventions/guides/styling.md` |
+| 린트/포맷      | `.claude/conventions/guides/linting.md`                                         |
+| 브랜치/PR      | `.claude/conventions/guides/workflow.md`                                        |
+| Changelog      | `.claude/conventions/guides/changelog.md`                                       |
+| 렌더링/API     | `.claude/conventions/guides/rendering.md`                                       |
+| 의사결정       | `.claude/decisions/template.md`                                                 |
+| 비즈니스 분석  | `.claude/specs/`, `.claude/skills/biz-strategy/`                                |
+| 경쟁사 분석    | `.claude/specs/competitor-map.md`                                               |
 
-1. 사용자가 main에서 신규 버전 루트 브랜치 생성 (예: `feature/1.28.0`)
-2. 해당 신규 버전의 루트 브랜치에서 작업 브랜치를 생성 (예: `feature/1.28.0-{작업기능명}`)
-3. 기능 작업이 완료되면 루트 버전 브랜치를 향하는 PR 생성
-   - Base: `feature/1.28.0`
-   - Compare: `feature/1.28.0-refactor`
-   - PR 제목: `[1.28.0] {작업명}` (예: `[1.28.0] CSS 패턴 추출 및 최적화`)
-4. 코드 리뷰 후 루트 브랜치로 머지 (`feature/1.28.0-refactor` → `feature/1.28.0`)
-5. 2~4번 작업이 반복되다 해당 버전의 모든 작업이 완료됐을 때 main을 향하는 릴리즈 PR 생성
-6. 릴리즈 PR을 통해 배포
+## 하네스 컨벤션
 
-### Changelog 관리 (Docusaurus 블로그)
+### 1. Why-First 원칙
 
-`changelog/` 폴더는 Docusaurus 기반 개발 블로그 프로젝트입니다. 마크다운 파일을 추가하면 자동으로 블로그 포스트가 생성됩니다.
+규칙만 나열하지 말고 "왜 그런지"를 설명한다. 이유를 이해한 에이전트는 엣지 케이스에서도 올바르게 판단할 수 있다.
 
-#### 폴더 및 파일 구조
+### 2. Progressive Disclosure
 
-```text
-changelog/blog/{version}/{날짜}-{작업기능명}.md
-예: changelog/blog/1.28.0/2026-01-02-css-refactor.md
-예: changelog/blog/1.34.0/2026-02-15-new-feature.md
-```
+SKILL.md와 가이드 문서는 500줄 이하로 유지한다. 상세 내용은 `references/`로 분리하여 필요할 때만 로드한다. 이는 컨텍스트 윈도우를 효율적으로 사용하기 위함이다.
 
-- **Docusaurus 프로젝트 루트**: `changelog/`
-- **블로그 콘텐츠 폴더**: `changelog/blog/`
-- **버전 폴더**: `changelog/blog/{version}/` — 신규 버전 루트 브랜치명과 동일
-- **작업 파일**: `{YYYY-MM-DD}-{작업기능명}.md` — Docusaurus가 날짜를 자동 파싱
-- **작성자 정의**: `changelog/blog/authors.yml`
-- **태그 정의**: `changelog/blog/tags.yml`
+### 3. Description 공격적 작성
 
-#### Docusaurus frontmatter 필수 항목
+스킬과 에이전트의 description은 트리거 조건을 넓게 작성한다. Claude가 보수적으로 트리거하는 경향이 있으므로, 이를 보상하기 위해 관련 키워드와 상황을 적극적으로 포함한다.
 
-모든 블로그 포스트 파일 최상단에 다음 frontmatter를 포함해야 합니다:
+### 4. index.md 기반 탐색
 
-```yaml
----
-slug: { 작업기능명 }
-title: '{작업 제목}'
-description: '{작업 목표를 기반으로 한 80~120자 내외의 요약}'
-authors: [jsg3121, claude]
-tags: [{ 태그1 }, { 태그2 }]
----
-```
+모든 `.claude/` 하위 폴더에는 `index.md`가 있다. 이 파일은 폴더의 역할, 하위 구조, 주요 문서 목록을 설명한다. 에이전트는 새로운 폴더를 탐색할 때 항상 `index.md`부터 읽는다.
 
-- **slug**: URL 경로 (`/{slug}`)
-- **description**: 검색 결과 스니펫에 표시될 한 줄 요약 (80~120자, 작업 목표 기반)
-- **authors**: `authors.yml`에 정의된 작성자 ID (`jsg3121`, `claude`)
-- **tags**: `tags.yml`에 정의된 태그 (`refactoring`, `performance`, `bug-fix`, `seo`, `ux`, `feature`, `feature-improvement`, `docs`, `css`, `nextjs`, `graphql`)
+## 에이전트 실행 규칙
 
-#### truncate 마커
+### 실행 모드
 
-본문 중 목록 페이지에서 보여줄 요약과 상세 내용의 경계에 `<!-- truncate -->` 마커를 삽입합니다. 일반적으로 작업 목표 섹션 아래에 배치합니다.
+- **에이전트 팀**: 멤버 간 소통이 필요한 복잡한 작업 (Fan-out/Fan-in, Producer-Reviewer 등)
+- **서브 에이전트**: 소통 불필요한 독립 하위 작업 (조사, 분석 등)
+- 1단계는 에이전트 팀, 2단계는 서브 에이전트로 구성 가능 (중첩 팀 불가)
+- 활용 패턴 상세는 `.claude/agents/index.md` 참조
 
-#### MDX 주의사항
+### 작업 전 확인 사항
 
-Docusaurus는 MDX를 사용하므로 코드블록 밖에서 다음 문법을 주의해야 합니다:
+1. 이 CLAUDE.md를 읽고 프로젝트 맥락을 파악한다
+2. **메모리에서 프로젝트 진행 현황을 확인한다** — 이전 세션에서의 작업 상태, 다음 작업 등을 파악
 
-- `{변수}` → JSX expression으로 해석됨 → 백틱으로 감싸기: `` `{변수}` ``
-- `<숫자` → JSX 태그로 해석됨 → `&lt;숫자`로 이스케이프
-- `{ key: value }` → 백틱으로 감싸기: `` `{ key: value }` ``
+아래는 **작업 내용과 관련된 경우에만** 참조한다. 매번 전부 읽지 않는다:
 
-#### 로그 작성 시점
+- **의사결정 관련** 작업 시: `.claude/decisions/index.md`
+- **코드 작성** 작업 시: `.claude/conventions/index.md` (해당 가이드만 선택 로드)
+- **비즈니스 분석** 작업 시: `.claude/specs/`, `.claude/skills/biz-strategy/`
 
-1. **작업 브랜치 생성 시**: 해당 버전 폴더에 작업 파일 생성
-2. **주요 변경사항 발생 시**: 실시간으로 로그 업데이트
-3. **루트 브랜치 PR 생성 전**: 최종 검토 및 완성
+### 근거 기반 논의
 
-#### 로그 필수 섹션
+의사결정이나 기술 논의 시, 반드시 공식 문서나 신뢰도 높은 자료를 근거로 제시한다. 근거 없는 주장이나 추측만으로 의사결정을 유도하지 않는다.
 
-- 📋 **작업 개요**: 브랜치명, 작업 유형, 작업 기간, 담당자
-- 🎯 **작업 목표**: 이 작업의 목적과 해결하려는 문제
-- ✨ **주요 변경사항**: 구체적인 변경 내용을 패턴별/기능별로 정리
-- 📊 **최적화 결과**: 통계, 감소량, 개선율 등 정량적 지표
-- 🔧 **기술적 세부사항**: 수정된 파일, 추가된 코드, 기술 스택
-- 📌 **참고 사항**: 주의사항, 특이사항
+- 기술 비교/추천 시: 공식 문서, 벤치마크, 신뢰할 수 있는 기술 블로그 등의 링크를 함께 제시한다
+- ADR 작성 시: 참고 자료(References) 섹션에 근거 링크를 반드시 포함한다
+- 컨벤션/가이드라인 작성 시: 해당 규칙의 출처(공식 스타일 가이드, RFC 등)를 명시한다
 
-#### 로그 선택 섹션 (해당 시)
+### 이슈 수정 보고
 
-- 🐛 **버그 수정**: 수정된 버그 목록
-- 🔍 **SEO 개선**: SEO 관련 변경사항
-- 🚀 **성능 개선**: 성능 최적화 결과
-- 🎨 **디자인 변경**: UI/UX 변경사항
+코드 수정이 필요한 이슈(경고, 에러, 린트 위반 등)를 발견하면 다음 구조로 보고한다. 수정부터 하지 않고 먼저 설명한다.
 
-#### 로그 작성 가이드라인
+1. **문제**: 어떤 경고/에러가 발생하는지
+2. **원인**: 왜 발생하는지 코드 레벨에서 설명
+3. **수정 방안**: 가능한 선택지를 제시하고 각각의 장단점 설명
 
-1. **명확한 제목**: 각 섹션의 제목은 명확하고 구체적으로
-2. **코드 예시**: 변경사항은 Before/After 코드 블록으로 명확히 설명
-3. **통계 제공**: 정량적 지표 포함 (파일 수, 변경 횟수, 문자 수 감소율 등)
-4. **테이블 활용**: 비교 데이터는 마크다운 테이블로 정리
+> **Why:** 단순히 "수정할까요?"만 묻으면 사용자가 맥락을 파악하기 어렵고, 왜 수정이 필요한지 이해 없이 승인하게 된다. 선택지를 제시하면 사용자가 프로젝트 방향에 맞는 판단을 내릴 수 있다.
 
-### 새 작업 시작 시 체크리스트
+### 수정 근거 제시
 
-Claude가 새로운 작업 요청을 받았을 때:
+이슈를 파악하고 해결 방법을 제시할 때, 해당 방법을 선택한 **기술적 근거**를 반드시 함께 제시한다. 근거는 반드시 공식 문서, 기술 사양, 또는 검증된 기술 자료를 기반으로 한다.
 
-1. **브랜치 확인**:
+1. **문제 분석**: 이슈의 원인을 기술적으로 정확하게 파악한다
+2. **해결 방법 제시**: 가능한 선택지를 나열한다
+3. **근거**: 각 선택지에 대해 공식 문서나 기술 사양을 조사하고, 해당 방법이 적절한 이유를 구체적으로 설명한다. 추측이나 경험적 판단만으로는 부족하다
 
-   - 현재 작업 중인 브랜치 형식 확인 (`git branch --show-current`)
-   - 루트 브랜치: `feature/{version}` (예: `feature/1.28.0`)
-   - 작업 브랜치: `feature/{version}-{작업기능명}` (예: `feature/1.28.0-refactor`)
+> **Why:** 기술적 근거 없이 수정하면 잘못된 방향으로 코드가 변경될 수 있다. 공식 문서 기반의 근거를 제시하면 사용자가 해결 방법의 정확성을 검증할 수 있고, 유사한 문제 발생 시 참고 자료로 활용할 수 있다.
 
-2. **브랜치 생성 필요 시**: 사용자에게 새 브랜치 생성 여부 확인
+### 의사결정 기록
 
-   ```text
-   "이 작업을 위한 새 feature 브랜치를 생성하시겠습니까?
-   예: feature/1.28.0-{작업기능명}"
-   ```
+새로운 기술적 의사결정이 발생하면 ADR로 기록한다. `.claude/decisions/template.md`를 기반으로 작성하며, 반드시 참고 자료(공식 문서, 신뢰할 수 있는 블로그 등) 링크를 포함한다.
 
-3. **Changelog 폴더 확인**:
+### 지침 변경 관리
 
-   - `changelog/blog/{version}/` 폴더 존재 여부 확인
-   - 없으면 생성: `mkdir -p changelog/blog/{version}`
+개발 진행이나 논의 과정에서 기존에 명시된 지침, 규칙, 계획과 어긋나는 상황이 발생할 수 있다. 이 경우 다음 절차를 따른다.
 
-4. **Changelog 파일 생성**:
+1. **기존 지침 확인**: 변경하려는 영역의 관련 ADR, 컨벤션, 가이드라인을 먼저 읽고 현재 규칙이 무엇인지 파악한다
+2. **충돌 지점 명시**: 기존 지침의 어떤 부분이 현재 상황과 맞지 않는지 구체적으로 식별한다
+3. **변경 논의**: 왜 변경이 필요한지 근거를 제시하고, 사용자와 합의한다
+4. **ADR 기록**: 변경 사항을 새로운 ADR로 작성한다. 기존 ADR을 대체하는 경우, 기존 ADR의 상태를 `대체됨`으로 변경하고 새 ADR 번호를 명시한다
+5. **관련 문서 동기화**: 변경이 반영되어야 하는 모든 문서(CLAUDE.md, 컨벤션, 가이드라인 등)를 함께 업데이트한다
 
-   - 작업 브랜치명에서 작업 기능명 추출
-   - `changelog/blog/{version}/{YYYY-MM-DD}-{작업기능명}.md` 파일 생성
-   - Docusaurus frontmatter + 템플릿에 따라 초기 구조 작성
+### 지침 저장 우선순위
 
-5. **로그 실시간 업데이트**:
+새로운 지침이나 규칙이 생길 때, 저장 위치의 우선순위를 따른다.
 
-   - 주요 변경사항 발생 시 해당 changelog 파일 업데이트
-   - 통계 정보 업데이트 (파일 수, 변경 횟수, 감소율 등)
+1. **하네스 문서 먼저**: 코딩 규칙은 `conventions/`, 워크플로우는 `workflow.md` 등 해당 하네스 문서에 먼저 추가한다
+2. **메모리는 보조**: 하네스에 저장할 수 없는 정보(사용자 선호, 외부 참조, 프로젝트 진행 맥락 등)만 메모리에 저장한다. 사용자 확인 후 저장한다
+3. **중복 금지**: 하네스에 이미 있는 내용을 메모리에 중복 저장하지 않는다
 
-6. **작업 완료 시**:
-   - Changelog 최종 검토 및 완성
-   - MDX 파싱 이슈 없는지 확인 (코드블록 밖 `{}`, `<숫자` 등)
-
-### Changelog 자동화 가이드
-
-#### 작업 시작 시
-
-```bash
-# 1. 현재 브랜치 확인
-git branch --show-current
-# 출력 예: feature/1.28.0-refactor
-
-# 2. 버전 및 작업명 추출
-VERSION="1.28.0"
-WORK_NAME="refactor"
-TODAY=$(date +%Y-%m-%d)
-
-# 3. Changelog 폴더 생성
-mkdir -p changelog/blog/${VERSION}
-
-# 4. Changelog 파일 생성
-touch changelog/blog/${VERSION}/${TODAY}-${WORK_NAME}.md
-```
-
-#### 로그 작성 템플릿
-
-```markdown
----
-slug: { 작업기능명 }
-title: '{작업 제목}'
-description: '{작업 목표를 기반으로 한 80~120자 내외의 요약}'
-authors: [jsg3121, claude]
-tags: [{ 태그1 }, { 태그2 }]
----
-
-# {작업명}
-
-> **작업 날짜**: YYYY-MM-DD
-> **브랜치**: `feature/{version}-{작업기능명}`
-
-## 📋 작업 개요
-
-**작업 유형**: [기능 추가/버그 수정/리팩토링/성능 개선/SEO/디자인]
-**담당**: [담당자명 또는 작업 주체]
-
-## 🎯 작업 목표
-
-[이 작업의 목적과 해결하려는 문제를 명확히 기술]
-
-<!-- truncate -->
-
-## ✨ 주요 변경사항
-
-### 변경 1: [변경 항목명]
-
-**변경 전**:
-\`\`\`[언어]
-// 기존 코드
-\`\`\`
-
-**변경 후**:
-\`\`\`[언어]
-// 새 코드
-\`\`\`
-
-## 📊 최적화 결과
-
-| 항목 | 변경 전 | 변경 후 | 개선율 |
-| ---- | ------- | ------- | ------ |
-| 예시 | 100     | 50      | 50%    |
-
-## 🔧 기술적 세부사항
-
-[상세한 기술 설명]
-
-## 📌 참고 사항
-
-[주의사항, 특이사항]
-```
-
-#### 사용 가능한 태그 목록
-
-`changelog/blog/tags.yml`에 정의된 태그만 사용:
-
-| 태그 ID               | 설명         |
-| --------------------- | ------------ |
-| `refactoring`         | 리팩토링     |
-| `performance`         | 성능 최적화  |
-| `bug-fix`             | 버그 수정    |
-| `seo`                 | SEO 개선     |
-| `ux`                  | UX/UI 개선   |
-| `feature`             | 신규 기능    |
-| `feature-improvement` | 기능 개선    |
-| `docs`                | 문서         |
-| `css`                 | CSS/스타일링 |
-| `nextjs`              | Next.js 관련 |
-| `graphql`             | GraphQL 관련 |
-
-새로운 태그가 필요한 경우 `changelog/blog/tags.yml`에 추가 후 사용합니다.
-
-### 참고 문서
-
-- Changelog 예시: [changelog/blog/1.28.0/2026-01-02-css-refactor.md](changelog/blog/1.28.0/2026-01-02-css-refactor.md)
+> **Why:** 하네스 문서는 코드와 함께 버전 관리되고, 모든 세션에서 자동으로 로드된다. 메모리는 보조 수단이며, 하네스가 권위 있는 원본(single source of truth)이다.
