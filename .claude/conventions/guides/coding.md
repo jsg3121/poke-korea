@@ -27,10 +27,21 @@ import { useDevice } from '~/context/Device.context'
 page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로직) → components (UI)
 ```
 
-- **page.tsx**: 라우트 엔트리, 메타데이터 설정, 데이터 패칭
-- **views**: 디바이스별 페이지 레이아웃 조합
-- **container**: 상태 관리/로직 처리, desktop/mobile 분리
-- **components**: 재사용 가능한 순수 UI 컴포넌트
+- **page.tsx**: 라우트 엔트리, 메타데이터 설정, 서버 데이터 패칭
+- **views**: 디바이스별 페이지 레이아웃 조합. Container만 호출하며, 직접 components를 호출하지 않음
+- **container**: 상태 관리/로직 처리, desktop/mobile 분리. 비즈니스 로직(데이터 변환, 포맷팅 등) 포함
+- **components**: 재사용 가능한 순수 UI 컴포넌트. Props만 받아서 렌더링
+
+### 계층별 책임 상세
+
+| 계층 | 허용 | 금지 |
+|------|------|------|
+| page.tsx | 서버 데이터 패칭, 메타데이터, JSON-LD, views 분기 | 비즈니스 로직, UI 렌더링 |
+| views | Container 호출, 광고/푸터 등 레이아웃 컴포넌트 배치 | components 직접 호출, 비즈니스 로직 |
+| container | 비즈니스 로직, 상태 관리, components 호출 | 서버 데이터 패칭 |
+| components | Props 기반 순수 UI 렌더링 | 비즈니스 로직, 상태 관리 |
+
+**Why:** 계층을 명확히 분리하면 테스트 용이성, 재사용성, 유지보수성이 향상됨. views에서 components를 직접 호출하면 비즈니스 로직이 views로 누출되어 계층 구조가 무너짐.
 
 ## 디바이스 반응형 구조
 
