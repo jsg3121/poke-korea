@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import DesktopPokemonTypeGuideBottomBanner from '~/components/adSlot/DesktopPokemonTypeGuideBottomBanner'
 import PageHeader from '~/components/PageHeader'
 import {
   QUIZ_CONFIG,
@@ -51,7 +50,6 @@ const PokemonTypeQuizBeforeStage = () => {
         </div>
       </section>
       <OtherQuizLink currentQuiz="pokemon-type" />
-      <DesktopPokemonTypeGuideBottomBanner />
     </section>
   )
 }

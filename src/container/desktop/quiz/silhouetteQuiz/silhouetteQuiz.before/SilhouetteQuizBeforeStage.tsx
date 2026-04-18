@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import DesktopSilhouetteGuideBottomBanner from '~/components/adSlot/DesktopSilhouetteGuideBottomBanner'
 import PageHeader from '~/components/PageHeader'
 import {
   QUIZ_CONFIG,
@@ -49,7 +48,6 @@ const SilhouetteQuizBeforeStage = () => {
         </div>
       </section>
       <OtherQuizLink currentQuiz="silhouette" />
-      <DesktopSilhouetteGuideBottomBanner />
     </section>
   )
 }

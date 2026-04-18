@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Fragment } from 'react'
-import DesktopQuizMainBottomBanner from '~/components/adSlot/DesktopQuizMainBottomBanner'
 import DesktopQuizMainTopBanner from '~/components/adSlot/DesktopQuizMainTopBanner'
 import PageHeader from '~/components/PageHeader'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
@@ -92,8 +91,6 @@ const QuizMainDesktop = () => {
               </Link>
             ))}
           </div>
-
-          <DesktopQuizMainBottomBanner />
         </section>
       </main>
       <FooterContainer />
