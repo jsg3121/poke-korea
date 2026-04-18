@@ -728,8 +728,8 @@ query GetChampionsPokemonList($input: ChampionsPokemonListInput) {
   }
 }
 
-query GetChampionsMetaStats($pokemonId: Int!) {
-  getChampionsMetaStats(pokemonId: $pokemonId) {
+query GetChampionsMetaStats($externalDexId: Int!) {
+  getChampionsMetaStats(externalDexId: $externalDexId) {
     ...ChampionsMetaStats
   }
 }
@@ -740,8 +740,8 @@ query GetChampionsMetaSummary {
   }
 }
 
-query GetChampionsPokemonDetail($pokemonId: Int!) {
-  getChampionsPokemonDetail(pokemonId: $pokemonId) {
+query GetChampionsPokemonDetail($externalDexId: Int!) {
+  getChampionsPokemonDetail(externalDexId: $externalDexId) {
     ...ChampionsPokemonDetail
   }
 }

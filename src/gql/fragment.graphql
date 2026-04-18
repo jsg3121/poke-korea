@@ -82,20 +82,25 @@ fragment PokemonWithAbilityInfo on PokemonWithAbility {
 
 fragment ChampionsPokemonCard on ChampionsPokemon {
   id
-  pokemonId
+  externalDexId
+  pokemonNumber
+  formType
+  formCode
   name
-  number
+  formName
   types
   typePrimary
   typeSecondary
   stats {
     ...PokemonStats
   }
-  availableForms
   abilities {
     abilityId
+    name
+    description
     isHidden
   }
+  imagePath
 }
 
 fragment ChampionsMetaMove on ChampionsMetaMove {
@@ -116,6 +121,7 @@ fragment ChampionsMetaAbility on ChampionsMetaAbility {
 fragment ChampionsMetaPartner on ChampionsMetaPartner {
   pokemonId
   name
+  imagePath
   usageRate
 }
 
@@ -144,6 +150,7 @@ fragment ChampionsMetaStats on ChampionsMetaStats {
 fragment ChampionsMetaSummary on ChampionsMetaStats {
   pokemonId
   name
+  formName
   imagePath
   usageRate
   winRate
@@ -154,26 +161,28 @@ fragment ChampionsMetaSummary on ChampionsMetaStats {
 fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
   pokemon {
     id
-    number
+    externalDexId
+    pokemonNumber
+    formType
+    formCode
     name
-    generation
+    formName
     types
     typePrimary
     typeSecondary
-    pokemonStats {
+    stats {
       ...PokemonStats
     }
-    pokemonAbilityList {
+    abilities {
       abilityId
       name
       description
       isHidden
     }
+    imagePath
   }
   meta {
     pokemonId
-    name
-    imagePath
     usageRate
     winRate
     tier
@@ -193,5 +202,4 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
     updatedAt
     isStale
   }
-  availableForms
 }

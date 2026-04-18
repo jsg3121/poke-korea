@@ -36,8 +36,8 @@ const ChampionsTierGroup = ({ tier, pokemons }: ChampionsTierGroupProps) => {
               width="3rem"
               imageSize={{ width: 48, height: 48 }}
               densities={[1, 2]}
-              alt={`pokemon_${pokemon.pokemonId}`}
-              src={`${imageMode}/${pokemon.pokemonId}.webp`}
+              alt={pokemon.name ?? `pokemon_${pokemon.pokemonId}`}
+              src={`${imageMode}/${pokemon.imagePath ?? pokemon.pokemonId}.webp`}
               sizes="3rem"
               loading="lazy"
             />
