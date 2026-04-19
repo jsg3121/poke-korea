@@ -8,6 +8,7 @@ import {
   getBackgroundColor,
   pokemonNumberFormat,
 } from '~/module/pokemonCard.module'
+import ImageComponent from '~/components/Image.component'
 
 interface ChampionsDetailContainerProps {
   detail: ChampionsPokemonDetailFragment
@@ -32,54 +33,56 @@ const ChampionsDetailContainer = ({
 
   return (
     <>
-      <nav className="mb-4 p-3 bg-primary-4 rounded-xl">
-        <ol className="flex items-center gap-2 text-xs text-primary-2">
-          <li>
-            <Link
-              href="/champions"
-              className="hover:text-primary-2 transition-colors"
-            >
-              챔피언스
-            </Link>
-          </li>
-          <li className="text-primary-3">/</li>
-          <li>
-            <Link
-              href="/champions/list"
-              className="hover:text-primary-2 transition-colors"
-            >
-              도감
-            </Link>
-          </li>
-          <li className="text-primary-3">/</li>
-          <li className="text-primary-1 font-bold">{displayName}</li>
-        </ol>
-      </nav>
+      <div className="rounded-xl p-4 mb-4" style={gradientStyle}>
+        <nav className="mb-4">
+          <ol className="flex items-center gap-2 text-xs text-black-2/70">
+            <li>
+              <Link
+                href="/champions"
+                className="hover:text-black-2 transition-colors"
+              >
+                챔피언스
+              </Link>
+            </li>
+            <li className="text-black-2/50">/</li>
+            <li>
+              <Link
+                href="/champions/list"
+                className="hover:text-black-2 transition-colors"
+              >
+                도감
+              </Link>
+            </li>
+            <li className="text-black-2/50">/</li>
+            <li className="text-black-2 font-bold">{displayName}</li>
+          </ol>
+        </nav>
 
-      <article className="rounded-xl p-4 text-black-2" style={gradientStyle}>
-        <header className="flex justify-between items-center mb-3">
-          <span className="text-base font-medium">No.{pokemonNumber}</span>
-          <h1 className="text-lg font-bold">{displayName}</h1>
+        <header className="flex justify-between items-center">
+          <span className="text-base font-medium text-black-2">
+            No.{pokemonNumber}
+          </span>
+          <h1 className="text-lg font-bold text-black-2">{displayName}</h1>
         </header>
-
-        <div className="flex justify-center mb-3">
+        <div className="flex justify-center">
           {pokemon.imagePath && (
-            <img
+            <ImageComponent
               src={`${imageMode}/${pokemon.imagePath}.webp`}
               alt={displayName}
-              width={200}
-              height={200}
+              width="17rem"
+              height="17rem"
               className="w-50 h-50 object-contain"
+              imageSize={{ height: 204, width: 204 }}
             />
           )}
         </div>
 
-        <div className="flex gap-2 justify-center mb-3">
+        <div className="flex gap-2 justify-center">
           {pokemon.types.map((type) => (
             <TagComponent key={type} type={type} />
           ))}
         </div>
-      </article>
+      </div>
 
       <div className="mt-4 bg-primary-4 rounded-xl p-4 mb-6">
         <header className="mb-2">
