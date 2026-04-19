@@ -105,7 +105,7 @@ const ChampionsTopCardMobile = ({
                 />
               )
             ) : (
-              <div className="w-[5.5rem] h-[5.5rem] bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
+              <div className="w-[10rem] h-[10rem] bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}

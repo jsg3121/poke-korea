@@ -37,11 +37,11 @@ const ChampionsHomeContainer = ({
                 {tier} 티어
               </h3>
               <div className="grid grid-cols-2 gap-3">
-                {tierPokemons.map((pokemon, index) => (
+                {tierPokemons.map((pokemon) => (
                   <ChampionsTopCardMobile
                     key={pokemon.pokemonId}
                     pokemonData={pokemon}
-                    isHighPriority={index < 2}
+                    isHighPriority={tier === 'S'}
                   />
                 ))}
               </div>
