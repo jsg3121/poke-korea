@@ -152,6 +152,7 @@ fragment ChampionsMetaSummary on ChampionsMetaStats {
   pokemonId
   name
   formName
+  region
   imagePath
   types
   typePrimary

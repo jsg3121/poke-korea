@@ -7,8 +7,8 @@ const ChampionsSubNavMobile = () => {
   const pathname = usePathname()
 
   const navItems = [
-    { href: '/champions', label: 'TOP 10', exact: true },
-    { href: '/champions/list', label: '도감', exact: false },
+    { href: '/champions', label: '챔피언스', exact: true },
+    { href: '/champions/list', label: '챔피언스 도감', exact: false },
     { href: '/champions/tier', label: '티어', exact: false },
   ]
 
