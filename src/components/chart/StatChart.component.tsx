@@ -1,3 +1,5 @@
+'use client'
+
 import type { ChartData, ChartOptions } from 'chart.js'
 import {
   Chart as ChartJS,
@@ -11,7 +13,12 @@ import {
 import { Radar } from 'react-chartjs-2'
 import { PokemonStats } from '~/graphql/typeGenerated'
 
-type StatChartComponentProps = Omit<PokemonStats, 'total'>
+type StatChartSize = 'sm' | 'md' | 'lg'
+
+interface StatChartComponentProps {
+  stats: Omit<PokemonStats, 'total'>
+  size?: StatChartSize
+}
 
 ChartJS.register(
   RadialLinearScale,
@@ -22,14 +29,56 @@ ChartJS.register(
   Tooltip,
 )
 
+const STAT_COLORS = {
+  point: {
+    hp: '#FF0000',
+    attack: '#F08030',
+    specialAttack: '#F8D030',
+    defense: '#6890F0',
+    specialDefense: '#78C850',
+    speed: '#F85888',
+  },
+  border: {
+    hp: '#A60000',
+    attack: '#9C531F',
+    specialAttack: '#A1871F',
+    defense: '#445E9C',
+    specialDefense: '#4E8234',
+    speed: '#A13959',
+  },
+}
+
+const SIZE_CONFIG = {
+  sm: {
+    pointRadius: 5,
+    pointLabelSize: 12,
+    tooltipTitleSize: 12,
+    tooltipBodySize: 10,
+    tooltipPadding: 8,
+  },
+  md: {
+    pointRadius: 8,
+    pointLabelSize: 16,
+    tooltipTitleSize: 15,
+    tooltipBodySize: 12,
+    tooltipPadding: 15,
+  },
+  lg: {
+    pointRadius: 8,
+    pointLabelSize: 20,
+    tooltipTitleSize: 20,
+    tooltipBodySize: 20,
+    tooltipPadding: 12,
+  },
+}
+
 const StatChartComponent = ({
-  attack,
-  defense,
-  hp,
-  specialAttack,
-  speed,
-  specialDefense,
+  stats,
+  size = 'md',
 }: StatChartComponentProps) => {
+  const { hp, attack, defense, specialAttack, specialDefense, speed } = stats
+  const config = SIZE_CONFIG[size]
+
   const maxPoint = Math.max(
     hp,
     attack,
@@ -58,36 +107,12 @@ const StatChartComponent = ({
         backgroundColor: 'rgba(39, 55, 77, 0.7)',
         borderColor: '#444444',
         pointBorderColor: (ctx) => {
-          switch (ctx.dataIndex) {
-            case 0:
-              return '#A60000'
-            case 1:
-              return '#9C531F'
-            case 2:
-              return '#A1871F'
-            case 3:
-              return '#445E9C'
-            case 4:
-              return '#4E8234'
-            case 5:
-              return '#A13959'
-          }
+          const colors = Object.values(STAT_COLORS.border)
+          return colors[ctx.dataIndex]
         },
         pointBackgroundColor: (ctx) => {
-          switch (ctx.dataIndex) {
-            case 0:
-              return '#FF0000'
-            case 1:
-              return '#F08030'
-            case 2:
-              return '#F8D030'
-            case 3:
-              return '#6890F0'
-            case 4:
-              return '#78C850'
-            case 5:
-              return '#F85888'
-          }
+          const colors = Object.values(STAT_COLORS.point)
+          return colors[ctx.dataIndex]
         },
         borderWidth: 2,
       },
@@ -97,7 +122,7 @@ const StatChartComponent = ({
   const options: ChartOptions<'radar'> = {
     elements: {
       point: {
-        radius: 8,
+        radius: config.pointRadius,
       },
     },
     plugins: {
@@ -109,28 +134,23 @@ const StatChartComponent = ({
           },
         },
         backgroundColor: (ctx) => {
-          switch (ctx.tooltip.title[0]) {
-            case '체력':
-              return '#A60000'
-            case '공격':
-              return '#9C531F'
-            case '특수공격':
-              return '#A1871F'
-            case '방어':
-              return '#445E9C'
-            case '특수방어':
-              return '#4E8234'
-            case '스피드':
-              return '#A13959'
+          const titleToColor: Record<string, string> = {
+            체력: STAT_COLORS.border.hp,
+            공격: STAT_COLORS.border.attack,
+            특수공격: STAT_COLORS.border.specialAttack,
+            방어: STAT_COLORS.border.defense,
+            특수방어: STAT_COLORS.border.specialDefense,
+            스피드: STAT_COLORS.border.speed,
           }
+          return titleToColor[ctx.tooltip.title[0]] || '#000'
         },
         titleFont: {
-          size: 15,
+          size: config.tooltipTitleSize,
         },
         bodyFont: {
-          size: 12,
+          size: config.tooltipBodySize,
         },
-        boxPadding: 15,
+        boxPadding: config.tooltipPadding,
       },
     },
     scales: {
@@ -141,7 +161,7 @@ const StatChartComponent = ({
         pointLabels: {
           color: '#27374D',
           font: {
-            size: 16,
+            size: config.pointLabelSize,
             weight: 500,
           },
         },

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import StatChartComponent from '~/components/chart/StatChart.component'
 import TagComponent from '~/components/Tag.component'
 import ChampionsMetaSection from '~/components/champions/ChampionsMetaSection.component'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
@@ -82,23 +83,21 @@ const ChampionsDetailContainer = ({
           ))}
         </div>
 
-        <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-          <dt>체력</dt>
-          <dd className="text-right">{pokemon.stats?.hp ?? '-'}</dd>
-          <dt>공격</dt>
-          <dd className="text-right">{pokemon.stats?.attack ?? '-'}</dd>
-          <dt>방어</dt>
-          <dd className="text-right">{pokemon.stats?.defense ?? '-'}</dd>
-          <dt>특수공격</dt>
-          <dd className="text-right">{pokemon.stats?.specialAttack ?? '-'}</dd>
-          <dt>특수방어</dt>
-          <dd className="text-right">{pokemon.stats?.specialDefense ?? '-'}</dd>
-          <dt>스피드</dt>
-          <dd className="text-right">{pokemon.stats?.speed ?? '-'}</dd>
-          <dt className="font-bold">합계</dt>
-          <dd className="text-right font-bold">{pokemon.stats?.total ?? '-'}</dd>
-        </dl>
       </article>
+
+      <div className="mx-4 mt-4 bg-white rounded-xl p-4 shadow-sm">
+        <header className="mb-2">
+          <h2 className="text-sm font-bold text-gray-700">능력치</h2>
+          <span className="text-xs text-gray-500">
+            총 합: {pokemon.stats?.total ?? '-'}
+          </span>
+        </header>
+        <div className="w-full aspect-square max-w-[280px] mx-auto">
+          {pokemon.stats && (
+            <StatChartComponent stats={pokemon.stats} size="sm" />
+          )}
+        </div>
+      </div>
 
       <div className="mx-4 mt-4">
         <Link

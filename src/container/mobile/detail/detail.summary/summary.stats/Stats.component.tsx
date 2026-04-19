@@ -1,5 +1,5 @@
+import StatChartComponent from '~/components/chart/StatChart.component'
 import { PokemonStats } from '~/graphql/typeGenerated'
-import StatChartComponent from './components/StatChart.component'
 
 const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
   return (
@@ -14,7 +14,7 @@ const StatsComponent = ({ total, ...restProps }: PokemonStats) => {
         </strong>
       </header>
       <div className="w-full h-full aspect-square mt-4 mx-auto">
-        <StatChartComponent {...restProps} />
+        <StatChartComponent stats={restProps} size="md" />
       </div>
     </article>
   )
