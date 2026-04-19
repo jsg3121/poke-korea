@@ -71,7 +71,7 @@ const ChampionsPokemonCard = ({
           </div>
         </header>
         {isHighPriority ? (
-          <div className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative">
+          <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
             {pokemonData.imagePath && (
               <ImageComponent
                 height={isMobile ? '9rem' : '10rem'}
@@ -91,7 +91,7 @@ const ChampionsPokemonCard = ({
         ) : (
           <div
             ref={imgRef}
-            className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative"
+            className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
             aria-description="포켓몬 이미지"
           >
             {isVisible ? (
@@ -132,7 +132,7 @@ const ChampionsPokemonCard = ({
         </div>
 
         <dl
-          className="w-full max-w-[19rem] grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] mt-4 mx-auto pl-2"
+          className="w-full max-w-[19rem] grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] mobile:mt-4 desktop:mt-2 mx-auto pl-2"
           aria-description="포켓몬 능력치 정보"
         >
           <dt className="h-5 text-[max(0.875rem,11px)] leading-5 mr-1">체력</dt>
