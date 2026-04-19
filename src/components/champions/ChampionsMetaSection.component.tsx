@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { ChampionsMetaStatsFragment } from '~/graphql/typeGenerated'
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 import ChampionsMetaList from './ChampionsMetaList.component'
@@ -12,10 +13,18 @@ interface ChampionsMetaSectionProps {
 const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
   if (!meta) {
     return (
-      <div className="p-6 bg-gray-100 rounded-xl">
-        <p className="text-gray-500 text-center">
-          메타 데이터를 불러올 수 없습니다.
+      <div className="p-6 bg-primary-4 rounded-xl text-center">
+        <p className="text-primary-2 mb-4">
+          아직 메타 데이터가 없습니다.
+          <br />
+          시즌이 시작되면 업데이트됩니다.
         </p>
+        <Link
+          href="/champions/list"
+          className="inline-block px-4 py-2 bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors text-sm"
+        >
+          목록으로 돌아가기
+        </Link>
       </div>
     )
   }
@@ -57,8 +66,11 @@ const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
       </div>
 
       <p className="text-xs text-gray-400 text-right">
-        출처: {meta.source} | 업데이트:{' '}
-        {new Date(meta.updatedAt).toLocaleDateString('ko-KR')}
+        출처: <b className="font-bold">{meta.source}</b> <br />
+        업데이트:{' '}
+        <b className="font-bold">
+          {new Date(meta.updatedAt).toLocaleDateString('ko-KR')}
+        </b>
       </p>
     </div>
   )
