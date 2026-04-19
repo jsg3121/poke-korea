@@ -25,7 +25,7 @@ const ChampionsHomeContainer = ({
           id="top-pokemon-heading"
           className="h-12 text-[2rem] font-bold text-primary-4 text-center mb-6"
         >
-          인기 포켓몬
+          인기 포켓몬 Top 10
         </h2>
 
         {(['S', 'A', 'B', 'C', 'D'] as const).map((tier) => {

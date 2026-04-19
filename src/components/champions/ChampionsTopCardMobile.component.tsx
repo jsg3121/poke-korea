@@ -10,6 +10,7 @@ import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
 import { getBackgroundColor } from '~/module/pokemonCard.module'
+import ImageComponent from '../Image.component'
 
 interface ChampionsTopCardMobileProps {
   pokemonData: ChampionsMetaSummaryFragment
@@ -46,7 +47,7 @@ const ChampionsTopCardMobile = ({
       className="block w-full"
     >
       <article
-        className="w-full h-[15rem] text-black-2 border border-solid border-black-2 rounded-[10px] p-[0.5rem] outline-[0.2rem] outline relative overflow-hidden shadow-[inset_8px_0_0_0_rgb(51_65_80)] cursor-pointer card-corner-fold"
+        className="w-full h-[18rem] text-black-2 border border-solid border-black-2 rounded-[10px] p-[0.5rem] outline-[0.2rem] outline relative overflow-hidden shadow-[inset_8px_0_0_0_rgb(51_65_80)] cursor-pointer card-corner-fold"
         style={{ ...gradientStyle, outlineColor: tierColors.outlineColor }}
         aria-label={`챔피언스 ${pokemonData.tier}티어 ${displayName} 카드`}
       >
@@ -65,12 +66,15 @@ const ChampionsTopCardMobile = ({
         {isHighPriority ? (
           <div className="w-fit mx-auto my-1 drop-shadow-[2px_3px_2px_#333333] relative">
             {pokemonData.imagePath && (
-              <img
+              <ImageComponent
+                height="10rem"
+                width="10rem"
+                imageSize={{ width: 120, height: 120 }}
+                densities={[1, 1.5]}
+                alt={`pokemon_id_${pokemonData.pokemonId} ${pokemonData.name}`}
                 src={`${imageMode}/${pokemonData.imagePath}.webp`}
-                alt={displayName ?? ''}
-                width={90}
-                height={90}
-                className="w-[5.5rem] h-[5.5rem] object-contain"
+                sizes="10rem"
+                fetchPriority="high"
               />
             )}
           </div>
@@ -82,12 +86,14 @@ const ChampionsTopCardMobile = ({
           >
             {isVisible ? (
               pokemonData.imagePath && (
-                <img
+                <ImageComponent
+                  height="10rem"
+                  width="10rem"
+                  imageSize={{ width: 120, height: 120 }}
+                  densities={[1, 1.5]}
+                  alt={`pokemon_id_${pokemonData.pokemonId} ${pokemonData.name}`}
                   src={`${imageMode}/${pokemonData.imagePath}.webp`}
-                  alt={displayName ?? ''}
-                  width={90}
-                  height={90}
-                  className="w-[5.5rem] h-[5.5rem] object-contain"
+                  sizes="10rem"
                   loading="lazy"
                   onLoad={handleImageLoad}
                   onError={handleImageError}
@@ -111,7 +117,6 @@ const ChampionsTopCardMobile = ({
             return <TagComponent key={`${item}-id-${index}`} type={item} />
           })}
         </div>
-
       </article>
     </Link>
   )
