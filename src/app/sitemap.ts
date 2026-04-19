@@ -4,6 +4,7 @@ import {
   GetAbilityListPaginatedDocument,
   GetPokemonSkillListDocument,
   GetPokemonGigantamaxListDocument,
+  GetChampionsPokemonListDocument,
 } from '~/graphql/gqlGenerated'
 import {
   PokemonList,
@@ -11,6 +12,7 @@ import {
   AbilityEdge,
   PokemonSkillEdge,
   PokemonGigantamax,
+  ChampionsPokemonEdge,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
@@ -109,6 +111,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { data: gigantamaxData },
       { data: abilityData },
       { data: skillsData },
+      { data: championsData },
     ] = await Promise.all([
       apolloClient.query({
         query: GetPokemonListDocument,
@@ -151,6 +154,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           input: {
             pagination: {
               first: 1000, // 모든 기술을 가져오기 위해 충분히 큰 숫자
+            },
+          },
+        },
+      }),
+      apolloClient.query({
+        query: GetChampionsPokemonListDocument,
+        variables: {
+          input: {
+            pagination: {
+              first: 200, // 챔피언스 포켓몬 전체
             },
           },
         },
@@ -349,6 +362,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
+    // 챔피언스 포켓몬 상세 페이지들
+    const championsDetailPages =
+      championsData.getChampionsPokemonList.edges.map(
+        (edge: ChampionsPokemonEdge) => ({
+          url: `https://poke-korea.com/champions/list/${edge.node.externalDexId}`,
+          lastModified: new Date(),
+          changeFrequency: 'daily',
+          priority: 0.7,
+        }),
+      )
+
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
@@ -368,6 +392,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...regionMovesPages,
       ...abilityDetailPages,
       ...moveDetailPages,
+      ...championsDetailPages,
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)

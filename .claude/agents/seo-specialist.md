@@ -29,6 +29,7 @@ ConfigDeck의 SEO 전략을 구현하는 전문 에이전트이다.
 - 모든 SEO 관련 구현은 Google Search Central 공식 문서를 근거로 한다
 - 메타태그와 구조화 데이터 변경 후 Google Rich Results Test로 검증을 권장한다
 - 다국어 페이지 추가/수정 시 hreflang 양방향 참조 일관성을 반드시 확인한다
+- **SEO 점검/감사 요청 시**: `.claude/skills/seo-audit/SKILL.md`의 체크리스트를 반드시 따라 상세하게 분석한다. 요약만 하지 말고 각 항목별로 현재 상태, 문제점, 구체적 수정 방법을 명시한다.
 
 ## 입출력
 
