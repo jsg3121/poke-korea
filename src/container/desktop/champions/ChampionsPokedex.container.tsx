@@ -17,15 +17,12 @@ const ChampionsPokedexContainer = () => {
   return (
     <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto pb-8 relative">
       <header className="px-5 mb-6">
-        <h1 className="text-2xl font-bold text-primary-1">
+        <h1 className="text-3xl font-bold text-primary-4">
           포켓몬 챔피언스 도감
         </h1>
         {pokemonList.length > 0 && (
           <p className="text-sm text-gray-500 mt-1">
-            총 {totalCount}종+의 포켓몬
-            <span className="text-xs text-gray-400 ml-2">
-              (메가진화 정보는 상세 페이지에서 확인하실 수 있어요!)
-            </span>
+            총 <b className="font-bold">{totalCount}종</b>의 포켓몬
           </p>
         )}
       </header>

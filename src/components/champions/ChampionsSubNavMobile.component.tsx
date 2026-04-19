@@ -20,7 +20,7 @@ const ChampionsSubNavMobile = () => {
   }
 
   return (
-    <nav className="w-full h-12 bg-primary-2">
+    <nav className="w-full h-12 bg-primary-2 sticky top-16 z-30">
       <ul className="w-full h-full flex items-center justify-center gap-2 px-4 border-t border-solid border-primary-1">
         {navItems.map((item) => (
           <li key={item.href} className="flex-1">

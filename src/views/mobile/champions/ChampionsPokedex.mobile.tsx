@@ -1,6 +1,6 @@
 'use client'
 
-import ChampionsTypeFilterMobile from '~/components/champions/filter/ChampionsTypeFilterMobile.component'
+import FilterComponents from '~/components/filter/Filter.components'
 import MobileTabBar from '~/components/MobileTabBar'
 import ChampionsPokedexContainer from '~/container/mobile/champions/ChampionsPokedex.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
@@ -34,7 +34,7 @@ const ChampionsPokedexMobile = ({
       initialFilter={initialFilter}
     >
       <HeaderContainer />
-      <ChampionsTypeFilterMobile />
+      <FilterComponents />
       <ChampionsPokedexContainer />
       <MobileTabBar />
     </ChampionsPokedexProvider>

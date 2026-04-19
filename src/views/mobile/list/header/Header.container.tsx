@@ -1,4 +1,4 @@
-import FilterComponents from './filter/Filter.components'
+import FilterComponents from '~/components/filter/Filter.components'
 import SearchComponent from './search/Search.component'
 
 const HeaderContainer = () => {

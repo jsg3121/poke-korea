@@ -39,9 +39,7 @@ const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
         {meta.winRate && (
           <div>
             <p className="text-sm text-gray-500">승률</p>
-            <p className="text-2xl font-bold">
-              {meta.winRate.toFixed(2)}%
-            </p>
+            <p className="text-2xl font-bold">{meta.winRate.toFixed(2)}%</p>
           </div>
         )}
       </div>
@@ -50,10 +48,7 @@ const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
         <ChampionsMetaList title="인기 기술" items={meta.topMoves} />
         <ChampionsMetaList title="인기 아이템" items={meta.topItems} />
         <ChampionsMetaList title="인기 특성" items={meta.topAbilities} />
-        <ChampionsPartnerList
-          title="추천 파트너"
-          items={meta.topPartners}
-        />
+        <ChampionsPartnerList title="추천 파트너" items={meta.topPartners} />
       </div>
 
       <p className="text-xs text-gray-400">
