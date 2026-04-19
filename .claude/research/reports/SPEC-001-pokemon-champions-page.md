@@ -9,7 +9,7 @@
 
 ```
 /champions                    # 메인 허브
-/champions/pokedex            # 186종 전용 도감
+/champions/list            # 186종 전용 도감
 /champions/calculator         # VP 데미지 계산기
 /champions/tier               # 티어 리스트
 /champions/teams              # 추천 팀 구성
@@ -27,7 +27,7 @@
 | 콘텐츠 | 게임 소개, VP 시스템 설명, 인기 포켓몬 TOP 10, 하위 페이지 링크 |
 | API    | 내부 API (인기 포켓몬 조회)                                     |
 
-### 2.2 `/champions/pokedex` — 전용 도감
+### 2.2 `/champions/list` — 전용 도감
 
 | 항목   | 내용                                                                       |
 | ------ | -------------------------------------------------------------------------- |
@@ -105,37 +105,39 @@
 
 ### 3.3 신규 DB 테이블 — 재검토 결과
 
-| 테이블              | 필요 여부 | 이유                                       |
-| ------------------- | --------- | ------------------------------------------ |
-| `champions_pokemon` | ✅ 필요   | 186종 ID 목록은 외부 소스 없음, 직접 관리  |
-| `champions_tier`    | ❌ 불필요 | 외부 JSON 소비 가능 (eurekaffeine scraper) |
-| `champions_teams`   | ❌ 불필요 | Champions Lab 오픈소스 데이터 활용 가능    |
+| 테이블              | 필요 여부 | 이유                                         |
+| ------------------- | --------- | -------------------------------------------- |
+| `champions_pokemon` | ✅ 필요   | 186종 ID 목록은 외부 소스 없음, 직접 관리    |
+| `champions_tier`    | ❌ 불필요 | 외부 JSON 소비 가능 (eurekaffeine scraper)   |
+| `champions_teams`   | ❌ 불필요 | Champions Lab 오픈소스 데이터 활용 가능      |
 | `champions_vp`      | ⚠️ 선택   | 정적 상수로 관리 가능, 패치 시 수동 업데이트 |
 
 ### 3.4 외부 데이터 소스 (상세)
 
 #### 티어/사용률/승률 — 공개 JSON 있음
 
-| 소스 | 접근 방식 | 갱신 주기 | URL |
-| ---- | --------- | --------- | --- |
-| eurekaffeine scraper | GitHub Pages JSON | 매주 월요일 | `https://eurekaffeine.github.io/pokemon-champions-scraper/battle_meta.json` |
+| 소스                     | 접근 방식         | 갱신 주기   | URL                                                                              |
+| ------------------------ | ----------------- | ----------- | -------------------------------------------------------------------------------- |
+| eurekaffeine scraper     | GitHub Pages JSON | 매주 월요일 | `https://eurekaffeine.github.io/pokemon-champions-scraper/battle_meta.json`      |
 | eurekaffeine 개별 포켓몬 | GitHub Pages JSON | 매주 월요일 | `https://eurekaffeine.github.io/pokemon-champions-scraper/pokemon/{dex_id}.json` |
-| Showdown Tier | 웹 스크래핑 필요 | 일 단위 | showdowntier.com |
+| Showdown Tier            | 웹 스크래핑 필요  | 일 단위     | showdowntier.com                                                                 |
 
 **eurekaffeine JSON 데이터 포함 항목:**
+
 - 사용률, 무브, 아이템, 특성, 파트너 포켓몬
 
 #### 추천 팀 구성 — 오픈소스 활용 가능
 
-| 소스 | 접근 방식 | 비고 |
-| ---- | --------- | ---- |
+| 소스                   | 접근 방식              | 비고                       |
+| ---------------------- | ---------------------- | -------------------------- |
 | Andrew21P/ChampionsLab | GitHub TypeScript 파일 | 오픈소스, 팀 데이터 구조화 |
-| Victory Road | HTML 스크래핑 | 실전 검증 팀, 출처 명시 |
-| PikaChampions | 미확인 | 팀 코드 공유 기능 |
+| Victory Road           | HTML 스크래핑          | 실전 검증 팀, 출처 명시    |
+| PikaChampions          | 미확인                 | 팀 코드 공유 기능          |
 
 #### VP 계산 공식 — 정적 관리 가능
 
 커뮤니티 역산 공식 (Game8, GAMES.GG, Serebii 출처):
+
 - 승리: +300 VP
 - 패배: -150 VP
 - 랭크 게이지: 승 1/4 충전, 패 1/4 감소
@@ -145,11 +147,11 @@
 
 #### 기타 외부 리소스
 
-| 소스 | 유형 | 공개 API |
-| ---- | ---- | -------- |
-| Porygon Labs | 데미지 계산기 + 팀 빌더 | ❌ |
-| ChampionsMeta | 메타 팀 + 팀 빌더 | ❌ |
-| PokéAPI | 기본 도감 데이터 | ✅ (챔피언스 메타 없음) |
+| 소스          | 유형                    | 공개 API                |
+| ------------- | ----------------------- | ----------------------- |
+| Porygon Labs  | 데미지 계산기 + 팀 빌더 | ❌                      |
+| ChampionsMeta | 메타 팀 + 팀 빌더       | ❌                      |
+| PokéAPI       | 기본 도감 데이터        | ✅ (챔피언스 메타 없음) |
 
 ---
 
@@ -160,7 +162,7 @@
 | 1    | 챔피언스 186종 ID 목록 확보           | 없음 (수동 입력 또는 스크래핑) |
 | 2    | `champions_pokemon` 테이블 생성       | #1                             |
 | 3    | `getChampionsPokemonList` API         | #2                             |
-| 4    | `/champions/pokedex` 페이지           | #3                             |
+| 4    | `/champions/list` 페이지              | #3                             |
 | 5    | VP 계산 공식 조사 및 구현             | 없음                           |
 | 6    | `calculateVPDamage` API               | #5                             |
 | 7    | `/champions/calculator` 페이지        | #6                             |

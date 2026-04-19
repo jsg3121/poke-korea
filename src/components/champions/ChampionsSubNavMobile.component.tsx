@@ -8,7 +8,7 @@ const ChampionsSubNavMobile = () => {
 
   const navItems = [
     { href: '/champions', label: 'TOP 10', exact: true },
-    { href: '/champions/pokedex', label: '도감', exact: false },
+    { href: '/champions/list', label: '도감', exact: false },
     { href: '/champions/tier', label: '티어', exact: false },
   ]
 

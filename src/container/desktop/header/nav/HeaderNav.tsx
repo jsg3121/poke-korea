@@ -90,7 +90,7 @@ const HeaderNav = () => {
               </li>
               <li>
                 <Link
-                  href="/champions/pokedex"
+                  href="/champions/list"
                   className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
                 >
                   포켓몬 도감

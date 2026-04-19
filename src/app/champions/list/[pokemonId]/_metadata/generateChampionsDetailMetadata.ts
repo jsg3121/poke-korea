@@ -42,10 +42,10 @@ export const generateChampionsDetailMetadata = async (
     openGraph: {
       title: `${pokemon.name} 챔피언스 메타 정보 | 포케코리아`,
       description: `포켓몬 챔피언스 ${pokemon.name}의 사용률, 인기 기술, 아이템, 특성, 추천 파트너 정보를 확인하세요.`,
-      url: `${SITE_URL}/champions/pokedex/${pokemonId}`,
+      url: `${SITE_URL}/champions/list/${pokemonId}`,
     },
     alternates: {
-      canonical: `${SITE_URL}/champions/pokedex/${pokemonId}`,
+      canonical: `${SITE_URL}/champions/list/${pokemonId}`,
     },
   }
 }

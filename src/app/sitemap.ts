@@ -88,7 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/pokedex',
+      url: 'https://poke-korea.com/champions/list',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,

@@ -53,7 +53,7 @@ export const CHAMPIONS_POKEDEX_META: Metadata = {
     '포켓몬 챔피언스에 등장하는 170종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.',
   openGraph: {
     type: 'website',
-    url: `${SITE_URL}/champions/pokedex`,
+    url: `${SITE_URL}/champions/list`,
     title: '포켓몬 챔피언스 포켓몬 목록 | 포케코리아',
     locale: 'ko_KR',
     description:
@@ -70,7 +70,7 @@ export const CHAMPIONS_POKEDEX_META: Metadata = {
     siteName: SITE_NAME,
   },
   alternates: {
-    canonical: `${SITE_URL}/champions/pokedex`,
+    canonical: `${SITE_URL}/champions/list`,
   },
   twitter: {
     card: 'summary_large_image',

@@ -396,7 +396,7 @@ query GetChampionsMetaStats($pokemonId: Int!) {
 
 ## 7. 프론트엔드 활용 예시
 
-### 7.1 도감 페이지 (`/champions/pokedex`)
+### 7.1 도감 페이지 (`/champions/list`)
 
 ```typescript
 const { data } = useQuery(GetChampionsPokemonListDocument, {
@@ -409,7 +409,7 @@ const { data } = useQuery(GetChampionsPokemonListDocument, {
 })
 ```
 
-### 7.2 상세 페이지 (`/champions/pokedex/[id]`)
+### 7.2 상세 페이지 (`/champions/list/[id]`)
 
 ```typescript
 // 기본 정보 + 메타 데이터 병렬 요청

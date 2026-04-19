@@ -43,7 +43,7 @@ const ChampionsTopCardMobile = ({
 
   return (
     <Link
-      href={`/champions/pokedex/${pokemonData.pokemonId}`}
+      href={`/champions/list/${pokemonData.pokemonId}`}
       className="block w-full"
     >
       <article

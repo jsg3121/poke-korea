@@ -15,7 +15,7 @@ const ChampionsPokedexContainer = () => {
   })
 
   return (
-    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto py-12 pb-8 relative">
+    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto pb-8 relative">
       <header className="px-5 mb-6">
         <h1 className="text-2xl font-bold text-primary-1">
           포켓몬 챔피언스 도감

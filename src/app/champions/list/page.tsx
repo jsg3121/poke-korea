@@ -80,7 +80,7 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
         '@type': 'ListItem',
         position: 3,
         name: '도감',
-        item: 'https://poke-korea.com/champions/pokedex',
+        item: 'https://poke-korea.com/champions/list',
       },
     ],
   }

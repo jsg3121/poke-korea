@@ -47,7 +47,7 @@ const ChampionsPokemonCard = ({
 
   return (
     <Link
-      href={`/champions/pokedex/${pokemonData.externalDexId}`}
+      href={`/champions/list/${pokemonData.externalDexId}`}
       className="w-full max-w-56"
     >
       <article

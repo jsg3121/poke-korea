@@ -26,11 +26,13 @@
 **데이터 파일:** `.claude/specs/champions-pokemon-data.json`
 
 **원본 소스:**
+
 - URL: https://eurekaffeine.github.io/pokemon-champions-scraper/battle_meta.json
 - GitHub: https://github.com/eurekaffeine/pokemon-champions-scraper
 - 갱신 주기: 매주 월요일 02:00 UTC
 
 **데이터 통계:**
+
 - 총 엔트리: 186종
 - 기본 폼: 165종 (pokemon_id 직접 매핑)
 - 리전/변형 폼: 21종 (별도 매핑 필요)
@@ -291,7 +293,7 @@ const jsonLd = {
 
 ### 작업 5.3: sitemap 업데이트
 
-`/champions`, `/champions/pokedex`, `/champions/tier` 추가
+`/champions`, `/champions/list`, `/champions/tier` 추가
 
 ---
 
@@ -317,8 +319,8 @@ const jsonLd = {
 
 - [ ] GraphQL query/fragment 추가
 - [ ] codegen 실행
-- [ ] `/champions/pokedex` 라우트
-- [ ] `/champions/pokedex/[pokemonId]` 라우트
+- [ ] `/champions/list` 라우트
+- [ ] `/champions/list/[pokemonId]` 라우트
 - [ ] desktop/mobile 뷰 컴포넌트
 - [ ] 컨테이너 컴포넌트
 - [ ] 필터/정렬 기능

@@ -85,7 +85,7 @@ const ChampionsTypeFilterMobile = () => {
   return (
     <div className="w-[calc(100%-2.5rem)] mt-4 mx-auto">
       <div
-        className="w-full h-16 bg-primary-4 rounded-[2rem] flex items-center gap-3 overflow-x-auto px-4"
+        className="w-full h-16 bg-primary-3 rounded-lg flex items-center gap-3 overflow-x-auto px-4"
         role="searchbox"
         aria-label="타입별 포켓몬 필터 검색"
       >

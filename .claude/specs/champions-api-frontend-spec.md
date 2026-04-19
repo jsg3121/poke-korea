@@ -409,7 +409,7 @@ const tierGroups = {
 
 ## 5. 프론트엔드 활용 예시
 
-### 도감 페이지 (`/champions/pokedex`)
+### 도감 페이지 (`/champions/list`)
 
 ```typescript
 const { data, loading, fetchMore } = useQuery(GetChampionsPokemonListDocument, {
@@ -435,7 +435,7 @@ const loadMore = () => {
 }
 ```
 
-### 상세 페이지 (`/champions/pokedex/[pokemonId]`)
+### 상세 페이지 (`/champions/list/[pokemonId]`)
 
 ```typescript
 // 기본 정보 + 메타 데이터 병렬 요청

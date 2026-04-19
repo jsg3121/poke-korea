@@ -30,7 +30,7 @@ const ChampionsTierGroup = ({ tier, pokemons }: ChampionsTierGroupProps) => {
         {sortedPokemons.map((pokemon) => (
           <Link
             key={pokemon.pokemonId}
-            href={`/champions/pokedex/${pokemon.pokemonId}`}
+            href={`/champions/list/${pokemon.pokemonId}`}
             className="flex flex-col items-center p-2 rounded-lg hover:bg-gray-50 transition-colors"
           >
             {pokemon.imagePath && (
