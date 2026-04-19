@@ -1,5 +1,4 @@
 import PageHeader from '~/components/PageHeader'
-import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
@@ -17,8 +16,6 @@ const ChampionsHomeContainer = ({
         title="포켓몬 챔피언스"
         description="포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석"
       />
-      <DesktopListTopBanner />
-
       <section aria-labelledby="top-pokemon-heading" className="mb-12">
         <h2
           id="top-pokemon-heading"
