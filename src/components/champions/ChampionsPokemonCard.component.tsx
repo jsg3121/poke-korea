@@ -60,30 +60,30 @@ const ChampionsPokemonCard = ({
             <BallComponent />
           </i>
           <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-card-accent pb-1">
-            <p className="h-4 text-base leading-none font-medium text-black-2">
+            <p className="h-4 text-[0.875rem] leading-[calc(1rem+2px)] font-medium text-black-2">
               No.{pokemonNumber}
             </p>
             <h3
-              className={`w-fit h-4 leading-none font-semibold text-right text-black ${displayName && displayName.length > 9 ? 'text-[0.75rem]' : 'text-base'}`}
+              className={`w-fit h-4 leading-[calc(1rem+2px)] font-semibold text-right text-black ${displayName && displayName.length > 9 ? 'text-[0.75rem]' : 'text-base'}`}
             >
               {displayName}
             </h3>
           </div>
         </header>
         {isHighPriority ? (
-          <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
+          <div className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative">
             {pokemonData.imagePath && (
               <ImageComponent
-                height={isMobile ? '8rem' : '10rem'}
-                width={isMobile ? '8rem' : '10rem'}
+                height={isMobile ? '9rem' : '10rem'}
+                width={isMobile ? '9rem' : '10rem'}
                 imageSize={{
-                  width: isMobile ? 96 : 160,
-                  height: isMobile ? 96 : 160,
+                  width: isMobile ? 108 : 160,
+                  height: isMobile ? 108 : 160,
                 }}
                 densities={[1, 1.5]}
                 alt={`pokemon_id_${pokemonData.pokemonNumber} ${pokemonData.name}`}
                 src={`${imageMode}/${pokemonData.imagePath}.webp`}
-                sizes={isMobile ? '8rem' : '10rem'}
+                sizes={isMobile ? '9rem' : '10rem'}
                 fetchPriority="high"
               />
             )}
@@ -91,22 +91,22 @@ const ChampionsPokemonCard = ({
         ) : (
           <div
             ref={imgRef}
-            className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
+            className="w-fit mx-auto mb-4 drop-shadow-[2px_3px_2px_#333333] relative"
             aria-description="포켓몬 이미지"
           >
             {isVisible ? (
               pokemonData.imagePath && (
                 <ImageComponent
-                  height={isMobile ? '8rem' : '10rem'}
-                  width={isMobile ? '8rem' : '10rem'}
+                  height={isMobile ? '9rem' : '10rem'}
+                  width={isMobile ? '9rem' : '10rem'}
                   imageSize={{
-                    width: isMobile ? 96 : 160,
-                    height: isMobile ? 96 : 160,
+                    width: isMobile ? 108 : 160,
+                    height: isMobile ? 108 : 160,
                   }}
                   densities={[1, 1.5]}
                   alt={`pokemon_id_${pokemonData.pokemonNumber} ${pokemonData.name}`}
                   src={`${imageMode}/${pokemonData.imagePath}.webp`}
-                  sizes={isMobile ? '8rem' : '10rem'}
+                  sizes={isMobile ? '9rem' : '10rem'}
                   loading="lazy"
                   onLoad={handleImageLoad}
                   onError={handleImageError}
