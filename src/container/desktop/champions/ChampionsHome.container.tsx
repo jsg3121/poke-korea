@@ -47,11 +47,11 @@ const ChampionsHomeContainer = ({
                   margin: tierPokemons.length < 6 ? '0 auto' : undefined,
                 }}
               >
-                {tierPokemons.map((pokemon, index) => (
+                {tierPokemons.map((pokemon) => (
                   <ChampionsTopCard
                     key={pokemon.pokemonId}
                     pokemonData={pokemon}
-                    isHighPriority={index < 3}
+                    isHighPriority
                   />
                 ))}
               </div>

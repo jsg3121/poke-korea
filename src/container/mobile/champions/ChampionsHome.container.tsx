@@ -15,7 +15,7 @@ const ChampionsHomeContainer = ({
     <section className="w-full h-full mx-auto relative">
       <PageHeader
         title="포켓몬 챔피언스"
-        description={`포켓몬 챔피언스 187종 도감,\n티어 리스트, 메타 분석`}
+        description={`포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석`}
       />
       <section
         className="w-[calc(100%-2.5rem)] mx-auto"
@@ -32,8 +32,8 @@ const ChampionsHomeContainer = ({
           const tierPokemons = topPokemons.filter((p) => p.tier === tier)
           if (tierPokemons.length === 0) return null
           return (
-            <div key={tier} className="mb-6">
-              <h3 className="text-base font-bold text-primary-4 mb-3">
+            <div key={tier} className="mb-8">
+              <h3 className="text-[1.25rem] font-bold text-primary-4 mb-5 text-center">
                 {tier} 티어
               </h3>
               <div className="grid grid-cols-2 gap-3">

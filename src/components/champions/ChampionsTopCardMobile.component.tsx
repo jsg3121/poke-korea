@@ -51,18 +51,19 @@ const ChampionsTopCardMobile = ({
         style={{ ...gradientStyle, outlineColor: tierColors.outlineColor }}
         aria-label={`챔피언스 ${pokemonData.tier}티어 ${displayName} 카드`}
       >
-        <header className="w-full flex items-start justify-between pr-1 relative z-10">
-          <div className="w-5 h-5 flex-shrink-0 mr-1 relative">
+        <header className="w-full min-h-8 flex items-start justify-between pr-2 relative z-10">
+          <i className="w-8 h-8 flex-shrink-0 mr-2 relative">
             <BallComponent />
             <ChampionsTierBadge tier={pokemonData.tier} variant="ribbon" />
-          </div>
-          <div className="w-full flex items-center justify-end border-b border-solid border-card-accent pb-1">
-            <h3 className="flex-1 text-xs leading-none font-semibold text-right text-black truncate">
+          </i>
+          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-2">
+            <h3
+              className={`w-fit leading-none font-semibold text-right text-black ${displayName && displayName.length > 9 ? 'text-[0.875rem]' : 'text-base'}`}
+            >
               {displayName}
             </h3>
           </div>
         </header>
-
         {isHighPriority ? (
           <div className="w-fit mx-auto my-1 drop-shadow-[2px_3px_2px_#333333] relative">
             {pokemonData.imagePath && (
@@ -110,13 +111,16 @@ const ChampionsTopCardMobile = ({
         )}
 
         <div
-          className="flex items-center gap-1 px-1 mb-1"
+          className="flex items-center justify-center gap-1 px-1 mt-4"
           aria-description="포켓몬 타입 정보"
         >
           {pokemonData.types?.map((item, index) => {
             return <TagComponent key={`${item}-id-${index}`} type={item} />
           })}
         </div>
+        <p className="mt-3 text-center h-4">
+          사용률 : <b className="font-bold">{pokemonData.usageRate}%</b>
+        </p>
       </article>
     </Link>
   )
