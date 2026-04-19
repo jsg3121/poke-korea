@@ -78,32 +78,34 @@ const HeaderNav = () => {
           >
             챔피언스
           </Link>
-          <ul className="absolute top-full left-0 w-32 bg-primary-1 border border-solid border-primary-2 rounded-b-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <li>
-              <Link
-                href="/champions"
-                className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
-              >
-                홈
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/champions/pokedex"
-                className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
-              >
-                포켓몬 도감
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/champions/tier"
-                className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2 rounded-b-lg"
-              >
-                티어 리스트
-              </Link>
-            </li>
-          </ul>
+          {!pathname.includes('/champions') && (
+            <ul className="absolute top-full left-0 w-32 bg-primary-1 border border-solid border-primary-2 rounded-b-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <li>
+                <Link
+                  href="/champions"
+                  className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
+                >
+                  홈
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/champions/pokedex"
+                  className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
+                >
+                  포켓몬 도감
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/champions/tier"
+                  className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2 rounded-b-lg"
+                >
+                  티어 리스트
+                </Link>
+              </li>
+            </ul>
+          )}
         </li>
       </ul>
     </nav>

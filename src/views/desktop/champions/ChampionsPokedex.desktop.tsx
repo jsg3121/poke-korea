@@ -1,7 +1,6 @@
 'use client'
 
 import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
-import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
 import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 import ChampionsPokedexContainer from '~/container/desktop/champions/ChampionsPokedex.container'
@@ -37,8 +36,7 @@ const ChampionsPokedexDesktop = ({
       <div className="h-40">
         <HeaderContainer />
       </div>
-      <ChampionsSubNav />
-      <section className="w-full h-[4.8rem] bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)]">
+      <section className="w-full h-[4.8rem] bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] mt-12 sticky top-52 z-20">
         <ChampionsTypeFilter />
       </section>
       <DesktopListTopBanner />

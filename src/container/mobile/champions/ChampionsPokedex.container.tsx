@@ -25,7 +25,7 @@ const ChampionsPokedexContainer = () => {
         <p className="text-sm text-gray-500 mt-1">
           총 {totalCount}종+의 포켓몬
           <span className="text-xs text-gray-400 ml-2">
-            (리전폼/폼체인지는 상세 페이지에서 확인)
+            (메가진화 정보는 상세 페이지에서 확인하실 수 있어요!)
           </span>
         </p>
       </header>

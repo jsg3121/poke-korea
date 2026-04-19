@@ -60,13 +60,11 @@ const ChampionsPage = async () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <main className="w-full min-h-screen">
-        {isMobile ? (
-          <ChampionsHomeMobile topPokemons={topPokemons} />
-        ) : (
-          <ChampionsHomeDesktop topPokemons={topPokemons} />
-        )}
-      </main>
+      {isMobile ? (
+        <ChampionsHomeMobile topPokemons={topPokemons} />
+      ) : (
+        <ChampionsHomeDesktop topPokemons={topPokemons} />
+      )}
     </>
   )
 }

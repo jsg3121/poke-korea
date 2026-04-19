@@ -1,6 +1,5 @@
 'use client'
 
-import ChampionsSubNavMobile from '~/components/champions/ChampionsSubNavMobile.component'
 import MobileTabBar from '~/components/MobileTabBar'
 import ChampionsDetailContainer from '~/container/mobile/champions/ChampionsDetail.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -15,7 +14,6 @@ const ChampionsDetailMobile = ({ detail }: ChampionsDetailMobileProps) => {
   return (
     <>
       <HeaderContainer />
-      <ChampionsSubNavMobile />
       <section className="w-full min-h-dvh px-4 py-6">
         <ChampionsDetailContainer detail={detail} />
       </section>

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import ChampionsTopCardMobile from '~/components/champions/ChampionsTopCardMobile.component'
 import PageHeader from '~/components/mobile/PageHeader'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -49,49 +48,6 @@ const ChampionsHomeContainer = ({
           )
         })}
       </section>
-
-      <nav className="w-[calc(100%-2.5rem)] mx-auto flex flex-col gap-3 mb-8">
-        <Link
-          href="/champions/pokedex"
-          aria-label="포켓몬 도감 바로가기"
-          className="block bg-primary-4 rounded-[1rem]"
-        >
-          <article className="rounded-[1rem] overflow-hidden">
-            <header className="flex-items-gap-4 px-4 py-3 bg-primary-2">
-              <span className="text-2xl">📖</span>
-              <h2 className="text-lg text-primary-4 font-bold">포켓몬 도감</h2>
-            </header>
-            <div className="p-4">
-              <p className="text-sm text-primary-1 mb-2">
-                챔피언스에 등장하는 187종 포켓몬
-              </p>
-              <span className="text-blue-600 text-sm font-medium">
-                도감 보기 <span aria-hidden="true">→</span>
-              </span>
-            </div>
-          </article>
-        </Link>
-        <Link
-          href="/champions/tier"
-          aria-label="티어 리스트 바로가기"
-          className="block bg-primary-4 rounded-[1rem]"
-        >
-          <article className="rounded-[1rem] overflow-hidden">
-            <header className="flex-items-gap-4 px-4 py-3 bg-primary-2">
-              <span className="text-2xl">🏆</span>
-              <h2 className="text-lg text-primary-4 font-bold">티어 리스트</h2>
-            </header>
-            <div className="p-4">
-              <p className="text-sm text-primary-1 mb-2">
-                사용률 기반 티어 순위표
-              </p>
-              <span className="text-blue-600 text-sm font-medium">
-                티어 보기 <span aria-hidden="true">→</span>
-              </span>
-            </div>
-          </article>
-        </Link>
-      </nav>
 
       <FooterContainer />
     </section>

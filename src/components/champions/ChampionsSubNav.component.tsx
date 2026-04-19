@@ -7,7 +7,7 @@ const ChampionsSubNav = () => {
   const pathname = usePathname()
 
   const navItems = [
-    { href: '/champions', label: '홈', exact: true },
+    { href: '/champions', label: '챔피언스', exact: true },
     { href: '/champions/pokedex', label: '포켓몬 도감', exact: false },
     { href: '/champions/tier', label: '티어 리스트', exact: false },
   ]
@@ -20,8 +20,8 @@ const ChampionsSubNav = () => {
   }
 
   return (
-    <nav className="w-full bg-primary-2 border-b border-solid border-primary-3">
-      <ul className="w-full max-w-[1280px] mx-auto flex items-center gap-1 px-5">
+    <nav className="w-full h-12 bg-primary-1 border-b border-solid border-primary-2 px-8 sticky top-40 z-10">
+      <ul className="w-full h-full max-w-[1280px] mx-auto flex items-center gap-1">
         {navItems.map((item) => (
           <li key={item.href}>
             <Link
