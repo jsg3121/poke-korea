@@ -28,7 +28,7 @@ const ChampionsTierPokemonItem = ({
   return (
     <Link
       href={`/champions/list/${pokemon.pokemonId}`}
-      className="flex flex-col items-center p-2 rounded-lg hover:bg-primary-4 hover:-translate-y-1 transition-all w-28"
+      className="flex flex-col items-center p-2 rounded-lg hover:bg-primary-4 hover:-translate-y-1 transition-all w-full h-48 group"
     >
       {isHighPriority ? (
         <div className="w-24 h-24">
@@ -70,17 +70,27 @@ const ChampionsTierPokemonItem = ({
           )}
         </div>
       )}
-      <span className="text-sm text-primary-4 font-bold mt-1 text-center line-clamp-2">
-        {pokemon.name}
-      </span>
-      {(pokemon.region || pokemon.formName) && (
-        <span className="text-xs text-primary-3 font-medium text-center">
-          {[pokemon.region, pokemon.formName].filter(Boolean).join(' ')}
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <span className="text-sm text-primary-4 font-bold text-center line-clamp-2 group-hover:text-primary-1">
+          {pokemon.name}
         </span>
-      )}
-      <span className="text-sm text-primary-3 mt-0.5">
-        {pokemon.usageRate?.toFixed(1)}%
-      </span>
+        {(pokemon.region || pokemon.formName) && (
+          <span className="text-xs text-primary-3 font-medium text-center group-hover:text-primary-2">
+            {[pokemon.region, pokemon.formName].filter(Boolean).join(' ')}
+          </span>
+        )}
+      </div>
+      <div className="w-full mt-auto flex flex-col items-center gap-1.5">
+        <span className="text-sm text-primary-3 group-hover:text-primary-1">
+          {pokemon.usageRate?.toFixed(1)}%
+        </span>
+        <div className="w-full h-1 bg-primary-3/30 rounded-full overflow-hidden group-hover:bg-primary-3">
+          <div
+            className="h-full bg-primary-4 rounded-full group-hover:bg-primary-1"
+            style={{ width: `${Math.min(pokemon.usageRate ?? 0, 100)}%` }}
+          />
+        </div>
+      </div>
     </Link>
   )
 }

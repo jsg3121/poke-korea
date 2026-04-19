@@ -1,3 +1,4 @@
+import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
 import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 
@@ -39,6 +40,10 @@ const ChampionsTierContainer = ({
         <p className="text-sm text-primary-2 mt-1">
           사용률 기반 · 총 {totalCount}종 포켓몬 포함
         </p>
+        <p className="text-xs text-primary-3 mt-2">
+          본 티어는 공식 기준이 아닌 사용률 데이터를 기반으로 자체 분류한 참고용
+          자료입니다.
+        </p>
 
         <div className="flex gap-2 mt-4">
           {tiers.map((tier) => (
@@ -63,6 +68,8 @@ const ChampionsTierContainer = ({
         <ChampionsTierGroup tier="C" pokemons={tierGroups.C} />
         <ChampionsTierGroup tier="D" pokemons={tierGroups.D} />
       </div>
+
+      <ChampionsScrollToTop />
     </>
   )
 }

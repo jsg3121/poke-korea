@@ -74,7 +74,7 @@ const ChampionsTierBadge = ({
 
   return (
     <div
-      className={`w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-bold ${colors.bg} ${colors.text}`}
+      className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${colors.bg} ${colors.text}`}
     >
       {tier || '-'}
     </div>
