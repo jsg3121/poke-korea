@@ -54,7 +54,7 @@ const ChampionsDetailContainer = ({
               </Link>
             </li>
             <li className="text-black-2/50">/</li>
-            <li className="text-black-2 font-medium">{displayName}</li>
+            <li className="text-black-2 font-bold">{displayName}</li>
           </ol>
           <Link
             href={`/detail/${pokemon.pokemonNumber}`}
