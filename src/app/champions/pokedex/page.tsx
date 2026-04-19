@@ -2,11 +2,13 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
+  ChampionsPokemonFilterInput,
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
+import { changeTypeArrayToString } from '~/module/filter.module'
 import ChampionsPokedexDesktop from '~/views/desktop/champions/ChampionsPokedex.desktop'
 import ChampionsPokedexMobile from '~/views/mobile/champions/ChampionsPokedex.mobile'
 import { CHAMPIONS_POKEDEX_META } from '../_metadata/championsMetadata'
@@ -15,10 +17,24 @@ export const revalidate = 86400
 
 export const metadata: Metadata = CHAMPIONS_POKEDEX_META
 
-const ChampionsPokedexPage = async () => {
+type PageProps = {
+  searchParams: Promise<{
+    type?: string
+    search?: string
+  }>
+}
+
+const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
+
+  const { type, search } = await searchParams
+
+  const filterInput: ChampionsPokemonFilterInput = {
+    ...(search && { search }),
+    ...(type && { types: changeTypeArrayToString(type) }),
+  }
 
   const apolloClient = initializeApollo()
 
@@ -29,6 +45,7 @@ const ChampionsPokedexPage = async () => {
     query: GetChampionsPokemonListDocument,
     variables: {
       input: {
+        filter: filterInput,
         pagination: {
           first: 20,
         },
@@ -81,6 +98,7 @@ const ChampionsPokedexPage = async () => {
             hasNextPage={hasNextPage}
             endCursor={endCursor}
             totalCount={totalCount}
+            initialFilter={filterInput}
           />
         ) : (
           <ChampionsPokedexDesktop
@@ -88,6 +106,7 @@ const ChampionsPokedexPage = async () => {
             hasNextPage={hasNextPage}
             endCursor={endCursor}
             totalCount={totalCount}
+            initialFilter={filterInput}
           />
         )}
       </main>

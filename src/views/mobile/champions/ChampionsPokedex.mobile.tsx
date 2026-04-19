@@ -1,16 +1,21 @@
 'use client'
 
+import ChampionsTypeFilterMobile from '~/components/champions/filter/ChampionsTypeFilterMobile.component'
 import MobileTabBar from '~/components/MobileTabBar'
 import ChampionsPokedexContainer from '~/container/mobile/champions/ChampionsPokedex.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
 import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
-import { ChampionsPokemonCardFragment } from '~/graphql/typeGenerated'
+import {
+  ChampionsPokemonCardFragment,
+  ChampionsPokemonFilterInput,
+} from '~/graphql/typeGenerated'
 
 interface ChampionsPokedexMobileProps {
   pokemonList: ChampionsPokemonCardFragment[]
   hasNextPage: boolean
   endCursor: string | null
   totalCount: number
+  initialFilter: ChampionsPokemonFilterInput
 }
 
 const ChampionsPokedexMobile = ({
@@ -18,6 +23,7 @@ const ChampionsPokedexMobile = ({
   hasNextPage,
   endCursor,
   totalCount,
+  initialFilter,
 }: ChampionsPokedexMobileProps) => {
   return (
     <ChampionsPokedexProvider
@@ -25,8 +31,10 @@ const ChampionsPokedexMobile = ({
       hasNextPage={hasNextPage}
       endCursor={endCursor}
       totalCount={totalCount}
+      initialFilter={initialFilter}
     >
       <HeaderContainer />
+      <ChampionsTypeFilterMobile />
       <ChampionsPokedexContainer />
       <MobileTabBar />
     </ChampionsPokedexProvider>

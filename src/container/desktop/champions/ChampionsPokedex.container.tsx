@@ -39,7 +39,7 @@ const ChampionsPokedexContainer = () => {
           {pokemonList.map((pokemon, index) => {
             return (
               <ChampionsPokemonCard
-                key={`champions-pokemon-${pokemon.id}`}
+                key={`champions-pokemon-${pokemon.id}-${index}`}
                 pokemonData={pokemon}
                 isHighPriority={index < 15}
               />

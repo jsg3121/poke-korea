@@ -1,6 +1,9 @@
 import { createContext, ReactNode, useContext } from 'react'
 import { useGetChampionsPokemonListQuery } from '~/graphql/gqlGenerated'
-import { ChampionsPokemonCardFragment } from '~/graphql/typeGenerated'
+import {
+  ChampionsPokemonCardFragment,
+  ChampionsPokemonFilterInput,
+} from '~/graphql/typeGenerated'
 import {
   mergePagedResults,
   extractNodesFromEdges,
@@ -11,6 +14,7 @@ interface ChampionsPokedexProviderProps {
   hasNextPage: boolean
   endCursor: string | null
   totalCount: number
+  initialFilter: ChampionsPokemonFilterInput
   children: ReactNode
 }
 
@@ -35,6 +39,7 @@ export const ChampionsPokedexProvider = ({
   hasNextPage: initialHasNextPage,
   endCursor: initialEndCursor,
   totalCount: initialTotalCount,
+  initialFilter,
   children,
 }: ChampionsPokedexProviderProps) => {
   const {
@@ -44,6 +49,7 @@ export const ChampionsPokedexProvider = ({
   } = useGetChampionsPokemonListQuery({
     variables: {
       input: {
+        filter: initialFilter,
         pagination: {
           first: 20,
         },
@@ -63,6 +69,7 @@ export const ChampionsPokedexProvider = ({
     await fetchMore({
       variables: {
         input: {
+          filter: initialFilter,
           pagination: {
             first: 20,
             after: currentEndCursor,
