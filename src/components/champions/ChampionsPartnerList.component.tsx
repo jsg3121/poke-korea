@@ -13,14 +13,14 @@ interface ChampionsPartnerListProps {
 
 const ChampionsPartnerList = ({ title, items }: ChampionsPartnerListProps) => {
   return (
-    <div className="p-4 bg-gray-50 rounded-xl">
+    <div className="p-4 bg-primary-3/30 rounded-xl">
       <h3 className="font-bold text-sm mb-3 text-gray-700">{title}</h3>
       <ul className="space-y-2">
         {items.map((item) => (
           <li key={item.pokemonId}>
             <Link
               href={`/champions/list/${item.pokemonId}`}
-              className="flex items-center justify-between text-sm p-2 -mx-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-between text-sm p-2 -mx-2 rounded-lg hover:bg-primary-3/50 transition-colors"
               aria-label={`${item.name} 챔피언스 상세보기`}
             >
               <div className="flex items-center gap-3">

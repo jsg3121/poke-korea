@@ -32,8 +32,8 @@ const ChampionsDetailContainer = ({
 
   return (
     <>
-      <nav className="mb-6 flex items-center justify-between">
-        <ol className="flex items-center gap-2 text-sm text-gray-500">
+      <nav className="mb-6 flex items-center justify-between p-4 bg-primary-4 rounded-xl">
+        <ol className="flex items-center gap-2 text-sm text-primary-2">
           <li>
             <Link
               href="/champions"
@@ -42,7 +42,7 @@ const ChampionsDetailContainer = ({
               챔피언스
             </Link>
           </li>
-          <li className="text-gray-300">/</li>
+          <li className="text-primary-3">/</li>
           <li>
             <Link
               href="/champions/list"
@@ -51,8 +51,8 @@ const ChampionsDetailContainer = ({
               포켓몬 도감
             </Link>
           </li>
-          <li className="text-gray-300">/</li>
-          <li className="text-gray-900 font-medium">{displayName}</li>
+          <li className="text-primary-3">/</li>
+          <li className="text-primary-1 font-medium">{displayName}</li>
         </ol>
         <Link
           href={`/detail/${pokemon.pokemonNumber}`}
@@ -63,7 +63,7 @@ const ChampionsDetailContainer = ({
       </nav>
 
       <div className="flex gap-8">
-        <aside className="w-96 flex-shrink-0 sticky top-32 self-start">
+        <aside className="w-[420px] flex-shrink-0">
           <article
             className="rounded-xl p-6 text-black-2 mb-4"
             style={gradientStyle}
@@ -78,9 +78,9 @@ const ChampionsDetailContainer = ({
                 <img
                   src={`${imageMode}/${pokemon.imagePath}.webp`}
                   alt={displayName}
-                  width={256}
-                  height={256}
-                  className="w-64 h-64 object-contain"
+                  width={288}
+                  height={288}
+                  className="w-72 h-72 object-contain"
                 />
               )}
             </div>
@@ -92,10 +92,10 @@ const ChampionsDetailContainer = ({
             </div>
           </article>
 
-          <div className="bg-white rounded-xl p-4 shadow-sm">
+          <div className="bg-primary-4 rounded-xl p-4">
             <header className="mb-2">
-              <h2 className="text-sm font-bold text-gray-700">능력치</h2>
-              <span className="text-xs text-gray-500">
+              <h2 className="text-sm font-bold text-primary-1">능력치</h2>
+              <span className="text-xs text-primary-2">
                 총 합: {pokemon.stats?.total ?? '-'}
               </span>
             </header>
@@ -107,7 +107,7 @@ const ChampionsDetailContainer = ({
           </div>
         </aside>
 
-        <main className="flex-1 max-h-[calc(100vh-12rem)] overflow-y-auto">
+        <main className="flex-1">
           <ChampionsMetaSection meta={meta} />
         </main>
       </div>

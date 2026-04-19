@@ -32,8 +32,8 @@ const ChampionsDetailContainer = ({
 
   return (
     <>
-      <nav className="mx-4 mb-4">
-        <ol className="flex items-center gap-2 text-xs text-gray-500">
+      <nav className="mb-4 p-3 bg-primary-4 rounded-xl">
+        <ol className="flex items-center gap-2 text-xs text-primary-2">
           <li>
             <Link
               href="/champions"
@@ -42,7 +42,7 @@ const ChampionsDetailContainer = ({
               챔피언스
             </Link>
           </li>
-          <li className="text-gray-300">/</li>
+          <li className="text-primary-3">/</li>
           <li>
             <Link
               href="/champions/list"
@@ -51,15 +51,12 @@ const ChampionsDetailContainer = ({
               도감
             </Link>
           </li>
-          <li className="text-gray-300">/</li>
-          <li className="text-gray-900 font-medium">{displayName}</li>
+          <li className="text-primary-3">/</li>
+          <li className="text-primary-1 font-bold">{displayName}</li>
         </ol>
       </nav>
 
-      <article
-        className="mx-4 rounded-xl p-4 text-black-2"
-        style={gradientStyle}
-      >
+      <article className="rounded-xl p-4 text-black-2" style={gradientStyle}>
         <header className="flex justify-between items-center mb-3">
           <span className="text-base font-medium">No.{pokemonNumber}</span>
           <h1 className="text-lg font-bold">{displayName}</h1>
@@ -82,13 +79,12 @@ const ChampionsDetailContainer = ({
             <TagComponent key={type} type={type} />
           ))}
         </div>
-
       </article>
 
-      <div className="mx-4 mt-4 bg-white rounded-xl p-4 shadow-sm">
+      <div className="mt-4 bg-primary-4 rounded-xl p-4 mb-6">
         <header className="mb-2">
-          <h2 className="text-sm font-bold text-gray-700">능력치</h2>
-          <span className="text-xs text-gray-500">
+          <h2 className="text-[1.25rem] font-bold text-primary-1">능력치</h2>
+          <span className="text-base text-primary-2">
             총 합: {pokemon.stats?.total ?? '-'}
           </span>
         </header>
@@ -98,19 +94,13 @@ const ChampionsDetailContainer = ({
           )}
         </div>
       </div>
-
-      <div className="mx-4 mt-4">
-        <Link
-          href={`/detail/${pokemon.pokemonNumber}`}
-          className="block w-full py-3 text-center text-sm bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors"
-        >
-          도감에서 자세히 보기
-        </Link>
-      </div>
-
-      <div className="px-4 mt-6">
-        <ChampionsMetaSection meta={meta} />
-      </div>
+      <ChampionsMetaSection meta={meta} />
+      <Link
+        href={`/detail/${pokemon.pokemonNumber}`}
+        className="block w-full mt-6 mb-8 py-3 text-center text-base bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors"
+      >
+        도감에서 자세히 보기
+      </Link>
     </>
   )
 }
