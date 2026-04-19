@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import PageHeader from '~/components/mobile/PageHeader'
-import MobileListTopBanner from '~/components/adSlot/MobileListTopBanner'
 import ChampionsTopCardMobile from '~/components/champions/ChampionsTopCardMobile.component'
+import PageHeader from '~/components/mobile/PageHeader'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 
@@ -18,8 +17,6 @@ const ChampionsHomeContainer = ({
         title="포켓몬 챔피언스"
         description={`포켓몬 챔피언스 187종 도감,\n티어 리스트, 메타 분석`}
       />
-      <MobileListTopBanner />
-
       <section
         className="w-[calc(100%-2.5rem)] mx-auto"
         aria-labelledby="top-pokemon-heading"

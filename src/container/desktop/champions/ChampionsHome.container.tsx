@@ -32,8 +32,8 @@ const ChampionsHomeContainer = ({
           const tierPokemons = topPokemons.filter((p) => p.tier === tier)
           if (tierPokemons.length === 0) return null
           return (
-            <div key={tier} className="mb-8">
-              <h3 className="text-xl font-bold text-primary-4 mb-4">
+            <div key={tier} className="mb-10">
+              <h3 className="text-[1.75rem] font-bold text-primary-4 mb-4 text-center">
                 {tier} 티어
               </h3>
               <div

@@ -1,11 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import MobileListTopBanner from '~/components/adSlot/MobileListTopBanner'
 import MobileTabBar from '~/components/MobileTabBar'
-import HeaderContainer from '~/container/mobile/header/Header.container'
 import ChampionsTierContainer from '~/container/mobile/champions/ChampionsTier.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
+import HeaderContainer from '~/container/mobile/header/Header.container'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 
 interface TierGroups {
@@ -24,7 +23,6 @@ const ChampionsTierMobile = ({ tierGroups }: ChampionsTierMobileProps) => {
   return (
     <>
       <HeaderContainer />
-      <MobileListTopBanner />
       <section className="w-full min-h-dvh px-4 py-6">
         <nav className="mb-4">
           <Link
