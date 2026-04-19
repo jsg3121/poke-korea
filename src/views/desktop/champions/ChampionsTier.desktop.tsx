@@ -23,7 +23,7 @@ const ChampionsTierDesktop = ({ tierGroups }: ChampionsTierDesktopProps) => {
       <div className="h-40">
         <HeaderContainer />
       </div>
-      <section className="w-full max-w-[1280px] min-h-dvh mx-auto py-12 px-5">
+      <section className="w-full max-w-[1280px] min-h-dvh mx-auto pb-12 mt-24 px-5">
         <ChampionsTierContainer tierGroups={tierGroups} />
       </section>
       <FooterContainer />
