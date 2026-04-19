@@ -20,17 +20,19 @@ const ChampionsPokedexContainer = () => {
         <h1 className="text-2xl font-bold text-primary-1">
           포켓몬 챔피언스 도감
         </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          총 {totalCount}종+의 포켓몬
-          <span className="text-xs text-gray-400 ml-2">
-            (메가진화 정보는 상세 페이지에서 확인하실 수 있어요!)
-          </span>
-        </p>
+        {pokemonList.length > 0 && (
+          <p className="text-sm text-gray-500 mt-1">
+            총 {totalCount}종+의 포켓몬
+            <span className="text-xs text-gray-400 ml-2">
+              (메가진화 정보는 상세 페이지에서 확인하실 수 있어요!)
+            </span>
+          </p>
+        )}
       </header>
       {pokemonList.length === 0 && (
         <div className="w-full h-[20rem]">
           <p className="w-full text-[2rem] text-primary-4 font-bold text-center">
-            포켓몬을 불러오는 중입니다...
+            조건에 맞는 포켓몬이 없어요!
           </p>
         </div>
       )}
