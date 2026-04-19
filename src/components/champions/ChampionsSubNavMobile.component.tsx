@@ -9,7 +9,7 @@ const ChampionsSubNavMobile = () => {
   const navItems = [
     { href: '/champions', label: '챔피언스', exact: true },
     { href: '/champions/list', label: '챔피언스 도감', exact: false },
-    { href: '/champions/tier', label: '티어', exact: false },
+    { href: '/champions/tier', label: '티어 리스트', exact: false },
   ]
 
   const isActive = (href: string, exact: boolean) => {
