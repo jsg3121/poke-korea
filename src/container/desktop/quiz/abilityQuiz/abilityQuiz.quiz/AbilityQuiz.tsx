@@ -1,5 +1,4 @@
 import { Fragment, useState } from 'react'
-import DesktopAbilityQuizBottomBanner from '~/components/adSlot/DesktopAbilityQuizBottomBanner'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
@@ -68,7 +67,6 @@ const AbilityQuiz = () => {
           <QuizSkipButton onClickSkipButton={handleClickSkipAnswer} />
         </article>
       </section>
-      <DesktopAbilityQuizBottomBanner />
     </Fragment>
   )
 }

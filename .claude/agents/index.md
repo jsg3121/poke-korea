@@ -39,6 +39,24 @@
 - [business-analyst](business-analyst.md) — 서비스 경쟁력, 포지셔닝, 내부 역량 분석 전문
 - [strategy-planner](strategy-planner.md) — MI+BA 분석 종합 후 전략 방향 도출 전문
 
+## 공통 규칙
+
+### UI/UX 작업 시 실제 화면 확인 필수
+
+UI/UX 관련 에이전트(`ux-designer`, `ui-publisher`)가 현재 페이지 상태를 분석하거나 개선안을 제시할 때는 **반드시 Playwright를 사용하여 실제 UI를 캡처하고 확인**해야 한다. 코드만 보고 판단하지 않는다.
+
+```bash
+# 개발 서버 실행 확인
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000
+
+# 스크린샷 캡처
+node .claude/playwright/capture-screenshots.js
+```
+
+캡처된 스크린샷은 `.claude/playwright/screenshots/`에 저장되며, 이를 기반으로 UI 분석을 진행한다.
+
+필요 시 특정 페이지만 캡처하는 임시 스크립트를 작성하여 실행할 수 있다.
+
 ## 활용 패턴
 
 작업 유형에 따라 적절한 에이전트 조합과 아키텍처 패턴을 선택한다.

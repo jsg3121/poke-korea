@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import DesktopTypeEffectivenessQuizGuideBottomBanner from '~/components/adSlot/DesktopTypeEffectivenessQuizGuideBottomBanner'
 import PageHeader from '~/components/PageHeader'
 import {
   QUIZ_CONFIG,
@@ -51,7 +50,6 @@ const TypeEffectivenessQuizBeforeStage = () => {
         </div>
       </section>
       <OtherQuizLink currentQuiz="type-effectiveness" />
-      <DesktopTypeEffectivenessQuizGuideBottomBanner />
     </section>
   )
 }

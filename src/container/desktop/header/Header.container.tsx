@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import LogoIcon from '~/assets/logo.svg'
+import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
 import FilterComponents from './filter/Filter.components'
 import DetailSearch from './header.search/DetailSearch'
 import HeaderNav from './nav/HeaderNav'
@@ -14,7 +15,7 @@ const HeaderContainer = () => {
 
   return (
     <header
-      className={`w-full min-h-40 bg-primary-2 fixed left-0 top-0 z-20 pt-6`}
+      className={`w-full min-h-40 bg-primary-2 fixed left-0 top-0 z-50 pt-6`}
     >
       <div className="w-full max-w-[1280px] h-12 mx-auto px-5 relative">
         {pathname === '/list' && <h1 className="sr-only">포켓몬 도감</h1>}
@@ -37,6 +38,7 @@ const HeaderContainer = () => {
       </div>
       <HeaderNav />
       {pathname === '/list' && <FilterComponents />}
+      {pathname.includes('/champions') && <ChampionsSubNav />}
     </header>
   )
 }

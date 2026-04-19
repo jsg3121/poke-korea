@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Fragment } from 'react'
-import MobileQuizMainBottomBanner from '~/components/adSlot/MobileQuizMainBottomBanner'
 import MobileQuizMainTopBanner from '~/components/adSlot/MobileQuizMainTopBanner'
 import PageHeader from '~/components/mobile/PageHeader'
 import MobileTabBar from '~/components/MobileTabBar'
@@ -94,7 +93,6 @@ const QuizMainMobile = () => {
             ))}
           </div>
         </section>
-        <MobileQuizMainBottomBanner />
         <FooterContainer />
       </main>
       <MobileTabBar />

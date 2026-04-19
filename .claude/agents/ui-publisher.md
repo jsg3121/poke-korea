@@ -23,6 +23,7 @@ Astro + Svelte + Tailwind 스택으로 UI를 구현하는 전문 에이전트이
 
 ## 작업 원칙
 
+- **UI 분석/개선 작업 시 Playwright로 실제 화면을 먼저 캡처하여 확인한다** — 코드만 보고 판단하지 않음
 - 정적 UI는 `.astro`, 인터랙티브 UI는 `.svelte`로 구현한다
 - `client:load`보다 `client:idle`, `client:visible`을 우선 고려한다
 - Svelte 5 Runes 문법(`$state`, `$derived`, `$props()`)을 사용한다

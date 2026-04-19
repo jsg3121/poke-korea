@@ -77,3 +77,134 @@ fragment PokemonWithAbilityInfo on PokemonWithAbility {
   region
   types
 }
+
+# ========== Champions Fragments ==========
+
+fragment ChampionsPokemonCard on ChampionsPokemon {
+  id
+  externalDexId
+  pokemonNumber
+  formType
+  formCode
+  name
+  formName
+  region
+  types
+  typePrimary
+  typeSecondary
+  stats {
+    ...PokemonStats
+  }
+  abilities {
+    abilityId
+    name
+    description
+    isHidden
+  }
+  imagePath
+}
+
+fragment ChampionsMetaMove on ChampionsMetaMove {
+  name
+  usageRate
+}
+
+fragment ChampionsMetaItem on ChampionsMetaItem {
+  name
+  usageRate
+}
+
+fragment ChampionsMetaAbility on ChampionsMetaAbility {
+  name
+  usageRate
+}
+
+fragment ChampionsMetaPartner on ChampionsMetaPartner {
+  pokemonId
+  name
+  imagePath
+  usageRate
+}
+
+fragment ChampionsMetaStats on ChampionsMetaStats {
+  pokemonId
+  usageRate
+  winRate
+  tier
+  topMoves {
+    ...ChampionsMetaMove
+  }
+  topItems {
+    ...ChampionsMetaItem
+  }
+  topAbilities {
+    ...ChampionsMetaAbility
+  }
+  topPartners {
+    ...ChampionsMetaPartner
+  }
+  source
+  updatedAt
+  isStale
+}
+
+fragment ChampionsMetaSummary on ChampionsMetaStats {
+  pokemonId
+  name
+  formName
+  region
+  imagePath
+  types
+  typePrimary
+  typeSecondary
+  usageRate
+  winRate
+  tier
+  isStale
+}
+
+fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
+  pokemon {
+    id
+    externalDexId
+    pokemonNumber
+    formType
+    formCode
+    name
+    formName
+    types
+    typePrimary
+    typeSecondary
+    stats {
+      ...PokemonStats
+    }
+    abilities {
+      abilityId
+      name
+      description
+      isHidden
+    }
+    imagePath
+  }
+  meta {
+    pokemonId
+    usageRate
+    winRate
+    tier
+    topMoves {
+      ...ChampionsMetaMove
+    }
+    topItems {
+      ...ChampionsMetaItem
+    }
+    topAbilities {
+      ...ChampionsMetaAbility
+    }
+    topPartners {
+      ...ChampionsMetaPartner
+    }
+    source
+    updatedAt
+    isStale
+  }
+}

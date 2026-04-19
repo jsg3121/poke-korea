@@ -707,3 +707,41 @@ query GetPokemonGigantamaxList {
     }
   }
 }
+
+# ========== Champions Queries ==========
+
+query GetChampionsPokemonList($input: ChampionsPokemonListInput) {
+  getChampionsPokemonList(input: $input) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        ...ChampionsPokemonCard
+      }
+    }
+  }
+}
+
+query GetChampionsMetaStats($externalDexId: Int!) {
+  getChampionsMetaStats(externalDexId: $externalDexId) {
+    ...ChampionsMetaStats
+  }
+}
+
+query GetChampionsMetaSummary {
+  getChampionsMetaSummary {
+    ...ChampionsMetaSummary
+  }
+}
+
+query GetChampionsPokemonDetail($externalDexId: Int!) {
+  getChampionsPokemonDetail(externalDexId: $externalDexId) {
+    ...ChampionsPokemonDetail
+  }
+}
