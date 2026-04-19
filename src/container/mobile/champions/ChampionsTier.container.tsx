@@ -41,7 +41,8 @@ const ChampionsTierContainer = ({
           사용률 기반 · 총 {totalCount}종 포켓몬 포함
         </p>
         <p className="text-[10px] text-primary-3 mt-2">
-          본 티어는 공식 기준이 아닌 사용률 데이터를 기반으로 자체 분류한 참고용 자료입니다.
+          본 티어는 공식 기준이 아닌 사용률 데이터를 기반으로 자체 분류한 참고용
+          자료입니다.
         </p>
 
         <div className="flex gap-1 mt-3 overflow-x-auto">
