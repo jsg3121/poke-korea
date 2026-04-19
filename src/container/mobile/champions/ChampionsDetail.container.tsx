@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import StatChartComponent from '~/components/chart/StatChart.component'
 import TagComponent from '~/components/Tag.component'
-import ChampionsMetaSection from '~/components/champions/ChampionsMetaSection.component'
+import ChampionsMetaSectionMobile from '~/components/champions/ChampionsMetaSection.mobile.component'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import {
@@ -94,7 +94,7 @@ const ChampionsDetailContainer = ({
           )}
         </div>
       </div>
-      <ChampionsMetaSection meta={meta} />
+      <ChampionsMetaSectionMobile meta={meta} />
       <Link
         href={`/detail/${pokemon.pokemonNumber}`}
         className="block w-full mt-6 mb-8 py-3 text-center text-base bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors"
