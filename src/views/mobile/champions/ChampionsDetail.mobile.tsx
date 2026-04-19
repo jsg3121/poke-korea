@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import ChampionsSubNavMobile from '~/components/champions/ChampionsSubNavMobile.component'
 import MobileTabBar from '~/components/MobileTabBar'
 import ChampionsDetailContainer from '~/container/mobile/champions/ChampionsDetail.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -15,15 +15,8 @@ const ChampionsDetailMobile = ({ detail }: ChampionsDetailMobileProps) => {
   return (
     <>
       <HeaderContainer />
+      <ChampionsSubNavMobile />
       <section className="w-full min-h-dvh px-4 py-6">
-        <nav className="mb-4">
-          <Link
-            href="/champions/pokedex"
-            className="text-sm text-gray-500 hover:text-primary-1"
-          >
-            &larr; 챔피언스 도감
-          </Link>
-        </nav>
         <ChampionsDetailContainer detail={detail} />
       </section>
       <FooterContainer />

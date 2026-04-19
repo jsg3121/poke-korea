@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import ChampionsSubNavMobile from '~/components/champions/ChampionsSubNavMobile.component'
 import MobileTabBar from '~/components/MobileTabBar'
 import ChampionsTierContainer from '~/container/mobile/champions/ChampionsTier.container'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -23,15 +23,8 @@ const ChampionsTierMobile = ({ tierGroups }: ChampionsTierMobileProps) => {
   return (
     <>
       <HeaderContainer />
+      <ChampionsSubNavMobile />
       <section className="w-full min-h-dvh px-4 py-6">
-        <nav className="mb-4">
-          <Link
-            href="/champions"
-            className="text-sm text-gray-500 hover:text-primary-1"
-          >
-            &larr; 챔피언스 홈
-          </Link>
-        </nav>
         <ChampionsTierContainer tierGroups={tierGroups} />
       </section>
       <FooterContainer />
