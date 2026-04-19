@@ -63,35 +63,35 @@ const ChampionsDetailContainer = ({
       </nav>
 
       <div className="flex gap-8">
-        <article
-          className="w-80 flex-shrink-0 rounded-xl p-6 text-black-2"
-          style={gradientStyle}
-        >
-          <header className="flex justify-between items-center mb-4">
-            <span className="text-lg font-medium">No.{pokemonNumber}</span>
-            <h1 className="text-xl font-bold">{displayName}</h1>
-          </header>
+        <aside className="w-96 flex-shrink-0 sticky top-32 self-start">
+          <article
+            className="rounded-xl p-6 text-black-2 mb-4"
+            style={gradientStyle}
+          >
+            <header className="flex justify-between items-center mb-4">
+              <span className="text-lg font-medium">No.{pokemonNumber}</span>
+              <h1 className="text-xl font-bold">{displayName}</h1>
+            </header>
 
-          <div className="flex justify-center mb-4">
-            {pokemon.imagePath && (
-              <img
-                src={`${imageMode}/${pokemon.imagePath}.webp`}
-                alt={displayName}
-                width={256}
-                height={256}
-                className="w-64 h-64 object-contain"
-              />
-            )}
-          </div>
+            <div className="flex justify-center mb-4">
+              {pokemon.imagePath && (
+                <img
+                  src={`${imageMode}/${pokemon.imagePath}.webp`}
+                  alt={displayName}
+                  width={256}
+                  height={256}
+                  className="w-64 h-64 object-contain"
+                />
+              )}
+            </div>
 
-          <div className="flex gap-2 mb-4">
-            {pokemon.types.map((type) => (
-              <TagComponent key={type} type={type} />
-            ))}
-          </div>
-        </article>
+            <div className="flex gap-2 justify-center">
+              {pokemon.types.map((type) => (
+                <TagComponent key={type} type={type} />
+              ))}
+            </div>
+          </article>
 
-        <div className="w-72 flex-shrink-0">
           <div className="bg-white rounded-xl p-4 shadow-sm">
             <header className="mb-2">
               <h2 className="text-sm font-bold text-gray-700">능력치</h2>
@@ -99,15 +99,17 @@ const ChampionsDetailContainer = ({
                 총 합: {pokemon.stats?.total ?? '-'}
               </span>
             </header>
-            {pokemon.stats && (
-              <StatChartComponent stats={pokemon.stats} size="sm" />
-            )}
+            <div className="w-full aspect-square">
+              {pokemon.stats && (
+                <StatChartComponent stats={pokemon.stats} size="sm" />
+              )}
+            </div>
           </div>
-        </div>
+        </aside>
 
-        <div className="flex-1">
+        <main className="flex-1 max-h-[calc(100vh-12rem)] overflow-y-auto">
           <ChampionsMetaSection meta={meta} />
-        </div>
+        </main>
       </div>
     </>
   )
