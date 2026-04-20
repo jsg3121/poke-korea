@@ -64,7 +64,7 @@ const ChampionsPokemonCard = ({
               No.{pokemonNumber}
             </p>
             <h3
-              className={`w-fit h-4 leading-[calc(1rem+2px)] font-semibold text-right text-black ${displayName && displayName.length > 9 ? 'text-[0.75rem]' : 'text-base'}`}
+              className={`w-fit h-4 leading-[calc(1rem+2px)] font-semibold text-right text-black ${displayName && displayName.length > 13 ? 'text-[0.6rem]' : displayName.length > 9 ? 'text-[0.75rem]' : 'text-base'}`}
             >
               {displayName}
             </h3>
