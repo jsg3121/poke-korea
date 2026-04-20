@@ -7,14 +7,14 @@ const OG_IMAGE_URL = `${SITE_URL}/assets/image/ogImage.png`
 export const CHAMPIONS_META: Metadata = {
   title: '포켓몬 챔피언스 도감 | 포케코리아',
   description:
-    '포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석. 인기 포켓몬 사용률, 추천 기술/아이템/특성 정보를 확인하세요.',
+    '포켓몬 챔피언스 186종 도감, 티어 리스트, 메타 분석. 인기 포켓몬 사용률, 추천 기술/아이템/특성 정보를 확인하세요.',
   openGraph: {
     type: 'website',
     url: `${SITE_URL}/champions`,
     title: '포켓몬 챔피언스 도감 | 포케코리아',
     locale: 'ko_KR',
     description:
-      '포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석. 인기 포켓몬 사용률, 추천 기술/아이템/특성 정보를 확인하세요.',
+      '포켓몬 챔피언스 186종 도감, 티어 리스트, 메타 분석. 인기 포켓몬 사용률, 추천 기술/아이템/특성 정보를 확인하세요.',
     images: [
       {
         url: OG_IMAGE_URL,
@@ -33,7 +33,7 @@ export const CHAMPIONS_META: Metadata = {
     card: 'summary_large_image',
     title: '포켓몬 챔피언스 도감 | 포케코리아',
     description:
-      '포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석. 인기 포켓몬 사용률, 추천 기술/아이템/특성 정보를 확인하세요.',
+      '포켓몬 챔피언스 186종 도감, 티어 리스트, 메타 분석. 인기 포켓몬 사용률, 추천 기술/아이템/특성 정보를 확인하세요.',
     images: [OG_IMAGE_URL],
   },
   robots: {
@@ -50,14 +50,14 @@ export const CHAMPIONS_META: Metadata = {
 export const CHAMPIONS_POKEDEX_META: Metadata = {
   title: '포켓몬 챔피언스 포켓몬 목록 | 포케코리아',
   description:
-    '포켓몬 챔피언스에 등장하는 187종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.',
+    '포켓몬 챔피언스에 등장하는 186종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.',
   openGraph: {
     type: 'website',
     url: `${SITE_URL}/champions/list`,
     title: '포켓몬 챔피언스 포켓몬 목록 | 포케코리아',
     locale: 'ko_KR',
     description:
-      '포켓몬 챔피언스에 등장하는 187종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.',
+      '포켓몬 챔피언스에 등장하는 186종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.',
     images: [
       {
         url: OG_IMAGE_URL,
@@ -76,7 +76,7 @@ export const CHAMPIONS_POKEDEX_META: Metadata = {
     card: 'summary_large_image',
     title: '포켓몬 챔피언스 포켓몬 목록 | 포케코리아',
     description:
-      '포켓몬 챔피언스에 등장하는 187종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.',
+      '포켓몬 챔피언스에 등장하는 186종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.',
     images: [OG_IMAGE_URL],
   },
   robots: {

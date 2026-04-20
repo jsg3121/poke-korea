@@ -52,8 +52,8 @@ export const generateChampionsDetailMetadata = async (
     }
   }
 
-  const title = `${pokemon.name} 챔피언스 메타 정보 | 포케코리아`
-  const description = `포켓몬 챔피언스 ${pokemon.name}의 사용률, 인기 기술, 아이템, 특성, 추천 파트너 정보를 확인하세요.`
+  const title = `${pokemon.name} 챔피언스 정보 | 포케코리아`
+  const description = `${pokemon.name}의 포켓몬 챔피언스 사용률, 인기 기술, 아이템, 특성, 추천 파트너 정보를 확인하세요.`
 
   return {
     title,

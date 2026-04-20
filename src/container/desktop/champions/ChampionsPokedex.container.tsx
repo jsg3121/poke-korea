@@ -34,7 +34,7 @@ const ChampionsPokedexContainer = () => {
         </div>
       )}
       {pokemonList.length > 0 && (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(calc(14rem-10px),auto))] gap-x-4 gap-y-6 justify-items-center justify-between px-5">
+        <div className="grid grid-cols-5 gap-x-4 gap-y-6 justify-items-center justify-between px-5">
           {pokemonList.map((pokemon, index) => {
             return (
               <ChampionsPokemonCard

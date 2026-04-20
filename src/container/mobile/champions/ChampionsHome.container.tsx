@@ -14,7 +14,7 @@ const ChampionsHomeContainer = ({
     <section className="w-full h-full mx-auto relative">
       <PageHeader
         title="포켓몬 챔피언스"
-        description={`포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석`}
+        description={`포켓몬 챔피언스 186종 도감, 티어 리스트, 메타 분석`}
       />
       <section
         className="w-[calc(100%-2.5rem)] mx-auto"

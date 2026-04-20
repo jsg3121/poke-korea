@@ -86,6 +86,7 @@ fragment ChampionsPokemonCard on ChampionsPokemon {
   pokemonNumber
   formType
   formCode
+  formIndex
   name
   formName
   region
@@ -170,6 +171,7 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
     pokemonNumber
     formType
     formCode
+    formIndex
     name
     formName
     types

@@ -14,7 +14,7 @@ const ChampionsHomeContainer = ({
     <section className="w-full max-w-[1280px] h-fit mx-auto pb-8 relative">
       <PageHeader
         title="포켓몬 챔피언스"
-        description="포켓몬 챔피언스 187종 도감, 티어 리스트, 메타 분석"
+        description="포켓몬 챔피언스 186종 도감, 티어 리스트, 메타 분석"
       />
       <section aria-labelledby="top-pokemon-heading" className="mb-12">
         <h2

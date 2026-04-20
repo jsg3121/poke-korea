@@ -14,6 +14,26 @@ interface ChampionsDetailContainerProps {
   detail: ChampionsPokemonDetailFragment
 }
 
+const getDetailUrl = (
+  pokemonNumber: number,
+  formType: string | null | undefined,
+  formIndex: number | null | undefined,
+) => {
+  const baseUrl = `/detail/${pokemonNumber}`
+  const index = formIndex ?? 0
+
+  switch (formType) {
+    case 'NORMAL':
+      return index > 0 ? `${baseUrl}/form/${index}` : baseUrl
+    case 'MEGA':
+      return index > 0 ? `${baseUrl}/mega/${index}` : baseUrl
+    case 'REGION':
+      return index > 0 ? `${baseUrl}/region/${index}` : `${baseUrl}/region`
+    default:
+      return baseUrl
+  }
+}
+
 const ChampionsDetailContainer = ({
   detail,
 }: ChampionsDetailContainerProps) => {
@@ -23,6 +43,11 @@ const ChampionsDetailContainer = ({
   const displayName = pokemon.formName
     ? `${pokemon.name} (${pokemon.formName})`
     : pokemon.name
+  const detailUrl = getDetailUrl(
+    pokemon.pokemonNumber,
+    pokemon.formType,
+    pokemon.formIndex,
+  )
 
   const gradientStyle =
     backgroundColor.length === 1
@@ -99,7 +124,7 @@ const ChampionsDetailContainer = ({
       </div>
       <ChampionsMetaSectionMobile meta={meta} />
       <Link
-        href={`/detail/${pokemon.pokemonNumber}`}
+        href={detailUrl}
         className="block w-full mt-6 mb-8 py-3 text-center text-base bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors"
       >
         도감에서 자세히 보기

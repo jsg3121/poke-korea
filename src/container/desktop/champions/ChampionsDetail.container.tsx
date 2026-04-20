@@ -14,6 +14,26 @@ interface ChampionsDetailContainerProps {
   detail: ChampionsPokemonDetailFragment
 }
 
+const getDetailUrl = (
+  pokemonNumber: number,
+  formType: string | null | undefined,
+  formIndex: number | null | undefined,
+) => {
+  const baseUrl = `/detail/${pokemonNumber}`
+  const index = formIndex ?? 0
+
+  switch (formType) {
+    case 'NORMAL':
+      return index > 0 ? `${baseUrl}/form/${index}` : baseUrl
+    case 'MEGA':
+      return index > 0 ? `${baseUrl}/mega/${index}` : baseUrl
+    case 'REGION':
+      return index > 0 ? `${baseUrl}/region/${index}` : `${baseUrl}/region`
+    default:
+      return baseUrl
+  }
+}
+
 const ChampionsDetailContainer = ({
   detail,
 }: ChampionsDetailContainerProps) => {
@@ -23,6 +43,23 @@ const ChampionsDetailContainer = ({
   const displayName = pokemon.formName
     ? `${pokemon.name} (${pokemon.formName})`
     : pokemon.name
+  console.log(
+    '🔬 dev-only ~ ChampionsDetailContainer ~ pokemon.pokemonNumber:',
+    pokemon.pokemonNumber,
+  )
+  console.log(
+    '🔬 dev-only ~ ChampionsDetailContainer ~ pokemon.formType:',
+    pokemon.formType,
+  )
+  console.log(
+    '🔬 dev-only ~ ChampionsDetailContainer ~ pokemon.formIndex:',
+    pokemon.formIndex,
+  )
+  const detailUrl = getDetailUrl(
+    pokemon.pokemonNumber,
+    pokemon.formType,
+    pokemon.formIndex,
+  )
 
   const gradientStyle =
     backgroundColor.length === 1
@@ -57,7 +94,7 @@ const ChampionsDetailContainer = ({
             <li className="text-black-2 font-bold">{displayName}</li>
           </ol>
           <Link
-            href={`/detail/${pokemon.pokemonNumber}`}
+            href={detailUrl}
             className="px-4 py-2 text-sm bg-black-2/20 text-black-2 rounded-lg hover:bg-black-2/30 transition-colors"
           >
             도감에서 자세히 보기
