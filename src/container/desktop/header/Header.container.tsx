@@ -15,7 +15,7 @@ const HeaderContainer = () => {
 
   return (
     <header
-      className={`w-full min-h-40 bg-primary-2 fixed left-0 top-0 z-50 pt-6`}
+      className={`w-full min-h-28 bg-primary-2 fixed left-0 top-0 z-50 pt-3`}
     >
       <div className="w-full max-w-[1280px] h-12 mx-auto px-5 relative">
         {pathname === '/list' && <h1 className="sr-only">포켓몬 도감</h1>}

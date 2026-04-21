@@ -27,8 +27,13 @@ const ChampionsPokemonCard = ({
   const backgroundColor = getBackgroundColor(pokemonData.types)
 
   const getDisplayName = () => {
-    const suffix = pokemonData.region || pokemonData.formName
-    return suffix ? `${pokemonData.name} (${suffix})` : pokemonData.name
+    if (pokemonData.region) {
+      const suffix = pokemonData.formName
+        ? `${pokemonData.region} ${pokemonData.formName}`
+        : pokemonData.region
+      return `${pokemonData.name} (${suffix})`
+    }
+    return pokemonData.formName || pokemonData.name
   }
   const displayName = getDisplayName()
 

@@ -1,14 +1,39 @@
 import { Metadata } from 'next'
-import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
+import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
 import {
-  GetChampionsPokemonListQuery,
-  GetChampionsPokemonListQueryVariables,
+  GetChampionsPokemonDetailQuery,
+  GetChampionsPokemonDetailQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
 const SITE_NAME = '포케 코리아'
 const SITE_URL = 'https://poke-korea.com'
-const OG_IMAGE_URL = `${SITE_URL}/assets/image/ogImage.png`
+const OG_IMAGE_BASE = 'https://image.poke-korea.com/og-images'
+
+function getOgImageUrls(
+  pokemonNumber: number,
+  formType: string,
+  formIndex: number,
+) {
+  const normalizedFormType = formType.toLowerCase()
+
+  const folder =
+    normalizedFormType === 'base' || normalizedFormType === 'normal'
+      ? formIndex > 0
+        ? 'form'
+        : 'default'
+      : normalizedFormType
+
+  const fileId =
+    folder === 'default' || folder === 'gigantamax'
+      ? `${pokemonNumber}`
+      : `${pokemonNumber}-${formIndex}`
+
+  return {
+    large: `${OG_IMAGE_BASE}/${folder}/${fileId}-large.png`,
+    medium: `${OG_IMAGE_BASE}/${folder}/${fileId}-medium.png`,
+  }
+}
 
 export const generateChampionsDetailMetadata = async (
   pokemonId: number,
@@ -27,19 +52,14 @@ export const generateChampionsDetailMetadata = async (
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query<
-    GetChampionsPokemonListQuery,
-    GetChampionsPokemonListQueryVariables
+    GetChampionsPokemonDetailQuery,
+    GetChampionsPokemonDetailQueryVariables
   >({
-    query: GetChampionsPokemonListDocument,
-    variables: {
-      input: {
-        filter: { search: String(pokemonId) },
-        pagination: { first: 1 },
-      },
-    },
+    query: GetChampionsPokemonDetailDocument,
+    variables: { externalDexId: pokemonId },
   })
 
-  const pokemon = data?.getChampionsPokemonList?.edges?.[0]?.node
+  const pokemon = data?.getChampionsPokemonDetail?.pokemon
 
   if (!pokemon) {
     return {
@@ -55,6 +75,12 @@ export const generateChampionsDetailMetadata = async (
   const title = `${pokemon.name} 챔피언스 정보 | 포케코리아`
   const description = `${pokemon.name}의 포켓몬 챔피언스 사용률, 인기 기술, 아이템, 특성, 추천 파트너 정보를 확인하세요.`
 
+  const ogImages = getOgImageUrls(
+    pokemon.pokemonNumber,
+    pokemon.formType ?? 'normal',
+    pokemon.formIndex ?? 0,
+  )
+
   return {
     title,
     description,
@@ -66,9 +92,16 @@ export const generateChampionsDetailMetadata = async (
       description,
       images: [
         {
-          url: OG_IMAGE_URL,
+          url: ogImages.large,
           width: 1200,
           height: 630,
+          alt: title,
+          type: 'image/png',
+        },
+        {
+          url: ogImages.medium,
+          width: 800,
+          height: 800,
           alt: title,
           type: 'image/png',
         },
@@ -82,7 +115,7 @@ export const generateChampionsDetailMetadata = async (
       card: 'summary_large_image',
       title,
       description,
-      images: [OG_IMAGE_URL],
+      images: [ogImages.large],
     },
     robots: {
       index: true,

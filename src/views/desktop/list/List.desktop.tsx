@@ -25,7 +25,7 @@ const ListDesktop = ({
       initialFilter={initialFilter}
       hasNextPage={hasNextPage}
     >
-      <div className="h-56">
+      <div className="h-44">
         <HeaderContainer />
       </div>
       <DesktopListTopBanner />
