@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
-import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
+import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
 import {
-  GetChampionsPokemonListQuery,
-  GetChampionsPokemonListQueryVariables,
+  GetChampionsPokemonDetailQuery,
+  GetChampionsPokemonDetailQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
@@ -27,19 +27,14 @@ export const generateChampionsDetailMetadata = async (
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query<
-    GetChampionsPokemonListQuery,
-    GetChampionsPokemonListQueryVariables
+    GetChampionsPokemonDetailQuery,
+    GetChampionsPokemonDetailQueryVariables
   >({
-    query: GetChampionsPokemonListDocument,
-    variables: {
-      input: {
-        filter: { search: String(pokemonId) },
-        pagination: { first: 1 },
-      },
-    },
+    query: GetChampionsPokemonDetailDocument,
+    variables: { externalDexId: pokemonId },
   })
 
-  const pokemon = data?.getChampionsPokemonList?.edges?.[0]?.node
+  const pokemon = data?.getChampionsPokemonDetail?.pokemon
 
   if (!pokemon) {
     return {
