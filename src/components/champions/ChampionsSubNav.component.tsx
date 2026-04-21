@@ -20,13 +20,13 @@ const ChampionsSubNav = () => {
   }
 
   return (
-    <nav className="w-full h-12 bg-primary-1 border-b border-solid border-primary-2 px-8 sticky top-40 z-10">
+    <nav className="w-full h-10 bg-primary-1 border-b border-solid border-primary-2 px-8 sticky top-28 z-10">
       <ul className="w-full h-full max-w-[1280px] mx-auto flex items-center gap-1">
         {navItems.map((item) => (
           <li key={item.href}>
             <Link
               href={item.href}
-              className={`block px-4 py-2 text-sm transition-colors duration-200 ${
+              className={`block px-4 py-1.5 text-sm transition-colors duration-200 ${
                 isActive(item.href, item.exact)
                   ? 'text-primary-4 font-bold border-b-2 border-primary-4'
                   : 'text-primary-3 hover:text-primary-4'

@@ -12,7 +12,7 @@ interface ChampionsDetailDesktopProps {
 const ChampionsDetailDesktop = ({ detail }: ChampionsDetailDesktopProps) => {
   return (
     <>
-      <div className="h-40">
+      <div className="h-32">
         <HeaderContainer />
       </div>
       <section className="w-full max-w-[1280px] min-h-dvh mx-auto py-12 px-5">
