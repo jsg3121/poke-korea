@@ -18,7 +18,7 @@ function getOgImageUrls(
   const normalizedFormType = formType.toLowerCase()
 
   const folder =
-    normalizedFormType === 'base'
+    normalizedFormType === 'base' || normalizedFormType === 'normal'
       ? formIndex > 0
         ? 'form'
         : 'default'
