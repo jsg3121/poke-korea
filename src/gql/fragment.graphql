@@ -174,6 +174,7 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
     formIndex
     name
     formName
+    region
     types
     typePrimary
     typeSecondary

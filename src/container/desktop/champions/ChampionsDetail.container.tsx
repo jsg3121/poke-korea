@@ -40,9 +40,16 @@ const ChampionsDetailContainer = ({
   const { pokemon, meta } = detail
   const pokemonNumber = pokemonNumberFormat(pokemon.pokemonNumber)
   const backgroundColor = getBackgroundColor(pokemon.types)
-  const displayName = pokemon.formName
-    ? `${pokemon.name} (${pokemon.formName})`
-    : pokemon.name
+  const getDisplayName = () => {
+    if (pokemon.region) {
+      const suffix = pokemon.formName
+        ? `${pokemon.region} ${pokemon.formName}`
+        : pokemon.region
+      return `${pokemon.name} (${suffix})`
+    }
+    return pokemon.formName || pokemon.name
+  }
+  const displayName = getDisplayName()
   console.log(
     '🔬 dev-only ~ ChampionsDetailContainer ~ pokemon.pokemonNumber:',
     pokemon.pokemonNumber,
