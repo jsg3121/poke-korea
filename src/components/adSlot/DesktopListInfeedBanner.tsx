@@ -5,7 +5,7 @@ const DesktopListInfeedBanner = () => {
   const { slotRef } = useAdSlotEffect()
 
   return (
-    <div ref={slotRef} className="col-span-5 w-full h-fit">
+    <div ref={slotRef} className="col-span-5 w-full h-fit mx-auto">
       <ins
         className="adsbygoogle block"
         data-ad-format="fluid"
