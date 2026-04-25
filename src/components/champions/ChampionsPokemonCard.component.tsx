@@ -87,7 +87,7 @@ const ChampionsPokemonCard = ({
                 }}
                 densities={[1, 1.5]}
                 alt={`pokemon_id_${pokemonData.pokemonNumber} ${pokemonData.name}`}
-                src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                src={`${imageMode}/${pokemonData.imagePath}`}
                 sizes={isMobile ? '9rem' : '10rem'}
                 fetchPriority="high"
               />
@@ -110,7 +110,7 @@ const ChampionsPokemonCard = ({
                   }}
                   densities={[1, 1.5]}
                   alt={`pokemon_id_${pokemonData.pokemonNumber} ${pokemonData.name}`}
-                  src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                  src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes={isMobile ? '9rem' : '10rem'}
                   loading="lazy"
                   onLoad={handleImageLoad}

@@ -77,7 +77,7 @@ const PokemonTypeQuizResult = () => {
                     <ImageComponent
                       width="4rem"
                       height="4rem"
-                      src={`${imageMode}/${realAnswerId}.webp`}
+                      src={`${imageMode}/${realAnswerId}`}
                       alt={`정답 포켓몬 ${quiz.options[quiz.correctAnswerIndex].koreanName}`}
                       imageSize={{ width: 48, height: 48 }}
                       densities={[1, 1.5]}
@@ -102,7 +102,7 @@ const PokemonTypeQuizResult = () => {
                       <ImageComponent
                         width={userAnswerId === realAnswerId ? '5rem' : '4rem'}
                         height={userAnswerId === realAnswerId ? '5rem' : '4rem'}
-                        src={`${imageMode}/${userAnswerId}.webp`}
+                        src={`${imageMode}/${userAnswerId}`}
                         alt={`선택 포켓몬`}
                         imageSize={{
                           width: userAnswerId === realAnswerId ? 60 : 48,

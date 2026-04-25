@@ -50,7 +50,7 @@ const SilhouetteQuizCardCntainer = ({
           <ImageComponent
             width="8rem"
             height="8rem"
-            src={`${imageMode}/${silhouetteQuiz.correctPokemonId}.webp`}
+            src={`${imageMode}/${silhouetteQuiz.correctPokemonId}`}
             alt="포켓몬 실루엣 이미지"
             imageSize={{ width: 128, height: 128 }}
             densities={[1, 1.5]}

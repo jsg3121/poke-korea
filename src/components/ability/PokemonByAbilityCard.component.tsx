@@ -126,7 +126,7 @@ const PokemonByAbilityCardComponent = ({
               }}
               densities={[1, 1.5]}
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
-              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
+              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}`}
               sizes={isMobile ? '8rem' : '10rem'}
               fetchPriority="high"
             />
@@ -146,7 +146,7 @@ const PokemonByAbilityCardComponent = ({
                 }}
                 densities={[1, 1.5]}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
-                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
+                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}`}
                 sizes={isMobile ? '8rem' : '10rem'}
                 loading="lazy"
                 onLoad={handleImageLoad}
