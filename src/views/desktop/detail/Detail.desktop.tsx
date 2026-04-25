@@ -7,7 +7,7 @@ import HeaderContainer from '~/container/desktop/header/Header.container'
 
 const DetailDesktop = () => {
   return (
-    <main className="w-full min-h-screen pt-40">
+    <main className="w-full min-h-screen pt-30">
       <HeaderContainer />
       <section className="w-full h-full mx-auto relative">
         <DetailSummaryContainer />
