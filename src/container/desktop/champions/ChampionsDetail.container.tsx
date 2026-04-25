@@ -118,7 +118,7 @@ const ChampionsDetailContainer = ({
         <div className="flex justify-center">
           {pokemon.imagePath && (
             <ImageComponent
-              src={`${imageMode}/${pokemon.imagePath}.webp`}
+              src={`${imageMode}/${pokemon.imagePath}`}
               alt={displayName}
               width="18rem"
               height="18rem"

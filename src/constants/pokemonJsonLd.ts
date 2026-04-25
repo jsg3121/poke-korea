@@ -149,8 +149,8 @@ export const generatePokemonJsonLd = ({
   const imageList = getImageList()
 
   const imageSrc = isShiny
-    ? `${imageMode}/shiny/${imageList?.[activeIndex]?.imageCode}.webp`
-    : `${imageMode}/${imageList?.[activeIndex]?.imageCode}.webp`
+    ? `${imageMode}/shiny/${imageList?.[activeIndex]?.imageCode}`
+    : `${imageMode}/${imageList?.[activeIndex]?.imageCode}`
 
   const abilities = getAbilities()
 

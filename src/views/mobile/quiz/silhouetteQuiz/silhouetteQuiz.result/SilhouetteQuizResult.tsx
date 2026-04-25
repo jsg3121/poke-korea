@@ -76,7 +76,7 @@ const SilhouetteQuizResult = () => {
                   <ImageComponent
                     width="8rem"
                     height="8rem"
-                    src={`${imageMode}/${quiz.correctPokemonId}.webp`}
+                    src={`${imageMode}/${quiz.correctPokemonId}`}
                     alt={`정답 포켓몬 ${realAnswer}`}
                     imageSize={{ width: 96, height: 96 }}
                     densities={[1, 1.5]}

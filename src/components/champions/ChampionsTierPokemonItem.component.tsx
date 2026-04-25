@@ -34,7 +34,7 @@ const ChampionsTierPokemonItem = ({
         <div className="w-24 h-24">
           {pokemon.imagePath && (
             <ImageComponent
-              src={`${imageMode}/${pokemon.imagePath}.webp`}
+              src={`${imageMode}/${pokemon.imagePath}`}
               alt={displayName ?? ''}
               width="6rem"
               height="6rem"
@@ -49,7 +49,7 @@ const ChampionsTierPokemonItem = ({
           {isVisible ? (
             pokemon.imagePath && (
               <ImageComponent
-                src={`${imageMode}/${pokemon.imagePath}.webp`}
+                src={`${imageMode}/${pokemon.imagePath}`}
                 alt={displayName ?? ''}
                 width="6rem"
                 height="6rem"

@@ -26,7 +26,7 @@ const ChampionsPartnerList = ({ title, items }: ChampionsPartnerListProps) => {
               <div className="flex items-center gap-3">
                 {item.imagePath && (
                   <img
-                    src={`${imageMode}/${item.imagePath}.webp`}
+                    src={`${imageMode}/${item.imagePath}`}
                     alt={item.name}
                     width={40}
                     height={40}

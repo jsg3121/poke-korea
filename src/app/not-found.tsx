@@ -72,7 +72,7 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/25.webp`}
+                src={`${imageMode}/25`}
                 alt="피카츄 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
                 densities={[1, 1.5]}
@@ -87,7 +87,7 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/6.webp`}
+                src={`${imageMode}/6`}
                 alt="리자몽 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
                 densities={[1, 1.5]}
@@ -102,7 +102,7 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/133.webp`}
+                src={`${imageMode}/133`}
                 alt="이브이 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
                 densities={[1, 1.5]}
@@ -117,7 +117,7 @@ const NotFound = () => {
               <ImageComponent
                 height="10rem"
                 width="10rem"
-                src={`${imageMode}/150.webp`}
+                src={`${imageMode}/150`}
                 alt="뮤츠 포켓몬"
                 imageSize={{ width: 160, height: 160 }}
                 densities={[1, 1.5]}

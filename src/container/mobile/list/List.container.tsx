@@ -6,7 +6,7 @@ import { ListContext } from '~/context/List.context'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import FooterContainer from '../footer/Footer.container'
 
-const AD_INTERVAL = 10
+const AD_INTERVAL = 14
 
 const ListContainer = () => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =

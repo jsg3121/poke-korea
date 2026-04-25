@@ -89,7 +89,7 @@ const MovesHeaderContainer = ({ pokemonName }: MovesHeaderContainerProps) => {
           <ImageComponent
             width="5.5rem"
             height="5.5rem"
-            src={`${imageMode}/${imagePath()}.webp`}
+            src={`${imageMode}/${imagePath()}`}
             alt={pokemonName}
             imageSize={{ width: 66, height: 66 }}
             densities={[1, 1.5]}

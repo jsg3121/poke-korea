@@ -80,7 +80,7 @@ const ChampionsTopCardMobile = ({
                 imageSize={{ width: 120, height: 120 }}
                 densities={[1, 1.5]}
                 alt={`pokemon_id_${pokemonData.pokemonId} ${pokemonData.name}`}
-                src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                src={`${imageMode}/${pokemonData.imagePath}`}
                 sizes="10rem"
                 fetchPriority="high"
               />
@@ -100,7 +100,7 @@ const ChampionsTopCardMobile = ({
                   imageSize={{ width: 120, height: 120 }}
                   densities={[1, 1.5]}
                   alt={`pokemon_id_${pokemonData.pokemonId} ${pokemonData.name}`}
-                  src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                  src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes="10rem"
                   loading="lazy"
                   onLoad={handleImageLoad}

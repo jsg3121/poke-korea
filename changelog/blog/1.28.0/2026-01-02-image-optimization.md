@@ -128,7 +128,7 @@ const generateSrcSet = () => {
 ```tsx
 // Before
 <ImageComponent
-  src={`${imageMode}/${pokemonData.number}.webp?w=240&h=240`}
+  src={`${imageMode}/${pokemonData.number}?w=240&h=240`}
   sizes="10rem"
   fetchPriority="high"
 />
@@ -137,7 +137,7 @@ const generateSrcSet = () => {
 <ImageComponent
   imageSize={{ width: 160, height: 160 }}
   densities={[1, 1.5]}
-  src={`${imageMode}/${pokemonData.number}.webp`}
+  src={`${imageMode}/${pokemonData.number}`}
   sizes="10rem"
   fetchPriority={isHighPriority ? "high" : undefined}
   loading={isHighPriority ? undefined : "lazy"}
@@ -164,7 +164,7 @@ const generateSrcSet = () => {
 // Before
 <ImageComponent
   imageSize={{ width: 140, height: 140 }}
-  src={`${imageMode}/${pokemonData.number}.webp?w=180&h=180`}
+  src={`${imageMode}/${pokemonData.number}?w=180&h=180`}
   fetchPriority="high"
 />
 
@@ -172,7 +172,7 @@ const generateSrcSet = () => {
 <ImageComponent
   imageSize={{ width: 120, height: 120 }}
   densities={[1, 1.5]}
-  src={`${imageMode}/${pokemonData.number}.webp`}
+  src={`${imageMode}/${pokemonData.number}`}
   sizes="10rem"
   fetchPriority={isHighPriority ? "high" : undefined}
   loading={isHighPriority ? undefined : "lazy"}
@@ -202,7 +202,7 @@ const generateSrcSet = () => {
     height: isMobile ? 96 : 160,
   }}
   densities={[1, 1.5]}
-  src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}.webp`}
+  src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}`}
   sizes={isMobile ? '8rem' : '10rem'}
 />
 ```

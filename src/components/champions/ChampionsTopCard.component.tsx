@@ -77,7 +77,7 @@ const ChampionsTopCard = ({
                   imageSize={{ width: 140, height: 140 }}
                   densities={[1, 1.5]}
                   alt={`pokemon_id_${pokemonData.pokemonId}`}
-                  src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                  src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes="10rem"
                   fetchPriority="high"
                 />
@@ -98,7 +98,7 @@ const ChampionsTopCard = ({
                   imageSize={{ width: 140, height: 140 }}
                   densities={[1, 1.5]}
                   alt={`pokemon_id_${pokemonData.pokemonId}`}
-                  src={`${imageMode}/${pokemonData.imagePath}.webp`}
+                  src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes="10rem"
                   loading="lazy"
                   onLoad={handleImageLoad}
