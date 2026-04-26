@@ -11,11 +11,13 @@ import { detectUserAgent } from '~/module/device.module'
 import { changeTypeArrayToString } from '~/module/filter.module'
 import ChampionsPokedexDesktop from '~/views/desktop/champions/ChampionsPokedex.desktop'
 import ChampionsPokedexMobile from '~/views/mobile/champions/ChampionsPokedex.mobile'
-import { CHAMPIONS_POKEDEX_META } from '../_metadata/championsMetadata'
+import { generateChampionsPokedexMetadata } from '../_metadata/championsMetadata'
 
 export const revalidate = 86400
 
-export const metadata: Metadata = CHAMPIONS_POKEDEX_META
+export const generateMetadata = (): Promise<Metadata> => {
+  return generateChampionsPokedexMetadata()
+}
 
 type PageProps = {
   searchParams: Promise<{
@@ -85,11 +87,29 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
     ],
   }
 
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: '포켓몬 챔피언스 포켓몬 목록',
+    description: `포켓몬 챔피언스에 등장하는 ${totalCount}종 포켓몬`,
+    numberOfItems: totalCount,
+    itemListElement: pokemonList.slice(0, 10).map((pokemon, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: pokemon.name,
+      url: `https://poke-korea.com/champions/list/${pokemon.externalDexId}`,
+    })),
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
       <main className="w-full min-h-screen">
         {isMobile ? (

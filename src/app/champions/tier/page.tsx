@@ -9,11 +9,13 @@ import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import ChampionsTierDesktop from '~/views/desktop/champions/ChampionsTier.desktop'
 import ChampionsTierMobile from '~/views/mobile/champions/ChampionsTier.mobile'
-import { CHAMPIONS_TIER_META } from '../_metadata/championsMetadata'
+import { generateChampionsTierMetadata } from '../_metadata/championsMetadata'
 
 export const revalidate = 86400
 
-export const metadata: Metadata = CHAMPIONS_TIER_META
+export const generateMetadata = (): Promise<Metadata> => {
+  return generateChampionsTierMetadata()
+}
 
 const ChampionsTierPage = async () => {
   const headersList = await headers()
@@ -65,11 +67,31 @@ const ChampionsTierPage = async () => {
     ],
   }
 
+  const tierListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: '포켓몬 챔피언스 티어 리스트',
+    description: `포켓몬 챔피언스 ${metaSummary.length}종 포켓몬의 티어별 분류`,
+    numberOfItems: metaSummary.length,
+    itemListElement: (['S', 'A', 'B', 'C', 'D'] as const).map(
+      (tier, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: `${tier} 티어`,
+        description: `${tierGroups[tier].length}종 포켓몬`,
+      }),
+    ),
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(tierListJsonLd) }}
       />
       <main className="w-full min-h-screen">
         {isMobile ? (

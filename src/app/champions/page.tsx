@@ -9,11 +9,13 @@ import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import ChampionsHomeDesktop from '~/views/desktop/champions/ChampionsHome.desktop'
 import ChampionsHomeMobile from '~/views/mobile/champions/ChampionsHome.mobile'
-import { CHAMPIONS_META } from './_metadata/championsMetadata'
+import { generateChampionsHomeMetadata } from './_metadata/championsMetadata'
 
 export const revalidate = 86400
 
-export const metadata: Metadata = CHAMPIONS_META
+export const generateMetadata = (): Promise<Metadata> => {
+  return generateChampionsHomeMetadata()
+}
 
 const ChampionsPage = async () => {
   const headersList = await headers()
