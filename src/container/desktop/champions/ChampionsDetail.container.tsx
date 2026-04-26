@@ -50,18 +50,7 @@ const ChampionsDetailContainer = ({
     return pokemon.formName || pokemon.name
   }
   const displayName = getDisplayName()
-  console.log(
-    '🔬 dev-only ~ ChampionsDetailContainer ~ pokemon.pokemonNumber:',
-    pokemon.pokemonNumber,
-  )
-  console.log(
-    '🔬 dev-only ~ ChampionsDetailContainer ~ pokemon.formType:',
-    pokemon.formType,
-  )
-  console.log(
-    '🔬 dev-only ~ ChampionsDetailContainer ~ pokemon.formIndex:',
-    pokemon.formIndex,
-  )
+
   const detailUrl = getDetailUrl(
     pokemon.pokemonNumber,
     pokemon.formType,
@@ -152,9 +141,9 @@ const ChampionsDetailContainer = ({
           </div>
         </aside>
 
-        <main className="flex-1">
+        <section className="flex-1">
           <ChampionsMetaSection meta={meta} />
-        </main>
+        </section>
       </div>
     </>
   )
