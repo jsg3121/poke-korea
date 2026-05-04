@@ -15,16 +15,16 @@
 
 | 단계 | 항목 수 | 완료 | 진행 중 | 대기 |
 | ---- | ------- | ---- | ------- | ---- |
-| A. 즉시 실행 (1일 이내) | 5 | 0 | 0 | 5 |
+| A. 즉시 실행 (1일 이내) | 5 | 4 | 0 | 1 |
 | B. 메타 다양화 (1~3일) | 3 | 0 | 0 | 3 |
 | C. 프론트 UI/구조 (3~7일) | 5 | 0 | 0 | 5 |
 | D. 프론트 데이터 검토 (1~2주) | 1 | 0 | 0 | 1 |
 | E. 백엔드 협업 (2~4주) | 3 | 0 | 0 | 3 |
 | F. 운영/외부 (1~3개월) | 2 | 0 | 0 | 2 |
 | G. 보류 | 1 | — | — | — |
-| **합계** | **20** | **0** | **0** | **19** |
+| **합계** | **20** | **4** | **0** | **15** |
 
-> 마지막 갱신: 2026-05-04 (초기 작성)
+> 마지막 갱신: 2026-05-05 (단계 A 코드 작업 완료, A-5 SC 인덱싱은 PR 머지 후 수동 진행)
 
 ---
 
@@ -32,38 +32,38 @@
 
 > 모두 코드 1줄~수 줄 변경. 동일한 1차 PR로 묶어 처리 권장.
 
-### A-1. layout.tsx 기본 description 폴백 교체
+### A-1. layout.tsx 기본 description 폴백 교체 ✅
 
-- **상태**: 🔲 대기
+- **상태**: ✅ 완료 (2026-05-05, `feature/1.39.0-meta-optimization`)
 - **파일**: `src/app/layout.tsx`
-- **변경**: 현재 "언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다." → 60자 이내 키워드 포함 폴백
+- **변경 결과**: "한국어 포켓몬 도감과 타입 상성 계산기, 기술·특성 도구를 무료로 제공하는 포켓몬 백과사전." (47자, 80자 이내, 핵심 키워드 앞배치)
 - **공수**: 5분
 - **백엔드**: ❌ 불필요
 - **연관**: STR QW-1 (4번 항목)
 
-### A-2. homeMetadata.ts description 80자 압축
+### A-2. homeMetadata.ts description 80자 압축 ✅
 
-- **상태**: 🔲 대기
+- **상태**: ✅ 완료 (2026-05-05, `feature/1.39.0-meta-optimization`)
 - **파일**: `src/app/_metadata/homeMetadata.ts`
-- **변경**: 현재 "1025마리 포켓몬 도감, 타입 상성 계산기, 800개 이상 기술 정보, 300개 이상 특성 정보, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전." (네이버 80자 초과) → 80자 이내, 키워드 앞배치
+- **변경 결과**: "한국어 포켓몬 도감 1025마리, 타입 상성 계산기, 기술·특성 도감, 매일 포켓몬 퀴즈. 무료 포켓몬 백과사전." (56자, 80자 이내, 한국어 포켓몬 도감 앞배치). description / openGraph.description / twitter.description 3곳 모두 동기화
 - **공수**: 10분
 - **백엔드**: ❌ 불필요
 - **연관**: STR QW-1
 
-### A-3. typeEffectivenessMetadata.ts description 재작성
+### A-3. typeEffectivenessMetadata.ts description 재작성 ✅
 
-- **상태**: 🔲 대기
+- **상태**: ✅ 완료 (2026-05-05, `feature/1.39.0-meta-optimization`)
 - **파일**: `src/app/type-effectiveness/_metadata/typeEffectivenessMetadata.ts`
-- **변경**: 80자 이내, "포켓몬 타입 상성 계산기" 키워드 앞배치
+- **변경 결과**: 130자 → "포켓몬 타입 상성 계산기. 공격·방어 타입을 선택하면 2배·0.5배 데미지 배율을 즉시 확인할 수 있는 한국어 무료 도구." (66자, 80자 이내, "포켓몬 타입 상성 계산기" 키워드 맨 앞)
 - **공수**: 15분
 - **백엔드**: ❌ 불필요
 - **연관**: STR QW-1, 네이버 SC 데이터 — /type-effectiveness 노출 7,431/CTR 2.0%
 
-### A-4. 사이트맵 챔피언스 priority 0.7 → 0.8 상향
+### A-4. 사이트맵 챔피언스 priority 0.7 → 0.8 상향 ✅
 
-- **상태**: 🔲 대기
+- **상태**: ✅ 완료 (2026-05-05, `feature/1.39.0-meta-optimization`)
 - **파일**: `src/app/sitemap.ts:366-374`
-- **변경**: `championsDetailPages`의 `priority: 0.7` → `priority: 0.8`
+- **변경 결과**: `championsDetailPages`의 `priority: 0.7` → `priority: 0.8`. 주석에 모바일 출시 대비 의도 명시
 - **공수**: 5분
 - **백엔드**: ❌ 불필요
 - **연관**: STR ST-1 (v3) 항목 2
@@ -307,8 +307,18 @@
 - ✅ MI/BA/STR 보고서 v3 완료
 - ✅ `isMegaEvolution` 필터 검증: `PokemonFilterInput.isMegaEvolution: Boolean` 존재 → MT-4 단계 D → C 상향
 
+### 2026-05-05
+
+- ✅ A-1 layout.tsx 폴백 description 교체 (47자, 한국어 키워드 앞배치)
+- ✅ A-2 homeMetadata.ts description 89자 → 56자 압축 (description/OG/Twitter 3곳 동기화)
+- ✅ A-3 typeEffectivenessMetadata.ts 130자 → 66자 재작성 (네이버 SC 노출 7,431/CTR 2.0% 페이지)
+- ✅ A-4 사이트맵 챔피언스 priority 0.7 → 0.8 상향
+- 🔄 작업 브랜치: `feature/1.39.0-meta-optimization` (PR 예정)
+- 📌 A-5 SC 인덱싱 요청은 PR 머지 후 수동 작업 (사용자가 직접 구글/네이버 SC 콘솔에서 진행)
+- 📌 효과 측정은 4~8주 후 네이버 SC + 구글 SC 데이터로 진행 예정
+
 ### (다음 진행 시 채울 항목)
 
-- 작업 완료한 항목의 상태(🔲 → ✅) 갱신
-- 진행 중 발견한 새로운 사항 추가
+- A-5 SC 인덱싱 완료 기록
+- 단계 B (메타 다양화) 시작
 - 효과 측정 결과 기록 (4~8주 후)
