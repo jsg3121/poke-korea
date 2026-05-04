@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: '%s',
   },
   description:
-    '언제, 어디서든, 포켓몬의 정보를 빠르고 편리하게 확인하실 수 있습니다.',
+    '한국어 포켓몬 도감과 타입 상성 계산기, 기술·특성 도구를 무료로 제공하는 포켓몬 백과사전.',
   icons: {
     icon: '/favicon.ico',
   },

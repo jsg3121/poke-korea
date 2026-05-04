@@ -362,14 +362,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 챔피언스 포켓몬 상세 페이지들
+    // 챔피언스 포켓몬 상세 페이지들 (모바일 출시 대비 크롤링 우선순위 상향)
     const championsDetailPages =
       championsData.getChampionsPokemonList.edges.map(
         (edge: ChampionsPokemonEdge) => ({
           url: `https://poke-korea.com/champions/list/${edge.node.externalDexId}`,
           lastModified: new Date(),
           changeFrequency: 'daily',
-          priority: 0.7,
+          priority: 0.8,
         }),
       )
 
