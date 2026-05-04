@@ -16,7 +16,21 @@ import {
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
-export const revalidate = 0
+export const revalidate = 21600
+
+/**
+ * 빌드 시점 타임스탬프 (배포 시에만 갱신)
+ *
+ * Why: 매 요청마다 new Date()를 사용하면 모든 페이지가 "방금 수정됨"으로 표시되어
+ * 구글이 lastmod 신호를 신뢰하지 않게 됨. 배포 시점에 고정된 값을 사용하여
+ * 실제 변경이 있을 때(=재배포)에만 lastmod가 갱신되도록 함.
+ *
+ * 챔피언스 페이지는 외부 데이터 갱신이 별도 주기로 일어나므로
+ * GraphQL 응답의 updatedAt을 별도로 사용한다.
+ *
+ * 근거: https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping
+ */
+const BUILD_TIME = new Date(process.env.BUILD_TIME ?? new Date().toISOString())
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const apolloClient = initializeApollo()
@@ -25,79 +39,79 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: 'https://poke-korea.com',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 1,
     },
     {
       url: 'https://poke-korea.com/list',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: 'https://poke-korea.com/type-effectiveness',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/moves',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/ability',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/quiz',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/quiz/silhouette',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/quiz/ability',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/quiz/pokemon-type',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/quiz/type-effectiveness',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/champions',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/champions/list',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: 'https://poke-korea.com/champions/tier',
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
@@ -174,7 +188,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const basicDetailPages = data.getPokemonList.map(
       (pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }),
@@ -183,14 +197,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 샤이니 모드 페이지들
     const shinyPages = data.getPokemonList.map((pokemon: PokemonList) => ({
       url: `https://poke-korea.com/detail/${pokemon.number}?shinyMode=shiny`,
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.7,
     }))
 
     const megaPages = megaData.getPokemonList.map((pokemon: PokemonList) => ({
       url: `https://poke-korea.com/detail/${pokemon.number}/mega`,
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.7,
     }))
@@ -198,7 +212,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const regionPages = regionData.getPokemonList.map(
       (pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}/region`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }),
@@ -214,7 +228,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]
     const gigantamaxPages = uniqueGigantamaxPokemonIds.map((pokemonId) => ({
       url: `https://poke-korea.com/detail/${pokemonId}/gigantamax`,
-      lastModified: new Date(),
+      lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.7,
     }))
@@ -224,7 +238,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((pokemon: PokemonList) => pokemon.isFormChange)
       .map((pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}/form`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }))
@@ -234,7 +248,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((pokemon: PokemonList) => pokemon.isFormChange)
       .map((pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}/moves/form`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }))
@@ -243,7 +257,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const regionMovesPages = regionData.getPokemonList.map(
       (pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}/moves/region`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }),
@@ -252,7 +266,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const typeFilterMovesPages = Object.values(PokemonType).map((type) => {
       return {
         url: `https://poke-korea.com/moves?typeFilter=${type}`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }
@@ -262,7 +276,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const typeFilterListPages = Object.values(PokemonType).map((type) => {
       return {
         url: `https://poke-korea.com/list?type=${type}`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.8,
       }
@@ -272,7 +286,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const generationFilterListPages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(
       (gen) => ({
         url: `https://poke-korea.com/list?generation=${gen}`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.8,
       }),
@@ -282,31 +296,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const booleanFilterListPages = [
       {
         url: 'https://poke-korea.com/list?isMega=true',
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.8,
       },
       {
         url: 'https://poke-korea.com/list?isRegion=true',
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.8,
       },
       {
         url: 'https://poke-korea.com/list?isGigantamax=true',
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.8,
       },
       {
         url: 'https://poke-korea.com/list?isEvolution=true',
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.8,
       },
       {
         url: 'https://poke-korea.com/list?isEvolution=false',
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.8,
       },
@@ -315,19 +329,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const damageTypeFilterMovesPages = [
       {
         url: `https://poke-korea.com/moves?damageTypeFilter=%EB%AC%BC%EB%A6%AC`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       },
       {
         url: `https://poke-korea.com/moves?damageTypeFilter=%ED%8A%B9%EC%88%98`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       },
       {
         url: `https://poke-korea.com/moves?damageTypeFilter=%EB%B3%80%ED%99%94`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       },
@@ -336,7 +350,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const basicDetailMovesPages = data.getPokemonList.map(
       (pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}/moves`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }),
@@ -346,7 +360,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const abilityDetailPages = abilityData.getAbilityListPaginated.edges.map(
       (edge: AbilityEdge) => ({
         url: `https://poke-korea.com/ability/${edge.node.abilityId}`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }),
@@ -356,22 +370,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const moveDetailPages = skillsData.getPokemonSkillList.edges.map(
       (edge: PokemonSkillEdge) => ({
         url: `https://poke-korea.com/moves/${edge.node.id}`,
-        lastModified: new Date(),
+        lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,
       }),
     )
 
-    // 챔피언스 포켓몬 상세 페이지들
-    const championsDetailPages =
-      championsData.getChampionsPokemonList.edges.map(
-        (edge: ChampionsPokemonEdge) => ({
-          url: `https://poke-korea.com/champions/list/${edge.node.externalDexId}`,
-          lastModified: new Date(),
-          changeFrequency: 'daily',
-          priority: 0.7,
-        }),
-      )
+    // 챔피언스 포켓몬 상세 페이지들 (모바일 출시 대비 크롤링 우선순위 상향)
+    // lastmod는 외부 데이터(battle_meta.json) 기준 갱신 시각을 사용
+    // Why: 챔피언스 메타는 외부 소스에서 주기적으로 갱신되므로, 빌드 시점이 아닌
+    // 실제 콘텐츠 변경 시점이 lastmod에 반영되어야 한다.
+    const championsListResponse = championsData.getChampionsPokemonList
+    const championsLastModified = new Date(championsListResponse.updatedAt)
+
+    const championsDetailPages = championsListResponse.edges.map(
+      (edge: ChampionsPokemonEdge) => ({
+        url: `https://poke-korea.com/champions/list/${edge.node.externalDexId}`,
+        lastModified: championsLastModified,
+        changeFrequency: 'daily',
+        priority: 0.8,
+      }),
+    )
 
     // 모든 페이지들을 합쳐서 반환
     return [

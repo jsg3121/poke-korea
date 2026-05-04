@@ -713,6 +713,7 @@ query GetPokemonGigantamaxList {
 query GetChampionsPokemonList($input: ChampionsPokemonListInput) {
   getChampionsPokemonList(input: $input) {
     totalCount
+    updatedAt
     pageInfo {
       hasNextPage
       hasPreviousPage
