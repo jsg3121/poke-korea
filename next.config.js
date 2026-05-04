@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {},
+  env: {
+    BUILD_TIME: new Date().toISOString(),
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
