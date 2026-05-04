@@ -102,6 +102,8 @@ export const generateDetailMetadata = ({
     pokemonNumber: pokemonDetail.number,
     pokemonName: pokemonNameByType,
     types,
+    activeType,
+    isShiny,
   })
 
   const ogImages = getOgImageUrls(pokemonDetail.number, activeType, activeIndex)
