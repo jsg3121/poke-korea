@@ -16,15 +16,15 @@
 | 단계 | 항목 수 | 완료 | 진행 중 | 대기 |
 | ---- | ------- | ---- | ------- | ---- |
 | A. 즉시 실행 (1일 이내) | 5 | 4 | 0 | 1 |
-| B. 메타 다양화 (1~3일) | 3 | 0 | 0 | 3 |
+| B. 메타 다양화 (1~3일) | 3 | 1 | 0 | 1 (B-3 스킵, B-2 대기) |
 | C. 프론트 UI/구조 (3~7일) | 5 | 0 | 0 | 5 |
 | D. 프론트 데이터 검토 (1~2주) | 1 | 0 | 0 | 1 |
 | E. 백엔드 협업 (2~4주) | 3 | 0 | 0 | 3 |
 | F. 운영/외부 (1~3개월) | 2 | 0 | 0 | 2 |
 | G. 보류 | 1 | — | — | — |
-| **합계** | **20** | **4** | **0** | **15** |
+| **합계** | **20** | **5** | **0** | **14** |
 
-> 마지막 갱신: 2026-05-05 (단계 A 코드 작업 완료, A-5 SC 인덱싱은 프로덕션 배포 후 수동 진행)
+> 마지막 갱신: 2026-05-05 (B-1 완료, B-3 스킵 결정)
 
 ---
 
@@ -87,18 +87,18 @@
 
 ## 단계 B — 메타 다양화 (1~3일, 프론트 단독)
 
-### B-1. generateChampionsDetailMetadata.ts description/title 다양화 ⭐
+### B-1. generateChampionsDetailMetadata.ts description/title 다양화 ⭐ ✅
 
-- **상태**: 🔲 대기
-- **파일**: `src/app/champions/list/[pokemonId]/_metadata/generateChampionsDetailMetadata.ts:75-76`
-- **현재 문제** (boilerplate):
-  - title: `${pokemon.name} 챔피언스 정보 | 포케코리아`
-  - description: `${pokemon.name}의 포켓몬 챔피언스 사용률, 인기 기술, 아이템, 특성, 추천 파트너 정보를 확인하세요.` — 모든 포켓몬 동일
-- **개선 방향**:
-  - title: formName/region이 있을 때 명시적 반영, 예 — "리자몽 (메가Y) 챔피언스 도감 - 스탯·기술·특성"
-  - description: pokemon.types, pokemon.stats, region, formName 활용 다양화
-- **활용 가능 필드** (이미 API에서 제공): `name`, `formName`, `types`, `stats(hp/attack/defense/spAttack/spDefense/speed)`, `abilities`, `region`
-- **공수**: 3~4시간
+- **상태**: ✅ 완료 (2026-05-05, `feature/1.39.0-champions-meta`)
+- **파일**: `src/app/champions/list/[pokemonId]/_metadata/generateChampionsDetailMetadata.ts`
+- **변경 결과**:
+  - title: `{name} ({region|formName})? 챔피언스 도감 - 스탯·기술·특성 | 포케코리아` — 폼/리전이 있을 때 괄호로 명시
+  - description: 메타 데이터(topMoves, topAbilities)가 있으면 활용, 없으면 스탯 상위 2개로 폴백. 모든 케이스 80자 이내 (최장 케이스 68자)
+- **활용 필드**: `name`, `formName`, `region`, `types`, `stats`, `meta.topMoves`, `meta.topAbilities`
+- **명시적으로 제외**:
+  - `meta.tier`: 공식 티어가 아닌 내부 분류 → description에 명시 시 사용자 오인 가능 (사용자 결정)
+  - 메가/거다이맥스 키워드: `ChampionsFormType` enum에 BASE/NORMAL/REGION만 정의 → 챔피언스 데이터에 메가/거다이맥스가 존재하지 않으므로 description에 등장할 일 없음
+- **공수**: 약 1시간 (설계 + 구현 + 길이 시뮬레이션 검증)
 - **백엔드**: ❌ 불필요 (기존 API 필드 재활용)
 - **연관**: STR ST-1 (v3) 핵심 항목
 
@@ -118,14 +118,17 @@
 - **백엔드**: ❌ 불필요
 - **연관**: STR QW-3
 
-### B-3. championsMetadata.ts (홈/도감/티어) description 모바일 출시 키워드 반영
+### B-3. championsMetadata.ts (홈/도감/티어) description ⏭️ 스킵
 
-- **상태**: 🔲 대기
+- **상태**: ⏭️ 스킵 (2026-05-05 결정)
 - **파일**: `src/app/champions/_metadata/championsMetadata.ts`
-- **변경**: `generateChampionsHomeMetadata`, `generateChampionsPokedexMetadata`, `generateChampionsTierMetadata` 각각의 description을 80자 이내 + 모바일 출시 키워드("챔피언스 모바일", "WCS 2026" 등 자연 포함) 반영
-- **공수**: 1시간
-- **백엔드**: ❌ 불필요
-- **연관**: STR QW-1, ST-1
+- **스킵 결정 이유**:
+  1. 기존 description 3개(홈/도감/티어) 모두 60~70자로 이미 네이버 80자 가이드라인 충족
+  2. "포켓몬 챔피언스" 키워드 이미 앞배치되어 있음
+  3. 원래 권고했던 "챔피언스 모바일" / "WCS 2026" 키워드는 사용자 결정으로 제외 (실제 페이지 콘텐츠 내 해당 정보가 명확히 다뤄지지 않으므로 description과 콘텐츠 불일치 위험)
+  4. 변경 근거가 사라진 상태에서 무리한 변경은 SEO 효과 없이 변경 이력만 늘림
+- **재검토 시점**: 챔피언스 모바일 정식 출시(2026 여름) 이후 페이지 콘텐츠가 모바일 정보까지 다룰 때 재검토
+- **연관**: STR QW-1, ST-1 (B-3은 STR 보고서에서 권고했으나 본 작업에서는 스킵)
 
 ---
 
@@ -325,8 +328,24 @@
 - 📌 A-5 SC 인덱싱 요청은 **프로덕션 배포 후** 수동 작업 (사용자가 직접 구글/네이버 SC 콘솔에서 진행). PR 머지만으로는 프로덕션에 반영되지 않으므로 SC 크롤링 시점이 어긋남
 - 📌 효과 측정은 프로덕션 배포 후 4~8주 동안 네이버 SC + 구글 SC 데이터로 진행 예정
 
+### 2026-05-05 (B-1 완료, 동일 일자 추가 작업)
+
+- ✅ B-1 generateChampionsDetailMetadata description/title 다양화 완료
+  - 폼/리전 한국어 표기 헬퍼, 타입 한국어 변환, 스탯 하이라이트, 메타 하이라이트 4개 헬퍼 함수 추가
+  - 메타 데이터 유무에 따라 분기: 메타 있으면 인기 기술/특성 활용, 없으면 스탯 상위 2개 폴백
+  - 길이 시뮬레이션 검증 6개 케이스 모두 80자 이내 통과 (최장 68자)
+- 📝 B-1 작업 중 사용자 피드백 반영:
+  - **티어 표기 제거**: 공식 티어가 아닌 내부 임의 분류이므로 description에 노출 시 사용자 오인 가능
+  - **메가/거다이맥스 키워드**: `ChampionsFormType` enum 확인 결과 BASE/NORMAL/REGION만 정의 → 챔피언스 데이터에 존재하지 않아 자동 제외됨
+  - 노말폼·리전폼 표기는 유지 (도감 페이지에서 별도 카드로 구분 표시)
+- ⏭️ B-3 챔피언스 홈/도감/티어 description 변경 스킵
+  - 기존 description이 이미 60~70자로 가이드라인 충족
+  - 모바일 출시 키워드는 페이지 콘텐츠 불일치 위험으로 사용자 결정에 따라 제외
+- 🔄 작업 브랜치: `feature/1.39.0-champions-meta` (PR 예정)
+
 ### (다음 진행 시 채울 항목)
 
-- A-5 SC 인덱싱 완료 기록
-- 단계 B (메타 다양화) 시작
+- A-5 SC 인덱싱 완료 기록 (프로덕션 배포 후)
+- 단계 B-2 (`/detail` 메타 폼별 강화) 진행
+- 단계 C 시작
 - 효과 측정 결과 기록 (4~8주 후)
