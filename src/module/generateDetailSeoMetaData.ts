@@ -30,6 +30,8 @@ type GetSeoDescriptionParams = {
   pokemonName: string
   generation: number
   types: Array<PokemonType>
+  activeType: TActiveType
+  isShiny: boolean
 }
 
 type GetSeoDescriptionFn = (params: GetSeoDescriptionParams) => string
@@ -112,25 +114,51 @@ export const getSeoTitle: GetSeoTitleFn = ({ pokemonName, pokemonNumber }) => {
 }
 
 /**
+ * @description 활성 폼/이로치 여부에 따른 description 첨가 키워드
+ * - 메가/거다이맥스: 강화된 종족값 강조 (검색자 의도: "메가 ○○ 스탯")
+ * - 리전: 리전 한정 모습 강조 (검색자 의도: "○○ 알로라 폼")
+ * - 이로치: 색이 다른 모습 명시 (검색자 의도: "○○ 이로치")
+ * - 기본: 진화 정보 강조
+ *
+ * 호출 측에서 isShiny와 activeType이 둘 다 활성일 수 있으므로
+ * 가장 검색 가치가 높은 키워드 1개만 선택해 description 길이를 80자 이내로 유지한다.
+ */
+const getDetailFormKeyword = (
+  activeType: TActiveType,
+  isShiny: boolean,
+): string => {
+  if (isShiny) return '색이 다른 모습'
+  if (activeType === 'mega') return '강화된 종족값'
+  if (activeType === 'gigantamax') return '거다이맥스 형태'
+  if (activeType === 'region') return '리전 한정 모습'
+  return '진화·종족값'
+}
+
+/**
  * @description 포켓몬 사이트 메타태그 디스크립션
+ * - 네이버 80자 가이드라인 충족
+ * - 라벨식 나열("도감번호 : XXX | 포켓몬명 : XXX") 대신 자연어 패턴 적용
+ * - 폼/이로치별로 자연어 키워드를 다양화하여 boilerplate 회피
+ *
  * @param pokemonNumber 포켓몬 도감 번호
- * @param pokemonName 타입별 변환된 포켓몬 이름
+ * @param pokemonName 타입별 변환된 포켓몬 이름 (이미 폼/이로치 정보 포함)
  * @param generation 포켓몬 등장 세대
  * @param types 포켓몬 타입
+ * @param activeType 현재 활성 폼 (mega/region/gigantamax/normal)
+ * @param isShiny 이로치 여부
  */
 export const getSeoDescription: GetSeoDescriptionFn = ({
   pokemonNumber,
   pokemonName,
   generation,
   types,
+  activeType,
+  isShiny,
 }) => {
-  const typeList = types
-    .map((type) => {
-      return PokemonTypes[type]
-    })
-    .join(', ')
+  const typeList = types.map((type) => PokemonTypes[type]).join('·')
+  const formKeyword = getDetailFormKeyword(activeType, isShiny)
 
-  return `전국 도감번호 : ${pokemonNumber} | 포켓몬명 : ${pokemonName} | 타입 : [${typeList}] | 등장세대 : ${generation}세대 | 습득 기술을 포함한 포켓몬의 자세한 정보를 빠르고 간편하게 포케코리아에서 바로 확인해보세요.`
+  return `${pokemonName} (No. ${pokemonNumber}, ${generation}세대, ${typeList} 타입). ${formKeyword}, 기술, 특성 정보를 포케코리아에서 확인.`
 }
 
 /**
