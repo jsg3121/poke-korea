@@ -104,10 +104,13 @@ description / openGraph.description / twitter.description 3곳 동기화.
 - 주간 클릭 수 +800~1,200 가능성
 - 챔피언스 detail 페이지 크롤링 빈도 증가 → 모바일 출시 시기 인덱싱 품질 개선
 
-## 후속 작업 (PR 머지 후)
+## 후속 작업 (프로덕션 배포 후)
 
 - **A-5 SC 인덱싱 요청**: 구글 서치 콘솔 + 네이버 서치어드바이저 콘솔에서 변경된 페이지(/, /type-effectiveness, 챔피언스 상세) URL 검사 및 재인덱싱 요청 (사용자 수동 작업)
-- **효과 측정**: 4~8주 후 네이버 SC + 구글 SC에서 CTR 변화 모니터링
+  - **선행 조건**: `feature/1.39.0` → main 릴리즈 PR 머지 후 프로덕션 배포 완료
+  - **검증**: 배포된 페이지의 메타 태그가 실제로 변경되었는지 확인 (예: `curl -s https://poke-korea.com/type-effectiveness | grep description`)
+  - **이유**: PR 머지만으로는 `feature/1.39.0`에만 반영되며 프로덕션은 그대로다. 이 시점에 SC가 크롤링하면 변경 전 description이 다시 인덱싱되어 무의미함
+- **효과 측정**: 프로덕션 배포 후 4~8주 동안 네이버 SC + 구글 SC에서 CTR 변화 모니터링
 
 ## 참고 사항
 
