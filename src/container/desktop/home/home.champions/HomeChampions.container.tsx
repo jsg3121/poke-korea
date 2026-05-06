@@ -22,9 +22,9 @@ const HomeChampionsContainer = ({
       >
         인기 챔피언스 포켓몬
       </h2>
-      <ul className="grid grid-cols-3 gap-6 mt-6">
+      <ul className="mt-6 flex flex-wrap justify-center gap-6">
         {topPokemons.map((pokemon) => (
-          <li key={pokemon.pokemonId}>
+          <li key={pokemon.pokemonId} className="w-[240px]">
             <ChampionsTopCard pokemonData={pokemon} isHighPriority />
           </li>
         ))}

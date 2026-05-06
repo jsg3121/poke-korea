@@ -18,13 +18,17 @@ const HomeChampionsContainer = ({
     >
       <h2
         id="home-champions-heading-mobile"
-        className="h-12 text-[2rem] font-bold text-primary-4 text-center mb-4"
+        className="h-12 text-[2rem] font-bold text-primary-4 text-center mb-4 sticky top-5 left-0"
       >
         인기 챔피언스 포켓몬
       </h2>
-      <ul className="flex flex-col gap-4">
+      <ul
+        className="flex gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+        role="region"
+        aria-label="인기 챔피언스 포켓몬 슬라이드"
+      >
         {topPokemons.map((pokemon) => (
-          <li key={pokemon.pokemonId}>
+          <li key={pokemon.pokemonId} className="w-[167px] flex-shrink-0">
             <ChampionsTopCard pokemonData={pokemon} isHighPriority />
           </li>
         ))}
