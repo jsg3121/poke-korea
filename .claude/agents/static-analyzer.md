@@ -4,7 +4,7 @@ description: |
   정적 분석 전문 서브에이전트. ESLint, Prettier, TypeScript 타입 검사를 실행하고 분석한다. qa-agent 전용 서브에이전트.
   TRIGGER when: qa-agent가 정적 분석 실행을 요청할 때만 호출
   DO NOT TRIGGER when: 직접 호출하지 않음(qa-agent를 통해서만 호출), 린트 검사만 필요(lint-check 스킬), 코드 리뷰(code-review 스킬)
-model: sonnet
+model: haiku
 permissionMode: default
 tools:
   - Read
