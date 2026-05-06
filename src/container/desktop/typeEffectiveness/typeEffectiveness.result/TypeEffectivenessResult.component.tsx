@@ -26,6 +26,9 @@ const TypeEffectivenessResultComponent = () => {
           <h2 className="w-full h-16 pb-8 border-b border-solid border-primary-4 text-[2rem] leading-10 font-semibold text-primary-4 block">
             {selectTypeListKo} 타입은 이렇게 상대하세요!
           </h2>
+          <p className="w-full mt-4 text-base leading-6 text-primary-4/80">
+            타입을 누르면 해당 타입 포켓몬을 도감에서 볼 수 있어요.
+          </p>
           {isShowWeak && (
             <article className="w-full h-fit py-8 px-4 bg-primary-2 rounded-2xl my-8">
               <h3 className="w-full h-8 text-[1.75rem] leading-8 text-left text-primary-4 mb-6">
