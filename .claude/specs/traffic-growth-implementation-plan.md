@@ -17,14 +17,14 @@
 | ---- | ------- | ---- | ------- | ---- |
 | A. 즉시 실행 (1일 이내) | 5 | 5 | 0 | 0 |
 | B. 메타 다양화 (1~3일) | 3 | 2 | 0 | 0 (B-3 스킵 포함) |
-| C. 프론트 UI/구조 (3~7일) | 5 | 2 | 0 | 3 |
+| C. 프론트 UI/구조 (3~7일) | 5 | 3 | 0 | 2 |
 | D. 프론트 데이터 검토 (1~2주) | 1 | 0 | 0 | 1 |
 | E. 백엔드 협업 (2~4주) | 3 | 0 | 0 | 3 |
 | F. 운영/외부 (1~3개월) | 2 | 0 | 0 | 2 |
 | G. 보류 | 1 | — | — | — |
-| **합계** | **20** | **9** | **0** | **9** |
+| **합계** | **20** | **10** | **0** | **8** |
 
-> 마지막 갱신: 2026-05-06 (1.39.0 main 배포 완료, A-5 SC 인덱싱 진행 중. C-1·C-2 작업 시작)
+> 마지막 갱신: 2026-05-06 (C-3 완료 — 홈 챔피언스 추천 섹션 신설)
 
 ---
 
@@ -170,16 +170,28 @@
 - **백엔드**: ❌ 불필요
 - **연관**: STR QW-2 (`/type-effectiveness` 단일 의존 분산), 챔피언스 인입 경로 추가, 퀴즈 페이지(CTR 22.2%) 리텐션 강화
 
-### C-3. 메인 페이지 → 챔피언스 상세 인입 링크 추가
+### C-3. 메인 페이지 → 챔피언스 상세 인입 링크 추가 ✅
 
-- **상태**: 🔲 대기
-- **파일**:
-  - `src/views/desktop/home/`, `src/views/mobile/home/` (홈 챔피언스 카드 영역)
-  - `/list` 포켓몬 카드 (보조 링크 — UI 영향 검토 후 적용)
-- **변경**: 홈 챔피언스 카드에서 개별 포켓몬으로 이동 강화. /list 카드에 "챔피언스 정보 보기" 보조 링크 검토
-- **공수**: 1일
-- **백엔드**: ❌ 불필요
-- **연관**: STR ST-1 (v3) 항목 4
+- **상태**: ✅ 완료 (2026-05-06, `feature/1.40.0-home-champions`)
+- **변경 결과**:
+  - 홈에 "인기 챔피언스 포켓몬" 섹션 신설 (S 티어 사용률 상위 3개)
+  - 카드 클릭 시 `/champions/list/{pokemonId}` 챔피언스 상세로 이동 (기존 `ChampionsTopCard` 재사용)
+  - 섹션 하단 "챔피언스 전체 도감 보기 →" CTA로 `/champions/list` 진입점 추가
+  - 데이터 없음 시 섹션 자동 숨김
+  - 홈 섹션 순서: 광고 배너 → **인기 챔피언스 포켓몬 (신규)** → 오늘의 포켓몬 → 퀴즈
+- **신규/수정 파일**:
+  - 신규: `src/container/desktop/home/home.champions/HomeChampions.container.tsx`
+  - 신규: `src/container/mobile/home/home.champions/HomeChampions.container.tsx`
+  - 수정: `src/views/desktop/home/Home.desktop.tsx`, `src/views/mobile/home/Home.mobile.tsx`
+  - 수정: `src/app/page.tsx` (데이터 페치 추가)
+  - 수정: `src/gql/query.graphql` (`GetChampionsMetaSummaryByFilter` 쿼리 신설)
+- **데이터 처리**:
+  - GraphQL: `getChampionsMetaSummary(filter: { tier: "S", limit: 3 })`
+  - 정렬: 사용률(usageRate) 내림차순
+- **챔피언스 홈과의 차별화**: 메인 홈은 Top 3, 챔피언스 홈은 Top 10 (S~D 티어 전체)
+- **공수**: 약 2시간
+- **백엔드**: ❌ 불필요 (기존 쿼리 + 필터 활용)
+- **연관**: STR ST-1 (v3) 항목 4, 챔피언스 페이지군 30일 활성 사용자 3,494 → 모바일 출시 대비 인입 경로 확보
 
 ### C-4. 퀴즈 가시성 개선 (type-effectiveness, champions 페이지에 배너)
 
