@@ -28,7 +28,10 @@ const HomeChampionsContainer = ({
         aria-label="인기 챔피언스 포켓몬 슬라이드"
       >
         {topPokemons.map((pokemon) => (
-          <li key={pokemon.pokemonId} className="w-[167px] flex-shrink-0">
+          <li
+            key={pokemon.pokemonId}
+            className="w-[175px] flex-shrink-0 px-1 py-1"
+          >
             <ChampionsTopCard pokemonData={pokemon} isHighPriority />
           </li>
         ))}
