@@ -31,7 +31,7 @@ const TypeEffectivenessCtaComponent = () => {
           <li>
             <Link
               href={`/list?type=${singleTypeValue}`}
-              className="flex h-full items-center justify-between rounded-2xl bg-white px-5 py-4 text-base text-primary-4 shadow-[1px_2px_6px_0_var(--color-primary-1)] transition-opacity hover:opacity-80 focus-visible:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+              className="flex h-full items-center justify-between rounded-2xl bg-primary-1 px-5 py-4 text-base text-primary-4 shadow-[1px_2px_6px_0_var(--color-primary-1)] transition-colors hover:bg-primary-2 focus-visible:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
             >
               <span>{singleTypeLabel} 타입 포켓몬 도감 보기</span>
               <span aria-hidden="true">→</span>
@@ -41,16 +41,16 @@ const TypeEffectivenessCtaComponent = () => {
         <li>
           <Link
             href="/champions/list"
-            className="flex h-full items-center justify-between rounded-2xl bg-white px-5 py-4 text-base text-primary-4 shadow-[1px_2px_6px_0_var(--color-primary-1)] transition-opacity hover:opacity-80 focus-visible:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+            className="flex h-full items-center justify-between rounded-2xl bg-primary-1 px-5 py-4 text-base text-primary-4 shadow-[1px_2px_6px_0_var(--color-primary-1)] transition-colors hover:bg-primary-2 focus-visible:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
           >
             <span>포켓몬 챔피언스 도감 보기</span>
             <span aria-hidden="true">→</span>
           </Link>
         </li>
-        <li className={isSingleTypeSelected ? '' : 'md:col-span-2'}>
+        <li>
           <Link
             href="/quiz/type-effectiveness"
-            className="flex h-full items-center justify-between rounded-2xl bg-white px-5 py-4 text-base text-primary-4 shadow-[1px_2px_6px_0_var(--color-primary-1)] transition-opacity hover:opacity-80 focus-visible:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+            className="flex h-full items-center justify-between rounded-2xl bg-primary-1 px-5 py-4 text-base text-primary-4 shadow-[1px_2px_6px_0_var(--color-primary-1)] transition-colors hover:bg-primary-2 focus-visible:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
           >
             <span>타입 상성 퀴즈 도전</span>
             <span aria-hidden="true">→</span>
