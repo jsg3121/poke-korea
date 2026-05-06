@@ -50,6 +50,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('scrollRestoration' in history)history.scrollRestoration='manual'`,
+          }}
+        />
         {/* Font preload - 최우선 */}
         {fontFiles.map((font) => (
           <link
