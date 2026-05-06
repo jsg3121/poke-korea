@@ -3,6 +3,7 @@ import { Fragment, useContext } from 'react'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { calculateRelationType } from '~/module/calculateRelationType'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import TypeEffectivenessCtaComponent from '../typeEffectiveness.cta/TypeEffectivenessCta.component'
 import ResultListComponents from './result.list/ResultList.components'
 
 const TypeEffectivenessResultComponent = () => {
@@ -82,6 +83,7 @@ const TypeEffectivenessResultComponent = () => {
               </dl>
             </article>
           )}
+          <TypeEffectivenessCtaComponent />
         </section>
       )}
     </Fragment>
