@@ -741,6 +741,14 @@ query GetChampionsMetaSummary {
   }
 }
 
+query GetChampionsMetaSummaryByFilter(
+  $filter: ChampionsMetaSummaryFilterInput
+) {
+  getChampionsMetaSummary(filter: $filter) {
+    ...ChampionsMetaSummary
+  }
+}
+
 query GetChampionsPokemonDetail($externalDexId: Int!) {
   getChampionsPokemonDetail(externalDexId: $externalDexId) {
     ...ChampionsPokemonDetail
