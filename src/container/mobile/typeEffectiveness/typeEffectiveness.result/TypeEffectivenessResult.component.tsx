@@ -3,6 +3,7 @@ import { Fragment, useContext } from 'react'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { calculateRelationType } from '~/module/calculateRelationType'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import TypeEffectivenessCtaComponent from '../typeEffectiveness.cta/TypeEffectivenessCta.component'
 import ResultListComponents from './result.list/ResultList.components'
 
 const TypeEffectivenessResultComponent = () => {
@@ -26,6 +27,9 @@ const TypeEffectivenessResultComponent = () => {
           <h2 className="w-full min-h-12 border-b border-solid border-primary-4 text-[1.375rem] leading-8 font-semibold text-primary-4 block pb-4">
             {selectTypeListKo} 타입은 이렇게 상대하세요!
           </h2>
+          <p className="w-full mt-3 text-sm leading-5 text-primary-4/80">
+            타입을 누르면 해당 타입 포켓몬을 도감에서 볼 수 있어요.
+          </p>
           {isShowWeak && (
             <article className="w-full h-fit py-5 px-4 bg-primary-2 rounded-2xl my-8">
               <h3 className="w-full h-8 text-xl leading-8 text-left text-white mb-4">
@@ -79,6 +83,7 @@ const TypeEffectivenessResultComponent = () => {
               </dl>
             </article>
           )}
+          <TypeEffectivenessCtaComponent />
         </section>
       )}
     </Fragment>
