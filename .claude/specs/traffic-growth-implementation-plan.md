@@ -15,16 +15,16 @@
 
 | 단계 | 항목 수 | 완료 | 진행 중 | 대기 |
 | ---- | ------- | ---- | ------- | ---- |
-| A. 즉시 실행 (1일 이내) | 5 | 4 | 0 | 1 |
+| A. 즉시 실행 (1일 이내) | 5 | 5 | 0 | 0 |
 | B. 메타 다양화 (1~3일) | 3 | 2 | 0 | 0 (B-3 스킵 포함) |
-| C. 프론트 UI/구조 (3~7일) | 5 | 0 | 0 | 5 |
+| C. 프론트 UI/구조 (3~7일) | 5 | 2 | 0 | 3 |
 | D. 프론트 데이터 검토 (1~2주) | 1 | 0 | 0 | 1 |
 | E. 백엔드 협업 (2~4주) | 3 | 0 | 0 | 3 |
 | F. 운영/외부 (1~3개월) | 2 | 0 | 0 | 2 |
 | G. 보류 | 1 | — | — | — |
-| **합계** | **20** | **6** | **0** | **13** |
+| **합계** | **20** | **9** | **0** | **9** |
 
-> 마지막 갱신: 2026-05-05 (B-2 완료 — 단계 B 모든 대기 작업 종료, B-3은 스킵 상태)
+> 마지막 갱신: 2026-05-06 (1.39.0 main 배포 완료, A-5 SC 인덱싱 진행 중. C-1·C-2 작업 시작)
 
 ---
 
@@ -68,20 +68,19 @@
 - **백엔드**: ❌ 불필요
 - **연관**: STR ST-1 (v3) 항목 2
 
-### A-5. 구글/네이버 SC 인덱싱 요청
+### A-5. 구글/네이버 SC 인덱싱 요청 ✅
 
-- **상태**: 🔲 대기 (**프로덕션 배포 후** 진행)
-- **작업**: 코드 변경 없음. 사용자가 SC 콘솔에서 수동으로 진행
-- **선행 조건**:
-  1. `feature/1.39.0-meta-optimization` PR 머지 (→ `feature/1.39.0`)
-  2. `feature/1.39.0` → `main` 릴리즈 PR 머지
-  3. main → 프로덕션 배포 완료 + 캐시 무효화 확인
-  4. 배포된 페이지의 메타 태그가 실제로 변경되었는지 검증 (예: `curl -s https://poke-korea.com/type-effectiveness | grep description`)
-- **대상**: 홈, /type-effectiveness, /champions/list, /champions/list/{인기 포켓몬 5~10개}
+- **상태**: ✅ 완료 (2026-05-06, 1.39.0 프로덕션 배포 후 진행)
+- **작업**: 코드 변경 없음. 사용자가 SC 콘솔에서 수동 진행
+- **검증 결과 (배포 후)**: 5개 핵심 URL의 메타 태그가 변경 반영 확인됨
+  - `/`, `/type-effectiveness`, `/detail/902`, `/champions/list`, `/quiz/type-effectiveness`
+  - description 길이 47~74자, 80자 가이드라인 충족
+  - canonical, OG description 모두 동기화 정상
+- **사이트맵 검증**: `https://poke-korea.com/sitemap.xml` HTTP 200, 챔피언스 priority 0.8 반영, BUILD_TIME / 챔피언스 외부 갱신 시각 분리 정상 동작
 - **공수**: 15분
 - **백엔드**: ❌ 불필요
 
-> **Why 프로덕션 배포 후?**: PR 머지만으로는 `feature/1.39.0` 브랜치에만 변경이 반영되고 프로덕션은 그대로다. 이 시점에 SC가 크롤링하면 변경 전 description을 다시 인덱싱하므로 인덱싱 요청 자체가 무의미하다. 실제 사용자가 보는 페이지(프로덕션)에 변경이 반영된 후에 요청해야 효과가 있다.
+> **Why 프로덕션 배포 후?**: PR 머지만으로는 feature 브랜치에만 변경이 반영되고 프로덕션은 그대로다. 이 시점에 SC가 크롤링하면 변경 전 description을 다시 인덱싱하므로 인덱싱 요청 자체가 무의미하다. 실제 사용자가 보는 페이지(프로덕션)에 변경이 반영된 후에 요청해야 효과가 있다.
 
 ---
 
@@ -138,29 +137,38 @@
 
 ## 단계 C — 프론트 UI/구조 (3~7일)
 
-### C-1. TypeResultChip을 클릭 가능한 Link로 변경
+### C-1. TypeResultChip을 클릭 가능한 Link로 변경 ✅
 
-- **상태**: 🔲 대기
+- **상태**: ✅ 완료 (2026-05-06, `feature/1.40.0-type-effectiveness-links`)
 - **파일**:
   - `src/container/desktop/typeEffectiveness/typeEffectiveness.result/result.list/components/TypeResultChip.components.tsx`
   - `src/container/mobile/typeEffectiveness/typeEffectiveness.result/result.list/components/TypeResultChip.components.tsx`
-- **현재 문제**: `<span>` 요소로 클릭 불가 (BA W2, 병목 4)
-- **개선**: Next `<Link>`로 변경, `/list?type={typeValue}` 또는 `/list?type={typeValue}&filter=...` 연결
-- **공수**: 1일
+- **변경 결과**:
+  - 기존 `<span>` → Next `<Link href="/list?type={typeValue}">` 교체
+  - `aria-label`로 스크린리더 접근성 보강
+  - 호버/포커스 스타일 추가 (`hover:opacity-80`, `focus-visible:outline`)
+- **추가 작업 — 안내 문구**: 결과 섹션 최상단(h2 바로 아래)에 "타입을 누르면 해당 타입 포켓몬을 도감에서 볼 수 있어요." 안내 문구 추가하여 칩의 클릭 가능성을 사용자가 인지할 수 있도록 보완
+- **공수**: 약 1시간 (당초 1일 추정 대비 단축)
 - **백엔드**: ❌ 불필요
 - **연관**: STR QW-2 핵심
 
-### C-2. /type-effectiveness 결과 하단 크로스링크 CTA 컴포넌트 추가
+### C-2. /type-effectiveness 결과 하단 크로스링크 CTA 컴포넌트 추가 ✅
 
-- **상태**: 🔲 대기
+- **상태**: ✅ 완료 (2026-05-06, `feature/1.40.0-type-effectiveness-links`)
 - **파일**:
-  - `src/container/desktop/typeEffectiveness/typeEffectiveness.result/TypeEffectivenessResult.component.tsx`
-  - `src/container/mobile/typeEffectiveness/typeEffectiveness.result/TypeEffectivenessResult.component.tsx`
-  - 신규 컴포넌트: `TypeRelatedLinksSection`
-- **변경**: 결과 영역 하단에 "해당 타입 포켓몬 보기 →", "챔피언스 도감에서 확인 →" CTA 카드
-- **공수**: 1~2일
+  - `src/container/desktop/typeEffectiveness/typeEffectiveness.cta/TypeEffectivenessCta.component.tsx` (신규)
+  - `src/container/mobile/typeEffectiveness/typeEffectiveness.cta/TypeEffectivenessCta.component.tsx` (신규)
+  - `src/container/desktop/typeEffectiveness/typeEffectiveness.result/TypeEffectivenessResult.component.tsx` (CTA 통합)
+  - `src/container/mobile/typeEffectiveness/typeEffectiveness.result/TypeEffectivenessResult.component.tsx` (CTA 통합)
+- **변경 결과**: 결과 영역 하단에 신규 CTA 섹션 추가 (3개 카드)
+  - 카드 1 (단일 타입 선택 시): "{타입} 타입 포켓몬 도감 보기" → `/list?type={type}`
+  - 카드 2 (항상): "포켓몬 챔피언스 도감 보기" → `/champions/list`
+  - 카드 3 (항상): "타입 상성 퀴즈 도전" → `/quiz/type-effectiveness`
+  - 표시 조건: 타입 선택 후(`selectTypeList.length > 0`)에만 노출
+  - 디자인: 결과 영역과 동일 톤(`bg-primary-2`, `rounded-2xl`)
+- **공수**: 약 1.5시간 (당초 1~2일 추정 대비 단축)
 - **백엔드**: ❌ 불필요
-- **연관**: STR QW-2
+- **연관**: STR QW-2 (`/type-effectiveness` 단일 의존 분산), 챔피언스 인입 경로 추가, 퀴즈 페이지(CTR 22.2%) 리텐션 강화
 
 ### C-3. 메인 페이지 → 챔피언스 상세 인입 링크 추가
 
@@ -359,8 +367,28 @@
 - 🔄 작업 브랜치: `feature/1.39.0-detail-meta` (PR 예정)
 - 📌 단계 B 종결: B-1 ✅, B-2 ✅, B-3 ⏭️ 스킵
 
+### 2026-05-06 (1.39.0 main 배포, 단계 C 시작)
+
+- ✅ 1.39.0 릴리즈 PR(#123) main 머지 + 프로덕션 배포 완료
+- ✅ 5개 핵심 URL 배포 검증 — 메타 태그 변경 반영 확인
+  - 홈, /type-effectiveness, /detail/902, /champions/list, /quiz/type-effectiveness 모두 새 description 반영
+  - 사이트맵 priority 0.8 + BUILD_TIME / 챔피언스 외부 갱신 시각 분리 정상 동작
+- ✅ A-5 SC 인덱싱 요청 진행 (사용자 수동)
+- ✅ 단계 C 시작: feature/1.40.0 루트 브랜치 생성
+- ✅ C-1 TypeResultChip 클릭 가능 Link화 완료
+  - 기존 `<span>` → Next `<Link href="/list?type={typeValue}">` 교체
+  - 결과 섹션 최상단에 안내 문구 추가 (사용자 인지성 보완)
+  - desktop/mobile 양쪽 적용
+- ✅ C-2 결과 하단 CTA 섹션 신규 추가
+  - 단일 타입 선택 시 "{타입} 타입 도감 보기" 카드
+  - 항상 노출: "챔피언스 도감 보기", "타입 상성 퀴즈 도전"
+  - 디자인은 기존 결과 article과 동일 톤
+- 🔄 작업 브랜치: `feature/1.40.0-type-effectiveness-links` (PR 예정)
+
 ### (다음 진행 시 채울 항목)
 
-- A-5 SC 인덱싱 완료 기록 (프로덕션 배포 후)
-- 단계 C 시작 (TypeResultChip 링크화 등)
-- 효과 측정 결과 기록 (4~8주 후)
+- 1.40.0 PR 머지 후 단계 C 진행:
+  - C-3: 메인 페이지 → 챔피언스 인입 링크
+  - C-4: 퀴즈 가시성 개선
+  - C-5: 메가진화 일람 페이지 신설
+- 효과 측정 결과 기록 (1.39.0 배포 후 4~8주, 1.40.0 배포 후 4~8주 각각)
