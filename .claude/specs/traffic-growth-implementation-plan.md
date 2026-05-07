@@ -193,17 +193,22 @@
 - **백엔드**: ❌ 불필요 (기존 쿼리 + 필터 활용)
 - **연관**: STR ST-1 (v3) 항목 4, 챔피언스 페이지군 30일 활성 사용자 3,494 → 모바일 출시 대비 인입 경로 확보
 
-### C-4. 퀴즈 가시성 개선 (type-effectiveness, champions 페이지에 배너)
+### C-4. 퀴즈 가시성 개선 (포켓몬 상세 페이지에 섹션별 맥락 매칭 배너)
 
-- **상태**: 🔲 대기
+- **상태**: ✅ 완료 (2026-05-07)
 - **파일**:
-  - `src/views/desktop/typeEffectiveness/`, `src/views/mobile/typeEffectiveness/` 하단
-  - `src/views/desktop/champions/`, `src/views/mobile/champions/`
-- **변경**: 퀴즈 카드 컴포넌트를 상위 트래픽 페이지에 인라인 배너로 추가. /champions/tier에 "마지막 업데이트: {date}" 신선도 표시
-- **근거**: 네이버 SC에서 `/quiz/type-effectiveness` CTR 22.2% — 퀴즈 자산이 매우 강력
-- **공수**: 1~2일
+  - 신규: `src/container/desktop/detail/detail.baseInfo/baseInfo.abilityQuiz/AbilityQuizBanner.component.tsx`
+  - 신규: `src/container/desktop/detail/detail.baseInfo/baseInfo.typeQuiz/TypeQuizBanner.component.tsx`
+  - 신규: `src/container/mobile/detail/detail.baseInfo/baseInfo.abilityQuiz/AbilityQuizBanner.component.tsx`
+  - 신규: `src/container/mobile/detail/detail.baseInfo/baseInfo.typeQuiz/TypeQuizBanner.component.tsx`
+  - 수정: `src/container/desktop/detail/detail.baseInfo/DetailBaseInfo.container.tsx`
+  - 수정: `src/container/mobile/detail/detail.baseInfo/DetailBaseInfo.container.tsx`
+- **변경**: 포켓몬 상세 페이지의 특성 섹션 직후 → 특성 퀴즈 배너, 타입 상성 섹션 직후 → 타입 상성 퀴즈 배너 노출. 사용자가 보고 있는 정보와 자연스럽게 연결되도록 섹션 맥락에 맞춰 매칭. 데스크톱은 `col-span-full`로 그리드 전체 너비, 모바일은 단일 컬럼.
+- **의도적 제외**: `/list`(무한 스크롤로 배치 위치 모호), 실루엣 퀴즈/타입 퀴즈(상세 페이지에서 이미 정보가 노출되어 매칭 어색)
+- **근거**: 네이버 SC에서 `/quiz/type-effectiveness` CTR 22.2% — 퀴즈 자산이 강력. 상세 페이지는 SEO 인입의 다수를 차지하지만 한 마리만 보고 이탈하는 비율이 높아, 재방문 유도 핵심 콘텐츠인 퀴즈와의 자연스러운 연결이 필요
+- **공수**: 약 1.5시간
 - **백엔드**: ❌ 불필요
-- **연관**: STR MT-3
+- **연관**: STR MT-3, STR ST-1 (v3) 항목 5
 
 ### C-5. 메가진화 일람 페이지 신설 (단계 D → C 상향, 백엔드 불필요 확인됨)
 
