@@ -5,10 +5,12 @@ import DesktopDetailCardBanner from '~/components/adSlot/DesktopDetailCardBanner
 import { DetailContext } from '~/context/Detail.context'
 import { TypesInfo } from './basInfo.typesInfo/TypesInfo.component'
 import AbilitiesInfoComponent from './baseInfo.abilities/AbilitiesInfo.component'
+import AbilityQuizBannerComponent from './baseInfo.abilityQuiz/AbilityQuizBanner.component'
 import DescriptionComponent from './baseInfo.description/Description.component'
 import GmaxMoveInfoComponent from './baseInfo.gmaxMove/GmaxMoveInfo.component'
 import LevelLearnableSkillComponent from './baseInfo.learnableSkill/LevelLearnableSkill.component'
 import MachineLearnableSkillComponent from './baseInfo.learnableSkill/MachineLearnableSkill.component'
+import TypeQuizBannerComponent from './baseInfo.typeQuiz/TypeQuizBanner.component'
 import ZMoveInfoComponent from './baseInfo.zMove/ZMoveInfo.component'
 import RelationPokemonComponent from './baseinfo.relationPokemon/RelationPokemon.component'
 
@@ -28,6 +30,7 @@ const DetailBaseInfoContainer = () => {
       {isGigantamaxMode && <GmaxMoveInfoComponent />}
       <DescriptionComponent />
       <AbilitiesInfoComponent />
+      <AbilityQuizBannerComponent />
       <DesktopDetailCardBanner />
       {!isGigantamaxMode && (
         <>
@@ -37,6 +40,7 @@ const DetailBaseInfoContainer = () => {
         </>
       )}
       <TypesInfo type={activeTypeInfo.types} />
+      <TypeQuizBannerComponent />
       {pokemonBaseInfo.evolutionId.length > 0 && (
         <RelationPokemonComponent
           name={pokemonBaseInfo.name}

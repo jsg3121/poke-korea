@@ -3,10 +3,13 @@ import { permanentRedirect } from 'next/navigation'
 import { Fragment } from 'react'
 import { HOME_META } from './_metadata/homeMetadata'
 import {
+  GetChampionsMetaSummaryByFilterDocument,
   GetDailyQuizPreviewDocument,
   GetDailyRandomPokemonDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  GetChampionsMetaSummaryByFilterQuery,
+  GetChampionsMetaSummaryByFilterQueryVariables,
   GetDailyQuizPreviewQuery,
   GetDailyQuizPreviewQueryVariables,
   GetDailyRandomPokemonQuery,
@@ -71,8 +74,23 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
+  // 챔피언스 S 티어 인기 포켓몬 상위 3개 가져오기 (사용률 기준)
+  const { data: championsTopData } = await apolloClient.query<
+    GetChampionsMetaSummaryByFilterQuery,
+    GetChampionsMetaSummaryByFilterQueryVariables
+  >({
+    query: GetChampionsMetaSummaryByFilterDocument,
+    variables: {
+      filter: { tier: 'S', limit: 3 },
+    },
+    fetchPolicy: 'network-only',
+  })
+
   const dailyPokemon = pokemonData?.getDailyRandomPokemon?.pokemons || []
   const dailyQuiz = quizData?.getDailyQuizPreview
+  const topChampionsPokemons = [
+    ...(championsTopData?.getChampionsMetaSummary || []),
+  ].sort((a, b) => (b.usageRate ?? 0) - (a.usageRate ?? 0))
 
   // JSON-LD 구조화된 데이터
   const jsonLd = {
@@ -94,9 +112,17 @@ const HomePage = async ({ searchParams }: PageProps) => {
   return (
     <Fragment>
       {isMobile ? (
-        <HomeMobile dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
+        <HomeMobile
+          dailyPokemon={dailyPokemon}
+          dailyQuiz={dailyQuiz}
+          topChampionsPokemons={topChampionsPokemons}
+        />
       ) : (
-        <HomeDesktop dailyPokemon={dailyPokemon} dailyQuiz={dailyQuiz} />
+        <HomeDesktop
+          dailyPokemon={dailyPokemon}
+          dailyQuiz={dailyQuiz}
+          topChampionsPokemons={topChampionsPokemons}
+        />
       )}
       <script
         id="ability-webpage-jsonLd"

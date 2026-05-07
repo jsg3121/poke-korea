@@ -4,7 +4,7 @@ description: |
   설정 파일 스키마, 옵션 정의, 생성 로직 전문 에이전트. ESLint, Prettier, TypeScript 등 설정 파일의 옵션 구조를 설계하고 생성 로직을 구현한다.
   TRIGGER when: "설정 스키마 설계", "옵션 추가해줘", "생성 로직 구현", 새 설정 파일 유형 추가, 옵션 충돌/의존성 규칙 정의, 프리셋 정의, URL 파라미터 인코딩/디코딩 로직
   DO NOT TRIGGER when: 단순 설정 파일 질문, 기존 설정 수정만 필요, UI 구현(ui-publisher 사용)
-model: opus
+model: sonnet
 permissionMode: acceptEdits
 ---
 
