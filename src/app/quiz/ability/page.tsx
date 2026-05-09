@@ -20,7 +20,7 @@ export const revalidate = 31536000
 export const metadata = QUIZ_ABILITY_META
 
 const AbilityQuizPage = async () => {
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 

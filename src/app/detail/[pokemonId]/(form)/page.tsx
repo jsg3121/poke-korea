@@ -90,7 +90,7 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     redirect(`/detail/${pokemonId}/form/${query.activeIndex}${queryParams}`)
   }
 
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 

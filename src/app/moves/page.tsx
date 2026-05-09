@@ -45,7 +45,7 @@ export const generateMetadata = async ({
 
 export default async function MovesPage({ searchParams }: MovesPageProps) {
   const client = initializeApollo()
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
   const { damageTypeFilter, typeFilter, search, firstGenerationId } =
