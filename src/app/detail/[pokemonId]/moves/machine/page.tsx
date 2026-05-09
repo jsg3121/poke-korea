@@ -29,7 +29,7 @@ export const generateMetadata = async ({
 const MachineMovesPage = async ({ params }: MachineMovesPageProps) => {
   const { pokemonId } = await params
 
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 

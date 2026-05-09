@@ -89,7 +89,7 @@ const DetailMovesPage = async ({
     redirect(`${basePath}${versionPath}${machinePath}`)
   }
 
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
