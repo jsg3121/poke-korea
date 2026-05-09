@@ -43,7 +43,7 @@ const VersionMachineMovesPage = async ({
     notFound()
   }
 
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 

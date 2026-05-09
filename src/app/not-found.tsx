@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   },
 }
 
-const NotFound = () => {
-  const headersList = headers()
+const NotFound = async () => {
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 

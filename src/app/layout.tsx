@@ -38,7 +38,7 @@ interface RootLayoutProps {
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   const isProduction = process.env.NODE_ENV === 'production'
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 

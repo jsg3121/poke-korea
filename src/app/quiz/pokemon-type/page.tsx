@@ -20,7 +20,7 @@ export const revalidate = 31536000 // 24시간마다 재생성
 export const metadata = QUIZ_POKEMON_TYPE_META
 
 const QuizMainPage = async () => {
-  const headersList = headers()
+  const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
