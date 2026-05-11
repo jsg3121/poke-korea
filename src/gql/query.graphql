@@ -749,6 +749,12 @@ query GetChampionsMetaSummaryByFilter(
   }
 }
 
+query GetBestChampionsPokemon {
+  getBestChampionsPokemon {
+    ...ChampionsMetaSummary
+  }
+}
+
 query GetChampionsPokemonDetail($externalDexId: Int!) {
   getChampionsPokemonDetail(externalDexId: $externalDexId) {
     ...ChampionsPokemonDetail

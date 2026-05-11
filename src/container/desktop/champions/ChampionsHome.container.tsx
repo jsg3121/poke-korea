@@ -2,6 +2,7 @@ import PageHeader from '~/components/PageHeader'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { groupChampionsByTier } from '~/utils/championsTier.util'
 
 interface ChampionsHomeContainerProps {
   topPokemons: ChampionsMetaSummaryFragment[]
@@ -10,6 +11,8 @@ interface ChampionsHomeContainerProps {
 const ChampionsHomeContainer = ({
   topPokemons,
 }: ChampionsHomeContainerProps) => {
+  const tierGroups = groupChampionsByTier(topPokemons)
+
   return (
     <section className="w-full max-w-[1280px] h-fit mx-auto pb-8 relative">
       <PageHeader
@@ -21,39 +24,33 @@ const ChampionsHomeContainer = ({
           id="top-pokemon-heading"
           className="h-12 text-[2rem] font-bold text-primary-4 text-center mb-6"
         >
-          인기 포켓몬 Top 10
+          상위 티어 포켓몬
         </h2>
 
-        {(['S', 'A', 'B', 'C', 'D'] as const).map((tier) => {
-          const tierPokemons = topPokemons.filter((p) => p.tier === tier)
-          if (tierPokemons.length === 0) return null
-          return (
-            <div key={tier} className="mb-10">
-              <h3 className="text-[1.75rem] font-bold text-primary-4 mb-4 text-center">
-                {tier} 티어
-              </h3>
-              <div
-                className="grid gap-4"
-                style={{
-                  gridTemplateColumns: `repeat(${tierPokemons.length}, 1fr)`,
-                  maxWidth:
-                    tierPokemons.length < 6
-                      ? `${tierPokemons.length * 200}px`
-                      : '100%',
-                  margin: tierPokemons.length < 6 ? '0 auto' : undefined,
-                }}
-              >
-                {tierPokemons.map((pokemon) => (
-                  <ChampionsTopCard
-                    key={pokemon.pokemonId}
-                    pokemonData={pokemon}
-                    isHighPriority
-                  />
-                ))}
-              </div>
+        {tierGroups.map(({ tier, pokemons }) => (
+          <div key={tier} className="mb-10">
+            <h3 className="text-[1.75rem] font-bold text-primary-4 mb-4 text-center">
+              {tier} 티어
+            </h3>
+            <div
+              className="grid gap-4"
+              style={{
+                gridTemplateColumns: `repeat(${pokemons.length}, 1fr)`,
+                maxWidth:
+                  pokemons.length < 6 ? `${pokemons.length * 200}px` : '100%',
+                margin: pokemons.length < 6 ? '0 auto' : undefined,
+              }}
+            >
+              {pokemons.map((pokemon) => (
+                <ChampionsTopCard
+                  key={pokemon.pokemonId}
+                  pokemonData={pokemon}
+                  isHighPriority
+                />
+              ))}
             </div>
-          )
-        })}
+          </div>
+        ))}
       </section>
 
       <FooterContainer />

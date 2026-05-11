@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { GetChampionsMetaSummaryDocument } from '~/graphql/gqlGenerated'
+import { GetBestChampionsPokemonDocument } from '~/graphql/gqlGenerated'
 import {
-  GetChampionsMetaSummaryQuery,
-  GetChampionsMetaSummaryQueryVariables,
+  GetBestChampionsPokemonQuery,
+  GetBestChampionsPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -25,17 +25,14 @@ const ChampionsPage = async () => {
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query<
-    GetChampionsMetaSummaryQuery,
-    GetChampionsMetaSummaryQueryVariables
+    GetBestChampionsPokemonQuery,
+    GetBestChampionsPokemonQueryVariables
   >({
-    query: GetChampionsMetaSummaryDocument,
+    query: GetBestChampionsPokemonDocument,
     fetchPolicy: 'network-only',
   })
 
-  const metaSummary = data?.getChampionsMetaSummary || []
-  const topPokemons = [...metaSummary]
-    .sort((a, b) => (b.usageRate ?? 0) - (a.usageRate ?? 0))
-    .slice(0, 10)
+  const topPokemons = data?.getBestChampionsPokemon ?? []
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
