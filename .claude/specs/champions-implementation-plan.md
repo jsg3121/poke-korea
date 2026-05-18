@@ -299,46 +299,48 @@ const jsonLd = {
 
 ## 체크리스트
 
+> 2026-05-18 점검 결과 기반으로 정합성 복구. M1~M3·M5는 main에 머지된 코드 기준 완료 확인, M4는 라우트·UI·메타 데이터 모두 구현 확인됨. VP 계산기는 미구현 — 챔피언스 고도화 트랙(별도 SPEC)으로 이관.
+
 ### M1 체크리스트
 
-- [ ] 186종 ID 목록 확보
-- [ ] `champions_pokemon` 테이블 생성
-- [ ] 초기 데이터 삽입
+- [x] 186종 ID 목록 확보
+- [x] `champions_pokemon` 테이블 생성
+- [x] 초기 데이터 삽입
 
 ### M2 체크리스트
 
-- [ ] GraphQL 스키마 추가
-- [ ] `getChampionsPokemonList` resolver
-- [ ] `getChampionsPokemonDetail` resolver
-- [ ] `getChampionsMetaStats` resolver (외부 fetch)
-- [ ] `getChampionsMetaSummary` resolver
-- [ ] 캐싱 구현
-- [ ] API 테스트
+- [x] GraphQL 스키마 추가
+- [x] `getChampionsPokemonList` resolver
+- [x] `getChampionsPokemonDetail` resolver
+- [x] `getChampionsMetaStats` resolver (외부 fetch)
+- [x] `getChampionsMetaSummary` resolver
+- [x] 캐싱 구현
+- [x] API 테스트
 
 ### M3 체크리스트
 
-- [ ] GraphQL query/fragment 추가
-- [ ] codegen 실행
-- [ ] `/champions/list` 라우트
-- [ ] `/champions/list/[pokemonId]` 라우트
-- [ ] desktop/mobile 뷰 컴포넌트
-- [ ] 컨테이너 컴포넌트
-- [ ] 필터/정렬 기능
-- [ ] 페이지네이션
+- [x] GraphQL query/fragment 추가
+- [x] codegen 실행
+- [x] `/champions/list` 라우트
+- [x] `/champions/list/[pokemonId]` 라우트
+- [x] desktop/mobile 뷰 컴포넌트
+- [x] 컨테이너 컴포넌트
+- [x] 필터/정렬 기능
+- [x] 페이지네이션
 
 ### M4 체크리스트
 
-- [ ] `/champions/tier` 라우트
-- [ ] 티어 그룹 UI
-- [ ] 메타 데이터 표시 (상세 페이지)
-- [ ] (선택) VP 계산기
+- [x] `/champions/tier` 라우트 — `src/app/champions/tier/page.tsx`
+- [x] 티어 그룹 UI — `ChampionsTierGroup` + `ChampionsTierPokemonItem` (S/A/B/C/D 5개 그룹, 사용률 정렬, smooth scroll)
+- [x] 메타 데이터 표시 (상세 페이지) — `ChampionsMetaSection` (인기 기술/아이템/특성 + 추천 파트너 + 사용률/승률 + 출처/업데이트)
+- [ ] (선택) VP 계산기 — 미구현, 챔피언스 고도화 트랙으로 이관
 
 ### M5 체크리스트
 
-- [ ] `/champions` 메인 허브
-- [ ] SEO 메타데이터
-- [ ] JSON-LD
-- [ ] sitemap 업데이트
+- [x] `/champions` 메인 허브
+- [x] SEO 메타데이터
+- [x] JSON-LD
+- [x] sitemap 업데이트
 
 ---
 
@@ -369,9 +371,9 @@ const jsonLd = {
 
 ---
 
-## 최근 갱신 현황 (2026-05-11 기준)
+## 최근 갱신 현황 (2026-05-18 기준)
 
-> 본 계획서 작성(2026-04-18) 이후 실제 main에 머지된 항목을 요약. 체크리스트의 정합성은 별도 점검 후 갱신 예정.
+> 본 계획서 작성(2026-04-18) 이후 실제 main에 머지된 항목을 요약. 2026-05-18 M4 코드 점검을 통해 체크리스트 정합성 복구 완료.
 
 ### 메인 홈 → 챔피언스 인입 경로
 
@@ -385,12 +387,53 @@ const jsonLd = {
 - 챔피언스 상세 메타데이터(`generateChampionsDetailMetadata.ts`)는 폼/리전/스탯/메타 기반 동적 생성으로 강화됨 (트래픽 계획서 B-1 완료)
 - 사이트맵 우선순위 0.8 반영 (트래픽 계획서 A-4 완료)
 
-### M4 (티어/메타 페이지) — 추가 점검 필요
+### M4 (티어/메타 페이지) — 점검 완료 (2026-05-18)
 
-- `/champions/tier` 라우트 존재 여부, 메타 데이터(인기 기술/아이템/특성/파트너) 상세 페이지 노출 여부는 별도 코드 점검 후 체크리스트 갱신 예정
-- VP 계산기(`/champions/calculator`)는 미착수 추정
+기본 구현은 모두 완료 상태로 확인됨. VP 계산기를 제외한 4개 항목 모두 ✅.
+
+- **`/champions/tier` 라우트** — `src/app/champions/tier/page.tsx` (revalidate 24h, `getChampionsMetaSummary` SSR)
+- **데스크톱/모바일 뷰** — `src/views/{desktop,mobile}/champions/ChampionsTier.{desktop,mobile}.tsx`
+- **컨테이너** — `src/container/{desktop,mobile}/champions/ChampionsTier.container.tsx` (총 종수 + 5개 티어 바로가기 버튼, smooth scroll, "참고용 자료" 면책 안내)
+- **티어 그룹 UI** — `ChampionsTierGroup` (S/A/B/C/D 5개 섹션, 사용률 내림차순) + `ChampionsTierPokemonItem` (이미지, 이름, 사용률 % + progress bar; S/A 티어는 eager loading)
+- **메타 데이터 표시 (상세 페이지)** — `ChampionsMetaSection`에서 다음 모두 노출:
+  - 티어 배지 + 사용률/승률 인라인 카드
+  - 인기 기술 / 인기 아이템 / 인기 특성 (`ChampionsMetaList` — 진행률 바)
+  - 추천 파트너 (`ChampionsPartnerList` — 포켓몬 카드 + 챔피언스 상세 링크)
+  - 데이터 출처 / 업데이트 일자 / stale 데이터 경고 / 메타 없을 때 fallback
+- **JSON-LD** — BreadcrumbList + ItemList(티어별) 2개 등록
+- **사이트맵** — `src/app/sitemap.ts:113` 등록
 
 ### M5 (메인 허브 + SEO)
 
 - `/champions` 메인 허브 페이지, `championsMetadata.ts`, JSON-LD, 사이트맵 등록 완료 상태
 - B-3 스킵 결정(트래픽 계획서) — 챔피언스 모바일 정식 출시 이후 재검토 예정
+
+---
+
+## 챔피언스 고도화 트랙 분리 (2026-05-18 결정)
+
+M4 점검 결과 기본 구현은 모두 완료된 상태로 확인됨. 추가로 발견된 개선 후보(아래)는 **경쟁 서비스 분석 기반의 별도 SPEC**으로 분리하여 진행한다.
+
+### 분리 사유 (Why)
+
+- M4 미점검 항목은 "기능 부재"가 아닌 "품질·UX 고도화 영역" → 트래픽 증대 계획서의 다음 액션(SEO 자산·인입 경로)과 성격이 다름
+- 임의 변경 누적을 피하고 시장 검증된 패턴을 적용하기 위해 경쟁 서비스(Pikalytics, Smogon, Game8, Inven 등) 조사를 선행해야 근거 기반 의사결정이 가능
+- VP 계산기는 단독 신설보다 경쟁 분석에서 도출되는 우선순위 위에 배치하는 것이 합리적
+
+### 신규 SPEC 작성 예정
+
+- **파일명 후보**: `.claude/specs/champions-competitive-analysis-and-enhancement.md`
+- **다룰 항목**:
+  - 티어 그룹 UI 개선 (색상 일관성, 정렬/필터, 승률 표시, progress bar 가시성)
+  - 메타 데이터 UI 개선 (`<img>` → `ImageComponent` 교체, 사용률 표기, 승률 색상 강조)
+  - JSON-LD 강화 (ItemList에 포켓몬 개별 항목 포함)
+  - **VP 계산기** (`/champions/calculator`) — 본 트랙에 통합 검토
+  - 챔피언스 기술 상세 섹션 (트래픽 계획서 E-2와 통합 검토)
+  - 데스크톱/모바일 메타 컴포넌트 일관성
+
+### 진행 방식 (제안)
+
+1. `/biz-strategy` 스킬 또는 `market-intelligence` 에이전트로 경쟁 서비스 조사
+2. 갭 분석 → 우선순위 도출 (`business-analyst` + `strategy-planner`)
+3. `product-planner` 에이전트로 신규 SPEC 작성
+4. SPEC 승인 후 단계별 실행
