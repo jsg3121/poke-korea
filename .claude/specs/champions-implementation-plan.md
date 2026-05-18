@@ -366,3 +366,31 @@ const jsonLd = {
 | 외부 JSON 구조 변경      | 중간   | 캐싱 + fallback, 변경 모니터링                 |
 | VP 공식 변경             | 낮음   | 프론트엔드 상수로 관리, 패치 노트 모니터링     |
 | eurekaffeine 서비스 중단 | 중간   | 백업 소스 확보 (Showdown Tier 등)              |
+
+---
+
+## 최근 갱신 현황 (2026-05-11 기준)
+
+> 본 계획서 작성(2026-04-18) 이후 실제 main에 머지된 항목을 요약. 체크리스트의 정합성은 별도 점검 후 갱신 예정.
+
+### 메인 홈 → 챔피언스 인입 경로
+
+- **1.40.0 (PR #125, 2026-05-06)**: 메인 홈에 "인기 챔피언스 포켓몬" 섹션 신설. `getChampionsMetaSummary(filter: { tier: "S", limit: 3 })` 기반 Top 3 노출, 카드 클릭 시 `/champions/list/{pokemonId}` 진입. 참고: `traffic-growth-implementation-plan.md` C-3
+- **1.42.0 (PR #132, 2026-05-11)**: 챔피언스 홈 자체 노출 로직을 신규 서버 쿼리 `getBestChampionsPokemon`으로 마이그레이션. 클라이언트 정렬/슬라이스 제거, 노출 범위를 "사용률 상위 10마리" → "S·A 티어 전체"로 변경, 모바일은 그리드(2열) → 가로 스크롤로 전환
+
+### M1 ~ M3 (코드 상 반영 확인)
+
+- `/champions/list`, `/champions/list/[pokemonId]` 라우트 및 desktop/mobile 뷰·컨테이너 구현
+- `getChampionsPokemonList`, `getChampionsMetaSummary`, `getChampionsMetaStats`, `getBestChampionsPokemon` 쿼리 사용 중
+- 챔피언스 상세 메타데이터(`generateChampionsDetailMetadata.ts`)는 폼/리전/스탯/메타 기반 동적 생성으로 강화됨 (트래픽 계획서 B-1 완료)
+- 사이트맵 우선순위 0.8 반영 (트래픽 계획서 A-4 완료)
+
+### M4 (티어/메타 페이지) — 추가 점검 필요
+
+- `/champions/tier` 라우트 존재 여부, 메타 데이터(인기 기술/아이템/특성/파트너) 상세 페이지 노출 여부는 별도 코드 점검 후 체크리스트 갱신 예정
+- VP 계산기(`/champions/calculator`)는 미착수 추정
+
+### M5 (메인 허브 + SEO)
+
+- `/champions` 메인 허브 페이지, `championsMetadata.ts`, JSON-LD, 사이트맵 등록 완료 상태
+- B-3 스킵 결정(트래픽 계획서) — 챔피언스 모바일 정식 출시 이후 재검토 예정
