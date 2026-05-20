@@ -1,4 +1,5 @@
 import PageHeader from '~/components/PageHeader'
+import DesktopChampionsHomeBanner from '~/components/adSlot/DesktopChampionsHomeBanner'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
@@ -52,6 +53,8 @@ const ChampionsHomeContainer = ({
           </div>
         ))}
       </section>
+
+      <DesktopChampionsHomeBanner />
 
       <FooterContainer />
     </section>
