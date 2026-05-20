@@ -6,7 +6,7 @@ const MobileChampionsPokedexBanner = () => {
   return (
     <div
       ref={slotRef}
-      className="w-full h-fit text-center mx-auto my-6 px-5 col-span-full"
+      className="w-full h-fit text-center mx-auto my-6 col-span-full"
     >
       <ins
         className="adsbygoogle w-[320px] h-[100px] block mx-auto"
