@@ -1,4 +1,3 @@
-import MobileDetailMovesBanner from '~/components/adSlot/MobileDetailMovesBanner'
 import MobileTabBar from '~/components/MobileTabBar'
 import MovesHeaderContainer from '~/container/mobile/detail/detail.moves/moves.header/MovesHeader.container'
 import MovesTableContainer from '~/container/mobile/detail/detail.moves/moves.table/MovesTableContainer'
@@ -17,7 +16,6 @@ const DetailMovesMobile = ({ pokemonName }: DetailMovesMobileProps) => {
         <h1 className="sr-only">{pokemonName} 상세 습득 기술 정보</h1>
         <MovesHeaderContainer pokemonName={pokemonName} />
       </section>
-      <MobileDetailMovesBanner />
       <MovesTableContainer />
       <FooterContainer />
       <MobileTabBar />

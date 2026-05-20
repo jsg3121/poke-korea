@@ -1,6 +1,5 @@
 import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
-import DesktopDetailSidebarBanner from '~/components/adSlot/DesktopDetailSidebarBanner'
 import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
 import { DetailContext } from '~/context/Detail.context'
@@ -112,7 +111,6 @@ const DetailSummaryContainer = () => {
           {pokemonBaseInfo && pokemonInfo.stats && (
             <StatsComponent {...pokemonInfo.stats} />
           )}
-          <DesktopDetailSidebarBanner />
         </section>
       </div>
     </section>

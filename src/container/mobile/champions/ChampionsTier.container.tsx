@@ -1,3 +1,4 @@
+import MobileChampionsTierBanner from '~/components/adSlot/MobileChampionsTierBanner'
 import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
 import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
@@ -63,6 +64,7 @@ const ChampionsTierContainer = ({
 
       <div className="space-y-6">
         <ChampionsTierGroup tier="S" pokemons={tierGroups.S} />
+        <MobileChampionsTierBanner />
         <ChampionsTierGroup tier="A" pokemons={tierGroups.A} />
         <ChampionsTierGroup tier="B" pokemons={tierGroups.B} />
         <ChampionsTierGroup tier="C" pokemons={tierGroups.C} />

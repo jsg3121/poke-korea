@@ -1,9 +1,13 @@
 'use client'
 
+import { Fragment } from 'react'
 import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
+import MobileChampionsPokedexBanner from '~/components/adSlot/MobileChampionsPokedexBanner'
 import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
 import FooterContainer from '../footer/Footer.container'
+
+const AD_AFTER_INDEX = 5 // 카드 5장 직후(약 3행) 광고 1회 노출
 
 const ChampionsPokedexContainer = () => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore, totalCount } =
@@ -37,15 +41,15 @@ const ChampionsPokedexContainer = () => {
       )}
       {pokemonList.length > 0 && (
         <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5">
-          {pokemonList.map((pokemon, index) => {
-            return (
+          {pokemonList.map((pokemon, index) => (
+            <Fragment key={`champions-pokemon-${pokemon.id}-${index}`}>
               <ChampionsPokemonCard
-                key={`champions-pokemon-${pokemon.id}-${index}`}
                 pokemonData={pokemon}
                 isHighPriority={index < 6}
               />
-            )
-          })}
+              {index === AD_AFTER_INDEX && <MobileChampionsPokedexBanner />}
+            </Fragment>
+          ))}
         </div>
       )}
       {isLoadingMore && (
