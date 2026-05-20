@@ -13,7 +13,6 @@ import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 import FooterContainer from '../../footer/Footer.container'
 import Link from 'next/link'
-import MobileMovesDetailTopBanner from '~/components/adSlot/MobileMovesDetailTopBanner'
 import MobileMovesDetailBottomBanner from '~/components/adSlot/MobileMovesDetailBottomBanner'
 
 export interface MoveDetailContainerProps {
@@ -101,7 +100,6 @@ const MoveDetailContainer = ({
         selectedVersionData={selectedVersionData}
         versionGroups={versionGroups}
       />
-      <MobileMovesDetailTopBanner />
       <h2
         id="version-info"
         className="h-12 text-[1.375rem] text-primary-4 border-t border-solid border-primary-4 pt-4 px-4"
