@@ -1,3 +1,4 @@
+import MobileChampionsHomeBanner from '~/components/adSlot/MobileChampionsHomeBanner'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import PageHeader from '~/components/mobile/PageHeader'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
@@ -52,6 +53,8 @@ const ChampionsHomeContainer = ({
           </div>
         ))}
       </section>
+
+      <MobileChampionsHomeBanner />
 
       <FooterContainer />
     </section>
