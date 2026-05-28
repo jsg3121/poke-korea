@@ -1,5 +1,56 @@
 # MI-BA-2026-05-26 포딕(podic.kr) 추월 가설 분석 + 단기 KPI 도출 보고서
 
+> **⚠️ 상태: 폐기됨 (2026-05-28)** — 본 보고서의 BA 분석에 사실 오류가 확인되어 폐기 처리됨. 폐기 사유는 아래 "폐기 마크" 절 참조. 본 보고서를 후속 작업의 근거로 사용하지 말 것.
+
+## ⚠️ 폐기 마크 (2026-05-28 추가)
+
+### 폐기 사유
+
+본 보고서의 **2장(Business Analyst) "2-2. 갭 분석" 표가 사실 오류**를 포함한다. 사용자가 상용 코드를 직접 확인한 결과 다음이 확인되었다.
+
+| 페이지 | 본 보고서 주장 | 실제 상태 (2026-05-28 확인) |
+| --- | --- | --- |
+| `/moves/[id]` | "구현 안 됨, 신규 생성 필요 (1순위)" | **이미 구현됨** — `src/app/moves/[id]/page.tsx` (메타데이터, JSON-LD, 반응형 desktop/mobile, ISR revalidate 1년 모두 완비) |
+| `/ability/[id]` | "구현 안 됨, 신규 생성 필요 (3순위)" | **이미 구현됨** — `src/app/ability/[id]/page.tsx` (동일 패턴) |
+
+### 원인
+
+BA 에이전트가 `.claude/specs/metrics-baseline.md`의 "페이지별 트래픽 TOP 10"만 보고 "리스트 페이지(`/moves`, `/ability`)만 PV 상위에 있으니 상세 페이지는 미구현일 것"으로 추정했다. `src/app/` 라우트 구조와 동적 라우트 `page.tsx`를 직접 확인하지 않은 채 추정으로 단정한 것이 원인이다.
+
+### 영향 범위
+
+- 2장 2-2 갭 분석 표의 1순위/3순위가 무효
+- 2장 2-4 BA 결론("가장 먼저 추가할 정보는 `/moves/[id]`") 무효
+- 5장 후속 단계의 `feature/1.45.0-moves-detail` 작업 무효 (이미 구현됨)
+- 본 보고서를 근거로 작성된 ADR-0005 폐기
+
+### 무엇이 살아남는가
+
+다음 부분은 본 보고서에서도 여전히 유효하다.
+
+- 1장 (Market Intelligence) — 포딕/포케토리 Similarweb 데이터 및 한국 포켓몬 시장 카테고리 지도는 외부 조사 결과로 변동 없음
+- 3장 (보수적 재해석) — 단위 정합성 문제 인식은 유효
+- 4장 (단기 KPI) 중 다음만 유효:
+  - North Star MAU 30K (사용자 동의 기반)
+  - AdSense baseline ($12.32/30일)
+- AC3 (/type-effectiveness 의존도 분산)은 metrics-baseline 실측 기반이므로 별도 검증 후 재채택 가능
+
+### 후속 조치
+
+1. 본 보고서 폐기 마크 표시 후 보존 (현재 작업)
+2. ADR-0005 폐기 처리 (완료)
+3. MI/BA 에이전트 정의에 "상용 구현 확인 의무" 지침 추가 (완료)
+4. 새 BA 분석은 `src/app/` 라우트 구조 직접 확인 후 작성
+
+### 재발 방지 지침
+
+- `.claude/agents/market-intelligence.md` — "상용 구현 확인 의무" 절 추가
+- `.claude/agents/business-analyst.md` — "상용 구현 확인 의무" 절 + "갭 분석 시 페이지 부재 vs 트래픽 부진 구분" 규칙 추가
+
+---
+
+## 아래 원본 내용은 기록 보존 목적으로 유지
+
 > **목적**: "국내에서 포딕 트래픽을 넘어선다"는 사용자 목표 가설에 대한 외부/내부 분석 및 단기(~2026-09-30) KPI 도출
 > **작성일**: 2026-05-26
 > **작성 흐름**: market-intelligence (외부) → business-analyst (내부 대조) → 보수적 재해석 → KPI 정의
@@ -74,6 +125,7 @@
 > poke-korea가 포딕 점유 영역을 추월하기 위해 가장 부족한 콘텐츠 축은 **(A) 정기 갱신 이벤트/레이드 공략(포켓몬 GO 중심)** 과 **(B) 기술/특성/세대별 레트로 도감 DB(롱테일 SEO)** 2개다.
 
 **출처**:
+
 - [Similarweb podic.kr](https://www.similarweb.com/website/podic.kr/)
 - [Similarweb poketory.com](https://www.similarweb.com/website/poketory.com/)
 - [나무위키 — 포딕](https://namu.wiki/w/%ED%8F%AC%EB%94%95)
