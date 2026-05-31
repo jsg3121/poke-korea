@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import {
+  ChampionsFormat,
   ChampionsPokemonDetailFragment,
   GetChampionsPokemonDetailQuery,
   GetChampionsPokemonDetailQueryVariables,
@@ -145,7 +146,11 @@ export const generateChampionsDetailMetadata = async (
     GetChampionsPokemonDetailQueryVariables
   >({
     query: GetChampionsPokemonDetailDocument,
-    variables: { externalDexId: pokemonId },
+    variables: {
+      pokemonId,
+      // TODO(Phase 4): format을 라우트 파라미터에서 가져오기
+      format: ChampionsFormat.VGC_DOUBLES,
+    },
   })
 
   const detail = data?.getChampionsPokemonDetail

@@ -43,7 +43,7 @@ const ChampionsHomeContainer = ({
             >
               {pokemons.map((pokemon) => (
                 <li
-                  key={pokemon.pokemonId}
+                  key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
                   className="w-[175px] flex-shrink-0 px-1 py-1"
                 >
                   <ChampionsTopCard pokemonData={pokemon} isHighPriority />

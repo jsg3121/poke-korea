@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
+  ChampionsFormat,
   ChampionsPokemonFilterInput,
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
@@ -47,6 +48,8 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
     query: GetChampionsPokemonListDocument,
     variables: {
       input: {
+        // TODO(Phase 2): format을 라우트 파라미터에서 가져오기
+        format: ChampionsFormat.VGC_DOUBLES,
         filter: filterInput,
         pagination: {
           first: 20,
