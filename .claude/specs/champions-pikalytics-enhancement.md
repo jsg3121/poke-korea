@@ -52,7 +52,12 @@
 신규 라우트
 /champions/[format]                       # format = vgc | bss
 /champions/[format]/list
-/champions/[format]/list/[pokemonId]
+/champions/[format]/list/[pokemonId]                  # BASE 폼
+/champions/[format]/list/[pokemonId]/mega             # 메가 폼 기본
+/champions/[format]/list/[pokemonId]/mega/[index]     # 메가 폼 특정 인덱스 (예: 메가Y)
+/champions/[format]/list/[pokemonId]/region           # 리전 폼
+/champions/[format]/list/[pokemonId]/gigantamax       # 거다이맥스 폼
+/champions/[format]/list/[pokemonId]/form             # 그 외 폼 (워시로토무 등)
 /champions/[format]/tier
 
 리다이렉트
@@ -62,6 +67,39 @@
 ```
 
 > 기본값을 VGC로 두는 이유: 현재 eurekaffeine이 `championstournaments`(토너먼트=VGC 위주) 포맷을 사용하므로 기존 색인 콘텐츠 연속성이 가장 높음.
+
+### 2-2-1. 폼 라우팅 패턴 (2026-05-31 보강)
+
+기존 `/detail/[pokemonId]/` 의 폼 라우팅 패턴(`/mega`, `/region`, `/gigantamax`, `/form`)을 그대로 적용한다. 이유는 다음과 같다.
+
+- **자사 일관성**: 일반 도감(`/detail/[id]/mega`)과 챔피언스 도감(`/champions/[format]/list/[id]/mega`)의 폼 URL 규칙이 동일하여 사용자 학습 비용 0
+- **SEO 인덱싱 확장**: 쿼리 파라미터(`?formCode=M0445071`) 방식은 같은 페이지의 변형으로 인식되어 별도 인덱싱 안 됨. 디렉토리 분리 방식이 폼별 별도 페이지로 인덱싱됨
+- **백엔드 호환**: 백엔드 명세는 `formCode` 를 쿼리 파라미터로 받도록 설계되어 있으나, 프론트는 라우트에서 폼을 식별 후 GraphQL 호출 시 `formCode` 인자로 전달하는 방식으로 처리
+
+#### 폼 코드 ↔ 라우트 매핑
+
+백엔드 명세의 `formType` 과 자사 라우트 매핑:
+
+| 백엔드 `formType` | `formCode` 예시 | 자사 라우트 |
+| --- | --- | --- |
+| `BASE` | `null` | `/champions/[format]/list/[pokemonId]` |
+| `MEGA` | `"M0445071"` (메가 한카리아스) | `/champions/[format]/list/[pokemonId]/mega` 또는 `.../mega/[index]` |
+| `REGION` | `"R0080G"` (가라르 야도란) | `/champions/[format]/list/[pokemonId]/region` |
+| `NORMAL` (특수 폼) | `"F0479022"` (워시로토무) | `/champions/[format]/list/[pokemonId]/form` |
+| (거다이맥스) | (백엔드 명세 별도 없음) | `/champions/[format]/list/[pokemonId]/gigantamax` |
+
+#### 프론트 처리 흐름
+
+1. 라우트의 폼 세그먼트(`mega`/`region`/`form`/`gigantamax`)를 식별
+2. 해당 폼의 `formCode` 를 결정 (`getChampionsPokemonDetail` 응답의 폼 목록에서 매칭 또는 별도 매핑 테이블)
+3. GraphQL 호출 시 `formCode` 를 인자로 전달
+4. BASE 폼은 `formCode: null` 로 호출
+
+#### 폼별 메타데이터
+
+- 폼별 페이지는 메타 title/description 에 폼 종류 명시 (예: "메가 한카리아스Z (VGC) - 포케 코리아")
+- JSON-LD `name` 필드에 폼 정보 포함
+- 사이트맵에 폼별 URL 동적 등록 (`getChampionsPokemonDetail` 응답의 폼 목록 기반)
 
 ### 2-3. 작업 항목
 
