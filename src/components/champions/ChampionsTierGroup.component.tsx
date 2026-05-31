@@ -33,7 +33,7 @@ const ChampionsTierGroup = ({ tier, pokemons }: ChampionsTierGroupProps) => {
         ) : (
           sortedPokemons.map((pokemon) => (
             <ChampionsTierPokemonItem
-              key={pokemon.pokemonId}
+              key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
               pokemon={pokemon}
               isHighPriority={isHighPriorityTier}
             />

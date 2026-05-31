@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
+  ChampionsFormat,
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
@@ -20,6 +21,8 @@ const fetchChampionsTotalCount = async (): Promise<number> => {
     query: GetChampionsPokemonListDocument,
     variables: {
       input: {
+        // TODO(Phase 1): format을 라우트 파라미터에서 가져오기
+        format: ChampionsFormat.VGC_DOUBLES,
         pagination: { first: 1 },
       },
     },

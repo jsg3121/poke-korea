@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { GetBestChampionsPokemonDocument } from '~/graphql/gqlGenerated'
 import {
+  ChampionsFormat,
   GetBestChampionsPokemonQuery,
   GetBestChampionsPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
@@ -29,6 +30,10 @@ const ChampionsPage = async () => {
     GetBestChampionsPokemonQueryVariables
   >({
     query: GetBestChampionsPokemonDocument,
+    variables: {
+      // TODO(Phase 1): format을 라우트 파라미터에서 가져오기
+      format: ChampionsFormat.VGC_DOUBLES,
+    },
     fetchPolicy: 'network-only',
   })
 

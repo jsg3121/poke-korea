@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { GetChampionsMetaSummaryDocument } from '~/graphql/gqlGenerated'
+import { GetChampionsMetaSummaryByFilterDocument } from '~/graphql/gqlGenerated'
 import {
-  GetChampionsMetaSummaryQuery,
-  GetChampionsMetaSummaryQueryVariables,
+  ChampionsFormat,
+  GetChampionsMetaSummaryByFilterQuery,
+  GetChampionsMetaSummaryByFilterQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -25,10 +26,16 @@ const ChampionsTierPage = async () => {
   const apolloClient = initializeApollo()
 
   const { data } = await apolloClient.query<
-    GetChampionsMetaSummaryQuery,
-    GetChampionsMetaSummaryQueryVariables
+    GetChampionsMetaSummaryByFilterQuery,
+    GetChampionsMetaSummaryByFilterQueryVariables
   >({
-    query: GetChampionsMetaSummaryDocument,
+    query: GetChampionsMetaSummaryByFilterDocument,
+    variables: {
+      filter: {
+        // TODO(Phase 3): format을 라우트 파라미터에서 가져오기
+        format: ChampionsFormat.VGC_DOUBLES,
+      },
+    },
     fetchPolicy: 'network-only',
   })
 

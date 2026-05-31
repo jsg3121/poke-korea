@@ -7,6 +7,7 @@ import {
   GetChampionsPokemonListDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  ChampionsFormat,
   PokemonList,
   PokemonType,
   AbilityEdge,
@@ -176,6 +177,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         query: GetChampionsPokemonListDocument,
         variables: {
           input: {
+            // TODO(Phase 1): format을 라우트 파라미터에서 가져오기
+            format: ChampionsFormat.VGC_DOUBLES,
             pagination: {
               first: 200, // 챔피언스 포켓몬 전체
             },

@@ -122,16 +122,51 @@ fragment ChampionsMetaAbility on ChampionsMetaAbility {
 
 fragment ChampionsMetaPartner on ChampionsMetaPartner {
   pokemonId
+  formCode
+  rawName
   name
   imagePath
   usageRate
 }
 
+fragment ChampionsUsageByRating on ChampionsUsageByRating {
+  r0
+  r1500
+  r1630
+  r1760
+}
+
+fragment ChampionsEvSpread on ChampionsEvSpread {
+  nature
+  hp
+  atk
+  def
+  spa
+  spd
+  spe
+  usageRate
+}
+
+fragment ChampionsCounter on ChampionsCounter {
+  pokemonId
+  formCode
+  rawName
+  pokemonName
+  koRate
+  switchRate
+  sampleCount
+}
+
 fragment ChampionsMetaStats on ChampionsMetaStats {
   pokemonId
+  formCode
   usageRate
+  usageRank
   winRate
   tier
+  usageByRating {
+    ...ChampionsUsageByRating
+  }
   topMoves {
     ...ChampionsMetaMove
   }
@@ -144,6 +179,12 @@ fragment ChampionsMetaStats on ChampionsMetaStats {
   topPartners {
     ...ChampionsMetaPartner
   }
+  evSpreads {
+    ...ChampionsEvSpread
+  }
+  counters {
+    ...ChampionsCounter
+  }
   source
   updatedAt
   isStale
@@ -151,6 +192,7 @@ fragment ChampionsMetaStats on ChampionsMetaStats {
 
 fragment ChampionsMetaSummary on ChampionsMetaStats {
   pokemonId
+  formCode
   name
   formName
   region
@@ -159,6 +201,7 @@ fragment ChampionsMetaSummary on ChampionsMetaStats {
   typePrimary
   typeSecondary
   usageRate
+  usageRank
   winRate
   tier
   isStale
@@ -191,9 +234,14 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
   }
   meta {
     pokemonId
+    formCode
     usageRate
+    usageRank
     winRate
     tier
+    usageByRating {
+      ...ChampionsUsageByRating
+    }
     topMoves {
       ...ChampionsMetaMove
     }
@@ -205,6 +253,12 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
     }
     topPartners {
       ...ChampionsMetaPartner
+    }
+    evSpreads {
+      ...ChampionsEvSpread
+    }
+    counters {
+      ...ChampionsCounter
     }
     source
     updatedAt

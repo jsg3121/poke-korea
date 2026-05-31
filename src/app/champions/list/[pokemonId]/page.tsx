@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
 import {
+  ChampionsFormat,
   GetChampionsPokemonDetailQuery,
   GetChampionsPokemonDetailQueryVariables,
 } from '~/graphql/typeGenerated'
@@ -28,9 +29,9 @@ export const generateMetadata = async ({
 
 const ChampionsDetailPage = async ({ params }: PageProps) => {
   const { pokemonId } = await params
-  const externalDexId = parseInt(pokemonId, 10)
+  const parsedPokemonId = parseInt(pokemonId, 10)
 
-  if (isNaN(externalDexId) || externalDexId <= 0) {
+  if (Number.isNaN(parsedPokemonId) || parsedPokemonId <= 0) {
     notFound()
   }
 
@@ -45,7 +46,11 @@ const ChampionsDetailPage = async ({ params }: PageProps) => {
     GetChampionsPokemonDetailQueryVariables
   >({
     query: GetChampionsPokemonDetailDocument,
-    variables: { externalDexId },
+    variables: {
+      pokemonId: parsedPokemonId,
+      // TODO(Phase 4): format을 라우트 파라미터에서 가져오기
+      format: ChampionsFormat.VGC_DOUBLES,
+    },
   })
 
   const detail = data?.getChampionsPokemonDetail

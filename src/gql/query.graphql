@@ -710,7 +710,7 @@ query GetPokemonGigantamaxList {
 
 # ========== Champions Queries ==========
 
-query GetChampionsPokemonList($input: ChampionsPokemonListInput) {
+query GetChampionsPokemonList($input: ChampionsPokemonListInput!) {
   getChampionsPokemonList(input: $input) {
     totalCount
     updatedAt
@@ -729,34 +729,40 @@ query GetChampionsPokemonList($input: ChampionsPokemonListInput) {
   }
 }
 
-query GetChampionsMetaStats($externalDexId: Int!) {
-  getChampionsMetaStats(externalDexId: $externalDexId) {
+query GetChampionsMetaStats($input: ChampionsMetaStatsInput!) {
+  getChampionsMetaStats(input: $input) {
     ...ChampionsMetaStats
   }
 }
 
-query GetChampionsMetaSummary {
-  getChampionsMetaSummary {
-    ...ChampionsMetaSummary
-  }
-}
-
 query GetChampionsMetaSummaryByFilter(
-  $filter: ChampionsMetaSummaryFilterInput
+  $filter: ChampionsMetaSummaryFilterInput!
 ) {
   getChampionsMetaSummary(filter: $filter) {
     ...ChampionsMetaSummary
   }
 }
 
-query GetBestChampionsPokemon {
-  getBestChampionsPokemon {
+query GetBestChampionsPokemon($format: ChampionsFormat!) {
+  getBestChampionsPokemon(format: $format) {
     ...ChampionsMetaSummary
   }
 }
 
-query GetChampionsPokemonDetail($externalDexId: Int!) {
-  getChampionsPokemonDetail(externalDexId: $externalDexId) {
+query GetChampionsPokemonDetail(
+  $pokemonId: Int!
+  $format: ChampionsFormat!
+  $formCode: String
+  $rating: ChampionsRating
+  $month: String
+) {
+  getChampionsPokemonDetail(
+    pokemonId: $pokemonId
+    format: $format
+    formCode: $formCode
+    rating: $rating
+    month: $month
+  ) {
     ...ChampionsPokemonDetail
   }
 }
