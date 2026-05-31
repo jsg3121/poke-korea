@@ -1,12 +1,31 @@
 # 챔피언스 Pikalytics 고도화 SPEC
 
-> **목적**: poke-korea 챔피언스 영역을 Pikalytics 수준으로 고도화하기 위한 Phase별 실행 계획
+> **목적**: poke-korea 챔피언스 영역을 Pikalytics 수준으로 고도화하기 위한 **기능 단위** Phase별 실행 계획
 > **연결 문서**:
 > - 근거 보고서: `.claude/research/reports/MI-BA-2026-05-28-champions-pikalytics.md`
 > - 데이터 소스 가이드: `.claude/specs/champions-data-sources.md`
+> - **프론트엔드 페이지 단위 실행 계획**: `.claude/specs/champions-frontend-implementation-plan.md` (2026-05-31 추가)
 > - 기존 챔피언스 계획서: `.claude/specs/champions-implementation-plan.md` (고도화 트랙 분리 섹션과 연결)
 > **작성일**: 2026-05-28
-> **상태**: 계획 — 사용자 확정 우선순위 반영, 백엔드 작업 미착수
+> **갱신일**: 2026-05-31 (백엔드 API 명세 수령 후 프론트 SPEC 연동)
+> **상태**: 백엔드 작업 진행 중. 프론트엔드는 `champions-frontend-implementation-plan.md` 따라 진행
+
+---
+
+## ⚠️ 본 SPEC의 위치 (2026-05-31 추가)
+
+본 SPEC은 **기능 단위(포맷분리 / 레이팅 / 카운터 / EV / 대회)** 로 작성된 통합 계획이다. 실제 프론트 작업은 페이지 단위로 묶는 것이 작업 경계가 명확하기 때문에, **프론트엔드 실행은 [`champions-frontend-implementation-plan.md`](./champions-frontend-implementation-plan.md) 를 따른다**.
+
+| 구분 | 본 SPEC (기능 관점) | 프론트 SPEC (페이지 관점) |
+| --- | --- | --- |
+| 목적 | "어떤 기능을 도입할지" — 백엔드 작업 인풋 | "어떤 페이지를 어떤 순서로 작업할지" — 프론트 작업 인풋 |
+| Phase 1 | 포맷 분리 (VGC/BSS) | 챔피언스 홈 |
+| Phase 2 | 레이팅별 사용률 분리 | 챔피언스 리스트 |
+| Phase 3 | 카운터/체크 | 챔피언스 티어 |
+| Phase 4 | EV 스프레드 | 챔피언스 상세 (EV/카운터/레이팅 모두 흡수) |
+| Phase 5 | 최근 탑팀 (대회) | 챔피언스 대회 (신규 페이지) |
+
+**프론트 작업자는 본 SPEC을 "기능 배경 이해"용으로 참조하고, 실제 작업은 프론트 SPEC을 따른다.**
 
 ---
 
