@@ -40,7 +40,7 @@ const ChampionsHomeContainer = ({
     <section className="w-full max-w-[1280px] h-fit mx-auto pb-8 relative px-4">
       <PageHeader
         title={`포켓몬 챔피언스 ${formatShort}`}
-        description={`${formatLabel} 메타 분석 · 상위 1760 레이팅 기준`}
+        description={`${formatLabel} 메타 분석`}
       />
 
       {/* 포맷 토글 (VGC / BSS) */}

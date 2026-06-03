@@ -129,13 +129,6 @@ fragment ChampionsMetaPartner on ChampionsMetaPartner {
   usageRate
 }
 
-fragment ChampionsUsageByRating on ChampionsUsageByRating {
-  r0
-  r1500
-  r1630
-  r1760
-}
-
 fragment ChampionsEvSpread on ChampionsEvSpread {
   nature
   hp
@@ -164,9 +157,6 @@ fragment ChampionsMetaStats on ChampionsMetaStats {
   usageRank
   winRate
   tier
-  usageByRating {
-    ...ChampionsUsageByRating
-  }
   topMoves {
     ...ChampionsMetaMove
   }
@@ -239,9 +229,6 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
     usageRank
     winRate
     tier
-    usageByRating {
-      ...ChampionsUsageByRating
-    }
     topMoves {
       ...ChampionsMetaMove
     }

@@ -40,7 +40,7 @@ const ChampionsHomeContainer = ({
     <section className="w-full h-full mx-auto relative">
       <PageHeader
         title={`포켓몬 챔피언스 ${formatShort}`}
-        description={`${formatLabel} 메타 분석 · 상위 1760 레이팅 기준`}
+        description={`${formatLabel} 메타 분석`}
       />
 
       <div className="w-[calc(100%-2rem)] mx-auto">

@@ -82,7 +82,7 @@ const ChampionsTierPokemonItem = ({
       </div>
       <div className="w-full mt-auto flex flex-col items-center gap-1.5">
         <span className="text-sm text-primary-3 group-hover:text-primary-1">
-          {pokemon.usageRate?.toFixed(1)}%
+          {pokemon.usageRate ?? '-'}%
         </span>
         <div className="w-full h-1 bg-primary-3/30 rounded-full overflow-hidden group-hover:bg-primary-3">
           <div

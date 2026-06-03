@@ -17,7 +17,7 @@ const ChampionsTeamCoreCard = ({
   core,
   formatSlug: _formatSlug,
 }: ChampionsTeamCoreCardProps) => {
-  const usageRate = core.usageRate.toFixed(1)
+  const usageRate = core.usageRate
   const teamsCountLabel = core.teamsCount.toLocaleString()
 
   // 멤버 이름 폴백: displayName ?? rawName
