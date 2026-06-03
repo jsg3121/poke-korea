@@ -56,7 +56,7 @@ export const getFormatShortLabel = (slug: ChampionsFormatSlug): string => {
 }
 
 /**
- * 포맷 슬러그 → 설명 텍스트
+ * 포맷 슬러그 → 짧은 설명 텍스트 (메타 description / OG description 용)
  */
 export const getFormatDescription = (slug: ChampionsFormatSlug): string => {
   switch (slug) {
@@ -64,5 +64,18 @@ export const getFormatDescription = (slug: ChampionsFormatSlug): string => {
       return 'Pokemon Champions VGC 2026 (더블 배틀)'
     case 'bss':
       return 'Battle Stadium Singles (싱글 배틀)'
+  }
+}
+
+/**
+ * 포맷 슬러그 → 사용자 안내용 풍부한 소개 문구 (홈 페이지 UI 캡션 용)
+ * 첫 방문자가 VGC/BSS가 어떤 대회인지 인지할 수 있도록 정식 명칭 + 규칙 요약.
+ */
+export const getFormatIntro = (slug: ChampionsFormatSlug): string => {
+  switch (slug) {
+    case 'vgc':
+      return 'Video Game Championships. 포켓몬 공식 세계 대회에서 사용하는 더블 배틀 포맷입니다. 6마리 중 4마리를 선택하여 2:2 동시 배틀로 진행합니다.'
+    case 'bss':
+      return 'Battle Stadium Singles. 닌텐도 스위치 본가 게임의 공식 랭크전 싱글 포맷입니다. 6마리 중 3마리를 선택하여 1:1 배틀로 진행합니다.'
   }
 }

@@ -13,6 +13,7 @@ import {
 } from '~/graphql/typeGenerated'
 import {
   ChampionsFormatSlug,
+  getFormatIntro,
   getFormatLabel,
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
@@ -35,6 +36,7 @@ const ChampionsHomeContainer = ({
 
   const formatShort = getFormatShortLabel(formatSlug)
   const formatLabel = getFormatLabel(formatSlug)
+  const formatIntro = getFormatIntro(formatSlug)
 
   return (
     <section className="w-full h-full mx-auto relative">
@@ -48,8 +50,13 @@ const ChampionsHomeContainer = ({
         <ChampionsFormatTab
           currentFormat={formatSlug}
           basePath="/champions"
-          className="mb-6"
+          className="mb-3"
         />
+
+        {/* 포맷 안내 캡션 */}
+        <p className="mb-6 text-xs text-primary-3 leading-relaxed">
+          {formatIntro}
+        </p>
 
         {/* Hero — S 티어 TOP 3 */}
         <ChampionsHeroSection
