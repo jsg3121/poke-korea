@@ -28,10 +28,7 @@ const ChampionsTeamCoreSection = ({
         />
       </div>
 
-      <ul
-        className="grid grid-cols-1 desktop:grid-cols-2 gap-3 desktop:gap-4"
-        role="list"
-      >
+      <ul className="flex flex-col gap-4" role="list">
         {teamCores.map((core) => (
           <li key={core.id}>
             <ChampionsTeamCoreCard core={core} formatSlug={formatSlug} />

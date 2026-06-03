@@ -14,7 +14,7 @@ const ChampionsTeamCoreCard = ({
   formatSlug,
 }: ChampionsTeamCoreCardProps) => {
   const usageRate = core.usageRate.toFixed(1)
-  const teamsCountLabel = `${core.teamsCount.toLocaleString()}팀 채용`
+  const teamsCountLabel = core.teamsCount.toLocaleString()
 
   // 멤버 이름 폴백: displayName ?? rawName
   const members = core.pokemons.map((m) => ({
@@ -25,60 +25,58 @@ const ChampionsTeamCoreCard = ({
 
   const buildPokemonHref = (pokemonId: number | null | undefined) => {
     if (pokemonId == null) return null
-    // Phase 4 라우트가 확정되면 /champions/[format]/list/[pokemonId] 로 갱신 예정
-    // 현재는 기존 라우트 유지 (Phase 2/3/4 에서 자연 갱신)
+    // Phase 4 라우트 확정 후 /champions/[format]/list/[pokemonId] 로 갱신 예정
     return `/champions/list/${pokemonId}`
   }
 
   return (
     <article
-      className="relative bg-primary-4 border border-solid border-primary-3 rounded-xl p-4 desktop:p-5 hover:border-primary-2 hover:shadow-lg transition-all duration-200"
+      className="w-full h-32 items-center flex gap-4 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative"
       aria-label={`팀 코어 ${core.rank}위: ${members.map((m) => m.name).join(' + ')}`}
     >
-      {/* 순위 뱃지 */}
-      <div
-        className="absolute -top-2 -left-2 w-7 h-7 flex items-center justify-center rounded-full bg-primary-1 text-primary-4 text-xs font-bold shadow-md"
-        aria-label={`${core.rank}위`}
-      >
-        {core.rank}
+      {/* 순위 뱃지 — Lv. 뱃지와 동일 무드 */}
+      <p className="w-16 h-24 shrink-0 text-center leading-[calc(6rem+2px)] bg-primary-1 text-white px-2 rounded-md text-base font-bold">
+        #{core.rank}
+      </p>
+
+      {/* 포켓몬 이미지 그룹 + 이름 */}
+      <div className="flex flex-col gap-2 shrink-0">
+        <div className="relative h-16 w-32" aria-hidden="true">
+          {members.map((member, index) => (
+            <div
+              key={`${member.pokemonId ?? member.name}-img-${index}`}
+              className="absolute w-16 h-16 top-0"
+              style={{
+                left: index === 0 ? '0' : '48px',
+                zIndex: 2 - index,
+              }}
+            >
+              {member.imagePath ? (
+                <ImageComponent
+                  width="4rem"
+                  height="4rem"
+                  imageSize={{ width: 64, height: 64 }}
+                  densities={[1, 1.5]}
+                  alt={member.name}
+                  src={`${imageMode}/${member.imagePath}`}
+                />
+              ) : (
+                <div className="w-full h-full rounded-full bg-primary-3 border-2 border-primary-1" />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* 포켓몬 2마리 (겹침 배치) */}
-      <div
-        className="relative h-20 desktop:h-24 mb-3 flex items-center justify-center"
-        aria-hidden="true"
-      >
-        {members.map((member, index) => (
-          <div
-            key={`${member.pokemonId ?? member.name}-${index}`}
-            className="absolute w-16 h-16 desktop:w-20 desktop:h-20"
-            style={{
-              left: index === 0 ? 'calc(50% - 48px)' : 'calc(50% - 16px)',
-              zIndex: 2 - index,
-            }}
-          >
-            {member.imagePath ? (
-              <ImageComponent
-                width="100%"
-                height="100%"
-                imageSize={{ width: 80, height: 80 }}
-                densities={[1, 1.5]}
-                alt={member.name}
-                src={`${imageMode}/${member.imagePath}`}
-              />
-            ) : (
-              <div className="w-full h-full rounded-full bg-primary-3 border-2 border-primary-2" />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* 멤버 이름 (개별 링크) */}
-      <div className="flex items-center justify-center gap-1 desktop:gap-2 text-sm desktop:text-base font-semibold text-primary-1 mb-2 flex-wrap">
+      {/* 조합명 (개별 링크) */}
+      <h3 className="flex-1 flex items-center gap-2 flex-wrap text-base font-bold text-primary-1">
         {members.map((member, index) => {
           const href = buildPokemonHref(member.pokemonId)
           return (
-            <span key={`${member.pokemonId ?? member.name}-name-${index}`}>
+            <span
+              key={`${member.pokemonId ?? member.name}-name-${index}`}
+              className="flex items-center gap-2"
+            >
               {href ? (
                 <Link
                   href={href}
@@ -90,24 +88,28 @@ const ChampionsTeamCoreCard = ({
                 <span>{member.name}</span>
               )}
               {index < members.length - 1 && (
-                <span className="ml-1 text-primary-3" aria-hidden="true">
+                <span className="text-primary-3" aria-hidden="true">
                   +
                 </span>
               )}
             </span>
           )
         })}
-      </div>
+      </h3>
 
-      {/* 통계 */}
-      <dl className="flex items-center justify-between text-xs desktop:text-sm">
-        <div>
-          <dt className="sr-only">사용률</dt>
-          <dd className="font-bold text-primary-2">{usageRate}%</dd>
+      {/* 통계 — MoveDetailCard 의 dl 그리드 패턴 */}
+      <dl className="w-48 h-24 shrink-0 grid grid-cols-2">
+        <div className="w-full h-full flex flex-col justify-center text-center relative after:absolute after:-right-0 after:bg-primary-3 after:top-0 after:h-full after:w-[2px]">
+          <dt className="text-sm text-gray-600 mb-1">사용률</dt>
+          <dd className="text-[1.375rem] font-bold text-primary-1">
+            {usageRate}%
+          </dd>
         </div>
-        <div>
-          <dt className="sr-only">채용 팀 수</dt>
-          <dd className="text-primary-2">{teamsCountLabel}</dd>
+        <div className="w-full h-full flex flex-col justify-center text-center">
+          <dt className="text-sm text-gray-600 mb-1">채용팀</dt>
+          <dd className="text-[1.375rem] font-bold text-primary-1">
+            {teamsCountLabel}
+          </dd>
         </div>
       </dl>
     </article>
