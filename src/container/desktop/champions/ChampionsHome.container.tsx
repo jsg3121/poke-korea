@@ -53,12 +53,6 @@ const ChampionsHomeContainer = ({
       {/* Hero — S 티어 TOP 3 */}
       <ChampionsHeroSection sTierPokemons={sTier} moreHref="/champions/tier" />
 
-      {/* 빠른 진입 카드 */}
-      <ChampionsQuickLinks formatSlug={formatSlug} />
-
-      {/* 팀 코어 페어 TOP 5 */}
-      <ChampionsTeamCoreSection teamCores={teamCores} formatSlug={formatSlug} />
-
       {/* A 티어 한눈에 보기 */}
       {aTier.length > 0 && (
         <section
@@ -89,6 +83,12 @@ const ChampionsHomeContainer = ({
           </ul>
         </section>
       )}
+
+      {/* 빠른 진입 카드 */}
+      <ChampionsQuickLinks formatSlug={formatSlug} />
+
+      {/* 팀 코어 페어 TOP 5 */}
+      <ChampionsTeamCoreSection teamCores={teamCores} formatSlug={formatSlug} />
 
       <DesktopChampionsHomeBanner />
 
