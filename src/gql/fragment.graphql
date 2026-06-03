@@ -265,3 +265,24 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
     isStale
   }
 }
+
+fragment ChampionsTeamMember on ChampionsTeamMember {
+  pokemonId
+  formCode
+  rawName
+  displayName
+  imagePath
+}
+
+fragment ChampionsTeamCore on ChampionsTeamCore {
+  id
+  format
+  month
+  size
+  rank
+  pokemons {
+    ...ChampionsTeamMember
+  }
+  teamsCount
+  usageRate
+}
