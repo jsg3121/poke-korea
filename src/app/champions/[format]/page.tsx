@@ -1,11 +1,15 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-import { GetBestChampionsPokemonDocument } from '~/graphql/gqlGenerated'
 import {
-  ChampionsFormat,
+  GetBestChampionsPokemonDocument,
+  GetChampionsTeamCoresDocument,
+} from '~/graphql/gqlGenerated'
+import {
   GetBestChampionsPokemonQuery,
   GetBestChampionsPokemonQueryVariables,
+  GetChampionsTeamCoresQuery,
+  GetChampionsTeamCoresQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
@@ -56,16 +60,28 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
 
   const apolloClient = initializeApollo()
 
-  const { data } = await apolloClient.query<
-    GetBestChampionsPokemonQuery,
-    GetBestChampionsPokemonQueryVariables
-  >({
-    query: GetBestChampionsPokemonDocument,
-    variables: { format: formatEnum },
-    fetchPolicy: 'network-only',
-  })
+  const [{ data: bestData }, { data: teamCoresData }] = await Promise.all([
+    apolloClient.query<
+      GetBestChampionsPokemonQuery,
+      GetBestChampionsPokemonQueryVariables
+    >({
+      query: GetBestChampionsPokemonDocument,
+      variables: { format: formatEnum },
+      fetchPolicy: 'network-only',
+    }),
+    apolloClient.query<
+      GetChampionsTeamCoresQuery,
+      GetChampionsTeamCoresQueryVariables
+    >({
+      query: GetChampionsTeamCoresDocument,
+      variables: { format: formatEnum, size: 2, limit: 5 },
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    }),
+  ])
 
-  const topPokemons = data?.getBestChampionsPokemon ?? []
+  const topPokemons = bestData?.getBestChampionsPokemon ?? []
+  const teamCores = teamCoresData?.championsTeamCores ?? []
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -95,11 +111,13 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
       {isMobile ? (
         <ChampionsHomeMobile
           topPokemons={topPokemons}
+          teamCores={teamCores}
           formatSlug={formatSlug as ChampionsFormatSlug}
         />
       ) : (
         <ChampionsHomeDesktop
           topPokemons={topPokemons}
+          teamCores={teamCores}
           formatSlug={formatSlug as ChampionsFormatSlug}
         />
       )}

@@ -1,66 +1,103 @@
 import MobileChampionsHomeBanner from '~/components/adSlot/MobileChampionsHomeBanner'
+import ChampionsHeroSection from '~/components/champions/ChampionsHeroSection.component'
+import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSectionHeader.component'
+import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.component'
+import ChampionsSubNavMobile from '~/components/champions/ChampionsSubNavMobile.component'
+import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSection.component'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import PageHeader from '~/components/mobile/PageHeader'
 import FooterContainer from '~/container/mobile/footer/Footer.container'
-import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import {
+  ChampionsMetaSummaryFragment,
+  ChampionsTeamCoreFragment,
+} from '~/graphql/typeGenerated'
+import {
+  ChampionsFormatSlug,
+  getFormatLabel,
+  getFormatShortLabel,
+} from '~/utils/championsFormat.util'
 import { groupChampionsByTier } from '~/utils/championsTier.util'
 
 interface ChampionsHomeContainerProps {
   topPokemons: ChampionsMetaSummaryFragment[]
-  // TODO(Phase 1): formatSlug를 사용해 신규 섹션(팀 코어, 빠른 진입, 포맷 토글) 통합 예정
+  teamCores: ChampionsTeamCoreFragment[]
   formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsHomeContainer = ({
   topPokemons,
+  teamCores,
+  formatSlug,
 }: ChampionsHomeContainerProps) => {
   const tierGroups = groupChampionsByTier(topPokemons)
+  const sTier = tierGroups.find((g) => g.tier === 'S')?.pokemons ?? []
+  const aTier = tierGroups.find((g) => g.tier === 'A')?.pokemons ?? []
+
+  const formatShort = getFormatShortLabel(formatSlug)
+  const formatLabel = getFormatLabel(formatSlug)
 
   return (
-    <section className="w-full h-full mx-auto relative">
-      <PageHeader
-        title="포켓몬 챔피언스"
-        description={`포켓몬 챔피언스 186종 도감, 티어 리스트, 메타 분석`}
-      />
-      <section
-        className="w-[calc(100%-2.5rem)] mx-auto"
-        aria-labelledby="top-pokemon-heading"
-      >
-        <h2
-          id="top-pokemon-heading"
-          className="h-10 text-[1.5rem] font-bold text-primary-4 text-center mb-4"
-        >
-          상위 티어 포켓몬
-        </h2>
+    <>
+      <ChampionsSubNavMobile />
+      <section className="w-full h-full mx-auto relative">
+        <PageHeader
+          title={`포켓몬 챔피언스 ${formatShort}`}
+          description={`${formatLabel} 메타 분석 · 상위 1760 레이팅 기준`}
+        />
 
-        {tierGroups.map(({ tier, pokemons }) => (
-          <div key={tier} className="mb-8">
-            <h3 className="text-[1.25rem] font-bold text-primary-4 mb-5 text-center">
-              {tier} 티어
-            </h3>
-            <ul
-              className="flex gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
-              role="region"
-              aria-label={`${tier} 티어 포켓몬 슬라이드`}
+        <div className="w-[calc(100%-2rem)] mx-auto">
+          {/* Hero — S 티어 TOP 3 */}
+          <ChampionsHeroSection
+            sTierPokemons={sTier}
+            moreHref="/champions/tier"
+          />
+
+          {/* 빠른 진입 카드 */}
+          <ChampionsQuickLinks formatSlug={formatSlug} />
+
+          {/* 팀 코어 페어 TOP 5 */}
+          <ChampionsTeamCoreSection
+            teamCores={teamCores}
+            formatSlug={formatSlug}
+          />
+
+          {/* A 티어 한눈에 보기 */}
+          {aTier.length > 0 && (
+            <section
+              aria-labelledby="atier-heading-mobile"
+              className="w-full mb-8"
             >
-              {pokemons.map((pokemon) => (
-                <li
-                  key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
-                  className="w-[175px] flex-shrink-0 px-1 py-1"
-                >
-                  <ChampionsTopCard pokemonData={pokemon} isHighPriority />
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+              <div id="atier-heading-mobile">
+                <ChampionsHomeSectionHeader
+                  title="A 티어"
+                  description="메타에서 자주 보이는 포켓몬"
+                  moreHref="/champions/list"
+                  moreLabel="도감 전체 보기"
+                />
+              </div>
+              <ul
+                className="flex gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
+                role="region"
+                aria-label="A 티어 포켓몬 슬라이드"
+              >
+                {aTier.map((pokemon) => (
+                  <li
+                    key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
+                    className="w-[175px] flex-shrink-0 px-1 py-1"
+                  >
+                    <ChampionsTopCard pokemonData={pokemon} isHighPriority />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+
+        <MobileChampionsHomeBanner />
+
+        <FooterContainer />
       </section>
-
-      <MobileChampionsHomeBanner />
-
-      <FooterContainer />
-    </section>
+    </>
   )
 }
 

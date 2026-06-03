@@ -2,16 +2,21 @@
 
 import HeaderContainer from '~/container/desktop/header/Header.container'
 import ChampionsHomeContainer from '~/container/desktop/champions/ChampionsHome.container'
-import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import {
+  ChampionsMetaSummaryFragment,
+  ChampionsTeamCoreFragment,
+} from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsHomeDesktopProps {
   topPokemons: ChampionsMetaSummaryFragment[]
+  teamCores: ChampionsTeamCoreFragment[]
   formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsHomeDesktop = ({
   topPokemons,
+  teamCores,
   formatSlug,
 }: ChampionsHomeDesktopProps) => {
   return (
@@ -19,6 +24,7 @@ const ChampionsHomeDesktop = ({
       <HeaderContainer />
       <ChampionsHomeContainer
         topPokemons={topPokemons}
+        teamCores={teamCores}
         formatSlug={formatSlug}
       />
     </main>
