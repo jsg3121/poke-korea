@@ -10,9 +10,7 @@ export const CHAMPIONS_DEFAULT_FORMAT_SLUG: ChampionsFormatSlug = 'vgc'
  * 라우트의 format 세그먼트 문자열을 ChampionsFormatSlug 로 파싱한다.
  * 유효하지 않은 값이면 null 반환.
  */
-export const parseFormatSlug = (
-  value: string,
-): ChampionsFormatSlug | null => {
+export const parseFormatSlug = (value: string): ChampionsFormatSlug | null => {
   if (value === 'vgc' || value === 'bss') {
     return value
   }

@@ -18,20 +18,13 @@ const ChampionsHeroSection = ({
   const top3 = sTierPokemons.slice(0, 3)
 
   return (
-    <section
-      aria-labelledby="hero-heading"
-      className="w-full mb-8 desktop:mb-12"
-    >
-      <div id="hero-heading">
-        <ChampionsHomeSectionHeader
-          title="S 티어 — 메타 최상위"
-          description="현재 메타에서 가장 강력한 포켓몬"
-          moreHref={moreHref}
-          moreLabel="티어 전체 보기"
-        />
-      </div>
-
-      {/* 모바일: 가로 스크롤 / 데스크탑: 3열 그리드 */}
+    <section className="w-full mb-8 desktop:mb-12">
+      <ChampionsHomeSectionHeader
+        title="가장 인기있는 포켓몬 TOP 3"
+        description="가장 높은 사용률을 보여주는 포켓몬"
+        moreHref={moreHref}
+        moreLabel="티어 전체 보기"
+      />
       <div className="block desktop:hidden">
         <ul
           className="flex gap-4 overflow-x-auto pb-2 -mx-2 px-2 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-3 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-2 [&::-webkit-scrollbar-track]:rounded-xl"
@@ -48,8 +41,7 @@ const ChampionsHeroSection = ({
           ))}
         </ul>
       </div>
-
-      <div className="hidden desktop:grid grid-cols-3 gap-6 max-w-[960px] mx-auto">
+      <div className="hidden desktop:grid grid-cols-3 gap-6 max-w-[960px] mx-auto mt-8">
         {top3.map((pokemon) => (
           <ChampionsTopCard
             key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}

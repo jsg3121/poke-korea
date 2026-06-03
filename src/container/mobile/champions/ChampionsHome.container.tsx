@@ -1,4 +1,5 @@
 import MobileChampionsHomeBanner from '~/components/adSlot/MobileChampionsHomeBanner'
+import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
 import ChampionsHeroSection from '~/components/champions/ChampionsHeroSection.component'
 import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSectionHeader.component'
 import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.component'
@@ -46,6 +47,13 @@ const ChampionsHomeContainer = ({
         />
 
         <div className="w-[calc(100%-2rem)] mx-auto">
+          {/* 포맷 토글 (VGC / BSS) */}
+          <ChampionsFormatTab
+            currentFormat={formatSlug}
+            basePath="/champions"
+            className="mb-6"
+          />
+
           {/* Hero — S 티어 TOP 3 */}
           <ChampionsHeroSection
             sTierPokemons={sTier}
