@@ -2,10 +2,16 @@ import Link from 'next/link'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsQuickLinksProps {
+  /**
+   * 현재 포맷 슬러그. Phase 2/3/5 라우트(/champions/[format]/list 등)가 확정되면
+   * 각 진입 카드 href 에 사용된다. Phase 1 시점엔 미사용.
+   */
   formatSlug: ChampionsFormatSlug
 }
 
-const ChampionsQuickLinks = ({ formatSlug }: ChampionsQuickLinksProps) => {
+const ChampionsQuickLinks = ({
+  formatSlug: _formatSlug,
+}: ChampionsQuickLinksProps) => {
   const items: Array<{
     href: string
     title: string
@@ -33,35 +39,32 @@ const ChampionsQuickLinks = ({ formatSlug }: ChampionsQuickLinksProps) => {
   ]
 
   return (
-    <nav
-      aria-label="챔피언스 주요 메뉴"
-      className="w-full mb-8 desktop:mb-12"
-    >
-      <ul className="grid grid-cols-1 desktop:grid-cols-3 gap-3 desktop:gap-4">
+    <nav aria-label="챔피언스 주요 메뉴" className="w-full mb-8 desktop:mb-12">
+      <ul className="grid grid-cols-1 desktop:grid-cols-3 gap-4 desktop:gap-6">
         {items.map((item) => (
           <li key={item.href}>
             <Link
               href={item.href}
-              className="group block bg-primary-4 border border-solid border-primary-3 rounded-xl p-4 desktop:p-5 transition-all duration-200 hover:bg-primary-3 hover:border-primary-2 hover:shadow-lg"
+              className="group block w-full h-24 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative hover:scale-105 transition-transform"
               aria-label={`${item.title}로 이동`}
             >
-              <div className="flex items-center gap-3 desktop:gap-4">
+              <div className="flex items-center gap-4 h-full">
                 <span
-                  className="text-2xl desktop:text-3xl flex-shrink-0"
+                  className="w-16 h-16 shrink-0 flex items-center justify-center bg-primary-3 text-white rounded-md text-3xl"
                   aria-hidden="true"
                 >
                   {item.icon}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm desktop:text-base font-bold text-primary-1 truncate">
+                  <p className="text-base desktop:text-lg font-bold text-primary-1 truncate">
                     {item.title}
                   </p>
-                  <p className="text-xs desktop:text-sm text-primary-2 mt-0.5 truncate">
+                  <p className="text-xs desktop:text-sm text-gray-600 mt-1 truncate">
                     {item.description}
                   </p>
                 </div>
                 <span
-                  className="text-primary-2 text-lg desktop:text-xl flex-shrink-0 transition-transform group-hover:translate-x-1"
+                  className="text-primary-1 text-xl shrink-0 transition-transform group-hover:translate-x-1"
                   aria-hidden="true"
                 >
                   →
