@@ -23,7 +23,7 @@ const ChampionsTeamCoreSection = ({
     >
       <div id="teamcore-heading">
         <ChampionsHomeSectionHeader
-          title="포켓몬 조합"
+          title="인기 포켓몬 조합"
           description="대회에서 자주 쓰이는 포켓몬 조합"
         />
       </div>

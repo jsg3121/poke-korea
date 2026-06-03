@@ -84,11 +84,11 @@ const ChampionsHomeContainer = ({
         </section>
       )}
 
-      {/* 빠른 진입 카드 */}
-      <ChampionsQuickLinks formatSlug={formatSlug} />
-
       {/* 팀 코어 페어 TOP 5 */}
       <ChampionsTeamCoreSection teamCores={teamCores} formatSlug={formatSlug} />
+
+      {/* 빠른 진입 카드 */}
+      <ChampionsQuickLinks formatSlug={formatSlug} />
 
       <DesktopChampionsHomeBanner />
 
