@@ -115,6 +115,12 @@ const nextConfig = {
         destination: '/detail/:pokemonId/moves/machine',
         permanent: true,
       },
+      // 챔피언스 포맷 분리 (Phase 1) — 기존 URL을 VGC 기본으로 리다이렉트
+      {
+        source: '/champions',
+        destination: '/champions/vgc',
+        permanent: true,
+      },
     ]
   },
   async headers() {

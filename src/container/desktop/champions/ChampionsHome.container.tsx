@@ -3,10 +3,13 @@ import DesktopChampionsHomeBanner from '~/components/adSlot/DesktopChampionsHome
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import { groupChampionsByTier } from '~/utils/championsTier.util'
 
 interface ChampionsHomeContainerProps {
   topPokemons: ChampionsMetaSummaryFragment[]
+  // TODO(Phase 1): formatSlug를 사용해 신규 섹션(팀 코어, 빠른 진입, 포맷 토글) 통합 예정
+  formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsHomeContainer = ({
