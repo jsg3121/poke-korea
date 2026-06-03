@@ -6,12 +6,16 @@ import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsTeamCoreCardProps {
   core: ChampionsTeamCoreFragment
+  /**
+   * 현재 포맷 슬러그. Phase 4에서 폼별 라우트(/champions/[format]/list/[pokemonId])
+   * 가 확정되면 멤버 포켓몬 링크 생성에 사용된다. Phase 1 시점엔 미사용.
+   */
   formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsTeamCoreCard = ({
   core,
-  formatSlug,
+  formatSlug: _formatSlug,
 }: ChampionsTeamCoreCardProps) => {
   const usageRate = core.usageRate.toFixed(1)
   const teamsCountLabel = core.teamsCount.toLocaleString()
@@ -39,33 +43,27 @@ const ChampionsTeamCoreCard = ({
         #{core.rank}
       </p>
 
-      {/* 포켓몬 이미지 그룹 + 이름 */}
-      <div className="flex flex-col gap-2 shrink-0">
-        <div className="relative h-16 w-32" aria-hidden="true">
-          {members.map((member, index) => (
-            <div
-              key={`${member.pokemonId ?? member.name}-img-${index}`}
-              className="absolute w-16 h-16 top-0"
-              style={{
-                left: index === 0 ? '0' : '48px',
-                zIndex: 2 - index,
-              }}
-            >
-              {member.imagePath ? (
-                <ImageComponent
-                  width="4rem"
-                  height="4rem"
-                  imageSize={{ width: 64, height: 64 }}
-                  densities={[1, 1.5]}
-                  alt={member.name}
-                  src={`${imageMode}/${member.imagePath}`}
-                />
-              ) : (
-                <div className="w-full h-full rounded-full bg-primary-3 border-2 border-primary-1" />
-              )}
-            </div>
-          ))}
-        </div>
+      {/* 포켓몬 이미지 그룹 (가로 나란히) */}
+      <div className="flex items-center gap-2 shrink-0" aria-hidden="true">
+        {members.map((member, index) => (
+          <div
+            key={`${member.pokemonId ?? member.name}-img-${index}`}
+            className="w-16 h-16"
+          >
+            {member.imagePath ? (
+              <ImageComponent
+                width="4rem"
+                height="4rem"
+                imageSize={{ width: 64, height: 64 }}
+                densities={[1, 1.5]}
+                alt={member.name}
+                src={`${imageMode}/${member.imagePath}`}
+              />
+            ) : (
+              <div className="w-full h-full rounded-full bg-primary-3 border-2 border-primary-1" />
+            )}
+          </div>
+        ))}
       </div>
 
       {/* 조합명 (개별 링크) */}
