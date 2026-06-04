@@ -73,14 +73,14 @@ const ChampionsMetaSectionMobile = ({
           <div className="text-center p-2 bg-primary-3/20 rounded-lg">
             <p className="text-xs text-primary-2 mb-1">사용률</p>
             <p className="text-xl font-bold text-primary-1">
-              {meta.usageRate?.toFixed(1) ?? '-'}%
+              {meta.usageRate ?? '-'}%
             </p>
           </div>
-          {meta.winRate && (
+          {meta.winRate != null && (
             <div className="text-center p-2 bg-primary-3/20 rounded-lg">
               <p className="text-xs text-primary-2 mb-1">승률</p>
               <p className="text-xl font-bold text-primary-1">
-                {meta.winRate.toFixed(1)}%
+                {meta.winRate}%
               </p>
             </div>
           )}

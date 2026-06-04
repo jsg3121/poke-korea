@@ -34,7 +34,7 @@ const ChampionsPartnerList = ({ title, items }: ChampionsPartnerListProps) => {
                 <span className="font-medium">{displayName}</span>
               </div>
               <span className="text-gray-500">
-                {item.usageRate.toFixed(1)}%
+                {item.usageRate}%
               </span>
             </div>
           )

@@ -753,16 +753,30 @@ query GetChampionsPokemonDetail(
   $pokemonId: Int!
   $format: ChampionsFormat!
   $formCode: String
-  $rating: ChampionsRating
   $month: String
 ) {
   getChampionsPokemonDetail(
     pokemonId: $pokemonId
     format: $format
     formCode: $formCode
-    rating: $rating
     month: $month
   ) {
     ...ChampionsPokemonDetail
+  }
+}
+
+query GetChampionsTeamCores(
+  $format: ChampionsFormat!
+  $size: Int
+  $month: String
+  $limit: Int
+) {
+  championsTeamCores(
+    format: $format
+    size: $size
+    month: $month
+    limit: $limit
+  ) {
+    ...ChampionsTeamCore
   }
 }
