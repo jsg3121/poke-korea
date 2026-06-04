@@ -12,6 +12,8 @@ interface ChampionsFormatTabProps {
   currentFormat: ChampionsFormatSlug
   /** 탭 클릭 시 이동할 base path. format slug가 뒤에 붙는다. */
   basePath: string
+  /** 포맷 슬러그 뒤에 추가로 붙일 경로. 예: '/list' → '/champions/vgc/list' */
+  suffix?: string
   /** 추가 className (외곽 컨테이너 폭/마진 조정용) */
   className?: string
 }
@@ -19,6 +21,7 @@ interface ChampionsFormatTabProps {
 const ChampionsFormatTab = ({
   currentFormat,
   basePath,
+  suffix = '',
   className = '',
 }: ChampionsFormatTabProps) => {
   return (
@@ -26,7 +29,7 @@ const ChampionsFormatTab = ({
       <ul className="flex items-center gap-2 border-b border-solid border-primary-2">
         {CHAMPIONS_FORMAT_SLUGS.map((slug) => {
           const isActive = slug === currentFormat
-          const href = `${basePath}/${slug}`
+          const href = `${basePath}/${slug}${suffix}`
           const label = getFormatLabel(slug)
 
           return (

@@ -111,7 +111,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/list',
+      url: 'https://poke-korea.com/champions/vgc/list',
+      lastModified: BUILD_TIME,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
+      url: 'https://poke-korea.com/champions/bss/list',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,

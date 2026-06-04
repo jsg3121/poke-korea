@@ -56,7 +56,7 @@ const ChampionsPokemonCard = ({
       className="w-full max-w-56"
     >
       <article
-        className="w-full md:max-w-56 h-80 text-black-2 border border-solid border-black-2 rounded-[10px] block p-[0.75rem_0.5rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-[1.2] hover:z-10 card-corner-fold"
+        className="w-full md:max-w-56 h-72 text-black-2 border border-solid border-black-2 rounded-[10px] block p-[0.75rem_0.5rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-105 hover:z-10 card-corner-fold"
         style={gradientStyle}
         aria-label={`포켓몬 ${displayName} 카드`}
       >
@@ -137,39 +137,29 @@ const ChampionsPokemonCard = ({
         </div>
 
         <dl
-          className="w-full max-w-[19rem] grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] mobile:mt-4 desktop:mt-2 mx-auto pl-2"
-          aria-description="포켓몬 능력치 정보"
+          className="w-full grid grid-rows-3 mobile:mt-3 desktop:mt-2 mx-auto px-2"
+          aria-description="포켓몬 메타 정보"
         >
-          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 mr-1">체력</dt>
-          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
-            {pokemonData.stats?.hp}
-          </dd>
-          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 ml-2">공격</dt>
-          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
-            {pokemonData.stats?.attack}
-          </dd>
-          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 mr-1">
-            특수공격
-          </dt>
-          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
-            {pokemonData.stats?.specialAttack}
-          </dd>
-          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 ml-2">방어</dt>
-          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
-            {pokemonData.stats?.defense}
-          </dd>
-          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 mr-1">
-            특수방어
-          </dt>
-          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
-            {pokemonData.stats?.specialDefense}
-          </dd>
-          <dt className="h-5 text-[max(0.875rem,11px)] leading-5 ml-2">
-            스피드
-          </dt>
-          <dd className="h-5 text-[max(0.875rem,11px)] leading-5 text-right text-black">
-            {pokemonData.stats?.speed}
-          </dd>
+          <div className="h-5 flex items-center justify-between">
+            <dt className="text-[max(0.875rem,11px)] leading-5">종족값</dt>
+            <dd className="text-[max(0.875rem,11px)] leading-5 font-semibold text-black">
+              {pokemonData.stats?.total}
+            </dd>
+          </div>
+          <div className="h-5 flex items-center justify-between">
+            <dt className="text-[max(0.875rem,11px)] leading-5">사용률</dt>
+            <dd className="text-[max(0.875rem,11px)] leading-5 font-semibold text-black">
+              {pokemonData.usageRate != null
+                ? `${pokemonData.usageRate}%`
+                : '-'}
+            </dd>
+          </div>
+          <div className="h-5 flex items-center justify-between">
+            <dt className="text-[max(0.875rem,11px)] leading-5">승률</dt>
+            <dd className="text-[max(0.875rem,11px)] leading-5 font-semibold text-black">
+              {pokemonData.winRate != null ? `${pokemonData.winRate}%` : '-'}
+            </dd>
+          </div>
         </dl>
       </article>
     </Link>

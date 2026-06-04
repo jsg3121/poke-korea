@@ -1,13 +1,17 @@
 'use client'
 
-import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
 import HeaderContainer from '~/container/desktop/header/Header.container'
 import ChampionsPokedexContainer from '~/container/desktop/champions/ChampionsPokedex.container'
 import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
 import {
   ChampionsPokemonCardFragment,
   ChampionsPokemonFilterInput,
+  ChampionsPokemonSort,
 } from '~/graphql/typeGenerated'
+import {
+  ChampionsFormatSlug,
+  resolveFormatEnum,
+} from '~/utils/championsFormat.util'
 
 interface ChampionsPokedexDesktopProps {
   pokemonList: ChampionsPokemonCardFragment[]
@@ -15,6 +19,8 @@ interface ChampionsPokedexDesktopProps {
   endCursor: string | null
   totalCount: number
   initialFilter: ChampionsPokemonFilterInput
+  formatSlug: ChampionsFormatSlug
+  sort: ChampionsPokemonSort
 }
 
 const ChampionsPokedexDesktop = ({
@@ -23,6 +29,8 @@ const ChampionsPokedexDesktop = ({
   endCursor,
   totalCount,
   initialFilter,
+  formatSlug,
+  sort,
 }: ChampionsPokedexDesktopProps) => {
   return (
     <ChampionsPokedexProvider
@@ -31,14 +39,13 @@ const ChampionsPokedexDesktop = ({
       endCursor={endCursor}
       totalCount={totalCount}
       initialFilter={initialFilter}
+      format={resolveFormatEnum(formatSlug)}
+      sort={sort}
     >
       <div className="h-32">
         <HeaderContainer />
       </div>
-      <section className="w-full h-12 bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] sticky top-40 z-20">
-        <ChampionsTypeFilter />
-      </section>
-      <ChampionsPokedexContainer />
+      <ChampionsPokedexContainer formatSlug={formatSlug} sort={sort} />
     </ChampionsPokedexProvider>
   )
 }

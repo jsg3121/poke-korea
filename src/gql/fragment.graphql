@@ -103,6 +103,8 @@ fragment ChampionsPokemonCard on ChampionsPokemon {
     isHidden
   }
   imagePath
+  usageRate
+  winRate
 }
 
 fragment ChampionsMetaMove on ChampionsMetaMove {
