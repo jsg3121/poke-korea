@@ -68,8 +68,8 @@ const ChampionsHomeContainer = ({
         >
           <div id="atier-heading">
             <ChampionsHomeSectionHeader
-              title="A 티어"
-              description="메타에서 자주 보이는 포켓몬"
+              title="자주 보이는 포켓몬"
+              description="S티어를 제외한 메타에서 자주 보이는 포켓몬"
               moreHref="/champions/list"
               moreLabel="도감 전체 보기"
             />
