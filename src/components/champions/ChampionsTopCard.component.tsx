@@ -21,16 +21,7 @@ const ChampionsTopCard = ({
   pokemonData,
   isHighPriority = false,
 }: ChampionsTopCardProps) => {
-  const getDisplayName = () => {
-    if (pokemonData.region) {
-      const suffix = pokemonData.formName
-        ? `${pokemonData.region} ${pokemonData.formName}`
-        : pokemonData.region
-      return `${pokemonData.name} (${suffix})`
-    }
-    return pokemonData.formName || pokemonData.name
-  }
-  const displayName = getDisplayName()
+  const displayName = pokemonData.name ?? ''
 
   const backgroundColor = getBackgroundColor(pokemonData.types ?? [])
   const tierColors = getTierColors(pokemonData.tier)

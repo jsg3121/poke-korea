@@ -1,17 +1,16 @@
 'use client'
 
 import { Fragment } from 'react'
-import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
-import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
-import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
-import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
 import MobileChampionsPokedexBanner from '~/components/adSlot/MobileChampionsPokedexBanner'
+import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
+import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
+import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
+import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
 import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
 import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import {
   ChampionsFormatSlug,
-  getFormatLabel,
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
 import FooterContainer from '../footer/Footer.container'
@@ -38,33 +37,30 @@ const ChampionsPokedexContainer = ({
   })
 
   const formatShort = getFormatShortLabel(formatSlug)
-  const formatLabel = getFormatLabel(formatSlug)
 
   return (
     <section className="w-full h-full mx-auto pb-8 relative">
-      <header className="px-5 mb-4">
+      <header className="px-5 mt-6">
+        <h1 className="text-2xl font-bold text-primary-4">
+          포켓몬 챔피언스 {formatShort} 도감
+        </h1>
         <ChampionsFormatTab
           currentFormat={formatSlug}
           basePath="/champions"
           suffix="/list"
-          className="mb-3"
         />
-        <h1 className="text-2xl font-bold text-primary-4">
-          포켓몬 챔피언스 {formatShort} 도감
-        </h1>
-        {pokemonList.length > 0 && (
-          <p className="text-sm text-primary-3 mt-1">
-            {formatLabel} · 총 <b className="font-bold">{totalCount}종</b>의
-            포켓몬
-          </p>
-        )}
       </header>
 
-      <div className="sticky top-0 z-20 bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] mb-4">
-        <ChampionsTypeFilter />
-        <div className="flex items-center justify-end px-5 py-2 border-t border-primary-2/30">
+      <div className="sticky top-28 z-20 bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] mb-4 pb-2">
+        <div className="flex items-center justify-between px-5 py-2 border-t border-primary-2/30">
+          {pokemonList.length > 0 && (
+            <p className="text-sm text-primary-3 mt-1">
+              총 <b className="font-bold">{totalCount}종</b>의 포켓몬
+            </p>
+          )}
           <ChampionsPokedexSortSelect currentSort={sort} />
         </div>
+        <ChampionsTypeFilter />
       </div>
 
       {pokemonList.length === 0 && (

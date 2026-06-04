@@ -26,16 +26,7 @@ const ChampionsPokemonCard = ({
   const pokemonNumber = pokemonNumberFormat(pokemonData.pokemonNumber)
   const backgroundColor = getBackgroundColor(pokemonData.types)
 
-  const getDisplayName = () => {
-    if (pokemonData.region) {
-      const suffix = pokemonData.formName
-        ? `${pokemonData.region} ${pokemonData.formName}`
-        : pokemonData.region
-      return `${pokemonData.name} (${suffix})`
-    }
-    return pokemonData.formName || pokemonData.name
-  }
-  const displayName = getDisplayName()
+  const displayName = pokemonData.name
 
   const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
     useLazyImage({
@@ -56,7 +47,7 @@ const ChampionsPokemonCard = ({
       className="w-full max-w-56"
     >
       <article
-        className="w-full md:max-w-56 h-72 text-black-2 border border-solid border-black-2 rounded-[10px] block p-[0.75rem_0.5rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-105 hover:z-10 card-corner-fold"
+        className="w-full md:max-w-56 h-80 text-black-2 border border-solid border-black-2 rounded-[10px] block p-[0.75rem_0.5rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-105 hover:z-10 card-corner-fold"
         style={gradientStyle}
         aria-label={`포켓몬 ${displayName} 카드`}
       >
