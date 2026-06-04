@@ -17,11 +17,14 @@ interface ChampionsTeamCoreCardProps {
  * 조합 크기(2/3/4)에 따라 이미지 크기를 자동 조정.
  * 카드 너비 제약 안에서 모든 포켓몬이 적정 크기로 노출되도록 함.
  */
-const IMAGE_SIZE_BY_COUNT: Record<number, {
-  className: string
-  rem: string
-  px: number
-}> = {
+const IMAGE_SIZE_BY_COUNT: Record<
+  number,
+  {
+    className: string
+    rem: string
+    px: number
+  }
+> = {
   2: { className: 'w-16 h-16', rem: '4rem', px: 64 },
   3: { className: 'w-14 h-14', rem: '3.5rem', px: 56 },
   4: { className: 'w-12 h-12', rem: '3rem', px: 48 },
@@ -41,8 +44,7 @@ const ChampionsTeamCoreCard = ({
     imagePath: m.imagePath,
   }))
 
-  const imageDim =
-    IMAGE_SIZE_BY_COUNT[members.length] ?? IMAGE_SIZE_BY_COUNT[2]
+  const imageDim = IMAGE_SIZE_BY_COUNT[members.length] ?? IMAGE_SIZE_BY_COUNT[2]
 
   const buildPokemonHref = (pokemonId: number | null | undefined) => {
     if (pokemonId == null) return null
@@ -50,10 +52,7 @@ const ChampionsTeamCoreCard = ({
     return `/champions/list/${pokemonId}`
   }
 
-  const renderImage = (
-    member: (typeof members)[number],
-    keySuffix: string,
-  ) => (
+  const renderImage = (member: (typeof members)[number], keySuffix: string) => (
     <div
       key={`${member.pokemonId ?? member.name}-img-${keySuffix}`}
       className={imageDim.className}
@@ -110,7 +109,7 @@ const ChampionsTeamCoreCard = ({
       {/* === 모바일 레이아웃: 세로 스택 === */}
       <div className="desktop:hidden">
         {/* 순위 뱃지 — 카드 좌상단 absolute (콘텐츠 흐름에서 분리) */}
-        <p className="absolute left-4 top-4 w-12 h-12 flex items-center justify-center bg-primary-1 text-white rounded-md text-base font-bold">
+        <p className="absolute left-4 top-4 w-12 h-24 flex items-center justify-center bg-primary-1 text-white rounded-md text-base font-bold">
           #{core.rank}
         </p>
 
