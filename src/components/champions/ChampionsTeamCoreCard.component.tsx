@@ -13,6 +13,20 @@ interface ChampionsTeamCoreCardProps {
   formatSlug: ChampionsFormatSlug
 }
 
+/**
+ * 조합 크기(2/3/4)에 따라 이미지 크기를 자동 조정.
+ * 카드 너비 제약 안에서 모든 포켓몬이 적정 크기로 노출되도록 함.
+ */
+const IMAGE_SIZE_BY_COUNT: Record<number, {
+  className: string
+  rem: string
+  px: number
+}> = {
+  2: { className: 'w-16 h-16', rem: '4rem', px: 64 },
+  3: { className: 'w-14 h-14', rem: '3.5rem', px: 56 },
+  4: { className: 'w-12 h-12', rem: '3rem', px: 48 },
+}
+
 const ChampionsTeamCoreCard = ({
   core,
   formatSlug: _formatSlug,
@@ -27,6 +41,9 @@ const ChampionsTeamCoreCard = ({
     imagePath: m.imagePath,
   }))
 
+  const imageDim =
+    IMAGE_SIZE_BY_COUNT[members.length] ?? IMAGE_SIZE_BY_COUNT[2]
+
   const buildPokemonHref = (pokemonId: number | null | undefined) => {
     if (pokemonId == null) return null
     // Phase 4 라우트 확정 후 /champions/[format]/list/[pokemonId] 로 갱신 예정
@@ -39,13 +56,13 @@ const ChampionsTeamCoreCard = ({
   ) => (
     <div
       key={`${member.pokemonId ?? member.name}-img-${keySuffix}`}
-      className="w-16 h-16"
+      className={imageDim.className}
     >
       {member.imagePath ? (
         <ImageComponent
-          width="4rem"
-          height="4rem"
-          imageSize={{ width: 64, height: 64 }}
+          width={imageDim.rem}
+          height={imageDim.rem}
+          imageSize={{ width: imageDim.px, height: imageDim.px }}
           densities={[1, 1.5]}
           alt={member.name}
           src={`${imageMode}/${member.imagePath}`}
