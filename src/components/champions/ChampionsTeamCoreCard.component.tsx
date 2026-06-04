@@ -109,17 +109,21 @@ const ChampionsTeamCoreCard = ({
     >
       {/* === 모바일 레이아웃: 세로 스택 === */}
       <div className="desktop:hidden">
-        {/* 상단: 순위 뱃지 + 이미지 + 조합명 */}
-        <div className="flex items-center gap-3 mb-3">
-          <p className="w-12 h-12 shrink-0 flex items-center justify-center bg-primary-1 text-white rounded-md text-base font-bold">
-            #{core.rank}
-          </p>
-          <div className="flex items-center gap-2 shrink-0" aria-hidden="true">
-            {members.map((member) => renderImage(member, 'mobile'))}
-          </div>
+        {/* 순위 뱃지 — 카드 좌상단 absolute (콘텐츠 흐름에서 분리) */}
+        <p className="absolute left-4 top-4 w-12 h-12 flex items-center justify-center bg-primary-1 text-white rounded-md text-base font-bold">
+          #{core.rank}
+        </p>
+
+        {/* 상단: 이미지 (뱃지 폭만큼 들여쓰기로 좌측 정렬 통일) */}
+        <div
+          className="flex items-center gap-2 mb-3 pl-[3.75rem]"
+          aria-hidden="true"
+        >
+          {members.map((member) => renderImage(member, 'mobile'))}
         </div>
 
-        <h3 className="flex items-center gap-2 flex-wrap text-base font-bold text-primary-1 mb-3">
+        {/* 조합명 — 동일한 들여쓰기로 이미지와 정렬 */}
+        <h3 className="flex items-center gap-2 flex-wrap text-base font-bold text-primary-1 mb-3 pl-[3.75rem]">
           {members.map((member, index) => renderMemberName(member, index))}
         </h3>
 
