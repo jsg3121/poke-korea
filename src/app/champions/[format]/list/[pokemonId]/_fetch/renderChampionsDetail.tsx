@@ -97,7 +97,12 @@ export const renderChampionsDetail = async ({
         '@type': 'ListItem',
         position: 4,
         name: detail.pokemon.name,
-        item: `https://poke-korea.com/champions/${formatSlug}/list/${pokemonId}`,
+        item: `https://poke-korea.com${buildChampionsDetailHref({
+          formatSlug,
+          pokemonId: parsedPokemonId,
+          formType: detail.pokemon.formType,
+          formCode: detail.pokemon.formCode,
+        })}`,
       },
     ],
   }

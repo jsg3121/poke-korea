@@ -110,19 +110,21 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      {isMobile ? (
-        <ChampionsHomeMobile
-          topPokemons={topPokemons}
-          teamCores={teamCores}
-          formatSlug={formatSlug as ChampionsFormatSlug}
-        />
-      ) : (
-        <ChampionsHomeDesktop
-          topPokemons={topPokemons}
-          teamCores={teamCores}
-          formatSlug={formatSlug as ChampionsFormatSlug}
-        />
-      )}
+      <main className="w-full min-h-screen">
+        {isMobile ? (
+          <ChampionsHomeMobile
+            topPokemons={topPokemons}
+            teamCores={teamCores}
+            formatSlug={formatSlug as ChampionsFormatSlug}
+          />
+        ) : (
+          <ChampionsHomeDesktop
+            topPokemons={topPokemons}
+            teamCores={teamCores}
+            formatSlug={formatSlug as ChampionsFormatSlug}
+          />
+        )}
+      </main>
     </>
   )
 }

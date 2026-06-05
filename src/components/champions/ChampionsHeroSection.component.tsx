@@ -33,7 +33,6 @@ const ChampionsHeroSection = ({
       <div className="block desktop:hidden">
         <ul
           className="flex gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
-          role="region"
           aria-label="S 티어 포켓몬 슬라이드"
         >
           {top3.map((pokemon) => (
@@ -50,7 +49,6 @@ const ChampionsHeroSection = ({
       {/* 데스크탑: A 티어와 동일한 가로 스크롤 + 200px 카드 */}
       <ul
         className="hidden desktop:flex gap-4 overflow-x-auto py-4 -mx-2 px-2 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-3 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-2 [&::-webkit-scrollbar-track]:rounded-xl"
-        role="region"
         aria-label="S 티어 포켓몬 슬라이드"
       >
         {top3.map((pokemon) => (

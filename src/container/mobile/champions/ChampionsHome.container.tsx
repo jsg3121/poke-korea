@@ -81,7 +81,6 @@ const ChampionsHomeContainer = ({
             </div>
             <ul
               className="flex gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
-              role="region"
               aria-label="A 티어 포켓몬 슬라이드"
             >
               {aTier.map((pokemon) => (

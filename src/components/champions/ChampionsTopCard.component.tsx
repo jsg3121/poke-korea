@@ -81,7 +81,7 @@ const ChampionsTopCard = ({
                   width="10rem"
                   imageSize={{ width: 140, height: 140 }}
                   densities={[1, 1.5]}
-                  alt={`pokemon_id_${pokemonData.pokemonId}`}
+                  alt={`${displayName} 포켓몬 이미지`}
                   src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes="10rem"
                   fetchPriority="high"
@@ -93,7 +93,7 @@ const ChampionsTopCard = ({
           <div
             ref={imgRef}
             className="w-fit mx-auto my-2 drop-shadow-[2px_3px_2px_#333333] relative"
-            aria-description="포켓몬 이미지"
+            aria-hidden="true"
           >
             {isVisible ? (
               pokemonData.imagePath && (
@@ -102,7 +102,7 @@ const ChampionsTopCard = ({
                   width="10rem"
                   imageSize={{ width: 140, height: 140 }}
                   densities={[1, 1.5]}
-                  alt={`pokemon_id_${pokemonData.pokemonId}`}
+                  alt={`${displayName} 포켓몬 이미지`}
                   src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes="10rem"
                   loading="lazy"
@@ -115,14 +115,14 @@ const ChampionsTopCard = ({
                 />
               )
             ) : (
-              <div className="w-36 h-36 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}
 
         <div
           className="flex items-center justify-center gap-1 px-1"
-          aria-description="포켓몬 타입 정보"
+          aria-hidden="true"
         >
           {pokemonData.types?.map((item, index) => {
             return <TagComponent key={`${item}-id-${index}`} type={item} />

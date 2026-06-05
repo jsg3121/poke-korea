@@ -51,10 +51,7 @@ const parseSort = (value: string | undefined): ChampionsPokemonSort => {
   return ChampionsPokemonSort.USAGE
 }
 
-const ChampionsFormatListPage = async ({
-  params,
-  searchParams,
-}: PageProps) => {
+const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
   const { format } = await params
   const formatSlug = parseFormatSlug(format)
 
@@ -137,7 +134,7 @@ const ChampionsFormatListPage = async ({
       '@type': 'ListItem',
       position: index + 1,
       name: pokemon.name,
-      url: `https://poke-korea.com/champions/list/${pokemon.externalDexId}`,
+      url: `https://poke-korea.com/champions/${formatSlug}/list/${pokemon.externalDexId}`,
     })),
   }
 

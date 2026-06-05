@@ -144,7 +144,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { data: gigantamaxData },
       { data: abilityData },
       { data: skillsData },
-      { data: championsData },
+      { data: championsVgcData },
+      { data: championsBssData },
     ] = await Promise.all([
       apolloClient.query({
         query: GetPokemonListDocument,
@@ -195,10 +196,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         query: GetChampionsPokemonListDocument,
         variables: {
           input: {
-            // TODO(Phase 1): format을 라우트 파라미터에서 가져오기
             format: ChampionsFormat.VGC_DOUBLES,
             pagination: {
-              first: 200, // 챔피언스 포켓몬 전체
+              first: 300, // 챔피언스 포켓몬 전체 (271종 + 여유분)
+            },
+          },
+        },
+      }),
+      apolloClient.query({
+        query: GetChampionsPokemonListDocument,
+        variables: {
+          input: {
+            format: ChampionsFormat.BSS_SINGLES,
+            pagination: {
+              first: 300, // BSS 메타에만 등장하는 포켓몬도 별도 색인 대상
             },
           },
         },
@@ -215,13 +226,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 샤이니 모드 페이지들
-    const shinyPages = data.getPokemonList.map((pokemon: PokemonList) => ({
-      url: `https://poke-korea.com/detail/${pokemon.number}?shinyMode=shiny`,
-      lastModified: BUILD_TIME,
-      changeFrequency: 'daily',
-      priority: 0.7,
-    }))
+    // NOTE: 샤이니 모드 페이지(?shinyMode=shiny) 는 sitemap 에서 제외.
+    // Why: canonical URL 이 아닌 query parameter 변형은 Google 이 중복 페이지로
+    //      처리하여 크롤링 예산을 낭비한다. 사용자 인터랙션으로만 접근 가능.
 
     const megaPages = megaData.getPokemonList.map((pokemon: PokemonList) => ({
       url: `https://poke-korea.com/detail/${pokemon.number}/mega`,
@@ -401,33 +408,72 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // lastmod는 외부 데이터(battle_meta.json) 기준 갱신 시각을 사용
     // Why: 챔피언스 메타는 외부 소스에서 주기적으로 갱신되므로, 빌드 시점이 아닌
     // 실제 콘텐츠 변경 시점이 lastmod에 반영되어야 한다.
-    const championsListResponse = championsData.getChampionsPokemonList
-    const championsLastModified = new Date(championsListResponse.updatedAt)
+    // Phase 4: VGC/BSS 는 별개 메타이며 등장 포켓몬도 다르다.
+    //          또한 각 포켓몬의 폼(메가/리전/거다이맥스/일반) 라우트도 별도 색인 대상.
+    const vgcListResponse = championsVgcData.getChampionsPokemonList
+    const bssListResponse = championsBssData.getChampionsPokemonList
+    const vgcLastModified = new Date(vgcListResponse.updatedAt)
+    const bssLastModified = new Date(bssListResponse.updatedAt)
 
-    // Phase 4: 챔피언스 상세 페이지를 포맷별로 분리하여 sitemap 에 추가.
-    // 동일 pokemonId 라도 포맷마다 독립적인 메타 데이터를 가지므로 각각 색인 대상.
-    const championsDetailPages = championsListResponse.edges.flatMap(
-      (edge: ChampionsPokemonEdge) => [
-        {
-          url: `https://poke-korea.com/champions/vgc/list/${edge.node.externalDexId}`,
-          lastModified: championsLastModified,
-          changeFrequency: 'daily' as const,
-          priority: 0.8,
-        },
-        {
-          url: `https://poke-korea.com/champions/bss/list/${edge.node.externalDexId}`,
-          lastModified: championsLastModified,
-          changeFrequency: 'daily' as const,
-          priority: 0.8,
-        },
-      ],
-    )
+    /**
+     * 챔피언스 포켓몬의 formType + formCode 를 라우트 경로로 변환.
+     * buildChampionsDetailHref 와 동일 매핑 (utils 의존성 회피 위해 sitemap 내부 인라인).
+     */
+    const buildFormPath = (
+      formatSlug: 'vgc' | 'bss',
+      pokemonId: number,
+      formType: string,
+      formCode: string | null,
+    ): string => {
+      const base = `/champions/${formatSlug}/list/${pokemonId}`
+      switch (formType) {
+        case 'BASE':
+          return base
+        case 'MEGA':
+          return formCode ? `${base}/mega/${formCode}` : `${base}/mega`
+        case 'REGION':
+          return formCode ? `${base}/region/${formCode}` : `${base}/region`
+        case 'NORMAL':
+          return formCode ? `${base}/form/${formCode}` : `${base}/form`
+        default:
+          return base
+      }
+    }
+
+    const buildChampionsPagesForFormat = (
+      formatSlug: 'vgc' | 'bss',
+      edges: { node: ChampionsPokemonEdge['node'] }[],
+      lastModified: Date,
+    ) =>
+      edges.map((edge) => ({
+        url: `https://poke-korea.com${buildFormPath(
+          formatSlug,
+          edge.node.externalDexId,
+          edge.node.formType,
+          edge.node.formCode ?? null,
+        )}`,
+        lastModified,
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+      }))
+
+    const championsDetailPages = [
+      ...buildChampionsPagesForFormat(
+        'vgc',
+        vgcListResponse.edges,
+        vgcLastModified,
+      ),
+      ...buildChampionsPagesForFormat(
+        'bss',
+        bssListResponse.edges,
+        bssLastModified,
+      ),
+    ]
 
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
       ...basicDetailPages,
-      ...shinyPages,
       ...megaPages,
       ...regionPages,
       ...gigantamaxPages,
