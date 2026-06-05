@@ -1,13 +1,29 @@
 import { Fragment } from 'react'
-import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
-import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
 import DesktopChampionsPokedexBanner from '~/components/adSlot/DesktopChampionsPokedexBanner'
+import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
+import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
 import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
+import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
+import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
+import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
+import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
+import {
+  ChampionsFormatSlug,
+  getFormatShortLabel,
+} from '~/utils/championsFormat.util'
 import FooterContainer from '../footer/Footer.container'
 
 const AD_AFTER_INDEX = 4 // 첫 행(5개) 직후에 인아티클 1회 노출
 
-const ChampionsPokedexContainer = () => {
+interface ChampionsPokedexContainerProps {
+  formatSlug: ChampionsFormatSlug
+  sort: ChampionsPokemonSort
+}
+
+const ChampionsPokedexContainer = ({
+  formatSlug,
+  sort,
+}: ChampionsPokedexContainerProps) => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore, totalCount } =
     useChampionsPokedex()
 
@@ -18,18 +34,33 @@ const ChampionsPokedexContainer = () => {
     dependencies: [pokemonList],
   })
 
+  const formatShort = getFormatShortLabel(formatSlug)
+
   return (
-    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto pb-8 mt-12 relative">
-      <header className="px-5 mb-6">
+    <section className="w-full max-w-[1280px] min-h-dvh h-full mx-auto pb-8 mt-16 relative">
+      <header className="px-4">
         <h1 className="text-3xl font-bold text-primary-4">
-          포켓몬 챔피언스 도감
+          포켓몬 챔피언스 {formatShort} 도감
         </h1>
-        {pokemonList.length > 0 && (
-          <p className="text-sm text-gray-500 mt-1">
-            총 <b className="font-bold">{totalCount}종</b>의 포켓몬
-          </p>
-        )}
+        <ChampionsFormatTab
+          currentFormat={formatSlug}
+          basePath="/champions"
+          suffix="/list"
+        />
       </header>
+
+      <div className="sticky top-[10rem] pb-4 z-20 bg-primary-1 shadow-[0_3px_3px_-2px_#333333] mb-6">
+        <div className="flex items-center justify-between px-4 py-2 border-t border-primary-2/30">
+          {pokemonList.length > 0 && (
+            <p className="text-sm text-primary-3 mt-1">
+              총 <b className="font-bold">{totalCount}종</b>의 포켓몬
+            </p>
+          )}
+          <ChampionsPokedexSortSelect currentSort={sort} />
+        </div>
+        <ChampionsTypeFilter />
+      </div>
+
       {pokemonList.length === 0 && (
         <div className="w-full h-[20rem]">
           <p className="w-full text-[2rem] text-primary-4 font-bold text-center">
@@ -45,7 +76,11 @@ const ChampionsPokedexContainer = () => {
                 pokemonData={pokemon}
                 isHighPriority={index < 15}
               />
-              {index === AD_AFTER_INDEX && <DesktopChampionsPokedexBanner />}
+              {index === AD_AFTER_INDEX && (
+                <div className="col-span-5 w-full">
+                  <DesktopChampionsPokedexBanner />
+                </div>
+              )}
             </Fragment>
           ))}
         </div>

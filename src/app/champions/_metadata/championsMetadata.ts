@@ -98,7 +98,7 @@ export const generateChampionsPokedexMetadata = async (
 
   const title = `포켓몬 챔피언스 ${formatShort} 포켓몬 목록 | 포케코리아`
   const description = `포켓몬 챔피언스 ${formatShort}에 등장하는 ${totalCount}종 포켓몬 목록. 타입별 필터링, 스탯 정보, 특성 정보를 확인하세요.`
-  const url = `${SITE_URL}/champions/list`
+  const url = `${SITE_URL}/champions/${formatSlug}/list`
 
   return {
     title,

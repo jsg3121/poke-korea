@@ -92,22 +92,25 @@ const ChampionsTypeFilter = () => {
     <div
       role="searchbox"
       aria-label="타입별 포켓몬 필터 검색"
-      className="w-full max-w-[1280px] h-full flex items-center justify-between relative mx-auto px-5"
+      className="w-full max-w-[1280px] h-full flex items-center relative mx-auto px-5 gap-2"
     >
-      {Object.entries(PokemonTypes).map(([types, typeName]) => {
-        return (
-          <TypeButton
-            key={`champions-type-key-${types}`}
-            onChange={handleClickTypeFilter}
-            typeValue={types}
-            typeName={typeName}
-            checked={typeList.includes(types)}
-            disabled={typeList.length === 2 && !typeList.includes(types)}
-          />
-        )
-      })}
+      <div className="flex-1 min-w-0 flex items-center gap-2 overflow-x-auto desktop:overflow-visible desktop:justify-between [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {Object.entries(PokemonTypes).map(([types, typeName]) => {
+          return (
+            <div key={`champions-type-key-${types}`} className="flex-shrink-0">
+              <TypeButton
+                onChange={handleClickTypeFilter}
+                typeValue={types}
+                typeName={typeName}
+                checked={typeList.includes(types)}
+                disabled={typeList.length === 2 && !typeList.includes(types)}
+              />
+            </div>
+          )
+        })}
+      </div>
       <button
-        className="text-primary-4 disabled:text-primary-2"
+        className="flex-shrink-0 text-primary-4 disabled:text-primary-2 text-sm whitespace-nowrap desktop:ml-4"
         onClick={handleClickReset}
         disabled={isEmptyQuery}
       >

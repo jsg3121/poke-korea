@@ -1,38 +1,75 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
+import { notFound } from 'next/navigation'
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
-  ChampionsFormat,
   ChampionsPokemonFilterInput,
+  ChampionsPokemonSort,
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import { changeTypeArrayToString } from '~/module/filter.module'
+import {
+  parseFormatSlug,
+  resolveFormatEnum,
+} from '~/utils/championsFormat.util'
 import ChampionsPokedexDesktop from '~/views/desktop/champions/ChampionsPokedex.desktop'
 import ChampionsPokedexMobile from '~/views/mobile/champions/ChampionsPokedex.mobile'
-import { generateChampionsPokedexMetadata } from '../_metadata/championsMetadata'
+import { generateChampionsPokedexMetadata } from '../../_metadata/championsMetadata'
 
 export const revalidate = 86400
 
-export const generateMetadata = (): Promise<Metadata> => {
-  return generateChampionsPokedexMetadata()
-}
-
 type PageProps = {
+  params: Promise<{ format: string }>
   searchParams: Promise<{
     type?: string
     search?: string
+    sort?: string
   }>
 }
 
-const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
+export const generateMetadata = async ({
+  params,
+}: PageProps): Promise<Metadata> => {
+  const { format } = await params
+  const formatSlug = parseFormatSlug(format)
+
+  if (!formatSlug) {
+    return {
+      title: '포켓몬 챔피언스 도감 | 포케코리아',
+      robots: { index: false, follow: false },
+    }
+  }
+
+  return generateChampionsPokedexMetadata(formatSlug)
+}
+
+const parseSort = (value: string | undefined): ChampionsPokemonSort => {
+  if (value === 'dex') return ChampionsPokemonSort.DEX
+  return ChampionsPokemonSort.USAGE
+}
+
+const ChampionsFormatListPage = async ({
+  params,
+  searchParams,
+}: PageProps) => {
+  const { format } = await params
+  const formatSlug = parseFormatSlug(format)
+
+  if (!formatSlug) {
+    notFound()
+  }
+
+  const formatEnum = resolveFormatEnum(formatSlug)
+
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const { type, search } = await searchParams
+  const { type, search, sort } = await searchParams
+  const sortEnum = parseSort(sort)
 
   const filterInput: ChampionsPokemonFilterInput = {
     ...(search && { search }),
@@ -48,8 +85,8 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
     query: GetChampionsPokemonListDocument,
     variables: {
       input: {
-        // TODO(Phase 2): format을 라우트 파라미터에서 가져오기
-        format: ChampionsFormat.VGC_DOUBLES,
+        format: formatEnum,
+        sort: sortEnum,
         filter: filterInput,
         pagination: {
           first: 20,
@@ -79,13 +116,13 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
         '@type': 'ListItem',
         position: 2,
         name: '챔피언스',
-        item: 'https://poke-korea.com/champions',
+        item: `https://poke-korea.com/champions/${formatSlug}`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: '도감',
-        item: 'https://poke-korea.com/champions/list',
+        item: `https://poke-korea.com/champions/${formatSlug}/list`,
       },
     ],
   }
@@ -122,6 +159,8 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
             endCursor={endCursor}
             totalCount={totalCount}
             initialFilter={filterInput}
+            formatSlug={formatSlug}
+            sort={sortEnum}
           />
         ) : (
           <ChampionsPokedexDesktop
@@ -130,6 +169,8 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
             endCursor={endCursor}
             totalCount={totalCount}
             initialFilter={filterInput}
+            formatSlug={formatSlug}
+            sort={sortEnum}
           />
         )}
       </main>
@@ -137,4 +178,4 @@ const ChampionsPokedexPage = async ({ searchParams }: PageProps) => {
   )
 }
 
-export default ChampionsPokedexPage
+export default ChampionsFormatListPage

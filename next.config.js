@@ -121,6 +121,12 @@ const nextConfig = {
         destination: '/champions/vgc',
         permanent: true,
       },
+      // 챔피언스 리스트 포맷 분리 (Phase 2) — 기존 URL을 VGC 기본으로 리다이렉트
+      {
+        source: '/champions/list',
+        destination: '/champions/vgc/list',
+        permanent: true,
+      },
     ]
   },
   async headers() {

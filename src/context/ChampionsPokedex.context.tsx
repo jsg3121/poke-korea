@@ -4,6 +4,7 @@ import {
   ChampionsFormat,
   ChampionsPokemonCardFragment,
   ChampionsPokemonFilterInput,
+  ChampionsPokemonSort,
 } from '~/graphql/typeGenerated'
 import {
   mergePagedResults,
@@ -16,6 +17,8 @@ interface ChampionsPokedexProviderProps {
   endCursor: string | null
   totalCount: number
   initialFilter: ChampionsPokemonFilterInput
+  format: ChampionsFormat
+  sort: ChampionsPokemonSort
   children: ReactNode
 }
 
@@ -41,6 +44,8 @@ export const ChampionsPokedexProvider = ({
   endCursor: initialEndCursor,
   totalCount: initialTotalCount,
   initialFilter,
+  format,
+  sort,
   children,
 }: ChampionsPokedexProviderProps) => {
   const {
@@ -50,8 +55,8 @@ export const ChampionsPokedexProvider = ({
   } = useGetChampionsPokemonListQuery({
     variables: {
       input: {
-        // TODO(Phase 2): format을 라우트 파라미터에서 가져오기
-        format: ChampionsFormat.VGC_DOUBLES,
+        format,
+        sort,
         filter: initialFilter,
         pagination: {
           first: 20,
@@ -72,8 +77,8 @@ export const ChampionsPokedexProvider = ({
     await fetchMore({
       variables: {
         input: {
-          // TODO(Phase 2): format을 라우트 파라미터에서 가져오기
-          format: ChampionsFormat.VGC_DOUBLES,
+          format,
+          sort,
           filter: initialFilter,
           pagination: {
             first: 20,

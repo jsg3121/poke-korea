@@ -1,6 +1,5 @@
 'use client'
 
-import FilterComponents from '~/components/filter/Filter.components'
 import MobileTabBar from '~/components/MobileTabBar'
 import ChampionsPokedexContainer from '~/container/mobile/champions/ChampionsPokedex.container'
 import HeaderContainer from '~/container/mobile/header/Header.container'
@@ -8,7 +7,12 @@ import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
 import {
   ChampionsPokemonCardFragment,
   ChampionsPokemonFilterInput,
+  ChampionsPokemonSort,
 } from '~/graphql/typeGenerated'
+import {
+  ChampionsFormatSlug,
+  resolveFormatEnum,
+} from '~/utils/championsFormat.util'
 
 interface ChampionsPokedexMobileProps {
   pokemonList: ChampionsPokemonCardFragment[]
@@ -16,6 +20,8 @@ interface ChampionsPokedexMobileProps {
   endCursor: string | null
   totalCount: number
   initialFilter: ChampionsPokemonFilterInput
+  formatSlug: ChampionsFormatSlug
+  sort: ChampionsPokemonSort
 }
 
 const ChampionsPokedexMobile = ({
@@ -24,6 +30,8 @@ const ChampionsPokedexMobile = ({
   endCursor,
   totalCount,
   initialFilter,
+  formatSlug,
+  sort,
 }: ChampionsPokedexMobileProps) => {
   return (
     <ChampionsPokedexProvider
@@ -32,10 +40,11 @@ const ChampionsPokedexMobile = ({
       endCursor={endCursor}
       totalCount={totalCount}
       initialFilter={initialFilter}
+      format={resolveFormatEnum(formatSlug)}
+      sort={sort}
     >
       <HeaderContainer />
-      <FilterComponents />
-      <ChampionsPokedexContainer />
+      <ChampionsPokedexContainer formatSlug={formatSlug} sort={sort} />
       <MobileTabBar />
     </ChampionsPokedexProvider>
   )
