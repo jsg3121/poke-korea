@@ -14,11 +14,7 @@ import {
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
 
-import {
-  OG_IMAGE_BASE,
-  SITE_NAME,
-  SITE_URL,
-} from '~/constants/seo.constant'
+import { OG_IMAGE_BASE, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 
 // fragment 기반 타입 (응답에 실제 포함되는 필드만 사용)
 type DetailPokemon = ChampionsPokemonDetailFragment['pokemon']
@@ -66,7 +62,7 @@ const getMetaHighlight = (meta: DetailMeta): string | null => {
  *      프론트에서 추가 합성 시 중첩 발생하므로 백엔드 name 그대로 사용. (Phase 2/3 결정)
  */
 const buildDetailTitle = (pokemon: DetailPokemon): string => {
-  return `${pokemon.name} 챔피언스 도감 - 스탯·기술·특성 | 포케코리아`
+  return `${pokemon.name.replace('_', ' ')} 챔피언스 도감 - 스탯·기술·특성 | 포케코리아`
 }
 
 /**
@@ -122,7 +118,6 @@ interface GenerateMetadataArgs {
   formatSlug: ChampionsFormatSlug
   formCode?: string | null
 }
-
 
 export const generateChampionsDetailMetadata = async ({
   pokemonId,

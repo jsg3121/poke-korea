@@ -51,10 +51,7 @@ const parseSort = (value: string | undefined): ChampionsPokemonSort => {
   return ChampionsPokemonSort.USAGE
 }
 
-const ChampionsFormatListPage = async ({
-  params,
-  searchParams,
-}: PageProps) => {
+const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
   const { format } = await params
   const formatSlug = parseFormatSlug(format)
 

@@ -13,11 +13,7 @@ import {
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
 
-import {
-  OG_IMAGE_URL,
-  SITE_NAME,
-  SITE_URL,
-} from '~/constants/seo.constant'
+import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 
 const fetchChampionsTotalCount = async (
   formatSlug: ChampionsFormatSlug = CHAMPIONS_DEFAULT_FORMAT_SLUG,
