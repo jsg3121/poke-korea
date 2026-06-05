@@ -78,9 +78,12 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
 
   const tournaments = data?.championsTournaments ?? []
 
-  // 사용 가능한 월 목록 (응답에서 추출 — 중복 제거 + 내림차순)
+  // 사용 가능한 월 목록 (응답에서 추출 — null/빈값 제거 + 중복 제거 + 내림차순)
+  // null 이 섞이면 localeCompare 호출 시 TypeError 로 SSR 크래시되므로 사전 필터링.
   const availableMonths = Array.from(
-    new Set(tournaments.map((t) => t.month)),
+    new Set(
+      tournaments.map((t) => t.month).filter((m): m is string => Boolean(m)),
+    ),
   ).sort((a, b) => b.localeCompare(a))
 
   const breadcrumbJsonLd = {
