@@ -55,7 +55,7 @@ const ChampionsTournamentTeamCard = ({
 
   return (
     <article
-      className={`w-full bg-primary-4 border-[2px] border-solid ${borderClass} rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4`}
+      className={`w-full h-full bg-primary-4 border-[2px] border-solid ${borderClass} rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4`}
       aria-label={`${team.rank}위 ${team.playerName} 팀`}
     >
       <header className="flex items-center gap-3 mb-3">
@@ -89,11 +89,11 @@ const ChampionsTournamentTeamCard = ({
       {/* 펼침 상태: 풀빌드 6슬롯 그리드 */}
       {isExpanded && (
         <ul
-          className="grid grid-cols-2 gap-3"
+          className="grid grid-cols-2 gap-3 auto-rows-fr"
           aria-label="풀빌드 슬롯"
         >
           {team.slots.map((slot) => (
-            <li key={slot.pokemonId ?? slot.rawName}>
+            <li key={slot.pokemonId ?? slot.rawName} className="h-full">
               <ChampionsTournamentSlotCard
                 slot={slot}
                 formatSlug={formatSlug}

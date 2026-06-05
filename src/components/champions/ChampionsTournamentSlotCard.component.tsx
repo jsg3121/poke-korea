@@ -106,7 +106,7 @@ const ChampionsTournamentSlotCard = ({
 
       {/* 아이템 / 특성 / 테라 */}
       <dl className="text-xs space-y-1 mb-2 border-t-2 border-primary-3 pt-2">
-        <div className="flex items-start gap-2">
+        <div className="flex items-center gap-2">
           <dt className="shrink-0 w-9 text-[10px] font-bold text-primary-1">
             아이템
           </dt>
@@ -114,7 +114,7 @@ const ChampionsTournamentSlotCard = ({
             {itemLabel || '-'}
           </dd>
         </div>
-        <div className="flex items-start gap-2">
+        <div className="flex items-center gap-2">
           <dt className="shrink-0 w-9 text-[10px] font-bold text-primary-1">
             특성
           </dt>
@@ -122,24 +122,29 @@ const ChampionsTournamentSlotCard = ({
             {abilityLabel || '-'}
           </dd>
         </div>
-        {slot.teraType && (
-          <div className="flex items-center gap-2">
-            <dt className="shrink-0 w-9 text-[10px] font-bold text-primary-1">
-              테라
-            </dt>
-            <dd className="flex items-center">
-              {teraEnum ? (
-                <TagComponent type={teraEnum} />
-              ) : (
-                <span className="text-primary-1 font-semibold">
-                  {slot.teraType}
-                </span>
-              )}
-            </dd>
-          </div>
-        )}
+        {/* 테라 영역 — 데이터 없으면 라벨/값 모두 숨기고 빈 공간만 유지 (카드 높이 균일) */}
+        <div
+          className="flex items-center gap-2 min-h-[1.5rem]"
+          aria-hidden={!slot.teraType}
+        >
+          {slot.teraType && (
+            <>
+              <dt className="shrink-0 w-9 text-[10px] font-bold text-primary-1">
+                테라
+              </dt>
+              <dd className="flex items-center">
+                {teraEnum ? (
+                  <TagComponent type={teraEnum} />
+                ) : (
+                  <span className="text-primary-1 font-semibold">
+                    {slot.teraType}
+                  </span>
+                )}
+              </dd>
+            </>
+          )}
+        </div>
       </dl>
-
       {/* 기술 4개 */}
       <ul
         className="text-xs space-y-0.5 border-t-2 border-primary-3 pt-2"

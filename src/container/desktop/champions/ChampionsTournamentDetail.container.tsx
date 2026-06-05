@@ -97,11 +97,11 @@ const ChampionsTournamentDetailContainer = ({
             입상자 (Top 3)
           </h2>
           <ul
-            className="grid grid-cols-1 desktop:grid-cols-3 gap-6"
+            className="grid grid-cols-1 desktop:grid-cols-3 gap-6 auto-rows-fr"
             aria-label="Top 3 입상자"
           >
             {top3.map((team) => (
-              <li key={team.id}>
+              <li key={team.id} className="h-full">
                 <ChampionsTournamentTeamCard
                   team={team}
                   formatSlug={CHAMPIONS_DEFAULT_FORMAT_SLUG}
@@ -123,11 +123,11 @@ const ChampionsTournamentDetailContainer = ({
             상위 입상자 (4~8위)
           </h2>
           <ul
-            className="grid grid-cols-1 desktop:grid-cols-2 gap-4"
+            className="grid grid-cols-1 desktop:grid-cols-2 gap-4 auto-rows-fr"
             aria-label="4~8위 입상자"
           >
             {top4to8.map((team) => (
-              <li key={team.id}>
+              <li key={team.id} className="h-full">
                 <ChampionsTournamentTeamCard
                   team={team}
                   formatSlug={CHAMPIONS_DEFAULT_FORMAT_SLUG}
