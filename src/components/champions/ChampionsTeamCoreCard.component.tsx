@@ -80,7 +80,7 @@ const ChampionsTeamCoreCard = ({
     return (
       <span
         key={`${member.pokemonId ?? member.name}-name-${index}`}
-        className="flex items-center gap-2"
+        className="flex items-center gap-1"
       >
         {href ? (
           <Link
@@ -122,7 +122,7 @@ const ChampionsTeamCoreCard = ({
         </div>
 
         {/* 조합명 — 동일한 들여쓰기로 이미지와 정렬 */}
-        <h3 className="flex items-center gap-2 flex-wrap text-base font-bold text-primary-1 mb-3 pl-[3.75rem]">
+        <h3 className="flex items-center gap-1 flex-wrap text-base font-bold text-primary-1 mb-3 pl-[3.75rem]">
           {members.map((member, index) => renderMemberName(member, index))}
         </h3>
 
@@ -153,7 +153,7 @@ const ChampionsTeamCoreCard = ({
         {members.map((member) => renderImage(member, 'desktop'))}
       </div>
 
-      <h3 className="hidden desktop:flex flex-1 items-center gap-2 flex-wrap text-base font-bold text-primary-1">
+      <h3 className="hidden desktop:flex flex-1 items-center gap-1 flex-wrap text-base font-bold text-primary-1">
         {members.map((member, index) => renderMemberName(member, index))}
       </h3>
 

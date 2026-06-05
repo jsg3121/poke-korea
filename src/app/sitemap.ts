@@ -123,7 +123,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/tier',
+      url: 'https://poke-korea.com/champions/vgc/tier',
+      lastModified: BUILD_TIME,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
+      url: 'https://poke-korea.com/champions/bss/tier',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
