@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
 interface ChampionsMonthFilterProps {
   /** 응답 데이터에서 추출한 사용 가능한 월 목록 (예: ['2026-05','2026-04','2026-03']) */
@@ -18,7 +19,13 @@ const formatMonthLabel = (month: string): string => {
   return `${year}년 ${parseInt(monthNum, 10)}월`
 }
 
-const ChampionsMonthFilter = ({
+/**
+ * useSearchParams 를 사용하므로 Suspense 경계 안에서만 동작.
+ * Why: Suspense 누락 시 Next.js App Router 가 부모 페이지를 강제 dynamic 으로 전환
+ *       → 부모의 ISR(revalidate) 이 깨진다.
+ * 근거: https://nextjs.org/docs/app/api-reference/functions/use-search-params#static-rendering
+ */
+const ChampionsMonthFilterInner = ({
   availableMonths,
   currentMonth,
 }: ChampionsMonthFilterProps) => {
@@ -53,6 +60,21 @@ const ChampionsMonthFilter = ({
         ))}
       </select>
     </label>
+  )
+}
+
+const ChampionsMonthFilter = (props: ChampionsMonthFilterProps) => {
+  return (
+    <Suspense
+      fallback={
+        <div
+          aria-hidden="true"
+          className="w-32 h-9 bg-primary-3 rounded-md animate-pulse"
+        />
+      }
+    >
+      <ChampionsMonthFilterInner {...props} />
+    </Suspense>
   )
 }
 
