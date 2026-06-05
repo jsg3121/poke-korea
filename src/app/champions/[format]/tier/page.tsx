@@ -14,6 +14,7 @@ import {
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import {
+  buildChampionsDetailHref,
   ChampionsFormatSlug,
   parseFormatSlug,
   resolveFormatEnum,
@@ -127,20 +128,31 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
     ],
   }
 
+  // ItemList JSON-LD: 상위 티어(S/A/B) 의 실제 포켓몬을 URL 과 함께 노출.
+  // Google ItemList 가이드에 따라 각 항목에 탐색 가능한 url 을 포함해야 색인 가치가 있다.
+  // Why: 기존엔 S~D 티어 그룹 5개만 나열 → 탐색 가능한 URL 없어 색인 효과 없음.
+  const tierListItems = (['S', 'A', 'B'] as const)
+    .flatMap((tier) => tierGroups[tier])
+    .slice(0, 20) // 상위 20개로 제한 (Google 권장 범위)
+    .map((pokemon, index) => ({
+      '@type': 'ListItem' as const,
+      position: index + 1,
+      name: pokemon.name ?? '',
+      url: `https://poke-korea.com${buildChampionsDetailHref({
+        formatSlug,
+        pokemonId: pokemon.pokemonId,
+        formType: pokemon.formType,
+        formCode: pokemon.formCode,
+      })}`,
+    }))
+
   const tierListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: '포켓몬 챔피언스 티어 리스트',
     description: `포켓몬 챔피언스에 등장하는 ${metaSummary.length}종 포켓몬의 티어별 분류`,
     numberOfItems: metaSummary.length,
-    itemListElement: (['S', 'A', 'B', 'C', 'D'] as const).map(
-      (tier, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: `${tier} 티어`,
-        description: `${tierGroups[tier].length}종 포켓몬`,
-      }),
-    ),
+    itemListElement: tierListItems,
   }
 
   return (

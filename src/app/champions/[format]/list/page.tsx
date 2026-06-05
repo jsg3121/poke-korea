@@ -137,7 +137,7 @@ const ChampionsFormatListPage = async ({
       '@type': 'ListItem',
       position: index + 1,
       name: pokemon.name,
-      url: `https://poke-korea.com/champions/list/${pokemon.externalDexId}`,
+      url: `https://poke-korea.com/champions/${formatSlug}/list/${pokemon.externalDexId}`,
     })),
   }
 
