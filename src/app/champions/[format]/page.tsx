@@ -85,23 +85,28 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
         fetchPolicy: 'network-only',
         errorPolicy: 'all',
       }),
-      // Phase 5: 최근 대회 섹션용 - VGC 만 데이터 있음. BSS 는 빈 배열 응답.
-      apolloClient.query<
-        GetChampionsTournamentsWithTopTeamQuery,
-        GetChampionsTournamentsWithTopTeamQueryVariables
-      >({
-        query: GetChampionsTournamentsWithTopTeamDocument,
-        variables: { format: ChampionsFormat.VGC_DOUBLES, limit: 3 },
-        fetchPolicy: 'network-only',
-        errorPolicy: 'all',
-      }),
+      // Phase 5: 최근 대회 섹션용 - VGC 만 데이터 있고 BSS 홈에선 섹션 자체 미노출.
+      // formatSlug === 'vgc' 일 때만 네트워크 호출, BSS 는 빈 응답으로 단락.
+      formatSlug === 'vgc'
+        ? apolloClient.query<
+            GetChampionsTournamentsWithTopTeamQuery,
+            GetChampionsTournamentsWithTopTeamQueryVariables
+          >({
+            query: GetChampionsTournamentsWithTopTeamDocument,
+            variables: { format: ChampionsFormat.VGC_DOUBLES, limit: 3 },
+            fetchPolicy: 'network-only',
+            errorPolicy: 'all',
+          })
+        : Promise.resolve({
+            data: {
+              championsTournaments: [],
+            } as GetChampionsTournamentsWithTopTeamQuery,
+          }),
     ])
 
   const topPokemons = bestData?.getBestChampionsPokemon ?? []
   const teamCores = teamCoresData?.championsTeamCores ?? []
-  // BSS 홈에서는 대회 섹션 자체 미노출 (사용자 결정)
-  const recentTournaments =
-    formatSlug === 'vgc' ? (tournamentsData?.championsTournaments ?? []) : []
+  const recentTournaments = tournamentsData?.championsTournaments ?? []
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
