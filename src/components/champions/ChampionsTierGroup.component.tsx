@@ -31,11 +31,11 @@ const ChampionsTierGroup = ({
   )
 
   const headerContent = (
-    <div className="flex items-center justify-between gap-2 px-4 py-2 bg-primary-4 border-b border-primary-3/50">
-      <div className="flex items-center gap-2">
+    <span className="flex items-center justify-between gap-2 px-4 py-2 bg-primary-4 border-b border-primary-3/50">
+      <span className="flex items-center gap-2">
         <ChampionsTierBadge tier={tier} />
         <span className="text-base text-primary-1">{pokemons.length}종</span>
-      </div>
+      </span>
       {defaultCollapsed && (
         <span
           className="text-sm text-primary-1 font-semibold"
@@ -44,7 +44,7 @@ const ChampionsTierGroup = ({
           {isOpen ? '접기 ▲' : '펼치기 ▼'}
         </span>
       )}
-    </div>
+    </span>
   )
 
   return (

@@ -9,6 +9,7 @@ import {
 } from '~/graphql/typeGenerated'
 import {
   ChampionsFormatSlug,
+  formatKstDate,
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
 
@@ -27,16 +28,6 @@ interface ChampionsTierContainerProps {
   latestUpdatedAt?: string
 }
 
-const formatUpdatedAt = (iso?: string): string | null => {
-  if (!iso) return null
-  const date = new Date(iso)
-  if (Number.isNaN(date.getTime())) return null
-  const yyyy = date.getFullYear()
-  const mm = String(date.getMonth() + 1).padStart(2, '0')
-  const dd = String(date.getDate()).padStart(2, '0')
-  return `${yyyy}-${mm}-${dd}`
-}
-
 const ChampionsTierContainer = ({
   tierGroups,
   teamCores,
@@ -48,7 +39,7 @@ const ChampionsTierContainer = ({
     0,
   )
   const formatShort = getFormatShortLabel(formatSlug)
-  const updatedAtLabel = formatUpdatedAt(latestUpdatedAt)
+  const updatedAtLabel = formatKstDate(latestUpdatedAt)
 
   return (
     <section className="w-full max-w-[1280px] mx-auto pb-8 mt-12 px-5">
@@ -66,7 +57,7 @@ const ChampionsTierContainer = ({
           사용률 기반 · 총 {totalCount}종 포켓몬 포함
           {updatedAtLabel && ` · ${updatedAtLabel} 갱신`}
         </p>
-        <p className="text-xs text-primary-3 mt-2">
+        <p className="text-xs text-primary-2 mt-2">
           본 티어는 공식 기준이 아닌 사용률 데이터를 기반으로 자체 분류한 참고용
           자료입니다. 출처: Pikalytics
         </p>

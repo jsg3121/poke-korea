@@ -9,6 +9,7 @@ import {
 } from '~/graphql/typeGenerated'
 import {
   ChampionsFormatSlug,
+  formatKstDate,
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
 
@@ -27,16 +28,6 @@ interface ChampionsTierContainerProps {
   latestUpdatedAt?: string
 }
 
-const formatUpdatedAt = (iso?: string): string | null => {
-  if (!iso) return null
-  const date = new Date(iso)
-  if (Number.isNaN(date.getTime())) return null
-  const yyyy = date.getFullYear()
-  const mm = String(date.getMonth() + 1).padStart(2, '0')
-  const dd = String(date.getDate()).padStart(2, '0')
-  return `${yyyy}-${mm}-${dd}`
-}
-
 const ChampionsTierContainer = ({
   tierGroups,
   teamCores,
@@ -48,7 +39,7 @@ const ChampionsTierContainer = ({
     0,
   )
   const formatShort = getFormatShortLabel(formatSlug)
-  const updatedAtLabel = formatUpdatedAt(latestUpdatedAt)
+  const updatedAtLabel = formatKstDate(latestUpdatedAt)
 
   return (
     <section className="w-full px-4 mt-6 pb-8">
