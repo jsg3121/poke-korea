@@ -6,18 +6,21 @@ import ChampionsHomeContainer from '~/container/mobile/champions/ChampionsHome.c
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,
+  GetChampionsTournamentsWithTopTeamQuery,
 } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsHomeMobileProps {
   topPokemons: ChampionsMetaSummaryFragment[]
   teamCores: ChampionsTeamCoreFragment[]
+  recentTournaments: GetChampionsTournamentsWithTopTeamQuery['championsTournaments']
   formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsHomeMobile = ({
   topPokemons,
   teamCores,
+  recentTournaments,
   formatSlug,
 }: ChampionsHomeMobileProps) => {
   return (
@@ -26,6 +29,7 @@ const ChampionsHomeMobile = ({
       <ChampionsHomeContainer
         topPokemons={topPokemons}
         teamCores={teamCores}
+        recentTournaments={recentTournaments}
         formatSlug={formatSlug}
       />
       <MobileTabBar />
