@@ -296,3 +296,59 @@ fragment ChampionsTeamCore on ChampionsTeamCore {
   teamsCount
   usageRate
 }
+
+fragment ChampionsTeamSlotMove on ChampionsTeamSlotMove {
+  rawName
+  displayName
+}
+
+fragment ChampionsTeamSlot on ChampionsTeamSlot {
+  pokemonId
+  formType
+  formCode
+  rawName
+  displayName
+  imagePath
+  item
+  itemKo
+  ability
+  abilityKo
+  teraType
+  moves {
+    ...ChampionsTeamSlotMove
+  }
+}
+
+fragment ChampionsTournamentTeam on ChampionsTournamentTeam {
+  id
+  rank
+  playerId
+  playerName
+  country
+  wins
+  losses
+  ties
+  slots {
+    ...ChampionsTeamSlot
+  }
+}
+
+fragment ChampionsTournamentSummary on ChampionsTournament {
+  id
+  externalId
+  name
+  date
+  format
+  month
+  organizerName
+  isOnline
+  playersCount
+  sourceUrl
+}
+
+fragment ChampionsTournamentDetail on ChampionsTournament {
+  ...ChampionsTournamentSummary
+  teams {
+    ...ChampionsTournamentTeam
+  }
+}

@@ -780,3 +780,45 @@ query GetChampionsTeamCores(
     ...ChampionsTeamCore
   }
 }
+
+query GetChampionsTournaments(
+  $format: ChampionsFormat!
+  $limit: Int
+  $month: String
+) {
+  championsTournaments(format: $format, limit: $limit, month: $month) {
+    ...ChampionsTournamentSummary
+  }
+}
+
+query GetChampionsTournamentsWithTopTeam(
+  $format: ChampionsFormat!
+  $limit: Int
+  $month: String
+) {
+  championsTournaments(format: $format, limit: $limit, month: $month) {
+    ...ChampionsTournamentSummary
+    teams {
+      id
+      rank
+      playerName
+      country
+      wins
+      losses
+      slots {
+        pokemonId
+        formType
+        formCode
+        displayName
+        rawName
+        imagePath
+      }
+    }
+  }
+}
+
+query GetChampionsTournamentDetail($externalId: String!) {
+  championsTournamentDetail(externalId: $externalId) {
+    ...ChampionsTournamentDetail
+  }
+}
