@@ -13,9 +13,11 @@ import {
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
 
-const SITE_NAME = '포케 코리아'
-const SITE_URL = 'https://poke-korea.com'
-const OG_IMAGE_URL = `${SITE_URL}/assets/image/ogImage.png`
+import {
+  OG_IMAGE_URL,
+  SITE_NAME,
+  SITE_URL,
+} from '~/constants/seo.constant'
 
 const fetchChampionsTotalCount = async (
   formatSlug: ChampionsFormatSlug = CHAMPIONS_DEFAULT_FORMAT_SLUG,
