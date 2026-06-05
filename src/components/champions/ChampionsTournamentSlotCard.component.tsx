@@ -110,7 +110,7 @@ const ChampionsTournamentSlotCard = ({
           <dt className="shrink-0 w-9 text-[10px] font-bold text-primary-1">
             아이템
           </dt>
-          <dd className="text-primary-1 font-semibold line-clamp-1">
+          <dd className="text-primary-1 font-semibold line-clamp-2 break-keep">
             {itemLabel || '-'}
           </dd>
         </div>
@@ -118,7 +118,7 @@ const ChampionsTournamentSlotCard = ({
           <dt className="shrink-0 w-9 text-[10px] font-bold text-primary-1">
             특성
           </dt>
-          <dd className="text-primary-1 font-semibold line-clamp-1">
+          <dd className="text-primary-1 font-semibold line-clamp-2 break-keep">
             {abilityLabel || '-'}
           </dd>
         </div>

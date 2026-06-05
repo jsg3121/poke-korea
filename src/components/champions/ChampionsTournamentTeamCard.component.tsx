@@ -89,7 +89,7 @@ const ChampionsTournamentTeamCard = ({
       {/* 펼침 상태: 풀빌드 6슬롯 그리드 */}
       {isExpanded && (
         <ul
-          className="grid grid-cols-2 desktop:grid-cols-3 gap-3"
+          className="grid grid-cols-2 gap-3"
           aria-label="풀빌드 슬롯"
         >
           {team.slots.map((slot) => (
