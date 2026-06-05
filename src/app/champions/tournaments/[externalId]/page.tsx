@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+import { cache } from 'react'
 import { GetChampionsTournamentDetailDocument } from '~/graphql/gqlGenerated'
 import {
   GetChampionsTournamentDetailQuery,
@@ -22,7 +23,13 @@ interface PageProps {
   params: Promise<{ externalId: string }>
 }
 
-const fetchDetail = async (externalId: string) => {
+/**
+ * generateMetadata + 페이지 본체가 같은 렌더 사이클에서 같은 externalId 로 호출하므로
+ * react.cache 로 메모이즈해 중복 네트워크 호출(fetchPolicy: network-only) 방지.
+ *
+ * 근거: React 공식 — https://react.dev/reference/react/cache
+ */
+const fetchDetail = cache(async (externalId: string) => {
   const apolloClient = initializeApollo()
   const { data } = await apolloClient.query<
     GetChampionsTournamentDetailQuery,
@@ -33,7 +40,7 @@ const fetchDetail = async (externalId: string) => {
     fetchPolicy: 'network-only',
   })
   return data?.championsTournamentDetail ?? null
-}
+})
 
 export const generateMetadata = async ({
   params,
