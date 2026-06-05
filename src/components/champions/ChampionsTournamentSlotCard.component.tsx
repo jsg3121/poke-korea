@@ -15,19 +15,16 @@ interface ChampionsTournamentSlotCardProps {
 
 /**
  * 폼 종류 식별 (Phase 3 의 ChampionsTierPokemonItem 과 동일 패턴).
+ * 일반 폼('폼' 회색 뱃지)은 식별 가치가 낮아 미노출.
  */
 const getFormBadge = (
   formType: string,
-  formCode: string | null | undefined,
 ): { label: string; className: string } | null => {
   if (formType === 'MEGA') {
     return { label: '메가', className: 'bg-amber-500 text-white' }
   }
   if (formType === 'REGION') {
     return { label: '리전', className: 'bg-teal-500 text-white' }
-  }
-  if (formCode) {
-    return { label: '폼', className: 'bg-gray-500 text-white' }
   }
   return null
 }
@@ -54,7 +51,7 @@ const ChampionsTournamentSlotCard = ({
   const displayName = slot.displayName || slot.rawName
   const itemLabel = slot.itemKo || slot.item
   const abilityLabel = slot.abilityKo || slot.ability
-  const formBadge = getFormBadge(slot.formType, slot.formCode)
+  const formBadge = getFormBadge(slot.formType)
   const teraEnum = resolveTeraType(slot.teraType ?? null)
 
   const href =
