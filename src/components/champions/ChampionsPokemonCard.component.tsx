@@ -62,9 +62,9 @@ const ChampionsPokemonCard = ({
         aria-label={`포켓몬 ${displayName} 카드`}
       >
         <header className="w-full h-8 flex items-start justify-between">
-          <i className="w-8 h-8 flex-shrink-0 mr-2">
+          <span aria-hidden="true" className="w-8 h-8 flex-shrink-0 mr-2">
             <BallComponent />
-          </i>
+          </span>
           <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-card-accent pb-1">
             <p className="h-4 text-[0.875rem] leading-[calc(1rem+2px)] font-medium text-black-2">
               No.{pokemonNumber}
@@ -87,7 +87,7 @@ const ChampionsPokemonCard = ({
                   height: isMobile ? 108 : 160,
                 }}
                 densities={[1, 1.5]}
-                alt={`pokemon_id_${pokemonData.pokemonNumber} ${pokemonData.name}`}
+                alt={`${displayName} 포켓몬 이미지`}
                 src={`${imageMode}/${pokemonData.imagePath}`}
                 sizes={isMobile ? '9rem' : '10rem'}
                 fetchPriority="high"
@@ -98,7 +98,7 @@ const ChampionsPokemonCard = ({
           <div
             ref={imgRef}
             className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
-            aria-description="포켓몬 이미지"
+            aria-hidden="true"
           >
             {isVisible ? (
               pokemonData.imagePath && (
@@ -110,7 +110,7 @@ const ChampionsPokemonCard = ({
                     height: isMobile ? 108 : 160,
                   }}
                   densities={[1, 1.5]}
-                  alt={`pokemon_id_${pokemonData.pokemonNumber} ${pokemonData.name}`}
+                  alt={`${displayName} 포켓몬 이미지`}
                   src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes={isMobile ? '9rem' : '10rem'}
                   loading="lazy"
@@ -130,7 +130,7 @@ const ChampionsPokemonCard = ({
 
         <div
           className="flex items-center gap-[0.38888889rem] px-[0.55555556rem]"
-          aria-description="포켓몬 타입 정보"
+          aria-hidden="true"
         >
           {pokemonData.types.map((item, index) => {
             return <TagComponent key={`${item}-id-${index}`} type={item} />
@@ -139,7 +139,7 @@ const ChampionsPokemonCard = ({
 
         <dl
           className="w-full grid grid-rows-3 mobile:mt-3 desktop:mt-2 mx-auto px-2"
-          aria-description="포켓몬 메타 정보"
+          aria-label="포켓몬 메타 정보"
         >
           <div className="h-5 flex items-center justify-between">
             <dt className="text-[max(0.875rem,11px)] leading-5">종족값</dt>

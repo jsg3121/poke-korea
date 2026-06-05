@@ -71,22 +71,27 @@ const ChampionsPokedexContainer = ({
         </div>
       )}
       {pokemonList.length > 0 && (
-        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5">
+        <ul
+          className="w-full grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center justify-between px-5"
+          aria-label="챔피언스 포켓몬 목록"
+        >
           {pokemonList.map((pokemon, index) => (
             <Fragment key={`champions-pokemon-${pokemon.id}-${index}`}>
-              <ChampionsPokemonCard
-                pokemonData={pokemon}
-                isHighPriority={index < 6}
-                formatSlug={formatSlug}
-              />
+              <li className="w-full max-w-56">
+                <ChampionsPokemonCard
+                  pokemonData={pokemon}
+                  isHighPriority={index < 6}
+                  formatSlug={formatSlug}
+                />
+              </li>
               {index === AD_AFTER_INDEX && (
-                <div className="col-span-2 w-full">
+                <li className="col-span-2 w-full list-none">
                   <MobileChampionsPokedexBanner />
-                </div>
+                </li>
               )}
             </Fragment>
           ))}
-        </div>
+        </ul>
       )}
       {isLoadingMore && (
         <div className="flex justify-center py-4">
