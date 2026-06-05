@@ -32,6 +32,19 @@ export const resolveFormatEnum = (
 }
 
 /**
+ * GraphQL ChampionsFormat enum → 사용자 친화 짧은 라벨.
+ * 대회 카드의 포맷 라벨 등에서 사용.
+ */
+export const getFormatEnumShortLabel = (format: ChampionsFormat): string => {
+  switch (format) {
+    case ChampionsFormat.VGC_DOUBLES:
+      return 'VGC'
+    case ChampionsFormat.BSS_SINGLES:
+      return 'BSS'
+  }
+}
+
+/**
  * 포맷 슬러그 → 한국어 라벨 (전체)
  */
 export const getFormatLabel = (slug: ChampionsFormatSlug): string => {
@@ -137,4 +150,3 @@ export const buildChampionsDetailHref = ({
       return base
   }
 }
-

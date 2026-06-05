@@ -4,12 +4,14 @@ import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.compon
 import ChampionsHeroSection from '~/components/champions/ChampionsHeroSection.component'
 import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSectionHeader.component'
 import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.component'
+import ChampionsRecentTournamentsSection from '~/components/champions/ChampionsRecentTournamentsSection.component'
 import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSection.component'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,
+  GetChampionsTournamentsWithTopTeamQuery,
 } from '~/graphql/typeGenerated'
 import {
   ChampionsFormatSlug,
@@ -22,12 +24,14 @@ import { groupChampionsByTier } from '~/utils/championsTier.util'
 interface ChampionsHomeContainerProps {
   topPokemons: ChampionsMetaSummaryFragment[]
   teamCores: ChampionsTeamCoreFragment[]
+  recentTournaments: GetChampionsTournamentsWithTopTeamQuery['championsTournaments']
   formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsHomeContainer = ({
   topPokemons,
   teamCores,
+  recentTournaments,
   formatSlug,
 }: ChampionsHomeContainerProps) => {
   const tierGroups = groupChampionsByTier(topPokemons)
@@ -100,6 +104,9 @@ const ChampionsHomeContainer = ({
 
       {/* 팀 코어 페어 TOP 5 */}
       <ChampionsTeamCoreSection teamCores={teamCores} formatSlug={formatSlug} />
+
+      {/* 최근 대회 결과 (VGC만 데이터 있음) */}
+      <ChampionsRecentTournamentsSection tournaments={recentTournaments} />
 
       {/* 빠른 진입 카드 */}
       <ChampionsQuickLinks formatSlug={formatSlug} />

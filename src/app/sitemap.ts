@@ -5,6 +5,7 @@ import {
   GetPokemonSkillListDocument,
   GetPokemonGigantamaxListDocument,
   GetChampionsPokemonListDocument,
+  GetChampionsTournamentsDocument,
 } from '~/graphql/gqlGenerated'
 import {
   ChampionsFormat,
@@ -14,6 +15,7 @@ import {
   PokemonSkillEdge,
   PokemonGigantamax,
   ChampionsPokemonEdge,
+  ChampionsTournamentSummaryFragment,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
@@ -134,6 +136,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.8,
     },
+    {
+      url: 'https://poke-korea.com/champions/tournaments',
+      lastModified: BUILD_TIME,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
   ]
 
   try {
@@ -146,6 +154,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { data: skillsData },
       { data: championsVgcData },
       { data: championsBssData },
+      { data: tournamentsData },
     ] = await Promise.all([
       apolloClient.query({
         query: GetPokemonListDocument,
@@ -213,6 +222,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             },
           },
         },
+      }),
+      // Phase 5: 대회 상세 페이지 색인. VGC 만 데이터 존재.
+      apolloClient.query({
+        query: GetChampionsTournamentsDocument,
+        variables: {
+          format: ChampionsFormat.VGC_DOUBLES,
+          limit: 200,
+        },
+        errorPolicy: 'all',
       }),
     ])
 
@@ -470,6 +488,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     ]
 
+    // Phase 5: 챔피언스 대회 상세 페이지들 (VGC만, BSS는 데이터 없음)
+    // lastmod 는 각 대회의 date 사용 — 대회 종료 후 결과가 확정되므로 의미 있는 변경 시점.
+    // date 가 null/형식 오류면 new Date 가 Invalid Date 반환 → sitemap XML 의 <lastmod> 가 깨지므로 BUILD_TIME 으로 폴백.
+    const resolveTournamentLastModified = (date: string | null | undefined) => {
+      if (!date) return BUILD_TIME
+      const parsed = new Date(date)
+      return Number.isNaN(parsed.getTime()) ? BUILD_TIME : parsed
+    }
+
+    const tournamentDetailPages =
+      tournamentsData?.championsTournaments?.map(
+        (tournament: ChampionsTournamentSummaryFragment) => ({
+          url: `https://poke-korea.com/champions/tournaments/${tournament.externalId}`,
+          lastModified: resolveTournamentLastModified(tournament.date),
+          changeFrequency: 'monthly' as const,
+          priority: 0.7,
+        }),
+      ) ?? []
+
     // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
@@ -489,6 +526,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...abilityDetailPages,
       ...moveDetailPages,
       ...championsDetailPages,
+      ...tournamentDetailPages,
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)
