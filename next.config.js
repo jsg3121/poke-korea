@@ -133,6 +133,12 @@ const nextConfig = {
         destination: '/champions/vgc/tier',
         permanent: true,
       },
+      // 챔피언스 상세 포맷 분리 (Phase 4) — 기존 URL을 VGC 기본으로 리다이렉트
+      {
+        source: '/champions/list/:pokemonId',
+        destination: '/champions/vgc/list/:pokemonId',
+        permanent: true,
+      },
     ]
   },
   async headers() {

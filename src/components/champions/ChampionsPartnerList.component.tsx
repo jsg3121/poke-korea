@@ -1,5 +1,9 @@
 import Link from 'next/link'
 import { imageMode } from '~/module/buildMode'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+} from '~/utils/championsFormat.util'
 
 interface ChampionsPartnerListProps {
   title: string
@@ -9,10 +13,17 @@ interface ChampionsPartnerListProps {
     name: string
     imagePath?: string | null
     usageRate: number
+    formType?: string | null
+    formCode?: string | null
   }>
+  formatSlug: ChampionsFormatSlug
 }
 
-const ChampionsPartnerList = ({ title, items }: ChampionsPartnerListProps) => {
+const ChampionsPartnerList = ({
+  title,
+  items,
+  formatSlug,
+}: ChampionsPartnerListProps) => {
   return (
     <div className="p-4 bg-primary-3/30 rounded-xl">
       <h3 className="font-bold text-sm mb-3 text-gray-700">{title}</h3>
@@ -43,7 +54,12 @@ const ChampionsPartnerList = ({ title, items }: ChampionsPartnerListProps) => {
             <li key={item.pokemonId ?? `${displayName}-${index}`}>
               {item.pokemonId != null ? (
                 <Link
-                  href={`/champions/list/${item.pokemonId}`}
+                  href={buildChampionsDetailHref({
+                    formatSlug,
+                    pokemonId: item.pokemonId,
+                    formType: item.formType,
+                    formCode: item.formCode,
+                  })}
                   aria-label={`${displayName} 챔피언스 상세보기`}
                 >
                   {innerContent}

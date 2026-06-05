@@ -2,7 +2,10 @@ import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+} from '~/utils/championsFormat.util'
 
 interface ChampionsTierTeamCoreCardProps {
   core: ChampionsTeamCoreFragment
@@ -23,14 +26,14 @@ const IMAGE_DIM = {
 } as const
 
 /**
- * 순위별 뱃지 색상 — META SUMMARY BAR 의 티어 컬러 체계와 일관성 유지.
- * 1위는 S 티어(emerald), 2위는 A 티어(amber), 3위는 B 티어(blue) 색상 적용.
+ * 순위별 뱃지 색상 — ChampionsTierBadge 의 메달 컬러 체계와 일관성 유지.
+ * 1위 = S 티어(amber, 골드), 2위 = A 티어(slate, 실버), 3위 = B 티어(amber-dark, 브론즈).
  * 4위 이하는 기본 primary-1 사용.
  */
 const RANK_BADGE_COLORS: Record<number, string> = {
-  1: 'bg-emerald-500',
-  2: 'bg-amber-500',
-  3: 'bg-blue-500',
+  1: 'bg-gradient-to-br from-amber-400 to-amber-600',
+  2: 'bg-gradient-to-br from-slate-300 to-slate-500',
+  3: 'bg-gradient-to-br from-amber-600 to-amber-800',
 }
 
 const getRankBadgeColor = (rank: number): string =>
@@ -38,7 +41,7 @@ const getRankBadgeColor = (rank: number): string =>
 
 const ChampionsTierTeamCoreCard = ({
   core,
-  formatSlug: _formatSlug,
+  formatSlug,
 }: ChampionsTierTeamCoreCardProps) => {
   const usageRate = core.usageRate
   const teamsCountLabel = core.teamsCount.toLocaleString()
@@ -46,21 +49,35 @@ const ChampionsTierTeamCoreCard = ({
   // 멤버 이름 폴백: displayName ?? rawName
   const members = core.pokemons.map((m) => ({
     pokemonId: m.pokemonId,
+    formType: m.formType,
+    formCode: m.formCode,
     name: m.displayName || m.rawName,
     imagePath: m.imagePath,
   }))
 
-  const buildPokemonHref = (pokemonId: number | null | undefined) => {
+  const buildPokemonHref = (
+    pokemonId: number | null | undefined,
+    formType: string | null | undefined,
+    formCode: string | null | undefined,
+  ) => {
     if (pokemonId == null) return null
-    // Phase 4 라우트 확정 후 /champions/[format]/list/[pokemonId] 로 갱신 예정
-    return `/champions/list/${pokemonId}`
+    return buildChampionsDetailHref({
+      formatSlug,
+      pokemonId,
+      formType,
+      formCode,
+    })
   }
 
   const renderMemberName = (
     member: (typeof members)[number],
     index: number,
   ) => {
-    const href = buildPokemonHref(member.pokemonId)
+    const href = buildPokemonHref(
+      member.pokemonId,
+      member.formType,
+      member.formCode,
+    )
     return (
       <span
         key={`${member.pokemonId ?? member.name}-name-${index}`}
@@ -106,7 +123,11 @@ const ChampionsTierTeamCoreCard = ({
       {/* 이미지들 — 각 포켓몬 이미지 클릭 시 상세 페이지 진입 */}
       <div className="flex items-center gap-2 border-t-2 border-primary-3">
         {members.map((member) => {
-          const href = buildPokemonHref(member.pokemonId)
+          const href = buildPokemonHref(
+      member.pokemonId,
+      member.formType,
+      member.formCode,
+    )
           const imageContent = member.imagePath ? (
             <ImageComponent
               width={IMAGE_DIM.rem}

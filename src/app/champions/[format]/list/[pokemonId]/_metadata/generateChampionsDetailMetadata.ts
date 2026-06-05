@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import {
-  ChampionsFormat,
   ChampionsPokemonDetailFragment,
   GetChampionsPokemonDetailQuery,
   GetChampionsPokemonDetailQueryVariables,
@@ -9,6 +8,10 @@ import {
 import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import {
+  ChampionsFormatSlug,
+  resolveFormatEnum,
+} from '~/utils/championsFormat.util'
 
 const SITE_NAME = '포케 코리아'
 const SITE_URL = 'https://poke-korea.com'
@@ -125,9 +128,45 @@ function getOgImageUrls(
   }
 }
 
-export const generateChampionsDetailMetadata = async (
-  pokemonId: number,
-): Promise<Metadata> => {
+interface GenerateMetadataArgs {
+  pokemonId: number
+  formatSlug: ChampionsFormatSlug
+  formCode?: string | null
+}
+
+/**
+ * 폼별 라우트 경로 빌더 (sitemap canonical URL 용).
+ * Phase 4 폼 라우트 패턴과 일치해야 한다.
+ */
+const buildCanonicalPath = ({
+  formatSlug,
+  pokemonId,
+  formType,
+  formCode,
+}: {
+  formatSlug: ChampionsFormatSlug
+  pokemonId: number
+  formType: string
+  formCode?: string | null
+}): string => {
+  const base = `/champions/${formatSlug}/list/${pokemonId}`
+  switch (formType) {
+    case 'MEGA':
+      return formCode ? `${base}/mega/${formCode}` : `${base}/mega`
+    case 'REGION':
+      return formCode ? `${base}/region/${formCode}` : `${base}/region`
+    case 'NORMAL':
+      return formCode ? `${base}/form/${formCode}` : `${base}/form`
+    default:
+      return base
+  }
+}
+
+export const generateChampionsDetailMetadata = async ({
+  pokemonId,
+  formatSlug,
+  formCode,
+}: GenerateMetadataArgs): Promise<Metadata> => {
   if (isNaN(pokemonId) || pokemonId <= 0) {
     return {
       title: '포켓몬을 찾을 수 없습니다 | 포케코리아',
@@ -148,8 +187,8 @@ export const generateChampionsDetailMetadata = async (
     query: GetChampionsPokemonDetailDocument,
     variables: {
       pokemonId,
-      // TODO(Phase 4): format을 라우트 파라미터에서 가져오기
-      format: ChampionsFormat.VGC_DOUBLES,
+      format: resolveFormatEnum(formatSlug),
+      ...(formCode ? { formCode } : {}),
     },
   })
 
@@ -176,12 +215,19 @@ export const generateChampionsDetailMetadata = async (
     pokemon.formIndex ?? 0,
   )
 
+  const canonicalPath = buildCanonicalPath({
+    formatSlug,
+    pokemonId,
+    formType: pokemon.formType,
+    formCode: pokemon.formCode,
+  })
+
   return {
     title,
     description,
     openGraph: {
       type: 'website',
-      url: `${SITE_URL}/champions/list/${pokemonId}`,
+      url: `${SITE_URL}${canonicalPath}`,
       title,
       locale: 'ko_KR',
       description,
@@ -204,7 +250,7 @@ export const generateChampionsDetailMetadata = async (
       siteName: SITE_NAME,
     },
     alternates: {
-      canonical: `${SITE_URL}/champions/list/${pokemonId}`,
+      canonical: `${SITE_URL}${canonicalPath}`,
     },
     twitter: {
       card: 'summary_large_image',

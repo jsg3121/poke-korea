@@ -11,16 +11,22 @@ import {
   getBackgroundColor,
   pokemonNumberFormat,
 } from '~/module/pokemonCard.module'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+} from '~/utils/championsFormat.util'
 import ImageComponent from '../Image.component'
 
 interface ChampionsPokemonCardProps {
   pokemonData: ChampionsPokemonCardFragment
   isHighPriority?: boolean
+  formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsPokemonCard = ({
   pokemonData,
   isHighPriority = false,
+  formatSlug,
 }: ChampionsPokemonCardProps) => {
   const { isMobile } = useDevice()
   const pokemonNumber = pokemonNumberFormat(pokemonData.pokemonNumber)
@@ -41,11 +47,15 @@ const ChampionsPokemonCard = ({
           backgroundImage: `linear-gradient(135deg, ${backgroundColor[0]} 35%, ${backgroundColor[1]} 65%)`,
         }
 
+  const detailHref = buildChampionsDetailHref({
+    formatSlug,
+    pokemonId: pokemonData.externalDexId,
+    formType: pokemonData.formType,
+    formCode: pokemonData.formCode,
+  })
+
   return (
-    <Link
-      href={`/champions/list/${pokemonData.externalDexId}`}
-      className="w-full max-w-56"
-    >
+    <Link href={detailHref} className="w-full max-w-56">
       <article
         className="w-full md:max-w-56 h-80 text-black-2 border border-solid border-black-2 rounded-[10px] block p-[0.75rem_0.5rem] outline-[0.25rem] outline outline-white relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-105 hover:z-10 card-corner-fold"
         style={gradientStyle}

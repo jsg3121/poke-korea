@@ -98,3 +98,43 @@ export const formatKstDate = (iso?: string | null): string | null => {
   const dd = String(kst.getUTCDate()).padStart(2, '0')
   return `${yyyy}-${mm}-${dd}`
 }
+
+/**
+ * 챔피언스 상세 페이지 URL 빌더 (정확 매핑).
+ * formType + formCode 가 모두 있는 컴포넌트(티어 카드 / 도감 카드 / 홈 카드 / 폼 탭) 용.
+ *
+ * 라우트 패턴 (Phase 4):
+ * - BASE       : /champions/[format]/list/[pokemonId]
+ * - MEGA       : /champions/[format]/list/[pokemonId]/mega 또는 /mega/[formCode]
+ * - REGION     : /champions/[format]/list/[pokemonId]/region/[formCode]
+ * - GIGANTAMAX : /champions/[format]/list/[pokemonId]/gigantamax
+ * - NORMAL     : /champions/[format]/list/[pokemonId]/form/[formCode]
+ */
+export const buildChampionsDetailHref = ({
+  formatSlug,
+  pokemonId,
+  formType,
+  formCode,
+}: {
+  formatSlug: ChampionsFormatSlug
+  pokemonId: number
+  formType: string | null | undefined
+  formCode: string | null | undefined
+}): string => {
+  const base = `/champions/${formatSlug}/list/${pokemonId}`
+  switch (formType) {
+    case 'BASE':
+      return base
+    case 'MEGA':
+      return formCode ? `${base}/mega/${formCode}` : `${base}/mega`
+    case 'REGION':
+      return formCode ? `${base}/region/${formCode}` : `${base}/region`
+    case 'GIGANTAMAX':
+      return `${base}/gigantamax`
+    case 'NORMAL':
+      return formCode ? `${base}/form/${formCode}` : `${base}/form`
+    default:
+      return base
+  }
+}
+

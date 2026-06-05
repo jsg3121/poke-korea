@@ -6,10 +6,15 @@ import TagComponent from '~/components/Tag.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+} from '~/utils/championsFormat.util'
 
 interface ChampionsTierPokemonItemProps {
   pokemon: ChampionsMetaSummaryFragment
   isHighPriority?: boolean
+  formatSlug: ChampionsFormatSlug
 }
 
 /**
@@ -40,6 +45,7 @@ const getFormBadge = (
 const ChampionsTierPokemonItem = ({
   pokemon,
   isHighPriority = false,
+  formatSlug,
 }: ChampionsTierPokemonItemProps) => {
   const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
     useLazyImage({
@@ -53,7 +59,12 @@ const ChampionsTierPokemonItem = ({
 
   return (
     <Link
-      href={`/champions/list/${pokemon.pokemonId}`}
+      href={buildChampionsDetailHref({
+        formatSlug,
+        pokemonId: pokemon.pokemonId,
+        formType: pokemon.formType,
+        formCode: pokemon.formCode,
+      })}
       className="relative flex flex-col items-center p-2 pt-4 rounded-lg bg-primary-4/5 hover:bg-primary-4 hover:-translate-y-1 transition-all w-full group"
     >
       {formBadge && (

@@ -404,13 +404,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const championsListResponse = championsData.getChampionsPokemonList
     const championsLastModified = new Date(championsListResponse.updatedAt)
 
-    const championsDetailPages = championsListResponse.edges.map(
-      (edge: ChampionsPokemonEdge) => ({
-        url: `https://poke-korea.com/champions/list/${edge.node.externalDexId}`,
-        lastModified: championsLastModified,
-        changeFrequency: 'daily',
-        priority: 0.8,
-      }),
+    // Phase 4: 챔피언스 상세 페이지를 포맷별로 분리하여 sitemap 에 추가.
+    // 동일 pokemonId 라도 포맷마다 독립적인 메타 데이터를 가지므로 각각 색인 대상.
+    const championsDetailPages = championsListResponse.edges.flatMap(
+      (edge: ChampionsPokemonEdge) => [
+        {
+          url: `https://poke-korea.com/champions/vgc/list/${edge.node.externalDexId}`,
+          lastModified: championsLastModified,
+          changeFrequency: 'daily' as const,
+          priority: 0.8,
+        },
+        {
+          url: `https://poke-korea.com/champions/bss/list/${edge.node.externalDexId}`,
+          lastModified: championsLastModified,
+          changeFrequency: 'daily' as const,
+          priority: 0.8,
+        },
+      ],
     )
 
     // 모든 페이지들을 합쳐서 반환

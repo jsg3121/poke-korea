@@ -69,11 +69,11 @@ const ChampionsTierContainer = ({
       />
 
       <div className="space-y-6">
-        <ChampionsTierGroup tier="S" pokemons={tierGroups.S} />
-        <ChampionsTierGroup tier="A" pokemons={tierGroups.A} />
-        <ChampionsTierGroup tier="B" pokemons={tierGroups.B} />
-        <ChampionsTierGroup tier="C" pokemons={tierGroups.C} defaultCollapsed />
-        <ChampionsTierGroup tier="D" pokemons={tierGroups.D} defaultCollapsed />
+        <ChampionsTierGroup tier="S" pokemons={tierGroups.S} formatSlug={formatSlug} />
+        <ChampionsTierGroup tier="A" pokemons={tierGroups.A} formatSlug={formatSlug} />
+        <ChampionsTierGroup tier="B" pokemons={tierGroups.B} formatSlug={formatSlug} />
+        <ChampionsTierGroup tier="C" pokemons={tierGroups.C} formatSlug={formatSlug} defaultCollapsed />
+        <ChampionsTierGroup tier="D" pokemons={tierGroups.D} formatSlug={formatSlug} defaultCollapsed />
       </div>
 
       <ChampionsScrollToTop />
