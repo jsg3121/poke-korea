@@ -122,12 +122,17 @@ const ChampionsTournamentDetailContainer = ({
           >
             상위 입상자 (4~8위)
           </h2>
+          {/*
+            Why: Top 4~8 은 각 카드가 펼침/접힘 독립이라 auto-rows-fr 로 행 균일화하면
+            한 카드를 펼칠 때 같은 행의 다른 카드까지 높이가 끌려 늘어남.
+            인터랙션 독립성을 우선하여 자연 높이로 둔다.
+          */}
           <ul
-            className="grid grid-cols-1 desktop:grid-cols-2 gap-4 auto-rows-fr"
+            className="grid grid-cols-1 desktop:grid-cols-2 gap-4"
             aria-label="4~8위 입상자"
           >
             {top4to8.map((team) => (
-              <li key={team.id} className="h-full">
+              <li key={team.id}>
                 <ChampionsTournamentTeamCard
                   team={team}
                   formatSlug={CHAMPIONS_DEFAULT_FORMAT_SLUG}

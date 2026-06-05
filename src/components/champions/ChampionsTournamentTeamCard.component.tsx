@@ -55,7 +55,9 @@ const ChampionsTournamentTeamCard = ({
 
   return (
     <article
-      className={`w-full h-full bg-primary-4 border-[2px] border-solid ${borderClass} rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4`}
+      className={`w-full ${
+        isHighlight ? 'h-full' : ''
+      } bg-primary-4 border-[2px] border-solid ${borderClass} rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4`}
       aria-label={`${team.rank}위 ${team.playerName} 팀`}
     >
       <header className="flex items-center gap-3 mb-3">
