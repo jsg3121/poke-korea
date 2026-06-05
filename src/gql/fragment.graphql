@@ -124,6 +124,7 @@ fragment ChampionsMetaAbility on ChampionsMetaAbility {
 
 fragment ChampionsMetaPartner on ChampionsMetaPartner {
   pokemonId
+  formType
   formCode
   rawName
   name
@@ -184,6 +185,7 @@ fragment ChampionsMetaStats on ChampionsMetaStats {
 
 fragment ChampionsMetaSummary on ChampionsMetaStats {
   pokemonId
+  formType
   formCode
   name
   formName
@@ -198,6 +200,20 @@ fragment ChampionsMetaSummary on ChampionsMetaStats {
   tier
   isStale
   updatedAt
+}
+
+fragment ChampionsFormSibling on ChampionsFormSibling {
+  id
+  pokemonId
+  pokemonNumber
+  formCode
+  formType
+  formName
+  name
+  imagePath
+  isCurrent
+  usageRate
+  tier
 }
 
 fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
@@ -224,6 +240,9 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
       isHidden
     }
     imagePath
+  }
+  formSiblings {
+    ...ChampionsFormSibling
   }
   meta {
     pokemonId
@@ -258,6 +277,7 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
 
 fragment ChampionsTeamMember on ChampionsTeamMember {
   pokemonId
+  formType
   formCode
   rawName
   displayName
