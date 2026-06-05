@@ -8,27 +8,18 @@ import {
 import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+  resolveFormatEnum,
+} from '~/utils/championsFormat.util'
 
-const SITE_NAME = '포케 코리아'
-const SITE_URL = 'https://poke-korea.com'
-const OG_IMAGE_BASE = 'https://image.poke-korea.com/og-images'
+import { OG_IMAGE_BASE, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 
 // fragment 기반 타입 (응답에 실제 포함되는 필드만 사용)
 type DetailPokemon = ChampionsPokemonDetailFragment['pokemon']
 type DetailMeta = ChampionsPokemonDetailFragment['meta']
 type DetailStats = DetailPokemon['stats']
-
-/**
- * 폼/리전 정보를 한국어 표기로 변환
- * - region이 있으면 "알로라" 등 리전명 우선 (formName보다 사용자 친숙도 높음)
- * - formName만 있으면 폼명 사용 (메가, 거다이맥스 등)
- * - 둘 다 없으면 빈 문자열
- */
-const getFormSuffix = (pokemon: DetailPokemon): string => {
-  if (pokemon.region) return pokemon.region
-  if (pokemon.formName) return pokemon.formName
-  return ''
-}
 
 /** 포켓몬 타입을 한국어로 변환 (예: ['FIRE', 'DRAGON'] → '불꽃·드래곤') */
 const getKoreanTypesText = (types: Array<PokemonType>): string =>
@@ -66,12 +57,12 @@ const getMetaHighlight = (meta: DetailMeta): string | null => {
 
 /**
  * 챔피언스 상세 페이지 title 생성
- * 폼/리전이 있으면 괄호로 명시하여 동일 포켓몬 폼 간 차별화
+ *
+ * Why: 백엔드가 폼 정보를 포함한 완성된 name 을 응답 (예: "메가리자몽X", "켄타로스 (팔데아 워터종)").
+ *      프론트에서 추가 합성 시 중첩 발생하므로 백엔드 name 그대로 사용. (Phase 2/3 결정)
  */
 const buildDetailTitle = (pokemon: DetailPokemon): string => {
-  const suffix = getFormSuffix(pokemon)
-  const namePart = suffix ? `${pokemon.name} (${suffix})` : pokemon.name
-  return `${namePart} 챔피언스 도감 - 스탯·기술·특성 | 포케코리아`
+  return `${pokemon.name.replace('_', ' ')} 챔피언스 도감 - 스탯·기술·특성 | 포케코리아`
 }
 
 /**
@@ -79,24 +70,22 @@ const buildDetailTitle = (pokemon: DetailPokemon): string => {
  * - 메타 데이터(topMoves, topAbilities)가 있으면 활용
  * - 없으면 스탯 하이라이트로 폴백
  * - tier 정보는 사용하지 않음 (공식 티어가 아닌 내부 분류이므로 description에 명시 시 사용자 오인 가능)
- * - formName 중 메가/거다이맥스는 챔피언스 데이터에 존재하지 않음 (`ChampionsFormType`에 BASE/NORMAL/REGION만 정의됨) → 노말폼·리전폼만 자연 노출
+ * - 백엔드 name 그대로 사용 (폼 정보 포함). Phase 2/3 결정 위반 (formName 합성) 제거됨.
  * - 80자 이내 목표 (네이버 가이드라인)
  */
 const buildDetailDescription = (
   pokemon: DetailPokemon,
   meta: DetailMeta,
 ): string => {
-  const suffix = getFormSuffix(pokemon)
-  const formText = suffix ? ` ${suffix}` : ''
   const typesText = getKoreanTypesText(pokemon.types)
   const metaHighlight = getMetaHighlight(meta)
 
   if (metaHighlight) {
-    return `${typesText} 타입 ${pokemon.name}${formText} 챔피언스 정보. ${metaHighlight}, 추천 파트너·스탯 확인.`
+    return `${typesText} 타입 ${pokemon.name} 챔피언스 정보. ${metaHighlight}, 추천 파트너·스탯 확인.`
   }
 
   const statHighlight = getStatHighlights(pokemon.stats)
-  return `${typesText} 타입 ${pokemon.name}${formText} 챔피언스 정보. ${statHighlight} 등 스탯·기술·특성 확인.`
+  return `${typesText} 타입 ${pokemon.name} 챔피언스 정보. ${statHighlight} 등 스탯·기술·특성 확인.`
 }
 
 function getOgImageUrls(
@@ -124,9 +113,17 @@ function getOgImageUrls(
   }
 }
 
-export const generateChampionsDetailMetadata = async (
-  pokemonId: number,
-): Promise<Metadata> => {
+interface GenerateMetadataArgs {
+  pokemonId: number
+  formatSlug: ChampionsFormatSlug
+  formCode?: string | null
+}
+
+export const generateChampionsDetailMetadata = async ({
+  pokemonId,
+  formatSlug,
+  formCode,
+}: GenerateMetadataArgs): Promise<Metadata> => {
   if (isNaN(pokemonId) || pokemonId <= 0) {
     return {
       title: '포켓몬을 찾을 수 없습니다 | 포케코리아',
@@ -145,7 +142,11 @@ export const generateChampionsDetailMetadata = async (
     GetChampionsPokemonDetailQueryVariables
   >({
     query: GetChampionsPokemonDetailDocument,
-    variables: { externalDexId: pokemonId },
+    variables: {
+      pokemonId,
+      format: resolveFormatEnum(formatSlug),
+      ...(formCode ? { formCode } : {}),
+    },
   })
 
   const detail = data?.getChampionsPokemonDetail
@@ -171,12 +172,19 @@ export const generateChampionsDetailMetadata = async (
     pokemon.formIndex ?? 0,
   )
 
+  const canonicalPath = buildChampionsDetailHref({
+    formatSlug,
+    pokemonId,
+    formType: pokemon.formType,
+    formCode: pokemon.formCode,
+  })
+
   return {
     title,
     description,
     openGraph: {
       type: 'website',
-      url: `${SITE_URL}/champions/list/${pokemonId}`,
+      url: `${SITE_URL}${canonicalPath}`,
       title,
       locale: 'ko_KR',
       description,
@@ -199,7 +207,7 @@ export const generateChampionsDetailMetadata = async (
       siteName: SITE_NAME,
     },
     alternates: {
-      canonical: `${SITE_URL}/champions/list/${pokemonId}`,
+      canonical: `${SITE_URL}${canonicalPath}`,
     },
     twitter: {
       card: 'summary_large_image',

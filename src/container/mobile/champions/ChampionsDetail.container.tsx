@@ -1,20 +1,27 @@
 import Link from 'next/link'
+import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetailMetaSummaryBar.component'
+import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
+import ChampionsMetaSectionMobile from '~/components/champions/ChampionsMetaSection.mobile.component'
 import StatChartComponent from '~/components/chart/StatChart.component'
 import TagComponent from '~/components/Tag.component'
-import ChampionsMetaSectionMobile from '~/components/champions/ChampionsMetaSection.mobile.component'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import {
   getBackgroundColor,
   pokemonNumberFormat,
 } from '~/module/pokemonCard.module'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import ImageComponent from '~/components/Image.component'
 
 interface ChampionsDetailContainerProps {
   detail: ChampionsPokemonDetailFragment
+  formatSlug: ChampionsFormatSlug
 }
 
-const getDetailUrl = (
+/**
+ * 일반 도감 상세 페이지 URL 빌더 ("도감 보기" 외부 링크용).
+ */
+const getGeneralDetailUrl = (
   pokemonNumber: number,
   formType: string | null | undefined,
   formIndex: number | null | undefined,
@@ -36,21 +43,14 @@ const getDetailUrl = (
 
 const ChampionsDetailContainer = ({
   detail,
+  formatSlug,
 }: ChampionsDetailContainerProps) => {
-  const { pokemon, meta } = detail
+  const { pokemon, meta, formSiblings } = detail
   const pokemonNumber = pokemonNumberFormat(pokemon.pokemonNumber)
   const backgroundColor = getBackgroundColor(pokemon.types)
-  const getDisplayName = () => {
-    if (pokemon.region) {
-      const suffix = pokemon.formName
-        ? `${pokemon.region} ${pokemon.formName}`
-        : pokemon.region
-      return `${pokemon.name} (${suffix})`
-    }
-    return pokemon.formName || pokemon.name
-  }
-  const displayName = getDisplayName()
-  const detailUrl = getDetailUrl(
+  // 백엔드 응답 그대로 사용 (Phase 2/3 결정 — 합성 로직 제거)
+  const displayName = pokemon.name
+  const generalDetailUrl = getGeneralDetailUrl(
     pokemon.pokemonNumber,
     pokemon.formType,
     pokemon.formIndex,
@@ -65,12 +65,14 @@ const ChampionsDetailContainer = ({
 
   return (
     <>
+      <ChampionsFormTab formSiblings={formSiblings} formatSlug={formatSlug} />
+
       <div className="rounded-xl p-4 mb-4" style={gradientStyle}>
         <nav className="mb-4">
           <ol className="flex items-center gap-2 text-xs text-black-2/70">
             <li>
               <Link
-                href="/champions"
+                href={`/champions/${formatSlug}`}
                 className="hover:text-black-2 transition-colors"
               >
                 챔피언스
@@ -79,7 +81,7 @@ const ChampionsDetailContainer = ({
             <li className="text-black-2/50">/</li>
             <li>
               <Link
-                href="/champions/list"
+                href={`/champions/${formatSlug}/list`}
                 className="hover:text-black-2 transition-colors"
               >
                 도감
@@ -105,6 +107,7 @@ const ChampionsDetailContainer = ({
               height="17rem"
               className="w-50 h-50 object-contain"
               imageSize={{ height: 204, width: 204 }}
+              fetchPriority="high"
             />
           )}
         </div>
@@ -114,6 +117,8 @@ const ChampionsDetailContainer = ({
             <TagComponent key={type} type={type} />
           ))}
         </div>
+
+        <ChampionsDetailMetaSummaryBar meta={meta} />
       </div>
 
       <div className="mt-4 bg-primary-4 rounded-xl p-4 mb-6">
@@ -129,12 +134,12 @@ const ChampionsDetailContainer = ({
           )}
         </div>
       </div>
-      <ChampionsMetaSectionMobile meta={meta} />
+      <ChampionsMetaSectionMobile meta={meta} formatSlug={formatSlug} />
       <Link
-        href={detailUrl}
-        className="block w-full mt-6 mb-8 py-3 text-center text-base bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors"
+        href={generalDetailUrl}
+        className="block w-full mt-6 mb-8 py-3 text-center text-sm text-primary-3 hover:text-primary-4 underline underline-offset-2"
       >
-        도감에서 자세히 보기
+        ↗ 일반 도감에서 자세히 보기
       </Link>
     </>
   )

@@ -3,12 +3,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ChampionsMetaStatsFragment } from '~/graphql/typeGenerated'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 import ChampionsMetaList from './ChampionsMetaList.component'
 import ChampionsPartnerList from './ChampionsPartnerList.component'
 
 interface ChampionsMetaSectionMobileProps {
   meta: ChampionsMetaStatsFragment | null | undefined
+  formatSlug: ChampionsFormatSlug
 }
 
 type TabType = 'moves' | 'items' | 'abilities' | 'partners'
@@ -22,6 +24,7 @@ const tabs: { key: TabType; label: string }[] = [
 
 const ChampionsMetaSectionMobile = ({
   meta,
+  formatSlug,
 }: ChampionsMetaSectionMobileProps) => {
   const [activeTab, setActiveTab] = useState<TabType>('moves')
 
@@ -34,7 +37,7 @@ const ChampionsMetaSectionMobile = ({
           시즌이 시작되면 업데이트됩니다.
         </p>
         <Link
-          href="/champions/list"
+          href={`/champions/${formatSlug}/list`}
           className="inline-block px-4 py-2 bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors text-sm"
         >
           목록으로 돌아가기
@@ -53,7 +56,11 @@ const ChampionsMetaSectionMobile = ({
         return <ChampionsMetaList title="인기 특성" items={meta.topAbilities} />
       case 'partners':
         return (
-          <ChampionsPartnerList title="추천 파트너" items={meta.topPartners} />
+          <ChampionsPartnerList
+            title="추천 파트너"
+            items={meta.topPartners}
+            formatSlug={formatSlug}
+          />
         )
     }
   }
@@ -73,14 +80,14 @@ const ChampionsMetaSectionMobile = ({
           <div className="text-center p-2 bg-primary-3/20 rounded-lg">
             <p className="text-xs text-primary-2 mb-1">사용률</p>
             <p className="text-xl font-bold text-primary-1">
-              {meta.usageRate?.toFixed(1) ?? '-'}%
+              {meta.usageRate ?? '-'}%
             </p>
           </div>
-          {meta.winRate && (
+          {meta.winRate != null && (
             <div className="text-center p-2 bg-primary-3/20 rounded-lg">
               <p className="text-xs text-primary-2 mb-1">승률</p>
               <p className="text-xl font-bold text-primary-1">
-                {meta.winRate.toFixed(1)}%
+                {meta.winRate}%
               </p>
             </div>
           )}

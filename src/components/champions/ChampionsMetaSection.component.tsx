@@ -2,15 +2,20 @@
 
 import Link from 'next/link'
 import { ChampionsMetaStatsFragment } from '~/graphql/typeGenerated'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 import ChampionsMetaList from './ChampionsMetaList.component'
 import ChampionsPartnerList from './ChampionsPartnerList.component'
 
 interface ChampionsMetaSectionProps {
   meta: ChampionsMetaStatsFragment | null | undefined
+  formatSlug: ChampionsFormatSlug
 }
 
-const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
+const ChampionsMetaSection = ({
+  meta,
+  formatSlug,
+}: ChampionsMetaSectionProps) => {
   if (!meta) {
     return (
       <div className="p-6 bg-primary-4 rounded-xl text-center">
@@ -20,7 +25,7 @@ const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
           시즌이 시작되면 업데이트됩니다.
         </p>
         <Link
-          href="/champions/list"
+          href={`/champions/${formatSlug}/list`}
           className="inline-block px-4 py-2 bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors text-sm"
         >
           목록으로 돌아가기
@@ -44,14 +49,14 @@ const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
           <div className="text-center p-3 bg-primary-3/20 rounded-lg">
             <p className="text-xs text-primary-2 mb-1">사용률</p>
             <p className="text-2xl font-bold text-primary-1">
-              {meta.usageRate?.toFixed(1) ?? '-'}%
+              {meta.usageRate ?? '-'}%
             </p>
           </div>
-          {meta.winRate && (
+          {meta.winRate != null && (
             <div className="text-center p-3 bg-primary-3/20 rounded-lg">
               <p className="text-xs text-primary-2 mb-1">승률</p>
               <p className="text-2xl font-bold text-primary-1">
-                {meta.winRate.toFixed(1)}%
+                {meta.winRate}%
               </p>
             </div>
           )}
@@ -62,7 +67,11 @@ const ChampionsMetaSection = ({ meta }: ChampionsMetaSectionProps) => {
         <ChampionsMetaList title="인기 기술" items={meta.topMoves} />
         <ChampionsMetaList title="인기 아이템" items={meta.topItems} />
         <ChampionsMetaList title="인기 특성" items={meta.topAbilities} />
-        <ChampionsPartnerList title="추천 파트너" items={meta.topPartners} />
+        <ChampionsPartnerList
+          title="추천 파트너"
+          items={meta.topPartners}
+          formatSlug={formatSlug}
+        />
       </div>
 
       <p className="text-xs text-gray-400 text-right">

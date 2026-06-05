@@ -8,6 +8,7 @@ import {
   GetDailyRandomPokemonDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  ChampionsFormat,
   GetChampionsMetaSummaryByFilterQuery,
   GetChampionsMetaSummaryByFilterQueryVariables,
   GetDailyQuizPreviewQuery,
@@ -81,7 +82,12 @@ const HomePage = async ({ searchParams }: PageProps) => {
   >({
     query: GetChampionsMetaSummaryByFilterDocument,
     variables: {
-      filter: { tier: 'S', limit: 3 },
+      filter: {
+        // TODO(Phase 1): format을 라우트 파라미터에서 가져오기
+        format: ChampionsFormat.VGC_DOUBLES,
+        tier: 'S',
+        limit: 3,
+      },
     },
     fetchPolicy: 'network-only',
   })

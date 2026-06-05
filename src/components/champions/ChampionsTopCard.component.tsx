@@ -10,27 +10,24 @@ import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
 import { getBackgroundColor } from '~/module/pokemonCard.module'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+} from '~/utils/championsFormat.util'
 import ImageComponent from '../Image.component'
 
 interface ChampionsTopCardProps {
   pokemonData: ChampionsMetaSummaryFragment
   isHighPriority?: boolean
+  formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsTopCard = ({
   pokemonData,
   isHighPriority = false,
+  formatSlug,
 }: ChampionsTopCardProps) => {
-  const getDisplayName = () => {
-    if (pokemonData.region) {
-      const suffix = pokemonData.formName
-        ? `${pokemonData.region} ${pokemonData.formName}`
-        : pokemonData.region
-      return `${pokemonData.name} (${suffix})`
-    }
-    return pokemonData.formName || pokemonData.name
-  }
-  const displayName = getDisplayName()
+  const displayName = pokemonData.name ?? ''
 
   const backgroundColor = getBackgroundColor(pokemonData.types ?? [])
   const tierColors = getTierColors(pokemonData.tier)
@@ -49,7 +46,15 @@ const ChampionsTopCard = ({
         }
 
   return (
-    <Link href={`/champions/list/${pokemonData.pokemonId}`} className="block">
+    <Link
+      href={buildChampionsDetailHref({
+        formatSlug,
+        pokemonId: pokemonData.pokemonId,
+        formType: pokemonData.formType,
+        formCode: pokemonData.formCode,
+      })}
+      className="block"
+    >
       <article
         className="w-full h-72 text-black-2 border border-solid border-black-2 rounded-[10px] block p-2 outline-[0.25rem] outline relative overflow-hidden shadow-[inset_8px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-105 hover:z-10 card-corner-fold"
         style={{ ...gradientStyle, outlineColor: tierColors.outlineColor }}
@@ -76,7 +81,7 @@ const ChampionsTopCard = ({
                   width="10rem"
                   imageSize={{ width: 140, height: 140 }}
                   densities={[1, 1.5]}
-                  alt={`pokemon_id_${pokemonData.pokemonId}`}
+                  alt={`${displayName} 포켓몬 이미지`}
                   src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes="10rem"
                   fetchPriority="high"
@@ -88,7 +93,7 @@ const ChampionsTopCard = ({
           <div
             ref={imgRef}
             className="w-fit mx-auto my-2 drop-shadow-[2px_3px_2px_#333333] relative"
-            aria-description="포켓몬 이미지"
+            aria-hidden="true"
           >
             {isVisible ? (
               pokemonData.imagePath && (
@@ -97,7 +102,7 @@ const ChampionsTopCard = ({
                   width="10rem"
                   imageSize={{ width: 140, height: 140 }}
                   densities={[1, 1.5]}
-                  alt={`pokemon_id_${pokemonData.pokemonId}`}
+                  alt={`${displayName} 포켓몬 이미지`}
                   src={`${imageMode}/${pokemonData.imagePath}`}
                   sizes="10rem"
                   loading="lazy"
@@ -110,14 +115,14 @@ const ChampionsTopCard = ({
                 />
               )
             ) : (
-              <div className="w-36 h-36 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
+              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}
 
         <div
           className="flex items-center justify-center gap-1 px-1"
-          aria-description="포켓몬 타입 정보"
+          aria-hidden="true"
         >
           {pokemonData.types?.map((item, index) => {
             return <TagComponent key={`${item}-id-${index}`} type={item} />

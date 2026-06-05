@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { CHAMPIONS_DEFAULT_FORMAT_SLUG } from '~/utils/championsFormat.util'
 
 interface HomeChampionsContainerProps {
   topPokemons: Array<ChampionsMetaSummaryFragment>
@@ -24,14 +25,21 @@ const HomeChampionsContainer = ({
       </h2>
       <ul className="mt-6 flex flex-wrap justify-center gap-6">
         {topPokemons.map((pokemon) => (
-          <li key={pokemon.pokemonId} className="w-[240px]">
-            <ChampionsTopCard pokemonData={pokemon} isHighPriority />
+          <li
+            key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
+            className="w-[240px]"
+          >
+            <ChampionsTopCard
+              pokemonData={pokemon}
+              isHighPriority
+              formatSlug={CHAMPIONS_DEFAULT_FORMAT_SLUG}
+            />
           </li>
         ))}
       </ul>
       <div className="mt-6 flex justify-center">
         <Link
-          href="/champions/list"
+          href={`/champions/${CHAMPIONS_DEFAULT_FORMAT_SLUG}/list`}
           className="inline-flex items-center gap-2 rounded-2xl bg-primary-1 px-6 py-3 text-base text-primary-4 shadow-[1px_2px_6px_0_var(--color-primary-1)] transition-colors hover:bg-primary-2 focus-visible:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
         >
           <span>챔피언스 전체 도감 보기</span>

@@ -115,6 +115,30 @@ const nextConfig = {
         destination: '/detail/:pokemonId/moves/machine',
         permanent: true,
       },
+      // 챔피언스 포맷 분리 (Phase 1) — 기존 URL을 VGC 기본으로 리다이렉트
+      {
+        source: '/champions',
+        destination: '/champions/vgc',
+        permanent: true,
+      },
+      // 챔피언스 리스트 포맷 분리 (Phase 2) — 기존 URL을 VGC 기본으로 리다이렉트
+      {
+        source: '/champions/list',
+        destination: '/champions/vgc/list',
+        permanent: true,
+      },
+      // 챔피언스 티어 포맷 분리 (Phase 3) — 기존 URL을 VGC 기본으로 리다이렉트
+      {
+        source: '/champions/tier',
+        destination: '/champions/vgc/tier',
+        permanent: true,
+      },
+      // 챔피언스 상세 포맷 분리 (Phase 4) — 기존 URL을 VGC 기본으로 리다이렉트
+      {
+        source: '/champions/list/:pokemonId',
+        destination: '/champions/vgc/list/:pokemonId',
+        permanent: true,
+      },
     ]
   },
   async headers() {

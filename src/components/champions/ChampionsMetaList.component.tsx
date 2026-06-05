@@ -18,7 +18,7 @@ const ChampionsMetaList = ({ title, items }: ChampionsMetaListProps) => {
               <div className="flex justify-between text-sm">
                 <span className="font-medium">{item.name}</span>
                 <span className="text-gray-600">
-                  {item.usageRate.toFixed(1)}%
+                  {item.usageRate}%
                 </span>
               </div>
               <div className="w-full h-2 bg-primary-4 rounded-full overflow-hidden">

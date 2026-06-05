@@ -710,7 +710,7 @@ query GetPokemonGigantamaxList {
 
 # ========== Champions Queries ==========
 
-query GetChampionsPokemonList($input: ChampionsPokemonListInput) {
+query GetChampionsPokemonList($input: ChampionsPokemonListInput!) {
   getChampionsPokemonList(input: $input) {
     totalCount
     updatedAt
@@ -729,34 +729,96 @@ query GetChampionsPokemonList($input: ChampionsPokemonListInput) {
   }
 }
 
-query GetChampionsMetaStats($externalDexId: Int!) {
-  getChampionsMetaStats(externalDexId: $externalDexId) {
+query GetChampionsMetaStats($input: ChampionsMetaStatsInput!) {
+  getChampionsMetaStats(input: $input) {
     ...ChampionsMetaStats
   }
 }
 
-query GetChampionsMetaSummary {
-  getChampionsMetaSummary {
-    ...ChampionsMetaSummary
-  }
-}
-
 query GetChampionsMetaSummaryByFilter(
-  $filter: ChampionsMetaSummaryFilterInput
+  $filter: ChampionsMetaSummaryFilterInput!
 ) {
   getChampionsMetaSummary(filter: $filter) {
     ...ChampionsMetaSummary
   }
 }
 
-query GetBestChampionsPokemon {
-  getBestChampionsPokemon {
+query GetBestChampionsPokemon($format: ChampionsFormat!) {
+  getBestChampionsPokemon(format: $format) {
     ...ChampionsMetaSummary
   }
 }
 
-query GetChampionsPokemonDetail($externalDexId: Int!) {
-  getChampionsPokemonDetail(externalDexId: $externalDexId) {
+query GetChampionsPokemonDetail(
+  $pokemonId: Int!
+  $format: ChampionsFormat!
+  $formCode: String
+  $month: String
+) {
+  getChampionsPokemonDetail(
+    pokemonId: $pokemonId
+    format: $format
+    formCode: $formCode
+    month: $month
+  ) {
     ...ChampionsPokemonDetail
+  }
+}
+
+query GetChampionsTeamCores(
+  $format: ChampionsFormat!
+  $size: Int
+  $month: String
+  $limit: Int
+) {
+  championsTeamCores(
+    format: $format
+    size: $size
+    month: $month
+    limit: $limit
+  ) {
+    ...ChampionsTeamCore
+  }
+}
+
+query GetChampionsTournaments(
+  $format: ChampionsFormat!
+  $limit: Int
+  $month: String
+) {
+  championsTournaments(format: $format, limit: $limit, month: $month) {
+    ...ChampionsTournamentSummary
+  }
+}
+
+query GetChampionsTournamentsWithTopTeam(
+  $format: ChampionsFormat!
+  $limit: Int
+  $month: String
+) {
+  championsTournaments(format: $format, limit: $limit, month: $month) {
+    ...ChampionsTournamentSummary
+    teams {
+      id
+      rank
+      playerName
+      country
+      wins
+      losses
+      slots {
+        pokemonId
+        formType
+        formCode
+        displayName
+        rawName
+        imagePath
+      }
+    }
+  }
+}
+
+query GetChampionsTournamentDetail($externalId: String!) {
+  championsTournamentDetail(externalId: $externalId) {
+    ...ChampionsTournamentDetail
   }
 }
