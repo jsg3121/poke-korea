@@ -24,18 +24,13 @@ const ChampionsTournamentDetailContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto pb-12 mt-12 px-5">
-      <nav aria-label="페이지 경로" className="mb-3 text-sm text-primary-3">
-        <Link
-          href={`/champions/${CHAMPIONS_DEFAULT_FORMAT_SLUG}`}
-          className="hover:text-primary-4"
-        >
-          챔피언스
-        </Link>
-        <span className="mx-2">/</span>
-        <Link href="/champions/tournaments" className="hover:text-primary-4">
-          대회
-        </Link>
-      </nav>
+      <Link
+        href="/champions/tournaments"
+        aria-label="대회 목록으로 돌아가기"
+        className="inline-flex items-center gap-1 mb-3 text-sm text-primary-3 hover:text-primary-4"
+      >
+        ← 대회 목록
+      </Link>
 
       <header className="mb-8 bg-primary-4 rounded-xl p-6">
         <div className="flex items-center gap-2 mb-3 text-xs">
