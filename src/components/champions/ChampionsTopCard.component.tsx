@@ -10,16 +10,22 @@ import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
 import { getBackgroundColor } from '~/module/pokemonCard.module'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+} from '~/utils/championsFormat.util'
 import ImageComponent from '../Image.component'
 
 interface ChampionsTopCardProps {
   pokemonData: ChampionsMetaSummaryFragment
   isHighPriority?: boolean
+  formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsTopCard = ({
   pokemonData,
   isHighPriority = false,
+  formatSlug,
 }: ChampionsTopCardProps) => {
   const displayName = pokemonData.name ?? ''
 
@@ -40,7 +46,15 @@ const ChampionsTopCard = ({
         }
 
   return (
-    <Link href={`/champions/list/${pokemonData.pokemonId}`} className="block">
+    <Link
+      href={buildChampionsDetailHref({
+        formatSlug,
+        pokemonId: pokemonData.pokemonId,
+        formType: pokemonData.formType,
+        formCode: pokemonData.formCode,
+      })}
+      className="block"
+    >
       <article
         className="w-full h-72 text-black-2 border border-solid border-black-2 rounded-[10px] block p-2 outline-[0.25rem] outline relative overflow-hidden shadow-[inset_8px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-105 hover:z-10 card-corner-fold"
         style={{ ...gradientStyle, outlineColor: tierColors.outlineColor }}

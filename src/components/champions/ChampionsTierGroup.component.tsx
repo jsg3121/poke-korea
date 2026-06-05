@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 import ChampionsTierPokemonItem from './ChampionsTierPokemonItem.component'
 
@@ -10,6 +11,7 @@ type Tier = 'S' | 'A' | 'B' | 'C' | 'D'
 interface ChampionsTierGroupProps {
   tier: Tier
   pokemons: ChampionsMetaSummaryFragment[]
+  formatSlug: ChampionsFormatSlug
   /**
    * 초기 접힘 여부. C/D 티어처럼 항목이 많은 그룹은 기본 접힘으로 처리하여
    * 이미지 다수 동시 로드를 방지한다.
@@ -20,6 +22,7 @@ interface ChampionsTierGroupProps {
 const ChampionsTierGroup = ({
   tier,
   pokemons,
+  formatSlug,
   defaultCollapsed = false,
 }: ChampionsTierGroupProps) => {
   const [isOpen, setIsOpen] = useState(!defaultCollapsed)
@@ -81,6 +84,7 @@ const ChampionsTierGroup = ({
                 key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
                 pokemon={pokemon}
                 isHighPriority={isHighPriorityTier}
+                formatSlug={formatSlug}
               />
             ))
           )}

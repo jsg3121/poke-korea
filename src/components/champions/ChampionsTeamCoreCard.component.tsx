@@ -2,7 +2,10 @@ import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import {
+  buildChampionsDetailHref,
+  ChampionsFormatSlug,
+} from '~/utils/championsFormat.util'
 
 interface ChampionsTeamCoreCardProps {
   core: ChampionsTeamCoreFragment
@@ -32,7 +35,7 @@ const IMAGE_SIZE_BY_COUNT: Record<
 
 const ChampionsTeamCoreCard = ({
   core,
-  formatSlug: _formatSlug,
+  formatSlug,
 }: ChampionsTeamCoreCardProps) => {
   const usageRate = core.usageRate
   const teamsCountLabel = core.teamsCount.toLocaleString()
@@ -40,16 +43,26 @@ const ChampionsTeamCoreCard = ({
   // 멤버 이름 폴백: displayName ?? rawName
   const members = core.pokemons.map((m) => ({
     pokemonId: m.pokemonId,
+    formType: m.formType,
+    formCode: m.formCode,
     name: m.displayName || m.rawName,
     imagePath: m.imagePath,
   }))
 
   const imageDim = IMAGE_SIZE_BY_COUNT[members.length] ?? IMAGE_SIZE_BY_COUNT[2]
 
-  const buildPokemonHref = (pokemonId: number | null | undefined) => {
+  const buildPokemonHref = (
+    pokemonId: number | null | undefined,
+    formType: string | null | undefined,
+    formCode: string | null | undefined,
+  ) => {
     if (pokemonId == null) return null
-    // Phase 4 라우트 확정 후 /champions/[format]/list/[pokemonId] 로 갱신 예정
-    return `/champions/list/${pokemonId}`
+    return buildChampionsDetailHref({
+      formatSlug,
+      pokemonId,
+      formType,
+      formCode,
+    })
   }
 
   const renderImage = (member: (typeof members)[number], keySuffix: string) => (
@@ -76,7 +89,11 @@ const ChampionsTeamCoreCard = ({
     member: (typeof members)[number],
     index: number,
   ) => {
-    const href = buildPokemonHref(member.pokemonId)
+    const href = buildPokemonHref(
+      member.pokemonId,
+      member.formType,
+      member.formCode,
+    )
     return (
       <span
         key={`${member.pokemonId ?? member.name}-name-${index}`}

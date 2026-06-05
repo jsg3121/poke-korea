@@ -1,15 +1,18 @@
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsHeroSectionProps {
   sTierPokemons: ChampionsMetaSummaryFragment[]
   moreHref: string
+  formatSlug: ChampionsFormatSlug
 }
 
 const ChampionsHeroSection = ({
   sTierPokemons,
   moreHref,
+  formatSlug,
 }: ChampionsHeroSectionProps) => {
   if (sTierPokemons.length === 0) {
     return null
@@ -38,7 +41,7 @@ const ChampionsHeroSection = ({
               key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
               className="w-[175px] flex-shrink-0 px-1 py-1"
             >
-              <ChampionsTopCard pokemonData={pokemon} isHighPriority />
+              <ChampionsTopCard pokemonData={pokemon} isHighPriority formatSlug={formatSlug} />
             </li>
           ))}
         </ul>
@@ -55,7 +58,7 @@ const ChampionsHeroSection = ({
             key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
             className="w-[200px] flex-shrink-0"
           >
-            <ChampionsTopCard pokemonData={pokemon} isHighPriority />
+            <ChampionsTopCard pokemonData={pokemon} isHighPriority formatSlug={formatSlug} />
           </li>
         ))}
       </ul>

@@ -77,6 +77,7 @@ const ChampionsPokedexContainer = ({
               <ChampionsPokemonCard
                 pokemonData={pokemon}
                 isHighPriority={index < 6}
+                formatSlug={formatSlug}
               />
               {index === AD_AFTER_INDEX && (
                 <div className="col-span-2 w-full">

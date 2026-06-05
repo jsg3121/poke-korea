@@ -58,7 +58,11 @@ const ChampionsHomeContainer = ({
       </p>
 
       {/* Hero — S 티어 TOP 3 */}
-      <ChampionsHeroSection sTierPokemons={sTier} moreHref="/champions/tier" />
+      <ChampionsHeroSection
+        sTierPokemons={sTier}
+        moreHref={`/champions/${formatSlug}/tier`}
+        formatSlug={formatSlug}
+      />
 
       {/* A 티어 한눈에 보기 */}
       {aTier.length > 0 && (
@@ -84,7 +88,11 @@ const ChampionsHomeContainer = ({
                 key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
                 className="w-[200px] flex-shrink-0"
               >
-                <ChampionsTopCard pokemonData={pokemon} isHighPriority />
+                <ChampionsTopCard
+                  pokemonData={pokemon}
+                  isHighPriority
+                  formatSlug={formatSlug}
+                />
               </li>
             ))}
           </ul>
