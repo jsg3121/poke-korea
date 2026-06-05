@@ -3,7 +3,11 @@
 import HeaderContainer from '~/container/desktop/header/Header.container'
 import ChampionsTierContainer from '~/container/desktop/champions/ChampionsTier.container'
 import FooterContainer from '~/container/desktop/footer/Footer.container'
-import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
+import {
+  ChampionsMetaSummaryFragment,
+  ChampionsTeamCoreFragment,
+} from '~/graphql/typeGenerated'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface TierGroups {
   S: ChampionsMetaSummaryFragment[]
@@ -15,17 +19,28 @@ interface TierGroups {
 
 interface ChampionsTierDesktopProps {
   tierGroups: TierGroups
+  teamCores: ChampionsTeamCoreFragment[]
+  formatSlug: ChampionsFormatSlug
+  latestUpdatedAt?: string
 }
 
-const ChampionsTierDesktop = ({ tierGroups }: ChampionsTierDesktopProps) => {
+const ChampionsTierDesktop = ({
+  tierGroups,
+  teamCores,
+  formatSlug,
+  latestUpdatedAt,
+}: ChampionsTierDesktopProps) => {
   return (
     <>
       <div className="h-32">
         <HeaderContainer />
       </div>
-      <section className="w-full max-w-[1280px] min-h-dvh mx-auto pb-12 mt-20 px-5">
-        <ChampionsTierContainer tierGroups={tierGroups} />
-      </section>
+      <ChampionsTierContainer
+        tierGroups={tierGroups}
+        teamCores={teamCores}
+        formatSlug={formatSlug}
+        latestUpdatedAt={latestUpdatedAt}
+      />
       <FooterContainer />
     </>
   )

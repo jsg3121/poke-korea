@@ -26,7 +26,7 @@ const ChampionsFormatTab = ({
 }: ChampionsFormatTabProps) => {
   return (
     <nav aria-label="포맷 선택" className={`w-full ${className}`}>
-      <ul className="flex items-center gap-3 border-b border-solid border-primary-2">
+      <ul className="flex items-center gap-2 flex-wrap">
         {CHAMPIONS_FORMAT_SLUGS.map((slug) => {
           const isActive = slug === currentFormat
           const href = `${basePath}/${slug}${suffix}`
@@ -38,10 +38,10 @@ const ChampionsFormatTab = ({
                 href={href}
                 aria-current={isActive ? 'page' : undefined}
                 title={label}
-                className={`block py-3 text-sm transition-colors duration-200 ${
+                className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold transition-colors duration-200 border-2 ${
                   isActive
-                    ? 'text-primary-4 font-bold border-b-2 border-primary-4'
-                    : 'text-primary-3 hover:text-primary-4'
+                    ? 'bg-primary-1 text-white border-primary-1'
+                    : 'bg-primary-4 text-primary-1 border-primary-1 hover:bg-primary-3'
                 }`}
               >
                 {label}

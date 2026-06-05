@@ -197,6 +197,7 @@ fragment ChampionsMetaSummary on ChampionsMetaStats {
   winRate
   tier
   isStale
+  updatedAt
 }
 
 fragment ChampionsPokemonDetail on ChampionsPokemonDetail {

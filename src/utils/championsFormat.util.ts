@@ -79,3 +79,22 @@ export const getFormatIntro = (slug: ChampionsFormatSlug): string => {
       return 'Battle Stadium Singles. 닌텐도 스위치 본가 게임의 공식 랭크전 싱글 포맷입니다. 6마리 중 3마리를 선택하여 1:1 배틀로 진행합니다.'
   }
 }
+
+/**
+ * ISO 문자열을 YYYY-MM-DD 형식으로 포맷.
+ *
+ * Why: 서버 환경(예: UTC) 과 무관하게 항상 한국 시간(KST, UTC+9) 기준으로
+ * 일관된 날짜를 표시한다. SSR 시 서버가 UTC 라면 `date.getDate()` 는 UTC 기준이
+ * 되어 한국 사용자에게 하루 일찍 표시될 수 있다. ISO 타임스탬프에 9시간을
+ * 더한 뒤 UTC 메서드로 추출하면 환경 무관 KST 일자를 얻을 수 있다.
+ */
+export const formatKstDate = (iso?: string | null): string | null => {
+  if (!iso) return null
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return null
+  const kst = new Date(date.getTime() + 9 * 60 * 60 * 1000)
+  const yyyy = kst.getUTCFullYear()
+  const mm = String(kst.getUTCMonth() + 1).padStart(2, '0')
+  const dd = String(kst.getUTCDate()).padStart(2, '0')
+  return `${yyyy}-${mm}-${dd}`
+}
