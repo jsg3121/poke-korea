@@ -67,10 +67,7 @@ const ChampionsDetailContainer = ({
 
   return (
     <>
-      <ChampionsFormTab
-        formSiblings={formSiblings}
-        formatSlug={formatSlug}
-      />
+      <ChampionsFormTab formSiblings={formSiblings} formatSlug={formatSlug} />
 
       <div className="rounded-xl p-6 mb-6" style={gradientStyle}>
         <nav className="mb-3 flex items-center justify-between">
@@ -119,6 +116,7 @@ const ChampionsDetailContainer = ({
               height="18rem"
               className="w-72 h-72 object-contain"
               imageSize={{ height: 288, width: 288 }}
+              fetchPriority="high"
             />
           )}
         </div>
