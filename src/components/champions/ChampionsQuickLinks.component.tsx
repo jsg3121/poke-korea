@@ -3,15 +3,14 @@ import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsQuickLinksProps {
   /**
-   * 현재 포맷 슬러그. Phase 2/3/5 라우트(/champions/[format]/list 등)가 확정되면
-   * 각 진입 카드 href 에 사용된다. Phase 1 시점엔 미사용.
+   * 현재 포맷 슬러그. 각 진입 카드 href 에서 포맷별 라우트 분기에 사용된다.
+   * Phase 2: /champions/[format]/list 적용 완료.
+   * Phase 3: /champions/[format]/tier 확정 시 적용 예정.
    */
   formatSlug: ChampionsFormatSlug
 }
 
-const ChampionsQuickLinks = ({
-  formatSlug: _formatSlug,
-}: ChampionsQuickLinksProps) => {
+const ChampionsQuickLinks = ({ formatSlug }: ChampionsQuickLinksProps) => {
   const items: Array<{
     href: string
     title: string
@@ -19,7 +18,7 @@ const ChampionsQuickLinks = ({
     icon: string
   }> = [
     {
-      href: `/champions/list`,
+      href: `/champions/${formatSlug}/list`,
       title: '챔피언스 도감',
       description: '전체 포켓몬 목록과 상세 정보',
       icon: '📖',
