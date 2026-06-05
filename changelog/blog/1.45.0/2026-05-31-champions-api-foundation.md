@@ -69,7 +69,11 @@ UI 변경은 없으며, 모든 챔피언스 페이지가 VGC 데이터로 정상
 
 ### 6. 폼별 데이터 대응을 위한 key 패턴 갱신 (5곳)
 
-신규 백엔드는 같은 `pokemonId` 에 대해 폼별(BASE/MEGA/REGION 등) 별개 row를 반환합니다. 이전의 `key={pokemon.pokemonId}` 가 중복 경고를 발생시켜 다음 5곳을 `key={\`${pokemonId}-${formCode ?? 'base'}\`}` 패턴으로 변경:
+신규 백엔드는 같은 `pokemonId` 에 대해 폼별(BASE/MEGA/REGION 등) 별개 row를 반환합니다. 이전의 `key={pokemon.pokemonId}` 가 중복 경고를 발생시켜 다음 5곳을 아래 패턴으로 변경:
+
+```tsx
+key={`${pokemonId}-${formCode ?? 'base'}`}
+```
 
 - `ChampionsTierGroup.component.tsx`
 - `HomeChampions.container.tsx` (desktop/mobile)
