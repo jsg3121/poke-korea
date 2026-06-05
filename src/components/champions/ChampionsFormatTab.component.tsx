@@ -41,7 +41,7 @@ const ChampionsFormatTab = ({
                 className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold transition-colors duration-200 border-2 ${
                   isActive
                     ? 'bg-primary-4 text-primary-1 border-primary-4'
-                    : 'bg-transparent text-primary-3 border-primary-3 hover:text-primary-4 hover:border-primary-4'
+                    : 'bg-transparent text-primary-3 border-primary-3 hover:text-gray-300 hover:border-primary-4'
                 }`}
               >
                 {label}
