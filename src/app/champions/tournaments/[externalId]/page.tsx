@@ -126,23 +126,26 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
     ],
   }
 
-  const sportsEventJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SportsEvent',
-    name: detail.name,
-    startDate: detail.date,
-    location: detail.isOnline
-      ? { '@type': 'VirtualLocation', name: '온라인' }
-      : { '@type': 'Place', name: detail.organizerName ?? '대회 장소' },
-    ...(detail.organizerName && {
-      organizer: {
-        '@type': 'Organization',
-        name: detail.organizerName,
-      },
-    }),
-    url: `${SITE_URL}/champions/tournaments/${detail.externalId}`,
-    sport: '포켓몬 VGC 더블 배틀',
-  }
+  const sportsEventJsonLd = detail.isOnline
+    ? null
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'SportsEvent',
+        name: detail.name,
+        startDate: detail.date,
+        location: {
+          '@type': 'Place',
+          name: detail.organizerName ?? '대회 장소',
+        },
+        ...(detail.organizerName && {
+          organizer: {
+            '@type': 'Organization',
+            name: detail.organizerName,
+          },
+        }),
+        url: `${SITE_URL}/champions/tournaments/${detail.externalId}`,
+        sport: '포켓몬 VGC 더블 배틀',
+      }
 
   return (
     <>
@@ -150,10 +153,14 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsEventJsonLd) }}
-      />
+      {sportsEventJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(sportsEventJsonLd),
+          }}
+        />
+      )}
       <main className="w-full min-h-screen">
         {isMobile ? (
           <ChampionsTournamentDetailMobile detail={detail} />
