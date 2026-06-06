@@ -99,9 +99,17 @@ const HeaderNav = () => {
               <li>
                 <Link
                   href="/champions/tier"
-                  className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2 rounded-b-lg"
+                  className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
                 >
                   티어 리스트
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/champions/tournaments"
+                  className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2 rounded-b-lg"
+                >
+                  대회
                 </Link>
               </li>
             </ul>
