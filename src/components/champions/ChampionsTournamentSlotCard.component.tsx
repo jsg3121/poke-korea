@@ -101,11 +101,11 @@ const ChampionsTournamentSlotCard = ({
         </p>
       </div>
 
-      {/* 아이템 / 특성 / 테라 */}
+      {/* 도구 / 특성 / 테라 */}
       <dl className="text-xs space-y-1 mb-2 border-t-2 border-primary-3 pt-2">
         <div className="flex items-center gap-2">
           <dt className="shrink-0 w-10 text-[10px] font-bold text-primary-1">
-            아이템
+            도구
           </dt>
           <dd className="text-primary-1 font-semibold line-clamp-2 break-keep text-[0.875rem] desktop:text-[0.75rem]">
             {itemLabel || '-'}

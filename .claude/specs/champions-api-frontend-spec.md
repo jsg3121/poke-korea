@@ -198,7 +198,7 @@ interface ChampionsPokemonListInput {
 
 ### 용도
 
-개별 포켓몬의 메타 통계를 조회합니다. (사용률, 티어, 인기 기술/아이템/특성/파트너)
+개별 포켓몬의 메타 통계를 조회합니다. (사용률, 티어, 인기 기술/도구/특성/파트너)
 
 ### Query
 
@@ -297,7 +297,7 @@ query GetChampionsMetaStats($pokemonId: Int!) {
 | `winRate`      | Float?  | 승률 (%, 현재 null)             |
 | `tier`         | String  | 티어 (S/A/B/C/D)                |
 | `topMoves`     | Array   | 인기 기술 TOP 4                 |
-| `topItems`     | Array   | 인기 아이템 TOP 4               |
+| `topItems`     | Array   | 인기 도구 TOP 4                 |
 | `topAbilities` | Array   | 인기 특성                       |
 | `topPartners`  | Array   | 자주 함께 사용되는 포켓몬 TOP 4 |
 | `isStale`      | Boolean | stale 캐시 데이터 여부          |
@@ -314,7 +314,7 @@ query GetChampionsMetaStats($pokemonId: Int!) {
 
 ### 주의사항
 
-- 일부 아이템은 `Unknown (ID)`로 표시될 수 있음 (DB에 없는 챔피언스 전용 아이템)
+- 일부 도구은 `Unknown (ID)`로 표시될 수 있음 (DB에 없는 챔피언스 전용 도구)
 - 데이터는 24시간 캐싱됨. 외부 API 장애 시 최대 7일간 stale 데이터 반환
 
 ---

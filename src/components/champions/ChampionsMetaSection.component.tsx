@@ -65,7 +65,7 @@ const ChampionsMetaSection = ({
 
       <div className="space-y-4">
         <ChampionsMetaList title="인기 기술" items={meta.topMoves} />
-        <ChampionsMetaList title="인기 아이템" items={meta.topItems} />
+        <ChampionsMetaList title="인기 도구" items={meta.topItems} />
         <ChampionsMetaList title="인기 특성" items={meta.topAbilities} />
         <ChampionsPartnerList
           title="추천 파트너"
