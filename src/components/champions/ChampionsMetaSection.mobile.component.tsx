@@ -17,7 +17,7 @@ type TabType = 'moves' | 'items' | 'abilities' | 'partners'
 
 const tabs: { key: TabType; label: string }[] = [
   { key: 'moves', label: '기술' },
-  { key: 'items', label: '아이템' },
+  { key: 'items', label: '도구' },
   { key: 'abilities', label: '특성' },
   { key: 'partners', label: '파트너' },
 ]
@@ -51,7 +51,7 @@ const ChampionsMetaSectionMobile = ({
       case 'moves':
         return <ChampionsMetaList title="인기 기술" items={meta.topMoves} />
       case 'items':
-        return <ChampionsMetaList title="인기 아이템" items={meta.topItems} />
+        return <ChampionsMetaList title="인기 도구" items={meta.topItems} />
       case 'abilities':
         return <ChampionsMetaList title="인기 특성" items={meta.topAbilities} />
       case 'partners':

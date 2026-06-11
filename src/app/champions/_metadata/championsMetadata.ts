@@ -44,7 +44,7 @@ export const generateChampionsHomeMetadata = async (
   const formatDesc = getFormatDescription(formatSlug)
 
   const title = `포켓몬 챔피언스 ${formatShort} 도감 | 포케코리아`
-  const description = `${formatDesc} 메타 분석. ${totalCount}종 포켓몬 사용률, 추천 기술/아이템/특성, 인기 팀 조합 정보를 확인하세요.`
+  const description = `${formatDesc} 메타 분석. ${totalCount}종 포켓몬 사용률, 추천 기술/도구/특성, 인기 팀 조합 정보를 확인하세요.`
   const url = `${SITE_URL}/champions/${formatSlug}`
 
   return {

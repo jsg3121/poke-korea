@@ -29,7 +29,7 @@ tags: [seo, meta-optimization]
 
 ```typescript
 const title = `${pokemon.name} 챔피언스 정보 | 포케코리아`
-const description = `${pokemon.name}의 포켓몬 챔피언스 사용률, 인기 기술, 아이템, 특성, 추천 파트너 정보를 확인하세요.`
+const description = `${pokemon.name}의 포켓몬 챔피언스 사용률, 인기 기술, 도구, 특성, 추천 파트너 정보를 확인하세요.`
 ```
 
 모든 포켓몬에 동일하게 적용 — 이름만 다른 boilerplate.
@@ -60,13 +60,13 @@ const description = `${pokemon.name}의 포켓몬 챔피언스 사용률, 인기
 
 #### 길이 검증 결과 (네이버 80자 가이드라인)
 
-| 케이스 | description 길이 |
-| --- | --- |
-| 리자몽 (메타 풀) | 54자 |
-| 피카츄 (메타 없음, 폴백) | 47자 |
-| 대쓰여너 (폴백) | 52자 |
-| 나인테일 (알로라 리전폼) | 64자 |
-| 롱카이트 (노말폼, 가상 케이스) | 54자 |
+| 케이스                         | description 길이 |
+| ------------------------------ | ---------------- |
+| 리자몽 (메타 풀)               | 54자             |
+| 피카츄 (메타 없음, 폴백)       | 47자             |
+| 대쓰여너 (폴백)                | 52자             |
+| 나인테일 (알로라 리전폼)       | 64자             |
+| 롱카이트 (노말폼, 가상 케이스) | 54자             |
 
 모든 케이스 80자 이내 충족.
 
@@ -74,19 +74,19 @@ const description = `${pokemon.name}의 포켓몬 챔피언스 사용률, 인기
 
 ### 추가된 헬퍼 함수
 
-| 함수 | 역할 |
-| --- | --- |
-| `getFormSuffix` | region 또는 formName을 한국어 표기로 반환 (메가/거다이맥스는 챔피언스 데이터에 존재하지 않음) |
-| `getKoreanTypesText` | PokemonType enum을 한국어로 변환 (예: `['FIRE', 'DRAGON']` → `'불꽃·드래곤'`) |
-| `getStatHighlights` | 6스탯 중 상위 2개를 라벨과 값으로 반환 (메타 폴백 시 사용) |
-| `getMetaHighlight` | 메타 통계의 인기 기술·특성을 한 줄로 조합 |
-| `buildDetailTitle` | title 동적 생성 |
-| `buildDetailDescription` | description 동적 생성 (메타 유무 분기) |
+| 함수                     | 역할                                                                                          |
+| ------------------------ | --------------------------------------------------------------------------------------------- |
+| `getFormSuffix`          | region 또는 formName을 한국어 표기로 반환 (메가/거다이맥스는 챔피언스 데이터에 존재하지 않음) |
+| `getKoreanTypesText`     | PokemonType enum을 한국어로 변환 (예: `['FIRE', 'DRAGON']` → `'불꽃·드래곤'`)                 |
+| `getStatHighlights`      | 6스탯 중 상위 2개를 라벨과 값으로 반환 (메타 폴백 시 사용)                                    |
+| `getMetaHighlight`       | 메타 통계의 인기 기술·특성을 한 줄로 조합                                                     |
+| `buildDetailTitle`       | title 동적 생성                                                                               |
+| `buildDetailDescription` | description 동적 생성 (메타 유무 분기)                                                        |
 
 ### 수정된 파일
 
-| 파일 | 변경 |
-| --- | --- |
+| 파일                                                                              | 변경                                                 |
+| --------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | `src/app/champions/list/[pokemonId]/_metadata/generateChampionsDetailMetadata.ts` | 헬퍼 6개 추가, title/description 동적 생성 로직 적용 |
 
 ### 명시적으로 제외한 항목
@@ -107,11 +107,22 @@ fragment ChampionsPokemonDetail on ChampionsPokemonDetail {
     formName
     region
     types
-    stats { hp attack defense specialAttack specialDefense speed }
+    stats {
+      hp
+      attack
+      defense
+      specialAttack
+      specialDefense
+      speed
+    }
   }
   meta {
-    topMoves { name }
-    topAbilities { name }
+    topMoves {
+      name
+    }
+    topAbilities {
+      name
+    }
   }
 }
 ```

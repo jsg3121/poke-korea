@@ -102,7 +102,7 @@ type ChampionsMetaStats {
   usageRate: Float
   winRate: Float
   tier: String # S, A, B, C, D
-  # 인기 기술/아이템/특성
+  # 인기 기술/도구/특성
   topMoves: [ChampionsMetaMove!]
   topItems: [ChampionsMetaItem!]
   topAbilities: [ChampionsMetaAbility!]
