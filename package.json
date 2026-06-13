@@ -24,6 +24,7 @@
     "start": "next start",
     "start:local": "npm run build && npm run start",
     "codegen": "graphql-codegen --config codegen.ts",
+    "analyze": "ANALYZE=true next build",
     "deploy": "npm run build:docs && next build && pm2 restart ecosystem.config.js --env production",
     "lint": "next lint"
   },
@@ -31,7 +32,6 @@
     "@apollo/client": "^3.11.8",
     "@svgr/webpack": "^8.1.0",
     "chart.js": "^4.4.6",
-    "cross-fetch": "^4.0.0",
     "deepmerge": "^4.3.1",
     "graphql": "^16.9.0",
     "immer": "^10.1.1",
@@ -48,6 +48,7 @@
     "@graphql-codegen/typescript": "^4.1.1",
     "@graphql-codegen/typescript-operations": "^4.3.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@next/bundle-analyzer": "^16.2.9",
     "@next/eslint-plugin-next": "^15.5.18",
     "@playwright/test": "^1.59.1",
     "@types/node": "^22.10.2",
