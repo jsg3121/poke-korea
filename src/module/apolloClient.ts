@@ -4,7 +4,6 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
-import fetch from 'cross-fetch'
 import merge from 'deepmerge'
 import isEqual from 'fast-deep-equal'
 import { useMemo } from 'react'
@@ -19,7 +18,6 @@ export const createApolloClient = () => {
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
       uri: GQLMode,
-      fetch,
     }),
     cache: new InMemoryCache(),
   })
