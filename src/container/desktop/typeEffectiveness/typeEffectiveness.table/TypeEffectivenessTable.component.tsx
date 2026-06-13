@@ -113,7 +113,7 @@ const TypeEffectivenessTableComponent = () => {
             <tr key={`row-${attackType}`} className="h-12">
               {rowIndex === 0 && (
                 <th
-                  rowSpan={19}
+                  rowSpan={TYPE_ORDER.length}
                   className="w-[5%] align-middle text-center text-base leading-[1.1rem] tracking-wide text-white bg-primary-2 border-solid border-t border-r border-primary-3"
                 >
                   공격

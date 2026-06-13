@@ -13,9 +13,9 @@ import {
 import { Radar } from 'react-chartjs-2'
 import { PokemonStats } from '~/graphql/typeGenerated'
 
-type StatChartSize = 'sm' | 'md' | 'lg'
+export type StatChartSize = 'sm' | 'md' | 'lg'
 
-interface StatChartComponentProps {
+export interface StatChartComponentProps {
   stats: Omit<PokemonStats, 'total'>
   size?: StatChartSize
 }
