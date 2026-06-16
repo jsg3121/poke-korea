@@ -20,6 +20,9 @@
 - 모바일 사용성을 중심으로 **전체 UI를 통일**하고 사용감을 개선한다.
 - **기존 무드·톤은 유지**한다 — 색상(primary 파랑 계열), 폰트(Gmarket Sans)는 그대로 두고, 변경은 레이아웃·간격·터치 타겟·가독성에 국한한다.
 - 한 번에 갈아엎지 않고 **점진적으로(스트랭글러)** 마이그레이션하여 리스크를 최소화한다.
+- 이번 개편을 통해 **내부 디자인 시스템을 함께 구축**한다 — claude.ai/design의 `poke-korea-design-system` 프로젝트를 디자인 시스템의 **시각적 single source of truth**로 삼고, 코드 개선과 병행하여 Foundations → Components → Patterns를 축적한다.
+
+> **Why:** 사이트 개선과 디자인 시스템 구축은 별개 작업이 아니다. 토큰·공용 컴포넌트를 개선하는 과정 자체가 디자인 시스템의 구성 요소를 만드는 일이다. 코드(구현체)와 claude.ai/design(문서/카탈로그)을 함께 갱신하면, 추가 비용 없이 일관된 디자인 시스템이 누적된다.
 
 ---
 
@@ -83,6 +86,45 @@
 
 ---
 
+## 3.5 디자인 시스템 구축 트랙 (코드 작업과 병행)
+
+코드 개선과 **동시에** claude.ai/design(`poke-korea-design-system`)에 디자인 시스템을 축적한다. 별도 단계가 아니라, 각 Phase 작업이 진행될 때 그 결과물을 DS에 함께 등록하는 **병행 트랙**이다.
+
+### 계층 구조
+
+일반적인 디자인 시스템 계층(Atomic Design 기반)을 따른다.
+
+```text
+Foundations (기반)   ← 토큰
+  ├─ Colors      (primary 4색 / type 18색 / damage 3색 / 중성색)
+  ├─ Typography  (Gmarket Sans + fontSize 스케일)
+  └─ Spacing     (간격 스케일 + 터치 타겟 touch/touch-lg)
+       ↓
+Components (부품)     ← 공용 컴포넌트 (개선될 때마다 카드로 등록)
+  └─ Tag, StatChart, MobileTabBar, Button, Card, Checkbox/Radio …
+       ↓
+Patterns (조합)       ← 화면 단위 패턴
+  └─ 카드 그리드, 필터, 탭바, 상세 레이아웃 …
+```
+
+### 동기화 규칙
+
+- 코드 컴포넌트를 개선·확정할 때마다, 그 프리뷰(HTML/CSS)를 DS에 업로드한다.
+- 업로드는 **메인 세션**이 `DesignSync` + `@dsCard` 마커로 처리한다(역할 분리: [ux-designer.md](../agents/ux-designer.md) 참조).
+- 카드는 위 계층 그룹(`Foundations` / `Components` / `Patterns`)으로 정리한다.
+
+> **Why:** 코드가 구현체라면 claude.ai/design은 그 시각적 문서다. 둘을 함께 갱신해야 "코드는 바뀌었는데 디자인 문서는 옛날 것"인 불일치를 막고, 디자인 시스템이 항상 살아있는 상태로 유지된다.
+
+### Phase ↔ DS 산출물 매핑
+
+| Phase 작업 | 코드 산출물 | DS 산출물 (claude.ai/design) |
+| --- | --- | --- |
+| 4.1 토큰 체계 | `tailwind.config.js` 토큰 | **Foundations** 카드 (Colors / Typography / Spacing) |
+| 4.3 공용 컴포넌트 | Tag / StatChart / MobileTabBar 개선 | **Components** 카드 |
+| Phase 1+ 화면 | 모바일 뷰 교체 | **Patterns** 카드 |
+
+---
+
 ## 4. Phase 0 — 디자인 시스템 기반 정비
 
 > 전 페이지에 동시 개선 효과를 내는 기반 작업. 화면 교체보다 먼저 수행한다.
@@ -98,6 +140,7 @@
 **완료 기준**
 - `src/` 전체에서 `md:` 사용 **0건** (globals.css 내부 반응형 정의는 별도 검토)
 - 신규 모바일 간격·폰트는 임의값(`[...]`) 대신 토큰 사용
+- **(DS)** Foundations 카드(Colors / Typography / Spacing)가 `poke-korea-design-system`에 업로드됨
 
 > **Why:** 토큰을 먼저 확장해야 이후 공용 컴포넌트·화면 작업에서 일관된 값을 참조할 수 있다. 토큰 없이 컴포넌트부터 고치면 또 임의값이 늘어난다.
 

@@ -12,6 +12,7 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
+        '2xs': '0.6875rem', // 11px - 모바일 최소 폰트(접근성)
         xs: '0.75rem',
         sm: '0.875rem',
         base: '1rem',
@@ -69,6 +70,8 @@ module.exports = {
       spacing: {
         30: '7.5rem', // 120px
         128: '32rem', // 512px
+        touch: '2.75rem', // 44px - WCAG 2.5.5 최소 터치 타겟
+        'touch-lg': '3rem', // 48px - 권장 터치 타겟
       },
       screens: {
         mobile: { max: '768px' },
