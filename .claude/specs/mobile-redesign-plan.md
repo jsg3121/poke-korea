@@ -135,14 +135,19 @@ Patterns (조합)       ← 화면 단위 패턴
 
 - [ ] **spacing 토큰 추가**: 터치 타겟·모바일 간격 토큰 (예: `touch-target`(44px), 모바일 gap 단계)
 - [ ] **fontSize 토큰 추가**: 모바일 캡션/본문/제목 단계 정의 (**최소 11px** — 접근성)
-- [ ] **브레이크포인트 일원화**: `md:`/`sm:` 혼용을 커스텀 `mobile:`/`desktop:` 로 통일
+- [ ] **렌더링 전략 일원화 (순수 적응형)**: [ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md)에 따라 컴포넌트 내 viewport 미디어쿼리(`md:`/`sm:`/`lg:`/`xl:`)를 제거하고 분기를 UA(`isMobile`) 기준으로 통일
+- [ ] **데스크톱 min-width**: 데스크톱 레이아웃 루트에 최소 너비 + 상위 `overflow-x-auto` 도입 (창 축소 시 리플로우 대신 가로 스크롤)
+- [ ] **다단 그리드 재설계**: 폭 비례 `grid-cols-N`(`sm/md/lg/xl`)을 mobile/desktop 고정 열로 전환
 
 **완료 기준**
-- `src/` 전체에서 `md:` 사용 **0건** (globals.css 내부 반응형 정의는 별도 검토)
+
+- `src/` 컴포넌트 내 viewport 미디어쿼리(`md:`/`sm:`/`lg:`/`xl:`) **0건** (globals.css 내부 정의는 별도 검토)
+- 모바일 전용 파일의 발동 불가 미디어쿼리(죽은 코드) 제거
+- 데스크톱 min-width + 가로 스크롤 처리 적용
 - 신규 모바일 간격·폰트는 임의값(`[...]`) 대신 토큰 사용
 - **(DS)** Foundations 카드(Colors / Typography / Spacing)가 `poke-korea-design-system`에 업로드됨
 
-> **Why:** 토큰을 먼저 확장해야 이후 공용 컴포넌트·화면 작업에서 일관된 값을 참조할 수 있다. 토큰 없이 컴포넌트부터 고치면 또 임의값이 늘어난다.
+> **Why:** 적응형/반응형 혼재를 제거해야 컴포넌트·화면 작업이 일관된 분기 규칙 위에서 진행된다. 자세한 근거는 [ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md) 참조.
 
 ### 4.2 터치 타겟 표준
 
