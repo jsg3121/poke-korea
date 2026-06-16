@@ -15,38 +15,31 @@
 | `mobile` | max-width: 768px |
 | `desktop` | min-width: 769px |
 
-> **중요:** 이 프로젝트는 **순수 적응형(Adaptive)** 이다([ADR-0006](../../decisions/records/ADR-0006-adaptive-rendering-strategy.md)). 컴포넌트 내부에서 viewport 미디어쿼리(`md:`/`sm:`/`lg:`/`xl:`)로 모바일/데스크톱을 분기하지 **않는다**. 분기는 UA 판별(`isMobile`)로 한다. `mobile:`/`desktop:`도 신규 코드에서는 지양하고, 아래 적응형 아키텍처를 따른다.
+> **중요:** 이 프로젝트는 **반응형(Responsive)** 으로 전환한다([ADR-0007](../../decisions/records/ADR-0007-responsive-rendering-strategy.md), ADR-0006 대체). 디자인 시스템 공용 컴포넌트는 하나의 컴포넌트가 CSS로 모든 폭에 대응한다. UA 기반 분기(`detectUserAgent`, `useDevice`)는 점진 제거 대상이다.
 
-## 적응형 컴포넌트 아키텍처
+## 반응형 컴포넌트 아키텍처
 
-모바일/데스크톱은 서버에서 UA로 판별해 분기한다(반응형 미디어쿼리 아님). 자세한 근거는 [ADR-0006](../../decisions/records/ADR-0006-adaptive-rendering-strategy.md).
+모바일/데스크톱은 **CSS 브레이크포인트**로 대응한다. 디자인 시스템 컴포넌트는 모드별로 2벌 나누지 않고, 단일 컴포넌트가 반응형으로 모든 폭을 커버한다. 자세한 근거는 [ADR-0007](../../decisions/records/ADR-0007-responsive-rendering-strategy.md).
 
-### 공용 컴포넌트 결정 트리
+### 원칙
 
-차이의 "종류"에 따라 처리한다. 무조건 파일 분리가 아니다.
-
-| 차이 유형 | 처리 | 예 |
-|-----------|------|-----|
-| **차이 없음** | 단일 컴포넌트 유지 (RSC) | Tag, Ball |
-| **표현 차이** (크기·간격·폰트) | 단일 파일 + `isMobile` 조건부 클래스 | AbilityDescription |
-| **구조 차이** (배치·순서·유무) | 뷰 분리(`X.mobile`/`X.desktop`) + client Wrapper가 `useDevice`로 분기 | FilterOptions(모범) |
-| **로직 무거움** (①②와 직교) | 로직을 **순수 함수 모듈**(`src/module`)로 추출 (훅 ❌) | 카드 데이터 가공 |
-
-### isMobile 전달 규칙 (CLS 0 + RSC 최대화)
-
-| 컴포넌트 | 획득 방법 |
-|----------|-----------|
-| **서버 컴포넌트** | `getIsMobile()` (`headers()` 기반) — prop·context 불필요, RSC 유지, 서버에서 스타일 확정 → CLS 0 |
-| **클라이언트 컴포넌트** | `useDevice()` context (서버가 주입한 값) |
+| 항목 | 방침 |
+|------|------|
+| **디바이스 분기** | CSS 브레이크포인트(`mobile`/`desktop`)로 표현. UA 판별(`isMobile`) 신규 사용 금지 |
+| **공용 컴포넌트** | 단일 컴포넌트 + 반응형 CSS. 모바일/데스크톱 컴포넌트 2벌 분리 지양 |
+| **디바이스 context** | `DeviceProvider`/`useDevice`는 점진 제거 대상. 신규 코드에서 사용 금지 |
+| **번들** | 반응형은 분기를 CSS로 처리 → 불필요한 client 강등·하이드레이션 없음 |
 
 ### 금지/지양
 
-- 컴포넌트 내 viewport 미디어쿼리(`md:`/`sm:`/`lg:`/`xl:`)
-- 클라이언트 viewport 측정(`matchMedia`/리사이즈) — CLS 유발, 적응형 위반
-- RSC가 필요한 곳에서 `useDevice()` 훅 호출 (훅이라 client로 강등됨)
-- 디바이스 정보용 상태관리 라이브러리 (오버엔지니어링)
+- 신규 UA 기반 분기(`detectUserAgent`, `useDevice`로 모바일/데스크톱 나누기)
+- 신규 모드별 컴포넌트 2벌 분리(`X.mobile`/`X.desktop`)
+- 클라이언트 viewport 측정(`matchMedia`/리사이즈) — CLS 유발
+- 디바이스 정보용 상태관리 라이브러리
 
-> **Why:** 적응형/반응형 혼재를 없애 분기 규칙을 단일화하고, 스타일을 서버에서 확정해 CLS를 제거하며, 훅 대신 prop/함수로 RSC를 최대한 보존한다.
+> **Why:** 디자인 시스템은 단일 반응형 컴포넌트가 표준이다. UA 분기/모드별 2벌은 DS와 충돌하고 번들·하이드레이션 비용을 늘린다. 분기를 CSS로 일원화해 단순성과 성능을 함께 확보한다.
+>
+> **전환 메모:** 기존 적응형 코드(UA 분기, `useDevice`)는 스트랭글러 패턴으로 점진 제거한다. 전환 중에는 신구 공존을 허용하되, **신규 코드는 반드시 반응형**으로 작성한다.
 
 ## 색상 체계
 
