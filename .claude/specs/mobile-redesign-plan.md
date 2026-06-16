@@ -138,6 +138,8 @@ Patterns (조합)       ← 화면 단위 패턴
 - [ ] **렌더링 전략 일원화 (순수 적응형)**: [ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md)에 따라 컴포넌트 내 viewport 미디어쿼리(`md:`/`sm:`/`lg:`/`xl:`)를 제거하고 분기를 UA(`isMobile`) 기준으로 통일
 - [ ] **데스크톱 min-width**: 데스크톱 레이아웃 루트에 최소 너비 + 상위 `overflow-x-auto` 도입 (창 축소 시 리플로우 대신 가로 스크롤)
 - [ ] **다단 그리드 재설계**: 폭 비례 `grid-cols-N`(`sm/md/lg/xl`)을 mobile/desktop 고정 열로 전환
+- [ ] **공용 컴포넌트 결정 트리 적용**: 차이 없음→유지 / 표현 차이→`isMobile` 조건부 클래스 / 구조 차이→뷰 분리 + Wrapper / 로직→순수 함수 추출 ([ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md))
+- [ ] **`getIsMobile()` 도입**: 서버 컴포넌트의 디바이스 분기를 `headers()` 기반 함수로 전환 (RSC 보존, CLS 0). `useDevice()`는 클라이언트 전용으로 유지
 
 **완료 기준**
 
@@ -145,6 +147,7 @@ Patterns (조합)       ← 화면 단위 패턴
 - 모바일 전용 파일의 발동 불가 미디어쿼리(죽은 코드) 제거
 - 데스크톱 min-width + 가로 스크롤 처리 적용
 - 신규 모바일 간격·폰트는 임의값(`[...]`) 대신 토큰 사용
+- 서버 컴포넌트는 `getIsMobile()`, 클라이언트 컴포넌트는 `useDevice()`로 분기 (혼용 정리)
 - **(DS)** Foundations 카드(Colors / Typography / Spacing)가 `poke-korea-design-system`에 업로드됨
 
 > **Why:** 적응형/반응형 혼재를 제거해야 컴포넌트·화면 작업이 일관된 분기 규칙 위에서 진행된다. 자세한 근거는 [ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md) 참조.
