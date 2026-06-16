@@ -6,7 +6,7 @@
 > **전략**: 기반 먼저(디자인 시스템 정비) → 화면 점진 교체(스트랭글러 패턴)
 >
 > ⚠️ **방향 전환 안내 (2026-06-16, [ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md)):**
-> 본 기획서의 일부(특히 §4.1 "렌더링 전략 일원화")는 **적응형(Adaptive)** 을 전제로 작성되었으나, 전면 UI 개편 + 디자인 시스템 도입을 전제로 **반응형(Responsive)** 전환이 결정되었다([ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md) 대체). 적응형 관련 항목(UA 분기, `getIsMobile`, `useDevice`, 결정 트리, min-width)은 반응형 기준으로 **후속 개정 예정**이다. 디자인 토큰·죽은 미디어쿼리 제거·DS Foundations 등 이미 완료된 항목은 반응형에서도 유효하다.
+> 본 기획서는 초기에 **적응형(Adaptive)** 을 전제로 작성되었으나, 전면 UI 개편 + 디자인 시스템 도입을 전제로 **반응형(Responsive)** 전환이 결정되어([ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md) 대체) §3~§5를 반응형 기준으로 개정했다. 디자인 토큰·죽은 미디어쿼리 제거·DS Foundations 등 이미 완료된 항목은 반응형에서도 유효하다. §2(현황 분석)는 개편 *이전* 상태를 기술하므로 적응형 구조 설명을 그대로 둔다.
 
 ---
 
@@ -78,14 +78,14 @@
 **Strangler Fig 패턴**(기존 시스템을 한 번에 교체하지 않고 새 구현으로 라우트를 하나씩 감싸 점진 대체)은 이 프로젝트에 매우 잘 맞는다.
 
 - 라우트가 **38개로 잘게 쪼개져** 있어 라우트 단위 교체가 가능하다.
-- 데스크톱/모바일이 **파일 레벨로 분리**되어 있어, **모바일 뷰만 독립적으로 교체**할 수 있다(데스크톱 무영향).
-- SSR 분기점이 명확해 `isMobile ? <NewMobile/> : <OldDesktop/>` 식 신구 공존이 자연스럽다.
+- 라우트별로 기존 UA 분기(`isMobile ? <Mobile/> : <Desktop/>`)를 **반응형 단일 뷰로 교체**한다([ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md)).
+- 교체되지 않은 라우트는 기존 적응형 구조를 유지하므로 신구 공존이 안전하다(전환기 한정).
 
 > **참고:** Martin Fowler, [StranglerFigApplication](https://martinfowler.com/bliki/StranglerFigApplication.html)
 
 ### 3.4 범위
 
-이번 개편은 **모바일 우선**이다. 대상은 `views/mobile`, `container/mobile`, 그리고 공용 컴포넌트의 모바일 대응이다. **데스크톱은 현행 유지**한다.
+이번 개편은 **모바일 사용성을 우선 목표**로 하되, 반응형 단일 컴포넌트로 전환하므로 **모바일·데스크톱을 함께 다룬다**([ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md)). 라우트별로 기존 mobile/desktop 분리 뷰를 반응형 단일 뷰로 통합한다.
 
 ---
 
@@ -124,7 +124,7 @@ Patterns (조합)       ← 화면 단위 패턴
 | --- | --- | --- |
 | 4.1 토큰 체계 | `tailwind.config.js` 토큰 | **Foundations** 카드 (Colors / Typography / Spacing) |
 | 4.3 공용 컴포넌트 | Tag / StatChart / MobileTabBar 개선 | **Components** 카드 |
-| Phase 1+ 화면 | 모바일 뷰 교체 | **Patterns** 카드 |
+| Phase 1+ 화면 | 반응형 단일 뷰 교체 | **Patterns** 카드 |
 
 ---
 
@@ -136,24 +136,18 @@ Patterns (조합)       ← 화면 단위 패턴
 
 `tailwind.config.js`의 토큰을 확장하고 브레이크포인트를 일원화한다.
 
-- [ ] **spacing 토큰 추가**: 터치 타겟·모바일 간격 토큰 (예: `touch-target`(44px), 모바일 gap 단계)
-- [ ] **fontSize 토큰 추가**: 모바일 캡션/본문/제목 단계 정의 (**최소 11px** — 접근성)
-- [ ] **렌더링 전략 일원화 (순수 적응형)**: [ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md)에 따라 컴포넌트 내 viewport 미디어쿼리(`md:`/`sm:`/`lg:`/`xl:`)를 제거하고 분기를 UA(`isMobile`) 기준으로 통일
-- [ ] **데스크톱 min-width**: 데스크톱 레이아웃 루트에 최소 너비 + 상위 `overflow-x-auto` 도입 (창 축소 시 리플로우 대신 가로 스크롤)
-- [ ] **다단 그리드 재설계**: 폭 비례 `grid-cols-N`(`sm/md/lg/xl`)을 mobile/desktop 고정 열로 전환
-- [ ] **공용 컴포넌트 결정 트리 적용**: 차이 없음→유지 / 표현 차이→`isMobile` 조건부 클래스 / 구조 차이→뷰 분리 + Wrapper / 로직→순수 함수 추출 ([ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md))
-- [ ] **`getIsMobile()` 도입**: 서버 컴포넌트의 디바이스 분기를 `headers()` 기반 함수로 전환 (RSC 보존, CLS 0). `useDevice()`는 클라이언트 전용으로 유지
+- [x] **spacing 토큰 추가**: 터치 타겟 토큰(`touch` 44px, `touch-lg` 48px) — 완료
+- [x] **fontSize 토큰 추가**: 모바일 최소 폰트 토큰(`2xs` 11px — 접근성) — 완료
+- [ ] **반응형 브레이크포인트 규칙 정립**: 디자인 시스템의 반응형 분기를 `mobile`/`desktop`(또는 표준 스케일)로 통일하고 토큰·컴포넌트 레벨에서 규칙화 ([ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md))
+- [ ] **다단 그리드 정리**: 폭 비례 `grid-cols-N`을 디자인 시스템 반응형 그리드 규칙으로 정리
 
 **완료 기준**
 
-- `src/` 컴포넌트 내 viewport 미디어쿼리(`md:`/`sm:`/`lg:`/`xl:`) **0건** (globals.css 내부 정의는 별도 검토)
-- 모바일 전용 파일의 발동 불가 미디어쿼리(죽은 코드) 제거
-- 데스크톱 min-width + 가로 스크롤 처리 적용
+- 신규 컴포넌트는 viewport 미디어쿼리(반응형 CSS)로 폭 대응 — UA 분기(`useDevice`) 신규 사용 0건
 - 신규 모바일 간격·폰트는 임의값(`[...]`) 대신 토큰 사용
-- 서버 컴포넌트는 `getIsMobile()`, 클라이언트 컴포넌트는 `useDevice()`로 분기 (혼용 정리)
-- **(DS)** Foundations 카드(Colors / Typography / Spacing)가 `poke-korea-design-system`에 업로드됨
+- **(DS)** Foundations 카드(Colors / Typography / Spacing)가 `poke-korea-design-system`에 업로드됨 — 완료
 
-> **Why:** 적응형/반응형 혼재를 제거해야 컴포넌트·화면 작업이 일관된 분기 규칙 위에서 진행된다. 자세한 근거는 [ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md) 참조.
+> **Why:** 디자인 시스템은 단일 반응형 컴포넌트가 표준이다. 토큰을 먼저 깔고 반응형 규칙을 정립해야, 이후 컴포넌트·화면 작업이 일관된 토대 위에서 진행된다. 자세한 근거는 [ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md) 참조.
 
 ### 4.2 터치 타겟 표준
 
@@ -176,7 +170,7 @@ Patterns (조합)       ← 화면 단위 패턴
 
 ## 5. Phase 1+ — 화면별 점진 교체 (스트랭글러)
 
-Phase 0 완료 후, 라우트를 우선순위에 따라 모바일 뷰 단위로 점진 교체한다.
+Phase 0 완료 후, 라우트를 우선순위에 따라 **반응형 단일 뷰**로 점진 교체한다(기존 mobile/desktop 분리 뷰 → 반응형 통합).
 
 ### 5.1 라우트 우선순위
 
@@ -193,14 +187,14 @@ Phase 0 완료 후, 라우트를 우선순위에 따라 모바일 뷰 단위로 
 각 라우트는 다음 사이클로 진행한다.
 
 ```
-ux-designer (Playwright 캡처 → 4축 Design Critique)
-  → ui-publisher (개선 모바일 시안 HTML/CSS 생성)
+ux-designer (Playwright 캡처 → 4축 Design Critique, 모바일·데스크톱 모두)
+  → ui-publisher (개선 반응형 시안 HTML/CSS 생성)
     → DesignSync (poke-korea-design-system에 업로드 → 시각적 미리보기)
-      → 실제 모바일 뷰 구현 (views/mobile, container/mobile)
-        → 검증 (a11y-check, 실기기 확인)
+      → 반응형 단일 뷰 구현 (mobile/desktop 분리 뷰 통합)
+        → 검증 (a11y-check, 모바일·데스크톱 폭 실기기 확인)
 ```
 
-> 신구 공존: 교체 중에도 `isMobile ? <NewMobile/> : <OldDesktop/>` 구조라 데스크톱은 영향받지 않는다.
+> 신구 공존: 교체된 라우트는 반응형 단일 뷰, 미교체 라우트는 기존 UA 분기 구조를 유지한다(전환기 한정). 라우트 단위로 갈리므로 서로 영향이 없다.
 
 ---
 
@@ -218,9 +212,9 @@ ux-designer (Playwright 캡처 → 4축 Design Critique)
 
 | 리스크 | 완화 방안 |
 | --- | --- |
-| 토큰 변경이 데스크톱에 의도치 않은 영향 | 모바일 전용 토큰·브레이크포인트로 범위 한정, 데스크톱 회귀 시각 점검 |
+| 반응형 전환이 데스크톱 레이아웃에 회귀 유발 | 반응형 컴포넌트를 모바일·데스크톱 폭 모두에서 시각 검증 후 교체 |
 | 공용 컴포넌트 수정이 여러 페이지에 동시 파급 | Tag → StatChart → MobileTabBar 순으로 하나씩, 각 단계 후 영향 페이지 점검 |
-| 브레이크포인트 일원화 중 누락 | `md:` 사용 0건을 완료 기준으로 grep 검증 |
+| 적응형(UA 분기)과 반응형 코드 공존 장기화 | 스트랭글러로 라우트 단위 교체, 신규 코드는 반드시 반응형([ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md)) |
 | 점진 교체 중 신구 디자인 혼재 기간 | 스트랭글러 특성상 불가피 — 핵심 동선부터 빠르게 교체해 혼재 기간 단축 |
 
 ---
