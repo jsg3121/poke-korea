@@ -110,10 +110,10 @@ Patterns (조합)       ← 페이지 단위 레이아웃 패턴
 
 - [x] **토큰**: spacing(`touch`/`touch-lg`), fontSize(`2xs`) 추가 — 완료
 - [x] **Foundations 카드**: Colors / Typography / Spacing claude.ai/design 업로드 — 완료
-- [ ] **반응형 규칙 정의**: 브레이크포인트(`mobile`/`desktop`) 사용 규칙, 반응형 그리드 규칙을 styling.md에 명문화
-- [ ] **간격/폰트 임의값 정리 규칙**: 신규 작업에서 `[...]` 임의값 대신 토큰 사용 원칙 확립
+- [x] **반응형 규칙 정의**: 모바일 퍼스트 작성 규칙, 반응형 그리드 규칙을 styling.md에 명문화 — 완료
+- [x] **간격/폰트 임의값 정리 규칙**: 신규 작업에서 `[...]` 임의값 대신 토큰 사용 원칙 확립 (styling.md "작성 규칙") — 완료
 
-**완료 기준**: Foundations 토큰·규칙이 정의되고 claude.ai/design에 반영됨.
+**완료 기준**: Foundations 토큰·규칙이 정의되고 claude.ai/design에 반영됨. → **1단계 완료**
 
 ### 4.2 [2단계] 페이지 단위 재디자인 + 컴포넌트 규격화
 
