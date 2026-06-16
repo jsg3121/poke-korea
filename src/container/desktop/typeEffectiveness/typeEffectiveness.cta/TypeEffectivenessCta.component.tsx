@@ -26,7 +26,7 @@ const TypeEffectivenessCtaComponent = () => {
       >
         다음에는 어떤 걸 해볼까요?
       </h3>
-      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ul className="grid grid-cols-2 gap-4">
         {isSingleTypeSelected && (
           <li>
             <Link
