@@ -4,6 +4,9 @@
 > **버전**: 1.54.0
 > **상태**: 기획 확정 (Phase 0 착수 대기)
 > **전략**: 기반 먼저(디자인 시스템 정비) → 화면 점진 교체(스트랭글러 패턴)
+>
+> ⚠️ **방향 전환 안내 (2026-06-16, [ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md)):**
+> 본 기획서의 일부(특히 §4.1 "렌더링 전략 일원화")는 **적응형(Adaptive)** 을 전제로 작성되었으나, 전면 UI 개편 + 디자인 시스템 도입을 전제로 **반응형(Responsive)** 전환이 결정되었다([ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md) 대체). 적응형 관련 항목(UA 분기, `getIsMobile`, `useDevice`, 결정 트리, min-width)은 반응형 기준으로 **후속 개정 예정**이다. 디자인 토큰·죽은 미디어쿼리 제거·DS Foundations 등 이미 완료된 항목은 반응형에서도 유효하다.
 
 ---
 

@@ -1,8 +1,10 @@
 # ADR-0006: 적응형(Adaptive) 렌더링으로 일원화 + 데스크톱 min-width 전략
 
-- **상태**: 승인
+- **상태**: 대체됨 ([ADR-0007](./ADR-0007-responsive-rendering-strategy.md))
 - **날짜**: 2026-06-16
 - **담당**: jsg3121 + Claude
+
+> ⚠️ **이 ADR은 [ADR-0007](./ADR-0007-responsive-rendering-strategy.md)로 대체되었다.** 전면 UI 개편 + 디자인 시스템 도입이 전제가 되면서, 본 ADR의 핵심 근거("현 구조 활용")가 무효가 되었다. 렌더링 전략은 **반응형(Responsive)** 으로 전환한다. 단, 본 ADR 기간에 머지된 디자인 토큰·죽은 미디어쿼리 제거·DS Foundations는 반응형에서도 유효하므로 유지된다.
 
 ## 맥락
 
