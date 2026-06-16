@@ -45,3 +45,6 @@ next-env.d.ts
 
 # api handoff documents (from external backend repo)
 /.claude/api-handoffs
+
+# design system card sources (uploaded to claude.ai/design, not version-controlled)
+/.design-system
