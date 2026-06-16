@@ -160,9 +160,14 @@ const PokemonCardComponent = ({
             className="w-full grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] desktop:grid-cols-[35%_15%_35%_15%] mt-4 mx-auto pl-2"
             aria-description="포켓몬 능력치 정보"
           >
-            {POKEDEX_STAT_ROWS.map(({ label, key }) => (
+            {POKEDEX_STAT_ROWS.map(({ label, key }, index) => (
               <Fragment key={key}>
-                <dt className="h-5 text-2xs desktop:text-sm leading-5">
+                {/* 짝수 인덱스=왼쪽 열(mr-1), 홀수=오른쪽 열(ml-2) — 그리드 칸 정렬 */}
+                <dt
+                  className={`h-5 text-2xs desktop:text-sm leading-5 ${
+                    index % 2 === 0 ? 'mr-1' : 'ml-2'
+                  }`}
+                >
                   {label}
                 </dt>
                 <dd className="h-5 text-2xs desktop:text-sm leading-5 text-right text-black">
