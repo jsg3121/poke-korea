@@ -50,14 +50,14 @@ tags: [adr, architecture, rsc, mobile]
 
 | 컴포넌트 | 획득 방법 |
 | --- | --- |
-| 서버 컴포넌트 | `getIsMobile()` (`cache()` + `headers()`) — prop·context 불필요, 서버에서 스타일 확정 → CLS 0, RSC 유지 |
+| 서버 컴포넌트 | `getIsMobile()` (`headers()` 기반) — prop·context 불필요, 서버에서 스타일 확정 → CLS 0, RSC 유지 |
 | 클라이언트 컴포넌트 | `useDevice()` context (서버가 주입한 값) |
 
 ## 💡 핵심 근거
 
 - `useDevice()`는 `useContext` 훅 → 호출 컴포넌트가 무조건 client로 강등. RSC가 필요한 곳에선 금지.
 - `getIsMobile()`은 `headers()` 의존 → 서버 전용. 클라에선 못 씀. 둘은 역할 분담.
-- 디바이스 정보 1개에 상태관리 라이브러리 도입은 오버엔지니어링 → `cache()`+`headers()`로 라이브러리 없이 서버 전역 공유.
+- 디바이스 정보 1개에 상태관리 라이브러리 도입은 오버엔지니어링 → `headers()` 기반 함수로 라이브러리 없이 서버 전역 공유. (`headers()`가 이미 요청 단위 메모이제이션되어 `cache()` 래핑도 불필요)
 - context는 이미 CLS가 없으므로(서버 주입값) 전면 제거하지 않고 클라이언트 전용으로 유지.
 
 ## 📁 변경 파일

@@ -36,7 +36,7 @@
 
 | 컴포넌트 | 획득 방법 |
 |----------|-----------|
-| **서버 컴포넌트** | `getIsMobile()` (`cache()` + `headers()`) — prop·context 불필요, RSC 유지, 서버에서 스타일 확정 → CLS 0 |
+| **서버 컴포넌트** | `getIsMobile()` (`headers()` 기반) — prop·context 불필요, RSC 유지, 서버에서 스타일 확정 → CLS 0 |
 | **클라이언트 컴포넌트** | `useDevice()` context (서버가 주입한 값) |
 
 ### 금지/지양

@@ -40,7 +40,7 @@ poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크�
 
 | 컴포넌트 종류 | isMobile 획득 | 이유 |
 | --- | --- | --- |
-| **서버 컴포넌트** | `getIsMobile()` (`cache()` + `headers()` 기반, `src/module`) | prop drilling·context 불필요, RSC 유지, 서버에서 스타일 확정 → CLS 0 |
+| **서버 컴포넌트** | `getIsMobile()` (`headers()` 기반, `src/module`) | prop drilling·context 불필요, RSC 유지, 서버에서 스타일 확정 → CLS 0 |
 | **클라이언트 컴포넌트** | 기존 `useDevice()` context | 클라에선 `headers()` 불가. context는 서버가 주입한 값이라 CLS 없음 |
 
 - `getIsMobile()`은 `headers()`에 의존하므로 **서버 전용**이다. 클라이언트에서 호출 불가.
@@ -73,7 +73,7 @@ poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크�
 - 공용 컴포넌트는 결정 트리에 따라 처리한다: 차이 없음→유지 / 표현 차이→조건부 클래스 / 구조 차이→뷰 분리 + Wrapper.
 - 다단 그리드는 mobile/desktop 고정 열로 재설계한다.
 - 데스크톱 레이아웃 루트에 `min-width` + 상위 `overflow-x-auto`를 도입한다(기준 최소 너비 값은 데스크톱 디자인 기준폭 확정 시 별도 결정).
-- 서버 컴포넌트의 디바이스 분기는 `getIsMobile()`(`cache()` + `headers()`)로 전환해 RSC를 보존한다. 컴포넌트 로직은 순수 함수 모듈로 추출한다.
+- 서버 컴포넌트의 디바이스 분기는 `getIsMobile()`(`headers()` 기반)로 전환해 RSC를 보존한다. `headers()`는 이미 요청 단위로 메모이제이션되며, UA 파싱 비용이 무시할 수준이라 `cache()` 래핑은 불필요하다. 컴포넌트 로직은 순수 함수 모듈로 추출한다.
 - `useDevice()` context는 유지하되, **클라이언트 컴포넌트 전용**으로 사용한다(서버 컴포넌트는 `getIsMobile()`).
 - [styling.md](../../conventions/guides/styling.md)에 적응형 컴포넌트 아키텍처 지침을 명문화한다.
 - [mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md)의 Phase 0 "브레이크포인트 일원화" 완료 기준을 본 ADR에 맞춰 갱신한다.
@@ -83,6 +83,5 @@ poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크�
 - [mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md) — 모바일 개편 기획서
 - [디자인 분기 전략: Adaptive vs Responsive (MDN — Responsive design)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 - [React `'use client'` — 훅은 클라이언트 전용](https://react.dev/reference/rsc/use-client)
-- [React `cache()` — 서버 컴포넌트 간 데이터 공유](https://react.dev/reference/react/cache)
-- [Next.js `headers()` — 서버 전용 동적 함수](https://nextjs.org/docs/app/api-reference/functions/headers)
+- [Next.js `headers()` — 서버 전용 동적 함수 (요청 단위 메모이제이션)](https://nextjs.org/docs/app/api-reference/functions/headers)
 - [device.module.ts](../../../src/module/device.module.ts) — UA 판별 구현

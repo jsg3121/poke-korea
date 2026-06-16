@@ -139,7 +139,7 @@ Patterns (조합)       ← 화면 단위 패턴
 - [ ] **데스크톱 min-width**: 데스크톱 레이아웃 루트에 최소 너비 + 상위 `overflow-x-auto` 도입 (창 축소 시 리플로우 대신 가로 스크롤)
 - [ ] **다단 그리드 재설계**: 폭 비례 `grid-cols-N`(`sm/md/lg/xl`)을 mobile/desktop 고정 열로 전환
 - [ ] **공용 컴포넌트 결정 트리 적용**: 차이 없음→유지 / 표현 차이→`isMobile` 조건부 클래스 / 구조 차이→뷰 분리 + Wrapper / 로직→순수 함수 추출 ([ADR-0006](../decisions/records/ADR-0006-adaptive-rendering-strategy.md))
-- [ ] **`getIsMobile()` 도입**: 서버 컴포넌트의 디바이스 분기를 `cache()`+`headers()` 기반 함수로 전환 (RSC 보존, CLS 0). `useDevice()`는 클라이언트 전용으로 유지
+- [ ] **`getIsMobile()` 도입**: 서버 컴포넌트의 디바이스 분기를 `headers()` 기반 함수로 전환 (RSC 보존, CLS 0). `useDevice()`는 클라이언트 전용으로 유지
 
 **완료 기준**
 
