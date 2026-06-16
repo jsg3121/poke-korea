@@ -48,3 +48,6 @@ next-env.d.ts
 
 # design system card sources (uploaded to claude.ai/design, not version-controlled)
 /.design-system
+
+*storybook.log
+storybook-static
