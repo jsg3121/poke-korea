@@ -97,7 +97,7 @@ desktop: max-w-[1280px] mx-auto pt-28 pb-0  (헤더 고정 높이 예약, 탭바
 
 ### Phase A — DS 컴포넌트 (독립 단위)
 
-의존 없는 것부터. 각 컴포넌트 완성 시 DS Components 카드로 claude.ai/design 업로드.
+의존 없는 것부터. 각 컴포넌트 완성 시 Storybook story(`*.stories.tsx`)로 디자인 시스템에 등록([ADR-0008](../decisions/records/ADR-0008-storybook-design-system.md)).
 
 1. **SectionHeading** — 의존 없음, 3섹션 공통. 가장 먼저
 2. **PokemonCard 통합** — Banner/Champions 카드의 기반

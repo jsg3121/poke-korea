@@ -19,7 +19,7 @@
 ### 1.2 목표
 
 - 전체 UI를 **전면 재디자인**하여 통일하고 모바일 사용성을 개선한다.
-- 이 과정에서 **내부 디자인 시스템을 구축**한다 — claude.ai/design(`poke-korea-design-system`)을 시각적 single source of truth로 삼는다.
+- 이 과정에서 **내부 디자인 시스템을 구축**한다 — **Storybook**을 디자인 시스템의 single source of truth로 삼는다([ADR-0008](../decisions/records/ADR-0008-storybook-design-system.md)).
 - 렌더링은 **반응형 단일 컴포넌트**로 한다([ADR-0007](../decisions/records/ADR-0007-responsive-rendering-strategy.md)). 기존 적응형(UA 분기)은 개편 과정에서 제거한다.
 - **기존 무드·톤은 유지**한다 — 색상(primary 파랑 계열), 폰트(Gmarket Sans)는 유지하고, 레이아웃·간격·사용성을 개선한다.
 
@@ -81,9 +81,9 @@
 - 기존 컴포넌트는 페이지 작업 중 **유지**하다가(작업 안전), 페이지 완료 후 **제거**한다.
 - 작업물은 `feature/1.54.0` 루트에 누적 → 전체 완료 후 단일 릴리즈.
 
-### 3.3 디자인 시스템 = 시각적 SSOT
+### 3.3 디자인 시스템 = Storybook (SSOT)
 
-코드(구현체)와 claude.ai/design(`poke-korea-design-system`, 시각적 문서)을 함께 갱신한다. 디자인 시스템 계층(Atomic Design 기반):
+디자인 시스템 도구는 **Storybook**이다([ADR-0008](../decisions/records/ADR-0008-storybook-design-system.md)). 실제 React 컴포넌트를 그대로 story로 렌더하므로 코드와 100% 일치한다. 디자인 시스템 계층(Atomic Design 기반):
 
 ```text
 Foundations (기반)   ← 토큰 + 스타일 규칙 (1단계에서 구축)
@@ -98,7 +98,8 @@ Components (부품)     ← 페이지 작업 중 규격화되는 공용 컴포�
 Patterns (조합)       ← 페이지 단위 레이아웃 패턴
 ```
 
-- 코드 컴포넌트를 DS 규격으로 확정할 때마다, 그 프리뷰를 `DesignSync`로 claude.ai/design에 업로드한다(메인 세션, `@dsCard` 마커).
+- 코드 컴포넌트를 DS 규격으로 확정할 때마다, 그 **Storybook story**를 작성한다(`*.stories.tsx`). 실제 컴포넌트를 import해 렌더하므로 손으로 재현·스크린샷이 불필요하다.
+- Foundations 토큰은 `tailwind.config`를 직접 읽는 docs story로 표현한다(토큰 변경 시 자동 반영).
 
 ---
 
@@ -109,11 +110,11 @@ Patterns (조합)       ← 페이지 단위 레이아웃 패턴
 토큰과 스타일 규칙을 먼저 정의한다. **컴포넌트는 만들지 않는다** — 페이지를 실제로 그려봐야 어떤 컴포넌트가 필요한지 정확히 알 수 있으므로, 컴포넌트는 2단계에서 페이지 작업과 함께 만든다.
 
 - [x] **토큰**: spacing(`touch`/`touch-lg`), fontSize(`2xs`) 추가 — 완료
-- [x] **Foundations 카드**: Colors / Typography / Spacing claude.ai/design 업로드 — 완료
+- [x] **Foundations story**: Colors / Typography / Spacing Storybook docs story — 완료
 - [x] **반응형 규칙 정의**: 모바일 퍼스트 작성 규칙, 반응형 그리드 규칙을 styling.md에 명문화 — 완료
 - [x] **간격/폰트 임의값 정리 규칙**: 신규 작업에서 `[...]` 임의값 대신 토큰 사용 원칙 확립 (styling.md "작성 규칙") — 완료
 
-**완료 기준**: Foundations 토큰·규칙이 정의되고 claude.ai/design에 반영됨. → **1단계 완료**
+**완료 기준**: Foundations 토큰·규칙이 정의되고 Storybook docs story로 반영됨. → **1단계 완료**
 
 ### 4.2 [2단계] 페이지 단위 재디자인 + 컴포넌트 규격화
 
@@ -123,7 +124,7 @@ Patterns (조합)       ← 페이지 단위 레이아웃 패턴
 
 1. **ux-designer** — 기존 화면 비평(4축) + 새 반응형 디자인 설계 (모바일·데스크톱 모두)
 2. **컴포넌트 규격화** — 새 디자인에 필요한 공용 컴포넌트를 DS 규격(반응형 단일)으로 제작
-   → DS Components 카드로 claude.ai/design 등록
+   → DS Components story(`*.stories.tsx`)로 등록
 3. **DS 승격 기준** (아래) 충족 시만 DS 컴포넌트로, 아니면 페이지 전용으로 둔다.
 
 #### DS 컴포넌트 승격 기준
@@ -169,7 +170,7 @@ Patterns (조합)       ← 페이지 단위 레이아웃 패턴
 ```text
 ux-designer (Playwright 캡처 → 4축 Design Critique → 반응형 재설계)
   → 컴포넌트 규격화 (필요한 공용 컴포넌트를 DS 반응형 단일로 제작)
-    → DesignSync (Components 카드 claude.ai/design 업로드)
+    → Storybook story 작성 + 실제 렌더 검증 (build-storybook)
       → 페이지 반응형 단일 뷰로 재구성 (구버전 유지)
         → 검증 (a11y-check, 모바일·데스크톱 폭 확인)
           → 구 컴포넌트 사용처 0건 확인 후 제거
