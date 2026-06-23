@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Fragment, useMemo } from 'react'
+import { Fragment } from 'react'
 import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/tag/Tag.component'
@@ -68,10 +68,7 @@ const PokemonCardComponent = ({
   const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
     useLazyImage({ rootMargin: '200px', threshold: 0.1 })
 
-  const backgroundColor = useMemo(
-    () => getBackgroundColor(pokemonData.types),
-    [pokemonData.types],
-  )
+  const backgroundColor = getBackgroundColor(pokemonData.types)
 
   const gradientStyle =
     backgroundColor.length === 1
@@ -117,8 +114,7 @@ const PokemonCardComponent = ({
         ) : (
           <div
             ref={imgRef}
-            className="w-32 h-32 desktop:w-40 desktop:h-40 mx-auto mb-4 desktop:mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
-            aria-description="포켓몬 이미지"
+            className="w-40 h-40 mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
           >
             {isVisible ? (
               <ImageComponent
@@ -128,7 +124,7 @@ const PokemonCardComponent = ({
                 densities={[1, 1.5]}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
                 src={`${imageMode}/${pokemonData.number}`}
-                sizes="(min-width: 769px) 10rem, 8rem"
+                sizes="10rem"
                 loading="lazy"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
@@ -143,10 +139,7 @@ const PokemonCardComponent = ({
           </div>
         )}
 
-        <div
-          className="w-full flex items-center gap-2 px-2 mx-auto justify-start"
-          aria-description="포켓몬 타입 정보"
-        >
+        <div className="w-full flex items-center gap-2 px-2 mx-auto justify-start">
           {pokemonData.types.map((item, index) => {
             return <TagComponent key={`${item}-id-${index}`} type={item} />
           })}
@@ -155,7 +148,7 @@ const PokemonCardComponent = ({
         {variant === 'pokedex' && (
           <dl
             className="w-full grid grid-rows-[repeat(3,_1fr)] grid-cols-[35%_15%_35%_15%] mt-4 mx-auto pl-2"
-            aria-description="포켓몬 능력치 정보"
+            aria-label="능력치"
           >
             {POKEDEX_STAT_ROWS.map(({ label, key }, index) => (
               <Fragment key={key}>
