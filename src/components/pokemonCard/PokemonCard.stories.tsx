@@ -64,18 +64,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 듀얼 타입 (풀+독) — 그라데이션 배경 */
+/** 듀얼 타입 (풀+독) — 그라데이션 배경. 카드는 항상 w-56(224px) 고정 규격. */
 export const Pokedex: Story = {
   args: { pokemonData: mockPokemon },
 }
 
-/** 싱글 타입 (불꽃) — 단색 배경 */
+/** 싱글 타입 (불꽃) — 단색 배경. 동일한 224px 규격. */
 export const SingleType: Story = {
   args: { pokemonData: singleTypePokemon },
-}
-
-/** 데스크톱 폭 — w-56 고정 + hover scale */
-export const DesktopWidth: Story = {
-  args: { pokemonData: mockPokemon },
-  globals: { viewport: { value: 'desktop' } },
 }

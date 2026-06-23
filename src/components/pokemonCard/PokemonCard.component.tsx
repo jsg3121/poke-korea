@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Fragment, useMemo } from 'react'
 import BallComponent from '~/components/Ball.component'
 import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/Tag.component'
+import TagComponent from '~/components/tag/Tag.component'
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hook/useLazyImage'
 import { imageMode } from '~/module/buildMode'
@@ -81,12 +81,9 @@ const PokemonCardComponent = ({
         }
 
   return (
-    <Link
-      href={`/detail/${pokemonData.number}`}
-      className="block w-full desktop:w-56"
-    >
+    <Link href={`/detail/${pokemonData.number}`} className="block w-56">
       <article
-        className="w-full h-[21rem] desktop:h-80 text-black-2 border border-solid border-black-2 rounded-[10px] p-2 desktop:p-3 relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80),0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] desktop:hover:scale-105 desktop:hover:z-10"
+        className="w-56 text-black-2 border border-solid border-black-2 rounded-[10px] p-3 relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80),0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] desktop:hover:scale-105 desktop:hover:z-10"
         style={gradientStyle}
         aria-label={`포켓몬 ${pokemonData.name} 카드`}
       >
@@ -105,10 +102,10 @@ const PokemonCardComponent = ({
         </header>
 
         {isHighPriority ? (
-          <div className="w-fit mx-auto mb-4 desktop:mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
+          <div className="w-40 h-40 mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
             <ImageComponent
-              height="10rem"
-              width="10rem"
+              height="100%"
+              width="100%"
               imageSize={{ width: 160, height: 160 }}
               densities={[1, 1.5]}
               alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
@@ -120,18 +117,18 @@ const PokemonCardComponent = ({
         ) : (
           <div
             ref={imgRef}
-            className="w-fit mx-auto mb-4 desktop:mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
+            className="w-32 h-32 desktop:w-40 desktop:h-40 mx-auto mb-4 desktop:mb-2 drop-shadow-[2px_3px_2px_#333333] relative"
             aria-description="포켓몬 이미지"
           >
             {isVisible ? (
               <ImageComponent
-                height="10rem"
-                width="10rem"
+                height="100%"
+                width="100%"
                 imageSize={{ width: 160, height: 160 }}
                 densities={[1, 1.5]}
                 alt={`pokemon_id_${pokemonData.number} ${pokemonData.name}`}
                 src={`${imageMode}/${pokemonData.number}`}
-                sizes="10rem"
+                sizes="(min-width: 769px) 10rem, 8rem"
                 loading="lazy"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
@@ -141,7 +138,7 @@ const PokemonCardComponent = ({
                 }}
               />
             ) : (
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
+              <div className="w-full h-full bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
             )}
           </div>
         )}
@@ -157,20 +154,20 @@ const PokemonCardComponent = ({
 
         {variant === 'pokedex' && (
           <dl
-            className="w-full grid grid-rows-[repeat(3,_1fr)] grid-cols-[39%_13%_35%_13%] desktop:grid-cols-[35%_15%_35%_15%] mt-4 mx-auto pl-2"
+            className="w-full grid grid-rows-[repeat(3,_1fr)] grid-cols-[35%_15%_35%_15%] mt-4 mx-auto pl-2"
             aria-description="포켓몬 능력치 정보"
           >
             {POKEDEX_STAT_ROWS.map(({ label, key }, index) => (
               <Fragment key={key}>
                 {/* 짝수 인덱스=왼쪽 열(mr-1), 홀수=오른쪽 열(ml-2) — 그리드 칸 정렬 */}
                 <dt
-                  className={`h-5 text-2xs desktop:text-sm leading-5 ${
+                  className={`h-5 text-sm leading-5 ${
                     index % 2 === 0 ? 'mr-1' : 'ml-2'
                   }`}
                 >
                   {label}
                 </dt>
-                <dd className="h-5 text-2xs desktop:text-sm leading-5 text-right text-black">
+                <dd className="h-5 text-sm leading-5 text-right text-black">
                   {pokemonData.pokemonStats[key]}
                 </dd>
               </Fragment>
