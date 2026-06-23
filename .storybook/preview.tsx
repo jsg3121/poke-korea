@@ -20,6 +20,19 @@ const preview: Preview = {
         { name: 'white', value: '#ffffff' },
       ],
     },
+    // 프로젝트 브레이크포인트(mobile ≤768 / desktop ≥769) 기준 viewport 프리셋.
+    viewport: {
+      options: {
+        mobile: {
+          name: 'Mobile (390)',
+          styles: { width: '390px', height: '844px' },
+        },
+        desktop: {
+          name: 'Desktop (760)',
+          styles: { width: '760px', height: '640px' },
+        },
+      },
+    },
   },
 }
 
