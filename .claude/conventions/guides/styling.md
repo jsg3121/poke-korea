@@ -48,6 +48,18 @@
 
 > **Why 모바일 퍼스트:** base를 모바일로 두면, 모바일에서 불필요한 데스크톱 스타일 오버라이드를 로드하지 않는다. 또 Tailwind가 min-width 기반이라 `desktop:`(min-width) 한 방향 확장이 자연스럽다. 양방향(`mobile:`+`desktop:`) 혼용은 어느 게 base인지 모호해진다.
 
+### root font-size 16px 고정 ([ADR-0009](../../decisions/records/ADR-0009-root-font-size-fixed.md))
+
+root `font-size`는 **모든 화면에서 16px 고정**이다. `1rem = 16px`이 어디서나 동일하므로, 토큰의 실제 px을 예측할 수 있다.
+
+| 규칙 | 설명 |
+| --- | --- |
+| **rem 스케일링 폐기** | 화면 폭에 따라 root `font-size`를 바꾸지 않는다. 과거 16/14/12px 분기는 제거됐다([ADR-0009](../../decisions/records/ADR-0009-root-font-size-fixed.md)). `html`/`body`에 `font-size` 미디어쿼리를 다시 추가하지 말 것 |
+| **모바일 축소는 토큰으로** | "모바일에서 작아지는" 동작은 rem 자동 축소가 아니라 **모바일 퍼스트 토큰**으로 명시한다. base=모바일(작게), `desktop:`=확장(예: `text-sm desktop:text-base`, `p-4 desktop:p-6`, `gap-2 desktop:gap-4`) |
+| **연속 비례가 꼭 필요할 때** | 폭에 부드럽게 연속 비례해야 하는 특수 요소만 `clamp()`(폰트) 또는 cqw(요소 크기)를 쓴다. cqw는 토큰 우선 원칙(위 "작성 규칙"의 임의값 금지)에 따라 **사용 전 확인** |
+
+> **Why:** root를 화면별로 축소하면 `1rem`이 화면마다 달라져(모바일 12px → `px-5`가 15px) 토큰의 실제 px을 예측할 수 없고, 디자인 시스템의 "단일 고정 규격"과 충돌한다. 또 사용자 브라우저 기본 글꼴(통상 16px)을 강제 축소하는 것은 접근성([WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html))에 불리하다. 크기 차등은 "자동"이 아니라 "의도적 토큰"으로 표현해야 코드에 드러나고 검증 가능하다.
+
 ### 금지/지양
 
 - 신규 UA 기반 분기(`detectUserAgent`, `useDevice`로 모바일/데스크톱 나누기)
