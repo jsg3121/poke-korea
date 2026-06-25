@@ -42,7 +42,7 @@
 | **base = 모바일** | 접두사 없는 클래스가 모바일 스타일. `desktop:`로 데스크톱을 오버라이드한다 (예: `flex-col desktop:flex-row`) |
 | **`mobile:` 지양** | 모바일이 base이므로 `mobile:`(max-width)는 원칙적으로 불필요. 데스크톱 → 모바일 역방향 오버라이드가 꼭 필요한 예외에만 사용 |
 | **반응형 그리드** | 카드 리스트는 base 열 수 + `desktop:` 확장으로 (예: `grid-cols-2 desktop:grid-cols-5`). `sm:`/`md:`/`lg:`/`xl:` 다단 스케일 난립 금지 |
-| **터치 타겟** | 인터랙티브 요소는 최소 44px (`min-h-touch`/`min-w-touch`). 모바일 base 기준으로 보장 |
+| **터치 타겟** | 인터랙티브 요소는 최소 44px (`min-h-touch`/`min-w-touch`). 모바일 base 기준으로 보장. **예외 — 모바일 탭**: 슬림한 탭 항목은 **모바일에서만** 24px(`min-h-touch-tab`, WCAG 2.2 2.5.8 AA)까지 허용하되 **항목 중심 간격 24px 이상 확보가 전제**, **데스크톱은 44px 유지**(`min-h-touch-tab desktop:min-h-touch`) ([ADR-0011](../../decisions/records/ADR-0011-tab-touch-target-24px.md)) |
 | **폰트 최소** | 모바일에서 11px(`text-2xs`) 미만 금지 (접근성) |
 | **임의값 금지** | 간격·폰트·크기는 `[...]` 임의값 대신 토큰 사용. 토큰에 없으면 `tailwind.config`에 추가 후 사용 |
 
