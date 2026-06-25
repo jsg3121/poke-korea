@@ -29,7 +29,6 @@ const meta = {
   component: TagComponent,
   parameters: {
     layout: 'centered',
-    backgrounds: { default: 'light' },
     docs: {
       description: {
         component: [
