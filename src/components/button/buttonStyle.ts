@@ -26,9 +26,12 @@ const SIZE_CLASS: Record<ButtonSize, string> = {
   lg: 'min-h-touch-lg px-6 text-base desktop:text-lg', // 48px
 }
 
-/** 공통 베이스 (레이아웃·모서리·트랜지션·포커스 링) */
+/**
+ * 공통 베이스 (레이아웃·모서리·트랜지션·포커스 링·disabled).
+ * disabled: 의사클래스는 <button>에만 동작하고 <Link>(LinkButton)엔 무해하므로 공유한다.
+ */
 const BASE_CLASS =
-  'inline-flex items-center justify-center gap-2 rounded-2xl font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4'
+  'inline-flex items-center justify-center gap-2 rounded-2xl font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 disabled:opacity-50 disabled:cursor-not-allowed'
 
 interface ButtonStyleParams {
   variant?: ButtonVariant

@@ -12,37 +12,44 @@ import { ChipColor, getChipClass } from './chipStyle'
  * 한다(터치타겟, chipStyle 주석 참조). 그룹 시맨틱(role 등)도 상위 책임이다.
  */
 
-interface ChipProps {
+interface ChipBaseProps {
   /** 표시 텍스트 (예: '물리', '1세대') */
   label: string
   /** 데미지 유형 색. 없으면 기본(무색) 칩 */
   color?: ChipColor
-  /** 클릭 가능 여부 — true면 button, false면 span */
-  clickable?: boolean
-  /** clickable일 때 선택 상태 */
+}
+
+/** 표시 전용(기본) — span. active/onClick 불가(타입 차단) */
+interface ChipDisplayProps extends ChipBaseProps {
+  clickable?: false
+  active?: never
+  onClick?: never
+}
+
+/** 클릭형 — button. active/onClick 허용 */
+interface ChipClickableProps extends ChipBaseProps {
+  clickable: true
   active?: boolean
   onClick?: () => void
 }
 
-const ChipComponent = ({
-  label,
-  color,
-  clickable = false,
-  active = false,
-  onClick,
-}: ChipProps) => {
-  const className = getChipClass({ color, clickable, active })
+type ChipProps = ChipDisplayProps | ChipClickableProps
+
+const ChipComponent = (props: ChipProps) => {
+  const { label, color } = props
 
   // 표시 전용 — span (포커스/클릭 없음)
-  if (!clickable) {
-    return <span className={className}>{label}</span>
+  if (!props.clickable) {
+    return <span className={getChipClass({ color })}>{label}</span>
   }
 
-  // 클릭형 — button (네이티브 포커스·키보드 동작 제공). 선택 상태는 aria-pressed로 노출.
+  // 클릭형 — props가 ChipClickableProps로 좁혀져 active/onClick 구조분해 가능.
+  // button(네이티브 포커스·키보드 동작 제공), 선택 상태는 aria-pressed로 노출.
+  const { active = false, onClick } = props
   return (
     <button
       type="button"
-      className={className}
+      className={getChipClass({ color, clickable: true, active })}
       aria-pressed={active}
       onClick={onClick}
     >

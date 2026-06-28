@@ -8,7 +8,13 @@ import { ButtonSize, ButtonVariant, getButtonClass } from './buttonStyle'
  * 토큰 기반 규격(모바일 퍼스트, 터치 타겟 min-h-touch 보장).
  */
 
-interface ButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+/**
+ * className은 받지 않는다 — DS 규격을 외부 className으로 우회하면 선언형 일관성이
+ * 깨지고, twMerge가 없어 토큰 충돌 시 병합되지 않는다. 레이아웃 제어는 상위 wrapper의
+ * 책임으로 둔다(disabled 시각도 buttonStyle에 응집).
+ */
+interface ButtonComponentProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
   children: ReactNode
   variant?: ButtonVariant
   size?: ButtonSize
@@ -24,15 +30,12 @@ const ButtonComponent = ({
   fullWidth = false,
   showArrow = false,
   type = 'button',
-  className,
   ...buttonProps
 }: ButtonComponentProps) => {
   return (
     <button
       type={type}
-      className={`${getButtonClass({ variant, size, fullWidth })} disabled:opacity-50 disabled:cursor-not-allowed${
-        className ? ` ${className}` : ''
-      }`}
+      className={getButtonClass({ variant, size, fullWidth })}
       {...buttonProps}
     >
       {children}

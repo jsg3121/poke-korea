@@ -45,8 +45,9 @@ const VARIANT_CLASS: Record<
   },
   fill: {
     // 채움형: 알약 배경. 선택 시 primary-4로 채우고 글자를 primary-1로 반전.
-    // 배경이 꽉 차는 알약이라 모바일에서 부피가 커 보인다 → 터치타겟(min-h-touch
-    // 44px)은 유지한 채 폰트·좌우 패딩만 모바일 퍼스트로 줄이고 desktop:로 확장한다.
+    // 배경이 꽉 차는 알약이라 모바일에서 부피가 커 보인다 → 높이는 BASE_CLASS의
+    // min-h-touch-tab(모바일 24px / desktop 44px)을 따르고, 폰트·좌우 패딩도 모바일
+    // 퍼스트로 줄였다가 desktop:로 확장한다.
     // 모서리는 캡슐(rounded-full) 대신 모서리만 둥글게, 모바일 퍼스트로 차등:
     // base(모바일) rounded-xl(12px) → desktop: rounded-2xl(16px).
     base: 'px-3 text-xs rounded-xl desktop:px-4 desktop:text-sm desktop:rounded-2xl',
