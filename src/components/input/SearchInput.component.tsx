@@ -57,8 +57,9 @@ const SearchInputComponent = ({
         id={id}
         type="search"
         placeholder={placeholder}
-        defaultValue={defaultValue}
-        value={value}
+        // value/defaultValue를 동시에 주면 제어/비제어가 모호해져 React 경고가 난다.
+        // value가 있으면 제어, 없으면 비제어(defaultValue)로 하나만 전달한다.
+        {...(value !== undefined ? { value } : { defaultValue })}
         onChange={handleChange}
         disabled={disabled}
         className={INPUT_CLASS}
