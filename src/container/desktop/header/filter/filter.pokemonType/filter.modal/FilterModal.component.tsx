@@ -3,7 +3,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent, memo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import CloseIcon from '~/assets/close.svg'
-import CheckboxComponent from '~/components/Checkbox.component'
+import CheckboxComponent from '~/components/checkbox/Checkbox.component'
 import RadioGroupComponent from '~/components/RadioGroup.component'
 import { FilterFormType } from './types/filterForm.type'
 
