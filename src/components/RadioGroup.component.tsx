@@ -1,5 +1,5 @@
 import { forwardRef, InputHTMLAttributes } from 'react'
-import Radio from './Radio.component'
+import Radio from '~/components/radio/Radio.component'
 
 interface RadioComponentProps extends InputHTMLAttributes<HTMLInputElement> {
   title?: string

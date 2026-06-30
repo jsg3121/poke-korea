@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import BallComponent from '~/components/Ball.component'
+import BallComponent from '~/components/ball/Ball.component'
 import TagComponent from '~/components/Tag.component'
 import ChampionsTierBadge, {
   getTierColors,

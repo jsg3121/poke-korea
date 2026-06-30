@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ReactNode } from 'react'
-import BallComponent from '~/components/Ball.component'
+import BallComponent from '~/components/ball/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/tag/Tag.component'
 import { PokemonType } from '~/graphql/typeGenerated'
