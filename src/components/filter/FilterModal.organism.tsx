@@ -98,7 +98,12 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
     const params = new URLSearchParams(searchParams)
 
     Object.entries(values).forEach(([key, value]) => {
-      if (!value || (Array.isArray(value) && value.length === 0)) {
+      // 'all'(모두)은 필터 미적용이므로 쿼리에서 제거해 URL을 깔끔히 유지한다
+      if (
+        !value ||
+        value === 'all' ||
+        (Array.isArray(value) && value.length === 0)
+      ) {
         params.delete(key)
         return
       }
@@ -106,7 +111,7 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
         params.delete(key)
         value.forEach((v) => params.append(key, v))
       } else {
-        params.set(key, value.toString())
+        params.set(key, value)
       }
     })
 

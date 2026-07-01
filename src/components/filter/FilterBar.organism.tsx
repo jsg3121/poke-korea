@@ -34,7 +34,9 @@ const FilterBarOrganism = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const typeList = searchParams.get('type')?.split(',') ?? []
+  // filter(Boolean)으로 빈 문자열 방어 — `type=`(빈값)이면 split이 ['']을 반환하는데
+  // 이를 걸러 실제 타입이 없을 때 빈 배열이 되게 한다
+  const typeList = searchParams.get('type')?.split(',').filter(Boolean) ?? []
   const isEmptyQuery = searchParams.size === 0
 
   const handleToggleType = (e: ChangeEvent<HTMLInputElement>) => {

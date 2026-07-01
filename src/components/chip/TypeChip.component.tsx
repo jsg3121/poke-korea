@@ -65,8 +65,11 @@ const TypeChipComponent = ({
           imageSize={{ width: 32, height: 32 }}
         />
       </span>
-      {/* 라벨 — 모바일 항상 표시, 데스크톱 hover/focus 시에만. DOM엔 항상 유지(SR용) */}
-      <span className="text-sm leading-4 text-primary-1 opacity-60 transition-opacity peer-checked:font-bold peer-checked:opacity-100 desktop:opacity-0 desktop:group-hover:opacity-100 peer-focus-visible:opacity-100">
+      {/* 라벨 — 모바일 항상 표시, 데스크톱 hover/focus 시에만. DOM엔 항상 유지(SR용).
+          데스크톱 focus 노출은 desktop:opacity-0(미디어쿼리 안, 소스 뒤)을 이겨야 하므로
+          desktop: 접두사를 붙인 desktop:peer-focus-visible:opacity-100을 써야 우선한다
+          (접두사 없는 peer-focus-visible은 미디어쿼리 밖·앞이라 데스크톱에서 밀린다) */}
+      <span className="text-sm leading-4 text-primary-1 opacity-60 transition-opacity peer-checked:font-bold peer-checked:opacity-100 peer-focus-visible:opacity-100 desktop:opacity-0 desktop:group-hover:opacity-100 desktop:peer-focus-visible:opacity-100">
         {label}
       </span>
     </label>
