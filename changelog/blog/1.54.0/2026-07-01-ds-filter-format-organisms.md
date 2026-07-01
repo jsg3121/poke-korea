@@ -117,7 +117,9 @@ src/components/home/QuizResultPopup.stories.tsx
   6곳)는 즉시 교체하지 않는다(페이지 개편 단계)
 
 **검증**: TypeScript 타입 에러 없음, ESLint 통과, `build-storybook` 성공. 코드 리뷰
-반영(모달 접근성·스크롤 UX 개선).
+반영(모달 접근성·스크롤 UX 개선). Gemini 리뷰 반영 — TypeChip 데스크톱 포커스 라벨
+미노출 버그(`desktop:peer-focus-visible` 우선순위, 빌드 CSS로 검증), 필터 방어 코드
+(split `filter(Boolean)`, `'all'` 쿼리 제거).
 
 ## 📌 참고 사항
 
