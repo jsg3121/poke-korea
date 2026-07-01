@@ -72,7 +72,6 @@ module.exports = {
         128: '32rem', // 512px
         touch: '2.75rem', // 44px - WCAG 2.5.5 최소 터치 타겟
         'touch-lg': '3rem', // 48px - 권장 터치 타겟
-        'touch-tab': '1.5rem', // 24px - 모바일 탭 전용 최소(WCAG 2.2 2.5.8 AA). 데스크톱은 touch(44px) 유지. 항목 간격 24px 확보 전제 (ADR-0011)
       },
       screens: {
         mobile: { max: '768px' },

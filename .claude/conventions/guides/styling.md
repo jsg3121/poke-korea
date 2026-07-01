@@ -42,7 +42,7 @@
 | **base = 모바일** | 접두사 없는 클래스가 모바일 스타일. `desktop:`로 데스크톱을 오버라이드한다 (예: `flex-col desktop:flex-row`) |
 | **`mobile:` 지양** | 모바일이 base이므로 `mobile:`(max-width)는 원칙적으로 불필요. 데스크톱 → 모바일 역방향 오버라이드가 꼭 필요한 예외에만 사용 |
 | **반응형 그리드** | 카드 리스트는 base 열 수 + `desktop:` 확장으로 (예: `grid-cols-2 desktop:grid-cols-5`). `sm:`/`md:`/`lg:`/`xl:` 다단 스케일 난립 금지 |
-| **터치 타겟** | 인터랙티브 요소는 최소 44px (`min-h-touch`/`min-w-touch`). 모바일 base 기준으로 보장. **예외 — 슬림 인터랙티브(탭·칩)**: 24px(WCAG 2.2 2.5.8 AA)까지 허용하되 **항목 중심 간격 24px 이상 확보가 전제**. 탭은 모바일만 24px·데스크톱 44px(`min-h-touch-tab desktop:min-h-touch`), 칩(clickable)은 디바이스 무관 `h-7`(28px). **입력 컨트롤·아이콘 버튼**(SelectInput·CloseIconButton)은 모바일 44px·데스크톱 36px(`min-h-touch desktop:min-h-9`, 마우스 정밀도). 텍스트 CTA(Button) 등은 44px 유지 ([ADR-0011](../../decisions/records/ADR-0011-tab-touch-target-24px.md)) |
+| **터치 타겟** | 인터랙티브 요소는 최소 44px (`min-h-touch`/`min-w-touch`). 모바일 base 기준으로 보장. **예외 — 슬림 인터랙티브(탭·칩)**: WCAG 2.2 2.5.8(AA, 24px)을 충족하는 선에서 슬림하게. 탭은 모바일 36px·데스크톱 44px(`min-h-9 desktop:min-h-touch`, 36px이라 간격 전제 불필요), 칩(clickable)은 디바이스 무관 `h-7`(28px, 항목 간격 24px 전제). **입력 컨트롤·아이콘 버튼**(SelectInput·CloseIconButton)은 모바일 44px·데스크톱 36px(`min-h-touch desktop:min-h-9`, 마우스 정밀도). 텍스트 CTA(Button) 등은 44px 유지 ([ADR-0011](../../decisions/records/ADR-0011-tab-touch-target-24px.md)) |
 | **폰트 최소** | 모바일에서 11px(`text-2xs`) 미만 금지 (접근성) |
 | **임의값 금지** | 간격·폰트·크기는 `[...]` 임의값 대신 토큰 사용. 토큰에 없으면 `tailwind.config`에 추가 후 사용 |
 
