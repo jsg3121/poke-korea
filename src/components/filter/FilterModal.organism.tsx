@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import Button from '~/components/button/Button.component'
 import CloseIconButton from '~/components/button/CloseIconButton.component'
@@ -62,6 +62,16 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
 
   useBodyScrollLock(open)
 
+  // Escape 키로 닫기 (ARIA dialog 패턴). open일 때만 리스너를 건다.
+  useEffect(() => {
+    if (!open) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open, onClose])
+
   const formMethods = useForm<FilterFormValues>({
     defaultValues: {
       generation: searchParams.getAll('generation'),
@@ -110,15 +120,26 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
 
   return (
     <Portal>
-      {/* 딤 — 모바일은 시트를 하단/전체로, 데스크톱은 카드를 중앙에 배치 */}
-      <div className="fixed inset-0 z-[100] bg-black-1/70 flex items-stretch desktop:items-center desktop:justify-center">
+      {/* 딤 — 클릭 시 닫기(오버레이 자신을 클릭했을 때만). 모바일은 시트를 전체로,
+          데스크톱은 카드를 중앙에 배치 */}
+      <div
+        className="fixed inset-0 z-[100] bg-black-1/70 flex items-stretch desktop:items-center desktop:justify-center"
+        onClick={onClose}
+      >
         <FormProvider {...formMethods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="filter-modal-title"
             className="flex w-full h-full flex-col bg-primary-1 p-6 desktop:h-auto desktop:max-h-[90vh] desktop:w-[28rem] desktop:rounded-2xl desktop:p-8"
           >
             <header className="mb-4 flex items-center justify-between border-b border-solid border-primary-3 pb-4">
-              <h2 className="text-2xl font-semibold leading-8 text-primary-4">
+              <h2
+                id="filter-modal-title"
+                className="text-2xl font-semibold leading-8 text-primary-4"
+              >
                 추가 필터 검색
               </h2>
               <CloseIconButton

@@ -38,20 +38,22 @@ const FilterBarOrganism = () => {
   const isEmptyQuery = searchParams.size === 0
 
   const handleToggleType = (e: ChangeEvent<HTMLInputElement>) => {
+    // getChangeTypeList는 쉼표로 조인한 문자열을 반환한다(빈 문자열이면 선택 없음)
     const nextValue = getChangeTypeList(typeList, e.target.value)
     const params = new URLSearchParams(searchParams)
 
-    if (nextValue.length > 0) {
+    if (nextValue !== '') {
       params.set('type', nextValue)
     } else {
       params.delete('type')
     }
 
-    router.replace(`${pathname}?${params.toString()}`)
+    // 칩 토글은 페이지 상단 이동이 불필요하므로 스크롤 유지
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
   const handleReset = () => {
-    router.replace(pathname)
+    router.replace(pathname, { scroll: false })
   }
 
   return (
