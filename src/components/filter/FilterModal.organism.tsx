@@ -117,7 +117,7 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
             onSubmit={handleSubmit(onSubmit)}
             className="flex w-full h-full flex-col bg-primary-1 p-6 desktop:h-auto desktop:max-h-[90vh] desktop:w-[28rem] desktop:rounded-2xl desktop:p-8"
           >
-            <header className="mb-4 flex items-start justify-between border-b border-solid border-primary-3 pb-4">
+            <header className="mb-4 flex items-center justify-between border-b border-solid border-primary-3 pb-4">
               <h2 className="text-2xl font-semibold leading-8 text-primary-4">
                 추가 필터 검색
               </h2>
