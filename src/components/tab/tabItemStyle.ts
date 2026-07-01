@@ -18,14 +18,12 @@ export type TabItemVariant = 'underline' | 'fill'
  * 공통 베이스 (레이아웃·터치타겟·트랜지션·포커스 링·줄바꿈 방지).
  *
  * 높이: 모바일 퍼스트로 차등한다(ADR-0011).
- * - base(모바일): min-h-touch-tab(24px). 모바일 탭은 슬림한 게 일반적이라 버튼의
- *   44px 대신 WCAG 2.2 2.5.8(AA) 최소 24px을 적용한다. 단 이 24px 기준은 "항목 중심
- *   간격 24px 이상 확보"가 전제이므로, 이 원자를 배열로 조립하는 상위(네비 바·컨텐츠
- *   탭)에서 모바일 항목 간 간격(gap)을 24px 이상 두어야 한다.
+ * - base(모바일): min-h-9(36px). 슬림하되 WCAG 2.2 2.5.8(AA, 24px)을 여유롭게 충족.
+ *   네비 바 등에서 항목 높이가 컨테이너 높이와 맞아 active 밑줄이 하단에 붙는다.
  * - desktop:: min-h-touch(44px). 데스크톱은 기존 터치 타겟 기준을 유지한다.
  */
 const BASE_CLASS =
-  'inline-flex items-center justify-center min-h-touch-tab desktop:min-h-touch whitespace-nowrap font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4'
+  'inline-flex items-center justify-center min-h-9 desktop:min-h-touch whitespace-nowrap font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4'
 
 /**
  * variant별 클래스 — active/inactive를 각각 정적 매핑(purge 안전).
@@ -38,16 +36,17 @@ const VARIANT_CLASS: Record<
 > = {
   underline: {
     // 밑줄형: 배경 없음. 하단 2px 경계로 현재 위치 표시(레이아웃 시프트 방지를 위해
-    // 항상 border-b-2를 깔고 색만 토글한다).
-    base: 'px-3 desktop:px-4 text-sm border-b-2 border-solid',
+    // 항상 border-b-2를 깔고 색만 토글한다). 폰트·패딩은 모바일 퍼스트 차등 —
+    // 네비 균등 배분(좁은 폭 4등분)에서 12px로 들어가고, 데스크톱은 14px로 확장.
+    base: 'px-2 desktop:px-4 text-xs desktop:text-sm border-b-2 border-solid',
     active: 'text-primary-4 border-primary-4',
     inactive: 'text-primary-3 border-transparent hover:text-primary-4',
   },
   fill: {
     // 채움형: 알약 배경. 선택 시 primary-4로 채우고 글자를 primary-1로 반전.
     // 배경이 꽉 차는 알약이라 모바일에서 부피가 커 보인다 → 높이는 BASE_CLASS의
-    // min-h-touch-tab(모바일 24px / desktop 44px)을 따르고, 폰트·좌우 패딩도 모바일
-    // 퍼스트로 줄였다가 desktop:로 확장한다.
+    // min-h-9(모바일 36px / desktop 44px)을 따르고, 폰트·좌우 패딩도 모바일 퍼스트로
+    // 줄였다가 desktop:로 확장한다.
     // 모서리는 캡슐(rounded-full) 대신 모서리만 둥글게, 모바일 퍼스트로 차등:
     // base(모바일) rounded-xl(12px) → desktop: rounded-2xl(16px).
     base: 'px-3 text-xs rounded-xl desktop:px-4 desktop:text-sm desktop:rounded-2xl',
