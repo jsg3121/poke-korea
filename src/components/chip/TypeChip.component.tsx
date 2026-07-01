@@ -51,8 +51,10 @@ const TypeChipComponent = ({
         className="sr-only peer"
         aria-label={`${label} 타입 필터`}
       />
-      {/* 아이콘 — 미선택은 흐린 흑백, 선택 시 컬러. 잠금 시 더 흐림 */}
-      <span className="block h-8 w-8 grayscale opacity-40 drop-shadow-[1px_2px_0px_var(--color-black-1)] transition-[filter,opacity] peer-checked:grayscale-0 peer-checked:opacity-100 peer-focus-visible:opacity-100 peer-disabled:opacity-20 peer-disabled:grayscale">
+      {/* 아이콘 — 미선택은 흐린 흑백, 선택 시 컬러. 잠금 시 더 흐림.
+          hover/focus 시 살짝 확대(라벨은 흔들리지 않게 아이콘 span에만). 잠금(disabled)
+          상태에선 peer-enabled 조건으로 확대를 막는다 */}
+      <span className="block h-8 w-8 grayscale opacity-40 drop-shadow-[1px_2px_0px_var(--color-black-1)] transition-[filter,opacity,transform] peer-enabled:group-hover:scale-110 peer-checked:grayscale-0 peer-checked:opacity-100 peer-focus-visible:opacity-100 peer-focus-visible:scale-110 peer-disabled:opacity-20 peer-disabled:grayscale">
         <ImageComponent
           alt=""
           aria-hidden="true"
