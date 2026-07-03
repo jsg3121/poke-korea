@@ -35,6 +35,43 @@ UX 와이어프레임을 빠르게 브라우저에서 확인할 수 있는 **정
 - **데이터는 mock 데이터를 HTML에 직접 작성**
 - **이미지는 placeholder 사용** (실제 이미지 URL 또는 회색 박스)
 
+## 디자인 시스템 기반 시안 작성 의무 (중요)
+
+> **Why:** 시안을 자유롭게 그리면 본 구현 때 DS 컴포넌트 규격과 어긋나 재설계가 발생한다.
+> 페이지 개편 2단계는 "DS 컴포넌트 조립"이 중심이므로(mobile-redesign-plan.md 4.2),
+> 시안 단계부터 DS 규격으로 그려야 시안 → 구현이 1:1로 이어진다.
+
+시안의 모든 UI 요소는 **프로젝트 디자인 시스템(Storybook DS)을 기반으로** 그린다.
+
+### 1. 작업 전 DS 인벤토리 파악 (필수)
+
+시안 작성 전 반드시 현재 DS에 등록된 컴포넌트를 조사한다:
+
+- **컴포넌트 목록**: `src/components/**/*.stories.tsx` 를 Glob으로 검색 — story가 있는
+  컴포넌트가 DS 등록 컴포넌트다(원자: button/·tab/·chip/·input/·checkbox/·radio/·ball/·
+  pageHeader/·tag/ 등, organism: `*.organism.tsx`).
+- **토큰**: `tailwind.config.js` 의 색상(primary-1~4, white-*, black-*, damage-*)·
+  spacing(touch 등)·fontSize 토큰 확인.
+- 시안에 들어갈 요소(버튼·탭·칩·인풋·카드 등)와 겹치는 DS 컴포넌트는 **해당 컴포넌트
+  코드와 스타일 파일**(예: `buttonStyle.ts`, `tabItemStyle.ts`, `chipStyle.ts`)을 직접 읽어
+  실제 규격(크기·radius·색·터치 타겟·상태 스타일)을 추출한다.
+
+### 2. 시안에서 DS 규격 재현
+
+- 시안은 순수 HTML/CSS지만, **DS 컴포넌트의 시각 규격을 그대로 재현**한다 — 버튼 높이
+  44px(min-h-touch), 탭 밑줄/채움 variant, 칩 28px 등 실제 값 사용. 임의 스타일 발명 금지.
+- CSS 변수명은 토큰명과 일치시킨다(`--primary-1` 등). 임의 hex 직접 사용 금지 —
+  tailwind.config.js 에 등록된 값만 변수로 옮겨 쓴다.
+- 반응형 분기는 DS와 동일하게 모바일 퍼스트 + `desktop:` 브레이크포인트(768px) 기준.
+
+### 3. DS 부재 요소는 명시적으로 표시
+
+시안에 필요하지만 DS에 없는 요소는:
+
+- 시안에는 그리되, HTML 주석과 보고에 **"DS 부재 — 신규 규격화 후보"**로 명시한다.
+- 이 목록은 페이지 개편 시 "분자/도메인 컴포넌트 규격화" 대상 판단의 입력이 된다
+  (2곳 이상 재사용 + variant 명확 → DS 승격, mobile-redesign-plan.md 4.2 기준).
+
 ## 자사 사이트 시각 무드 재현 의무 (중요)
 
 > **Why:** 2026-06-03 작업에서 자사 컬러 변수값(primary-1: 짙은 네이비 등)만 보고 "흰 배경 + 짙은 텍스트" 조합으로 시안을 작성했으나, 실제 자사 사이트는 다크 톤 배경을 사용하여 무드가 완전히 어긋났다. 컬러 변수의 hex 값만 본 추측은 위험하다.
@@ -159,8 +196,10 @@ HTML/CSS 단일 파일.
 ## 작업 시작 전 체크리스트
 
 - [ ] UX 와이어프레임 정확히 받았는지 확인 (정보 위계 / 섹션 구조 / 인터랙션 / 반응형 전략)
+- [ ] **DS 인벤토리 파악** (`src/components/**/*.stories.tsx` Glob + 관련 컴포넌트/스타일 코드 확인)
+- [ ] **시안 요소 ↔ DS 컴포넌트 매핑표 작성** (재현할 것 / DS 부재로 새로 그릴 것 구분)
 - [ ] 산출 위치 사용자 확인 (`public/preview/` 권장)
-- [ ] 색상 시스템 (프로젝트 컬러 또는 임의)
+- [ ] 색상 시스템 — tailwind.config.js 토큰만 사용 (임의 hex 금지)
 - [ ] 반응형 뷰포트 결정 (desktop 1280 / mobile 375 기본)
 - [ ] mock 데이터 출처 (와이어프레임에서 추출 또는 임의)
 - [ ] 데스크탑/모바일 한 파일에 함께 vs 별도 파일
@@ -172,9 +211,11 @@ HTML/CSS 단일 파일.
 1. **시안 파일 경로**
 2. **확인 방법** (예: `npm run dev` 후 `http://localhost:3000/preview/champions-home-preview.html` 접속)
 3. **시안에서 표현한 항목** (어떤 섹션을 어떻게 구성했는지)
-4. **시안에서 표현 못 한 항목** (실제 데이터 의존 / 복잡한 인터랙션 등)
-5. **본 구현 시 검토할 항목** (정보 위계 / 색감 / 여백 / 반응형 동작 등)
-6. **다음 단계 제안** (사용자 OK 시 본 프로젝트(예: Next.js) 구현 진입)
+4. **DS 컴포넌트 매핑표** — 시안의 각 UI 요소가 어떤 DS 컴포넌트를 재현했는지,
+   **DS 부재로 새로 그린 요소**(신규 규격화 후보)는 무엇인지
+5. **시안에서 표현 못 한 항목** (실제 데이터 의존 / 복잡한 인터랙션 등)
+6. **본 구현 시 검토할 항목** (정보 위계 / 색감 / 여백 / 반응형 동작 등)
+7. **다음 단계 제안** (사용자 OK 시 본 프로젝트(예: Next.js) 구현 진입)
 
 ## 협업
 
@@ -185,4 +226,7 @@ HTML/CSS 단일 파일.
 ## 참조 문서
 
 - `.claude/conventions/guides/styling.md` (색상 체계, 브레이크포인트 참고)
-- 프로젝트의 Tailwind config 또는 CSS 변수 (색상 시스템 추출용)
+- `tailwind.config.js` (토큰 — 색상/spacing/fontSize, 시안 CSS 변수의 원본)
+- `src/components/**/*.stories.tsx` (DS 등록 컴포넌트 인벤토리)
+- `src/components/` 하위 스타일 파일 (buttonStyle.ts·tabItemStyle.ts·chipStyle.ts 등 — DS 시각 규격의 SSOT)
+- `.claude/specs/mobile-redesign-plan.md` 4.2 (DS 컴포넌트 승격 기준)
