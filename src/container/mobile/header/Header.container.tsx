@@ -17,7 +17,7 @@ const HeaderContainer = () => {
         <Link
           href="/"
           aria-label="메인 화면으로 돌아가기"
-          className="w-32 shrink-0 block"
+          className="w-24 shrink-0 block"
         >
           <i className="w-full h-full block icon-logo-link">
             <LogoIcon />

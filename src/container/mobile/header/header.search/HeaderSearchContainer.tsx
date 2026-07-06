@@ -76,7 +76,7 @@ const HeaderSearchContainer = () => {
           placeholder="포켓몬 검색"
           autoComplete="off"
           onChange={handleChangeKeyword}
-          className="w-full h-full text-sm text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"
+          className="w-full h-full text-xs text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"
         />
         <ImageComponent
           src="/assets/image/search.svg"
