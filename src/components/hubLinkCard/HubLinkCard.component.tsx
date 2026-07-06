@@ -9,10 +9,10 @@ import { ReactNode } from 'react'
  * 앵커 텍스트(제목+설명)를 담아 홈의 내부 링크 허브 블록을 구성한다(RES-001 시사점 2,
  * Bulbapedia 아이콘 타일 패턴). 그리드 배치(2열/3열)는 부모 책임.
  *
- * 표면은 bg-primary-2가 아니라 **bg-primary-1 + primary-2 테두리**를 쓴다 — 설명
- * 텍스트(primary-3)가 primary-2 배경 위에선 대비 2.6:1로 WCAG AA(4.5:1) 미달이지만,
- * primary-1 배경 위에선 5.5:1로 통과한다(제목 primary-4는 9.7:1). 테두리는 페이지
- * 배경(primary-1)과의 경계 확보용 — primary CTA의 테두리 언어와 통일.
+ * 표면은 **밝은 배경(primary-4) + 진한 텍스트** — 페이지 셸이 다크 네이비(primary-1)라
+ * 어두운 타일은 배경에 묻혀 보인다. 이 사이트의 카드 언어(QuizCard bg-primary-4 +
+ * text-primary-1, 포켓몬 카드 파스텔+진한 텍스트)와 동일한 문법으로 통일한다.
+ * 대비: 제목 primary-1은 9.7:1, 설명 primary-2는 4.7:1 — WCAG AA 통과.
  *
  * 아이콘은 ReactNode 슬롯 — MobileTabBar가 쓰는 SVGR 아이콘(pokeball 등)을 그대로
  * 주입한다(currentColor 상속, 래퍼가 32px 크기와 색을 규격화). 타일 전체가 클릭
@@ -38,18 +38,18 @@ const HubLinkCardComponent = ({
   return (
     <Link
       href={href}
-      className="flex flex-col gap-2 rounded-2xl border border-solid border-primary-2 bg-primary-1 p-4 transition-colors hover:border-primary-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+      className="flex flex-col gap-2 rounded-2xl bg-primary-4 p-4 shadow-lg transition-colors hover:bg-white-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
     >
       <span
         aria-hidden="true"
-        className="text-primary-4 [&>svg]:h-8 [&>svg]:w-8"
+        className="text-primary-1 [&>svg]:h-8 [&>svg]:w-8"
       >
         {icon}
       </span>
-      <span className="text-base font-bold text-primary-4 desktop:text-lg">
+      <span className="text-base font-bold text-primary-1 desktop:text-lg">
         {title}
       </span>
-      <span className="text-sm text-primary-3 break-keep">{description}</span>
+      <span className="text-sm text-primary-2 break-keep">{description}</span>
     </Link>
   )
 }
