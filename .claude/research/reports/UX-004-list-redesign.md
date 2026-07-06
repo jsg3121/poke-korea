@@ -38,8 +38,8 @@
 [광고 TopBanner]
  ├─ PokemonCard 그리드 (grid-cols-2 desktop:grid-cols-5, 반응형 단일)
  ├─ (로딩 시 카드 스켈레톤 N개)
- ├─ [더보기] 버튼 (자동 로드 상한 후)
- └─ 페이지네이션 내비 (?page=N 서버 렌더 — 트랙 B)
+ └─ [더보기] 버튼 = <a href="?page=N+1"> (자동 로드 상한 후 — 유일한 페이지네이션 UI,
+    숫자 내비 없음. 개정 §3 참조)
 Footer / MobileTabBar
 ```
 
@@ -56,11 +56,20 @@ Footer / MobileTabBar
 
 `ListProvider`에 로드 카운터 파생 상태만 추가 — API 변경 없이 구현 가능.
 
-### SEO 페이지네이션 (트랙 B — API 협의 필요)
-- 현행 `GetPokemonListPaginated`는 커서(first/after) 전용 → `?page=N` 직접 서버 렌더에는 **offset/page 입력이 스키마에 필요** (백엔드 협의)
-- `?page=N`마다 완전한 HTML + **self-canonical** + `<a href>` 순차 링크 (`rel=next/prev`는 Google 폐기)
-- 클라이언트 스크롤 로드 시 History API(`replaceState`)로 page 동기화 → 뒤로가기 복원과 연결
-- `totalCount` 필드도 필요(총 페이지 수 계산 + "N마리 보기" 결과 수 표시)
+### SEO 페이지네이션 (개정 2026-07-06 — 백엔드 수정 없이 트랙 A로 이동)
+> **개정 근거(사용자 논의)**: ①숫자 페이지네이션 내비를 시각 노출하면 무한스크롤로
+> 내려온 사용자가 바닥에서 처음 보는 페이지 개념과 충돌해 혼란 ②커서 전용 API로도
+> `?page=N` 서버 렌더가 가능(offset 불필요).
+
+- **"더보기" 버튼 = `<a href="?page=N+1">` progressive enhancement가 유일한 페이지네이션 UI.**
+  JS가 클릭을 가로채 fetchMore + `history.replaceState`(사용자는 무한스크롤 UX 그대로,
+  숫자 내비 없음) / 크롤러는 a href를 순차로 따라가 전 페이지 발견(Google 공식 패턴).
+- `?page=N` 직접 진입 시 서버 렌더: 커서 전용 API로 **`first: N×20`을 받아 마지막
+  20개만 렌더**(해당 구간 + endCursor 확보 → 이어서 더보기 가능). 페이지별 ISR로 페이로드
+  상각. **백엔드 확인 1건: `first` 파라미터 상한 존재 여부**(상한이 N×20보다 작으면 그때 협의).
+- 각 `?page=N`은 self-canonical (`rel=next/prev`는 Google 폐기).
+- `totalCount`는 숫자 내비가 없으므로 **SEO에 불필요** → "결과 수 표시(N마리)" 용도의
+  선택 최적화로 강등(트랙 B).
 - 뒤로가기 복원: `useRouteChangeCache`는 필터 변경 시 Apollo 캐시 evict 용도(스크롤 복원 아님) — 로드 페이지 수+스크롤 Y를 세션 상태로 복원하는 로직 필요(Baymard "90% 잘못 구현" 검증 대상)
 
 ### ISR 재정의
@@ -81,8 +90,7 @@ UA 감지 제거 후: **무필터 첫 페이지만 ISR**, 필터 적용 시 클�
 | 카드 그리드 | `grid-cols-2` → `desktop:grid-cols-5` | PokemonCard(pokedex) | 없음(교체만) |
 | 빈 상태 | 텍스트+CTA | Button 재사용 | 빈 상태 컴포넌트(아이콘+텍스트+CTA) |
 | 로딩 | 스켈레톤 N개 | Shell pulse 패턴 | **카드 스켈레톤** |
-| 더보기 | 중앙 min-h-touch | Button 재사용(조립만) | 없음 |
-| 페이지네이션 | 숫자+이전/다음, `<a href>` 필수 | 없음 | **PaginationNav** organism (트랙 B) |
+| 더보기 | 중앙 min-h-touch, **`<a href="?page=N+1">` progressive enhancement** | LinkButton 재사용(조립만) | 없음 (숫자 PaginationNav는 개정으로 제거) |
 | 광고/푸터/탭바 | 기존 유지(크롬) | — | — |
 
 ## 6. 와이어프레임
@@ -101,8 +109,7 @@ UA 감지 제거 후: **무필터 첫 페이지만 ISR**, 필터 적용 시 클�
 │ └────────┘  └────────┘          │
 │      ...(자동 로드 ~60)...       │
 │ ┌skeleton┐  ┌skeleton┐          │ 로딩 스켈레톤
-│        [ 더보기 ]                │ 상한 도달 후
-│     ‹ 1 2 3 … 52 ›              │ SEO 페이지네이션(트랙 B)
+│        [ 더보기 ]                │ 상한 도달 후 (a href=?page=N+1)
 │ Footer / MobileTabBar            │
 └─────────────────────────────────┘
 ```
@@ -119,8 +126,7 @@ UA 감지 제거 후: **무필터 첫 페이지만 ISR**, 필터 적용 시 클�
 │ [C][C][C][C][C]  grid-cols-5                  │
 │ [C][C][C][C][C]                               │
 │      ...(자동 로드 ~100)...                    │
-│              [ 더보기 ]                        │
-│         ‹ 이전 1 2 3 … 52 다음 ›               │
+│              [ 더보기 ]  (a href=?page=N+1)    │
 │                Footer                          │
 └──────────────────────────────────────────────┘
 ```
@@ -133,12 +139,12 @@ UA 감지 제거 후: **무필터 첫 페이지만 ISR**, 필터 적용 시 클�
 3. **필터 organism 교체** — 구 Filter.components 2벌 → FilterBar/FilterModal
 4. **모바일 전용 헤더(min-h-60) 제거** — 전역 헤더 주입 패턴으로 통합 (1번 선행 필요)
 5. **UA 감지 제거 + ISR 재정의** — 무필터 첫 페이지 ISR / 필터 시 클라이언트 패칭
-6. **하이브리드 로딩** — 자동 로드 상한(모60/데100) + 더보기 버튼 (ListProvider 카운터 추가)
+6. **하이브리드 로딩 + SEO 더보기** — 자동 로드 상한(모60/데100) + **더보기 = `<a href="?page=N+1">` progressive enhancement**(ListProvider 카운터 + History replaceState). `?page=N` 진입 시 서버가 `first: N×20` 슬라이스 렌더 + self-canonical (개정 §3 — 백엔드 수정 없이 가능, `first` 상한만 확인)
 7. **적용 필터 칩 로우** — URL 쿼리 파싱 표시 (API 불필요)
 8. **빈 상태 CTA + 로딩 스켈레톤** (신규 컴포넌트 + story)
+9. 뒤로가기 위치 복원 검증/보강
 
-### 트랙 B — API 협의 필요 (별도 트랙, A를 막지 않음)
-1. GraphQL에 offset/page 입력 추가 (백엔드 협의)
-2. `totalCount` 필드 추가 (결과 수 + 총 페이지 계산)
-3. 확보 후: `?page=N` self-canonical 서버 렌더 + `<a href>` 링크 + History 동기화 + 뒤로가기 복원
-4. 필터 조합 noindex 여부 — **Search Console 실측 후** 확정("20마리만 색인"은 추정)
+### 트랙 B — 선택 최적화 (개정으로 축소, A를 막지 않음)
+1. `totalCount` 필드 추가 (백엔드 협의) — "결과 N마리" 표시·필터 옵션별 개수용(SEO엔 불필요해짐)
+2. (선택) offset 입력 추가 — 딥 페이지 `first: N×20` 슬라이스의 페이로드 최적화용
+3. 필터 조합 noindex 여부 — **Search Console 실측 후** 확정("20마리만 색인"은 추정)
