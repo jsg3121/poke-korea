@@ -13,9 +13,10 @@ import HomeQuizContainer from '~/container/home/HomeQuiz.container'
  * 홈 뷰 (반응형 단일 — UX-003). 데/모 2벌(Home.desktop/Home.mobile)의 콘텐츠를
  * 대체한다. UA 분기·display:none 없이 CSS(desktop:)만으로 반응한다(ADR-0007).
  *
- * 섹션 순서(UX-003 개정 — 챔피언스 유입 확대):
+ * 섹션 순서(UX-003 개정 — 챔피언스 유입 확대, 2026-07-06 오늘의 포켓몬을 퀴즈
+ * 위로 재배치):
  * ① 챔피언스 TOP 3(폴드 위, CTA 카드 직하) → ② 허브 링크 그리드 → [광고 Top] →
- * ③ 오늘의 퀴즈 → ④ 오늘의 포켓몬 → [광고 Bottom]
+ * ③ 오늘의 포켓몬 → ④ 오늘의 퀴즈 → [광고 Bottom]
  *
  * 광고는 항상 렌더되는 정적 섹션(허브) 뒤 — 동적 첫 섹션(챔피언스)이 빈 상태로
  * 사라져도 폴드가 광고로 시작하지 않는다. 광고 유닛은 디바이스별 AdSense 슬롯이
@@ -48,8 +49,8 @@ const HomeView = ({
       <HomeChampionsContainer topPokemons={topChampionsPokemons} />
       <HomeHubLinksContainer />
       {topBanner}
-      <HomeQuizContainer dailyQuiz={dailyQuiz} />
       <HomeDailyPokemonContainer dailyPokemon={dailyPokemon} />
+      <HomeQuizContainer dailyQuiz={dailyQuiz} />
       {bottomBanner}
     </div>
   )
