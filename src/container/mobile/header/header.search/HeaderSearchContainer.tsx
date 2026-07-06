@@ -69,7 +69,7 @@ const HeaderSearchContainer = () => {
       <p id="pokemon-search" className="sr-only">
         포켓몬 검색하기
       </p>
-      <div className="w-4/5 h-10 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">
+      <div className="w-4/5 h-8 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">
         <input
           type="text"
           name="search-pokemon"
@@ -80,8 +80,8 @@ const HeaderSearchContainer = () => {
         />
         <ImageComponent
           src="/assets/image/search.svg"
-          width="2rem"
-          height="2rem"
+          width="1.5rem"
+          height="1.5rem"
           imageSize={{ width: 24, height: 24 }}
           alt="포켓몬 검색"
           className="icon-search"

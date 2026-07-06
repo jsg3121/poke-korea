@@ -31,12 +31,12 @@ const HeaderHamburgerNavigation = () => {
         <i className="w-full h-1 rounded-full bg-white-1"></i>
       </button>
       <aside
-        className={`w-screen h-[calc(100vh-3.5rem)] absolute top-14 right-0 ${
+        className={`w-screen h-[calc(100vh-3rem)] absolute top-12 right-0 ${
           isOpenHamburger || isAnimating ? 'block' : 'hidden'
         }`}
       >
         <div
-          className={`w-48 h-[calc(100%-3.5rem)] flex flex-col justify-between fixed bg-primary-1 top-14 -right-48 z-[500] animate-[0.3s_ease_0s_1_forwards] ${
+          className={`w-48 h-[calc(100%-3rem)] flex flex-col justify-between fixed bg-primary-1 top-12 -right-48 z-[500] animate-[0.3s_ease_0s_1_forwards] ${
             isOpenHamburger
               ? 'animate-[slide-in_0.3s_ease_0s_1_forwards]'
               : 'animate-[slide-out_0.3s_ease_0s_1_forwards]'

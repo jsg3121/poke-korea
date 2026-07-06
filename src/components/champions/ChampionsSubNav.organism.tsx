@@ -65,7 +65,7 @@ const ChampionsSubNavOrganism = () => {
   return (
     <nav
       aria-label="챔피언스 하위 메뉴"
-      className="w-full h-9 desktop:h-10 bg-primary-1 border-b border-solid border-primary-2 sticky top-14 desktop:top-28 z-10"
+      className="w-full h-9 desktop:h-10 bg-primary-1 border-b border-solid border-primary-2 sticky top-12 desktop:top-28 z-10"
     >
       {/* 모바일: flex-1 균등 배분(스크롤 없이 꽉). 데스크톱: 좌측 정렬 자연폭 */}
       <ul className="flex items-center h-full px-2 desktop:max-w-[1280px] desktop:mx-auto desktop:px-8 desktop:gap-1">
