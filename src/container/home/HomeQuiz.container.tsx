@@ -1,3 +1,4 @@
+import LinkButtonComponent from '~/components/button/LinkButton.component'
 import SectionHeadingComponent from '~/components/SectionHeading.component'
 import { DailyQuizPreview } from '~/graphql/typeGenerated'
 import AbilityQuizCardContainer from './quiz/AbilityQuizCard.container'
@@ -21,19 +22,26 @@ interface HomeQuizContainerProps {
 const HomeQuizContainer = ({ dailyQuiz }: HomeQuizContainerProps) => {
   return (
     <section
-      className="w-full max-w-[1280px] mx-auto px-5"
+      className="w-full px-5 desktop:px-8"
       aria-labelledby="daily-quiz-heading"
     >
       <SectionHeadingComponent id="daily-quiz-heading">
         오늘의 퀴즈
       </SectionHeadingComponent>
 
-      <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6">
+      <div className="mt-4 grid grid-cols-1 desktop:grid-cols-3 gap-6">
         <SilhouetteQuizCardContainer
           silhouetteQuiz={dailyQuiz.silhouetteQuiz}
         />
         <AbilityQuizCardContainer abilityQuiz={dailyQuiz.abilityQuiz} />
         <PokemonTypeQuizCardContainer pokemonTypeQuiz={dailyQuiz.typeQuiz} />
+      </div>
+
+      {/* 재방문 훅 승격(UX-003) — 오늘 푼 퀴즈 외에 더 있다는 동선 제공 */}
+      <div className="mt-6 flex justify-center">
+        <LinkButtonComponent href="/quiz" variant="secondary" showArrow>
+          퀴즈 더 풀어보기
+        </LinkButtonComponent>
       </div>
     </section>
   )
