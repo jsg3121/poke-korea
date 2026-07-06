@@ -22,7 +22,7 @@ import {
  *   다음 카드가 자연히 살짝 보이는(peek) 구조 → 별도 calc 불필요.
  * - **엣지 페이드(보조 단서)**: iOS Safari는 ::-webkit-scrollbar 커스텀을 지원하지
  *   않고 인디케이터가 스크롤 중에만 잠깐 표시돼, 정지 상태에선 스크롤 가능 여부를
- *   알 수 없다 → 스크롤 여지가 있는 쪽에 페이지 배경색(primary-1) 그라데이션
+ *   알 수 없다 → 스크롤 여지가 있는 쪽에 밝은 글로우(primary-4 반투명) 그라데이션
  *   오버레이를 띄우고, 끝에 도달하면 사라지게 한다. inset box-shadow 방식은
  *   자식 카드가 위에 그려져 가려지므로 오버레이로 구현한다.
  * - 호버 scale 여유: 카드가 hover로 커질 때(scale-105) 사방으로 넘쳐 Y축
@@ -47,9 +47,14 @@ const SCROLLBAR_VISIBLE =
 /** 스크롤바 숨김 스타일 (스크롤은 가능, 바만 비표시) */
 const SCROLLBAR_HIDDEN = '[&::-webkit-scrollbar]:hidden [scrollbar-width:none]'
 
-/** 엣지 페이드 공통 (표시/숨김은 opacity 토글 — transition으로 부드럽게) */
+/**
+ * 엣지 페이드 공통 (표시/숨김은 opacity 토글 — transition으로 부드럽게).
+ * 색은 밝은 계열(primary-4 반투명) — 페이지 배경(primary-1)과 같은 색이면 카드
+ * 위에서만 보이고 배경 위 틈에선 구분되지 않아, 어두운 배경에서 빛나는 글로우로
+ * 스크롤 여지를 알린다.
+ */
 const FADE_BASE =
-  'pointer-events-none absolute inset-y-0 w-8 transition-opacity duration-300'
+  'pointer-events-none absolute inset-y-0 w-6 transition-opacity duration-300'
 
 const HorizontalScrollListComponent = ({
   children,
@@ -100,13 +105,13 @@ const HorizontalScrollListComponent = ({
       {/* 엣지 페이드 — 해당 방향에 스크롤 여지가 있을 때만 표시, 끝 도달 시 사라짐 */}
       <div
         aria-hidden="true"
-        className={`${FADE_BASE} left-0 bg-gradient-to-r from-primary-1 to-transparent ${
+        className={`${FADE_BASE} left-0 bg-gradient-to-r from-primary-4/40 to-transparent ${
           showStartFade ? 'opacity-100' : 'opacity-0'
         }`}
       />
       <div
         aria-hidden="true"
-        className={`${FADE_BASE} right-0 bg-gradient-to-l from-primary-1 to-transparent ${
+        className={`${FADE_BASE} right-0 bg-gradient-to-l from-primary-4/40 to-transparent ${
           showEndFade ? 'opacity-100' : 'opacity-0'
         }`}
       />
