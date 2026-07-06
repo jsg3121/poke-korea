@@ -41,7 +41,8 @@ const HomeView = ({
   bottomBanner,
 }: HomeViewProps) => {
   return (
-    <div className="w-full flex flex-col gap-8 desktop:gap-10">
+    // py: 첫 섹션 제목이 헤더에, 마지막 광고가 푸터에 붙지 않게 상하 여백 확보
+    <div className="w-full flex flex-col gap-8 py-6 desktop:gap-10 desktop:py-10">
       <h1 className="sr-only">포켓몬의 모든 정보 Poke Korea</h1>
 
       <HomeChampionsContainer topPokemons={topChampionsPokemons} />
