@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '섹션 제목 타이포그래피 (반응형 단일, 모바일 퍼스트). text-3xl desktop:text-4xl. 여백·sticky 등 레이아웃은 부모가 책임진다.',
+          '섹션 제목 타이포그래피 (반응형 단일, 모바일 퍼스트). text-2xl desktop:text-4xl — 모바일 좁은 폭(340px대)에서 30px는 과대해 24px로 규격. 여백·sticky 등 레이아웃은 부모가 책임진다.',
       },
     },
   },

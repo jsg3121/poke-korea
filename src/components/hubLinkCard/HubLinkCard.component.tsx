@@ -40,6 +40,7 @@ const HubLinkCardComponent = ({
       href={href}
       className="flex flex-col gap-2 rounded-2xl bg-primary-4 p-4 shadow-lg transition-colors hover:bg-white-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
     >
+      {/* 아이콘 자산은 currentColor라 래퍼의 text 색(primary-1)을 상속한다 */}
       <span
         aria-hidden="true"
         className="text-primary-1 [&>svg]:h-8 [&>svg]:w-8"
