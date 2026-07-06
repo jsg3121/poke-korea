@@ -73,6 +73,8 @@ const HorizontalScrollListComponent = ({
     setShowEndFade(scrollLeft + clientWidth < scrollWidth - 1)
   }, [])
 
+  // children 의존성: 컨테이너 크기가 그대로여도 콘텐츠(scrollWidth)가 바뀌면
+  // 페이드를 재계산해야 한다(ResizeObserver는 ul 자신의 크기만 관찰하므로)
   useEffect(() => {
     updateFades()
     const list = listRef.current
@@ -81,7 +83,7 @@ const HorizontalScrollListComponent = ({
     const observer = new ResizeObserver(updateFades)
     observer.observe(list)
     return () => observer.disconnect()
-  }, [updateFades])
+  }, [updateFades, children])
 
   return (
     <div className="relative">

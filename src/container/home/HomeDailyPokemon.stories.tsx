@@ -75,7 +75,7 @@ const meta = {
           '홈 "오늘의 포켓몬" 섹션 (반응형 단일, DS 조립 — UX-003 섹션 4).',
           'SectionHeading + HorizontalScrollList + PokemonCard. 기존 desktop/mobile 2벌 컨테이너(HomeBanner)를 대체한다.',
           '',
-          '가로 스크롤 단서(다음 카드 peek)는 HorizontalScrollList가 담당. 빈 배열이면 섹션 미렌더. gutter는 px-5 → desktop:px-8.',
+          '가로 스크롤 단서(다음 카드 peek)는 HorizontalScrollList가 담당. 빈 배열이면 섹션 미렌더. gutter는 px-4 → desktop:px-8.',
         ].join('\n'),
       },
     },

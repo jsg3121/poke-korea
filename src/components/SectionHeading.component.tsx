@@ -21,7 +21,7 @@ const SectionHeadingComponent = ({
   return (
     <h2
       id={id}
-      className="h-9 text-2xl desktop:h-12 desktop:text-4xl font-bold text-primary-4 text-center"
+      className="min-h-9 text-2xl desktop:min-h-12 desktop:text-4xl font-bold text-primary-4 text-center"
     >
       {children}
     </h2>

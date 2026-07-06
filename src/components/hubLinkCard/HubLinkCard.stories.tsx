@@ -25,7 +25,7 @@ const meta = {
           '',
           'LinkButton(텍스트 CTA)과 역할이 다르다 — 서술형 앵커(제목+설명)로 홈의 내부 링크 허브 블록을 구성한다(RES-001 시사점 2, Bulbapedia 타일 패턴). 그리드 배치는 부모 책임.',
           '',
-          '표면은 밝은 배경(primary-4) + 진한 텍스트 — 다크 네이비 페이지 셸 위에서 QuizCard·포켓몬 카드와 같은 "밝은 카드" 문법으로 통일. 대비: 제목 primary-1 9.7:1, 설명 primary-2 4.7:1(WCAG AA). 타일 전체가 클릭 영역(터치 타겟 충족).',
+          '표면은 밝은 배경(primary-4) + 진한 텍스트 — 다크 네이비 페이지 셸 위에서 QuizCard·포켓몬 카드와 같은 "밝은 카드" 문법으로 통일. 제목·설명 모두 primary-1(대비 9.7:1, AA) — 위계는 굵기·크기로 구분. 타일 전체가 클릭 영역(터치 타겟 충족).',
         ].join('\n'),
       },
     },
@@ -91,7 +91,7 @@ export const HomeHubGrid: Story = {
 
 /** 모바일 뷰 (2열 그리드) */
 export const MobileView: Story = {
-  parameters: { viewport: { defaultViewport: 'mobile' } },
+  globals: { viewport: { value: 'mobile' } },
   render: () => (
     <div className="grid grid-cols-2 gap-4">
       <HubLinkCardComponent
