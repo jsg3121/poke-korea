@@ -13,7 +13,7 @@ const HeaderContainer = () => {
     <>
       {/* gap-3 + 검색영역 flex-1: 로고(w-32 고정)+검색(w-2/3)이 좁은 화면에서 가용
           폭을 초과해 간격 없이 겹치던 문제 — 검색이 남는 폭만 차지하게 한다 */}
-      <header className="h-12 bg-primary-2 flex-between gap-3 px-5 sticky top-0 z-[500]">
+      <header className="h-12 bg-primary-2 flex-between gap-3 px-4 sticky top-0 z-[500]">
         <Link
           href="/"
           aria-label="메인 화면으로 돌아가기"

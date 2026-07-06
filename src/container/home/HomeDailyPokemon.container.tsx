@@ -26,7 +26,7 @@ const HomeDailyPokemonContainer = ({
 
   return (
     <section
-      className="w-full px-5 desktop:px-8"
+      className="w-full px-4 desktop:px-8"
       aria-labelledby="daily-pokemon-heading"
     >
       <SectionHeadingComponent id="daily-pokemon-heading">
