@@ -55,14 +55,6 @@ const topPokemons = [
     12.4,
     null,
   ),
-  makeChampion(
-    887,
-    '드래펄트',
-    ['DRAGON', 'GHOST'] as PokemonType[],
-    'S',
-    48.2,
-    52.1,
-  ),
 ]
 
 const meta = {
@@ -73,10 +65,10 @@ const meta = {
     docs: {
       description: {
         component: [
-          '홈 "인기 챔피언스 포켓몬" 섹션 (반응형 단일, DS 컴포넌트 조립).',
-          'SectionHeading + HorizontalScrollList + ChampionsCard + CTA. 기존 desktop/mobile 2벌을 대체한다.',
+          '홈 "이번 주 챔피언스 TOP 3" 섹션 (폴드 위, 반응형 단일 — UX-003 개정).',
+          'SectionHeading(+포맷 부제) + HorizontalScrollList + ChampionsCard×3 + LinkButton(primary) CTA 카드 직하.',
           '',
-          '모바일 좌우 여백은 표준 gutter px-5(20px). CTA는 터치 타겟(min-h-touch) 보장.',
+          '모바일은 가로 스크롤(peek), 데스크톱은 3장이 폭에 들어가 max-w-fit 래퍼로 중앙 정렬. 빈 배열이면 섹션 미렌더(폴드가 광고로 시작하지 않게 광고는 허브 뒤).',
         ].join('\n'),
       },
     },

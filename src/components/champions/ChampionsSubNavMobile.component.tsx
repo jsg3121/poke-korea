@@ -54,7 +54,7 @@ const ChampionsSubNavMobile = () => {
   }
 
   return (
-    <nav className="w-full h-12 bg-primary-2 sticky top-16 z-30">
+    <nav className="w-full h-12 bg-primary-2 sticky top-12 z-30">
       <ul className="w-full h-full flex items-center justify-center gap-1 px-2 border-t border-solid border-primary-1">
         {navItems.map((item) => {
           const active = isActive(item.section)

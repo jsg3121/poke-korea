@@ -51,7 +51,7 @@ const ChampionsPokedexContainer = ({
         />
       </header>
 
-      <div className="sticky top-28 z-20 bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] mb-4 pb-2">
+      <div className="sticky top-24 z-20 bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] mb-4 pb-2">
         <div className="flex items-center justify-between px-5 py-2 border-t border-primary-2/30">
           {pokemonList.length > 0 && (
             <p className="text-sm text-primary-3 mt-1">

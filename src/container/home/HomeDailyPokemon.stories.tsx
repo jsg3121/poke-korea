@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
-import HomeBannerContainer from './HomeBanner.container'
+import HomeDailyPokemonContainer from './HomeDailyPokemon.container'
 
 /** mock 포켓몬 카드 데이터 생성 */
 const makePokemon = (
@@ -65,28 +65,28 @@ const dailyPokemon = [
 ]
 
 const meta = {
-  title: 'Containers/HomeBanner',
-  component: HomeBannerContainer,
+  title: 'Containers/HomeDailyPokemon',
+  component: HomeDailyPokemonContainer,
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
         component: [
-          '홈 "오늘의 포켓몬" 배너 섹션 (반응형 단일, DS 컴포넌트 조립).',
-          'SectionHeading + HorizontalScrollList + PokemonCard로 구성. 기존 desktop/mobile 2벌 컨테이너를 대체한다.',
+          '홈 "오늘의 포켓몬" 섹션 (반응형 단일, DS 조립 — UX-003 섹션 4).',
+          'SectionHeading + HorizontalScrollList + PokemonCard. 기존 desktop/mobile 2벌 컨테이너(HomeBanner)를 대체한다.',
           '',
-          '모바일 좌우 여백은 표준 gutter `px-5`(20px), 데스크톱은 `max-w-1280` 안에서 정렬.',
+          '가로 스크롤 단서(다음 카드 peek)는 HorizontalScrollList가 담당. 빈 배열이면 섹션 미렌더. gutter는 px-4 → desktop:px-8.',
         ].join('\n'),
       },
     },
   },
   args: { dailyPokemon },
-} satisfies Meta<typeof HomeBannerContainer>
+} satisfies Meta<typeof HomeDailyPokemonContainer>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 데스크톱 — max-w-1280 안에서 가로 스크롤 */
+/** 데스크톱 — 가로 스크롤 (w-56 카드) */
 export const Desktop: Story = {
   globals: { viewport: { value: 'desktop' } },
 }
