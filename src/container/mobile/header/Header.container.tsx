@@ -11,7 +11,7 @@ const HeaderContainer = () => {
 
   return (
     <>
-      <header className="h-16 bg-primary-2 flex-between px-5 sticky top-0 z-[500]">
+      <header className="h-14 bg-primary-2 flex-between px-5 sticky top-0 z-[500]">
         <Link href="/" aria-label="메인 화면으로 돌아가기" className="w-32 block">
           <i className="w-full h-full block icon-logo-link">
             <LogoIcon />
