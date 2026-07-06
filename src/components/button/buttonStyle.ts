@@ -11,8 +11,10 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
 
 /** variant별 색상 (배경 + 글자 + hover) — 정적 매핑(purge 안전) */
 const VARIANT_CLASS: Record<ButtonVariant, string> = {
+  // primary는 페이지/모달 배경(primary-1)과 동색이라 경계가 사라진다 →
+  // 1px primary-3 테두리로 시인성을 확보한다(ghost의 2px과 구분되는 두께)
   primary:
-    'bg-primary-1 text-primary-4 hover:bg-primary-2 focus-visible:bg-primary-2',
+    'bg-primary-1 text-primary-4 border border-solid border-primary-3 hover:bg-primary-2 focus-visible:bg-primary-2',
   secondary:
     'bg-primary-3 text-primary-1 hover:bg-primary-2 hover:text-primary-4 focus-visible:bg-primary-2 focus-visible:text-primary-4',
   ghost:
