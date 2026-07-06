@@ -58,7 +58,7 @@ const ResultListData = ({
         href={getPokemonHref()}
         className="w-full min-h-11 py-1 gap-2 flex-between text-black-2 visited:text-black-2 active:text-black-2"
       >
-        <p className="text-base leading-5 break-keep text-black-2">{name}</p>
+        <p className="text-sm leading-5 break-keep text-black-2">{name}</p>
         <div ref={imgRef} className="shrink-0">
           {isVisible && (
             <ImageComponent

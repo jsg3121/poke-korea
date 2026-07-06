@@ -62,7 +62,7 @@ const HeaderSearchContainer = () => {
   return (
     <div
       ref={searchRef}
-      className="w-2/3 relative"
+      className="flex-1 min-w-0 relative"
       aria-labelledby="pokemon-search"
       role="search"
     >
