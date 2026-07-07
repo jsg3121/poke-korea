@@ -148,7 +148,7 @@ const FilterBarOrganism = () => {
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex shrink-0 items-center gap-1.5 min-h-8 rounded-2xl bg-primary-3 px-3 text-sm font-medium text-primary-1 desktop:gap-2 desktop:min-h-9"
+          className="inline-flex shrink-0 items-center gap-1.5 min-h-8 rounded-2xl bg-primary-3 px-3 text-xs font-medium text-primary-1 desktop:gap-2 desktop:min-h-9 desktop:text-sm"
         >
           <FilterIcon
             aria-hidden="true"
@@ -174,7 +174,7 @@ const FilterBarOrganism = () => {
           type="button"
           onClick={handleReset}
           disabled={isEmptyQuery}
-          className="ml-auto min-h-8 shrink-0 px-2 text-sm text-primary-4 disabled:text-primary-2 desktop:min-h-9"
+          className="ml-auto min-h-8 shrink-0 px-2 text-xs text-primary-4 disabled:text-primary-2 desktop:min-h-9 desktop:text-sm"
         >
           초기화
         </button>
