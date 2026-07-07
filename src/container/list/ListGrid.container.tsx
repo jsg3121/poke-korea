@@ -75,7 +75,7 @@ const ListGridContainer = () => {
       ) : (
         <ul className="grid w-full grid-cols-2 gap-x-4 gap-y-6 justify-items-center desktop:grid-cols-5">
           {pokemonList.map((pokemon, index) => (
-            <li key={`pokemon-id-${pokemon.id}`} className="w-full max-w-fit">
+            <li key={`pokemon-id-${pokemon.id}`} className="w-full">
               <PokemonCardComponent
                 variant="pokedex"
                 pokemonData={pokemon}
@@ -85,7 +85,7 @@ const ListGridContainer = () => {
           ))}
           {isLoadingMore &&
             Array.from({ length: SKELETON_COUNT }, (_, i) => (
-              <li key={`skeleton-${i}`} className="w-full max-w-fit">
+              <li key={`skeleton-${i}`} className="w-full">
                 <PokemonCardSkeletonComponent />
               </li>
             ))}

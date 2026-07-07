@@ -39,7 +39,7 @@ import { useLazyImage } from '~/hook/useLazyImage'
  * (가로 스크롤에선 li가 콘텐츠 폭이라 효과 없음 — 분기 아님).
  */
 export const POKEMON_CARD_SIZE = {
-  width: 'w-36 max-w-full desktop:w-56',
+  width: 'min-w-36 max-w-full desktop:w-56',
   height: 'h-[15.5rem] desktop:h-80',
 } as const
 
