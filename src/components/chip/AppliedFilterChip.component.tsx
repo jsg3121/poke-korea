@@ -23,7 +23,9 @@ const AppliedFilterChipComponent = ({
   onRemove,
 }: AppliedFilterChipProps) => {
   return (
-    <span className="inline-flex h-7 items-center gap-1 rounded-lg bg-primary-3 pl-3 pr-1 text-sm font-medium text-white">
+    // text-aligned-md: Gmarket Sans는 글리프가 위로 치우쳐 line-height가
+    // 높이+2px(28→30px)이어야 수직 중앙에 온다(globals.css 확립 유틸)
+    <span className="inline-flex h-7 items-center gap-1 rounded-lg bg-primary-3 pl-3 pr-1 text-sm text-aligned-md font-medium text-white">
       {label}
       <button
         type="button"

@@ -23,8 +23,10 @@ export type ChipColor = 'physical' | 'special' | 'status'
  * 이상 확보"가 전제다(ADR-0011의 슬림 인터랙티브 예외를 칩으로 확장). 따라서 clickable
  * 칩을 그룹으로 배치하는 상위(필터 컴포넌트)에서 항목 간 간격(gap)을 24px 이상 둬야 한다.
  */
+// text-aligned-md: Gmarket Sans는 글리프가 위로 치우쳐 line-height가 높이+2px
+// (h-7 28→30px)이어야 수직 중앙에 온다(globals.css 유틸) — AppliedFilterChip과 동일 보정
 const BASE_CLASS =
-  'inline-flex items-center justify-center px-3 h-7 rounded-lg text-sm font-medium whitespace-nowrap transition-all'
+  'inline-flex items-center justify-center px-3 h-7 rounded-lg text-sm text-aligned-md font-medium whitespace-nowrap transition-all'
 
 /** color별 배경/글자 — 정적 매핑(purge 안전). 없을 때는 DEFAULT_COLOR_CLASS 사용 */
 const COLOR_CLASS: Record<ChipColor, string> = {
