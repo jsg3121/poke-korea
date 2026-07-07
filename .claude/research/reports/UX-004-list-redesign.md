@@ -100,6 +100,14 @@ UA 감지 제거 후: **무필터 첫 페이지만 ISR**, 필터 적용 시 클�
 | 더보기 | 중앙 min-h-touch, **`<a href="?page=N+1">` progressive enhancement** | LinkButton 재사용(조립만) | 없음 (숫자 PaginationNav는 개정으로 제거) |
 | 광고/푸터/탭바 | 기존 유지(크롬) | — | — |
 
+### 시안 피드백 반영 (2026-07-07 확정, 사용자)
+
+- **FilterBar 컴팩트**: 필터/초기화 버튼 44→36px(min-h-9), 칩 줄·액션바 여백 축소 — sticky 크롬 밀도 우선. 반영 완료(커밋 218db48)
+- **카드 모바일 폭 160→144px(w-36)**: 340px 2열 그리드에서 우측 넘침 해결. 페이지별 유동폭 예외 대신 **DS 단일 고정 규격 자체를 축소**(전 사용처 일관) + max-w-full 안전장치. 반영 완료(커밋 3a07e45)
+- **빈 상태**: 시안대로 확정
+- **시안 오류 정정**: 모바일 헤더의 햄버거는 실존하지 않음(HeaderHamburgerNavigation은 미사용 레거시) — 실제 전역 헤더는 로고+검색+**피드백 버튼**이며 통합 후에도 유지됨
+- **신규 3종 DS 구축 완료**(커밋 7b0d3f4): PokemonCardSkeleton(크기 SSOT 공유)·EmptyState·AppliedFilterChip — story 포함
+
 ## 6. 와이어프레임
 
 ### 모바일 375px
