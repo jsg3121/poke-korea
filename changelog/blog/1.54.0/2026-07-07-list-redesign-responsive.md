@@ -1,7 +1,7 @@
 ---
 slug: 1-54-0-list-redesign-responsive
-title: '[1.54.0] 도감 리스트 개편 — 반응형 단일 + sticky 크롬 + 하이브리드 로딩'
-description: '/list를 UA 분기 데/모 2벌에서 반응형 단일로 재구축. 헤더+필터바를 단일 sticky 스택으로 통합해 카드 잘림(이중 fixed 충돌)을 해결하고, DS FilterBar/PokemonCard로 교체. 무한스크롤은 자동 로드 상한(60) + 더보기 버튼 하이브리드로 전환, 적용 필터 칩·빈 상태·스켈레톤 신설.'
+title: '[1.54.0] 도감 리스트 개편 — 반응형 단일 + sticky 크롬'
+description: '/list를 UA 분기 데/모 2벌에서 반응형 단일로 재구축. 헤더+필터바를 단일 sticky 스택으로 통합해 카드 잘림(이중 fixed 충돌)을 해결하고, DS FilterBar/PokemonCard로 교체. 무한스크롤은 기존 방식 유지, 적용 필터 칩·빈 상태·스켈레톤 신설.'
 authors: [jsg3121, claude]
 tags: [feature, ux, css]
 ---
@@ -57,12 +57,14 @@ tags: [feature, ux, css]
 | 빈 상태 | EmptyState + "필터 초기화" CTA(기존엔 텍스트만) |
 | 로딩 | 카드 스켈레톤(크기 SSOT 공유 — CLS 방지) + role=status 알림 |
 
-### 4. 하이브리드 로딩
+### 4. 로딩 — 순수 무한스크롤 유지
 
-SSR 20 → 스크롤 자동 로드(**상한 60**) → 이후 **"포켓몬 더보기" 버튼** — 도감류 목표
-지향 탐색에 순수 무한스크롤은 부적합(NN/g), Load More 조합이 우월(Baymard), 버튼
-클릭 로드는 CLS 500ms 규칙상 유리(web.dev). 기존 ListProvider·useInfiniteScroll 재사용
-(컨텍스트 변경 없음).
+SSR 20 → 스크롤 자동 로드(무한스크롤, 구버전과 동일). 기존 ListProvider·
+useInfiniteScroll 재사용(컨텍스트 변경 없음).
+
+> 하이브리드(자동 상한 60 + "더보기" 버튼, Baymard/NN/g 근거)를 구현했으나
+> 리뷰 과정에서 **기존 무한스크롤 방식 유지로 결정**(사용자 결정 2026-07-07) —
+> 인지하지 못한 페이지네이션 UI가 노출되는 어색함이 근거 대비 크다고 판단.
 
 ### 5. page.tsx 재배선
 

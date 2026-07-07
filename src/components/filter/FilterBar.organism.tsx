@@ -142,15 +142,18 @@ const FilterBarOrganism = () => {
       </ul>
 
       {/* 액션 바 — 필터 열기 + 적용 필터 칩(가로 스크롤) + 초기화를 한 줄에 통합
-          (sticky 크롬 높이 최소화 — 사용자 피드백). 버튼 높이 36px(min-h-9):
-          WCAG 2.5.8 AA(24px) 여유 충족, ADR-0011 슬림 컨트롤 계열 */}
-      <div className="flex items-center gap-2 border-t border-solid border-primary-2 py-2 desktop:border-t-0">
+          (sticky 크롬 높이 최소화 — 사용자 피드백). 버튼 높이 모바일 32px(min-h-8)
+          /데스크톱 36px(min-h-9): WCAG 2.5.8 AA(24px) 충족, ADR-0011 슬림 컨트롤 계열 */}
+      <div className="flex items-center gap-2 border-t border-solid border-primary-2 py-1.5 desktop:border-t-0 desktop:py-2">
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex shrink-0 items-center gap-2 min-h-9 rounded-2xl bg-primary-3 px-3 text-sm font-medium text-primary-1"
+          className="inline-flex shrink-0 items-center gap-1.5 min-h-8 rounded-2xl bg-primary-3 px-3 text-sm font-medium text-primary-1 desktop:gap-2 desktop:min-h-9"
         >
-          <FilterIcon width="1.25rem" height="1.25rem" aria-hidden="true" />
+          <FilterIcon
+            aria-hidden="true"
+            className="h-4 w-4 desktop:h-5 desktop:w-5"
+          />
           필터
         </button>
         {appliedFilters.length > 0 && (
@@ -171,7 +174,7 @@ const FilterBarOrganism = () => {
           type="button"
           onClick={handleReset}
           disabled={isEmptyQuery}
-          className="ml-auto min-h-9 shrink-0 px-2 text-sm text-primary-4 disabled:text-primary-2"
+          className="ml-auto min-h-8 shrink-0 px-2 text-sm text-primary-4 disabled:text-primary-2 desktop:min-h-9"
         >
           초기화
         </button>

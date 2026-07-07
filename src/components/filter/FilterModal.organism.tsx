@@ -126,9 +126,10 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
   return (
     <Portal>
       {/* 딤 — 클릭 시 닫기(오버레이 자신을 클릭했을 때만). 모바일은 시트를 전체로,
-          데스크톱은 카드를 중앙에 배치 */}
+          데스크톱은 카드를 중앙에 배치. z-[600]: 모달은 전역 크롬 위여야 한다
+          (모바일 헤더가 z-[500] — z-[100]이면 헤더가 시트 제목을 뚫고 올라온다) */}
       <div
-        className="fixed inset-0 z-[100] bg-black-1/70 flex items-stretch desktop:items-center desktop:justify-center"
+        className="fixed inset-0 z-[600] bg-black-1/70 flex items-stretch desktop:items-center desktop:justify-center"
         onClick={onClose}
       >
         <FormProvider {...formMethods}>
@@ -138,12 +139,12 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
             role="dialog"
             aria-modal="true"
             aria-labelledby="filter-modal-title"
-            className="flex w-full h-full flex-col bg-primary-1 p-6 desktop:h-auto desktop:max-h-[90vh] desktop:w-[28rem] desktop:rounded-2xl desktop:p-8"
+            className="flex w-full h-full flex-col bg-primary-1 p-5 desktop:h-auto desktop:max-h-[90vh] desktop:w-[28rem] desktop:rounded-2xl desktop:p-8"
           >
-            <header className="mb-4 flex items-center justify-between border-b border-solid border-primary-3 pb-4">
+            <header className="mb-3 flex items-center justify-between border-b border-solid border-primary-3 pb-3 desktop:mb-4 desktop:pb-4">
               <h2
                 id="filter-modal-title"
-                className="text-2xl font-semibold leading-8 text-primary-4"
+                className="text-xl font-semibold leading-7 text-primary-4 desktop:text-2xl desktop:leading-8"
               >
                 추가 필터 검색
               </h2>
@@ -155,11 +156,11 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
             </header>
 
             <div className="flex-1 overflow-y-auto">
-              <fieldset className="mb-8">
-                <legend className="mb-2 text-lg font-medium text-primary-3">
+              <fieldset className="mb-6 desktop:mb-8">
+                <legend className="mb-2 text-base font-medium text-primary-3 desktop:text-lg">
                   포켓몬 세대
                 </legend>
-                <ul className="grid grid-cols-3 gap-3">
+                <ul className="grid grid-cols-3 gap-2 desktop:gap-3">
                   {GENERATIONS.map((gen) => (
                     <li key={`filter-generation-${gen}`}>
                       <Checkbox
@@ -175,8 +176,8 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
               </fieldset>
 
               {RADIO_FIELDS.map((field) => (
-                <fieldset key={field.name} className="mb-8">
-                  <legend className="mb-2 text-lg font-medium text-primary-3">
+                <fieldset key={field.name} className="mb-6 desktop:mb-8">
+                  <legend className="mb-2 text-base font-medium text-primary-3 desktop:text-lg">
                     {field.label}
                   </legend>
                   <RadioGroup

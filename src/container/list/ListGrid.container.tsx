@@ -14,17 +14,13 @@ import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
  * 도감 리스트 그리드 (반응형 단일 — UX-004). 구버전 데/모 2벌 List.container를
  * 대체한다: DS PokemonCard + `grid-cols-2 desktop:grid-cols-5` 단일 마크업.
  *
- * 로딩은 하이브리드(RES-002 — 순수 무한스크롤은 도감류 목표 지향 탐색에 부적합):
- * - ~AUTO_LOAD_LIMIT까지: 스크롤 자동 로드(useInfiniteScroll, sentinel)
- * - 상한 도달 후: "더보기" 버튼 클릭 로드 — 푸터 접근·위치 감각·CLS(500ms 규칙) 개선
- * ?page=N SEO 페이지네이션은 백엔드 협의 후 별도 트랙(사용자 결정 2026-07-07).
+ * 로딩은 순수 무한스크롤(구버전과 동일 — 사용자 결정 2026-07-07: 하이브리드
+ * 자동 상한+더보기 대신 기존 방식 유지). ?page=N SEO 페이지네이션은 백엔드 협의 후
+ * 별도 트랙(사용자 결정 2026-07-07).
  *
  * 빈 상태는 EmptyState + "필터 초기화" CTA(재시도 동선 — 기존엔 텍스트만 있어
  * 이탈 유발), 추가 로드 중엔 카드 스켈레톤(크기 SSOT 공유로 CLS 방지)을 표시한다.
  */
-
-/** 스크롤 자동 로드 상한 — 이후는 더보기 버튼 (Baymard 카테고리 50~100 권장의 하한측) */
-const AUTO_LOAD_LIMIT = 60
 
 /** 추가 로드 중 표시할 스켈레톤 수 */
 const SKELETON_COUNT = 4
@@ -37,10 +33,8 @@ const ListGridContainer = () => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
     useContext(ListContext)
 
-  const canAutoLoad = pokemonList.length < AUTO_LOAD_LIMIT
-
   const sentinelRef = useInfiniteScroll({
-    hasNextPage: !!hasNextPage && canAutoLoad,
+    hasNextPage: !!hasNextPage,
     loadMore,
     rootMargin: '0px 0px 300px 0px',
     dependencies: [pokemonList],
@@ -99,20 +93,8 @@ const ListGridContainer = () => {
         </p>
       )}
 
-      {/* 자동 로드 sentinel — 상한 전까지만 활성(훅 내부에서 hasNextPage로 제어) */}
+      {/* 자동 로드 sentinel — hasNextPage 동안 계속 활성(훅 내부에서 제어) */}
       <div ref={sentinelRef} aria-hidden="true" />
-
-      {hasNextPage && !canAutoLoad && (
-        <div className="mt-8 flex justify-center">
-          <ButtonComponent
-            variant="secondary"
-            onClick={loadMore}
-            disabled={isLoadingMore}
-          >
-            포켓몬 더보기
-          </ButtonComponent>
-        </div>
-      )}
     </section>
   )
 }
