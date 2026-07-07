@@ -48,7 +48,7 @@ const TypeChipComponent = ({
         checked={active}
         disabled={disabled}
         onChange={onChange}
-        className="sr-only peer"
+        className="hidden peer"
         aria-label={`${label} 타입 필터`}
       />
       {/* 아이콘 — 미선택은 흐린 흑백, 선택 시 컬러. 잠금 시 더 흐림.
