@@ -56,21 +56,34 @@ const RADIO_FIELDS = [
 ] as const
 
 const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
+  // 폼은 open 동안만 마운트한다 — useForm의 defaultValues는 최초 렌더에 캐시되므로
+  // (react-hook-form 공식), 항상 마운트한 채 open으로만 숨기면 초기화·칩 개별 해제로
+  // URL이 바뀐 뒤 다시 열었을 때 이전 선택이 남는다(폼 상태와 URL 불일치). reset()
+  // 동기화는 세대 Checkbox가 uncontrolled(defaultChecked + 수동 setValue)라 DOM에
+  // 반영되지 않아, 재마운트로 매 열림마다 URL을 defaultValues로 새로 평가하게 한다.
+  if (!open) return null
+
+  return <FilterModalForm onClose={onClose} />
+}
+
+const FilterModalForm = ({
+  onClose,
+}: Pick<FilterModalOrganismProps, 'onClose'>) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  useBodyScrollLock(open)
+  // 마운트 동안만 잠금/등록 — 이 컴포넌트는 모달이 열려 있는 동안만 존재한다
+  useBodyScrollLock(true)
 
-  // Escape 키로 닫기 (ARIA dialog 패턴). open일 때만 리스너를 건다.
+  // Escape 키로 닫기 (ARIA dialog 패턴)
   useEffect(() => {
-    if (!open) return
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [open, onClose])
+  }, [onClose])
 
   const formMethods = useForm<FilterFormValues>({
     defaultValues: {
@@ -120,8 +133,6 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
   }
 
   const generation = watch('generation')
-
-  if (!open) return null
 
   return (
     <Portal>
