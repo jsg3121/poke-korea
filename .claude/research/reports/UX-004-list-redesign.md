@@ -62,8 +62,13 @@ Footer / MobileTabBar
 > `?page=N` 서버 렌더가 가능(offset 불필요).
 
 - **"더보기" 버튼 = `<a href="?page=N+1">` progressive enhancement가 유일한 페이지네이션 UI.**
-  JS가 클릭을 가로채 fetchMore + `history.replaceState`(사용자는 무한스크롤 UX 그대로,
-  숫자 내비 없음) / 크롤러는 a href를 순차로 따라가 전 페이지 발견(Google 공식 패턴).
+  JS가 클릭을 가로채 fetchMore(사용자는 무한스크롤 UX 그대로, 숫자 내비 없음) /
+  크롤러는 a href를 순차로 따라가 전 페이지 발견(Google 공식 패턴).
+- **브라우징 중 URL은 갱신하지 않는다(재개정 2026-07-06)** — History replaceState 동기화는
+  SEO 필수가 아니며(크롤러는 href만 따라감), URL이 스크롤 따라 변하면 사용자가 인지하지
+  못한 상태 변화가 되고 새로고침 시 해당 20마리 구간만 보여 누적 뷰와 어긋난다.
+  `?page=N`은 크롤러·직접 진입 전용 주소로만 존재. 뒤로가기/복원은 세션 스토리지 기반
+  (스크롤 Y 복원에 어차피 필요).
 - `?page=N` 직접 진입 시 서버 렌더: 커서 전용 API로 **`first: N×20`을 받아 마지막
   20개만 렌더**(해당 구간 + endCursor 확보 → 이어서 더보기 가능). 페이지별 ISR로 페이로드
   상각. **백엔드 확인 1건: `first` 파라미터 상한 존재 여부**(상한이 N×20보다 작으면 그때 협의).
