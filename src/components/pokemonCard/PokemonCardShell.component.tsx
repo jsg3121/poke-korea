@@ -22,10 +22,26 @@ import { useLazyImage } from '~/hook/useLazyImage'
  *
  * 크기는 모바일 퍼스트 2단계(ADR-0009 16px 고정 기준). 카드 폭·높이는 데스크톱
  * 비율을 그대로 축소하지 않고, 각 화면에 맞는 독립 규격을 쓴다:
- * - 모바일: w-40(160px) × h-[15.5rem](248px) — 2열 그리드에 들어가되 스탯 3행 수용
+ * - 모바일: w-36(144px) × h-[15.5rem](248px) — 340px 화면의 2열 그리드까지 수용
+ *   (기존 160px는 넘침 — POKEMON_CARD_SIZE 주석 참조)
  * - 데스크톱: w-56(224px) × h-80(320px)
  * 고정 높이라 PokemonCard(스탯 3행)·ChampionsCard(사용률·승률 2행)가 동일 높이.
  */
+
+/**
+ * 카드 크기 규격 SSOT — Shell과 PokemonCardSkeleton이 공유한다(로딩↔실카드
+ * 크기가 어긋나면 CLS 발생).
+ *
+ * 모바일 폭은 144px(w-36) — 기존 160px는 340px 화면의 2열 그리드에서 가용 폭을
+ * 초과해 넘쳤다(160×2+여백>308). 페이지별 유동폭 예외를 두지 않고 **단일 고정
+ * 규격 자체를 축소**한다(사용자 결정 2026-07-07, 전 사용처 일관). max-w-full은
+ * 320px대 기기의 그리드 셀에서도 클립되지 않게 하는 안전장치로 규격의 일부다
+ * (가로 스크롤에선 li가 콘텐츠 폭이라 효과 없음 — 분기 아님).
+ */
+export const POKEMON_CARD_SIZE = {
+  width: 'w-36 max-w-full desktop:w-56',
+  height: 'h-[15.5rem] desktop:h-80',
+} as const
 
 interface PokemonCardShellProps {
   /** 카드 클릭 시 이동할 경로 */
@@ -81,9 +97,9 @@ const PokemonCardShellComponent = ({
         }
 
   return (
-    <Link href={href} className="block w-40 desktop:w-56">
+    <Link href={href} className={`block ${POKEMON_CARD_SIZE.width}`}>
       <article
-        className="w-40 desktop:w-56 h-[15.5rem] desktop:h-80 flex flex-col text-black-2 border border-solid border-black-2 rounded-[10px] p-2 desktop:p-3 relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] outline outline-[0.25rem] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] desktop:hover:scale-105 desktop:hover:z-10"
+        className={`w-full ${POKEMON_CARD_SIZE.height} flex flex-col text-black-2 border border-solid border-black-2 rounded-[10px] p-2 desktop:p-3 relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] outline outline-[0.25rem] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] desktop:hover:scale-105 desktop:hover:z-10`}
         style={{ ...gradientStyle, outlineColor }}
         aria-label={ariaLabel}
       >

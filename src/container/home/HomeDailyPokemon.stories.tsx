@@ -91,7 +91,7 @@ export const Desktop: Story = {
   globals: { viewport: { value: 'desktop' } },
 }
 
-/** 모바일 — gutter px-5, 카드 축소(w-40)로 peek 노출 */
+/** 모바일 — gutter px-5, 카드 축소(w-36)로 peek 노출 */
 export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
 }
