@@ -62,10 +62,10 @@ const FilterBarOrganism = () => {
     <div
       role="search"
       aria-label="타입별 포켓몬 필터 검색"
-      className="w-full max-w-[1280px] mx-auto px-5"
+      className="w-full max-w-[1280px] mx-auto px-4 desktop:px-8"
     >
       {/* 타입 칩 — 가로 스크롤(칩이 뷰포트보다 많을 때). 데스크톱은 넉넉히 펼침 */}
-      <ul className="flex items-start gap-2 overflow-x-auto py-2 desktop:justify-between desktop:overflow-visible">
+      <ul className="flex items-start gap-2 overflow-x-auto py-1 desktop:justify-between desktop:overflow-visible">
         {TYPE_ENTRIES.map(([value, name]) => {
           const active = typeList.includes(value)
           const disabled = !active && typeList.length >= MAX_TYPE_SELECTION
@@ -83,21 +83,24 @@ const FilterBarOrganism = () => {
         })}
       </ul>
 
-      {/* 액션 바 — 필터 열기 + 초기화 */}
-      <div className="flex items-center justify-between border-t border-solid border-primary-2 py-3 desktop:border-t-0 desktop:py-2">
+      {/* 액션 바 — 필터 열기 + 초기화.
+          버튼 높이는 36px(min-h-9): sticky 크롬 밀도 우선으로 44px에서 축소(사용자
+          결정 2026-07-07). WCAG 2.5.8 AA(24px)는 여유 충족 — ADR-0011의 슬림 컨트롤
+          계열(데스크톱 36px 기준을 모바일에도 통일) */}
+      <div className="flex items-center justify-between border-t border-solid border-primary-2 py-2 desktop:border-t-0">
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-2 min-h-touch desktop:min-h-9 rounded-2xl bg-primary-3 px-4 text-base font-medium text-primary-1"
+          className="inline-flex items-center gap-2 min-h-9 rounded-2xl bg-primary-3 px-3 text-sm font-medium text-primary-1"
         >
-          <FilterIcon width="1.5rem" height="1.5rem" aria-hidden="true" />
+          <FilterIcon width="1.25rem" height="1.25rem" aria-hidden="true" />
           필터
         </button>
         <button
           type="button"
           onClick={handleReset}
           disabled={isEmptyQuery}
-          className="min-h-touch desktop:min-h-9 px-2 text-base text-primary-4 disabled:text-primary-2"
+          className="min-h-9 px-2 text-sm text-primary-4 disabled:text-primary-2"
         >
           초기화
         </button>
