@@ -7,8 +7,6 @@ import {
   PokemonEdge,
   PokemonFilterInput,
 } from '~/graphql/typeGenerated'
-import MobileListTopBanner from '~/components/adSlot/MobileListTopBanner'
-import DesktopListTopBanner from '~/components/adSlot/DesktopListTopBanner'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
@@ -173,19 +171,19 @@ const ListPage = async ({ searchParams }: PageProps) => {
             pokemonList={pokemonList}
             initialFilter={filterInput}
             hasNextPage={hasNextPage}
-            topBanner={<MobileListTopBanner />}
           />
           <MobileFooterContainer />
           <MobileTabBar />
         </main>
       ) : (
-        <main className="w-full min-h-screen pt-28">
+        // pt-30(120px) = 데스크톱 fixed 헤더 실높이(pt-3 12 + 로고행 48 +
+        // nav mt-3 12 + nav 48). pt-28(112px)은 8px 겹쳐 필터바 상단이 잘렸다
+        <main className="w-full min-h-screen pt-30">
           <DesktopHeaderContainer />
           <ListView
             pokemonList={pokemonList}
             initialFilter={filterInput}
             hasNextPage={hasNextPage}
-            topBanner={<DesktopListTopBanner />}
           />
           <DesktopFooterContainer />
         </main>
