@@ -39,7 +39,7 @@ const TypeChipComponent = ({
   return (
     <label
       htmlFor={id}
-      className="group relative inline-flex w-12 shrink-0 cursor-pointer flex-col items-center gap-1 has-[:disabled]:cursor-not-allowed desktop:w-14"
+      className="group relative inline-flex w-12 shrink-0 cursor-pointer flex-col items-center gap-0.5 has-[:disabled]:cursor-not-allowed desktop:w-14 desktop:gap-1"
     >
       {/* input은 sr-only + label relative가 세트다. sr-only는 position:absolute라
           positioned 조상이 없으면 컨테이닝 블록이 바깥(sticky 래퍼 등)으로 잡혀
@@ -61,7 +61,7 @@ const TypeChipComponent = ({
           hover/focus 시 살짝 확대(라벨은 흔들리지 않게 아이콘 span에만). peer(input 형제)와
           group(label 조상)을 한 클래스에 체이닝하면 셀렉터가 깨지므로 group-hover만 쓰고,
           잠금(disabled) 시엔 뒤에 오는 peer-disabled:scale-100으로 확대를 상쇄한다 */}
-      <span className="block h-7 w-7 grayscale opacity-40 drop-shadow-[1px_2px_0px_var(--color-black-1)] transition-[filter,opacity,transform] group-hover:scale-110 peer-focus-visible:scale-110 peer-checked:grayscale-0 peer-checked:opacity-100 peer-focus-visible:opacity-100 peer-disabled:scale-100 peer-disabled:opacity-20 peer-disabled:grayscale desktop:h-8 desktop:w-8">
+      <span className="block h-6 w-6 grayscale opacity-40 drop-shadow-[1px_2px_0px_var(--color-black-1)] transition-[filter,opacity,transform] group-hover:scale-110 peer-focus-visible:scale-110 peer-checked:grayscale-0 peer-checked:opacity-100 peer-focus-visible:opacity-100 peer-disabled:scale-100 peer-disabled:opacity-20 peer-disabled:grayscale desktop:h-8 desktop:w-8">
         <ImageComponent
           alt=""
           aria-hidden="true"
@@ -75,7 +75,9 @@ const TypeChipComponent = ({
           데스크톱 focus 노출은 desktop:opacity-0(미디어쿼리 안, 소스 뒤)을 이겨야 하므로
           desktop: 접두사를 붙인 desktop:peer-focus-visible:opacity-100을 써야 우선한다
           (접두사 없는 peer-focus-visible은 미디어쿼리 밖·앞이라 데스크톱에서 밀린다) */}
-      <span className="text-xs leading-4 text-primary-1 opacity-60 transition-opacity peer-checked:font-bold peer-checked:opacity-100 peer-focus-visible:opacity-100 desktop:text-sm desktop:opacity-0 desktop:group-hover:opacity-100 desktop:peer-focus-visible:opacity-100">
+      {/* 라벨 색은 text-primary-4(밝은색) — 필터바가 놓이는 페이지 배경이
+          bg-primary-1(짙은 남색)이라 text-primary-1이면 배경에 묻혀 보이지 않는다 */}
+      <span className="text-xs leading-4 text-primary-4 opacity-60 transition-opacity peer-checked:font-bold peer-checked:opacity-100 peer-focus-visible:opacity-100 desktop:text-sm desktop:opacity-0 desktop:group-hover:opacity-100 desktop:peer-focus-visible:opacity-100">
         {label}
       </span>
     </label>

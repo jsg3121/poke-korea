@@ -15,7 +15,7 @@ import FilterModal from './FilterModal.organism'
  *
  * 데/모 2벌(components/filter·container/desktop/header/filter, 레이아웃이 크게 다름)을
  * CSS 반응형 단일로 통합한다(UA 분기·display:none 없음, ADR-0007). 모바일 퍼스트 —
- * base는 칩 스크롤 줄 + 하단 액션 바, 데스크톱(`desktop:`)은 한 줄 정렬이다.
+ * 구조는 [타입 칩 스크롤 줄]→[액션 바(필터·초기화)]→[적용 필터 칩 로우(조건부)].
  *
  * 타입은 최대 2개까지 선택 가능(그 이상은 미선택 항목 잠금). 도메인 로직(쿼리 파싱/갱신,
  * 최대 선택 제약)은 organism이 담당하고, 개별 토글 표현은 TypeChip 원자에 위임한다.
@@ -141,9 +141,8 @@ const FilterBarOrganism = () => {
         })}
       </ul>
 
-      {/* 액션 바 — 필터 열기 + 적용 필터 칩(가로 스크롤) + 초기화를 한 줄에 통합
-          (sticky 크롬 높이 최소화 — 사용자 피드백). 버튼 높이 모바일 32px(min-h-8)
-          /데스크톱 36px(min-h-9): WCAG 2.5.8 AA(24px) 충족, ADR-0011 슬림 컨트롤 계열 */}
+      {/* 액션 바 — 필터 열기 + 초기화. 버튼 높이 모바일 32px(min-h-8)/데스크톱
+          36px(min-h-9): WCAG 2.5.8 AA(24px) 충족, ADR-0011 슬림 컨트롤 계열 */}
       <div className="flex items-center gap-2 border-t border-solid border-primary-2 py-1.5 desktop:border-t-0 desktop:py-2">
         <button
           type="button"
@@ -156,20 +155,6 @@ const FilterBarOrganism = () => {
           />
           필터
         </button>
-        {appliedFilters.length > 0 && (
-          <div
-            aria-label="적용된 필터"
-            className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {appliedFilters.map((filter) => (
-              <AppliedFilterChip
-                key={`${filter.key}-${filter.value ?? 'flag'}`}
-                label={filter.label}
-                onRemove={() => handleRemoveFilter(filter)}
-              />
-            ))}
-          </div>
-        )}
         <button
           type="button"
           onClick={handleReset}
@@ -179,6 +164,24 @@ const FilterBarOrganism = () => {
           초기화
         </button>
       </div>
+
+      {/* 적용 필터 칩 로우 — 액션바 아래 별도 줄(시안 원안). 액션바 한 줄 통합은
+          타입 2개+세대+불리언까지 겹치면 좁은 공간에 밀집돼 폐기(사용자 결정
+          2026-07-07). 조건부 렌더라 필터 미적용 시 sticky 높이는 늘지 않는다 */}
+      {appliedFilters.length > 0 && (
+        <div
+          aria-label="적용된 필터"
+          className="flex items-center gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {appliedFilters.map((filter) => (
+            <AppliedFilterChip
+              key={`${filter.key}-${filter.value ?? 'flag'}`}
+              label={filter.label}
+              onRemove={() => handleRemoveFilter(filter)}
+            />
+          ))}
+        </div>
+      )}
 
       <FilterModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
