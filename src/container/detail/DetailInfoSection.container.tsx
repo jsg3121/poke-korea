@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import TagComponent from '~/components/tag/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import DetailQuizCtaComponent from './components/DetailQuizCta.component'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 
 /**
@@ -33,90 +34,99 @@ const DetailInfoSectionContainer = () => {
   } = activeTypeInfo
 
   return (
-    <div className="grid w-full grid-cols-1 gap-8 desktop:grid-cols-2 desktop:items-start">
-      <section aria-labelledby="pokemon-base-info" className="card-detail">
-        <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
-        <dl className="w-full">
-          <div className={infoRowClass}>
-            <dt className="dl-term">이름</dt>
-            <dd className="dl-desc">
-              {name}&nbsp;
-              {activeType === 'mega'
-                ? '(메가진화)'
-                : activeType === 'region'
-                  ? '(리전폼)'
-                  : ''}
-            </dd>
-          </div>
-          <div className={infoRowClass}>
-            <dt className="dl-term">전국도감번호</dt>
-            <dd className="dl-desc">
-              No. {pokemonNumber.toString().padStart(3, '0')}
-            </dd>
-          </div>
-          <div className={infoRowClass}>
-            <dt className="dl-term">등장 세대</dt>
-            <dd className="dl-desc">{generation} 세대</dd>
-          </div>
-          <div className={infoRowClass}>
-            <dt className="dl-term">타입</dt>
-            <dd
-              aria-label={types.map((type) => PokemonTypes[type]).join(',')}
-              className="dl-desc flex gap-1"
-            >
-              {types.map((type) => (
-                <TagComponent key={type} type={type} />
-              ))}
-            </dd>
-          </div>
-          <div className={infoRowClass}>
-            <dt className="dl-term">진화체</dt>
-            <dd className="dl-desc">
-              {isEvolution ? '진화체 있음' : '진화 불가'}
-            </dd>
-          </div>
-          {isRegion && (
+    <div className="flex w-full flex-col gap-8">
+      <div className="grid w-full grid-cols-1 gap-8 desktop:grid-cols-2 desktop:items-start">
+        <section aria-labelledby="pokemon-base-info" className="card-detail">
+          <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
+          <dl className="w-full">
             <div className={infoRowClass}>
-              <dt className="dl-term">리전폼</dt>
-              <dd className="dl-desc">리전폼 존재</dd>
-            </div>
-          )}
-          {isMega && (
-            <div className={infoRowClass}>
-              <dt className="dl-term">메가진화</dt>
-              <dd className="dl-desc">메가진화 가능</dd>
-            </div>
-          )}
-        </dl>
-      </section>
-
-      <section className="card-detail" aria-labelledby="pokemon-abilities">
-        <InfoCardTitleComponent title="특성" id="pokemon-abilities" />
-        <dl className="flex w-full flex-col gap-4">
-          {abilities.map((ability, index) => (
-            <div
-              key={`ability-id-${index}`}
-              className="w-full border-b border-solid border-primary-3 py-2 last:border-b-0 last:pb-0"
-            >
-              <dt className="relative w-full pb-2 text-xl font-bold leading-6">
-                {ability.name}&nbsp;
-                {ability.isHidden && (
-                  <span className="text-xs font-normal">(숨겨진 특성)</span>
-                )}
-                <Link
-                  href={`/ability/${ability.abilityId}`}
-                  className="absolute right-0 text-xs text-primary-1 underline underline-offset-4"
-                >
-                  특성 정보 보러가기
-                </Link>
-              </dt>
-              <dd className="min-h-6 w-full text-base leading-6">
-                {ability.description}
+              <dt className="dl-term">이름</dt>
+              <dd className="dl-desc">
+                {name}&nbsp;
+                {activeType === 'mega'
+                  ? '(메가진화)'
+                  : activeType === 'region'
+                    ? '(리전폼)'
+                    : ''}
               </dd>
             </div>
-          ))}
-        </dl>
-      </section>
+            <div className={infoRowClass}>
+              <dt className="dl-term">전국도감번호</dt>
+              <dd className="dl-desc">
+                No. {pokemonNumber.toString().padStart(3, '0')}
+              </dd>
+            </div>
+            <div className={infoRowClass}>
+              <dt className="dl-term">등장 세대</dt>
+              <dd className="dl-desc">{generation} 세대</dd>
+            </div>
+            <div className={infoRowClass}>
+              <dt className="dl-term">타입</dt>
+              <dd
+                aria-label={types.map((type) => PokemonTypes[type]).join(',')}
+                className="dl-desc flex gap-1"
+              >
+                {types.map((type) => (
+                  <TagComponent key={type} type={type} />
+                ))}
+              </dd>
+            </div>
+            <div className={infoRowClass}>
+              <dt className="dl-term">진화체</dt>
+              <dd className="dl-desc">
+                {isEvolution ? '진화체 있음' : '진화 불가'}
+              </dd>
+            </div>
+            {isRegion && (
+              <div className={infoRowClass}>
+                <dt className="dl-term">리전폼</dt>
+                <dd className="dl-desc">리전폼 존재</dd>
+              </div>
+            )}
+            {isMega && (
+              <div className={infoRowClass}>
+                <dt className="dl-term">메가진화</dt>
+                <dd className="dl-desc">메가진화 가능</dd>
+              </div>
+            )}
+          </dl>
+        </section>
+
+        <section className="card-detail" aria-labelledby="pokemon-abilities">
+          <InfoCardTitleComponent title="특성" id="pokemon-abilities" />
+          <dl className="flex w-full flex-col gap-4">
+            {abilities.map((ability, index) => (
+              <div
+                key={`ability-id-${index}`}
+                className="w-full border-b border-solid border-primary-3 py-2 last:border-b-0 last:pb-0"
+              >
+                <dt className="relative w-full pb-2 text-xl font-bold leading-6">
+                  {ability.name}&nbsp;
+                  {ability.isHidden && (
+                    <span className="text-xs font-normal">(숨겨진 특성)</span>
+                  )}
+                  <Link
+                    href={`/ability/${ability.abilityId}`}
+                    className="absolute right-0 text-xs text-primary-1 underline underline-offset-4"
+                  >
+                    특성 정보 보러가기
+                  </Link>
+                </dt>
+                <dd className="min-h-6 w-full text-base leading-6">
+                  {ability.description}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </div>
+
+      {/* 특성 직후 맥락 배치 — 퀴즈 유입 확대(UX-005 §6-3) */}
+      <DetailQuizCtaComponent
+        title="특성 퀴즈에 도전해보세요!"
+        description="다양한 포켓몬의 특성을 얼마나 알고 있나요?"
+        href="/quiz/ability"
+      />
     </div>
   )
 }

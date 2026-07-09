@@ -1,4 +1,5 @@
 import {
+  GetDetailMovesPokemonInfoDocument,
   GetPokemonGigantamaxDocument,
   GetPokemonMegaEvolutionDocument,
   GetPokemonNormalFormDocument,
@@ -8,6 +9,7 @@ import {
   PokemonDetailDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  GetDetailMovesPokemonInfoQuery,
   GetPokemonGigantamaxQuery,
   GetPokemonMegaEvolutionQuery,
   GetPokemonNormalFormImageListQuery,
@@ -37,6 +39,49 @@ export interface DetailPokemonInfo {
   normalFormImageList: Array<string>
   activeType: TActiveType
   activeIndex: number
+}
+
+export interface AdjacentPokemonInfo {
+  number: number
+  name: string
+}
+
+/**
+ * 이전/다음 포켓몬(도감번호 ±1) 이름 조회 — 종 단위 내비게이션용(UX-005 M2).
+ * 경량 쿼리(GetDetailMovesPokemonInfo: id·name·types만)를 재사용한다.
+ * 도감 범위 밖(0번, 마지막 번호 다음)은 조회 실패 → null로 해당 방향 비활성.
+ */
+export const fetchAdjacentPokemon = async (
+  pokemonId: number,
+): Promise<{
+  prev: AdjacentPokemonInfo | null
+  next: AdjacentPokemonInfo | null
+}> => {
+  const apolloClient = initializeApollo()
+
+  const fetchOne = async (id: number): Promise<AdjacentPokemonInfo | null> => {
+    if (id < 1) return null
+    try {
+      const { data } = await apolloClient.query<GetDetailMovesPokemonInfoQuery>(
+        {
+          query: GetDetailMovesPokemonInfoDocument,
+          variables: { pokemonId: id },
+          fetchPolicy: 'cache-first',
+        },
+      )
+      const name = data?.getPokemonDetail?.name
+      return name ? { number: id, name } : null
+    } catch {
+      return null
+    }
+  }
+
+  const [prev, next] = await Promise.all([
+    fetchOne(pokemonId - 1),
+    fetchOne(pokemonId + 1),
+  ])
+
+  return { prev, next }
 }
 
 /**
