@@ -31,7 +31,7 @@ const AppliedFilterChipComponent = ({
       {/* text-aligned-md(+2px line-height) 보정은 flex items-center와 상쇄되므로,
           라벨을 고정 높이 내부 span으로 감싸 블록 흐름에서 line-height가 글리프를
           내리게 한다(X 버튼 배치 때문에 바깥 flex는 유지) */}
-      <span className="h-7 text-aligned-md">{label}</span>
+      <span className="inline-block h-7 text-aligned-md">{label}</span>
       <button
         type="button"
         onClick={onRemove}

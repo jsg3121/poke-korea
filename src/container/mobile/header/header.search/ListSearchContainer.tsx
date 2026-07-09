@@ -17,7 +17,9 @@ import { useDebounce } from '~/hook/useDebounce'
 const ListSearchContainer = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [searchKeyword, debounce] = useDebounce()
+  // 초기값을 URL의 name과 동기화 — ''로 시작하면 ?name= 직접 진입 시 마운트
+  // 이펙트에서 keyword('')≠currentName이 되어 name이 삭제된다(Gemini 리뷰 확인)
+  const [searchKeyword, debounce] = useDebounce(searchParams.get('name') ?? '')
 
   const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
     debounce(e.target.value.trim())
@@ -66,6 +68,7 @@ const ListSearchContainer = () => {
       <Link
         href="https://forms.gle/BP9QVkj42xTJ5beQ8"
         target="_blank"
+        rel="noopener noreferrer"
         className="h-8 text-primary-4 absolute right-0 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex-items-gap-2"
       >
         <FeedbackIcon width={16} height={16} />

@@ -169,18 +169,22 @@ const FilterBarOrganism = () => {
           타입 2개+세대+불리언까지 겹치면 좁은 공간에 밀집돼 폐기(사용자 결정
           2026-07-07). 조건부 렌더라 필터 미적용 시 sticky 높이는 늘지 않는다 */}
       {appliedFilters.length > 0 && (
-        <div
+        <ul
           aria-label="적용된 필터"
           className="flex items-center gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {appliedFilters.map((filter) => (
-            <AppliedFilterChip
+            <li
               key={`${filter.key}-${filter.value ?? 'flag'}`}
-              label={filter.label}
-              onRemove={() => handleRemoveFilter(filter)}
-            />
+              className="shrink-0"
+            >
+              <AppliedFilterChip
+                label={filter.label}
+                onRemove={() => handleRemoveFilter(filter)}
+              />
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
       <FilterModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
