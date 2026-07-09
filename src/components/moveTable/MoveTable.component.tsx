@@ -23,7 +23,8 @@ export interface MoveTableItem {
   condition: string
   /** 기술명 */
   name: string
-  type: PokemonType
+  /** 타입 — 데이터 누락 시 셀만 비운다(열 정렬 유지) */
+  type?: PokemonType | null
   /** 데미지 유형 (물리/특수/변화) */
   damageClass: ChipColor
   power?: number | null
@@ -100,7 +101,7 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
               <span
                 className={`inline-flex ${COL.type} desktop:shrink-0 desktop:justify-center`}
               >
-                <TagComponent type={move.type} />
+                {move.type && <TagComponent type={move.type} />}
               </span>
               <span
                 className={`inline-flex ${COL.damage} desktop:shrink-0 desktop:justify-center`}
