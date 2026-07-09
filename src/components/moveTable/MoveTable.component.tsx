@@ -61,10 +61,12 @@ const MoveStat = ({
   value?: number | null
 }) => (
   <span
-    className={`text-xs text-primary-2 ${COL.stat} desktop:shrink-0 desktop:text-center`}
+    className={`text-2xs text-primary-2 desktop:text-xs ${COL.stat} desktop:shrink-0 desktop:text-center`}
   >
     <span className="desktop:sr-only">{label} </span>
-    <b className="text-sm font-bold text-primary-1">{value ?? '-'}</b>
+    <b className="text-xs font-bold text-primary-1 desktop:text-sm">
+      {value ?? '-'}
+    </b>
   </span>
 )
 
@@ -87,24 +89,27 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
         {moves.map((move, index) => (
           <li
             key={`${move.name}-${move.condition}-${index}`}
-            className="border-b border-primary-1/10 py-2.5 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2 desktop:px-3"
+            className="border-b border-primary-3 py-2.5 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2 desktop:px-3"
           >
-            <div className="flex flex-wrap items-center gap-2 desktop:contents">
+            {/* 이름만 자기 영역(flex-1) 안에서 줄바꿈 — 태그/칩은 항상 같은 위치
+                (flex-wrap이면 이름 길이에 따라 칩이 다음 줄로 밀려 행마다 배치가
+                달라진다, QA 라운드 2) */}
+            <div className="flex flex-nowrap items-center gap-2 desktop:contents">
               <span
-                className={`min-w-10 rounded-lg bg-primary-1/10 px-2 py-0.5 text-center text-2xs font-bold text-primary-2 ${COL.condition} desktop:shrink-0`}
+                className={`min-w-10 shrink-0 rounded-lg bg-primary-1/10 px-2 py-0.5 text-center text-2xs font-bold text-primary-2 ${COL.condition}`}
               >
                 {move.condition}
               </span>
-              <span className="mr-auto text-sm font-bold text-primary-1 desktop:mr-0 desktop:flex-1">
+              <span className="min-w-0 flex-1 break-keep text-xs font-bold text-primary-1 desktop:text-sm">
                 {move.name}
               </span>
               <span
-                className={`inline-flex ${COL.type} desktop:shrink-0 desktop:justify-center`}
+                className={`inline-flex shrink-0 ${COL.type} desktop:justify-center`}
               >
                 {move.type && <TagComponent type={move.type} />}
               </span>
               <span
-                className={`inline-flex ${COL.damage} desktop:shrink-0 desktop:justify-center`}
+                className={`inline-flex shrink-0 ${COL.damage} desktop:justify-center`}
               >
                 <ChipComponent
                   label={DAMAGE_LABEL[move.damageClass]}

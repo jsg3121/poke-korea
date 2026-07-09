@@ -30,6 +30,8 @@ const DetailSpeciesNavContainer = ({ prev, next }: DetailSpeciesNavProps) => {
       aria-label="도감 순서 이동"
       className="flex w-full items-center justify-between gap-2 px-4 py-3"
     >
+      {/* 좁은 폭에서 버튼 내부 줄바꿈 방지 — 이름은 데스크톱에서만 표기하고
+          모바일은 번호만(전체 이름은 aria-label 유지, QA 라운드 2) */}
       {prev ? (
         <LinkButtonComponent
           href={`/detail/${prev.number}`}
@@ -37,7 +39,10 @@ const DetailSpeciesNavContainer = ({ prev, next }: DetailSpeciesNavProps) => {
           size="sm"
           aria-label={`이전 포켓몬: No.${pokemonNumberFormat(prev.number)} ${prev.name}`}
         >
-          ← No.{pokemonNumberFormat(prev.number)} {prev.name}
+          <span className="whitespace-nowrap">
+            ← No.{pokemonNumberFormat(prev.number)}
+            <span className="hidden desktop:inline"> {prev.name}</span>
+          </span>
         </LinkButtonComponent>
       ) : (
         <span aria-hidden="true" />
@@ -49,7 +54,10 @@ const DetailSpeciesNavContainer = ({ prev, next }: DetailSpeciesNavProps) => {
           size="sm"
           aria-label={`다음 포켓몬: No.${pokemonNumberFormat(next.number)} ${next.name}`}
         >
-          No.{pokemonNumberFormat(next.number)} {next.name} →
+          <span className="whitespace-nowrap">
+            No.{pokemonNumberFormat(next.number)}
+            <span className="hidden desktop:inline"> {next.name}</span> →
+          </span>
         </LinkButtonComponent>
       ) : (
         <span aria-hidden="true" />

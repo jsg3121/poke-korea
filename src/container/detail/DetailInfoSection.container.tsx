@@ -40,8 +40,10 @@ const DetailInfoSectionContainer = () => {
           <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
           <dl className="w-full">
             <div className={infoRowClass}>
-              <dt className="dl-term text-sm desktop:text-xl">이름</dt>
-              <dd className="dl-desc text-sm desktop:text-xl">
+              <dt className="dl-term w-24 text-xs desktop:w-48 desktop:text-xl">
+                이름
+              </dt>
+              <dd className="dl-desc text-xs desktop:text-xl">
                 {name}&nbsp;
                 {activeType === 'mega'
                   ? '(메가진화)'
@@ -51,22 +53,28 @@ const DetailInfoSectionContainer = () => {
               </dd>
             </div>
             <div className={infoRowClass}>
-              <dt className="dl-term text-sm desktop:text-xl">전국도감번호</dt>
-              <dd className="dl-desc text-sm desktop:text-xl">
+              <dt className="dl-term w-24 text-xs desktop:w-48 desktop:text-xl">
+                전국도감번호
+              </dt>
+              <dd className="dl-desc text-xs desktop:text-xl">
                 No. {pokemonNumber.toString().padStart(3, '0')}
               </dd>
             </div>
             <div className={infoRowClass}>
-              <dt className="dl-term text-sm desktop:text-xl">등장 세대</dt>
-              <dd className="dl-desc text-sm desktop:text-xl">
+              <dt className="dl-term w-24 text-xs desktop:w-48 desktop:text-xl">
+                등장 세대
+              </dt>
+              <dd className="dl-desc text-xs desktop:text-xl">
                 {generation} 세대
               </dd>
             </div>
             <div className={infoRowClass}>
-              <dt className="dl-term text-sm desktop:text-xl">타입</dt>
+              <dt className="dl-term w-24 text-xs desktop:w-48 desktop:text-xl">
+                타입
+              </dt>
               <dd
                 aria-label={types.map((type) => PokemonTypes[type]).join(',')}
-                className="dl-desc flex gap-1 text-sm desktop:text-xl"
+                className="dl-desc flex gap-1 text-xs desktop:text-xl"
               >
                 {types.map((type) => (
                   <TagComponent key={type} type={type} />
@@ -74,21 +82,27 @@ const DetailInfoSectionContainer = () => {
               </dd>
             </div>
             <div className={infoRowClass}>
-              <dt className="dl-term text-sm desktop:text-xl">진화체</dt>
-              <dd className="dl-desc text-sm desktop:text-xl">
+              <dt className="dl-term w-24 text-xs desktop:w-48 desktop:text-xl">
+                진화체
+              </dt>
+              <dd className="dl-desc text-xs desktop:text-xl">
                 {isEvolution ? '진화체 있음' : '진화 불가'}
               </dd>
             </div>
             {isRegion && (
               <div className={infoRowClass}>
-                <dt className="dl-term text-sm desktop:text-xl">리전폼</dt>
-                <dd className="dl-desc text-sm desktop:text-xl">리전폼 존재</dd>
+                <dt className="dl-term w-24 text-xs desktop:w-48 desktop:text-xl">
+                  리전폼
+                </dt>
+                <dd className="dl-desc text-xs desktop:text-xl">리전폼 존재</dd>
               </div>
             )}
             {isMega && (
               <div className={infoRowClass}>
-                <dt className="dl-term text-sm desktop:text-xl">메가진화</dt>
-                <dd className="dl-desc text-sm desktop:text-xl">
+                <dt className="dl-term w-24 text-xs desktop:w-48 desktop:text-xl">
+                  메가진화
+                </dt>
+                <dd className="dl-desc text-xs desktop:text-xl">
                   메가진화 가능
                 </dd>
               </div>
@@ -104,7 +118,7 @@ const DetailInfoSectionContainer = () => {
                 key={`ability-id-${index}`}
                 className="w-full border-b border-solid border-primary-3 py-2 last:border-b-0 last:pb-0"
               >
-                <dt className="relative w-full pb-2 text-base font-bold leading-6 desktop:text-xl">
+                <dt className="relative w-full pb-2 text-sm font-bold leading-6 desktop:text-xl">
                   {ability.name}&nbsp;
                   {ability.isHidden && (
                     <span className="text-xs font-normal">(숨겨진 특성)</span>
@@ -116,7 +130,7 @@ const DetailInfoSectionContainer = () => {
                     특성 정보 보러가기
                   </Link>
                 </dt>
-                <dd className="min-h-6 w-full text-sm leading-6 desktop:text-base">
+                <dd className="min-h-6 w-full text-xs leading-6 desktop:text-base">
                   {ability.description}
                 </dd>
               </div>

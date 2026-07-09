@@ -50,7 +50,8 @@ const DetailExclusiveMovesContainer = () => {
     return null
   }
 
-  const headCellClass = 'h-8 leading-8 text-primary-4 text-center text-sm'
+  const headCellClass =
+    'h-8 leading-8 text-primary-4 text-center text-xs desktop:text-sm'
 
   return (
     <>
@@ -79,7 +80,7 @@ const DetailExclusiveMovesContainer = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="h-10 text-sm desktop:text-base [&>td]:align-middle">
+              <tr className="h-10 text-xs desktop:text-base [&>td]:align-middle">
                 <td className="text-center font-semibold">{gmaxMove.nameKo}</td>
                 <td className="justify-items-center text-center">
                   {gmaxMove.type && <TagComponent type={gmaxMove.type} />}
@@ -128,7 +129,7 @@ const DetailExclusiveMovesContainer = () => {
               {exclusiveZMoves.map((zMove) => (
                 <tr
                   key={zMove.id}
-                  className="h-10 border-b border-solid border-primary-3 text-sm last:border-b-0 desktop:text-base [&>td]:align-middle"
+                  className="h-10 border-b border-solid border-primary-3 text-xs last:border-b-0 desktop:text-base [&>td]:align-middle"
                 >
                   <td className="break-keep text-center text-sm font-semibold">
                     {zMove.zSkill.nameKo}

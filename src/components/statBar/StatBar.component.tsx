@@ -132,13 +132,13 @@ const StatBarComponent = ({
     <div ref={rootRef} className="w-full">
       {showTotal && (
         <div className="mb-3 flex items-baseline justify-between border-b border-primary-3 pb-3">
-          <span className="text-sm font-semibold text-primary-2">
+          <span className="text-xs font-semibold text-primary-2 desktop:text-sm">
             종족값 총합
           </span>
           <AnimatedValue
             value={total}
             progress={progress}
-            className="text-xl font-bold text-primary-1"
+            className="text-lg font-bold text-primary-1 desktop:text-xl"
           />
         </div>
       )}
@@ -158,8 +158,8 @@ const StatBarComponent = ({
                   progress={progress}
                   className={
                     isMax || isMin
-                      ? 'text-base font-extrabold text-primary-1'
-                      : 'text-sm font-bold text-primary-1'
+                      ? 'text-sm font-extrabold text-primary-1 desktop:text-base'
+                      : 'text-xs font-bold text-primary-1 desktop:text-sm'
                   }
                 />
               </dd>

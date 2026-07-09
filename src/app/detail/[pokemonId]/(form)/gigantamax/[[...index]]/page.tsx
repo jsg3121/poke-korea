@@ -15,6 +15,7 @@ import {
   fetchAdjacentPokemon,
   fetchGigantamaxData,
   fetchPokemonDetail,
+  fetchPokemonSummaries,
 } from '../../modules/fetchDetailData'
 import { generateDetailMetadata } from '../../modules/generateMetadata'
 import { parseIndexParam } from '../../modules/parseFormParams'
@@ -109,9 +110,10 @@ const GigantamaxPage = async ({
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
-  const [{ gigantamaxData }, adjacent] = await Promise.all([
+  const [{ gigantamaxData }, adjacent, evolutionPokemons] = await Promise.all([
     fetchGigantamaxData(parsedPokemonId),
     fetchAdjacentPokemon(parsedPokemonId),
+    fetchPokemonSummaries(pokemonDetail.evolutionId),
   ])
 
   const props = {
@@ -144,14 +146,22 @@ const GigantamaxPage = async ({
       {isMobile ? (
         <main className="w-full min-h-screen">
           <MobileHeaderContainer />
-          <DetailView prevPokemon={adjacent.prev} nextPokemon={adjacent.next} />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
           <MobileFooterContainer />
           <MobileTabBar />
         </main>
       ) : (
         <main className="w-full min-h-screen pt-30">
           <DesktopHeaderContainer />
-          <DetailView prevPokemon={adjacent.prev} nextPokemon={adjacent.next} />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
           <DesktopFooterContainer />
         </main>
       )}

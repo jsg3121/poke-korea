@@ -4,9 +4,15 @@ import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/tag/Tag.component'
+import Link from 'next/link'
 import { DetailContext } from '~/context/Detail.context'
 import { changeColor } from '~/module/changeColor'
-import { getAltText, getImageList, getImageSrc } from '~/module/image.module'
+import {
+  getAltText,
+  getFormUrl,
+  getImageList,
+  getImageSrc,
+} from '~/module/image.module'
 import { pokemonNumberFormat } from '~/module/pokemonCard.module'
 import DetailSpeciesNavContainer, {
   AdjacentPokemon,
@@ -66,6 +72,13 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
     pokemonNumber: pokemonBaseInfo?.number,
   })
   const currentItem = imageList?.[activeIndex]
+  const totalForms = imageList?.length ?? 0
+  const hasPrev = activeIndex > 0
+  const hasNext = activeIndex < totalForms - 1
+
+  // 밝은 그라데이션 배경 위 슬라이드 버튼 (다크용 FormRow 스타일과 색만 다름)
+  const slideLinkClass =
+    'flex min-h-touch min-w-touch items-center justify-center rounded-2xl text-lg text-primary-1 hover:bg-white-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-1'
 
   const colors = changeColor(pokemonBaseInfo?.types ?? [])
   const gradientStyle =
@@ -85,9 +98,11 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
       />
       <div className="relative desktop:mx-auto desktop:max-w-7xl">
         <DetailSpeciesNavContainer prev={prevPokemon} next={nextPokemon} />
-        <div className="flex flex-col items-center gap-4 px-4 pb-8 pt-2 desktop:flex-row desktop:justify-center desktop:gap-16 desktop:pb-12">
+        {/* 데스크톱: 이미지 컬럼 고정폭(shrink-0) + 정보 컬럼 flex-1 —
+            이름 길이와 무관하게 이미지가 항상 같은 위치(QA 라운드 2) */}
+        <div className="flex flex-col items-center gap-4 px-4 pb-4 pt-2 desktop:flex-row desktop:gap-16 desktop:pb-6 desktop:pl-16">
           {currentItem && (
-            <div className="h-72 w-72 [filter:drop-shadow(0px_5px_5px_#000000)] desktop:h-96 desktop:w-96">
+            <div className="h-72 w-72 shrink-0 [filter:drop-shadow(0px_5px_5px_#000000)] desktop:h-96 desktop:w-96">
               <ImageComponent
                 src={getImageSrc({ imageCode: currentItem.imageCode, isShiny })}
                 width="100%"
@@ -106,11 +121,11 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
               />
             </div>
           )}
-          <div className="flex flex-col items-center gap-2 desktop:items-start">
-            <p className="text-sm font-semibold text-black-2 desktop:text-base">
+          <div className="flex flex-col items-center gap-2 desktop:min-w-0 desktop:flex-1 desktop:items-start">
+            <p className="text-xs font-semibold text-black-2 desktop:text-base">
               No.{pokemonNumberFormat(pokemonBaseInfo?.number ?? 0)}
             </p>
-            <h1 className="break-keep text-center text-3xl font-bold text-black-2 desktop:text-left desktop:text-4xl">
+            <h1 className="break-keep text-center text-2xl font-bold text-black-2 desktop:text-left desktop:text-4xl">
               {name}
             </h1>
             <ul className="flex gap-2" aria-label="포켓몬 타입">
@@ -122,6 +137,63 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
             </ul>
           </div>
         </div>
+
+        {/* 폼 이미지 순회 — 히어로 하단 중앙(이미지와 같은 맥락에 붙여 기능을
+            드러낸다, QA 라운드 2에서 FormRow 우측 배치가 불명확하다는 피드백) */}
+        {totalForms > 1 && (
+          <div
+            className="flex items-center justify-center gap-1 pb-4"
+            aria-label="폼 이미지 순회"
+          >
+            {hasPrev ? (
+              <Link
+                href={getFormUrl({
+                  activeIndex: activeIndex - 1,
+                  pokemonNumber: pokemonBaseInfo?.number ?? 0,
+                  activeType,
+                  isShiny,
+                })}
+                replace
+                className={slideLinkClass}
+                aria-label={`이전 폼: ${imageList?.[activeIndex - 1]?.name ?? ''}`}
+              >
+                <span aria-hidden="true">◀</span>
+              </Link>
+            ) : (
+              <span
+                className={`${slideLinkClass} opacity-30`}
+                aria-hidden="true"
+              >
+                ◀
+              </span>
+            )}
+            <span className="text-xs font-semibold text-primary-1 desktop:text-sm">
+              폼 {activeIndex + 1}/{totalForms}
+            </span>
+            {hasNext ? (
+              <Link
+                href={getFormUrl({
+                  activeIndex: activeIndex + 1,
+                  pokemonNumber: pokemonBaseInfo?.number ?? 0,
+                  activeType,
+                  isShiny,
+                })}
+                replace
+                className={slideLinkClass}
+                aria-label={`다음 폼: ${imageList?.[activeIndex + 1]?.name ?? ''}`}
+              >
+                <span aria-hidden="true">▶</span>
+              </Link>
+            ) : (
+              <span
+                className={`${slideLinkClass} opacity-30`}
+                aria-hidden="true"
+              >
+                ▶
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </section>
   )

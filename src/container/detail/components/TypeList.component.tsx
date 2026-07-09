@@ -26,7 +26,7 @@ const TypeListComponent = ({ list, title, grade }: TypeListComponentProps) => {
   return (
     <div className="w-full overflow-hidden rounded-2xl border-[3px] border-solid border-primary-1 pb-3 text-center shadow-[inset_-2px_0px_5px_0_#9a9a9a]">
       <dt
-        className={`h-6 text-base font-medium text-aligned-sm mb-3 shadow-[inset_-6px_1px_7px_-4px_#9a9a9a] max-[475px]:tracking-[-0.75px] ${gradeColors[grade]}`}
+        className={`h-6 text-xs desktop:text-base font-medium text-aligned-sm mb-3 shadow-[inset_-6px_1px_7px_-4px_#9a9a9a] max-[475px]:tracking-[-0.75px] ${gradeColors[grade]}`}
       >
         {title}
       </dt>

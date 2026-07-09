@@ -24,9 +24,15 @@ import DetailTypeMatchupContainer from '~/container/detail/DetailTypeMatchup.con
 interface DetailViewProps {
   prevPokemon: AdjacentPokemon | null
   nextPokemon: AdjacentPokemon | null
+  /** 진화 체인 번호+이름 (컨텍스트엔 id뿐이라 호출부가 경량 조회해 주입) */
+  evolutionPokemons: Array<AdjacentPokemon>
 }
 
-const DetailView = ({ prevPokemon, nextPokemon }: DetailViewProps) => {
+const DetailView = ({
+  prevPokemon,
+  nextPokemon,
+  evolutionPokemons,
+}: DetailViewProps) => {
   return (
     <>
       {/* 종 내비는 히어로 그라데이션 위 오버레이(사용자 결정) — 헤더와 히어로 사이 공백 제거 */}
@@ -42,7 +48,7 @@ const DetailView = ({ prevPokemon, nextPokemon }: DetailViewProps) => {
           <DetailExclusiveMovesContainer />
           <DetailSkillsContainer />
           <DetailTypeMatchupContainer />
-          <DetailEvolutionContainer />
+          <DetailEvolutionContainer evolutionPokemons={evolutionPokemons} />
         </div>
       </div>
     </>

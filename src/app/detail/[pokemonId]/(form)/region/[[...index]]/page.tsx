@@ -14,6 +14,7 @@ import { SHINY_QNA_JSON_LD } from '../../../../../../constants/shinyJsonLd'
 import {
   fetchAdjacentPokemon,
   fetchPokemonDetail,
+  fetchPokemonSummaries,
   fetchRegionFormData,
 } from '../../modules/fetchDetailData'
 import { generateDetailMetadata } from '../../modules/generateMetadata'
@@ -106,10 +107,12 @@ const RegionPage = async ({ params, searchParams }: RegionPageProps) => {
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
-  const [{ regionFormData, versionGroupData }, adjacent] = await Promise.all([
-    fetchRegionFormData(parsedPokemonId),
-    fetchAdjacentPokemon(parsedPokemonId),
-  ])
+  const [{ regionFormData, versionGroupData }, adjacent, evolutionPokemons] =
+    await Promise.all([
+      fetchRegionFormData(parsedPokemonId),
+      fetchAdjacentPokemon(parsedPokemonId),
+      fetchPokemonSummaries(pokemonDetail.evolutionId),
+    ])
 
   const props = {
     pokemonBaseInfo: pokemonDetail,
@@ -139,14 +142,22 @@ const RegionPage = async ({ params, searchParams }: RegionPageProps) => {
       {isMobile ? (
         <main className="w-full min-h-screen">
           <MobileHeaderContainer />
-          <DetailView prevPokemon={adjacent.prev} nextPokemon={adjacent.next} />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
           <MobileFooterContainer />
           <MobileTabBar />
         </main>
       ) : (
         <main className="w-full min-h-screen pt-30">
           <DesktopHeaderContainer />
-          <DetailView prevPokemon={adjacent.prev} nextPokemon={adjacent.next} />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
           <DesktopFooterContainer />
         </main>
       )}

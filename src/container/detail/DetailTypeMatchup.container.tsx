@@ -20,7 +20,7 @@ const DetailTypeMatchupContainer = () => {
   const relationType = calculateRelationType(activeTypeInfo.types)
 
   const tabClass = (selected: boolean) =>
-    `w-[calc(50%-0.5rem)] h-8 rounded-xl text-base desktop:text-lg text-aligned-base text-center ${
+    `w-[calc(50%-0.5rem)] h-8 rounded-xl text-sm desktop:text-lg text-aligned-base text-center ${
       selected ? 'bg-primary-4 text-primary-1 font-bold' : 'text-primary-2'
     }`
 

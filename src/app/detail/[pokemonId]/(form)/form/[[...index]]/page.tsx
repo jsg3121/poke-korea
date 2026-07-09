@@ -15,6 +15,7 @@ import {
   fetchAdjacentPokemon,
   fetchNormalFormData,
   fetchPokemonDetail,
+  fetchPokemonSummaries,
 } from '../../modules/fetchDetailData'
 import { generateDetailMetadata } from '../../modules/generateMetadata'
 import { parseIndexParam } from '../../modules/parseFormParams'
@@ -117,11 +118,15 @@ const NormalFormPage = async ({
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
-  const [{ normalFormData, versionGroupData, normalFormImageList }, adjacent] =
-    await Promise.all([
-      fetchNormalFormData(parsedPokemonId, activeIndex),
-      fetchAdjacentPokemon(parsedPokemonId),
-    ])
+  const [
+    { normalFormData, versionGroupData, normalFormImageList },
+    adjacent,
+    evolutionPokemons,
+  ] = await Promise.all([
+    fetchNormalFormData(parsedPokemonId, activeIndex),
+    fetchAdjacentPokemon(parsedPokemonId),
+    fetchPokemonSummaries(pokemonDetail.evolutionId),
+  ])
 
   const props = {
     pokemonBaseInfo: pokemonDetail,
@@ -151,14 +156,22 @@ const NormalFormPage = async ({
       {isMobile ? (
         <main className="w-full min-h-screen">
           <MobileHeaderContainer />
-          <DetailView prevPokemon={adjacent.prev} nextPokemon={adjacent.next} />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
           <MobileFooterContainer />
           <MobileTabBar />
         </main>
       ) : (
         <main className="w-full min-h-screen pt-30">
           <DesktopHeaderContainer />
-          <DetailView prevPokemon={adjacent.prev} nextPokemon={adjacent.next} />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
           <DesktopFooterContainer />
         </main>
       )}
