@@ -56,21 +56,34 @@ const RADIO_FIELDS = [
 ] as const
 
 const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
+  // 폼은 open 동안만 마운트한다 — useForm의 defaultValues는 최초 렌더에 캐시되므로
+  // (react-hook-form 공식), 항상 마운트한 채 open으로만 숨기면 초기화·칩 개별 해제로
+  // URL이 바뀐 뒤 다시 열었을 때 이전 선택이 남는다(폼 상태와 URL 불일치). reset()
+  // 동기화는 세대 Checkbox가 uncontrolled(defaultChecked + 수동 setValue)라 DOM에
+  // 반영되지 않아, 재마운트로 매 열림마다 URL을 defaultValues로 새로 평가하게 한다.
+  if (!open) return null
+
+  return <FilterModalForm onClose={onClose} />
+}
+
+const FilterModalForm = ({
+  onClose,
+}: Pick<FilterModalOrganismProps, 'onClose'>) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  useBodyScrollLock(open)
+  // 마운트 동안만 잠금/등록 — 이 컴포넌트는 모달이 열려 있는 동안만 존재한다
+  useBodyScrollLock(true)
 
-  // Escape 키로 닫기 (ARIA dialog 패턴). open일 때만 리스너를 건다.
+  // Escape 키로 닫기 (ARIA dialog 패턴)
   useEffect(() => {
-    if (!open) return
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [open, onClose])
+  }, [onClose])
 
   const formMethods = useForm<FilterFormValues>({
     defaultValues: {
@@ -121,14 +134,13 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
 
   const generation = watch('generation')
 
-  if (!open) return null
-
   return (
     <Portal>
       {/* 딤 — 클릭 시 닫기(오버레이 자신을 클릭했을 때만). 모바일은 시트를 전체로,
-          데스크톱은 카드를 중앙에 배치 */}
+          데스크톱은 카드를 중앙에 배치. z-[600]: 모달은 전역 크롬 위여야 한다
+          (모바일 헤더가 z-[500] — z-[100]이면 헤더가 시트 제목을 뚫고 올라온다) */}
       <div
-        className="fixed inset-0 z-[100] bg-black-1/70 flex items-stretch desktop:items-center desktop:justify-center"
+        className="fixed inset-0 z-[600] bg-black-1/70 flex items-stretch desktop:items-center desktop:justify-center"
         onClick={onClose}
       >
         <FormProvider {...formMethods}>
@@ -138,12 +150,12 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
             role="dialog"
             aria-modal="true"
             aria-labelledby="filter-modal-title"
-            className="flex w-full h-full flex-col bg-primary-1 p-6 desktop:h-auto desktop:max-h-[90vh] desktop:w-[28rem] desktop:rounded-2xl desktop:p-8"
+            className="flex w-full h-full flex-col bg-primary-1 p-5 desktop:h-auto desktop:max-h-[90vh] desktop:w-[28rem] desktop:rounded-2xl desktop:p-8"
           >
-            <header className="mb-4 flex items-center justify-between border-b border-solid border-primary-3 pb-4">
+            <header className="mb-3 flex items-center justify-between border-b border-solid border-primary-3 pb-3 desktop:mb-4 desktop:pb-4">
               <h2
                 id="filter-modal-title"
-                className="text-2xl font-semibold leading-8 text-primary-4"
+                className="text-xl font-semibold leading-7 text-primary-4 desktop:text-2xl desktop:leading-8"
               >
                 추가 필터 검색
               </h2>
@@ -155,11 +167,11 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
             </header>
 
             <div className="flex-1 overflow-y-auto">
-              <fieldset className="mb-8">
-                <legend className="mb-2 text-lg font-medium text-primary-3">
+              <fieldset className="mb-6 desktop:mb-8">
+                <legend className="mb-2 text-base font-medium text-primary-3 desktop:text-lg">
                   포켓몬 세대
                 </legend>
-                <ul className="grid grid-cols-3 gap-3">
+                <ul className="grid grid-cols-3 gap-2 desktop:gap-3">
                   {GENERATIONS.map((gen) => (
                     <li key={`filter-generation-${gen}`}>
                       <Checkbox
@@ -175,8 +187,8 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
               </fieldset>
 
               {RADIO_FIELDS.map((field) => (
-                <fieldset key={field.name} className="mb-8">
-                  <legend className="mb-2 text-lg font-medium text-primary-3">
+                <fieldset key={field.name} className="mb-6 desktop:mb-8">
+                  <legend className="mb-2 text-base font-medium text-primary-3 desktop:text-lg">
                     {field.label}
                   </legend>
                   <RadioGroup

@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import LogoIcon from '~/assets/logo.svg'
 import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
-import FilterComponents from './filter/Filter.components'
 import DetailSearch from './header.search/DetailSearch'
 import HeaderNav from './nav/HeaderNav'
 import MainSearch from './search.main/MainSearch'
@@ -18,7 +17,7 @@ const HeaderContainer = () => {
       className={`w-full min-h-28 bg-primary-2 fixed left-0 top-0 z-50 pt-3`}
     >
       <div className="w-full max-w-[1280px] h-12 mx-auto px-5 relative z-20">
-        {pathname === '/list' && <h1 className="sr-only">포켓몬 도감</h1>}
+        {/* /list의 h1·필터는 리스트 뷰가 소유한다(개편 — 헤더 높이 가변 원인 제거) */}
         <Link
           href="/"
           className="w-56 h-12 block"
@@ -37,7 +36,6 @@ const HeaderContainer = () => {
         </Link>
       </div>
       <HeaderNav />
-      {pathname === '/list' && <FilterComponents />}
       {pathname.includes('/champions') && <ChampionsSubNav />}
     </header>
   )

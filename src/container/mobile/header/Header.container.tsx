@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import LogoIcon from '~/assets/logo.svg'
 import ChampionsSubNavMobile from '~/components/champions/ChampionsSubNavMobile.component'
 import HeaderSearchContainer from './header.search/HeaderSearchContainer'
+import ListSearchContainer from './header.search/ListSearchContainer'
 
 const HeaderContainer = () => {
   const pathname = usePathname()
@@ -24,7 +25,13 @@ const HeaderContainer = () => {
           </i>
           <p className="sr-only">메인 화면으로 돌아가기</p>
         </Link>
-        <HeaderSearchContainer key={`search-key-${pathname}`} />
+        {/* 검색 동작 분기(셸은 동일): /list는 리스트 필터(?name=), 그 외는
+            드롭다운→상세 이동 — 데스크톱 MainSearch/DetailSearch 패턴과 일치 */}
+        {pathname === '/list' ? (
+          <ListSearchContainer />
+        ) : (
+          <HeaderSearchContainer key={`search-key-${pathname}`} />
+        )}
       </header>
       {pathname.includes('/champions') && <ChampionsSubNavMobile />}
     </>

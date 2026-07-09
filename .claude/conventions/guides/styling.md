@@ -71,6 +71,12 @@ root `font-size`는 **모든 화면에서 16px 고정**이다. `1rem = 16px`이 
 >
 > **전환 메모:** 기존 적응형 코드(UA 분기, `useDevice`)는 스트랭글러 패턴으로 점진 제거한다. 전환 중에는 신구 공존을 허용하되, **신규 코드는 반드시 반응형**으로 작성한다.
 
+### 텍스트 수직 중앙 정렬 (Gmarket Sans +2px 규칙)
+
+고정 높이 요소 안의 텍스트는 `text-aligned-*` 유틸(globals.css, `line-height: calc(높이+2px)`)로 수직 중앙을 맞춘다 — Gmarket Sans는 글리프가 em박스에서 위로 치우쳐 있어 `line-height = 높이 + 2px`이어야 시각적 중앙에 온다(예: h-7 28px → 30px).
+
+**주의: 이 보정은 `flex` + `items-center`와 함께 쓰면 상쇄된다** — flex 중앙 정렬이 커진 라인박스를 통째로 되돌려 놓기 때문. 반드시 **블록 흐름**(inline-block 등, 라인박스가 상단 고정)에서 적용한다. 아이콘 등 다른 자식 때문에 flex가 필요하면, 텍스트만 고정 높이 내부 span으로 감싸 그 span에 유틸을 준다(예: `AppliedFilterChip`).
+
 ## 색상 체계
 
 ### 포켓몬 타입별 커스텀 색상

@@ -70,7 +70,7 @@ const meta = {
         component: [
           '포켓몬 카드 계열의 공통 셸(포켓볼+헤더+이미지+타입 태그) + variant 본문. 반응형 단일(모바일 퍼스트). 현재 pokedex variant(스탯 6종)만 구현.',
           '',
-          '**모바일 퍼스트 2단계 토큰**: base=모바일 `w-40`(160px, ~0.71배) → `desktop:w-56`(224px). 내부 이미지·폰트·포켓볼·여백도 같은 비율로 2단계(예: `w-28 desktop:w-40`, `text-xs desktop:text-base`). 모바일 2열 그리드에 들어가도록 축소하되 데스크톱 비율을 유지한다([ADR-0009](root 16px 고정) 기준).',
+          '**모바일 퍼스트 2단계 토큰**: base=모바일 `w-36`(144px) → `desktop:w-56`(224px). 내부 이미지·폰트·포켓볼·여백도 같은 비율로 2단계(예: `w-28 desktop:w-40`, `text-xs desktop:text-base`). 모바일 2열 그리드에 들어가도록 축소하되 데스크톱 비율을 유지한다([ADR-0009](root 16px 고정) 기준).',
         ].join('\n'),
       },
     },
@@ -122,7 +122,7 @@ export const LongNameMobileGrid: Story = {
 }
 
 /**
- * 모바일 2열 그리드 — 390px 화면(gutter px-5 + gap-4) 기준. 카드가 base 폭(w-40)으로
+ * 모바일 2열 그리드 — 390px 화면(gutter px-5 + gap-4) 기준. 카드가 base 폭(w-36)으로
  * 축소돼 2열에 들어가고, 데스크톱 비율을 유지하는지 확인용.
  */
 export const MobileGrid: Story = {
