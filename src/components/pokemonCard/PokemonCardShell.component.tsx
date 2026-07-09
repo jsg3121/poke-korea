@@ -97,7 +97,7 @@ const PokemonCardShellComponent = ({
         }
 
   return (
-    <Link href={href} className={`block ${POKEMON_CARD_SIZE.width}`}>
+    <Link href={href} className={`block mx-auto ${POKEMON_CARD_SIZE.width}`}>
       <article
         className={`w-full ${POKEMON_CARD_SIZE.height} flex flex-col text-black-2 border border-solid border-black-2 rounded-[10px] p-2 desktop:p-3 relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80)] outline outline-[0.25rem] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] desktop:hover:scale-105 desktop:hover:z-10`}
         style={{ ...gradientStyle, outlineColor }}
