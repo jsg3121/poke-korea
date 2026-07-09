@@ -9,13 +9,22 @@
       "Bash(git branch:*)",
       "Bash(git checkout:*)",
       "Bash(git tag:*)",
+      "Bash(gh api:*)",
       "Bash(gh:*)",
       "Bash(ls:*)",
       "Bash(mkdir:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:bulbapedia.bulbagarden.net)",
+      "WebFetch(domain:www.pikalytics.com)",
+      "WebFetch(domain:developers.google.com)",
       "Read",
       "Glob",
       "Grep",
-      "mcp__postgres-local__query"
+      "mcp__postgres-local__query",
+      "WebFetch(domain:pokemonkorea.co.kr)",
+      "WebFetch(domain:www.pokemon.com)"
     ]
   },
   "hooks": {
