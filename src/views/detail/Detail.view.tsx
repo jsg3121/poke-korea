@@ -4,9 +4,7 @@ import DetailFormRowContainer from '~/container/detail/DetailFormRow.container'
 import DetailHeroContainer from '~/container/detail/DetailHero.container'
 import DetailInfoSectionContainer from '~/container/detail/DetailInfoSection.container'
 import DetailSkillsContainer from '~/container/detail/DetailSkills.container'
-import DetailSpeciesNavContainer, {
-  AdjacentPokemon,
-} from '~/container/detail/DetailSpeciesNav.container'
+import { AdjacentPokemon } from '~/container/detail/DetailSpeciesNav.container'
 import DetailStatsContainer from '~/container/detail/DetailStats.container'
 import DetailTypeMatchupContainer from '~/container/detail/DetailTypeMatchup.container'
 
@@ -31,12 +29,15 @@ interface DetailViewProps {
 const DetailView = ({ prevPokemon, nextPokemon }: DetailViewProps) => {
   return (
     <>
-      <DetailSpeciesNavContainer prev={prevPokemon} next={nextPokemon} />
-      <DetailHeroContainer />
+      {/* 종 내비는 히어로 그라데이션 위 오버레이(사용자 결정) — 헤더와 히어로 사이 공백 제거 */}
+      <DetailHeroContainer
+        prevPokemon={prevPokemon}
+        nextPokemon={nextPokemon}
+      />
       <div className="flex w-full flex-col gap-8 py-8">
         <DetailFormRowContainer />
         <DetailStatsContainer />
-        <div className="flex w-full flex-col gap-8 px-4 desktop:mx-auto desktop:max-w-5xl">
+        <div className="flex w-full flex-col gap-8 px-4 desktop:mx-auto desktop:max-w-7xl">
           <DetailInfoSectionContainer />
           <DetailExclusiveMovesContainer />
           <DetailSkillsContainer />

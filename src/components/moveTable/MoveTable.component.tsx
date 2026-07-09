@@ -87,7 +87,7 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
         {moves.map((move, index) => (
           <li
             key={`${move.name}-${move.condition}-${index}`}
-            className="border-b border-primary-1/10 px-3 py-2.5 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2"
+            className="border-b border-primary-1/10 py-2.5 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2 desktop:px-3"
           >
             <div className="flex flex-wrap items-center gap-2 desktop:contents">
               <span

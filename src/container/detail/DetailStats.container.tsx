@@ -39,7 +39,7 @@ const DetailStatsContainer = () => {
   return (
     <section
       aria-labelledby="detail-stats-heading"
-      className="w-full px-4 desktop:mx-auto desktop:max-w-5xl"
+      className="w-full px-4 desktop:mx-auto desktop:max-w-7xl"
     >
       <SectionHeadingComponent id="detail-stats-heading">
         능력치

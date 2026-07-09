@@ -28,7 +28,7 @@ const DetailSpeciesNavContainer = ({ prev, next }: DetailSpeciesNavProps) => {
   return (
     <nav
       aria-label="도감 순서 이동"
-      className="flex w-full items-center justify-between gap-2 px-4 py-3 desktop:mx-auto desktop:max-w-5xl"
+      className="flex w-full items-center justify-between gap-2 px-4 py-3"
     >
       {prev ? (
         <LinkButtonComponent

@@ -93,7 +93,7 @@ const DetailFormRowContainer = () => {
   return (
     <section
       aria-label="포켓몬 모습 전환"
-      className="w-full px-4 desktop:mx-auto desktop:max-w-5xl"
+      className="w-full px-4 desktop:mx-auto desktop:max-w-7xl"
     >
       <ul
         className="flex flex-wrap items-center gap-6"

@@ -104,7 +104,7 @@ const DetailSkillsContainer = () => {
         <section
           key={block.key}
           aria-labelledby={block.titleId}
-          className="card-detail"
+          className="card-detail flex flex-col"
         >
           <InfoCardTitleComponent title={block.title} id={block.titleId} />
           {block.versionName && (
@@ -113,18 +113,18 @@ const DetailSkillsContainer = () => {
             </p>
           )}
           <MoveTableComponent moves={block.moves} ariaLabel={block.ariaLabel} />
-          {block.total > block.moves.length && (
-            <div className="mt-4 flex justify-center">
-              <LinkButtonComponent
-                href={block.href}
-                variant="secondary"
-                size="sm"
-                showArrow
-              >
-                전체 기술 보기 ({block.total}개)
-              </LinkButtonComponent>
-            </div>
-          )}
+          {/* 더보기는 개수와 무관하게 상시 노출 + 카드 하단 고정(mt-auto) —
+              2컬럼에서 카드 높이가 달라도 버튼 라인이 맞는다(사용자 요청) */}
+          <div className="mt-auto flex justify-center pt-4">
+            <LinkButtonComponent
+              href={block.href}
+              variant="secondary"
+              size="sm"
+              showArrow
+            >
+              전체 기술 보기 ({block.total}개)
+            </LinkButtonComponent>
+          </div>
         </section>
       ))}
     </div>

@@ -30,29 +30,30 @@ const DetailEvolutionContainer = () => {
       aria-labelledby="pokemon-evolution-chain"
     >
       <InfoCardTitleComponent title="진화 체인" id="pokemon-evolution-chain" />
+      {/* HorizontalScrollList가 각 자식을 li로 래핑하므로 Link를 직접 전달한다
+          (li 중첩 → hydration 오류, QA 라운드 1에서 수정) */}
       <HorizontalScrollListComponent aria-label="진화 체인 포켓몬 목록">
         {evolutionIds.map((id) => (
-          <li key={`relation-pokemon-id-${id}`} className="shrink-0">
-            <Link
-              href={`/detail/${id}`}
-              aria-label={`${name}와(과) 연관된 포켓몬 No.${id} 상세 보기`}
-              className="block rounded-2xl bg-white-1 p-2 shadow-md transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
-            >
-              <ImageComponent
-                src={`${imageMode}/${id}`}
-                width="9rem"
-                height="9rem"
-                alt={`포켓몬 ${name} 연관 포켓몬 ${id}`}
-                imageSize={{ width: 138, height: 138 }}
-                densities={[1, 1.5]}
-                sizes="9rem"
-                loading="lazy"
-              />
-              <p className="mt-1 text-center text-xs font-semibold text-primary-2">
-                No.{id.toString().padStart(3, '0')}
-              </p>
-            </Link>
-          </li>
+          <Link
+            key={`relation-pokemon-id-${id}`}
+            href={`/detail/${id}`}
+            aria-label={`${name}와(과) 연관된 포켓몬 No.${id} 상세 보기`}
+            className="block rounded-2xl bg-white-1 p-2 shadow-md transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
+          >
+            <ImageComponent
+              src={`${imageMode}/${id}`}
+              width="9rem"
+              height="9rem"
+              alt={`포켓몬 ${name} 연관 포켓몬 ${id}`}
+              imageSize={{ width: 138, height: 138 }}
+              densities={[1, 1.5]}
+              sizes="9rem"
+              loading="lazy"
+            />
+            <p className="mt-1 text-center text-xs font-semibold text-primary-2">
+              No.{id.toString().padStart(3, '0')}
+            </p>
+          </Link>
         ))}
       </HorizontalScrollListComponent>
     </section>

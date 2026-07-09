@@ -79,11 +79,26 @@ const StatBarComponent = ({
     }
 
     let rafId = 0
-    setProgress(0)
+    // 최초 콜백은 "관찰 시작 시점의 상태"다 — 이미 뷰포트에 보이면 모션 없이
+    // 최종값을 유지한다(최종값 표시 → 0 리셋 → 카운트업의 이중 표시가 어색,
+    // QA 라운드 1). 화면 밖에서 시작한 경우에만 0으로 되감고 진입 시 재생한다.
+    let isFirstCallback = true
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) {
+        const isIntersecting = entries.some((entry) => entry.isIntersecting)
+
+        if (isFirstCallback) {
+          isFirstCallback = false
+          if (isIntersecting) {
+            observer.disconnect()
+            return
+          }
+          setProgress(0)
+          return
+        }
+
+        if (!isIntersecting) {
           return
         }
         observer.disconnect()
@@ -137,10 +152,15 @@ const StatBarComponent = ({
                 {stat.label}
               </dt>
               <dd className="m-0 w-11 shrink-0 text-right">
+                {/* 최고/최저는 수치 폰트도 함께 강조(사용자 요청, QA 라운드 1) */}
                 <AnimatedValue
                   value={stat.value}
                   progress={progress}
-                  className="text-sm font-bold text-primary-1"
+                  className={
+                    isMax || isMin
+                      ? 'text-base font-extrabold text-primary-1'
+                      : 'text-sm font-bold text-primary-1'
+                  }
                 />
               </dd>
               <dd
