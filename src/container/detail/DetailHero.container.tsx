@@ -142,8 +142,10 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
             드러낸다, QA 라운드 2). 래퍼는 폼 유무와 무관하게 항상 렌더해 높이를
             예약한다 — 조건부 렌더면 폼 있는 개체로 이동할 때 히어로 높이가 변해
             CLS가 발생한다(QA 라운드 4). */}
+        {/* h-11 고정 + mb-4 — min-h+pb 조합은 빈 상태에서 패딩이 min-height에
+            흡수돼(border-box) 16px 차이가 났다(QA 라운드 5) */}
         <div
-          className="flex min-h-11 items-center justify-center gap-1 pb-4"
+          className="mb-4 flex h-11 items-center justify-center gap-1"
           aria-label={totalForms > 1 ? '폼 이미지 순회' : undefined}
         >
           {totalForms > 1 && (
