@@ -34,8 +34,10 @@ interface MatchupRow {
   types: Array<PokemonType>
 }
 
+// Tag와 동일한 수직 규격(h-5/h-6 + 높이+2px 라인하이트, Gmarket 보정) —
+// py 기반 높이는 태그와 몇 px씩 어긋난다(QA 라운드 6)
 const BADGE_CLASS =
-  'inline-block w-12 shrink-0 rounded-lg py-0.5 text-center text-xs font-bold text-black-2'
+  'inline-block h-5 w-12 shrink-0 rounded-lg text-center text-2xs font-bold leading-[calc(1.25rem+2px)] text-black-2 desktop:h-6 desktop:text-xs desktop:leading-[calc(1.5rem+2px)]'
 
 const MatchupSection = ({
   title,
@@ -64,7 +66,7 @@ const MatchupSection = ({
               <span aria-hidden="true">{row.label}</span>
               <span className="sr-only">{row.srLabel}</span>
             </dt>
-            <dd className="m-0 flex flex-wrap gap-1.5 pt-0.5">
+            <dd className="m-0 flex flex-wrap gap-1.5">
               {row.types.map((type) => (
                 <TagComponent key={type} type={type} />
               ))}
