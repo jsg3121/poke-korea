@@ -82,10 +82,32 @@ ux-designer 설계(UX-005) → DS 시안 → 사용자 결정(개정 1·2) → �
 | 타입 상성 | 기존 강점/약점 토글 구조 유지(우수 판정) + role=tab 시맨틱 보강 |
 | 크롬 | UA 분기는 전역 헤더/푸터/탭바 선택만 잔존. 광고 배너는 잠정 제외(반응형 유닛 트랙) |
 
+## 🔄 QA 라운드 (로컬 실기기 확인, 1~6차)
+
+- **라운드 1**: 레이아웃 폭 1280px(max-w-7xl), 히어로 이미지 데스크톱 384px(원인:
+  ImageComponent의 figure/img 크기 이원화 — img에 object-contain 필요), StatBar
+  최초 뷰포트 노출 시 모션 생략(이중 표시 어색), 최고/최저 수치 폰트 강조, 진화
+  체인 li 중첩 hydration 오류 수정(HorizontalScrollList가 자체 li 래핑), 종 내비를
+  히어로 그라데이션 위 오버레이로(헤더~히어로 공백 제거)
+- **라운드 2**: 기술 행 줄바꿈 통일(이름만 자기 영역 줄바꿈 — 칩 위치 고정), 진화
+  체인 이름 표시(fetchPokemonSummaries 신규), 폼 슬라이드를 히어로 하단 중앙으로,
+  PC 이미지 위치 고정(이미지 shrink-0 + 정보 flex-1), 기본정보 dt 폭 96px
+- **라운드 3**: 폼 전환을 아이콘+라벨 알약으로(기존 스위치 문법 계승), 모바일 여백
+  압축(행 높이·카드 제목·섹션 간격 — 전역 dl h-10 고정이 원인), **text-base 토큰
+  반응형화(모바일 14px, [ADR-0012](/.claude/decisions/records/ADR-0012-responsive-base-font-token.md))**
+- **라운드 4·5**: 폼 슬라이드 CLS 제거(래퍼 상시 렌더 — min-h+pb의 border-box
+  흡수로 16px 오차까지 정합), 기술 구분선 border-solid 누락 수정(이 프로젝트
+  리셋은 border-style 기본이 solid가 아님)
+- **라운드 6 — 타입 상성 UI 개편**: 강점/약점 토글 제거(비교 정보 반쪽 숨김 —
+  탭 회피 원칙 모순) → **TypeMatchup DS 신규**(약점 우선·동시 노출, 배율 배지
+  색+기호 병기, grade 색 5종 토큰 정규화). 상성 계산기 페이지와 공유할 자산.
+  배지는 Tag와 동일 수직 규격(h-5/h-6 + 높이+2px 라인하이트)으로 정렬
+
 ## 🔍 검증
 
 - `tsc --noEmit` · `eslint` · `next build` · `build-storybook` 전부 통과
-- StatBar·MoveTable은 Storybook 실렌더 캡처(1024/375)로 동률 마킹·열 정렬 확인
+- StatBar·MoveTable·TypeMatchup은 Storybook 실렌더 캡처(1024/375)로 확인
+- 로컬 실기기 QA 6라운드(PC·모바일) 반영 완료
 - 구버전(Detail.desktop/mobile, container/desktop·mobile/detail)은 미삭제 —
   사용처 0건 상태로 유지, 구버전 일괄 제거 트랙에서 정리 예정
 
