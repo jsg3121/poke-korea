@@ -47,6 +47,12 @@ module.exports = {
         'damage-physical': '#fd8181',
         'damage-special': '#9b9bfa',
         'damage-status': '#72d372',
+        // 타입 상성 배율 배지 색 — 구 TypeList grade 임의값을 토큰으로 정규화
+        'grade-danger': '#ff5f42', // ×4
+        'grade-warning': '#f9bd3d', // ×2
+        'grade-good': '#59a0f5', // ×0.5
+        'grade-better': '#5ce9ff', // ×0.25
+        'grade-best': '#6af073', // ×0
         // 카드 UI 색상
         'card-accent': '#334150',
         // 포켓몬 타입 색상들
