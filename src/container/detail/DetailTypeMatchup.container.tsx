@@ -25,7 +25,7 @@ const DetailTypeMatchupContainer = () => {
     }`
 
   return (
-    <div className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-5 desktop:gap-8">
       <section className="card-detail" aria-labelledby="pokemon-type-relation">
         <InfoCardTitleComponent title="타입 상성" id="pokemon-type-relation" />
         <div

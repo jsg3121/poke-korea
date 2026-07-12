@@ -15,7 +15,9 @@ module.exports = {
         '2xs': '0.6875rem', // 11px - 모바일 최소 폰트(접근성)
         xs: '0.75rem',
         sm: '0.875rem',
-        base: '1rem',
+        // 모바일 14px → 데스크톱 16px (CSS 변수, globals.css 정의 — ADR-0012).
+        // root font-size는 여전히 16px 고정(ADR-0009)이라 rem 예측성은 유지된다.
+        base: 'var(--font-size-base)',
         lg: '1.125rem',
         xl: '1.25rem',
         '2xl': '1.5rem',

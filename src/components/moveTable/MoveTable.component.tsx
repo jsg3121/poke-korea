@@ -89,7 +89,7 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
         {moves.map((move, index) => (
           <li
             key={`${move.name}-${move.condition}-${index}`}
-            className="border-b border-primary-3 py-2.5 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2 desktop:px-3"
+            className="border-b border-primary-3 py-2 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2 desktop:px-3 desktop:py-2.5"
           >
             {/* 이름만 자기 영역(flex-1) 안에서 줄바꿈 — 태그/칩은 항상 같은 위치
                 (flex-wrap이면 이름 길이에 따라 칩이 다음 줄로 밀려 행마다 배치가
@@ -117,7 +117,7 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
                 />
               </span>
             </div>
-            <div className="mt-1.5 flex items-center gap-4 desktop:contents">
+            <div className="mt-1 flex items-center gap-4 desktop:contents">
               <MoveStat label="위력" value={move.power} />
               <MoveStat label="명중" value={move.accuracy} />
               <MoveStat label="PP" value={move.pp} />

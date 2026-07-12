@@ -24,6 +24,10 @@
 /* 기본 스타일 재설정 */
 @layer base {
   :root {
+    /* text-base 실값 — 모바일 14px, 데스크톱(769px+) 16px (ADR-0012).
+       root font-size 16px 고정(ADR-0009)은 그대로: rem 자동 축소가 아니라
+       base "토큰 하나"만 반응형 변수다. spacing 등 다른 rem 토큰은 영향 없음. */
+    --font-size-base: 0.875rem;
     --color-primary-1: theme('colors.primary-1');
     --color-primary-2: theme('colors.primary-2');
     --color-primary-3: theme('colors.primary-3');
@@ -36,6 +40,12 @@
     --color-shadow-1: theme('colors.shadow-1');
     --color-shadow-2: theme('colors.shadow-2');
     --color-shadow-3: theme('colors.shadow-3');
+  }
+
+  @media (min-width: 769px) {
+    :root {
+      --font-size-base: 1rem;
+    }
   }
 
   * {

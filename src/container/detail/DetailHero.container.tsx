@@ -168,7 +168,7 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
               </span>
             )}
             <span className="text-xs font-semibold text-primary-1 desktop:text-sm">
-              폼 {activeIndex + 1}/{totalForms}
+              {activeIndex + 1}/{totalForms}
             </span>
             {hasNext ? (
               <Link

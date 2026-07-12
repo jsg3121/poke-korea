@@ -147,7 +147,10 @@ const StatBarComponent = ({
           const isMax = stat.value === maxValue
           const isMin = stat.value === minValue && minValue !== maxValue
           return (
-            <div key={stat.label} className="flex min-h-8 items-center gap-2">
+            <div
+              key={stat.label}
+              className="flex min-h-7 items-center gap-2 desktop:min-h-8"
+            >
               <dt className="w-16 shrink-0 text-xs font-semibold text-primary-2">
                 {stat.label}
               </dt>

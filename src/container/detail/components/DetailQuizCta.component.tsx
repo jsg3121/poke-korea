@@ -20,7 +20,7 @@ const DetailQuizCtaComponent = ({
   ctaLabel = '도전하기',
 }: DetailQuizCtaProps) => {
   return (
-    <div className="flex w-full flex-col items-start gap-3 rounded-2xl bg-primary-4 p-4 shadow-lg desktop:flex-row desktop:items-center desktop:justify-between desktop:p-5">
+    <div className="flex w-full flex-col items-start gap-2 rounded-2xl bg-primary-4 p-3 shadow-lg desktop:flex-row desktop:items-center desktop:justify-between desktop:gap-3 desktop:p-5">
       <div>
         <p className="text-sm font-bold text-primary-1 desktop:text-base">
           {title}

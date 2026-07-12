@@ -40,7 +40,11 @@ const ChampionsHeroSection = ({
               key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
               className="w-[175px] flex-shrink-0 px-1 py-1"
             >
-              <ChampionsTopCard pokemonData={pokemon} isHighPriority formatSlug={formatSlug} />
+              <ChampionsTopCard
+                pokemonData={pokemon}
+                isHighPriority
+                formatSlug={formatSlug}
+              />
             </li>
           ))}
         </ul>
@@ -56,7 +60,11 @@ const ChampionsHeroSection = ({
             key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
             className="w-[200px] flex-shrink-0"
           >
-            <ChampionsTopCard pokemonData={pokemon} isHighPriority formatSlug={formatSlug} />
+            <ChampionsTopCard
+              pokemonData={pokemon}
+              isHighPriority
+              formatSlug={formatSlug}
+            />
           </li>
         ))}
       </ul>
