@@ -139,61 +139,65 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
         </div>
 
         {/* 폼 이미지 순회 — 히어로 하단 중앙(이미지와 같은 맥락에 붙여 기능을
-            드러낸다, QA 라운드 2에서 FormRow 우측 배치가 불명확하다는 피드백) */}
-        {totalForms > 1 && (
-          <div
-            className="flex items-center justify-center gap-1 pb-4"
-            aria-label="폼 이미지 순회"
-          >
-            {hasPrev ? (
-              <Link
-                href={getFormUrl({
-                  activeIndex: activeIndex - 1,
-                  pokemonNumber: pokemonBaseInfo?.number ?? 0,
-                  activeType,
-                  isShiny,
-                })}
-                replace
-                className={slideLinkClass}
-                aria-label={`이전 폼: ${imageList?.[activeIndex - 1]?.name ?? ''}`}
-              >
-                <span aria-hidden="true">◀</span>
-              </Link>
-            ) : (
-              <span
-                className={`${slideLinkClass} opacity-30`}
-                aria-hidden="true"
-              >
-                ◀
+            드러낸다, QA 라운드 2). 래퍼는 폼 유무와 무관하게 항상 렌더해 높이를
+            예약한다 — 조건부 렌더면 폼 있는 개체로 이동할 때 히어로 높이가 변해
+            CLS가 발생한다(QA 라운드 4). */}
+        <div
+          className="flex min-h-11 items-center justify-center gap-1 pb-4"
+          aria-label={totalForms > 1 ? '폼 이미지 순회' : undefined}
+        >
+          {totalForms > 1 && (
+            <>
+              {hasPrev ? (
+                <Link
+                  href={getFormUrl({
+                    activeIndex: activeIndex - 1,
+                    pokemonNumber: pokemonBaseInfo?.number ?? 0,
+                    activeType,
+                    isShiny,
+                  })}
+                  replace
+                  className={slideLinkClass}
+                  aria-label={`이전 폼: ${imageList?.[activeIndex - 1]?.name ?? ''}`}
+                >
+                  <span aria-hidden="true">◀</span>
+                </Link>
+              ) : (
+                <span
+                  className={`${slideLinkClass} opacity-30`}
+                  aria-hidden="true"
+                >
+                  ◀
+                </span>
+              )}
+              <span className="text-xs font-semibold text-primary-1 desktop:text-sm">
+                {activeIndex + 1}/{totalForms}
               </span>
-            )}
-            <span className="text-xs font-semibold text-primary-1 desktop:text-sm">
-              {activeIndex + 1}/{totalForms}
-            </span>
-            {hasNext ? (
-              <Link
-                href={getFormUrl({
-                  activeIndex: activeIndex + 1,
-                  pokemonNumber: pokemonBaseInfo?.number ?? 0,
-                  activeType,
-                  isShiny,
-                })}
-                replace
-                className={slideLinkClass}
-                aria-label={`다음 폼: ${imageList?.[activeIndex + 1]?.name ?? ''}`}
-              >
-                <span aria-hidden="true">▶</span>
-              </Link>
-            ) : (
-              <span
-                className={`${slideLinkClass} opacity-30`}
-                aria-hidden="true"
-              >
-                ▶
-              </span>
-            )}
-          </div>
-        )}
+              {hasNext ? (
+                <Link
+                  href={getFormUrl({
+                    activeIndex: activeIndex + 1,
+                    pokemonNumber: pokemonBaseInfo?.number ?? 0,
+                    activeType,
+                    isShiny,
+                  })}
+                  replace
+                  className={slideLinkClass}
+                  aria-label={`다음 폼: ${imageList?.[activeIndex + 1]?.name ?? ''}`}
+                >
+                  <span aria-hidden="true">▶</span>
+                </Link>
+              ) : (
+                <span
+                  className={`${slideLinkClass} opacity-30`}
+                  aria-hidden="true"
+                >
+                  ▶
+                </span>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </section>
   )
