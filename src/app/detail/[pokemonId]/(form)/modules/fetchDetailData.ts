@@ -1,4 +1,5 @@
 import {
+  GetDetailMovesPokemonInfoDocument,
   GetPokemonGigantamaxDocument,
   GetPokemonMegaEvolutionDocument,
   GetPokemonNormalFormDocument,
@@ -8,6 +9,7 @@ import {
   PokemonDetailDocument,
 } from '~/graphql/gqlGenerated'
 import {
+  GetDetailMovesPokemonInfoQuery,
   GetPokemonGigantamaxQuery,
   GetPokemonMegaEvolutionQuery,
   GetPokemonNormalFormImageListQuery,
@@ -37,6 +39,62 @@ export interface DetailPokemonInfo {
   normalFormImageList: Array<string>
   activeType: TActiveType
   activeIndex: number
+}
+
+export interface AdjacentPokemonInfo {
+  number: number
+  name: string
+}
+
+/** 포켓몬 번호 1건의 이름 경량 조회(GetDetailMovesPokemonInfo 재사용). 범위 밖·실패는 null */
+const fetchPokemonSummary = async (
+  id: number,
+): Promise<AdjacentPokemonInfo | null> => {
+  if (id < 1) return null
+  const apolloClient = initializeApollo()
+  try {
+    const { data } = await apolloClient.query<GetDetailMovesPokemonInfoQuery>({
+      query: GetDetailMovesPokemonInfoDocument,
+      variables: { pokemonId: id },
+      fetchPolicy: 'cache-first',
+    })
+    const name = data?.getPokemonDetail?.name
+    return name ? { number: id, name } : null
+  } catch {
+    return null
+  }
+}
+
+/**
+ * 여러 포켓몬 번호의 이름 일괄 조회 — 진화 체인 이름 표시용(QA 라운드 2).
+ * 입력 순서를 유지하고 조회 실패분은 제외한다.
+ */
+export const fetchPokemonSummaries = async (
+  ids: Array<number>,
+): Promise<Array<AdjacentPokemonInfo>> => {
+  const results = await Promise.all(ids.map(fetchPokemonSummary))
+  return results.filter((item): item is AdjacentPokemonInfo => item !== null)
+}
+
+/**
+ * 이전/다음 포켓몬(도감번호 ±1) 이름 조회 — 종 단위 내비게이션용(UX-005 M2).
+ * 경량 쿼리(GetDetailMovesPokemonInfo: id·name·types만)를 재사용한다.
+ * 도감 범위 밖(0번, 마지막 번호 다음)은 조회 실패 → null로 해당 방향 비활성.
+ */
+export const fetchAdjacentPokemon = async (
+  pokemonId: number,
+): Promise<{
+  prev: AdjacentPokemonInfo | null
+  next: AdjacentPokemonInfo | null
+}> => {
+  const fetchOne = fetchPokemonSummary
+
+  const [prev, next] = await Promise.all([
+    fetchOne(pokemonId - 1),
+    fetchOne(pokemonId + 1),
+  ])
+
+  return { prev, next }
 }
 
 /**

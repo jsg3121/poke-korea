@@ -1,14 +1,20 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound, permanentRedirect, RedirectType } from 'next/navigation'
+import MobileTabBar from '~/components/MobileTabBar'
 import { DetailProvider } from '~/context/Detail.context'
+import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
+import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
-import DetailDesktop from '~/views/desktop/detail/Detail.desktop'
-import DetailMobile from '~/views/mobile/detail/Detail.mobile'
+import DetailView from '~/views/detail/Detail.view'
 import { generatePokemonJsonLd } from '../../../../../../constants/pokemonJsonLd'
 import { SHINY_QNA_JSON_LD } from '../../../../../../constants/shinyJsonLd'
 import {
+  fetchAdjacentPokemon,
   fetchPokemonDetail,
+  fetchPokemonSummaries,
   fetchRegionFormData,
 } from '../../modules/fetchDetailData'
 import { generateDetailMetadata } from '../../modules/generateMetadata'
@@ -101,8 +107,12 @@ const RegionPage = async ({ params, searchParams }: RegionPageProps) => {
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
 
-  const { regionFormData, versionGroupData } =
-    await fetchRegionFormData(parsedPokemonId)
+  const [{ regionFormData, versionGroupData }, adjacent, evolutionPokemons] =
+    await Promise.all([
+      fetchRegionFormData(parsedPokemonId),
+      fetchAdjacentPokemon(parsedPokemonId),
+      fetchPokemonSummaries(pokemonDetail.evolutionId),
+    ])
 
   const props = {
     pokemonBaseInfo: pokemonDetail,
@@ -128,7 +138,29 @@ const RegionPage = async ({ params, searchParams }: RegionPageProps) => {
 
   return (
     <DetailProvider {...props}>
-      {isMobile ? <DetailMobile /> : <DetailDesktop />}
+      {/* 콘텐츠는 반응형 단일(DetailView) — UA 분기는 크롬 선택만(ADR-0007) */}
+      {isMobile ? (
+        <main className="w-full min-h-screen">
+          <MobileHeaderContainer />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
+          <MobileFooterContainer />
+          <MobileTabBar />
+        </main>
+      ) : (
+        <main className="w-full min-h-screen pt-30">
+          <DesktopHeaderContainer />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
+          <DesktopFooterContainer />
+        </main>
+      )}
       <script
         id="pokemon-jsonLd"
         type="application/ld+json"

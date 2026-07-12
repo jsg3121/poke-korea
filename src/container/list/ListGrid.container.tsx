@@ -48,7 +48,7 @@ const ListGridContainer = () => {
 
   return (
     <section
-      className="w-full max-w-[1280px] mx-auto px-4 py-6 desktop:px-8 desktop:py-8"
+      className="w-full max-w-[1280px] mx-auto px-4 py-6"
       aria-labelledby="pokemon-list-heading"
     >
       <h2 id="pokemon-list-heading" className="sr-only">

@@ -124,10 +124,10 @@ const ChampionsTierTeamCoreCard = ({
       <div className="flex items-center gap-2 border-t-2 border-primary-3">
         {members.map((member) => {
           const href = buildPokemonHref(
-      member.pokemonId,
-      member.formType,
-      member.formCode,
-    )
+            member.pokemonId,
+            member.formType,
+            member.formCode,
+          )
           const imageContent = member.imagePath ? (
             <ImageComponent
               width={IMAGE_DIM.rem}

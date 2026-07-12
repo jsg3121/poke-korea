@@ -15,7 +15,9 @@ module.exports = {
         '2xs': '0.6875rem', // 11px - 모바일 최소 폰트(접근성)
         xs: '0.75rem',
         sm: '0.875rem',
-        base: '1rem',
+        // 모바일 14px → 데스크톱 16px (CSS 변수, globals.css 정의 — ADR-0012).
+        // root font-size는 여전히 16px 고정(ADR-0009)이라 rem 예측성은 유지된다.
+        base: 'var(--font-size-base)',
         lg: '1.125rem',
         xl: '1.25rem',
         '2xl': '1.5rem',
@@ -45,6 +47,12 @@ module.exports = {
         'damage-physical': '#fd8181',
         'damage-special': '#9b9bfa',
         'damage-status': '#72d372',
+        // 타입 상성 배율 배지 색 — 구 TypeList grade 임의값을 토큰으로 정규화
+        'grade-danger': '#ff5f42', // ×4
+        'grade-warning': '#f9bd3d', // ×2
+        'grade-good': '#59a0f5', // ×0.5
+        'grade-better': '#5ce9ff', // ×0.25
+        'grade-best': '#6af073', // ×0
         // 카드 UI 색상
         'card-accent': '#334150',
         // 포켓몬 타입 색상들

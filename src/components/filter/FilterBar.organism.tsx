@@ -120,7 +120,7 @@ const FilterBarOrganism = () => {
     <div
       role="search"
       aria-label="타입별 포켓몬 필터 검색"
-      className="w-full max-w-[1280px] mx-auto px-4 desktop:px-8"
+      className="w-full max-w-[1280px] mx-auto px-4"
     >
       {/* 타입 칩 — 가로 스크롤(칩이 뷰포트보다 많을 때). 데스크톱은 넉넉히 펼침 */}
       <ul className="flex items-start gap-2 overflow-x-auto py-1 desktop:justify-between desktop:overflow-visible">
