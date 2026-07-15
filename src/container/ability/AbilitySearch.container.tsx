@@ -28,16 +28,22 @@ const AbilitySearchContainer = ({
   const router = useRouter()
 
   const updateSearchParams = useDebouncedCallback((value: string) => {
-    const queryString = new URLSearchParams(params)
+    // ReadonlyURLSearchParams(params)를 직접 넘기면 타입 호환 경고가 날 수 있어
+    // toString()으로 복사한다. search만 갱신하고 나머지 쿼리(필터·페이지 등)는
+    // 보존해야 하므로, 갱신한 queryString을 분기 상관없이 그대로 URL에 반영한다.
+    const queryString = new URLSearchParams(params.toString())
     const trimmedValue = value.trim()
 
     if (trimmedValue) {
       queryString.set('search', trimmedValue)
-      router.replace(`${pathname}?${queryString}`, { scroll: false })
     } else {
       queryString.delete('search')
-      router.replace(`${pathname}`, { scroll: false })
     }
+
+    const search = queryString.toString()
+    router.replace(search ? `${pathname}?${search}` : pathname, {
+      scroll: false,
+    })
   })
 
   return (
