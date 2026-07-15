@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import ChipComponent from '~/components/chip/Chip.component'
 import { ChipColor } from '~/components/chip/chipStyle'
 import TagComponent from '~/components/tag/Tag.component'
@@ -30,6 +31,12 @@ export interface MoveTableItem {
   power?: number | null
   accuracy?: number | null
   pp?: number | null
+  /**
+   * 기술 상세 링크 URL. 넘기면 행 전체가 이 URL로 이동하는 stretched-link
+   * (오버레이)가 된다. 미지정 시 순수 표시 행(하위 호환). 경로 규칙
+   * (버전 세그먼트 등)은 호출부 책임 — DS는 URL만 받는다.
+   */
+  href?: string
 }
 
 interface MoveTableProps {
@@ -89,8 +96,22 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
         {moves.map((move, index) => (
           <li
             key={`${move.name}-${move.condition}-${index}`}
-            className="border-b border-solid border-primary-2 py-2 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2 desktop:px-3 desktop:py-2.5"
+            className={`relative border-b border-solid border-primary-2 py-2 last:border-b-0 desktop:flex desktop:items-center desktop:gap-2 desktop:px-3 desktop:py-2.5 ${
+              move.href
+                ? 'rounded-lg transition-colors hover:bg-primary-1/5'
+                : ''
+            }`}
           >
+            {/* href가 있으면 행 전체가 상세로 가는 stretched-link — 오버레이만
+                두고 라벨은 aria로 준다(행 내부 요소는 인터랙티브가 아니라 충돌 없음).
+                display:contents 기반 열 정렬을 건드리지 않는다(Nomensa/CSS-Tricks). */}
+            {move.href && (
+              <Link
+                href={move.href}
+                aria-label={`${move.name} 상세 정보`}
+                className="absolute inset-0 z-10 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-1"
+              />
+            )}
             {/* 이름만 자기 영역(flex-1) 안에서 줄바꿈 — 태그/칩은 항상 같은 위치
                 (flex-wrap이면 이름 길이에 따라 칩이 다음 줄로 밀려 행마다 배치가
                 달라진다, QA 라운드 2) */}
