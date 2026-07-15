@@ -87,6 +87,20 @@ type Story = StoryObj<typeof meta>
 /** 레벨업 습득 기술 — 뷰포트 폭을 줄이면 2줄 행, 늘리면 정렬 표 */
 export const Default: Story = {}
 
+/**
+ * 행 클릭 가능 — `href`를 넘기면 행 전체가 그 URL로 가는 stretched-link가
+ * 된다(상세 습득 기술 페이지 용). 경로 규칙은 호출부 책임. 미지정 행은 순수 표시(하위 호환).
+ */
+export const Linkable: Story = {
+  args: {
+    moves: LEVEL_UP_MOVES.map((move, index) => ({
+      ...move,
+      href: `/moves/${index + 1}`,
+    })),
+    ariaLabel: '레벨업 습득 기술 목록 (행 클릭 시 상세 이동)',
+  },
+}
+
 /** 머신 습득 기술 — 조건 라벨이 '머신'으로 고정되는 케이스 */
 export const Machine: Story = {
   args: {
