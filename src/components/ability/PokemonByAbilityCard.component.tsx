@@ -103,7 +103,11 @@ const PokemonByAbilityCardComponent = ({
         </div>
       }
     >
-      <div className="w-full flex flex-wrap items-center justify-center gap-2 px-2 mt-2">
+      {/* 배지 영역: 배지(숨겨진 특성·폼) 유무와 무관하게 min-h-6으로 높이를 고정해
+          카드마다 이미지 아래 여백이 들쭉날쭉하지 않게 한다. 타입 태그(셸이 좌측
+          정렬로 렌더)와 정렬을 맞추기 위해 배지도 좌측 정렬한다 — 타입 중앙 정렬은
+          셸이 공유 SSOT라 특성 카드만 바꿀 수 없어 좌측으로 통일. */}
+      <div className="w-full flex flex-wrap items-center justify-start gap-2 px-2 mt-2 min-h-6">
         {pokemonData.isHidden && (
           <strong className="h-6 text-aligned-sm px-2 text-xs bg-type-electric text-black-2 rounded-md font-bold">
             숨겨진 특성

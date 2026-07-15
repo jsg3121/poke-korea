@@ -37,9 +37,11 @@ import { useLazyImage } from '~/hook/useLazyImage'
  * 상한 192는 폭이 넓은 기기에서 카드가 과도하게 커지지 않게 제한한다 — 기존 max-w-full은
  * 상한이 없어 넓은 기기의 그리드 셀에서 폭만 늘고 높이는 고정이라 비율이 제각각이었다
  * (높이는 고정 유지 — 144px일 때 길쭉한 비율은 감수, 사용자 결정 2026-07-15).
+ * 상한 192는 모바일 전용이다 — 데스크톱은 w-56(224px)이 목표라 max-w-none으로 상한을
+ * 풀어야 한다(안 풀면 max-w-48이 w-56을 눌러 데스크톱 카드가 192px로 작아진다).
  */
 export const POKEMON_CARD_SIZE = {
-  width: 'min-w-36 max-w-48 desktop:w-56',
+  width: 'min-w-36 max-w-48 desktop:max-w-none desktop:w-56',
   height: 'h-[15.5rem] desktop:h-80',
 } as const
 
