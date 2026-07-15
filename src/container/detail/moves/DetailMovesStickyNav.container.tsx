@@ -81,9 +81,11 @@ const DetailMovesStickyNavContainer = () => {
     // max-w-7xl로 가둔다(모바일 헤더 48px / 데스크톱 헤더 실높이 120px 오프셋).
     <div className="sticky top-12 z-40 border-b border-solid border-primary-3/30 bg-primary-1 desktop:top-30">
       <div className="mx-auto w-full desktop:max-w-7xl">
+        {/* 학습법 탭은 URL 이동 링크(next/link)라 role="tablist"(같은 페이지 내
+            패널 전환용, WAI-ARIA APG)가 아니라 일반 내비게이션 — aria-current로
+            현재 페이지만 표시(Gemini) */}
         <nav
           aria-label="학습 방법 선택"
-          role="tablist"
           className="flex gap-1 border-b border-solid border-primary-3/25 px-4 desktop:gap-2 desktop:px-0"
         >
           <TabItemComponent

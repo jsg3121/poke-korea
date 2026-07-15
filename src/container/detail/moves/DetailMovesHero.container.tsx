@@ -70,8 +70,10 @@ const DetailMovesHeroContainer = () => {
       ? `/detail/${pokemonId}/moves/region/${Math.min(activeIndex + 1, formDataLength - 1)}`
       : `/detail/${pokemonId}/moves/form/${Math.min(activeIndex + 1, formDataLength - 1)}`
 
-  const isFirstForm = activeIndex === 0
-  const isLastForm = activeIndex === formDataLength - 1
+  // 경계 방어: formDataLength가 0/1이면(폼 데이터 없음) 양쪽 모두 비활성 —
+  // 그대로 두면 nextFormHref가 .../form/-1 같은 잘못된 경로를 만든다(Gemini)
+  const isFirstForm = activeIndex <= 0
+  const isLastForm = formDataLength <= 1 || activeIndex >= formDataLength - 1
 
   // 이름 길이에 따라 히어로 이름 폰트 축소(모바일 강제 줄바꿈 완화). 데스크톱은
   // 폭 여유가 있어 항상 큰 폰트. 노말폼/리전폼처럼 긴 이름은 한 단계 줄인다.

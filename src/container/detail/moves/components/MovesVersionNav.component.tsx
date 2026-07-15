@@ -67,9 +67,11 @@ const MovesVersionNavComponent = ({ items }: MovesVersionNavProps) => {
           ))}
         </div>
         {/* 가로 스크롤 단서: 우측 페이드(iOS 스크롤바 미표시 대비, RES-003) */}
+        {/* to-transparent은 Safari에서 회색 잔상 — 동색 투명(to-primary-1/0)으로
+            보간해야 깔끔(CSS Images 3 premultiplied 보간, Gemini) */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-primary-1 to-transparent"
+          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-primary-1 to-primary-1/0"
         />
       </div>
     </nav>
