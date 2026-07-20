@@ -102,9 +102,11 @@ const MovesFilterBarContainer = () => {
             className="h-4 w-4 desktop:h-5 desktop:w-5"
           />
           필터
+          {/* 화살표는 버튼 폰트(text-xs)를 상속하면 12px로 너무 작다(로컬 확인
+              피드백 2026-07-20) — 한 단계 키우고 leading-none으로 높이 영향 차단 */}
           <span
             aria-hidden="true"
-            className={`transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            className={`text-sm leading-none transition-transform desktop:text-base ${isOpen ? 'rotate-180' : ''}`}
           >
             ▾
           </span>

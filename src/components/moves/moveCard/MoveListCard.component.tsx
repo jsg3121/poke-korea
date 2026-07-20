@@ -16,7 +16,15 @@ import { getDamageTypeKorean } from '~/utils/skill.util'
  *
  * 위력/명중/PP는 dl 3분할(넉넉한 밀도)로 유지한다 — 모바일 1열 그리드 확정
  * (UX-008 §10-1, 시안 비교 후 사용자 결정)이라 카드 폭이 충분하다.
+ *
+ * 밀도는 모바일 퍼스트 2단(로컬 확인 피드백 2026-07-20): 모바일은 1열이라
+ * 카드 높이가 곧 화면당 노출 수라 패딩·폰트를 한 단계 줄이고, 데스크톱은
+ * 다열 그리드라 넉넉한 규격을 유지한다. 기술명은 9자 이상이면 한 단계 더
+ * 축소한다(A그룹 DetailMovesHero의 긴 이름 축소 규칙 승계).
  */
+
+/** 이름이 길면 폰트를 한 단계 줄이는 기준 (A그룹 선례와 동일) */
+const LONG_NAME_LENGTH = 9
 
 /** 백엔드 damageType(소문자) → Chip color 매핑. 그 외 값은 Chip 생략 */
 const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
@@ -34,16 +42,26 @@ const MoveListCardComponent = ({ moveData }: MoveListCardProps) => {
     ? DAMAGE_CHIP_COLOR[moveData.damageType.toLowerCase()]
     : undefined
 
+  // 긴 기술명(9자+)은 한 단계 축소 — 배지와 한 줄 경합 시 줄바꿈을 완화
+  const nameSizeClass =
+    moveData.nameKo.length >= LONG_NAME_LENGTH
+      ? 'text-sm desktop:text-base'
+      : 'text-base desktop:text-lg'
+
   return (
     <Link
       href={`/moves/${moveData.id}`}
       className="block w-full"
       aria-label={`${moveData.nameKo} 기술 상세보기`}
     >
-      <article className="w-full min-h-44 bg-primary-4 border-2 border-solid border-primary-1 rounded-xl shadow-[0_0_0_3px_var(--color-primary-4)] p-3 pb-10 relative transition-transform duration-150 desktop:hover:-translate-y-0.5">
-        <header className="mb-3 pb-2 border-b border-solid border-primary-1 flex items-start justify-between gap-2">
-          <h3 className="text-lg desktop:text-xl font-bold text-gray-900 leading-tight">
-            <span className="text-sm font-normal text-primary-2">
+      {/* min-h는 스켈레톤과 규격 공유(CLS) — 모바일은 1열이라 높이를 압축(min-h-32),
+          하단 링크 예약(pb)도 링크 폰트에 맞춰 축소해 스펙-링크 사이 공백을 줄인다 */}
+      <article className="w-full min-h-32 bg-primary-4 border-2 border-solid border-primary-1 rounded-xl shadow-[0_0_0_3px_var(--color-primary-4)] p-2.5 pb-8 relative transition-transform duration-150 desktop:min-h-36 desktop:p-3 desktop:pb-9 desktop:hover:-translate-y-0.5">
+        <header className="mb-2 pb-1.5 border-b border-solid border-primary-1 flex items-start justify-between gap-2 desktop:mb-3 desktop:pb-2">
+          <h3
+            className={`${nameSizeClass} font-bold text-gray-900 leading-tight`}
+          >
+            <span className="text-xs desktop:text-sm font-normal text-primary-2">
               {moveData.id}.
             </span>
             &nbsp;
@@ -63,25 +81,25 @@ const MoveListCardComponent = ({ moveData }: MoveListCardProps) => {
         </header>
         <dl className="grid grid-cols-3 text-center">
           <div className="border-r border-solid border-primary-2/40">
-            <dt className="mb-1 text-xs text-primary-2">위력</dt>
-            <dd className="text-xl font-bold text-primary-1">
+            <dt className="mb-0.5 text-xs text-primary-2">위력</dt>
+            <dd className="text-lg desktop:text-xl font-bold text-primary-1">
               {moveData.power ?? '-'}
             </dd>
           </div>
           <div className="border-r border-solid border-primary-2/40">
-            <dt className="mb-1 text-xs text-primary-2">명중률</dt>
-            <dd className="text-xl font-bold text-primary-1">
+            <dt className="mb-0.5 text-xs text-primary-2">명중률</dt>
+            <dd className="text-lg desktop:text-xl font-bold text-primary-1">
               {moveData.accuracy ?? '-'}
             </dd>
           </div>
           <div>
-            <dt className="mb-1 text-xs text-primary-2">PP</dt>
-            <dd className="text-xl font-bold text-primary-1">
+            <dt className="mb-0.5 text-xs text-primary-2">PP</dt>
+            <dd className="text-lg desktop:text-xl font-bold text-primary-1">
               {moveData.pp ?? '-'}
             </dd>
           </div>
         </dl>
-        <p className="absolute bottom-3 left-3 text-sm desktop:text-xs text-primary-2 font-semibold">
+        <p className="absolute bottom-2.5 left-2.5 text-xs text-primary-2 font-semibold desktop:bottom-3 desktop:left-3">
           세대별 기술 정보 보러가기 &gt;
         </p>
       </article>
