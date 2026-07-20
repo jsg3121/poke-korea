@@ -26,10 +26,8 @@ import TypeEffectivenessCtaContainer from './TypeEffectivenessCta.container'
  */
 
 interface ResultRow {
-  /** 배율 표기 (예: '×4') */
-  label: string
-  /** 스크린리더용 배율 설명 */
-  srLabel: string
+  /** 배율 설명 문장 (예: '4배의 데미지를 줄 수 있어요') — 구버전 문구 승계 */
+  description: string
   /** grade 텍스트·보더 색 (정적 매핑, purge 안전) */
   textClass: string
   borderClass: string
@@ -51,22 +49,22 @@ const ResultSection = ({
       <h3 className="mb-4 text-lg desktop:text-xl font-bold text-primary-4">
         {title}
       </h3>
-      <dl className="flex flex-col gap-3">
+      <dl className="flex flex-col gap-4">
         {visibleRows.map((row) => (
           <div
-            key={row.label}
-            className={`flex items-start gap-3 border-l-4 border-solid pl-3 ${row.borderClass}`}
+            key={row.description}
+            className={`border-l-4 border-solid pl-3 ${row.borderClass}`}
           >
-            {/* 배율 텍스트형 — 좌측 고정 폭으로 ×4/×2 행이 세로 정렬돼 스캔 축이 생긴다.
-                폭은 가장 긴 라벨(×0.25) 기준 w-16/desktop:w-20 — 좁으면 배율 텍스트가
-                타입 칩 영역을 침범해 겹친다(로컬 피드백 2026-07-20) */}
+            {/* 배율은 설명 문장으로 표기(사용자 재결정 2026-07-20 — 압축 표기
+                ×4보다 구버전 문장이 초심자에게 자명하다). 문장이 길어 좌측 고정
+                폭 컬럼 대신 문장 위·칩 아래 세로 구조. grade 색은 문장 색+행
+                보더로 유지해 위험도 신호를 남긴다. */}
             <dt
-              className={`w-16 desktop:w-20 shrink-0 text-2xl desktop:text-3xl font-extrabold leading-none pt-0.5 ${row.textClass}`}
+              className={`text-base desktop:text-lg font-bold ${row.textClass}`}
             >
-              <span aria-hidden="true">{row.label}</span>
-              <span className="sr-only">{row.srLabel}</span>
+              {row.description}
             </dt>
-            <dd className="m-0 flex flex-wrap items-center gap-1.5 pt-0.5">
+            <dd className="m-0 mt-2 flex flex-wrap items-center gap-1.5">
               {row.types.map((type) => (
                 <Link
                   key={type}
@@ -96,19 +94,17 @@ const TypeCalculatorResultContainer = () => {
     .map((type) => PokemonTypes[type])
     .join(' + ')
 
-  // 공격 관점 라벨 — TypeMatchup의 약점/강점(방어 관점)과 극성이 반대라
-  // 같은 라벨을 쓰면 오해를 유발한다(UX-009 §3-2)
+  // 공격 관점 문장 — TypeMatchup의 약점/강점(방어 관점)과 극성이 반대라
+  // 같은 라벨을 쓰면 오해를 유발한다(UX-009 §3-2). 문구는 구버전 승계.
   const recommendRows: Array<ResultRow> = [
     {
-      label: '×4',
-      srLabel: '주는 데미지 4배',
+      description: '4배의 데미지를 줄 수 있어요',
       textClass: 'text-grade-danger',
       borderClass: 'border-grade-danger',
       types: quad,
     },
     {
-      label: '×2',
-      srLabel: '주는 데미지 2배',
+      description: '2배의 데미지를 줄 수 있어요',
       textClass: 'text-grade-warning',
       borderClass: 'border-grade-warning',
       types: double,
@@ -116,22 +112,19 @@ const TypeCalculatorResultContainer = () => {
   ]
   const cautionRows: Array<ResultRow> = [
     {
-      label: '×0.5',
-      srLabel: '주는 데미지 0.5배',
+      description: '0.5배의 데미지만 줄 수 있어요',
       textClass: 'text-grade-good',
       borderClass: 'border-grade-good',
       types: half,
     },
     {
-      label: '×0.25',
-      srLabel: '주는 데미지 0.25배',
+      description: '0.25배의 데미지만 줄 수 있어요',
       textClass: 'text-grade-better',
       borderClass: 'border-grade-better',
       types: quarter,
     },
     {
-      label: '×0',
-      srLabel: '데미지를 주지 못함',
+      description: '데미지를 줄 수 없어요',
       textClass: 'text-grade-best',
       borderClass: 'border-grade-best',
       types: zero,
