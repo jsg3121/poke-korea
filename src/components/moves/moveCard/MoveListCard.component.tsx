@@ -57,7 +57,9 @@ const MoveListCardComponent = ({ moveData }: MoveListCardProps) => {
       {/* min-h는 스켈레톤과 규격 공유(CLS) — 모바일은 1열이라 높이를 압축(min-h-32),
           하단 링크 예약(pb)도 링크 폰트에 맞춰 축소해 스펙-링크 사이 공백을 줄인다 */}
       <article className="w-full min-h-32 bg-primary-4 border-2 border-solid border-primary-1 rounded-xl shadow-[0_0_0_3px_var(--color-primary-4)] p-2.5 pb-8 relative transition-transform duration-150 desktop:min-h-36 desktop:p-3 desktop:pb-9 desktop:hover:-translate-y-0.5">
-        <header className="mb-2 pb-1.5 border-b border-solid border-primary-1 flex items-start justify-between gap-2 desktop:mb-3 desktop:pb-2">
+        {/* items-center: 배지(Chip h-7/Tag)가 제목 한 줄보다 높아 items-start면
+            제목이 상단에 붙어 보인다(로컬 피드백) — 배지 높이 기준 세로 중앙 정렬 */}
+        <header className="mb-2 pb-1.5 border-b border-solid border-primary-1 flex items-center justify-between gap-2 desktop:mb-3 desktop:pb-2">
           <h3
             className={`${nameSizeClass} font-bold text-gray-900 leading-tight`}
           >
