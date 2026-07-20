@@ -7,7 +7,7 @@ import { DetailMovesContext } from '~/context/DetailMoves.context'
 import { buildMovesPath } from '~/module/movesParams.module'
 import MovesVersionNavComponent, {
   MovesVersionNavItem,
-} from './components/MovesVersionNav.component'
+} from '~/components/moves/MovesVersionNav.component'
 
 /**
  * 습득 기술 sticky 크롬 블록 (UX-006) — 학습법 탭 + 버전 선택 nav.

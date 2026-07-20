@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
 /**
- * 버전(등장 버전) 선택 가로 스크롤 nav — detail/moves 페이지 전용 로컬 컴포넌트.
+ * 버전(등장 버전) 선택 가로 스크롤 nav.
  *
- * ADR-0010: 현재 이 페이지 1곳에서만 쓰이므로 DS(organism)로 올리지 않고 컨테이너
- * 로컬 components/로 둔다. 다른 페이지(예: /moves 목록)에서 재사용이 필요해지면
- * 그때 `src/components/moves/`로 승격한다.
+ * ADR-0010에 따라 detail/moves 컨테이너 로컬에서 `src/components/moves/`로 승격
+ * (UX-008) — 기술 상세(/moves/[id])가 동일 패턴(버전별 URL 링크 나열)을 재사용하면서
+ * 사용처가 2곳이 됐다. "최신" 같은 특수 항목은 호출부가 items 맨 앞에 prepend한다
+ * (컴포넌트는 항목 의미를 모른다).
  *
  * 각 버전은 별도 URL(path 기반)이라 항목은 링크(next/link)다 — Chip(clickable=button,
  * onClick만) 원자로는 커버되지 않아 시각 토큰만 Chip과 정합시켜 로컬 구현한다.
