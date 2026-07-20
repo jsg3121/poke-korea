@@ -21,8 +21,10 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
  * 액션(Button DS)으로 분리한다(m2).
  */
 
+// PokemonTypes enum의 키는 PokemonType(graphql enum) 값과 1:1 대응 —
+// 키를 PokemonType으로 단언하면 루프 내부의 개별 캐스팅이 사라진다(Gemini)
 const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
-  [string, PokemonTypes]
+  [PokemonType, PokemonTypes]
 >
 
 const TypeCalculatorContainer = () => {
@@ -66,7 +68,7 @@ const TypeCalculatorContainer = () => {
         className="grid grid-cols-[repeat(auto-fit,minmax(3rem,1fr))] justify-items-center gap-y-2 desktop:flex desktop:flex-wrap desktop:items-start desktop:gap-3"
       >
         {TYPE_ENTRIES.map(([value, name]) => {
-          const active = selectTypeList.includes(value as PokemonType)
+          const active = selectTypeList.includes(value)
           const disabled = isMaxSelectType && !active
           return (
             <TypeChipComponent
