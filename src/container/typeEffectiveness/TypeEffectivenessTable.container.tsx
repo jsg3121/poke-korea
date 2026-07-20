@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import {
   EffectivenessValue,
   TYPE_EFFECTIVENESS_CHART,
@@ -48,22 +48,11 @@ const VALUE_STYLE: Record<
 const TypeEffectivenessTableContainer = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
   const [activeType, setActiveType] = useState<ActivePointerType>(undefined)
-  const scrollRef = useRef<HTMLDivElement>(null)
 
-  // 계산기 선택 타입(상대 = 방어 축)의 한글 라벨 — 열 하이라이트 기준
+  // 계산기 선택 타입(상대 = 방어 축)의 한글 라벨 — 열 하이라이트 기준.
+  // 선택 시 표로 자동 스크롤 인하는 동작은 제거(사용자 결정 2026-07-20) —
+  // 계산기 조작 중 화면이 표 쪽으로 튀어 조작 흐름을 끊는다. 하이라이트만 유지.
   const selectedDefenseTypes = selectTypeList.map((type) => PokemonTypes[type])
-
-  // 모바일 가로 스크롤에서 선택 열이 화면 밖이면 첫 선택 열로 스크롤 인
-  useEffect(() => {
-    if (selectedDefenseTypes.length === 0) return
-    const target = scrollRef.current?.querySelector('[data-selected="true"]')
-    target?.scrollIntoView({
-      inline: 'center',
-      block: 'nearest',
-      behavior: 'smooth',
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectTypeList])
 
   const handleClickActiveEffective = (effectiveType: ActivePointerType) => {
     setActiveType((prev) =>
@@ -87,9 +76,11 @@ const TypeEffectivenessTableContainer = () => {
       activeType === active ? 'font-bold text-sm desktop:text-base' : ''
     const dimmed = activeType && activeType !== active ? 'opacity-30' : ''
 
+    // 흐림(opacity)은 td가 아니라 내부 span에만 건다 — td에 걸면 셀 보더까지
+    // 같이 흐려져 필터 활성화 시 표의 라인이 사라져 보인다(로컬 피드백 2026-07-20)
     return (
-      <td key={key} className={`${base} ${color} ${emphasized} ${dimmed}`}>
-        {label}
+      <td key={key} className={`${base} ${color}`}>
+        <span className={`${emphasized} ${dimmed}`}>{label}</span>
       </td>
     )
   }
@@ -120,7 +111,6 @@ const TypeEffectivenessTableContainer = () => {
       </p>
 
       <div
-        ref={scrollRef}
         tabIndex={0}
         role="group"
         aria-label="타입별 상성 표, 가로로 스크롤할 수 있어요"
@@ -143,7 +133,6 @@ const TypeEffectivenessTableContainer = () => {
                   <th
                     key={`col-${defenseType}`}
                     scope="col"
-                    data-selected={selected || undefined}
                     className={`h-10 min-w-11 border-b border-r border-solid border-primary-2 bg-primary-3 text-center align-middle text-xs text-black desktop:h-12 desktop:text-sm ${
                       selected ? 'font-bold underline underline-offset-2' : ''
                     }`}

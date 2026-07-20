@@ -1,7 +1,6 @@
 'use client'
 
 import { ChangeEvent, useContext } from 'react'
-import ButtonComponent from '~/components/button/Button.component'
 import TypeChipComponent from '~/components/chip/TypeChip.component'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { PokemonType } from '~/graphql/typeGenerated'
@@ -58,10 +57,13 @@ const TypeCalculatorContainer = () => {
         </p>
       </header>
 
+      {/* 모바일은 auto-fit 그리드로 균등 분배 — 고정폭 칩(w-12)을 flex-wrap으로
+          나열하면 기기 폭에 따라 우측에만 잉여 공백이 몰린다(로컬 피드백
+          2026-07-20). 데스크톱은 폭 여유가 있어 flex-wrap 자연 배치 유지. */}
       <div
         role="group"
         aria-label="상대 포켓몬 타입 선택"
-        className="flex flex-wrap items-start gap-2 desktop:gap-3"
+        className="grid grid-cols-[repeat(auto-fit,minmax(3rem,1fr))] justify-items-center gap-y-2 desktop:flex desktop:flex-wrap desktop:items-start desktop:gap-3"
       >
         {TYPE_ENTRIES.map(([value, name]) => {
           const active = selectTypeList.includes(value as PokemonType)
@@ -79,14 +81,18 @@ const TypeCalculatorContainer = () => {
         })}
       </div>
 
-      <div className="mt-4 flex justify-end">
-        <ButtonComponent
-          variant="secondary"
+      {/* 초기화는 본문 CTA가 아니라 보조 액션 — Button DS(min-h-touch 44px 강제)는
+          모바일에서 과대하다(로컬 피드백). 도감 리스트·기술 필터의 초기화와 동일한
+          슬림 버튼 문법(min-h-8/desktop:min-h-9, ADR-0011 슬림 계열)으로 통일. */}
+      <div className="mt-3 flex justify-end">
+        <button
+          type="button"
           onClick={handleResetSelectTypes}
           disabled={selectTypeList.length === 0}
+          className="min-h-8 shrink-0 px-2 text-xs text-primary-4 disabled:text-primary-2 desktop:min-h-9 desktop:text-sm"
         >
           선택 초기화
-        </ButtonComponent>
+        </button>
       </div>
     </section>
   )

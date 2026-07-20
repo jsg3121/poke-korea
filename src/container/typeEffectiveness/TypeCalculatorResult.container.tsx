@@ -57,9 +57,11 @@ const ResultSection = ({
             key={row.label}
             className={`flex items-start gap-3 border-l-4 border-solid pl-3 ${row.borderClass}`}
           >
-            {/* 배율 텍스트형 — 좌측 고정 폭으로 ×4/×2 행이 세로 정렬돼 스캔 축이 생긴다 */}
+            {/* 배율 텍스트형 — 좌측 고정 폭으로 ×4/×2 행이 세로 정렬돼 스캔 축이 생긴다.
+                폭은 가장 긴 라벨(×0.25) 기준 w-16/desktop:w-20 — 좁으면 배율 텍스트가
+                타입 칩 영역을 침범해 겹친다(로컬 피드백 2026-07-20) */}
             <dt
-              className={`w-14 desktop:w-16 shrink-0 text-2xl desktop:text-3xl font-extrabold leading-none pt-0.5 ${row.textClass}`}
+              className={`w-16 desktop:w-20 shrink-0 text-2xl desktop:text-3xl font-extrabold leading-none pt-0.5 ${row.textClass}`}
             >
               <span aria-hidden="true">{row.label}</span>
               <span className="sr-only">{row.srLabel}</span>
