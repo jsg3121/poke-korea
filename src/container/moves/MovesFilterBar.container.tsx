@@ -123,25 +123,26 @@ const MovesFilterBarContainer = () => {
 
       {isOpen && (
         <div className="flex flex-col gap-1 pb-1.5">
-          {/* 타입 칩 — 단일 선택 radio 그룹. 가로 스크롤(모바일), 데스크톱 펼침 */}
-          <ul
+          {/* 타입 칩 — 단일 선택 radio 그룹. 가로 스크롤(모바일), 데스크톱 펼침.
+              radiogroup 직계에 li(암시적 listitem)를 두면 ARIA 소유 구조 위반이라
+              (radiogroup은 radio만 소유) ul/li 없이 div+칩 직접 배치(Gemini) */}
+          <div
             role="radiogroup"
             aria-label="타입 필터"
             className="flex items-start gap-2 overflow-x-auto py-1 desktop:justify-between desktop:overflow-visible"
           >
             {TYPE_ENTRIES.map(([value, name]) => (
-              <li key={`moves-type-filter-${value}`}>
-                <TypeChip
-                  value={value}
-                  label={name}
-                  active={typeFilter === value}
-                  mode="single"
-                  name={TYPE_GROUP_NAME}
-                  onChange={handleToggleType}
-                />
-              </li>
+              <TypeChip
+                key={`moves-type-filter-${value}`}
+                value={value}
+                label={name}
+                active={typeFilter === value}
+                mode="single"
+                name={TYPE_GROUP_NAME}
+                onChange={handleToggleType}
+              />
             ))}
-          </ul>
+          </div>
 
           {/* 분류 칩 — MoveTable과 동일한 데미지 색 매핑(Chip color) */}
           <div

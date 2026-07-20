@@ -22,7 +22,7 @@ import ImageComponent from '~/components/Image.component'
  * 상태: active(선택됨=컬러), disabled(2개 선택 시 나머지 잠금=흐림). 색·크기는 토큰만 사용.
  */
 
-interface TypeChipProps {
+interface BaseTypeChipProps {
   /** 타입 식별자 (예: 'FIRE') — 폼 value 및 아이콘 파일명(소문자)로 사용 */
   value: string
   /** 타입 표시명 (예: '불꽃') */
@@ -32,11 +32,27 @@ interface TypeChipProps {
   /** 잠금 여부 (예: 최대 선택 수 도달 시 미선택 항목) */
   disabled?: boolean
   onChange: ChangeEventHandler<HTMLInputElement>
-  /** 선택 시맨틱 — 'multi'(기본, checkbox 다중) | 'single'(radio 단일) */
-  mode?: 'multi' | 'single'
-  /** single 모드의 radio 그룹명 (single일 때 필수). id 접두사로도 써 그룹 간 충돌 방지 */
-  name?: string
 }
+
+/**
+ * mode별 상호 배타 유니온 — single(radio)은 name이 그룹화에 필수라 타입으로
+ * 강제한다. optional로 두면 name 누락을 컴파일 시점에 못 잡는다(Gemini).
+ * name은 id 접두사로도 써 그룹 간 충돌을 막는다.
+ */
+type TypeChipProps = BaseTypeChipProps &
+  (
+    | {
+        /** 선택 시맨틱 — 'multi'(기본): checkbox 다중 */
+        mode?: 'multi'
+        name?: string
+      }
+    | {
+        /** 선택 시맨틱 — 'single': radio 단일(그룹당 1개) */
+        mode: 'single'
+        /** radio 그룹명 (single일 때 필수) */
+        name: string
+      }
+  )
 
 const TypeChipComponent = ({
   value,
