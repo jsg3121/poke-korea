@@ -34,9 +34,9 @@ const ChampionsTierGroup = ({
   )
 
   const headerContent = (
-    <span className="flex items-center justify-between gap-2 px-4 py-2 bg-primary-4 border-b border-primary-3/50">
+    <span className="flex items-center justify-between gap-2 px-4 py-1 bg-primary-4 border-b border-primary-3/50 desktop:py-2">
       <span className="flex items-center gap-2">
-        <ChampionsTierBadge tier={tier} />
+        <ChampionsTierBadge tier={tier} size="sm" />
         <span className="text-base text-primary-1">{pokemons.length}종</span>
       </span>
       {defaultCollapsed && (
@@ -72,7 +72,7 @@ const ChampionsTierGroup = ({
       {isOpen && (
         <div
           id={`tier-group-${tier}-content`}
-          className="py-4 px-2 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2"
+          className="py-4 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] justify-center gap-2 desktop:grid-cols-[repeat(auto-fill,146px)] desktop:px-2"
         >
           {isEmpty ? (
             <p className="col-span-full w-full text-center text-primary-3 py-8">
