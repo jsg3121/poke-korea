@@ -122,7 +122,6 @@ Playwright 실행이 어렵거나 사이트 접근이 불가능한 경우:
 
 ### 입력
 - UX 설계 결과 (ux-designer 출력) 또는 와이어프레임 텍스트
-- 산출 위치 (지정 안 되면 사용자에게 확인)
 - 색상/타이포 컨벤션 (프로젝트 시스템이 있다면 참고, 없으면 임의)
 - 반응형 뷰포트 (지정 안 되면 desktop 1280 + mobile 375 둘 다)
 
@@ -131,16 +130,14 @@ HTML/CSS 단일 파일.
 
 ## 산출 위치
 
-| 위치 옵션 | 의미 |
-| --- | --- |
-| `public/preview/` | Next.js public 폴더 사용 시 dev server 에서 `/preview/file.html` 로 직접 접근 가능 |
-| `.claude/playground/` | 시안 임시 폴더 (gitignore 권장) |
-| 프로젝트 루트 | 단발성 파일, 수동 삭제 |
+**시안은 항상 `public/preview/`에 저장한다. 이 위치는 고정이며, 프롬프트에 위치가 명시되지 않아도 확인 없이 `public/preview/`를 사용한다.**
 
-**프롬프트에 산출 위치가 명시되지 않으면 사용자에게 확인을 요청한다.**
+- **Why 고정인가:** 시안 위치가 매번 달라지면(`storybook-static/preview/`, `.claude/playwright/` 등으로 흩어짐) 관리·비교가 불가능하다. 단일 표준 위치로 고정해 이력을 일관되게 유지한다.
+- **Why `public/preview/`인가:** dev server 실행 중 `localhost:3000/preview/파일.html`로 브라우저에서 바로 열람 가능하다. 이미 초기 개편 그룹(home·list·detail)의 시안이 이 위치에 있어 이력과 일치한다.
+- `/public/preview`는 `.gitignore`에 등록되어 있어 커밋되지 않는다. 시안은 임시 확인용이므로 git에 포함하지 않는다.
+- 사용자가 프롬프트에서 **다른 위치를 명시적으로 지정한 경우에만** 그 위치를 따른다.
 
-**시안 산출물은 git에 커밋하지 않는다** — 임시 확인용이므로 gitignore 대상이다
-(`/public/preview`는 .gitignore에 등록됨). 보존 여부는 사용자가 결정한다.
+> **주의:** `storybook-static/`은 빌드 산출물 폴더이므로 시안을 저장하지 않는다. `.claude/playwright/`는 Playwright 스크린샷 전용이므로 시안 HTML을 저장하지 않는다.
 
 ## 파일명 규칙
 
@@ -201,7 +198,7 @@ HTML/CSS 단일 파일.
 - [ ] UX 와이어프레임 정확히 받았는지 확인 (정보 위계 / 섹션 구조 / 인터랙션 / 반응형 전략)
 - [ ] **DS 인벤토리 파악** (`src/components/**/*.stories.tsx` Glob + 관련 컴포넌트/스타일 코드 확인)
 - [ ] **시안 요소 ↔ DS 컴포넌트 매핑표 작성** (재현할 것 / DS 부재로 새로 그릴 것 구분)
-- [ ] 산출 위치 사용자 확인 (`public/preview/` 권장)
+- [ ] 산출 위치는 `public/preview/` 고정 (사용자가 다른 위치를 명시한 경우만 예외)
 - [ ] 색상 시스템 — tailwind.config.js 토큰만 사용 (임의 hex 금지)
 - [ ] 반응형 뷰포트 결정 (desktop 1280 / mobile 375 기본)
 - [ ] mock 데이터 출처 (와이어프레임에서 추출 또는 임의)
