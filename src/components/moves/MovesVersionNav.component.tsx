@@ -49,7 +49,11 @@ const MovesVersionNavComponent = ({ items }: MovesVersionNavProps) => {
       <div className="relative">
         <div
           ref={scrollRef}
-          className="flex gap-3 overflow-x-auto px-4 py-0.5 desktop:px-0 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-track]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3/40"
+          // overflow-y-hidden 필수: overflow-x만 auto면 CSS 명세상 overflow-y도
+          // visible→auto로 강제 계산돼, active 칩의 scale-105 확대(~1px) 같은
+          // 미세한 세로 오버플로에도 Y축 스크롤이 잡힌다(핫픽스 2026-07-20).
+          // 확대분은 py-0.5(2px)가 흡수하므로 클리핑은 없다.
+          className="flex gap-3 overflow-x-auto overflow-y-hidden px-4 py-0.5 desktop:px-0 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-track]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3/40"
         >
           {items.map((item) => (
             <Link
