@@ -17,12 +17,12 @@ interface ChampionsTierTeamCoreCardProps {
 
 /**
  * 모든 조합 크기(2/3/4) 동일한 이미지 크기로 통일.
- * 좁은 폭 3열 그리드 환경에서 카드 높이 일관성을 위해 48px 고정.
+ * 4마리 조합이 좁은 카드 폭을 넘치지 않도록 56px 고정(gap 포함 4장이 내부 폭에 수용).
  */
 const IMAGE_DIM = {
-  className: 'w-13 h-13',
-  rem: '4rem',
-  px: 64,
+  className: 'w-14 h-14',
+  rem: '3.5rem',
+  px: 56,
 } as const
 
 /**
@@ -108,7 +108,7 @@ const ChampionsTierTeamCoreCard = ({
       aria-label={`팀 코어 ${core.rank}위: ${members.map((m) => m.name).join(' + ')}`}
     >
       {/* 헤더: 인라인 순위 뱃지 + 조합명 */}
-      <h3 className="flex items-center gap-2 flex-wrap text-sm font-bold text-primary-1 mb-3">
+      <h3 className="flex items-center gap-2 flex-wrap text-xs font-bold text-primary-1 mb-3 desktop:text-sm">
         <span
           className={`inline-flex items-center justify-center ${getRankBadgeColor(core.rank)} text-white rounded text-xs font-bold px-1.5 py-0.5 shrink-0`}
           aria-hidden="true"

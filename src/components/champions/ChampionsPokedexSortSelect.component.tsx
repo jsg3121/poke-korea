@@ -44,7 +44,7 @@ const ChampionsPokedexSortSelect = ({
       <select
         value={currentValue}
         onChange={(e) => handleChange(e.target.value as SortQueryValue)}
-        className="bg-primary-4 text-primary-1 border-[2px] border-solid border-primary-1 rounded-md px-3 py-1.5 text-sm font-bold cursor-pointer hover:bg-primary-3 transition-colors"
+        className="bg-primary-4 text-primary-1 border border-solid border-primary-1 rounded-md px-2 py-1 text-xs font-bold cursor-pointer hover:bg-primary-3 transition-colors"
       >
         {SORT_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>

@@ -54,7 +54,7 @@ const ChampionsSubNavMobile = () => {
   }
 
   return (
-    <nav className="w-full h-12 bg-primary-2 sticky top-12 z-30">
+    <nav className="w-full h-10 bg-primary-2 sticky top-12 z-30">
       <ul className="w-full h-full flex items-center justify-center gap-1 px-2 border-t border-solid border-primary-1">
         {navItems.map((item) => {
           const active = isActive(item.section)
@@ -63,7 +63,7 @@ const ChampionsSubNavMobile = () => {
               <Link
                 href={item.defaultHref}
                 aria-current={active ? 'page' : undefined}
-                className={`block px-2 py-2 text-xs text-center whitespace-nowrap ${
+                className={`block px-2 py-1.5 text-xs text-center whitespace-nowrap ${
                   active
                     ? 'text-primary-4 font-bold border-b-2 border-primary-4'
                     : 'text-primary-3'

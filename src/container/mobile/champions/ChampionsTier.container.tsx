@@ -58,7 +58,7 @@ const ChampionsTierContainer = ({
         </p>
         <p className="text-[10px] text-primary-2 mt-2">
           본 티어는 공식 기준이 아닌 사용률 데이터를 기반으로 자체 분류한 참고용
-          자료입니다. 출처: Pikalytics
+          자료입니다. 출처: Smogon
         </p>
       </header>
       <MobileChampionsTierBanner />

@@ -65,7 +65,7 @@ const ChampionsTierPokemonItem = ({
         formType: pokemon.formType,
         formCode: pokemon.formCode,
       })}
-      className="relative flex flex-col items-center p-2 pt-4 rounded-lg bg-primary-4/5 hover:bg-primary-4 hover:-translate-y-1 transition-all w-full group"
+      className="relative flex flex-col items-center p-2 pt-4 rounded-lg bg-primary-4/5 hover:bg-primary-4 hover:-translate-y-1 transition-all w-full desktop:w-[146px] group"
     >
       {formBadge && (
         <span
@@ -132,7 +132,10 @@ const ChampionsTierPokemonItem = ({
       </span>
 
       {pokemon.types && pokemon.types.length > 0 && (
-        <div className="flex items-center gap-1 mt-1" aria-label="포켓몬 타입">
+        <div
+          className="flex flex-wrap items-center justify-center gap-1 mt-1 min-h-[3.25rem] desktop:min-h-6"
+          aria-label="포켓몬 타입"
+        >
           {pokemon.types.map((type, index) => (
             <TagComponent key={`${type}-${index}`} type={type} />
           ))}
@@ -152,20 +155,25 @@ const ChampionsTierPokemonItem = ({
             />
           </div>
         </div>
-        {winRate != null && (
-          <div className="flex flex-col gap-0.5">
-            <div className="flex items-center justify-between text-[11px] text-primary-3 group-hover:text-primary-1">
-              <span>승률</span>
-              <span className="font-semibold">{winRate}%</span>
-            </div>
-            <div className="w-full h-1 bg-primary-3/30 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-emerald-500 rounded-full"
-                style={{ width: `${Math.min(winRate, 100)}%` }}
-              />
-            </div>
+        {/* 승률 영역은 항상 공간을 예약해 카드 높이를 규격화한다.
+            데이터가 없는 포켓몬(winRate == null)은 라벨·수치·막대바(트랙 포함)를
+            전부 비가시 처리하되, 동일 높이를 차지하게 하여 승률 유무와 무관하게
+            카드 높이를 통일한다. */}
+        <div
+          className={`flex flex-col gap-0.5 ${winRate == null ? 'invisible' : ''}`}
+          aria-hidden={winRate == null || undefined}
+        >
+          <div className="flex items-center justify-between text-[11px] text-primary-3 group-hover:text-primary-1">
+            <span>승률</span>
+            <span className="font-semibold">{winRate ?? 0}%</span>
           </div>
-        )}
+          <div className="w-full h-1 bg-primary-3/30 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-emerald-500 rounded-full"
+              style={{ width: `${Math.min(winRate ?? 0, 100)}%` }}
+            />
+          </div>
+        </div>
       </div>
     </Link>
   )
