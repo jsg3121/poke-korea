@@ -1,9 +1,10 @@
 'use client'
 
-import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
+import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
 import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
 import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
+import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
 import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
@@ -49,17 +50,16 @@ const ChampionsPokedexContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh mx-auto px-4 pb-8 relative desktop:px-5">
-      <header className="mt-4 mb-4 desktop:mt-8 desktop:mb-6">
-        <h1 className="text-xl font-bold leading-tight text-primary-4 desktop:text-3xl">
-          포켓몬 챔피언스 {formatShort} 도감
-        </h1>
-        <ChampionsFormatTab
-          currentFormat={formatSlug}
-          basePath="/champions"
-          suffix="/list"
-          className="mt-3"
-        />
-      </header>
+      <PageHeaderComponent
+        title={`챔피언스 ${formatShort} 도감`}
+        description={`${formatShort} 메타 포켓몬 전체 목록`}
+      />
+
+      <ChampionsFormatIntro
+        formatSlug={formatSlug}
+        suffix="/list"
+        className="mb-4 desktop:mb-6"
+      />
 
       {/* sticky 필터바. -mx-4/-mx-5로 부모 좌우 패딩을 상쇄해 배경(bg-primary-1)을
           화면 끝까지 깔고, 내부는 px-4/px-5로 다시 들여쓴다. 이렇게 안 하면 sticky

@@ -1,7 +1,8 @@
-import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
+import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
 import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'
 import ChampionsTierTeamCoreSection from '~/components/champions/ChampionsTierTeamCoreSection.component'
+import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,
@@ -31,9 +32,10 @@ interface ChampionsTierContainerProps {
  * 챔피언스 티어 리스트 본문 (반응형 단일, ADR-0007).
  *
  * 구버전 desktop/mobile 2벌 컨테이너를 CSS 반응형 단일로 통합한다(UX-E1).
- * 모바일 퍼스트: base=모바일, `desktop:`로 확장. 광고 슬롯은 제거(A~D 선례,
- * 반응형 광고 유닛 재도입은 별도 트랙). 헤더는 진한 배경 카드형을 유지하되
- * DS 무드(중앙 정렬 지양·타이포 위계)를 반영한다.
+ * 모바일 퍼스트: base=모바일, `desktop:`로 확장. 광고 슬롯은 제거(A~D 선례).
+ * 제목 헤더는 공통 DS PageHeaderComponent를 쓰고(홈·도감과 통일, 사용자 결정
+ * 2026-07-22), h1은 짧게("챔피언스 VGC 티어"). 포맷 탭은 ChampionsFormatIntro,
+ * 페이지 고유 캡션(사용률 기반·총 N종·출처)은 그 아래에 유지한다.
  */
 const ChampionsTierContainer = ({
   tierGroups,
@@ -50,25 +52,28 @@ const ChampionsTierContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 mt-6 pb-8 desktop:mt-12 desktop:px-5">
-      <header className="mb-6 p-4 bg-primary-4 rounded-xl desktop:mb-8 desktop:p-6">
-        <h1 className="text-lg font-bold leading-tight text-primary-1 desktop:text-2xl">
-          포켓몬 챔피언스 {formatShort} 티어 리스트
-        </h1>
-        <ChampionsFormatTab
-          currentFormat={formatSlug}
-          basePath="/champions"
-          suffix="/tier"
-          className="mt-3 mb-3"
-        />
-        <p className="text-xs text-primary-2 mt-1 desktop:text-sm">
+      <PageHeaderComponent
+        title={`챔피언스 ${formatShort} 티어`}
+        description={`${formatShort} 사용률 기반 티어 분류`}
+      />
+
+      <ChampionsFormatIntro
+        formatSlug={formatSlug}
+        suffix="/tier"
+        className="mb-6 desktop:mb-8"
+      />
+
+      {/* 페이지 고유 캡션 (사용률 기준·총 N종·출처) — 공통 헤더가 담지 않는다 */}
+      <div className="mb-6 desktop:mb-8">
+        <p className="text-xs text-primary-3 desktop:text-sm">
           사용률 기반 · 총 {totalCount}종 포켓몬 포함
           {updatedAtLabel && ` · ${updatedAtLabel} 갱신`}
         </p>
-        <p className="text-2xs text-primary-2 mt-2 desktop:text-xs">
+        <p className="text-2xs text-primary-3 mt-2 desktop:text-xs">
           본 티어는 공식 기준이 아닌 사용률 데이터를 기반으로 자체 분류한 참고용
-          자료입니다. 출처: Pikalytics
+          자료입니다. 출처: Smogon
         </p>
-      </header>
+      </div>
 
       <ChampionsTierTeamCoreSection
         teamCores={teamCores}

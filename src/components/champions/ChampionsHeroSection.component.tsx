@@ -29,36 +29,17 @@ const ChampionsHeroSection = ({
         moreLabel="티어 전체 보기"
       />
 
-      {/* 모바일: A 티어와 동일한 가로 스크롤 + 175px 카드 */}
-      <div className="block desktop:hidden">
-        <ul
-          className="flex gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:block [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl"
-          aria-label="S 티어 포켓몬 슬라이드"
-        >
-          {top3.map((pokemon) => (
-            <li
-              key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
-              className="w-[175px] flex-shrink-0 px-1 py-1"
-            >
-              <ChampionsTopCard
-                pokemonData={pokemon}
-                isHighPriority
-                formatSlug={formatSlug}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* 데스크탑: A 티어와 동일한 가로 스크롤 + 200px 카드 */}
+      {/* 반응형 단일 가로 스크롤 슬라이드. 카드 규격은 도감 카드와 동일한
+          PokemonCardShell(POKEMON_CARD_SIZE)을 따르므로 li에 고정폭을 주지 않고
+          flex-shrink-0으로 슬라이드 축소만 막는다(UX-E1, 이중 DOM 통합). */}
       <ul
-        className="hidden desktop:flex gap-4 overflow-x-auto py-4 -mx-2 px-2 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-3 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-2 [&::-webkit-scrollbar-track]:rounded-xl"
+        className="flex gap-4 overflow-x-auto py-1 -mx-2 px-2 desktop:py-4 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl desktop:[&::-webkit-scrollbar-thumb]:bg-primary-3 desktop:[&::-webkit-scrollbar-track]:bg-primary-2"
         aria-label="S 티어 포켓몬 슬라이드"
       >
         {top3.map((pokemon) => (
           <li
             key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
-            className="w-[200px] flex-shrink-0"
+            className="flex-shrink-0"
           >
             <ChampionsTopCard
               pokemonData={pokemon}
