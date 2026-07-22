@@ -142,14 +142,14 @@ const ChampionsDetailContainer = ({
         </div>
 
         {/* w-full + mx-auto 컨테이너로 이미지를 확실히 중앙 정렬 */}
-        <div className="my-2 desktop:my-3 flex w-full justify-center">
+        <div className="my-2 desktop:my-3 flex justify-center mx-auto w-48 h-48 desktop:w-72 desktop:h-72">
           {pokemon.imagePath && (
             <ImageComponent
               src={`${imageMode}/${pokemon.imagePath}`}
               alt={displayName}
-              width="18rem"
-              height="18rem"
-              className="mx-auto w-48 h-48 desktop:w-72 desktop:h-72 object-contain"
+              height="100%"
+              width="100%"
+              sizes="(min-width: 769px) 10rem, 7rem"
               imageSize={{ height: 288, width: 288 }}
               fetchPriority="high"
             />
