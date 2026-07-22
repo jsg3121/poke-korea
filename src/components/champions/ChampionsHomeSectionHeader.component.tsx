@@ -16,8 +16,8 @@ const ChampionsHomeSectionHeader = ({
   return (
     // 모바일: 타이틀 행과 설명/CTA 행을 세로로 분리해 타이틀이 CTA에 밀려
     // 줄바꿈되지 않게 한다. 데스크톱: 타이틀+설명 블록과 CTA를 한 행에 양끝 배치.
-    <header className="w-full mb-4 px-1 desktop:flex desktop:items-end desktop:justify-between">
-      <h2 className="text-xl desktop:text-2xl font-bold text-primary-4 leading-tight break-keep">
+    <header className="w-full mb-4 px-1">
+      <h2 className="text-xl desktop:text-2xl font-bold text-primary-4 leading-tight break-keep desktop:mb-2">
         {title}
       </h2>
       <div className="mt-1 flex items-baseline justify-between gap-3 desktop:mt-0 desktop:flex-1 desktop:justify-end">

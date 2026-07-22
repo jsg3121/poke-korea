@@ -51,7 +51,7 @@ const ChampionsHomeContainer = ({
   const formatLabel = getFormatLabel(formatSlug)
 
   return (
-    <section className="w-full max-w-[1280px] mx-auto px-4 mt-6 pb-8 desktop:mt-12 desktop:px-5">
+    <section className="w-full max-w-[1280px] mx-auto px-4 pb-8 desktop:mt-12 desktop:px-5">
       <PageHeaderComponent
         title={`챔피언스 ${formatShort}`}
         description={`${formatLabel} 메타 분석`}
@@ -79,7 +79,7 @@ const ChampionsHomeContainer = ({
           <div id="atier-heading">
             <ChampionsHomeSectionHeader
               title="자주 보이는 포켓몬"
-              description="S티어를 제외한 메타에서 자주 보이는 포켓몬"
+              description="S티어 제외 고 사용률 포켓몬"
               moreHref={`/champions/${formatSlug}/list`}
               moreLabel="도감 전체 보기"
             />
