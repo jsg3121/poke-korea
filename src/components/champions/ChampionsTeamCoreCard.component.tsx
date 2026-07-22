@@ -120,38 +120,38 @@ const ChampionsTeamCoreCard = ({
 
   return (
     <article
-      className="w-full bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative desktop:h-32 desktop:flex desktop:items-center desktop:gap-4"
+      className="w-full bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-3 relative desktop:h-32 desktop:p-4 desktop:flex desktop:items-center desktop:gap-4"
       aria-label={`팀 코어 ${core.rank}위: ${members.map((m) => m.name).join(' + ')}`}
     >
-      {/* === 모바일 레이아웃: 세로 스택 === */}
+      {/* === 모바일 레이아웃: 세로 스택 (컴팩트) === */}
       <div className="desktop:hidden">
-        {/* 순위 뱃지 — 카드 좌상단 absolute (콘텐츠 흐름에서 분리) */}
-        <p className="absolute left-4 top-4 w-12 h-24 flex items-center justify-center bg-primary-1 text-white rounded-md text-base font-bold">
+        {/* 순위 뱃지 — 좌측 세로 라벨. 높이는 콘텐츠(이미지+이름)에 맞춰 자동. */}
+        <p className="absolute left-3 top-3 bottom-[3.75rem] w-9 flex items-center justify-center bg-primary-1 text-white rounded-md text-sm font-bold">
           #{core.rank}
         </p>
 
         {/* 상단: 이미지 (뱃지 폭만큼 들여쓰기로 좌측 정렬 통일) */}
         <div
-          className="flex items-center gap-2 mb-3 pl-[3.75rem]"
+          className="flex items-center gap-1.5 mb-2 pl-11"
           aria-hidden="true"
         >
           {members.map((member) => renderImage(member, 'mobile'))}
         </div>
 
         {/* 조합명 — 동일한 들여쓰기로 이미지와 정렬 */}
-        <h3 className="flex items-center gap-1 flex-wrap text-base font-bold text-primary-1 mb-3 pl-[3.75rem]">
+        <h3 className="flex items-center gap-1 flex-wrap text-sm font-bold text-primary-1 mb-2 pl-11">
           {members.map((member, index) => renderMemberName(member, index))}
         </h3>
 
         {/* 하단: 통계 (가로 분할) */}
-        <dl className="grid grid-cols-2 border-t-2 border-primary-3 pt-3">
-          <div className="flex flex-col items-center text-center relative after:absolute after:right-0 after:top-0 after:h-full after:w-[2px] after:bg-primary-3">
-            <dt className="text-xs text-gray-600 mb-1">사용률</dt>
-            <dd className="text-lg font-bold text-primary-1">{usageRate}%</dd>
+        <dl className="grid grid-cols-2 border-t border-primary-3 pt-2">
+          <div className="flex flex-col items-center text-center relative after:absolute after:right-0 after:top-0 after:h-full after:w-px after:bg-primary-3">
+            <dt className="text-2xs text-primary-2">사용률</dt>
+            <dd className="text-base font-bold text-primary-1">{usageRate}%</dd>
           </div>
           <div className="flex flex-col items-center text-center">
-            <dt className="text-xs text-gray-600 mb-1">채용팀</dt>
-            <dd className="text-lg font-bold text-primary-1">
+            <dt className="text-2xs text-primary-2">채용팀</dt>
+            <dd className="text-base font-bold text-primary-1">
               {teamsCountLabel}
             </dd>
           </div>

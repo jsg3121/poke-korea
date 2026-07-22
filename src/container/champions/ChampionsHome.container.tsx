@@ -91,7 +91,7 @@ const ChampionsHomeContainer = ({
             {aTier.map((pokemon) => (
               <li
                 key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
-                className="flex-shrink-0"
+                className="flex-shrink-0 w-48 desktop:w-auto"
               >
                 <ChampionsTopCard
                   pokemonData={pokemon}

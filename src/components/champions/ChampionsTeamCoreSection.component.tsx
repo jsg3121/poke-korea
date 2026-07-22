@@ -51,21 +51,24 @@ const ChampionsTeamCoreSection = ({
       aria-labelledby="teamcore-heading"
       className="w-full mb-8 desktop:mb-12"
     >
-      <div className="flex items-end justify-between gap-3 mb-4 px-1">
-        <div id="teamcore-heading" className="flex-1">
+      {/* 모바일: 헤더와 select를 세로로 분리해 select가 타이틀 폭을 좁혀
+          줄바꿈시키지 않게 한다(다른 섹션 헤더와 동일한 반응형 정책).
+          데스크톱: 헤더와 select를 한 행에 양끝 배치. */}
+      <div className="mb-4 px-1 desktop:flex desktop:items-end desktop:justify-between desktop:gap-3">
+        <div id="teamcore-heading" className="desktop:flex-1">
           <ChampionsHomeSectionHeader
             title="인기 포켓몬 조합"
             description="대회에서 자주 쓰이는 포켓몬 조합"
           />
         </div>
-        <label className="shrink-0 self-end">
+        <label className="mt-3 block shrink-0 desktop:mt-0 desktop:self-end">
           <span className="sr-only">조합 크기 선택</span>
           <select
             value={selectedSize}
             onChange={(e) =>
               setSelectedSize(Number(e.target.value) as CoreSize)
             }
-            className="bg-primary-4 text-primary-1 border-[2px] border-solid border-primary-1 rounded-md px-3 py-1.5 text-sm font-bold cursor-pointer hover:bg-primary-3 transition-colors"
+            className="w-full desktop:w-auto bg-primary-4 text-primary-1 border-[2px] border-solid border-primary-1 rounded-md px-3 py-1.5 text-sm font-bold cursor-pointer hover:bg-primary-3 transition-colors"
           >
             {SIZE_OPTIONS.map((option) => {
               const count = coresBySize.get(option.value)?.length ?? 0
