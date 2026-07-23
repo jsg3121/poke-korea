@@ -51,7 +51,7 @@ const ChampionsTierContainer = ({
   const updatedAtLabel = formatKstDate(latestUpdatedAt)
 
   return (
-    <section className="w-full max-w-[1280px] mx-auto px-4 mt-6 pb-8 desktop:mt-12 desktop:px-5">
+    <section className="w-full max-w-[1280px] mx-auto px-4 pb-8 desktop:mt-12 desktop:px-5">
       <PageHeaderComponent
         title={`챔피언스 ${formatShort} 티어`}
         description={`${formatShort} 사용률 기반 티어 분류`}

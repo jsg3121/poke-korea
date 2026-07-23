@@ -1,8 +1,10 @@
 # ADR-0003: 챔피언스 상세 페이지 데스크톱 레이아웃 구조
 
-- **상태**: 승인
+- **상태**: 대체됨 ([ADR-0013](./ADR-0013-champions-detail-responsive-layout.md), 2026-07-22)
 - **날짜**: 2026-04-19
 - **담당**: Claude + 사용자
+
+> **대체 안내**: 본 ADR은 UA 분기(적응형) 시대의 **데스크톱 전용** 레이아웃 결정이다. 반응형 단일 전환([ADR-0007](./ADR-0007-responsive-rendering-strategy.md))에 따라 [ADR-0013](./ADR-0013-champions-detail-responsive-layout.md)이 이를 대체한다 — "완화된 2단(sticky 폐기) + 모바일 세로 스택 + 능력치 StatBar 교체". 아래 내용은 최초 결정의 기록으로 보존한다.
 
 ## 맥락
 

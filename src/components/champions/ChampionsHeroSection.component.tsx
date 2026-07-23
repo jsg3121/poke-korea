@@ -29,9 +29,11 @@ const ChampionsHeroSection = ({
         moreLabel="티어 전체 보기"
       />
 
-      {/* 반응형 단일 가로 스크롤 슬라이드. 카드 규격은 도감 카드와 동일한
-          PokemonCardShell(POKEMON_CARD_SIZE)을 따르므로 li에 고정폭을 주지 않고
-          flex-shrink-0으로 슬라이드 축소만 막는다(UX-E1, 이중 DOM 통합). */}
+      {/* 반응형 단일 가로 스크롤 슬라이드. 가로 스크롤은 그리드처럼 셀 폭을
+          밀어주는 힘이 없어 카드가 셸 하한(min-w-36=144px)에 머문다 →
+          li에 w-48(192px, 셸 모바일 상한)을 줘 폭을 확보한다(일반 홈
+          HorizontalScrollList 선례, [[ds-page-redesign-remaining]]). 데스크톱은
+          셸 w-56이 목표라 li 폭을 풀어(desktop:w-auto) 셸 규격을 따르게 한다. */}
       <ul
         className="flex gap-4 overflow-x-auto py-1 -mx-2 px-2 desktop:py-4 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl desktop:[&::-webkit-scrollbar-thumb]:bg-primary-3 desktop:[&::-webkit-scrollbar-track]:bg-primary-2"
         aria-label="S 티어 포켓몬 슬라이드"
@@ -39,7 +41,7 @@ const ChampionsHeroSection = ({
         {top3.map((pokemon) => (
           <li
             key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
-            className="flex-shrink-0"
+            className="flex-shrink-0 w-48 desktop:w-auto"
           >
             <ChampionsTopCard
               pokemonData={pokemon}

@@ -41,7 +41,9 @@ const ChampionsDetailMetaSummaryBar = ({
           <dt className="text-[10px] text-black-2/80 uppercase tracking-wide">
             사용률
           </dt>
-          <dd className="text-lg font-bold text-black-2">{meta.usageRate}%</dd>
+          <dd className="text-sm desktop:text-lg font-bold text-black-2">
+            {meta.usageRate}%
+          </dd>
         </div>
       )}
 
@@ -50,7 +52,7 @@ const ChampionsDetailMetaSummaryBar = ({
           승률
         </dt>
         <dd
-          className={`text-lg font-bold ${hasWinRate ? 'text-black-2' : 'text-black-2/40'}`}
+          className={`text-sm desktop:text-lg font-bold ${hasWinRate ? 'text-black-2' : 'text-black-2/40'}`}
         >
           {hasWinRate ? `${meta.winRate}%` : '-'}
         </dd>
@@ -61,7 +63,9 @@ const ChampionsDetailMetaSummaryBar = ({
           <dt className="text-[10px] text-black-2/80 uppercase tracking-wide">
             순위
           </dt>
-          <dd className="text-lg font-bold text-black-2">#{meta.usageRank}</dd>
+          <dd className="text-sm desktop:text-lg font-bold text-black-2">
+            #{meta.usageRank}
+          </dd>
         </div>
       )}
     </dl>

@@ -96,7 +96,7 @@ const ChampionsPokedexContainer = ({
           {pokemonList.map((pokemon, index) => (
             <li
               key={`champions-pokemon-${pokemon.id}-${index}`}
-              className="w-full flex justify-center"
+              className="w-full"
             >
               <ChampionsPokemonCard
                 pokemonData={pokemon}
