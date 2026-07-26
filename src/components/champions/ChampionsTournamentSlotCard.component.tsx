@@ -54,6 +54,11 @@ const ChampionsTournamentSlotCard = ({
   const formBadge = getFormBadge(slot.formType)
   const teraEnum = resolveTeraType(slot.teraType ?? null)
 
+  // 긴 이름("대검귀 (히스이의 모습)" 등)은 좁은 슬롯 카드에서 여러 줄로 늘어나므로
+  // 폰트를 하한(text-2xs, 11px)까지 줄인다(ChampionsTierPokemonItem 선례와 동일 접근).
+  // 7자 초과 기준: 기본 text-sm(14px)에서 슬롯 폭(모바일 2열)에 7자면 한 줄에 들어간다.
+  const nameSizeClass = displayName.length > 7 ? 'text-2xs' : 'text-sm'
+
   const href =
     slot.pokemonId != null
       ? buildChampionsDetailHref({
@@ -71,7 +76,7 @@ const ChampionsTournamentSlotCard = ({
     >
       {formBadge && (
         <span
-          className={`absolute right-2 top-2 z-10 ${formBadge.className} text-[10px] font-bold rounded px-1.5 py-0.5`}
+          className={`absolute right-2 top-2 z-10 ${formBadge.className} text-2xs font-bold rounded px-1.5 py-0.5`}
           aria-label={`${formBadge.label} 폼`}
         >
           {formBadge.label}
@@ -96,61 +101,65 @@ const ChampionsTournamentSlotCard = ({
             <div className="w-full h-full rounded-full bg-primary-3" />
           )}
         </div>
-        <p className="mt-1 text-sm font-bold text-primary-1 text-center line-clamp-1">
+        <p
+          className={`mt-1 w-full ${nameSizeClass} font-bold text-primary-1 text-center break-words leading-tight`}
+        >
           {displayName}
         </p>
       </div>
 
-      {/* 도구 / 특성 / 테라 */}
+      {/* 도구 / 특성 / 테라.
+          말줄임(line-clamp) 없이 전체 표시 — 잘리면 어떤 도구/특성인지 알 수 없어
+          대회 빌드 페이지의 핵심 정보가 손실된다(사용자 요구). 값이 길면 줄바꿈으로
+          전부 보여준다. min-w-0: flex 자식이 콘텐츠 최소폭 이하로 줄어들 수 있게 해
+          긴 한글 값이 카드 밖으로 넘치지 않고 줄바꿈되게 한다. items-start: 값이 여러
+          줄일 때 라벨을 상단 정렬. */}
       <dl className="text-xs space-y-1 mb-2 border-t-2 border-primary-3 pt-2">
-        <div className="flex items-center gap-2">
-          <dt className="shrink-0 w-10 text-[10px] font-bold text-primary-1">
+        <div className="flex items-start gap-2">
+          <dt className="shrink-0 w-8 pt-0.5 text-2xs font-semibold text-primary-2">
             도구
           </dt>
-          <dd className="text-primary-1 font-semibold line-clamp-2 break-keep text-[0.875rem] desktop:text-[0.75rem]">
+          <dd className="min-w-0 flex-1 text-primary-1 font-bold break-words text-2xs leading-snug">
             {itemLabel || '-'}
           </dd>
         </div>
-        <div className="flex items-center gap-2">
-          <dt className="shrink-0 w-10 text-[10px] font-bold text-primary-1">
+        <div className="flex items-start gap-2">
+          <dt className="shrink-0 w-8 pt-0.5 text-2xs font-semibold text-primary-2">
             특성
           </dt>
-          <dd className="text-primary-1 font-semibold line-clamp-2 break-keep text-[0.875rem] desktop:text-[0.75rem]">
+          <dd className="min-w-0 flex-1 text-primary-1 font-bold break-words text-2xs leading-snug">
             {abilityLabel || '-'}
           </dd>
         </div>
-        {/* 테라 영역 — 데이터 없으면 라벨/값 모두 숨기고 빈 공간만 유지 (카드 높이 균일) */}
-        <div
-          className="flex items-center gap-2 min-h-[1.5rem]"
-          aria-hidden={!slot.teraType}
-        >
-          {slot.teraType && (
-            <>
-              <dt className="shrink-0 w-10 text-[10px] font-bold text-primary-1">
-                테라
-              </dt>
-              <dd className="flex items-center">
-                {teraEnum ? (
-                  <TagComponent type={teraEnum} />
-                ) : (
-                  <span className="text-primary-1 font-semibold">
-                    {slot.teraType}
-                  </span>
-                )}
-              </dd>
-            </>
-          )}
-        </div>
+        {/* 테라 영역 — 데이터 없는 슬롯이 다수라 빈 공간을 예약하지 않고 아예 렌더하지
+            않는다(그리드가 items-start라 카드 높이 균일화가 불필요). */}
+        {slot.teraType && (
+          <div className="flex items-center gap-2">
+            <dt className="shrink-0 w-8 text-2xs font-semibold text-primary-2">
+              테라
+            </dt>
+            <dd className="flex items-center">
+              {teraEnum ? (
+                <TagComponent type={teraEnum} />
+              ) : (
+                <span className="text-primary-1 font-semibold">
+                  {slot.teraType}
+                </span>
+              )}
+            </dd>
+          </div>
+        )}
       </dl>
-      {/* 기술 4개 */}
+      {/* 기술 4개 — 긴 기술명(예: "분함의발구르기")도 넘치지 않게 break-words 로
+          줄바꿈하고, 도구/특성과 동일한 11px 위계로 통일. */}
       <ul
-        className="text-xs space-y-0.5 border-t-2 border-primary-3 pt-2"
+        className="space-y-0.5 border-t-2 border-primary-3 pt-2"
         aria-label="기술 목록"
       >
         {slot.moves.map((move, index) => (
           <li
             key={`${move.rawName}-${index}`}
-            className="text-primary-1 line-clamp-1"
+            className="text-2xs leading-snug font-semibold text-primary-1 break-words"
           >
             {move.displayName || move.rawName}
           </li>

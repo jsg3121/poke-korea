@@ -6,11 +6,15 @@ import {
   GetChampionsTournamentsWithTopTeamQuery,
   GetChampionsTournamentsWithTopTeamQueryVariables,
 } from '~/graphql/typeGenerated'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
+import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
-import ChampionsTournamentsListDesktop from '~/views/desktop/champions/ChampionsTournamentsList.desktop'
-import ChampionsTournamentsListMobile from '~/views/mobile/champions/ChampionsTournamentsList.mobile'
+import ChampionsTournamentsListView from '~/views/champions/ChampionsTournamentsList.view'
 
 export const revalidate = 86400
 
@@ -59,8 +63,7 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
   const { month } = await searchParams
 
   const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
+  const isMobile = detectUserAgent(headersList.get('user-agent') || '')
 
   const apolloClient = initializeApollo()
   const { data } = await apolloClient.query<
@@ -70,7 +73,9 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
     query: GetChampionsTournamentsWithTopTeamDocument,
     variables: {
       format: ChampionsFormat.VGC_DOUBLES,
-      limit: 12,
+      // 대회 데이터는 소량이라 무한스크롤 없이 전량 로드(사용자 결정, E-3).
+      // 페이지네이션 인프라(offset/cursor)가 없어 충분히 큰 limit으로 한 번에 가져온다.
+      limit: 1000,
       ...(month ? { month } : {}),
     },
     fetchPolicy: 'network-only',
@@ -136,21 +141,34 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <main className="w-full min-h-screen">
-        {isMobile ? (
-          <ChampionsTournamentsListMobile
+      {/* 콘텐츠는 반응형 단일(ChampionsTournamentsListView, ADR-0007). UA 분기는
+          전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
+      {isMobile ? (
+        <main className="w-full min-h-screen">
+          <MobileHeaderContainer />
+          <ChampionsTournamentsListView
             tournaments={tournaments}
             availableMonths={availableMonths}
             currentMonth={month ?? null}
           />
-        ) : (
-          <ChampionsTournamentsListDesktop
+          <MobileFooterContainer />
+          <MobileTabBar />
+        </main>
+      ) : (
+        // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
+        // sticky 필터 desktop:top-40과 정합(E-1 도감과 동일).
+        <main className="w-full min-h-screen">
+          <div className="h-40">
+            <DesktopHeaderContainer />
+          </div>
+          <ChampionsTournamentsListView
             tournaments={tournaments}
             availableMonths={availableMonths}
             currentMonth={month ?? null}
           />
-        )}
-      </main>
+          <DesktopFooterContainer />
+        </main>
+      )}
     </>
   )
 }

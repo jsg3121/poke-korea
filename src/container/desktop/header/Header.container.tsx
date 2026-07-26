@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import LogoIcon from '~/assets/logo.svg'
-import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
+import ChampionsSubNavOrganism from '~/components/champions/ChampionsSubNav.organism'
 import DetailSearch from './header.search/DetailSearch'
 import HeaderNav from './nav/HeaderNav'
 import MainSearch from './search.main/MainSearch'
@@ -36,7 +36,7 @@ const HeaderContainer = () => {
         </Link>
       </div>
       <HeaderNav />
-      {pathname.includes('/champions') && <ChampionsSubNav />}
+      {pathname.includes('/champions') && <ChampionsSubNavOrganism />}
     </header>
   )
 }
