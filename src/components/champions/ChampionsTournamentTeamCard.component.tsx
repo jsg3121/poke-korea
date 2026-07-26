@@ -79,7 +79,9 @@ const ChampionsTournamentTeamCard = ({
         )}
 
         <div className="flex-1 min-w-0">
-          <p className="text-base font-bold text-primary-1 truncate">
+          {/* 선수명은 말줄임 없이 전체 표시(사용자 요구). 영문 닉네임은 공백 없이
+              길 수 있어 break-all 로 어느 지점에서든 줄바꿈해 카드 밖 넘침을 막는다. */}
+          <p className="text-base font-bold text-primary-1 break-all">
             {team.playerName}
           </p>
           <p className="text-xs text-primary-2">
@@ -88,14 +90,17 @@ const ChampionsTournamentTeamCard = ({
         </div>
       </header>
 
-      {/* 펼침 상태: 풀빌드 6슬롯 그리드 */}
+      {/* 펼침 상태: 풀빌드 6슬롯 그리드.
+          items-start: 같은 행의 두 슬롯이 서로 높이를 끌어당기지 않도록(auto-rows-fr
+          제거) 각 슬롯이 자기 콘텐츠 높이만 갖게 한다. 슬롯 카드는 자체 min-h로 기본
+          높이를 맞추므로 시각적 정렬은 유지된다(UX-011 피드백). */}
       {isExpanded && (
         <ul
-          className="grid grid-cols-2 gap-3 auto-rows-fr"
+          className="grid grid-cols-2 items-start gap-3"
           aria-label="풀빌드 슬롯"
         >
           {team.slots.map((slot) => (
-            <li key={slot.pokemonId ?? slot.rawName} className="h-full">
+            <li key={slot.pokemonId ?? slot.rawName}>
               <ChampionsTournamentSlotCard
                 slot={slot}
                 formatSlug={formatSlug}

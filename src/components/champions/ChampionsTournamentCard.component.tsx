@@ -2,10 +2,7 @@ import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import {
-  formatKstDate,
-  getFormatEnumShortLabel,
-} from '~/utils/championsFormat.util'
+import { formatKstDate } from '~/utils/championsFormat.util'
 
 type TournamentWithTopTeam =
   GetChampionsTournamentsWithTopTeamQuery['championsTournaments'][number]
@@ -18,7 +15,6 @@ const ChampionsTournamentCard = ({
   tournament,
 }: ChampionsTournamentCardProps) => {
   const dateLabel = formatKstDate(tournament.date)
-  const formatLabel = getFormatEnumShortLabel(tournament.format)
   const onlineLabel = tournament.isOnline ? '온라인' : '오프라인'
   // 1위팀 = 응답이 rank 오름차순이라는 가정 하에 rank===1 추출 (없으면 첫 팀 폴백)
   const topTeam =
@@ -33,11 +29,9 @@ const ChampionsTournamentCard = ({
         className="w-full h-full bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-5 flex flex-col"
         aria-label={`${tournament.name} 대회 결과`}
       >
-        {/* 라벨 영역 */}
+        {/* 라벨 영역 — VGC 배지는 상단 안내 배너가 이미 선언하므로 제거(UX-011).
+            온라인/오프라인 배지 + 날짜만 노출. */}
         <div className="flex items-center gap-2 mb-3 text-xs">
-          <span className="bg-amber-500 text-white font-bold px-2 py-0.5 rounded">
-            {formatLabel}
-          </span>
           <span
             className={`${
               tournament.isOnline ? 'bg-teal-500' : 'bg-amber-600'
@@ -57,29 +51,36 @@ const ChampionsTournamentCard = ({
           {tournament.name}
         </h3>
 
-        {/* 주최자 */}
-        {tournament.organizerName && (
-          <p className="text-xs text-primary-2 mb-3">
-            주최: {tournament.organizerName}
-          </p>
-        )}
+        {/* 참가자 수(상단 승격) + 주최 — 스캔성 높은 정보를 대회명 바로 아래로(UX-011) */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs mb-3">
+          {tournament.playersCount != null && (
+            <span className="text-primary-1 font-bold">
+              참가자 {tournament.playersCount}명
+            </span>
+          )}
+          {tournament.organizerName && (
+            <span className="text-primary-2">
+              {tournament.playersCount != null && (
+                <span className="mr-2 text-primary-3" aria-hidden="true">
+                  ·
+                </span>
+              )}
+              {tournament.organizerName}
+            </span>
+          )}
+        </div>
 
         {/* 구분선 */}
         <div className="border-t-2 border-primary-3 my-2" />
 
-        {/* 참가자 + 1위 선수 */}
-        <div className="flex items-center justify-between text-xs mb-3">
-          {tournament.playersCount != null && (
-            <span className="text-primary-1 font-semibold">
-              참가자 {tournament.playersCount}명
-            </span>
-          )}
-          {topTeam && (
-            <span className="text-primary-1 font-semibold truncate ml-2">
+        {/* 1위 선수 */}
+        {topTeam && (
+          <div className="flex items-center text-xs mb-3">
+            <span className="text-primary-1 font-semibold truncate">
               1위: {topTeam.playerName}
             </span>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* 1위팀 포켓몬 6마리 미리보기 */}
         {topTeam && topTeam.slots.length > 0 && (
