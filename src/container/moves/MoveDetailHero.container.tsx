@@ -28,12 +28,15 @@ const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
 interface MoveDetailHeroContainerProps {
   skillData: PokemonSkillDetail
   selectedVersionGroupId?: number
+  /** 이 기술을 배우는 포켓몬 수 — "최신" 탭 툴팁 표시 여부 판단용(0이면 툴팁 숨김) */
+  learnablePokemonCount?: number
   versionGroups?: Array<VersionGroup> | null
 }
 
 const MoveDetailHeroContainer = ({
   skillData,
   selectedVersionGroupId,
+  learnablePokemonCount = 0,
   versionGroups,
 }: MoveDetailHeroContainerProps) => {
   // 선택된 버전의 세대 데이터가 있으면 우선 사용(위력·명중 등이 세대마다 다르다)
@@ -44,39 +47,32 @@ const MoveDetailHeroContainer = ({
     : undefined
   const displayData = selectedVersionData ?? skillData
 
-  // 특정 버전 선택 시엔 그 버전명을, "최신"(selectedVersionGroupId 없음) 선택 시엔
-  // 이 기술이 실제 사용 가능한 버전 중 가장 마지막 버전명을 찾아 "최신 · 버전명"으로 표기한다.
-  //
-  // ⚠️ 두 가지를 모두 지켜야 한다(2026-07-27 수정):
-  // 1) 전체 게임 목록(versionGroups)이 아니라 이 기술의 세대별 데이터(generations)를 봐야 한다.
-  // 2) generations엔 삭제된 버전의 레코드도 is_available=false로 남아 있다. 삭제된 기술
-  //    (예: 깜짝헤드)은 최신 버전에도 레코드는 있으나 사용 불가라, 단순 max(versionGroupId)를
-  //    쓰면 실제로 못 쓰는 최신 버전을 "최신"으로 잘못 표기한다. isAvailable=true인 것 중
-  //    최대 versionGroupId(= 실제 마지막으로 사용 가능했던 버전)를 최신으로 잡는다.
-  const isLatest = !selectedVersionGroupId
-  const availableVersionGroupIds = skillData.generations
-    .filter((gen) => gen.isAvailable)
-    .map((gen) => gen.versionGroupId)
-  const latestVersionGroupId =
-    availableVersionGroupIds.length > 0
-      ? Math.max(...availableVersionGroupIds)
-      : undefined
-  const latestVersionName =
-    latestVersionGroupId != null
-      ? versionGroups?.find(
-          (vg) => vg.versionGroupId === latestVersionGroupId,
-        )?.nameKo
-      : undefined
-  const selectedVersionName = selectedVersionData
-    ? versionGroups?.find(
-        (vg) => vg.versionGroupId === selectedVersionData.versionGroupId,
-      )?.nameKo
+  // "최신" 탭 = 특정 버전 미선택. 이때 배지는 이 기술이 데이터상 남아 있는(isAvailable=true)
+  // 가장 마지막 버전을 표시한다. 삭제된 기술은 최신 게임에도 generations 레코드가
+  // is_available=false로 남아 있어, 단순 max(versionGroupId)가 아니라 isAvailable 필터
+  // 후의 최대 버전을 잡아야 한다(2026-07-27).
+  const isLatestTab = !selectedVersionGroupId
+  const latestAvailableVersionGroupId = isLatestTab
+    ? skillData.generations
+        .filter((gen) => gen.isAvailable)
+        .reduce<
+          number | undefined
+        >((max, gen) => (max == null || gen.versionGroupId > max ? gen.versionGroupId : max), undefined)
     : undefined
-  const versionName = isLatest
-    ? latestVersionName
-      ? `최신 · ${latestVersionName}`
-      : undefined
-    : selectedVersionName
+
+  // 배지 버전명: 특정 버전 선택 시 그 버전명, "최신" 탭이면 isAvailable 최신 버전명.
+  const badgeVersionGroupId = isLatestTab
+    ? latestAvailableVersionGroupId
+    : selectedVersionData?.versionGroupId
+  const badgeVersionName = badgeVersionGroupId
+    ? versionGroups?.find((vg) => vg.versionGroupId === badgeVersionGroupId)
+        ?.nameKo
+    : undefined
+  const versionName = badgeVersionName
+    ? isLatestTab
+      ? `최신 · ${badgeVersionName}`
+      : badgeVersionName
+    : undefined
 
   const damageColor = displayData.damageType
     ? DAMAGE_CHIP_COLOR[displayData.damageType.toLowerCase()]
@@ -106,12 +102,14 @@ const MoveDetailHeroContainer = ({
         )}
       </header>
 
-      {/* "최신"이 어떤 버전을 의미하는지 상시 노출(툴팁 대신 항상 보이는 캡션 —
-          모바일에서도 확인 가능). 버전 미선택 시 가장 최근 출시 버전 데이터를 보여준다. */}
-      {isLatest && latestVersionName && (
+      {/* "최신" 탭의 습득 포켓몬 목록은 이 기술을 배우는 포켓몬이 있는 가장 최신 버전을
+          기준으로 노출된다(버전 미지정 조회 → 백엔드가 습득 있는 최신 버전 반환). 배지
+          버전(기술 정보 기준)과 다를 수 있어 상시 캡션으로 안내한다. 배울 수 있는
+          포켓몬이 아예 없으면(learnablePokemonCount 0) 기준 버전이 없으므로 캡션을 숨긴다. */}
+      {isLatestTab && learnablePokemonCount > 0 && (
         <p className="mt-2 text-xs desktop:text-sm text-primary-3">
-          &lsquo;최신&rsquo;은 가장 최근 출시된 <b>{latestVersionName}</b> 버전
-          기준이에요.
+          최신 버전은 <b>습득 가능한 포켓몬이 있는 가장 최신 버전</b>을 기준으로
+          보여드려요.
         </p>
       )}
 
