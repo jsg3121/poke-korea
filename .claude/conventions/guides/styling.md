@@ -30,6 +30,7 @@
 |------|------|
 | **디바이스 분기** | CSS 브레이크포인트(`mobile`/`desktop`)로 표현. UA 판별(`isMobile`) 신규 사용 금지 |
 | **공용 컴포넌트** | 단일 컴포넌트 + 반응형 CSS. 모바일/데스크톱 컴포넌트 2벌 분리 지양 |
+| **DS 컴포넌트 우선 사용** | 이미 DS 컴포넌트가 있는 패턴(가로 스크롤=`HorizontalScrollList`, 카드 셸=`PokemonCardShell` 등)은 **반드시 그 컴포넌트를 import해서 쓴다.** DS의 마크업·클래스를 복사해 자체 구현하지 말 것 — DS 규격이 바뀌어도 복사본엔 반영되지 않아 화면이 어긋난다(2026-07-27 챔피언스 홈이 `HorizontalScrollList`를 안 쓰고 `flex overflow-x`를 베껴 카드 폭 변경이 누락된 사례) |
 | **디바이스 context** | `DeviceProvider`/`useDevice`는 점진 제거 대상. 신규 코드에서 사용 금지 |
 | **번들** | 반응형은 분기를 CSS로 처리 → 불필요한 client 강등·하이드레이션 없음 |
 
@@ -45,6 +46,7 @@
 | **터치 타겟** | 인터랙티브 요소는 최소 44px (`min-h-touch`/`min-w-touch`). 모바일 base 기준으로 보장. **예외 — 슬림 인터랙티브(탭·칩)**: WCAG 2.2 2.5.8(AA, 24px)을 충족하는 선에서 슬림하게. 탭은 모바일 36px·데스크톱 44px(`min-h-9 desktop:min-h-touch`, 36px이라 간격 전제 불필요), 칩(clickable)은 디바이스 무관 `h-7`(28px, 항목 간격 24px 전제). **입력 컨트롤·아이콘 버튼**(SelectInput·CloseIconButton)은 모바일 44px·데스크톱 36px(`min-h-touch desktop:min-h-9`, 마우스 정밀도). 텍스트 CTA(Button) 등은 44px 유지 ([ADR-0011](../../decisions/records/ADR-0011-tab-touch-target-24px.md)) |
 | **폰트 최소** | 모바일에서 11px(`text-2xs`) 미만 금지 (접근성) |
 | **임의값 금지** | 간격·폰트·크기는 `[...]` 임의값 대신 토큰 사용. 토큰에 없으면 `tailwind.config`에 추가 후 사용 |
+| **content 스캔 범위** | `tailwind.config.js`의 `content`에 **클래스를 쓰는 모든 디렉토리**가 포함돼야 한다(`src/app`·`components`·`container`·`views`). 누락된 디렉토리의 파일에 쓴 유틸은 CSS로 생성되지 않아 **조용히 무효화**된다(HTML엔 클래스가 있으나 padding 0 등으로 렌더). `page.tsx`에만 쓴 클래스(예: `pt-30` 헤더 스페이서)가 안 먹으면 content에 `src/app`이 있는지 가장 먼저 확인할 것(2026-07-27 실제 누락 사례) |
 
 > **Why 모바일 퍼스트:** base를 모바일로 두면, 모바일에서 불필요한 데스크톱 스타일 오버라이드를 로드하지 않는다. 또 Tailwind가 min-width 기반이라 `desktop:`(min-width) 한 방향 확장이 자연스럽다. 양방향(`mobile:`+`desktop:`) 혼용은 어느 게 base인지 모호해진다.
 
