@@ -5,6 +5,7 @@ import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.comp
 import ChampionsRecentTournamentsSection from '~/components/champions/ChampionsRecentTournamentsSection.component'
 import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSection.component'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
+import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 import {
   ChampionsMetaSummaryFragment,
@@ -84,23 +85,18 @@ const ChampionsHomeContainer = ({
               moreLabel="도감 전체 보기"
             />
           </div>
-          <ul
-            className="flex gap-4 overflow-x-auto py-1 -mx-2 px-2 desktop:py-4 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl desktop:[&::-webkit-scrollbar-thumb]:bg-primary-3 desktop:[&::-webkit-scrollbar-track]:bg-primary-2"
-            aria-label="A 티어 포켓몬 슬라이드"
-          >
+          {/* 일반 홈과 동일한 DS 가로 스크롤 사용 — Hero(TOP3)와 함께 메인 홈 카드와
+              통일(사용자 피드백 2026-07-27). 자체 마크업이면 DS 폭 변경이 안 먹는다. */}
+          <HorizontalScrollListComponent aria-label="A 티어 포켓몬 슬라이드">
             {aTier.map((pokemon) => (
-              <li
+              <ChampionsTopCard
                 key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
-                className="flex-shrink-0 w-48 desktop:w-auto"
-              >
-                <ChampionsTopCard
-                  pokemonData={pokemon}
-                  isHighPriority
-                  formatSlug={formatSlug}
-                />
-              </li>
+                pokemonData={pokemon}
+                isHighPriority
+                formatSlug={formatSlug}
+              />
             ))}
-          </ul>
+          </HorizontalScrollListComponent>
         </section>
       )}
 

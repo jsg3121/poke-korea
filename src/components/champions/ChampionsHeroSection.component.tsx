@@ -1,3 +1,4 @@
+import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
@@ -29,28 +30,19 @@ const ChampionsHeroSection = ({
         moreLabel="티어 전체 보기"
       />
 
-      {/* 반응형 단일 가로 스크롤 슬라이드. 가로 스크롤은 그리드처럼 셀 폭을
-          밀어주는 힘이 없어 카드가 셸 하한(min-w-36=144px)에 머문다 →
-          li에 w-48(192px, 셸 모바일 상한)을 줘 폭을 확보한다(일반 홈
-          HorizontalScrollList 선례, [[ds-page-redesign-remaining]]). 데스크톱은
-          셸 w-56이 목표라 li 폭을 풀어(desktop:w-auto) 셸 규격을 따르게 한다. */}
-      <ul
-        className="flex gap-4 overflow-x-auto py-1 -mx-2 px-2 desktop:py-4 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3 [&::-webkit-scrollbar-track]:rounded-xl desktop:[&::-webkit-scrollbar-thumb]:bg-primary-3 desktop:[&::-webkit-scrollbar-track]:bg-primary-2"
-        aria-label="S 티어 포켓몬 슬라이드"
-      >
+      {/* 일반 홈과 동일한 DS 가로 스크롤(HorizontalScrollList) 사용 — 카드 폭·간격·
+          엣지 페이드 규격을 공유해 메인 홈 카드와 통일한다. 자체 마크업을 쓰면 DS
+          카드 폭 변경이 반영되지 않아 홈과 어긋난다(사용자 피드백 2026-07-27). */}
+      <HorizontalScrollListComponent aria-label="S 티어 포켓몬 슬라이드">
         {top3.map((pokemon) => (
-          <li
+          <ChampionsTopCard
             key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
-            className="flex-shrink-0 w-48 desktop:w-auto"
-          >
-            <ChampionsTopCard
-              pokemonData={pokemon}
-              isHighPriority
-              formatSlug={formatSlug}
-            />
-          </li>
+            pokemonData={pokemon}
+            isHighPriority
+            formatSlug={formatSlug}
+          />
         ))}
-      </ul>
+      </HorizontalScrollListComponent>
     </section>
   )
 }
