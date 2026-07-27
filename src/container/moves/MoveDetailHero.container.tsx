@@ -45,14 +45,27 @@ const MoveDetailHeroContainer = ({
   const displayData = selectedVersionData ?? skillData
 
   // 특정 버전 선택 시엔 그 버전명을, "최신"(selectedVersionGroupId 없음) 선택 시엔
-  // versionGroupId가 가장 큰(=가장 최근 출시된) 버전명을 찾아 "최신 · 버전명"으로 표기한다.
-  // "최신"이 어떤 게임인지 사용자가 알 수 있게 실제 버전명을 병기한다.
+  // 이 기술이 실제 사용 가능한 버전 중 가장 마지막 버전명을 찾아 "최신 · 버전명"으로 표기한다.
+  //
+  // ⚠️ 두 가지를 모두 지켜야 한다(2026-07-27 수정):
+  // 1) 전체 게임 목록(versionGroups)이 아니라 이 기술의 세대별 데이터(generations)를 봐야 한다.
+  // 2) generations엔 삭제된 버전의 레코드도 is_available=false로 남아 있다. 삭제된 기술
+  //    (예: 깜짝헤드)은 최신 버전에도 레코드는 있으나 사용 불가라, 단순 max(versionGroupId)를
+  //    쓰면 실제로 못 쓰는 최신 버전을 "최신"으로 잘못 표기한다. isAvailable=true인 것 중
+  //    최대 versionGroupId(= 실제 마지막으로 사용 가능했던 버전)를 최신으로 잡는다.
   const isLatest = !selectedVersionGroupId
+  const availableVersionGroupIds = skillData.generations
+    .filter((gen) => gen.isAvailable)
+    .map((gen) => gen.versionGroupId)
+  const latestVersionGroupId =
+    availableVersionGroupIds.length > 0
+      ? Math.max(...availableVersionGroupIds)
+      : undefined
   const latestVersionName =
-    versionGroups && versionGroups.length > 0
-      ? [...versionGroups].sort(
-          (a, b) => b.versionGroupId - a.versionGroupId,
-        )[0].nameKo
+    latestVersionGroupId != null
+      ? versionGroups?.find(
+          (vg) => vg.versionGroupId === latestVersionGroupId,
+        )?.nameKo
       : undefined
   const selectedVersionName = selectedVersionData
     ? versionGroups?.find(
