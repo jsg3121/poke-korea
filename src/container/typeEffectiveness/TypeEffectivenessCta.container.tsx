@@ -27,7 +27,7 @@ const TypeEffectivenessCtaContainer = () => {
     : ''
 
   const CTA_LINK_CLASS =
-    'flex h-full items-center justify-between rounded-2xl bg-primary-1 px-5 py-4 text-base text-primary-4 transition-colors hover:bg-primary-3 hover:text-primary-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4'
+    'flex h-full items-center justify-between rounded-2xl bg-primary-1 px-5 py-3 desktop:py-4 text-base text-primary-4 transition-colors hover:bg-primary-3 hover:text-primary-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4'
 
   return (
     <section

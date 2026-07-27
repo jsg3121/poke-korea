@@ -44,11 +44,26 @@ const MoveDetailHeroContainer = ({
     : undefined
   const displayData = selectedVersionData ?? skillData
 
-  const versionName = selectedVersionData
+  // 특정 버전 선택 시엔 그 버전명을, "최신"(selectedVersionGroupId 없음) 선택 시엔
+  // versionGroupId가 가장 큰(=가장 최근 출시된) 버전명을 찾아 "최신 · 버전명"으로 표기한다.
+  // "최신"이 어떤 게임인지 사용자가 알 수 있게 실제 버전명을 병기한다.
+  const isLatest = !selectedVersionGroupId
+  const latestVersionName =
+    versionGroups && versionGroups.length > 0
+      ? [...versionGroups].sort(
+          (a, b) => b.versionGroupId - a.versionGroupId,
+        )[0].nameKo
+      : undefined
+  const selectedVersionName = selectedVersionData
     ? versionGroups?.find(
         (vg) => vg.versionGroupId === selectedVersionData.versionGroupId,
       )?.nameKo
     : undefined
+  const versionName = isLatest
+    ? latestVersionName
+      ? `최신 · ${latestVersionName}`
+      : undefined
+    : selectedVersionName
 
   const damageColor = displayData.damageType
     ? DAMAGE_CHIP_COLOR[displayData.damageType.toLowerCase()]
@@ -67,7 +82,7 @@ const MoveDetailHeroContainer = ({
         <h1 className="text-2xl desktop:text-4xl font-bold text-primary-4 leading-tight">
           {skillData.nameKo}
         </h1>
-        {versionName && <ChipComponent label={`${versionName} 기준`} />}
+        {versionName && <ChipComponent label={versionName} />}
         {skillData.zMoves && skillData.isAvailable && (
           <ChipComponent label="Z기술" />
         )}
@@ -77,6 +92,15 @@ const MoveDetailHeroContainer = ({
           </strong>
         )}
       </header>
+
+      {/* "최신"이 어떤 버전을 의미하는지 상시 노출(툴팁 대신 항상 보이는 캡션 —
+          모바일에서도 확인 가능). 버전 미선택 시 가장 최근 출시 버전 데이터를 보여준다. */}
+      {isLatest && latestVersionName && (
+        <p className="mt-2 text-xs desktop:text-sm text-primary-3">
+          &lsquo;최신&rsquo;은 가장 최근 출시된 <b>{latestVersionName}</b> 버전
+          기준이에요.
+        </p>
+      )}
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {displayData.type && <TagComponent type={displayData.type} />}

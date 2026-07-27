@@ -75,7 +75,7 @@ const AbilityListContainer = ({
       {/* "특성이란?" — 기본 접힘. 정적 설명이라 재방문자 스캔 비용을 낮춘다.
           네이티브 details라 JS 없이 동작(최소 구현). 설명 본문은 기존 DS 재사용. */}
       <details className="group mb-6 rounded-2xl bg-primary-4 open:pb-2">
-        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-6 py-4 text-lg font-bold text-primary-1 [&::-webkit-details-marker]:hidden">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-6 py-3 desktop:py-4 text-base desktop:text-lg font-bold text-primary-1 [&::-webkit-details-marker]:hidden">
           특성이란?
           <span
             aria-hidden="true"
