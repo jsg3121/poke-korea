@@ -67,7 +67,7 @@ const ChampionsPokedexContainer = ({
           top 오프셋은 상단 고정 크롬 실높이와 정확히 맞춘다:
           - 모바일 88px = 헤더 h-12(48) + SubNav h-10(40)
           - 데스크톱 160px = 헤더 120 + SubNav 40 */}
-      <div className="sticky top-[5.5rem] z-20 -mx-4 mb-4 px-4 pb-2 bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] desktop:top-40 desktop:-mx-5 desktop:mb-6 desktop:px-5">
+      <div className="sticky top-[5.25rem] z-20 -mx-4 mb-4 px-4 pb-2 bg-primary-1 shadow-[0_3px_3px_-2px_var(--color-black-1)] desktop:top-40 desktop:-mx-5 desktop:mb-6 desktop:px-5">
         <div className="flex items-center justify-between py-1.5 border-t border-primary-2/30">
           {pokemonList.length > 0 && (
             <p className="text-xs text-primary-3">
