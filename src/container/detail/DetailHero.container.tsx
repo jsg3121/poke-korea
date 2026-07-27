@@ -102,7 +102,7 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
             이름 길이와 무관하게 이미지가 항상 같은 위치(QA 라운드 2) */}
         <div className="flex flex-col items-center gap-4 px-4 pb-4 pt-2 desktop:flex-row desktop:gap-16 desktop:pb-6 desktop:pl-16">
           {currentItem && (
-            <div className="h-72 w-72 shrink-0 [filter:drop-shadow(0px_5px_5px_#000000)] desktop:h-96 desktop:w-96">
+            <div className="h-48 w-48 shrink-0 [filter:drop-shadow(0px_5px_5px_#000000)] desktop:h-96 desktop:w-96">
               <ImageComponent
                 src={getImageSrc({ imageCode: currentItem.imageCode, isShiny })}
                 width="100%"

@@ -56,7 +56,7 @@ const DetailEvolutionContainer = ({
             key={`relation-pokemon-id-${pokemon.number}`}
             href={`/detail/${pokemon.number}`}
             aria-label={`${name}와(과) 연관된 포켓몬 ${pokemon.name || `No.${pokemon.number}`} 상세 보기`}
-            className="block rounded-2xl p-2 shadow-md transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
+            className="block rounded-2xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
           >
             <ImageComponent
               src={`${imageMode}/${pokemon.number}`}
