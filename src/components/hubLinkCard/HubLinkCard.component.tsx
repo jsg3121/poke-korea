@@ -42,17 +42,20 @@ const HubLinkCardComponent = ({
       href={href}
       className="flex flex-col gap-2 rounded-2xl bg-primary-4 p-4 shadow-lg transition-colors hover:bg-white-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
     >
-      {/* 아이콘 자산은 currentColor라 래퍼의 text 색(primary-1)을 상속한다 */}
+      {/* 아이콘 자산은 currentColor라 래퍼의 text 색(primary-1)을 상속한다.
+          아이콘은 모바일 24px → 데스크톱 32px (champions 카드 아이콘 모바일 24px 톤) */}
       <span
         aria-hidden="true"
-        className="text-primary-1 [&>svg]:h-8 [&>svg]:w-8"
+        className="text-primary-1 [&>svg]:h-6 [&>svg]:w-6 desktop:[&>svg]:h-8 desktop:[&>svg]:w-8"
       >
         {icon}
       </span>
       <span className="text-base font-bold text-primary-1 desktop:text-lg">
         {title}
       </span>
-      <span className="text-sm text-primary-1 break-keep">{description}</span>
+      <span className="text-xs desktop:text-sm text-primary-1 break-keep">
+        {description}
+      </span>
     </Link>
   )
 }

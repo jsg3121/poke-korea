@@ -96,12 +96,12 @@ const HorizontalScrollListComponent = ({
         aria-label={ariaLabel}
       >
         {/* 가로 목록 시맨틱 보장: 각 자식을 li로 래핑(자식은 shrink 방지로 고정 폭 유지).
-            모바일은 li가 폭(w-48=192px)을 부여해 카드를 그 폭까지 늘린다 — 카드 SSOT는
+            모바일은 li가 폭(163.5px)을 부여해 카드를 그 폭까지 늘린다 — 카드 SSOT는
             min-w-36~max-w-48 유동이라, 그리드처럼 폭을 밀어주는 힘이 없는 가로 스크롤에선
-            하한 144px에 머문다. 상한과 같은 192px를 li로 지정해 넓게 렌더한다. 데스크톱은
-            카드 자체 폭(w-56=224px)을 따르도록 w-auto. */}
+            하한 144px에 머문다. 상한(192px)까지 커지면 과대해 163.5px로 제한한다(카드 하한
+            144~상한 192 사이). 데스크톱은 카드 자체 폭(w-56=224px)을 따르도록 w-auto. */}
         {Children.map(children, (child, index) => (
-          <li key={index} className="flex-shrink-0 w-48 desktop:w-auto">
+          <li key={index} className="flex-shrink-0 w-[163.5px] desktop:w-auto">
             {child}
           </li>
         ))}

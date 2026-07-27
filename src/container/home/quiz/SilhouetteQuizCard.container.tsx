@@ -38,9 +38,9 @@ const SilhouetteQuizCardContainer = ({
             alt="포켓몬 실루엣 이미지"
             imageSize={{ width: 128, height: 128 }}
             densities={[1, 1.5]}
-            sizes="8rem"
+            sizes="(min-width: 769px) 8rem, 6rem"
             loading="lazy"
-            className="w-32 h-32 object-contain brightness-0"
+            className="w-24 h-24 desktop:w-32 desktop:h-32 object-contain brightness-0"
           />
         }
         answers={silhouetteQuiz.options.map((option, index) => (
