@@ -107,6 +107,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         </Providers>
         {isProduction && (
           <>
+            {/* Google AdSense */}
+            <Script
+              id="adsbygoogle-init"
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+              crossOrigin="anonymous"
+              strategy="afterInteractive"
+            />
             {/* Google Analytics */}
             <Script
               id="gtag-base"
@@ -139,13 +146,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   }
                 `,
               }}
-            />
-            {/* Google AdSense */}
-            <Script
-              id="adsbygoogle-init"
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-              crossOrigin="anonymous"
-              strategy="afterInteractive"
             />
           </>
         )}
