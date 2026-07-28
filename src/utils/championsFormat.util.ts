@@ -1,5 +1,22 @@
 import { ChampionsFormat } from '~/graphql/typeGenerated'
 
+/**
+ * 챔피언스 포켓몬을 인기 순으로 정렬하는 비교 함수 (usageRank 오름차순, 1위가 최상위).
+ *
+ * Why: 데이터 원천이 실게임 데이터로 바뀌며 usageRate(사용률 %)가 항상 null이 되어,
+ * 기존 usageRate 기준 정렬이 무력화됐다(전부 0). 순위(usageRank)는 계속 유효하므로
+ * 이를 기준으로 정렬한다. usageRank는 작을수록 상위(1위=가장 많이 채택)이므로 오름차순,
+ * null(메타 미적재)은 항상 뒤로 보낸다.
+ */
+export const compareByUsageRank = (
+  a: { usageRank?: number | null },
+  b: { usageRank?: number | null },
+): number => {
+  const rankA = a.usageRank ?? Number.POSITIVE_INFINITY
+  const rankB = b.usageRank ?? Number.POSITIVE_INFINITY
+  return rankA - rankB
+}
+
 export type ChampionsFormatSlug = 'vgc' | 'bss'
 
 export const CHAMPIONS_FORMAT_SLUGS: ChampionsFormatSlug[] = ['vgc', 'bss']

@@ -1,5 +1,5 @@
 import LinkButtonComponent from '~/components/button/LinkButton.component'
-import ChampionsCardComponent from '~/components/champions/ChampionsCard.component'
+import ChampionsTopCardComponent from '~/components/champions/ChampionsTopCard.component'
 import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import SectionHeadingComponent from '~/components/SectionHeading.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
@@ -48,7 +48,7 @@ const HomeChampionsContainer = ({
       <div className="desktop:max-w-fit desktop:mx-auto">
         <HorizontalScrollListComponent aria-label="이번 주 챔피언스 TOP 3 목록">
           {topPokemons.map((pokemon) => (
-            <ChampionsCardComponent
+            <ChampionsTopCardComponent
               key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
               pokemonData={pokemon}
               formatSlug={CHAMPIONS_DEFAULT_FORMAT_SLUG}

@@ -1,5 +1,5 @@
 import { headers } from 'next/headers'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
@@ -50,26 +50,6 @@ export const renderChampionsDetail = async ({
 
   if (!detail?.pokemon) {
     notFound()
-  }
-
-  // BASE 폼처럼 챔피언스 메타 데이터가 없는 폼에 진입한 경우,
-  // formSiblings 에 챔피언스 등장 폼이 있으면 가장 인기 있는(usageRate 최대) 폼으로 자동 리다이렉트.
-  // Why: 플라엣테(BASE) 처럼 챔피언스 미등장 폼으로 사용자가 진입하면 빈 페이지가 노출되는데,
-  //      메가플라엣테 같은 등장 폼이 있다면 그쪽으로 안내하는 것이 사용자 경험상 자연스럽다.
-  if (!detail.meta && detail.formSiblings.length > 0) {
-    const fallback = [...detail.formSiblings]
-      .filter((s) => s.usageRate != null)
-      .sort((a, b) => (b.usageRate ?? 0) - (a.usageRate ?? 0))[0]
-
-    if (fallback) {
-      const href = buildChampionsDetailHref({
-        formatSlug,
-        pokemonId: fallback.pokemonId,
-        formType: fallback.formType,
-        formCode: fallback.formCode,
-      })
-      redirect(href)
-    }
   }
 
   const headersList = await headers()

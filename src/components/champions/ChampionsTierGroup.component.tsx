@@ -2,7 +2,10 @@
 
 import { useState } from 'react'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import {
+  ChampionsFormatSlug,
+  compareByUsageRank,
+} from '~/utils/championsFormat.util'
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 import ChampionsTierPokemonItem from './ChampionsTierPokemonItem.component'
 
@@ -29,9 +32,7 @@ const ChampionsTierGroup = ({
   const isEmpty = pokemons.length === 0
   const isHighPriorityTier = tier === 'S' || tier === 'A'
 
-  const sortedPokemons = [...pokemons].sort(
-    (a, b) => (b.usageRate ?? 0) - (a.usageRate ?? 0),
-  )
+  const sortedPokemons = [...pokemons].sort(compareByUsageRank)
 
   const headerContent = (
     <span className="flex items-center justify-between gap-2 px-4 py-1 bg-primary-4 border-b border-primary-3/50 desktop:py-2">

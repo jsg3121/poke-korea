@@ -54,8 +54,6 @@ const ChampionsTierPokemonItem = ({
     })
 
   const formBadge = getFormBadge(pokemon.formCode, pokemon.region)
-  const usageRate = pokemon.usageRate ?? 0
-  const winRate = pokemon.winRate
 
   return (
     <Link
@@ -126,7 +124,7 @@ const ChampionsTierPokemonItem = ({
       )}
 
       <span
-        className={`my-2 h-6 leading-[calc(1.5rem+2px)] text-primary-4 font-bold text-center line-clamp-2 group-hover:text-primary-1 ${pokemon.name && pokemon.name.length > 8 ? 'text-[0.625rem]' : 'text-[0.875rem]'}`}
+        className={`my-2 h-6 leading-[calc(1.5rem+2px)] text-primary-4 font-bold text-center line-clamp-2 group-hover:text-primary-1 ${pokemon.name && pokemon.name.length > 8 ? 'text-[0.625rem]' : 'text-base'}`}
       >
         {pokemon.name}
       </span>
@@ -142,39 +140,29 @@ const ChampionsTierPokemonItem = ({
         </div>
       )}
 
-      <div className="w-full mt-2 flex flex-col gap-1.5">
-        <div className="flex flex-col gap-0.5">
-          <div className="flex items-center justify-between text-[11px] text-primary-3 group-hover:text-primary-1">
-            <span>사용률</span>
-            <span className="font-semibold">{usageRate}%</span>
-          </div>
-          <div className="w-full h-1 bg-primary-3/30 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-emerald-500 rounded-full"
-              style={{ width: `${Math.min(usageRate, 100)}%` }}
-            />
-          </div>
+      {/* 인기 기술/도구 top1 (한글명). 데이터 원천 변경으로 사용률·승률(%)이 항상
+          null이 되어 막대 그래프를 제거하고 실제 채택 top1로 교체했다. 인기도 서열은
+          우상단 #순위 배지가 담당한다. 정보 제공이 목적이라 값은 말줄임 없이 줄바꿈으로
+          전부 노출한다(break-keep=한글 단어 단위 줄바꿈). 라벨을 값 위에 두어 값이 카드
+          가로폭 전체를 쓰게 해 줄바꿈을 최소화한다. */}
+      <dl className="w-full mt-2 flex flex-col gap-1.5 text-center">
+        <div className="text-[11px] text-primary-3 group-hover:text-primary-1">
+          <dt className="font-bold text-primary-3/70 group-hover:text-primary-1/70">
+            인기 기술
+          </dt>
+          <dd className="font-semibold text-primary-4 group-hover:text-primary-1 break-keep">
+            {pokemon.topMove ?? '-'}
+          </dd>
         </div>
-        {/* 승률 영역은 항상 공간을 예약해 카드 높이를 규격화한다.
-            데이터가 없는 포켓몬(winRate == null)은 라벨·수치·막대바(트랙 포함)를
-            전부 비가시 처리하되, 동일 높이를 차지하게 하여 승률 유무와 무관하게
-            카드 높이를 통일한다. */}
-        <div
-          className={`flex flex-col gap-0.5 ${winRate == null ? 'invisible' : ''}`}
-          aria-hidden={winRate == null || undefined}
-        >
-          <div className="flex items-center justify-between text-[11px] text-primary-3 group-hover:text-primary-1">
-            <span>승률</span>
-            <span className="font-semibold">{winRate ?? 0}%</span>
-          </div>
-          <div className="w-full h-1 bg-primary-3/30 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-emerald-500 rounded-full"
-              style={{ width: `${Math.min(winRate ?? 0, 100)}%` }}
-            />
-          </div>
+        <div className="text-[11px] text-primary-3 group-hover:text-primary-1">
+          <dt className="font-bold text-primary-3/70 group-hover:text-primary-1/70">
+            인기 도구
+          </dt>
+          <dd className="font-semibold text-primary-4 group-hover:text-primary-1 break-keep">
+            {pokemon.topItem ?? '-'}
+          </dd>
         </div>
-      </div>
+      </dl>
     </Link>
   )
 }
