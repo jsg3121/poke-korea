@@ -31,7 +31,7 @@ export async function generateMetadata({
 
   if (isNaN(abilityId)) {
     return {
-      title: '특성을 찾을 수 없습니다 - 포케 코리아',
+      title: '특성을 찾을 수 없습니다',
     }
   }
 
@@ -44,7 +44,7 @@ export async function generateMetadata({
 
   if (!ability) {
     return {
-      title: '특성을 찾을 수 없습니다 - 포케 코리아',
+      title: '특성을 찾을 수 없습니다',
     }
   }
 

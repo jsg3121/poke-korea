@@ -18,7 +18,7 @@ import ChampionsTournamentsListView from '~/views/champions/ChampionsTournaments
 
 export const revalidate = 86400
 
-const PAGE_TITLE = '포켓몬 VGC 대회 결과 | 포케코리아'
+const PAGE_TITLE = '포켓몬 VGC 대회 결과'
 const PAGE_DESCRIPTION =
   'VGC 더블 배틀 실전 대회 입상팀 풀빌드 아카이브. 우승팀의 포켓몬, 기술, 도구, 특성, 테라스탈 타입을 확인하세요.'
 
@@ -30,7 +30,7 @@ export const generateMetadata = (): Metadata => {
     openGraph: {
       type: 'website',
       url,
-      title: PAGE_TITLE,
+      title: `${PAGE_TITLE} - 포케 코리아`,
       locale: 'ko_KR',
       description: PAGE_DESCRIPTION,
       siteName: SITE_NAME,
@@ -40,7 +40,7 @@ export const generateMetadata = (): Metadata => {
     },
     twitter: {
       card: 'summary_large_image',
-      title: PAGE_TITLE,
+      title: `${PAGE_TITLE} - 포케 코리아`,
       description: PAGE_DESCRIPTION,
     },
     robots: {

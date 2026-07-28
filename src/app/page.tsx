@@ -25,6 +25,7 @@ import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import HomeView from '~/views/home/Home.view'
@@ -106,23 +107,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     ...(championsTopData?.getChampionsMetaSummary || []),
   ].sort((a, b) => (b.usageRate ?? 0) - (a.usageRate ?? 0))
 
-  // JSON-LD 구조화된 데이터
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: '포케 코리아',
-    alternateName: '포케코리아',
-    url: 'https://poke-korea.com',
-    description:
-      '1025마리 포켓몬 도감, 타입 상성 계산기, 기술 도감, 특성 도감, 매일 새로운 포켓몬 퀴즈! 빠르고 정확한 포켓몬 백과사전.',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://poke-korea.com/list?name={search_term_string}',
-      'query-input': 'required name=search_term_string',
-    },
-    inLanguage: 'ko-KR',
-  }
-
   return (
     <Fragment>
       {/* 홈 콘텐츠는 반응형 단일(HomeView, ADR-0007). UA 분기는 아직 데/모 2벌인
@@ -155,10 +139,10 @@ const HomePage = async ({ searchParams }: PageProps) => {
         </main>
       )}
       <script
-        id="ability-webpage-jsonLd"
+        id="website-jsonLd"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
+          __html: JSON.stringify(WEBSITE_JSON_LD),
         }}
       />
     </Fragment>

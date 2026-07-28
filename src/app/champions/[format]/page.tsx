@@ -24,8 +24,11 @@ import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import ChampionsHomeView from '~/views/champions/ChampionsHome.view'
 import { generateChampionsHomeMetadata } from '../_metadata/championsMetadata'
+import { getChampionsHomeJsonLd } from '~/constants/championsJsonLd'
 import {
   ChampionsFormatSlug,
+  getFormatDescription,
+  getFormatShortLabel,
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
@@ -44,7 +47,7 @@ export const generateMetadata = async ({
 
   if (!formatSlug) {
     return {
-      title: '포켓몬 챔피언스 도감 | 포케코리아',
+      title: '포켓몬 챔피언스 도감',
       robots: { index: false, follow: false },
     }
   }
@@ -115,30 +118,18 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
   const teamCores = teamCoresData?.championsTeamCores ?? []
   const recentTournaments = tournamentsData?.championsTournaments ?? []
 
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: '홈',
-        item: 'https://poke-korea.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: '챔피언스',
-        item: `https://poke-korea.com/champions/${formatSlug}`,
-      },
-    ],
-  }
+  const formatShort = getFormatShortLabel(formatSlug)
+  const webPageJsonLd = getChampionsHomeJsonLd({
+    formatSlug,
+    name: `포켓몬 챔피언스 ${formatShort} 도감`,
+    description: `${getFormatDescription(formatSlug)} 메타 분석 — 포켓몬 사용률, 추천 기술·도구·특성, 인기 팀 조합 정보를 확인하세요.`,
+  })
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
       {/* 콘텐츠는 반응형 단일(ChampionsHomeView, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(티어·도감 개편과 동일 패턴). */}
