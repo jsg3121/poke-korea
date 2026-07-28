@@ -127,22 +127,14 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 │   ├── seo-audit/             #   /seo-audit
 │   ├── a11y-check/            #   /a11y-check (WCAG 접근성 검사)
 │   ├── code-review/           #   /code-review
-│   ├── component-builder/     #   /component-builder
 │   ├── research/              #   /research (자동 트리거)
-│   ├── test-writer/           #   /test-writer (Vitest 단위 테스트)
-│   ├── e2e-test/              #   /e2e-test (Playwright E2E 테스트)
 │   └── biz-strategy/          #   /biz-strategy (비즈니스 전략 파이프라인, references/ 포함)
 ├── agents/                    # 에이전트 정의
 │   ├── index.md               #   에이전트 목록 및 활용 패턴
 │   ├── product-planner.md     #   기획서(SPEC) 작성/관리
-│   ├── config-maker.md        #   설정 파일 스키마/옵션/생성 로직
 │   ├── seo-specialist.md      #   SEO 설계/구현 (메타태그, JSON-LD, hreflang)
-│   ├── ui-publisher.md        #   Astro/Svelte 컴포넌트 구현
+│   ├── ui-publisher.md        #   페이지, UI 컴포넌트 구현
 │   ├── ux-designer.md         #   사용자 플로우, 레이아웃, 인터랙션 설계
-│   ├── qa-agent.md            #   QA 오케스트레이터 (서브에이전트 조율)
-│   ├── unit-tester.md         #   Vitest 단위 테스트 실행/분석 (qa-agent 전용)
-│   ├── e2e-tester.md          #   Playwright E2E 테스트 실행/분석 (qa-agent 전용)
-│   ├── static-analyzer.md     #   ESLint/Prettier/TS 정적 분석 (qa-agent 전용)
 │   ├── market-intelligence.md #   시장/경쟁사/트렌드 조사
 │   ├── business-analyst.md    #   서비스 경쟁력/포지셔닝 분석
 │   └── strategy-planner.md    #   MI+BA 종합 후 전략 방향 도출

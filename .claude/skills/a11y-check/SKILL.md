@@ -15,7 +15,7 @@ disable-model-invocation: true
 
 ### 1. 대상 파일 수집
 
-사용자가 특정 파일/페이지를 지정하지 않으면 `src/` 하위의 `.astro`, `.svelte` 파일을 전체 검사한다.
+사용자가 특정 파일/페이지를 지정하지 않으면 `src/` 하위의 `.tsx` 파일을 전체 검사한다.
 
 ### 2. 검사 항목
 
@@ -62,6 +62,7 @@ disable-model-invocation: true
 ## 접근성 검사 결과
 
 ### 요약
+
 - 검사 파일: {N}개
 - 🔴 위반 (WCAG A/AA 필수): {N}건
 - 🟡 경고 (권장 사항): {N}건
@@ -70,6 +71,7 @@ disable-model-invocation: true
 ### 🔴 위반 사항
 
 #### [{파일}:{라인}] {위반 내용}
+
 - **WCAG 기준**: {기준 번호} ({기준명})
 - **문제**: {설명}
 - **수정 방법**: {구체적 수정 안내}
@@ -79,6 +81,7 @@ disable-model-invocation: true
 - {파일}: {내용}
 
 ### 참고 자료
+
 - [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/)
 ```
 
