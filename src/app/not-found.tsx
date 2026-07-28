@@ -9,7 +9,7 @@ import ImageComponent from '~/components/Image.component'
 import { imageMode } from '~/module/buildMode'
 
 export const metadata: Metadata = {
-  title: '404 - 페이지를 찾을 수 없습니다 | 포케 코리아',
+  title: '404 - 페이지를 찾을 수 없습니다',
   description: '요청하신 페이지가 존재하지 않거나 잘못되었습니다.',
   robots: {
     index: false,

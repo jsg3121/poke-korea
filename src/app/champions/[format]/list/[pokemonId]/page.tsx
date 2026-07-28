@@ -17,7 +17,7 @@ export const generateMetadata = async ({
 
   if (!formatSlug) {
     return {
-      title: '포켓몬을 찾을 수 없습니다 | 포케코리아',
+      title: '포켓몬을 찾을 수 없습니다',
       robots: { index: false, follow: false },
     }
   }

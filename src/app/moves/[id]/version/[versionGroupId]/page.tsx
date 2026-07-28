@@ -34,7 +34,7 @@ export async function generateMetadata({
 
   if (isNaN(skillId) || isNaN(versionGroupId) || versionGroupId < 1) {
     return {
-      title: '기술을 찾을 수 없습니다 - 포케 코리아',
+      title: '기술을 찾을 수 없습니다',
     }
   }
 
@@ -45,7 +45,7 @@ export async function generateMetadata({
 
   if (!skill) {
     return {
-      title: '기술을 찾을 수 없습니다 - 포케 코리아',
+      title: '기술을 찾을 수 없습니다',
     }
   }
 
@@ -55,7 +55,7 @@ export async function generateMetadata({
 
   if (!versionData) {
     return {
-      title: '기술을 찾을 수 없습니다 - 포케 코리아',
+      title: '기술을 찾을 수 없습니다',
     }
   }
 

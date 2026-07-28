@@ -42,7 +42,7 @@ export const generateMetadata = async ({
 
   if (!formatSlug) {
     return {
-      title: '포켓몬 챔피언스 도감 | 포케코리아',
+      title: '포켓몬 챔피언스 도감',
       robots: { index: false, follow: false },
     }
   }

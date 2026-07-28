@@ -5,6 +5,7 @@ import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import { getChampionsDetailJsonLd } from '~/constants/championsJsonLd'
 import { detectUserAgent } from '~/module/device.module'
 import {
   buildChampionsDetailHref,
@@ -75,47 +76,26 @@ export const renderChampionsDetail = async ({
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: '홈',
-        item: 'https://poke-korea.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: '챔피언스',
-        item: `https://poke-korea.com/champions/${formatSlug}`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: '포켓몬 도감',
-        item: `https://poke-korea.com/champions/${formatSlug}/list`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: detail.pokemon.name,
-        item: `https://poke-korea.com${buildChampionsDetailHref({
-          formatSlug,
-          pokemonId: parsedPokemonId,
-          formType: detail.pokemon.formType,
-          formCode: detail.pokemon.formCode,
-        })}`,
-      },
-    ],
-  }
+  const detailPath = buildChampionsDetailHref({
+    formatSlug,
+    pokemonId: parsedPokemonId,
+    formType: detail.pokemon.formType,
+    formCode: detail.pokemon.formCode,
+  })
+  const pokemonName = detail.pokemon.name
+  const webPageJsonLd = getChampionsDetailJsonLd({
+    formatSlug,
+    pokemonName,
+    detailPath,
+    name: `${pokemonName.replace('_', ' ')} 챔피언스 도감`,
+    description: `${pokemonName.replace('_', ' ')} 챔피언스 메타 정보 — 사용률, 추천 기술·도구·특성, 스탯을 확인하세요.`,
+  })
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
       {/* 콘텐츠는 반응형 단일(ChampionsDetailView, ADR-0013). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(E-1·ability·list 개편과 동일 패턴). */}

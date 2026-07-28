@@ -41,7 +41,7 @@ export const generateMetadata = async ({
 
   if (!formatSlug) {
     return {
-      title: '포켓몬 챔피언스 티어 리스트 | 포케코리아',
+      title: '포켓몬 챔피언스 티어 리스트',
       robots: { index: false, follow: false },
     }
   }

@@ -12,7 +12,7 @@ export const generateAbilityDetailMetadata = ({
   abilityName,
   abilityDescription,
 }: AbilityDetailMetadataParams): Metadata => {
-  const title = `포켓몬 ${abilityName} 특성 정보 - 포케 코리아`
+  const title = `포켓몬 ${abilityName} 특성 정보`
   const description = `${abilityName}: ${abilityDescription} | 이 특성을 가진 포켓몬은 누구일까요?`
 
   return {
@@ -22,7 +22,7 @@ export const generateAbilityDetailMetadata = ({
     openGraph: {
       type: 'website',
       url: `https://poke-korea.com/ability/${abilityId}`,
-      title,
+      title: `${title} - 포케 코리아`,
       description,
       locale: 'ko_KR',
       images: [
@@ -41,7 +41,7 @@ export const generateAbilityDetailMetadata = ({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} - 포케 코리아`,
       description: `${abilityName}: ${abilityDescription}`,
       images: ['https://poke-korea.com/assets/image/ogImage.png'],
     },

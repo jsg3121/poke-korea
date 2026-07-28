@@ -54,14 +54,14 @@ export const generateMetadata = async ({
 
   if (!detail) {
     return {
-      title: '대회 정보를 찾을 수 없습니다 | 포케코리아',
+      title: '대회 정보를 찾을 수 없습니다',
       robots: { index: false, follow: false },
     }
   }
 
   const formatLabel = getFormatEnumShortLabel(detail.format)
   const dateLabel = formatKstDate(detail.date)
-  const title = `${detail.name} 대회 결과 | 포케코리아`
+  const title = `${detail.name} 대회 결과`
   const description = `${dateLabel ?? detail.month} ${detail.name} ${formatLabel} 대회 입상팀 Top 8 풀빌드.${
     detail.playersCount != null ? ` 참가자 ${detail.playersCount}명.` : ''
   }`
@@ -73,13 +73,17 @@ export const generateMetadata = async ({
     openGraph: {
       type: 'website',
       url,
-      title,
+      title: `${title} - 포케 코리아`,
       locale: 'ko_KR',
       description,
       siteName: SITE_NAME,
     },
     alternates: { canonical: url },
-    twitter: { card: 'summary_large_image', title, description },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} - 포케 코리아`,
+      description,
+    },
     robots: {
       index: true,
       follow: true,

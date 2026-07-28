@@ -5,13 +5,15 @@ const SITE_URL = 'https://poke-korea.com'
 const OG_IMAGE_URL = `${SITE_URL}/assets/image/ogImage.png`
 
 export const HOME_META: Metadata = {
-  title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
+  // 홈은 사이트 루트라 브랜드가 앞에 오는 형태를 쓴다. layout의 title.template
+  // (`%s | 포케 코리아`)을 title.absolute로 우회해 이중 접미사를 피한다.
+  title: { absolute: '포케 코리아 - 빠르고 정확한 포켓몬 도감' },
   description:
     '한국어 포켓몬 도감 1025마리, 타입 상성 계산기, 기술·특성 도감, 매일 포켓몬 퀴즈. 무료 포켓몬 백과사전.',
   openGraph: {
     type: 'website',
     url: `${SITE_URL}/`,
-    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
+    title: '빠르고 정확한 포켓몬 도감 - 포케 코리아',
     locale: 'ko_KR',
     description:
       '한국어 포켓몬 도감 1025마리, 타입 상성 계산기, 기술·특성 도감, 매일 포켓몬 퀴즈. 무료 포켓몬 백과사전.',
@@ -20,7 +22,7 @@ export const HOME_META: Metadata = {
         url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
-        alt: '빠르고 정확한 포켓몬 도감 - 포케코리아',
+        alt: '빠르고 정확한 포켓몬 도감 - 포케 코리아',
         type: 'image/png',
       },
     ],
@@ -31,7 +33,7 @@ export const HOME_META: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '빠르고 정확한 포켓몬 도감 - 포케코리아',
+    title: '빠르고 정확한 포켓몬 도감 - 포케 코리아',
     description:
       '한국어 포켓몬 도감 1025마리, 타입 상성 계산기, 기술·특성 도감, 매일 포켓몬 퀴즈. 무료 포켓몬 백과사전.',
     images: [OG_IMAGE_URL],

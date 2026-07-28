@@ -5,10 +5,10 @@ import { getRobotsConfig } from '~/module/metadata.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const MOVES_MAIN_META = createMetadata(
-  '포켓몬 기술 도감 (1~9세대 전체) | 포케 코리아',
+  '포켓몬 기술 도감 (1~9세대 전체)',
   '1세대부터 9세대까지 900개 이상의 포켓몬 기술을 타입·데미지 유형별로 검색하세요. 위력, 명중률, 배울 수 있는 포켓몬까지 한눈에 확인할 수 있습니다.',
   '/moves',
-  '포켓몬 기술 도감 | 포케 코리아',
+  '포켓몬 기술 도감 - 포케 코리아',
 )
 
 interface MovesListMetadataParams {
@@ -39,7 +39,7 @@ export const generateMovesListMetadata = ({
   }
 
   const genLabel = firstGenerationId ? `${firstGenerationId}세대 ` : ''
-  const title = `포켓몬 ${genLabel}${damageTypeFilter ? `${damageTypeFilter} ` : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입 ` : ''}기술 목록 | 포케 코리아`
+  const title = `포켓몬 ${genLabel}${damageTypeFilter ? `${damageTypeFilter} ` : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입 ` : ''}기술 목록`
   const description = `${firstGenerationId ? `${firstGenerationId}세대` : ''}${firstGenerationId && (damageTypeFilter || typeFilter) ? ' · ' : ''}${damageTypeFilter ? `${damageTypeFilter} 유형` : ''}${damageTypeFilter && typeFilter ? ' · ' : ''}${typeFilter ? `${PokemonTypes[typeFilter]} 타입` : ''} 포켓몬 기술을 모아보세요. 위력, 명중률, 세대별 변경사항과 배울 수 있는 포켓몬 목록까지 확인할 수 있습니다.`
   const canonicalUrl = `https://poke-korea.com/moves?${params.toString()}`
 
@@ -50,7 +50,7 @@ export const generateMovesListMetadata = ({
     openGraph: {
       type: 'website',
       url: canonicalUrl,
-      title,
+      title: `${title} - 포케 코리아`,
       description,
       locale: 'ko_KR',
       images: [
@@ -58,7 +58,7 @@ export const generateMovesListMetadata = ({
           url: 'https://poke-korea.com/assets/image/ogImage.png',
           width: 1200,
           height: 630,
-          alt: title,
+          alt: `${title} - 포케 코리아`,
           type: 'image/png',
         },
       ],
@@ -69,7 +69,7 @@ export const generateMovesListMetadata = ({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} - 포케 코리아`,
       description,
       images: ['https://poke-korea.com/assets/image/ogImage.png'],
     },

@@ -28,7 +28,7 @@ export const generateListMetadata = ({
     generation,
   })
 
-  const title = `${titlePrefix} | 포케 코리아`
+  const title = titlePrefix
   const description =
     filters.length > 0
       ? `${descriptionPrefix}을 한눈에 확인하세요. ${filters.join(', ')} 포켓몬을 빠르게 찾아보세요.`
@@ -54,7 +54,7 @@ export const generateListMetadata = ({
     openGraph: {
       type: 'website',
       url: canonicalUrl,
-      title,
+      title: `${title} - 포케 코리아`,
       locale: 'ko_KR',
       description,
       images: [
@@ -62,7 +62,7 @@ export const generateListMetadata = ({
           url: 'https://poke-korea.com/assets/image/ogImage.png',
           width: 1200,
           height: 630,
-          alt: title,
+          alt: `${title} - 포케 코리아`,
           type: 'image/png',
         },
       ],
@@ -73,7 +73,7 @@ export const generateListMetadata = ({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} - 포케 코리아`,
       description,
       images: ['https://poke-korea.com/assets/image/ogImage.png'],
     },
