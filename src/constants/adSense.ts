@@ -20,3 +20,18 @@ export const DETAIL_INCONTENT_SLOTS = {
   point2Mobile: '3773704957', // 320×100
   point2Desktop: '3401601641', // 728×90
 } as const
+
+/**
+ * 기술 상세(/moves/[id]) 하단 인아티클 광고 슬롯 (RES-004).
+ * 포켓몬 그리드 소비 후 하단 — moves 최고 효율 지점(구버전 모바일 인아티클
+ * CTR 1.81%). 기기별 성과 분리를 위해 PC·모바일 슬롯을 나눈다.
+ *
+ * 구버전 모바일 인아티클(4353208706)은 ability 상세와 공유돼 성과가 섞였으므로,
+ * moves만 온전히 추적하도록 전용 슬롯을 새로 발급한다(공유 분리).
+ *
+ * 슬롯 값이 빈 문자열이면 렌더하지 않는다. 인아티클 유형으로 발급한다.
+ */
+export const MOVES_DETAIL_BOTTOM_SLOTS = {
+  mobile: '1694602458', // 인아티클
+  desktop: '8946406513', // 인아티클
+} as const
