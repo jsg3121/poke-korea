@@ -95,9 +95,9 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
       fetchPolicy: 'network-only',
       errorPolicy: 'all',
     }),
-    // Phase 5: 최근 대회 섹션용 - VGC 만 데이터 있고 BSS 홈에선 섹션 자체 미노출.
-    // formatSlug === 'vgc' 일 때만 네트워크 호출, BSS 는 빈 응답으로 단락.
-    formatSlug === 'vgc'
+    // Phase 5: 최근 대회 섹션용 - 더블(VGC)만 데이터 있고 싱글 홈에선 섹션 자체 미노출.
+    // formatSlug === 'double' 일 때만 네트워크 호출, 싱글은 빈 응답으로 단락.
+    formatSlug === 'double'
       ? apolloClient.query<
           GetChampionsTournamentsWithTopTeamQuery,
           GetChampionsTournamentsWithTopTeamQueryVariables

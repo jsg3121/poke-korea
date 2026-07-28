@@ -51,7 +51,7 @@ const NAV_ITEMS: NavItem[] = [
  * - /champions/{format} → 'home'
  */
 const matchSection = (pathname: string, section: SubNavSection): boolean => {
-  const segments = pathname.split('/').filter(Boolean) // ['champions', 'vgc', 'list', ...]
+  const segments = pathname.split('/').filter(Boolean) // ['champions', 'double', 'list', ...]
   if (segments[0] !== 'champions') return false
   if (segments[1] === 'tournaments') return section === 'tournaments'
   const sectionSegment = segments[2] // 'list' | 'tier' | undefined

@@ -19,7 +19,7 @@ import {
  */
 interface ChampionsFormatIntroProps {
   formatSlug: ChampionsFormatSlug
-  /** 포맷 탭 이동 경로 suffix. 예: '/tier' → /champions/vgc/tier */
+  /** 포맷 탭 이동 경로 suffix. 예: '/tier' → /champions/double/tier */
   suffix?: string
   /** 포맷 안내 캡션(getFormatIntro) 노출 여부 */
   showIntro?: boolean

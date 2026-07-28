@@ -74,7 +74,7 @@ export const HomeHubGrid: Story = {
         icon={<AbilityIcon />}
       />
       <HubLinkCardComponent
-        href="/champions/vgc"
+        href="/champions/double"
         title="챔피언스"
         description="대회 메타·티어 리스트"
         icon={<ChampionsIcon />}

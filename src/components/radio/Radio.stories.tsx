@@ -54,11 +54,11 @@ export const Group: Story = {
       <legend className="sr-only">포맷 선택</legend>
       <RadioComponent
         name="format"
-        value="vgc"
-        label="VGC 더블"
+        value="double"
+        label="더블 배틀"
         defaultChecked
       />
-      <RadioComponent name="format" value="bss" label="BSS 싱글" />
+      <RadioComponent name="format" value="single" label="싱글 배틀" />
       <RadioComponent name="format" value="etc" label="기타" />
     </fieldset>
   ),

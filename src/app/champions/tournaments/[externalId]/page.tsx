@@ -116,7 +116,7 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
         '@type': 'ListItem',
         position: 2,
         name: '챔피언스',
-        item: `${SITE_URL}/champions/vgc`,
+        item: `${SITE_URL}/champions/double`,
       },
       {
         '@type': 'ListItem',

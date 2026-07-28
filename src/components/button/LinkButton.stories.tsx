@@ -33,7 +33,7 @@ type Story = StoryObj<typeof meta>
 /** 섹션 CTA (화살표 동반) — 실제 사용 예 */
 export const Primary: Story = {
   args: {
-    href: '/champions/vgc/list',
+    href: '/champions/double/list',
     children: '챔피언스 전체 도감 보기',
     showArrow: true,
   },
