@@ -119,16 +119,16 @@ const nextConfig = {
         destination: '/detail/:pokemonId/moves/machine',
         permanent: true,
       },
-      // 챔피언스 포맷 분리 (Phase 1) — 기존 URL을 VGC 기본으로 리다이렉트
+      // 챔피언스 포맷 분리 (Phase 1) — 기존 URL을 더블(기본) 포맷으로 리다이렉트
       {
         source: '/champions',
-        destination: '/champions/vgc',
+        destination: '/champions/double',
         permanent: true,
       },
-      // 챔피언스 리스트 포맷 분리 (Phase 2) — 기존 URL을 VGC 기본으로 리다이렉트
+      // 챔피언스 리스트 포맷 분리 (Phase 2) — 기존 URL을 더블(기본) 포맷으로 리다이렉트
       {
         source: '/champions/list',
-        destination: '/champions/vgc/list',
+        destination: '/champions/double/list',
         permanent: true,
       },
       // 챔피언스 티어 포맷 분리 (Phase 3) — 기존 URL을 VGC 기본으로 리다이렉트
