@@ -25,7 +25,7 @@ const meta = {
     },
   },
   args: {
-    currentFormat: 'vgc',
+    currentFormat: 'double',
     basePath: '/champions',
   },
   tags: ['autodocs'],
@@ -35,14 +35,14 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 /** VGC active */
-export const VgcActive: Story = { args: { currentFormat: 'vgc' } }
+export const DoubleActive: Story = { args: { currentFormat: 'double' } }
 
 /** BSS active */
-export const BssActive: Story = { args: { currentFormat: 'bss' } }
+export const SingleActive: Story = { args: { currentFormat: 'single' } }
 
 /** suffix 경로 예시 (도감 하위) */
 export const WithSuffix: Story = {
-  args: { currentFormat: 'vgc', suffix: '/list' },
+  args: { currentFormat: 'double', suffix: '/list' },
 }
 
 /** 모바일 뷰 (패딩·폰트 축소) */

@@ -119,28 +119,51 @@ const nextConfig = {
         destination: '/detail/:pokemonId/moves/machine',
         permanent: true,
       },
-      // 챔피언스 포맷 분리 (Phase 1) — 기존 URL을 VGC 기본으로 리다이렉트
+      // 챔피언스 포맷 분리 (Phase 1) — 기존 URL을 더블(기본) 포맷으로 리다이렉트
       {
         source: '/champions',
-        destination: '/champions/vgc',
+        destination: '/champions/double',
         permanent: true,
       },
-      // 챔피언스 리스트 포맷 분리 (Phase 2) — 기존 URL을 VGC 기본으로 리다이렉트
+      // 챔피언스 리스트 포맷 분리 (Phase 2) — 기존 URL을 더블(기본) 포맷으로 리다이렉트
       {
         source: '/champions/list',
-        destination: '/champions/vgc/list',
+        destination: '/champions/double/list',
         permanent: true,
       },
       // 챔피언스 티어 포맷 분리 (Phase 3) — 기존 URL을 VGC 기본으로 리다이렉트
       {
         source: '/champions/tier',
-        destination: '/champions/vgc/tier',
+        destination: '/champions/double/tier',
         permanent: true,
       },
-      // 챔피언스 상세 포맷 분리 (Phase 4) — 기존 URL을 VGC 기본으로 리다이렉트
+      // 챔피언스 상세 포맷 분리 (Phase 4) — 기존 URL을 더블(기본) 포맷으로 리다이렉트
       {
         source: '/champions/list/:pokemonId',
-        destination: '/champions/vgc/list/:pokemonId',
+        destination: '/champions/double/list/:pokemonId',
+        permanent: true,
+      },
+      // 포맷 슬러그 변경 (vgc/bss → double/single). 기존 색인 URL을 301로 보존한다.
+      // :path* 로 하위 경로(/list, /tier, /list/:id/... )까지 전부 매핑한다.
+      {
+        source: '/champions/vgc/:path*',
+        destination: '/champions/double/:path*',
+        permanent: true,
+      },
+      {
+        source: '/champions/bss/:path*',
+        destination: '/champions/single/:path*',
+        permanent: true,
+      },
+      // 하위 경로 없는 포맷 홈(/champions/vgc, /champions/bss) 자체도 매핑
+      {
+        source: '/champions/vgc',
+        destination: '/champions/double',
+        permanent: true,
+      },
+      {
+        source: '/champions/bss',
+        destination: '/champions/single',
         permanent: true,
       },
     ]

@@ -15,7 +15,7 @@ import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
  */
 
 interface ChampionsHomeJsonLdParams {
-  /** 포맷 슬러그 (예: 'vgc', 'bss') */
+  /** 포맷 슬러그 (예: 'double', 'single') */
   formatSlug: string
   /** page.tsx generateMetadata가 만든 title 재사용 */
   name: string

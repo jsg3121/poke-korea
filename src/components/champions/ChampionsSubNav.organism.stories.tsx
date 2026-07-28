@@ -30,19 +30,23 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 홈 active (/champions/vgc) */
+/** 홈 active (/champions/double) */
 export const HomeActive: Story = {
-  parameters: { nextjs: { navigation: { pathname: '/champions/vgc' } } },
+  parameters: { nextjs: { navigation: { pathname: '/champions/double' } } },
 }
 
-/** 도감 active (/champions/vgc/list) */
+/** 도감 active (/champions/double/list) */
 export const ListActive: Story = {
-  parameters: { nextjs: { navigation: { pathname: '/champions/vgc/list' } } },
+  parameters: {
+    nextjs: { navigation: { pathname: '/champions/double/list' } },
+  },
 }
 
-/** 티어 active (/champions/vgc/tier) */
+/** 티어 active (/champions/double/tier) */
 export const TierActive: Story = {
-  parameters: { nextjs: { navigation: { pathname: '/champions/vgc/tier' } } },
+  parameters: {
+    nextjs: { navigation: { pathname: '/champions/double/tier' } },
+  },
 }
 
 /** 대회 active (/champions/tournaments) */
@@ -55,7 +59,7 @@ export const TournamentsActive: Story = {
 /** 모바일 뷰 (flex-1 균등 배분, 12px — 스크롤 없이 꽉) */
 export const MobileView: Story = {
   parameters: {
-    nextjs: { navigation: { pathname: '/champions/vgc/list' } },
+    nextjs: { navigation: { pathname: '/champions/double/list' } },
     viewport: { defaultViewport: 'mobile' },
   },
 }

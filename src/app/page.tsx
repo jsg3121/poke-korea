@@ -28,6 +28,7 @@ import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
+import { compareByUsageRank } from '~/utils/championsFormat.util'
 import HomeView from '~/views/home/Home.view'
 
 export const dynamic = 'force-dynamic'
@@ -84,7 +85,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
-  // 챔피언스 S 티어 인기 포켓몬 상위 3개 가져오기 (사용률 기준)
+  // 챔피언스 S 티어 인기 포켓몬 상위 3개 가져오기 (채택 순위 기준)
   const { data: championsTopData } = await apolloClient.query<
     GetChampionsMetaSummaryByFilterQuery,
     GetChampionsMetaSummaryByFilterQueryVariables
@@ -105,7 +106,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
   const dailyQuiz = quizData?.getDailyQuizPreview
   const topChampionsPokemons = [
     ...(championsTopData?.getChampionsMetaSummary || []),
-  ].sort((a, b) => (b.usageRate ?? 0) - (a.usageRate ?? 0))
+  ].sort(compareByUsageRank)
 
   return (
     <Fragment>
