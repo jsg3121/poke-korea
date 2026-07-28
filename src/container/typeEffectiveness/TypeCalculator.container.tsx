@@ -41,7 +41,7 @@ const TypeCalculatorContainer = () => {
 
   return (
     <section
-      className="w-full border-b border-solid border-primary-4 pb-6 desktop:pb-8"
+      className="w-full border-b border-solid border-primary-4 pb-4"
       aria-labelledby="select-type-pokemon"
     >
       <header className="mb-4">
@@ -58,6 +58,18 @@ const TypeCalculatorContainer = () => {
           가능해요.
         </p>
       </header>
+
+      {/* 초기화는 본문 CTA가 아니라 보조 액션 — Button DS(min-h-touch 44px 강제)는
+          모바일에서 과대하다(로컬 피드백). 도감 리스트·기술 필터의 초기화와 동일한
+          슬림 버튼 문법(min-h-8/desktop:min-h-9, ADR-0011 슬림 계열)으로 통일. */}
+      <button
+        type="button"
+        onClick={handleResetSelectTypes}
+        disabled={selectTypeList.length === 0}
+        className="min-h-8 mb-2 shrink-0 px-2 text-xs text-primary-4 disabled:text-primary-2 desktop:min-h-9 desktop:text-sm"
+      >
+        선택 초기화
+      </button>
 
       {/* 모바일은 auto-fit 그리드로 균등 분배 — 고정폭 칩(w-12)을 flex-wrap으로
           나열하면 기기 폭에 따라 우측에만 잉여 공백이 몰린다(로컬 피드백
@@ -81,20 +93,6 @@ const TypeCalculatorContainer = () => {
             />
           )
         })}
-      </div>
-
-      {/* 초기화는 본문 CTA가 아니라 보조 액션 — Button DS(min-h-touch 44px 강제)는
-          모바일에서 과대하다(로컬 피드백). 도감 리스트·기술 필터의 초기화와 동일한
-          슬림 버튼 문법(min-h-8/desktop:min-h-9, ADR-0011 슬림 계열)으로 통일. */}
-      <div className="mt-3 flex justify-end">
-        <button
-          type="button"
-          onClick={handleResetSelectTypes}
-          disabled={selectTypeList.length === 0}
-          className="min-h-8 shrink-0 px-2 text-xs text-primary-4 disabled:text-primary-2 desktop:min-h-9 desktop:text-sm"
-        >
-          선택 초기화
-        </button>
       </div>
     </section>
   )

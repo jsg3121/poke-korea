@@ -21,17 +21,9 @@
 
 ### 개발 에이전트
 
-- [config-maker](config-maker.md) — 설정 파일 스키마, 옵션 정의, 생성 로직 전문
 - [seo-specialist](seo-specialist.md) — 시맨틱 HTML, 메타태그, 구조화 데이터, 다국어 SEO 전문
-- [ui-publisher](ui-publisher.md) — Astro/Svelte 컴포넌트 구현, Tailwind 스타일링 전문
+- [ui-publisher](ui-publisher.md) — 페이지, UI 컴포넌트 구현, Tailwind 스타일링 전문
 - [ux-designer](ux-designer.md) — 사용자 플로우, 레이아웃, 인터랙션, 반응형 설계 전문
-- [qa-agent](qa-agent.md) — QA 오케스트레이터. 서브에이전트를 조율하여 종합 QA 리포트 생성
-
-### QA 서브에이전트
-
-- [unit-tester](unit-tester.md) — Vitest 단위 테스트 실행 및 결과 분석
-- [e2e-tester](e2e-tester.md) — Playwright E2E 테스트 실행 및 결과 분석
-- [static-analyzer](static-analyzer.md) — ESLint, Prettier, TypeScript 정적 분석
 
 ### 비즈니스 분석 에이전트
 
@@ -64,53 +56,15 @@ node .claude/playwright/capture-screenshots.js
 ### 새 기능 기획 → 구현 (Pipeline)
 
 ```
-product-planner → ux-designer → ui-publisher → qa-agent
-(기획서 작성)     (설계)         (구현)          (검증)
+product-planner → ux-designer → ui-publisher
+(기획서 작성)     (설계)         (구현)
 ```
 
 ### 기존 기획 기반 구현 (Pipeline)
 
 ```
-ux-designer → ui-publisher → qa-agent
-(설계)        (구현)          (검증)
-```
-
-### 새 설정 파일 추가 (Pipeline)
-
-```
-config-maker → ui-publisher → qa-agent
-(스키마/로직)   (UI 연동)      (유효성 검증)
-```
-
-### 여러 설정 스키마 동시 조사 (Fan-out/Fan-in)
-
-```
-config-maker (ESLint 조사)  ─┐
-config-maker (Prettier 조사) ─┼→ 통합
-config-maker (TSConfig 조사) ─┘
-```
-
-### 설정 생성 + 검증 루프 (Producer-Reviewer)
-
-```
-config-maker ──생성──→ qa-agent
-     ↑                    │
-     └──── 피드백 ────────┘
-```
-
-### QA 검증 파이프라인 (Fan-out/Fan-in)
-
-```
-                    qa-agent (오케스트레이터)
-                           │
-           ┌───────────────┼───────────────┐
-           ▼               ▼               ▼
-      unit-tester     e2e-tester    static-analyzer
-      (Vitest)        (Playwright)  (ESLint/TS)
-           │               │               │
-           └───────────────┼───────────────┘
-                           ▼
-                    QA 리포트 생성
+ux-designer → ui-publisher
+(설계)        (구현)
 ```
 
 ### 페이지 구현 (Expert Pool)
@@ -118,10 +72,8 @@ config-maker ──생성──→ qa-agent
 작업 성격에 따라 적절한 에이전트 선택:
 
 - SEO 관련 → seo-specialist
-- 설정 스키마 관련 → config-maker
 - UI/컴포넌트 관련 → ui-publisher
 - UX/플로우 관련 → ux-designer
-- 테스트/검증 관련 → qa-agent
 
 ### 비즈니스 전략 분석 (Pipeline)
 
