@@ -40,7 +40,7 @@ const DetailView = ({
         prevPokemon={prevPokemon}
         nextPokemon={nextPokemon}
       />
-      <div className="flex w-full flex-col gap-5 py-6 desktop:gap-8 desktop:py-8">
+      <div className="flex w-full flex-col gap-5 desktop:gap-8">
         <DetailFormRowContainer />
         <DetailStatsContainer />
         <div className="flex w-full flex-col gap-5 px-4 desktop:mx-auto desktop:max-w-7xl desktop:gap-8">

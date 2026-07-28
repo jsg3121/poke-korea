@@ -28,12 +28,15 @@ const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
 interface MoveDetailHeroContainerProps {
   skillData: PokemonSkillDetail
   selectedVersionGroupId?: number
+  /** 이 기술을 배우는 포켓몬 수 — "최신" 탭 툴팁 표시 여부 판단용(0이면 툴팁 숨김) */
+  learnablePokemonCount?: number
   versionGroups?: Array<VersionGroup> | null
 }
 
 const MoveDetailHeroContainer = ({
   skillData,
   selectedVersionGroupId,
+  learnablePokemonCount = 0,
   versionGroups,
 }: MoveDetailHeroContainerProps) => {
   // 선택된 버전의 세대 데이터가 있으면 우선 사용(위력·명중 등이 세대마다 다르다)
@@ -44,10 +47,31 @@ const MoveDetailHeroContainer = ({
     : undefined
   const displayData = selectedVersionData ?? skillData
 
-  const versionName = selectedVersionData
-    ? versionGroups?.find(
-        (vg) => vg.versionGroupId === selectedVersionData.versionGroupId,
-      )?.nameKo
+  // "최신" 탭 = 특정 버전 미선택. 이때 배지는 이 기술이 데이터상 남아 있는(isAvailable=true)
+  // 가장 마지막 버전을 표시한다. 삭제된 기술은 최신 게임에도 generations 레코드가
+  // is_available=false로 남아 있어, 단순 max(versionGroupId)가 아니라 isAvailable 필터
+  // 후의 최대 버전을 잡아야 한다(2026-07-27).
+  const isLatestTab = !selectedVersionGroupId
+  const latestAvailableVersionGroupId = isLatestTab
+    ? skillData.generations
+        .filter((gen) => gen.isAvailable)
+        .reduce<
+          number | undefined
+        >((max, gen) => (max == null || gen.versionGroupId > max ? gen.versionGroupId : max), undefined)
+    : undefined
+
+  // 배지 버전명: 특정 버전 선택 시 그 버전명, "최신" 탭이면 isAvailable 최신 버전명.
+  const badgeVersionGroupId = isLatestTab
+    ? latestAvailableVersionGroupId
+    : selectedVersionData?.versionGroupId
+  const badgeVersionName = badgeVersionGroupId
+    ? versionGroups?.find((vg) => vg.versionGroupId === badgeVersionGroupId)
+        ?.nameKo
+    : undefined
+  const versionName = badgeVersionName
+    ? isLatestTab
+      ? `최신 · ${badgeVersionName}`
+      : badgeVersionName
     : undefined
 
   const damageColor = displayData.damageType
@@ -67,7 +91,7 @@ const MoveDetailHeroContainer = ({
         <h1 className="text-2xl desktop:text-4xl font-bold text-primary-4 leading-tight">
           {skillData.nameKo}
         </h1>
-        {versionName && <ChipComponent label={`${versionName} 기준`} />}
+        {versionName && <ChipComponent label={versionName} />}
         {skillData.zMoves && skillData.isAvailable && (
           <ChipComponent label="Z기술" />
         )}
@@ -77,6 +101,17 @@ const MoveDetailHeroContainer = ({
           </strong>
         )}
       </header>
+
+      {/* "최신" 탭의 습득 포켓몬 목록은 이 기술을 배우는 포켓몬이 있는 가장 최신 버전을
+          기준으로 노출된다(버전 미지정 조회 → 백엔드가 습득 있는 최신 버전 반환). 배지
+          버전(기술 정보 기준)과 다를 수 있어 상시 캡션으로 안내한다. 배울 수 있는
+          포켓몬이 아예 없으면(learnablePokemonCount 0) 기준 버전이 없으므로 캡션을 숨긴다. */}
+      {isLatestTab && learnablePokemonCount > 0 && (
+        <p className="mt-2 text-xs desktop:text-sm text-primary-3">
+          최신 버전은 <b>습득 가능한 포켓몬이 있는 가장 최신 버전</b>을 기준으로
+          보여드려요.
+        </p>
+      )}
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {displayData.type && <TagComponent type={displayData.type} />}

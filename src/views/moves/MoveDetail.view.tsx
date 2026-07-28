@@ -45,6 +45,7 @@ const MoveDetailView = ({
         <MoveDetailHeroContainer
           skillData={initialSkill}
           selectedVersionGroupId={selectedVersionGroupId}
+          learnablePokemonCount={totalCount}
           versionGroups={versionGroups}
         />
       </div>
