@@ -85,7 +85,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
-  // 챔피언스 S 티어 인기 포켓몬 상위 3개 가져오기 (사용률 기준)
+  // 챔피언스 S 티어 인기 포켓몬 상위 3개 가져오기 (채택 순위 기준)
   const { data: championsTopData } = await apolloClient.query<
     GetChampionsMetaSummaryByFilterQuery,
     GetChampionsMetaSummaryByFilterQueryVariables

@@ -42,7 +42,7 @@ const HomeChampionsContainer = ({
         이번 주 챔피언스 TOP 3
       </SectionHeadingComponent>
       <p className="mt-1 text-center text-sm desktop:text-base text-primary-3">
-        {getFormatLabel(CHAMPIONS_DEFAULT_FORMAT_SLUG)} 사용률 기준
+        {getFormatLabel(CHAMPIONS_DEFAULT_FORMAT_SLUG)} 채택 순위 기준
       </p>
 
       <div className="desktop:max-w-fit desktop:mx-auto">

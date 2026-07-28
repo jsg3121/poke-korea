@@ -25,7 +25,7 @@ const ChampionsHeroSection = ({
     <section className="w-full mb-8 desktop:mb-12">
       <ChampionsHomeSectionHeader
         title="가장 인기있는 포켓몬 TOP 3"
-        description="가장 높은 사용률을 보여주는 포켓몬"
+        description="가장 많이 채택되는 포켓몬"
         moreHref={moreHref}
         moreLabel="티어 전체 보기"
       />
