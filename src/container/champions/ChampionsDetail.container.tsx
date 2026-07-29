@@ -168,6 +168,19 @@ const ChampionsDetailContainer = ({
         <ChampionsDetailMetaSummaryBar meta={meta} />
       </div>
 
+      {/* 모바일 전용 광고 — 히어로↔능력치 사이(진입 시 조기 노출로 노출 수
+          극대화). 세로 스택인 모바일에서만 이 위치가 유효하다. 데스크톱 슬롯은
+          빈 값(데스크톱은 좌측 능력치 컬럼 아래에 300×250로 별도 배치 —
+          컴포넌트가 데스크톱에선 slot='' → null 반환, DOM에 안 들어간다). */}
+      {meta && (
+        <div className="mb-6">
+          <ChampionsInContentBanner
+            mobileSlot={CHAMPIONS_SLOTS.detailMobile}
+            desktopSlot=""
+          />
+        </div>
+      )}
+
       {/* 모바일: 세로 스택 / 데스크톱: 완화된 2단 (좌 능력치 + 우 메타).
           카드는 E-1 카드 셸과 동일한 라인(테두리 2px + 3px 셸 그림자)으로 통일. */}
       <div className="flex flex-col desktop:flex-row gap-7 desktop:gap-8">
@@ -239,21 +252,6 @@ const ChampionsDetailContainer = ({
           )}
         </div>
       </div>
-
-      {/* 모바일 전용 광고 — 세로 스택이라 데스크톱과 달리 좌측 빈 공간이 없다.
-          메타패널(추천 파트너까지) 소비 후·최하단 링크 앞에 둔다. 데스크톱 슬롯은
-          빈 값(데스크톱은 좌측 능력치 컬럼 아래에 이미 배치 — 컴포넌트가 데스크톱
-          에선 slot='' → null 반환 = 이 광고는 데스크톱 DOM에 안 들어간다. CSS
-          숨김이 아니라 조건부 렌더).
-          meta 없으면 콘텐츠 빈약하므로 미노출(콘텐츠 대비 광고 밀도 원칙). */}
-      {meta && (
-        <div className="mt-6">
-          <ChampionsInContentBanner
-            mobileSlot={CHAMPIONS_SLOTS.detailMobile}
-            desktopSlot=""
-          />
-        </div>
-      )}
 
       <Link
         href={generalDetailUrl}
