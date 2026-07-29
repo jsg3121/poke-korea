@@ -105,6 +105,11 @@ fragment ChampionsPokemonCard on ChampionsPokemon {
   imagePath
   usageRate
   winRate
+  usageRank
+  tier
+  topMove
+  topAbility
+  topItem
 }
 
 fragment ChampionsMetaMove on ChampionsMetaMove {
@@ -198,6 +203,9 @@ fragment ChampionsMetaSummary on ChampionsMetaStats {
   usageRank
   winRate
   tier
+  topMove
+  topAbility
+  topItem
   isStale
   updatedAt
 }

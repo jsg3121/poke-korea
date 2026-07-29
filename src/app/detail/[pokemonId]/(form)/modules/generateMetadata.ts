@@ -115,7 +115,7 @@ export const generateDetailMetadata = ({
     openGraph: {
       type: 'website',
       url: canonicalUrl,
-      title: `No. ${pokemonDetail.number} ${pokemonNameByType}`,
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType} - 포케 코리아`,
       description,
       locale: 'ko_KR',
       siteName: '포케 코리아',
@@ -139,7 +139,7 @@ export const generateDetailMetadata = ({
     },
     twitter: {
       card: 'summary_large_image',
-      title: `No. ${pokemonDetail.number} ${pokemonNameByType} | 포케코리아`,
+      title: `No. ${pokemonDetail.number} ${pokemonNameByType} - 포케 코리아`,
       description,
       images: [ogImages.large],
     },

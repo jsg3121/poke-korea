@@ -4,7 +4,7 @@ import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 const MobileHomeBottomBanner = () => {
   const { slotRef } = useAdSlotEffect()
   return (
-    <div ref={slotRef} className="w-[calc(100%-2.5rem)] mx-auto h-fit mt-8">
+    <div ref={slotRef} className="w-full px-4 mx-auto h-fit">
       <ins
         className="adsbygoogle block text-center mx-auto"
         data-ad-layout="in-article"

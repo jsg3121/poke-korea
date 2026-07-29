@@ -2,15 +2,20 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
+import MobileTabBar from '~/components/MobileTabBar'
 import { getAbilityDetailJsonLd } from '~/constants/abilityJsonLd'
+import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
+import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { PokemonByAbilityEdge } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
-import AbilityDetailDesktop from '~/views/desktop/ability/AbilityDetail.desktop'
-import AbilityDetailMobile from '~/views/mobile/ability/AbilityDetail.mobile'
+import AbilityDetailView from '~/views/ability/AbilityDetail.view'
 import { fetchAbilityDetailQueries } from './_fetch/abilityDetail.fetch'
 import { generateAbilityDetailMetadata } from './_metadata/generateAbilityDetailMetadata'
 
-export const revalidate = 31536000 // 1년
+// 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)가 매 요청 평가된다.
+// 기존 revalidate=1년 선언은 headers() 때문에 실효가 없던 거짓 신호라 제거(UX-007).
 
 type PageProps = {
   params: Promise<{
@@ -26,7 +31,7 @@ export async function generateMetadata({
 
   if (isNaN(abilityId)) {
     return {
-      title: '특성을 찾을 수 없습니다 - 포케 코리아',
+      title: '특성을 찾을 수 없습니다',
     }
   }
 
@@ -39,7 +44,7 @@ export async function generateMetadata({
 
   if (!ability) {
     return {
-      title: '특성을 찾을 수 없습니다 - 포케 코리아',
+      title: '특성을 찾을 수 없습니다',
     }
   }
 
@@ -77,24 +82,37 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
+  const totalCount = data.getPokemonByAbility.totalCount ?? 0
   const jsonLd = getAbilityDetailJsonLd(abilityId, ability.name)
 
   return (
     <Fragment>
+      {/* 콘텐츠는 반응형 단일(AbilityDetailView, ADR-0007). UA 분기는 전역 크롬
+          (헤더/푸터/탭바) 선택으로만 남는다(list·홈 개편과 동일 패턴). */}
       {isMobile ? (
-        <AbilityDetailMobile
-          abilityId={abilityId}
-          initialAbility={ability}
-          initialPokemon={pokemonList}
-          totalCount={data.getPokemonByAbility.totalCount ?? 0}
-        />
+        <main className="w-full min-h-screen">
+          <MobileHeaderContainer />
+          <AbilityDetailView
+            abilityId={abilityId}
+            initialAbility={ability}
+            initialPokemon={pokemonList}
+            totalCount={totalCount}
+          />
+          <MobileFooterContainer />
+          <MobileTabBar />
+        </main>
       ) : (
-        <AbilityDetailDesktop
-          abilityId={abilityId}
-          initialAbility={ability}
-          initialPokemon={pokemonList}
-          totalCount={data.getPokemonByAbility.totalCount ?? 0}
-        />
+        // pt-30(120px) = 데스크톱 fixed 헤더 실높이
+        <main className="w-full min-h-screen pt-30">
+          <DesktopHeaderContainer />
+          <AbilityDetailView
+            abilityId={abilityId}
+            initialAbility={ability}
+            initialPokemon={pokemonList}
+            totalCount={totalCount}
+          />
+          <DesktopFooterContainer />
+        </main>
       )}
       <script
         id="ability-detail-webpage-jsonLd"

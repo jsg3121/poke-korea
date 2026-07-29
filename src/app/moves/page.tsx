@@ -1,10 +1,15 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
+import MobileTabBar from '~/components/MobileTabBar'
 import {
   MOVES_TYPE_ITEMLIST_JSON_LD,
   MOVES_WEBPAGE_JSON_LD,
 } from '~/constants/movesJsonLd'
+import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
+import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { MovesProvider } from '~/context/Moves.context'
 import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
 import {
@@ -15,9 +20,12 @@ import {
 import { initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import { getDamageTypeEnglish } from '~/utils/skill.util'
-import MovesDesktop from '~/views/desktop/moves/Moves.desktop'
-import MovesMobile from '~/views/mobile/moves/Moves.mobile'
+import MovesListView from '~/views/moves/MovesList.view'
 import { generateMovesListMetadata } from './_metadata/generateMovesListMetadata'
+
+// 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)와 searchParams 필터가
+// 매 요청 평가된다. 기존 revalidate=1년 선언은 headers() 때문에 실효가 없던
+// 거짓 신호라 제거(UX-008, ability·list와 동일). ISR 재도입은 크롬 통합 이후 검토.
 
 interface MovesPageProps {
   searchParams: Promise<{
@@ -27,8 +35,6 @@ interface MovesPageProps {
     firstGenerationId: string
   }>
 }
-
-export const revalidate = 31536000 // 24시간마다 재생성
 
 export const generateMetadata = async ({
   searchParams,
@@ -86,7 +92,23 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
         totalCount={totalCount}
         movesFilter={movesFilter}
       >
-        {isMobile ? <MovesMobile /> : <MovesDesktop />}
+        {/* 콘텐츠는 반응형 단일(MovesListView, ADR-0007). UA 분기는 전역 크롬
+            (헤더/푸터/탭바) 선택으로만 남는다(list·ability 개편과 동일 패턴). */}
+        {isMobile ? (
+          <main className="w-full min-h-screen">
+            <MobileHeaderContainer />
+            <MovesListView />
+            <MobileFooterContainer />
+            <MobileTabBar />
+          </main>
+        ) : (
+          // pt-30(120px) = 데스크톱 fixed 헤더 실높이. sticky(desktop:top-30)와 맞춤
+          <main className="w-full min-h-screen pt-30">
+            <DesktopHeaderContainer />
+            <MovesListView />
+            <DesktopFooterContainer />
+          </main>
+        )}
       </MovesProvider>
       <script
         id="moves-webpage-jsonLd"

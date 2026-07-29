@@ -37,11 +37,19 @@ next-env.d.ts
 /src/graphql
 
 # claude analyzer data (sensitive)
-/.claude/analyzer/*.csv
-/.claude/analyzer/*.txt
+/.claude/analyzer/*.*
 
 # playwright screenshots
 /.claude/playwright
 
 # api handoff documents (from external backend repo)
 /.claude/api-handoffs
+
+# design system card sources (uploaded to claude.ai/design, not version-controlled)
+/.design-system
+
+*storybook.log
+storybook-static
+
+# UI 시안 미리보기 (ui-publisher 산출물, 커밋 금지 — 임시 확인용)
+/public/preview

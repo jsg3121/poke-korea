@@ -107,10 +107,9 @@ export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
  * @param pokemonNumber 포켓몬 도감번호
  */
 export const getSeoTitle: GetSeoTitleFn = ({ pokemonName, pokemonNumber }) => {
-  const pokemonNumberText = `No. ${pokemonNumber}`
-  const footerText = '| 대한민국 포켓몬의 모든 정보 - 포케 코리아'
-
-  return `${pokemonNumberText} ${pokemonName} ${footerText}`
+  // 브랜드 접미사는 layout의 title.template(`%s - 포케 코리아`)이 붙인다.
+  // 여기서 접미사를 붙이면 이중 접미사가 되므로 페이지명(No.N 이름)만 반환한다.
+  return `No. ${pokemonNumber} ${pokemonName}`
 }
 
 /**
@@ -158,7 +157,7 @@ export const getSeoDescription: GetSeoDescriptionFn = ({
   const typeList = types.map((type) => PokemonTypes[type]).join('·')
   const formKeyword = getDetailFormKeyword(activeType, isShiny)
 
-  return `${pokemonName} (No. ${pokemonNumber}, ${generation}세대, ${typeList} 타입). ${formKeyword}, 기술, 특성 정보를 포케코리아에서 확인.`
+  return `${pokemonName} (No. ${pokemonNumber}, ${generation}세대, ${typeList} 타입). ${formKeyword}, 기술, 특성 정보를 포케 코리아에서 확인.`
 }
 
 /**

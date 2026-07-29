@@ -12,7 +12,7 @@ interface ChampionsFormatTabProps {
   currentFormat: ChampionsFormatSlug
   /** 탭 클릭 시 이동할 base path. format slug가 뒤에 붙는다. */
   basePath: string
-  /** 포맷 슬러그 뒤에 추가로 붙일 경로. 예: '/list' → '/champions/vgc/list' */
+  /** 포맷 슬러그 뒤에 추가로 붙일 경로. 예: '/list' → '/champions/double/list' */
   suffix?: string
   /** 추가 className (외곽 컨테이너 폭/마진 조정용) */
   className?: string

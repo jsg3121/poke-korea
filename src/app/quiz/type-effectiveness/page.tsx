@@ -1,21 +1,20 @@
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import FooterDesktop from '~/container/desktop/footer/Footer.container'
-import HeaderDesktop from '~/container/desktop/header/Header.container'
-import FooterMobile from '~/container/mobile/footer/Footer.container'
-import HeaderMobile from '~/container/mobile/header/Header.container'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
+import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.context'
 import { detectUserAgent } from '~/module/device.module'
-import TypeEffectivenessQuizDesktop from '~/container/desktop/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.desktop'
-import TypeEffectivenessQuizMobile from '~/views/mobile/quiz/typeEffectivenessQuiz/TypeEffectivenessQuiz.mobile'
-import MobileTabBar from '~/components/MobileTabBar'
 import {
   TYPE_EFFECTIVENESS_QUIZ_JSON_LD,
   TYPE_EFFECTIVENESS_QUIZ_HOWTO_JSON_LD,
 } from '~/constants/quizJsonLd'
+import TypeEffectivenessQuizView from '~/views/quiz/typeEffectiveness/TypeEffectivenessQuiz.view'
 import { QUIZ_TYPE_EFFECTIVENESS_META } from '../_metadata/quizMetadata'
 
-export const revalidate = 31536000 // 24시간마다 재생성
+export const revalidate = 31536000
 
 export const metadata = QUIZ_TYPE_EFFECTIVENESS_META
 
@@ -26,24 +25,23 @@ const TypeEffectivenessQuizPage = async () => {
 
   return (
     <Fragment>
-      <main className={`${isMobile ? '' : 'pt-40'}`}>
-        <TypeEffectivenessQuizProvider>
-          {isMobile ? (
-            <Fragment>
-              <HeaderMobile />
-              <TypeEffectivenessQuizMobile />
-              <FooterMobile />
-              <MobileTabBar />
-            </Fragment>
-          ) : (
-            <Fragment>
-              <HeaderDesktop />
-              <TypeEffectivenessQuizDesktop />
-              <FooterDesktop />
-            </Fragment>
-          )}
-        </TypeEffectivenessQuizProvider>
-      </main>
+      {/* 본문 반응형 단일(TypeEffectivenessQuizView). UA 분기는 전역 크롬 선택으로만. */}
+      <TypeEffectivenessQuizProvider>
+        {isMobile ? (
+          <main className="w-full min-h-screen">
+            <MobileHeaderContainer />
+            <TypeEffectivenessQuizView />
+            <MobileFooterContainer />
+            <MobileTabBar />
+          </main>
+        ) : (
+          <main className="w-full min-h-screen pt-30">
+            <DesktopHeaderContainer />
+            <TypeEffectivenessQuizView />
+            <DesktopFooterContainer />
+          </main>
+        )}
+      </TypeEffectivenessQuizProvider>
       <script
         id="type-effectiveness-quiz-jsonLd"
         type="application/ld+json"

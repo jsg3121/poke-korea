@@ -23,12 +23,12 @@ const TypeButton = ({
 }: TypeButtonProps) => {
   return (
     <button
-      className="group w-8 text-center duration-200 ease-out cursor-pointer hover:scale-[1.4] active:scale-120"
+      className="group w-6 desktop:w-9 text-center duration-200 ease-out cursor-pointer hover:scale-[1.4] active:scale-120"
       aria-label={`포켓몬 필터 ${typeName}타입`}
     >
       <label
         htmlFor={`champions-type-${typeValue}`}
-        className="w-8 h-8 opacity-60 grayscale drop-shadow-[1px_2px_0px_var(--color-black-1)] block has-[:checked]:opacity-100 has-[:checked]:grayscale-0 has-[:disabled]:opacity-20 cursor-pointer"
+        className="w-6 h-6 desktop:w-9 desktop:h-9 opacity-60 grayscale drop-shadow-[1px_2px_0px_var(--color-black-1)] block has-[:checked]:opacity-100 has-[:checked]:grayscale-0 has-[:disabled]:opacity-20 cursor-pointer"
       >
         <input
           type="checkbox"
@@ -92,7 +92,7 @@ const ChampionsTypeFilter = () => {
     <div
       role="searchbox"
       aria-label="타입별 포켓몬 필터 검색"
-      className="w-full max-w-[1280px] h-full flex items-center relative mx-auto px-5 gap-2"
+      className="w-full h-full flex items-center relative gap-2"
     >
       <div className="flex-1 min-w-0 flex items-center gap-2 overflow-x-auto desktop:overflow-visible desktop:justify-between [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {Object.entries(PokemonTypes).map(([types, typeName]) => {
@@ -110,7 +110,7 @@ const ChampionsTypeFilter = () => {
         })}
       </div>
       <button
-        className="flex-shrink-0 text-primary-4 disabled:text-primary-2 text-sm whitespace-nowrap desktop:ml-4"
+        className="flex-shrink-0 text-primary-4 disabled:text-primary-2 text-xs whitespace-nowrap desktop:ml-4"
         onClick={handleClickReset}
         disabled={isEmptyQuery}
       >

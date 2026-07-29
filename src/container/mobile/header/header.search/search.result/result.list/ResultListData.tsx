@@ -50,13 +50,16 @@ const ResultListData = ({
   }
 
   return (
-    <li className="w-full h-11">
+    // 높이 고정(h-11)+leading 44px는 긴 이름(팔데아 폼 등)이 2줄로 감기면 항목끼리
+    // 겹친다 → 최소 높이(min-h-11, 터치 타겟 유지)+자동 확장으로 변경. 말줄임은
+    // 폼 이름 구분이 불가능해져(전부 "…팔데아의 모습…"으로 잘림) 쓰지 않는다.
+    <li className="w-full">
       <Link
         href={getPokemonHref()}
-        className="w-full h-full flex-between text-black-2 visited:text-black-2 active:text-black-2"
+        className="w-full min-h-11 py-1 gap-2 flex-between text-black-2 visited:text-black-2 active:text-black-2"
       >
-        <p className="h-11 text-base leading-[2.75rem] text-black-2">{name}</p>
-        <div ref={imgRef}>
+        <p className="text-xs leading-4 break-keep text-black-2">{name}</p>
+        <div ref={imgRef} className="shrink-0">
           {isVisible && (
             <ImageComponent
               height="2rem"

@@ -117,7 +117,7 @@ ConfigDeck의 기능 기획서(SPEC)를 작성하고 관리하는 전문 에이�
 
 - **ux-designer**: 기획서에서 UX 설계가 필요한 부분은 ux-designer에게 위임할 수 있다 (Pipeline: product-planner → ux-designer)
 - **market-intelligence / business-analyst**: 비즈니스 관점의 조사가 필요하면 이들 에이전트의 보고서를 참조한다
-- **config-maker / ui-publisher**: SPEC이 승인되면 구현 에이전트에게 기획서를 전달한다
+- **ui-publisher**: SPEC이 승인되면 구현 에이전트에게 기획서를 전달한다
 
 ## 참조 문서
 

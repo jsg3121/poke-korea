@@ -2,16 +2,19 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 type DebounceType = (str: string) => void
 
-type UseDebounce = () => [string, DebounceType]
+type UseDebounce = (initialValue?: string) => [string, DebounceType]
 
 /**
  * info : text 입력값 debounce
  * @author 장선규 jsg3121
+ * @param initialValue 초기 키워드 — URL 등 외부 상태와 동기화된 값으로 시작해야
+ *   할 때 사용(기본 ''). value·keyword 둘 다 초기화해야 마운트 500ms 후
+ *   keyword가 ''로 덮이지 않는다
  * @returns [마지막 문자열, debounce 함수 ]
  */
-export const useDebounce: UseDebounce = () => {
-  const [value, setValue] = useState<string>('')
-  const [keyword, setKeyword] = useState<string>('')
+export const useDebounce: UseDebounce = (initialValue = '') => {
+  const [value, setValue] = useState<string>(initialValue)
+  const [keyword, setKeyword] = useState<string>(initialValue)
 
   const debounce: DebounceType = (str) => {
     setValue(str)

@@ -26,7 +26,9 @@
     "codegen": "graphql-codegen --config codegen.ts",
     "analyze": "ANALYZE=true next build",
     "deploy": "npm run build:docs && next build && pm2 restart ecosystem.config.js --env production",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
@@ -71,6 +73,11 @@
     "playwright": "^1.59.1",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "storybook": "^10.4.6",
+    "@storybook/nextjs": "^10.4.6",
+    "@storybook/addon-a11y": "^10.4.6",
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/addon-onboarding": "^10.4.6"
   }
 }

@@ -1,21 +1,35 @@
-'use client'
-
-import Link from 'next/link'
-import BallComponent from '~/components/Ball.component'
-import TagComponent from '~/components/Tag.component'
 import ChampionsTierBadge, {
   getTierColors,
 } from '~/components/champions/ChampionsTierBadge.component'
-import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { useLazyImage } from '~/hook/useLazyImage'
+import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
+import {
+  ChampionsMetaSummaryFragment,
+  PokemonType,
+} from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import { getBackgroundColor } from '~/module/pokemonCard.module'
+import {
+  getBackgroundColor,
+  getNameHeaderClass,
+} from '~/module/pokemonCard.module'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
-import ImageComponent from '../Image.component'
 
+/**
+ * 챔피언스 홈/티어 슬라이드용 포켓몬 카드 (반응형 단일 DS 컴포넌트, UX-E1).
+ *
+ * 레이아웃 셸(포켓볼+헤더+이미지+타입+그라데이션+크기 규격)은 PokemonCardShell에
+ * 위임하고, 이 컴포넌트는 헤더(티어 배지+이름)와 본문(사용률·승률)만 책임진다.
+ * 도감 카드 ChampionsPokemonCard와 "같은 카드 디자인/규격"을 셸로 공유한다 —
+ * Hero/A티어 슬라이드도 도감 그리드와 동일한 POKEMON_CARD_SIZE를 쓴다(사용자 결정
+ * 2026-07-22, DS 통일이 목적이므로 슬라이드 전용 폭 override는 두지 않는다).
+ *
+ * 데이터 원천이 실게임 데이터로 바뀌며 usageRate·winRate가 항상 null이 되어, 본문을
+ * 순위(usageRank) + 인기 기술(topMove) 2행으로 교체했다. 슬라이드는 훑어보기 용도라
+ * 정보를 좁혀 스캔성을 유지한다(특성·도구는 상세로 유도). 티어 리본 배지는 셸의
+ * ballBadge slot에, 티어색 외곽선은 outlineColor prop에 전달한다.
+ */
 interface ChampionsTopCardProps {
   pokemonData: ChampionsMetaSummaryFragment
   isHighPriority?: boolean
@@ -28,111 +42,68 @@ const ChampionsTopCard = ({
   formatSlug,
 }: ChampionsTopCardProps) => {
   const displayName = pokemonData.name ?? ''
-
-  const backgroundColor = getBackgroundColor(pokemonData.types ?? [])
+  const types = (pokemonData.types ?? []) as PokemonType[]
+  const backgroundColor = getBackgroundColor(types)
   const tierColors = getTierColors(pokemonData.tier)
 
-  const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
-    useLazyImage({
-      rootMargin: '200px',
-      threshold: 0.1,
-    })
+  const detailHref = buildChampionsDetailHref({
+    formatSlug,
+    pokemonId: pokemonData.pokemonId,
+    formType: pokemonData.formType,
+    formCode: pokemonData.formCode,
+  })
 
-  const gradientStyle =
-    backgroundColor.length === 1
-      ? { backgroundColor: backgroundColor[0] }
-      : {
-          backgroundImage: `linear-gradient(135deg, ${backgroundColor[0]} 35%, ${backgroundColor[1]} 65%)`,
-        }
+  const rankLabel =
+    pokemonData.usageRank != null ? `#${pokemonData.usageRank}` : '-'
 
   return (
-    <Link
-      href={buildChampionsDetailHref({
-        formatSlug,
-        pokemonId: pokemonData.pokemonId,
-        formType: pokemonData.formType,
-        formCode: pokemonData.formCode,
-      })}
-      className="block"
-    >
-      <article
-        className="w-full h-72 text-black-2 border border-solid border-black-2 rounded-[10px] block p-2 outline-[0.25rem] outline relative overflow-hidden shadow-[inset_8px_0_0_0_rgb(51_65_80)] cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] hover:scale-105 hover:z-10 card-corner-fold"
-        style={{ ...gradientStyle, outlineColor: tierColors.outlineColor }}
-        aria-label={`챔피언스 ${pokemonData.tier}티어 ${displayName} 카드`}
-      >
-        <header className="w-full h-7 flex items-start justify-between">
-          <div className="w-7 h-7 flex-shrink-0 mr-2 relative">
-            <BallComponent />
-            <ChampionsTierBadge tier={pokemonData.tier} variant="ribbon" />
-          </div>
-          <div className="w-full h-5 flex items-start justify-end border-b border-solid border-card-accent pb-1">
-            <h3 className="flex-1 h-4 text-sm leading-none font-semibold text-right text-black truncate">
-              {displayName}
-            </h3>
-          </div>
-        </header>
-
-        {isHighPriority ? (
-          <div className="w-fit mx-auto my-2 drop-shadow-[2px_3px_2px_#333333] relative">
-            {pokemonData.imagePath && (
-              <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_#333333] relative">
-                <ImageComponent
-                  height="10rem"
-                  width="10rem"
-                  imageSize={{ width: 140, height: 140 }}
-                  densities={[1, 1.5]}
-                  alt={`${displayName} 포켓몬 이미지`}
-                  src={`${imageMode}/${pokemonData.imagePath}`}
-                  sizes="10rem"
-                  fetchPriority="high"
-                />
-              </div>
-            )}
-          </div>
-        ) : (
-          <div
-            ref={imgRef}
-            className="w-fit mx-auto my-2 drop-shadow-[2px_3px_2px_#333333] relative"
-            aria-hidden="true"
+    <PokemonCardShellComponent
+      href={detailHref}
+      backgroundColor={backgroundColor}
+      outlineColor={tierColors.outlineColor}
+      types={types}
+      imageSrc={`${imageMode}/${pokemonData.imagePath ?? pokemonData.pokemonId}`}
+      imageAlt={`${displayName} 포켓몬 이미지`}
+      imageSize={{ width: 160, height: 160 }}
+      isHighPriority={isHighPriority}
+      ariaLabel={`챔피언스 ${pokemonData.tier ?? ''}티어 ${displayName} 카드`}
+      ballBadge={
+        <ChampionsTierBadge tier={pokemonData.tier} variant="ribbon" />
+      }
+      header={
+        <div className="w-full flex items-start content-start flex-wrap border-b border-solid border-card-accent pb-1">
+          <h3
+            className={`w-full leading-tight font-semibold text-black break-keep ${getNameHeaderClass(displayName)}`}
           >
-            {isVisible ? (
-              pokemonData.imagePath && (
-                <ImageComponent
-                  height="10rem"
-                  width="10rem"
-                  imageSize={{ width: 140, height: 140 }}
-                  densities={[1, 1.5]}
-                  alt={`${displayName} 포켓몬 이미지`}
-                  src={`${imageMode}/${pokemonData.imagePath}`}
-                  sizes="10rem"
-                  loading="lazy"
-                  onLoad={handleImageLoad}
-                  onError={handleImageError}
-                  style={{
-                    opacity: isLoaded ? 1 : 0,
-                    transition: 'opacity 0.3s ease-in-out',
-                  }}
-                />
-              )
-            ) : (
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
-            )}
-          </div>
-        )}
-
-        <div
-          className="flex items-center justify-center gap-1 px-1"
-          aria-hidden="true"
-        >
-          {pokemonData.types?.map((item, index) => {
-            return <TagComponent key={`${item}-id-${index}`} type={item} />
-          })}
+            {displayName}
+          </h3>
         </div>
-        <p className="mt-3 text-center h-4">
-          사용률 : <b className="font-bold">{pokemonData.usageRate}%</b>
-        </p>
-      </article>
-    </Link>
+      }
+    >
+      {/* 순위는 짧아 좌우 배치, 인기 기술 값은 말줄임 없이 줄바꿈(break-keep)으로 전부
+          노출한다. 라벨을 값 위에 두어 값이 카드 가로폭 전체를 쓰게 한다. */}
+      <dl
+        className="w-full mt-2 desktop:mt-4 mx-auto px-2 flex flex-col gap-1"
+        aria-label="포켓몬 메타 정보"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <dt className="text-2xs desktop:text-sm leading-4 desktop:leading-6">
+            순위
+          </dt>
+          <dd className="text-2xs desktop:text-sm leading-4 desktop:leading-6 font-semibold text-black">
+            {rankLabel}
+          </dd>
+        </div>
+        <div className="text-center">
+          <dt className="text-2xs desktop:text-sm leading-4 desktop:leading-6">
+            인기 기술
+          </dt>
+          <dd className="text-2xs desktop:text-sm leading-tight desktop:leading-tight font-semibold text-black break-keep">
+            {pokemonData.topMove ?? '-'}
+          </dd>
+        </div>
+      </dl>
+    </PokemonCardShellComponent>
   )
 }
 

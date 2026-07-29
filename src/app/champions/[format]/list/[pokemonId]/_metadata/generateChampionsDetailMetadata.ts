@@ -62,7 +62,7 @@ const getMetaHighlight = (meta: DetailMeta): string | null => {
  *      프론트에서 추가 합성 시 중첩 발생하므로 백엔드 name 그대로 사용. (Phase 2/3 결정)
  */
 const buildDetailTitle = (pokemon: DetailPokemon): string => {
-  return `${pokemon.name.replace('_', ' ')} 챔피언스 도감 - 스탯·기술·특성 | 포케코리아`
+  return `${pokemon.name.replace('_', ' ')} 챔피언스 도감 - 스탯·기술·특성`
 }
 
 /**
@@ -126,7 +126,7 @@ export const generateChampionsDetailMetadata = async ({
 }: GenerateMetadataArgs): Promise<Metadata> => {
   if (isNaN(pokemonId) || pokemonId <= 0) {
     return {
-      title: '포켓몬을 찾을 수 없습니다 | 포케코리아',
+      title: '포켓몬을 찾을 수 없습니다',
       description: '요청하신 포켓몬 정보를 찾을 수 없습니다.',
       robots: {
         index: false,
@@ -154,7 +154,7 @@ export const generateChampionsDetailMetadata = async ({
 
   if (!pokemon) {
     return {
-      title: '포켓몬을 찾을 수 없습니다 | 포케코리아',
+      title: '포켓몬을 찾을 수 없습니다',
       description: '요청하신 포켓몬 정보를 찾을 수 없습니다.',
       robots: {
         index: false,
@@ -185,7 +185,7 @@ export const generateChampionsDetailMetadata = async ({
     openGraph: {
       type: 'website',
       url: `${SITE_URL}${canonicalPath}`,
-      title,
+      title: `${title} - 포케 코리아`,
       locale: 'ko_KR',
       description,
       images: [
@@ -193,14 +193,14 @@ export const generateChampionsDetailMetadata = async ({
           url: ogImages.large,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: `${title} - 포케 코리아`,
           type: 'image/png',
         },
         {
           url: ogImages.medium,
           width: 800,
           height: 800,
-          alt: title,
+          alt: `${title} - 포케 코리아`,
           type: 'image/png',
         },
       ],
@@ -211,7 +211,7 @@ export const generateChampionsDetailMetadata = async ({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} - 포케 코리아`,
       description,
       images: [ogImages.large],
     },

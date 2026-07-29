@@ -1,47 +1,47 @@
-'use client'
-
-import Link from 'next/link'
-import { Fragment } from 'react'
+import { useMemo } from 'react'
 import LevelUpIcon from '~/assets/icons/levelUp.svg'
 import MachineMoveIcon from '~/assets/icons/machineMove.svg'
-import BallComponent from '~/components/Ball.component'
-import ImageComponent from '~/components/Image.component'
-import { useDevice } from '~/context/Device.context'
-import { PokemonLearnInfo } from '~/graphql/typeGenerated'
-import { useLazyImage } from '~/hook/useLazyImage'
+import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
+import { LearnMethod, PokemonLearnInfo } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
-import { getBackgroundColor } from '~/module/pokemonCard.module'
-import TagComponent from '../Tag.component'
+import { CardColor } from '~/types/pokemonTypes.types'
+import { getLearnMethodKorean } from '~/utils/skill.util'
+
+/**
+ * 기술별 포켓몬 카드 (반응형 단일 DS 컴포넌트, UX-008).
+ * 기술 상세(/moves/[id])에서 "이 기술을 배우는 포켓몬"을 표시한다.
+ *
+ * 레이아웃 셸(Link+article+포켓볼+이미지+타입 태그+그라데이션)은 PokemonCardShell에
+ * 위임하고, 이 컴포넌트는 헤더(No.+이름)와 본문(습득 방법 배지·폼 라벨)만 책임진다 —
+ * PokemonByAbilityCard(B그룹)와 동일한 "셸 공유 + 전용 카드" 구조. 데이터 도메인
+ * (PokemonLearnInfo: methods·폼·imagePath)이 도감 카드와 달라 카드는 분리한다.
+ *
+ * 구버전의 useDevice(UA 분기) 이미지 크기 분기를 제거했다 — 셸이 CSS sizes 속성으로
+ * 반응형을 처리하므로 JS 뷰포트 분기가 불필요하고, SSR/CSR 불일치로 인한 CLS도 없앤다.
+ * 습득 방법 배지 색은 비토큰(green-600·slate-500)을 토큰(damage-status·card-accent)으로
+ * 정규화한다. 라벨은 skill.util의 한글 매핑을 재사용한다(레벨업/기술머신/알).
+ */
 
 interface PokemonBySkillCardProps {
   pokemonData: PokemonLearnInfo
   isHighPriority?: boolean
 }
 
-const PokemonBySkillCard = ({
+const PokemonBySkillCardComponent = ({
   pokemonData,
   isHighPriority = false,
 }: PokemonBySkillCardProps) => {
-  const { isMobile } = useDevice()
   const pokemonNumber = String(pokemonData.number).padStart(3, '0')
-  const backgroundColor = getBackgroundColor(pokemonData.types)
 
-  const gradientStyle =
-    backgroundColor.length === 1
-      ? { backgroundColor: backgroundColor[0] }
-      : {
-          backgroundImage: `linear-gradient(135deg, ${backgroundColor[0]} 35%, ${backgroundColor[1]} 65%)`,
-        }
+  // 타입별 배경색 계산 (셸은 계산된 색 배열을 받는다)
+  const backgroundColor = useMemo(
+    () => pokemonData.types.map((item) => CardColor[item]),
+    [pokemonData.types],
+  )
 
-  // 커스텀 Lazy Loading Hook
-  const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
-    useLazyImage({
-      rootMargin: '200px',
-      threshold: 0.1,
-    })
-
-  // 폼 타입에 따른 표시 텍스트
-  const getFormTypeLabel = () => {
+  // 폼 타입에 따른 표시 텍스트 — PokemonLearnInfo.formType은
+  // 'BASE' | 'NORMAL' | 'REGION' | 'MEGA' (PokemonWithAbility의 *_FORM 표기와 다름)
+  const formLabel = useMemo(() => {
     switch (pokemonData.formType) {
       case 'MEGA':
         return '메가진화'
@@ -52,12 +52,10 @@ const PokemonBySkillCard = ({
       default:
         return null
     }
-  }
+  }, [pokemonData.formType, pokemonData.region, pokemonData.formName])
 
-  const formLabel = getFormTypeLabel()
-
-  // Path 기반 URL 생성
-  const getPokemonHref = () => {
+  // Path 기반 URL 생성 (폼 분기)
+  const pokemonHref = useMemo(() => {
     const baseUrl = `/detail/${pokemonData.number}`
 
     if (pokemonData.formType === 'MEGA') {
@@ -84,111 +82,65 @@ const PokemonBySkillCard = ({
     }
 
     return baseUrl
-  }
+  }, [pokemonData.formType, pokemonData.imagePath, pokemonData.number])
+
+  const altText = `pokemon_id_${pokemonData.number} ${pokemonData.name} ${
+    formLabel ?? ''
+  }`
 
   return (
-    <Link
-      href={getPokemonHref()}
-      className="block w-full md:w-56"
-      aria-label={`포켓몬 ${pokemonData.name} 카드 ${formLabel ? formLabel : ''}`}
-    >
-      <article
-        className="w-full h-[20rem] md:h-80 text-black-2 border border-solid border-black-2 rounded-[10px] p-[0.75rem_0.5rem] md:p-[0.83333333rem_0.55555556rem] relative overflow-hidden shadow-[inset_10px_0_0_0_rgb(51_65_80),0_0_0px_0.25rem_#ffffff] cursor-pointer card-corner-fold transition-transform duration-300 ease-[cubic-bezier(0.03,0.57,0.37,1.02)] md:hover:scale-105 md:hover:z-10"
-        style={gradientStyle}
-      >
-        <header className="w-full min-h-8 flex items-start justify-between pr-2 relative z-10">
-          <i className="w-8 h-8 flex-shrink-0 mr-2">
-            <BallComponent />
-          </i>
-          <div className="w-full min-h-5 flex items-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-2">
-            <p className="h-4 text-base leading-none font-medium text-black-2">
-              No.{pokemonNumber}
-            </p>
-            <h3 className="w-fit text-base leading-none font-semibold text-right text-black">
-              {pokemonData.name}
-            </h3>
-          </div>
-        </header>
-        {isHighPriority ? (
-          <div className="w-fit mx-auto mb-2 drop-shadow-[2px_3px_2px_rgb(51_51_51)] relative">
-            <ImageComponent
-              height={isMobile ? '8rem' : '10rem'}
-              width={isMobile ? '8rem' : '10rem'}
-              imageSize={{
-                width: isMobile ? 96 : 160,
-                height: isMobile ? 96 : 160,
-              }}
-              densities={[1, 1.5]}
-              alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
-              src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}`}
-              sizes={isMobile ? '8rem' : '10rem'}
-              fetchPriority="high"
-            />
-          </div>
-        ) : (
-          <div
-            ref={imgRef}
-            className="w-fit mx-auto mb-4 md:mb-2 drop-shadow-[2px_3px_2px_rgb(51_51_51)] relative pr-2"
-          >
-            {isVisible ? (
-              <ImageComponent
-                height={isMobile ? '8rem' : '10rem'}
-                width={isMobile ? '8rem' : '10rem'}
-                imageSize={{
-                  width: isMobile ? 96 : 160,
-                  height: isMobile ? 96 : 160,
-                }}
-                densities={[1, 1.5]}
-                alt={`pokemon_id_${pokemonData.number} ${pokemonData.name} ${formLabel ? formLabel : ''}`}
-                src={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}`}
-                sizes={isMobile ? '8rem' : '10rem'}
-                loading="lazy"
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                style={{
-                  opacity: isLoaded ? 1 : 0,
-                  transition: 'opacity 0.3s ease-in-out',
-                }}
-              />
-            ) : (
-              <div className="w-40 h-40 bg-gray-300 opacity-30 animate-pulse rounded-lg flex-center" />
-            )}
-          </div>
-        )}
-        <div className="w-full flex-center gap-[0.4rem] px-2 mb-3">
-          {pokemonData.types.map((item, index) => {
-            return <TagComponent key={`${item}-id-${index}`} type={item} />
-          })}
-        </div>
-        <div className="w-full flex flex-wrap flex-center gap-2 px-2">
-          {pokemonData.methods.map((method, index) => {
-            return (
-              <Fragment key={`method-id-${index + 1}`}>
-                {method.method === 'LEVEL_UP' ? (
-                  <p className="bg-green-600 text-white rounded-md font-bold flex items-center px-2 gap-1">
-                    <LevelUpIcon width={14} height={14} />
-                    <span className="h-6 text-aligned-sm text-sm">레벨업</span>
-                  </p>
-                ) : (
-                  <p className="bg-slate-500 text-white rounded-md font-bold flex items-center px-2 gap-1">
-                    <MachineMoveIcon width={20} height={20} />
-                    <span className="h-6 text-aligned-sm text-sm">
-                      기술머신
-                    </span>
-                  </p>
-                )}
-              </Fragment>
-            )
-          })}
-        </div>
-        {formLabel && (
-          <p className="w-fit h-6 text-aligned-sm px-2 text-xs bg-card-accent text-white rounded-md font-medium mt-2 mx-auto">
-            {formLabel}
+    <PokemonCardShellComponent
+      href={pokemonHref}
+      backgroundColor={backgroundColor}
+      types={pokemonData.types}
+      imageSrc={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}`}
+      imageAlt={altText}
+      imageSize={{ width: 160, height: 160 }}
+      isHighPriority={isHighPriority}
+      ariaLabel={`포켓몬 ${pokemonData.name} 카드 ${formLabel ?? ''}`}
+      header={
+        <div className="w-full flex items-start content-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-x-2 gap-y-0.5">
+          <p className="flex-shrink-0 text-xs desktop:text-base leading-tight font-medium text-black-2">
+            No.{pokemonNumber}
           </p>
+          <h3 className="leading-tight font-semibold text-black break-keep text-right">
+            {pokemonData.name}
+          </h3>
+        </div>
+      }
+    >
+      {/* 배지 영역: 배지(습득 방법·폼) 유무와 무관하게 min-h-6으로 높이를 고정해
+          카드마다 이미지 아래 여백이 들쭉날쭉하지 않게 한다. 타입 태그(셸이 좌측
+          정렬로 렌더)와 정렬을 맞춰 배지도 좌측 정렬 — PokemonByAbilityCard와 동일. */}
+      <div className="w-full flex flex-wrap items-center justify-start gap-2 px-2 mt-2 min-h-6">
+        {pokemonData.methods.map((method, index) => (
+          <span
+            key={`method-${method.method}-${index}`}
+            className={`inline-flex items-center gap-1 rounded-md px-2 font-bold ${
+              method.method === LearnMethod.LEVEL_UP
+                ? 'bg-damage-status text-primary-1'
+                : 'bg-card-accent text-white'
+            }`}
+          >
+            {method.method === LearnMethod.LEVEL_UP && (
+              <LevelUpIcon width={12} height={12} aria-hidden="true" />
+            )}
+            {method.method === LearnMethod.MACHINE && (
+              <MachineMoveIcon width={16} height={16} aria-hidden="true" />
+            )}
+            <span className="h-6 text-aligned-sm text-xs">
+              {getLearnMethodKorean(method.method)}
+            </span>
+          </span>
+        ))}
+        {formLabel && (
+          <span className="h-6 text-aligned-sm px-2 text-xs bg-card-accent text-white rounded-md font-medium">
+            {formLabel}
+          </span>
         )}
-      </article>
-    </Link>
+      </div>
+    </PokemonCardShellComponent>
   )
 }
 
-export default PokemonBySkillCard
+export default PokemonBySkillCardComponent

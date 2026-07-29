@@ -24,6 +24,10 @@
 /* 기본 스타일 재설정 */
 @layer base {
   :root {
+    /* text-base 실값 — 모바일 14px, 데스크톱(769px+) 16px (ADR-0012).
+       root font-size 16px 고정(ADR-0009)은 그대로: rem 자동 축소가 아니라
+       base "토큰 하나"만 반응형 변수다. spacing 등 다른 rem 토큰은 영향 없음. */
+    --font-size-base: 0.875rem;
     --color-primary-1: theme('colors.primary-1');
     --color-primary-2: theme('colors.primary-2');
     --color-primary-3: theme('colors.primary-3');
@@ -36,6 +40,12 @@
     --color-shadow-1: theme('colors.shadow-1');
     --color-shadow-2: theme('colors.shadow-2');
     --color-shadow-3: theme('colors.shadow-3');
+  }
+
+  @media (min-width: 769px) {
+    :root {
+      --font-size-base: 1rem;
+    }
   }
 
   * {
@@ -115,7 +125,6 @@
   footer,
   header,
   hgroup,
-  main,
   menu,
   nav,
   output,
@@ -136,6 +145,9 @@
   html,
   body {
     @apply w-full h-full;
+    /* root font-size 16px 고정 (ADR-0009): 1rem=16px이 모든 화면에서 동일.
+       화면별 폰트 스케일링은 폐기, 크기 차이는 모바일 퍼스트 토큰으로 표현. */
+    font-size: 16px;
     -webkit-text-size-adjust: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -183,29 +195,9 @@
   }
 }
 
-/* 반응형 폰트 크기 */
-@media screen and (min-width: 960px) {
-  html,
-  body {
-    font-size: 16px;
-    min-width: 960px;
-  }
-}
-
-@media screen and (min-width: 680px) and (max-width: 959px) {
-  html,
-  body {
-    font-size: 14px;
-    min-width: 845px;
-  }
-}
-
-@media screen and (max-width: 679px) {
-  html,
-  body {
-    font-size: 12px;
-  }
-}
+/* 반응형 폰트 스케일링 폐기 (ADR-0009): root는 16px 고정.
+   기존의 화면별 font-size(16/14/12px)와 min-width(960/845px) 제약을 제거했다.
+   화면별 크기 차이는 모바일 퍼스트 토큰(예: text-sm desktop:text-base)으로 표현한다. */
 
 /* 반복 패턴 컴포넌트 클래스 */
 @layer components {

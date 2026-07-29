@@ -62,26 +62,26 @@ const HeaderSearchContainer = () => {
   return (
     <div
       ref={searchRef}
-      className="w-2/3 relative"
+      className="flex-1 min-w-0 relative"
       aria-labelledby="pokemon-search"
       role="search"
     >
       <p id="pokemon-search" className="sr-only">
         포켓몬 검색하기
       </p>
-      <div className="w-4/5 h-10 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">
+      <div className="w-4/5 h-8 flex items-center relative bg-white rounded-[1.125rem] px-[7px] overflow-hidden">
         <input
           type="text"
           name="search-pokemon"
           placeholder="포켓몬 검색"
           autoComplete="off"
           onChange={handleChangeKeyword}
-          className="w-full h-full text-sm text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"
+          className="w-full h-full text-xs text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"
         />
         <ImageComponent
           src="/assets/image/search.svg"
-          width="2rem"
-          height="2rem"
+          width="1.5rem"
+          height="1.5rem"
           imageSize={{ width: 24, height: 24 }}
           alt="포켓몬 검색"
           className="icon-search"

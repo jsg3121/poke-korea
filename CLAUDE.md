@@ -24,6 +24,10 @@
   - 사용자가 명시적으로 문서화를 요청한 경우
   - 단순 조사나 질문 답변은 문서로 작성하지 않음
 - **IMPORTANT**: 에이전트나 스킬을 사용하기 전에 반드시 어떤 에이전트/스킬을 사용할 것인지, 왜 사용하는지를 먼저 사용자에게 안내할 것. 예: "이 작업은 `market-intelligence` 에이전트를 사용하여 시장 조사를 진행하겠습니다."
+- **CRITICAL**: 에이전트·스킬을 호출하기 **전에**, 해당 `.claude/agents/*.md` 또는 `.claude/skills/*/SKILL.md`의 **산출물 위치·파일명 규칙·제약을 반드시 `Read`로 확인**하고 그 규칙대로 프롬프트를 작성한다. 다음을 절대 하지 않는다:
+  - "이전에 써봐서 안다"는 이유로 정의 문서 확인을 건너뛰기 — 세션이 바뀌면 그 기억은 없고, **정의 문서가 유일한 권위 원본(single source of truth)**이다. 짧은 description만으로는 산출물 규칙(저장 경로 등)을 알 수 없다.
+  - 프롬프트에 저장 경로·파일명·출력 형식을 **임의로 지정**하기 — 에이전트가 이미 가진 올바른 기본 규칙을 잘못된 값으로 덮어쓸 수 있다. 경로 지정이 꼭 필요하면 정의 문서에 규정된 위치를 그대로 인용한다.
+  > **Why:** 실제로 ui-publisher 호출 시 정의 문서(`public/preview/`에 저장 규칙)를 읽지 않고 프롬프트에 `.claude/playwright/`를 임의 지정해, 이미 여러 메모리에 기록돼 있던 동일 실수를 반복한 사례가 있다. "다음엔 잘 읽겠다"는 다짐은 이미 실패한 방법이므로, 실행 전 정의 문서 확인을 절차로 강제한다. (관련: `public/preview` 시안 저장 규칙은 `ui-publisher.md` 및 메모리 참조)
 
 ---
 
@@ -127,22 +131,14 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 │   ├── seo-audit/             #   /seo-audit
 │   ├── a11y-check/            #   /a11y-check (WCAG 접근성 검사)
 │   ├── code-review/           #   /code-review
-│   ├── component-builder/     #   /component-builder
 │   ├── research/              #   /research (자동 트리거)
-│   ├── test-writer/           #   /test-writer (Vitest 단위 테스트)
-│   ├── e2e-test/              #   /e2e-test (Playwright E2E 테스트)
 │   └── biz-strategy/          #   /biz-strategy (비즈니스 전략 파이프라인, references/ 포함)
 ├── agents/                    # 에이전트 정의
 │   ├── index.md               #   에이전트 목록 및 활용 패턴
 │   ├── product-planner.md     #   기획서(SPEC) 작성/관리
-│   ├── config-maker.md        #   설정 파일 스키마/옵션/생성 로직
 │   ├── seo-specialist.md      #   SEO 설계/구현 (메타태그, JSON-LD, hreflang)
-│   ├── ui-publisher.md        #   Astro/Svelte 컴포넌트 구현
+│   ├── ui-publisher.md        #   페이지, UI 컴포넌트 구현
 │   ├── ux-designer.md         #   사용자 플로우, 레이아웃, 인터랙션 설계
-│   ├── qa-agent.md            #   QA 오케스트레이터 (서브에이전트 조율)
-│   ├── unit-tester.md         #   Vitest 단위 테스트 실행/분석 (qa-agent 전용)
-│   ├── e2e-tester.md          #   Playwright E2E 테스트 실행/분석 (qa-agent 전용)
-│   ├── static-analyzer.md     #   ESLint/Prettier/TS 정적 분석 (qa-agent 전용)
 │   ├── market-intelligence.md #   시장/경쟁사/트렌드 조사
 │   ├── business-analyst.md    #   서비스 경쟁력/포지셔닝 분석
 │   └── strategy-planner.md    #   MI+BA 종합 후 전략 방향 도출

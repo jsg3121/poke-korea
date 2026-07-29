@@ -1,15 +1,21 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
+import MobileTabBar from '~/components/MobileTabBar'
 import { DetailProvider } from '~/context/Detail.context'
+import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
+import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
-import DetailDesktop from '~/views/desktop/detail/Detail.desktop'
-import DetailMobile from '~/views/mobile/detail/Detail.mobile'
+import DetailView from '~/views/detail/Detail.view'
 import { generatePokemonJsonLd } from '../../../../constants/pokemonJsonLd'
 import { SHINY_QNA_JSON_LD } from '../../../../constants/shinyJsonLd'
 import {
+  fetchAdjacentPokemon,
   fetchNormalFormData,
   fetchPokemonDetail,
+  fetchPokemonSummaries,
 } from './modules/fetchDetailData'
 import { generateDetailMetadata } from './modules/generateMetadata'
 import { parseNormalFormParams } from './modules/parseFormParams'
@@ -109,8 +115,15 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     notFound()
   }
 
-  const { normalFormData, versionGroupData, normalFormImageList } =
-    await fetchNormalFormData(parsedPokemonId, activeIndex)
+  const [
+    { normalFormData, versionGroupData, normalFormImageList },
+    adjacent,
+    evolutionPokemons,
+  ] = await Promise.all([
+    fetchNormalFormData(parsedPokemonId, activeIndex),
+    fetchAdjacentPokemon(parsedPokemonId),
+    fetchPokemonSummaries(pokemonDetail.evolutionId),
+  ])
 
   const props = {
     pokemonBaseInfo: pokemonDetail,
@@ -136,7 +149,31 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
 
   return (
     <DetailProvider {...props}>
-      {isMobile ? <DetailMobile /> : <DetailDesktop />}
+      {/* 콘텐츠는 반응형 단일(DetailView, ADR-0007). UA 분기는 전역 크롬(헤더/
+          푸터/탭바) 선택으로만 남는다(홈·리스트 개편과 동일 패턴). */}
+      {isMobile ? (
+        <main className="w-full min-h-screen">
+          <MobileHeaderContainer />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
+          <MobileFooterContainer />
+          <MobileTabBar />
+        </main>
+      ) : (
+        // pt-30(120px) = 데스크톱 fixed 헤더 실높이(리스트 개편에서 실측 확정)
+        <main className="w-full min-h-screen pt-30">
+          <DesktopHeaderContainer />
+          <DetailView
+            prevPokemon={adjacent.prev}
+            nextPokemon={adjacent.next}
+            evolutionPokemons={evolutionPokemons}
+          />
+          <DesktopFooterContainer />
+        </main>
+      )}
       <script
         id="pokemon-jsonLd"
         type="application/ld+json"

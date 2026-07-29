@@ -2,7 +2,6 @@ import { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { ReactNode } from 'react'
 import { getRobotsConfig } from '~/module/metadata.module'
-import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import Providers from './providers'
 import { headers } from 'next/headers'
 import { detectUserAgent } from '~/module/device.module'
@@ -21,8 +20,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://poke-korea.com'),
   title: {
-    default: '포켓몬의 모든 정보 포케 코리아',
-    template: '%s',
+    // 브랜드 접미사를 한 곳에서 강제한다(SSOT). 각 페이지 title은 접미사 없이
+    // 페이지명만 반환하면 Next.js가 자동으로 " - 포케 코리아"를 붙인다.
+    // 구분자는 OG/Twitter/JSON-LD 개별 엔티티와 동일하게 하이픈으로 통일한다.
+    // 접미사를 붙이면 안 되는 title(홈·404 등)은 title.absolute를 사용한다.
+    default: '포케 코리아 - 포켓몬의 모든 정보',
+    template: '%s - 포케 코리아',
   },
   description:
     '한국어 포켓몬 도감과 타입 상성 계산기, 기술·특성 도구를 무료로 제공하는 포켓몬 백과사전.',
@@ -103,15 +106,15 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <Providers>
           <DeviceProvider isMobile={isMobile}>{children}</DeviceProvider>
         </Providers>
-        <script
-          id="website-jsonLd"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(WEBSITE_JSON_LD),
-          }}
-        />
         {isProduction && (
           <>
+            {/* Google AdSense */}
+            <Script
+              id="adsbygoogle-init"
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
+              crossOrigin="anonymous"
+              strategy="afterInteractive"
+            />
             {/* Google Analytics */}
             <Script
               id="gtag-base"
@@ -144,13 +147,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   }
                 `,
               }}
-            />
-            {/* Google AdSense */}
-            <Script
-              id="adsbygoogle-init"
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
-              crossOrigin="anonymous"
-              strategy="afterInteractive"
             />
           </>
         )}

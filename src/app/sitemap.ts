@@ -101,37 +101,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/vgc',
+      url: 'https://poke-korea.com/champions/double',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/bss',
+      url: 'https://poke-korea.com/champions/single',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/vgc/list',
+      url: 'https://poke-korea.com/champions/double/list',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/bss/list',
+      url: 'https://poke-korea.com/champions/single/list',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/vgc/tier',
+      url: 'https://poke-korea.com/champions/double/tier',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: 'https://poke-korea.com/champions/bss/tier',
+      url: 'https://poke-korea.com/champions/single/tier',
       lastModified: BUILD_TIME,
       changeFrequency: 'daily',
       priority: 0.8,
@@ -438,7 +438,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
      * buildChampionsDetailHref 와 동일 매핑 (utils 의존성 회피 위해 sitemap 내부 인라인).
      */
     const buildFormPath = (
-      formatSlug: 'vgc' | 'bss',
+      formatSlug: 'double' | 'single',
       pokemonId: number,
       formType: string,
       formCode: string | null,
@@ -459,7 +459,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     const buildChampionsPagesForFormat = (
-      formatSlug: 'vgc' | 'bss',
+      formatSlug: 'double' | 'single',
       edges: { node: ChampionsPokemonEdge['node'] }[],
       lastModified: Date,
     ) =>
@@ -477,12 +477,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const championsDetailPages = [
       ...buildChampionsPagesForFormat(
-        'vgc',
+        'double',
         vgcListResponse.edges,
         vgcLastModified,
       ),
       ...buildChampionsPagesForFormat(
-        'bss',
+        'single',
         bssListResponse.edges,
         bssLastModified,
       ),
