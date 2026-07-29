@@ -1,7 +1,5 @@
 export const ADSENSE_CLIENT =
   process.env.NODE_ENV === 'production' ? 'ca-pub-6481622724376761' : ''
-export const ADSENSE_SLOT =
-  process.env.NODE_ENV === 'production' ? '1410249585' : ''
 
 /**
  * 상세(detail) 페이지 인콘텐츠 광고 슬롯 (RES-004 배치안, 지점 1·2).
@@ -44,7 +42,6 @@ export const MOVES_DETAIL_BOTTOM_SLOTS = {
  *
  * 크기(모바일 320×100 / PC 970×250)는 코드 <ins> 클래스가 결정하므로 디스플레이
  * 유형으로만 발급하면 된다. 슬롯 값이 빈 문자열이면 렌더하지 않는다.
- * TODO(slot): 발급 후 아래 플레이스홀더('')를 실제 슬롯 ID로 교체한다.
  */
 export const MOVES_DETAIL_TOP_SLOTS = {
   mobile: '4984100459', // 320×100 디스플레이
@@ -94,7 +91,6 @@ export const QUIZ_RESULT_SLOTS = {
  * - 모바일 전부: 320×100 디스플레이
  *
  * 슬롯 값이 빈 문자열이면 렌더하지 않는다.
- * TODO(slot): 발급 후 아래 플레이스홀더('')를 실제 슬롯 ID로 교체한다.
  */
 export const CHAMPIONS_SLOTS = {
   homeMobile: '4439506677', // 320×100 디스플레이
