@@ -1,3 +1,4 @@
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsHeroSection from '~/components/champions/ChampionsHeroSection.component'
 import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSectionHeader.component'
@@ -7,6 +8,7 @@ import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSe
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
 import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,
@@ -28,7 +30,8 @@ import { groupChampionsByTier } from '~/utils/championsTier.util'
  * - champions 고유 요소(포맷 탭 + 안내 캡션)는 헤더와 분리해 ChampionsFormatIntro가
  *   담당한다(관심사 분리).
  * - Hero/A티어 카드는 도감 카드와 동일한 DS 셸(ChampionsTopCard → PokemonCardShell).
- * - 광고 슬롯 제거(A~D 선례, 반응형 광고 유닛 재도입은 별도 트랙).
+ * - 광고(RES-004 재배치): TOP3(Hero)↔자주 보이는 포켓몬(A티어) 사이 1개. 첫
+ *   핵심 콘텐츠(TOP3) 소비 직후 폴드 경계 지점(사용자 결정 — 진입 시 조기 노출).
  * - 전역 크롬(헤더/푸터/탭바)은 page.tsx가 담당(컨테이너 내부에 두지 않는다).
  */
 interface ChampionsHomeContainerProps {
@@ -70,6 +73,14 @@ const ChampionsHomeContainer = ({
         moreHref={`/champions/${formatSlug}/tier`}
         formatSlug={formatSlug}
       />
+
+      {/* 광고 — TOP3 소비 직후·자주 보이는 포켓몬 앞(폴드 경계) */}
+      <div className="mb-8 desktop:mb-12">
+        <ChampionsInContentBanner
+          mobileSlot={CHAMPIONS_SLOTS.homeMobile}
+          desktopSlot={CHAMPIONS_SLOTS.homeDesktop}
+        />
+      </div>
 
       {/* A 티어 한눈에 보기 */}
       {aTier.length > 0 && (

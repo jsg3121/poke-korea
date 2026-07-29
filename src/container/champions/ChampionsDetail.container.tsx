@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
+import ChampionsDetailStatsBanner from '~/components/adSlot/ChampionsDetailStatsBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import StatBarComponent, {
   StatBarItem,
 } from '~/components/statBar/StatBar.component'
@@ -8,6 +10,7 @@ import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetai
 import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
 import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
 import ChampionsPartnerList from '~/components/champions/ChampionsPartnerList.component'
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import {
@@ -176,6 +179,12 @@ const ChampionsDetailContainer = ({
             </h2>
             {statItems.length > 0 && <StatBarComponent stats={statItems} />}
           </div>
+
+          {/* 데스크톱 전용 광고(300×250) — 좌측 능력치 컬럼은 우측 메타패널보다
+              짧아 하단에 빈 공간이 생긴다. 그 공간을 채워 콘텐츠를 밀어내지 않는다.
+              384px 컬럼에 인아티클을 넣으면 소재 폭에 따라 삐져나갈 수 있어 폭
+              고정 사각형을 쓴다. 모바일에선 렌더 안 함(모바일 광고는 메타패널 뒤). */}
+          {meta && <ChampionsDetailStatsBanner />}
         </aside>
 
         <div className="flex-1 min-w-0">
@@ -230,6 +239,21 @@ const ChampionsDetailContainer = ({
           )}
         </div>
       </div>
+
+      {/* 모바일 전용 광고 — 세로 스택이라 데스크톱과 달리 좌측 빈 공간이 없다.
+          메타패널(추천 파트너까지) 소비 후·최하단 링크 앞에 둔다. 데스크톱 슬롯은
+          빈 값(데스크톱은 좌측 능력치 컬럼 아래에 이미 배치 — 컴포넌트가 데스크톱
+          에선 slot='' → null 반환 = 이 광고는 데스크톱 DOM에 안 들어간다. CSS
+          숨김이 아니라 조건부 렌더).
+          meta 없으면 콘텐츠 빈약하므로 미노출(콘텐츠 대비 광고 밀도 원칙). */}
+      {meta && (
+        <div className="mt-6">
+          <ChampionsInContentBanner
+            mobileSlot={CHAMPIONS_SLOTS.detailMobile}
+            desktopSlot=""
+          />
+        </div>
+      )}
 
       <Link
         href={generalDetailUrl}
