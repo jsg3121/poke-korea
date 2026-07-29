@@ -25,7 +25,7 @@ const ResultHeaderComponent = ({
       <h1 className="text-2xl desktop:text-[2rem] font-bold text-primary-4">
         {headline}
       </h1>
-      <p className="mt-2 text-base desktop:text-xl text-primary-3">{subcopy}</p>
+      <p className="my-2 text-base desktop:text-xl text-primary-3">{subcopy}</p>
     </header>
   )
 }

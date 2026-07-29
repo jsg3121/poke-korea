@@ -50,7 +50,7 @@ const QuizOptionButtonComponent = ({
           {optionNumber}
         </span>
       )}
-      <span className="text-left text-sm desktop:text-base">{children}</span>
+      <span className="text-left text-xs desktop:text-base">{children}</span>
     </button>
   )
 }

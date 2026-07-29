@@ -23,8 +23,8 @@ const VARIANT_CLASS: Record<ButtonVariant, string> = {
 
 /** size별 높이·패딩·폰트 (모바일 퍼스트, 터치 타겟 보장) */
 const SIZE_CLASS: Record<ButtonSize, string> = {
-  sm: 'min-h-touch px-4 text-sm', // 44px 보장
-  md: 'min-h-touch px-5 text-sm desktop:text-base', // 44px
+  sm: 'min-h-touch px-3 desktop:px-4 text-xs desktop:text-sm', // 44px 보장
+  md: 'min-h-touch px-4 desktop:px-5 text-xs desktop:text-sm desktop:text-base', // 44px
   lg: 'min-h-touch-lg px-6 text-base desktop:text-lg', // 48px
 }
 
