@@ -57,7 +57,55 @@ export const MOVES_WEBPAGE_JSON_LD = {
   },
 }
 
-export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
+/** 기술 상세 mainEntity(Thing) 구성용 스탯 — page.tsx가 fetch한 skill에서 전달 */
+interface MoveEntityInfo {
+  /** 타입 한글명 (예: '불꽃') */
+  typeLabel?: string | null
+  /** 분류 한글명 (물리/특수/변화) */
+  damageTypeLabel?: string | null
+  power?: number | null
+  accuracy?: number | null
+  description?: string | null
+}
+
+/**
+ * 기술 상세 mainEntity(Thing) — 표준 엔티티 타입이 없는 도메인이라 포켓몬 상세와
+ * 동일하게 Thing + additionalProperty(PropertyValue) 패턴을 쓴다. null/미보유
+ * 값은 제외해 스키마-콘텐츠 불일치를 막는다.
+ */
+const buildMoveMainEntity = (
+  skillId: number,
+  skillName: string,
+  info: MoveEntityInfo,
+) => {
+  const properties = [
+    info.typeLabel && { name: '타입', value: info.typeLabel },
+    info.damageTypeLabel && { name: '분류', value: info.damageTypeLabel },
+    info.power != null && { name: '위력', value: info.power },
+    info.accuracy != null && { name: '명중률', value: info.accuracy },
+  ]
+    .filter(Boolean)
+    .map((prop) => ({ '@type': 'PropertyValue' as const, ...prop }))
+
+  return {
+    '@type': 'Thing' as const,
+    name: skillName,
+    identifier: {
+      '@type': 'PropertyValue' as const,
+      propertyID: 'moveId',
+      name: '기술 번호',
+      value: skillId,
+    },
+    ...(info.description ? { description: info.description } : {}),
+    ...(properties.length > 0 ? { additionalProperty: properties } : {}),
+  }
+}
+
+export const getMoveDetailJsonLd = (
+  skillId: number,
+  skillName: string,
+  entityInfo?: MoveEntityInfo,
+) => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   name: `포켓몬 ${skillName} 기술 정보 - 포케 코리아`,
@@ -69,6 +117,9 @@ export const getMoveDetailJsonLd = (skillId: number, skillName: string) => ({
     name: '포케 코리아',
     url: 'https://poke-korea.com',
   },
+  ...(entityInfo
+    ? { mainEntity: buildMoveMainEntity(skillId, skillName, entityInfo) }
+    : {}),
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
