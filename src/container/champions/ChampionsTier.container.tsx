@@ -1,8 +1,10 @@
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
 import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'
 import ChampionsTierTeamCoreSection from '~/components/champions/ChampionsTierTeamCoreSection.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,
@@ -79,6 +81,15 @@ const ChampionsTierContainer = ({
         teamCores={teamCores}
         formatSlug={formatSlug}
       />
+
+      {/* 광고 — S 티어 바로 위(인기 조합 뒤). 진입 시 조기 노출 목적
+          (사용자 결정). space-y 리스트 밖에 둬 티어 그룹 간격 규칙과 분리 */}
+      <div className="mb-6 desktop:mb-8">
+        <ChampionsInContentBanner
+          mobileSlot={CHAMPIONS_SLOTS.tierMobile}
+          desktopSlot={CHAMPIONS_SLOTS.tierDesktop}
+        />
+      </div>
 
       <div className="space-y-6 desktop:space-y-8">
         <ChampionsTierGroup

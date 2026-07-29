@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournamentTeamCard.component'
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsTournamentDetailFragment } from '~/graphql/typeGenerated'
 import {
   CHAMPIONS_DEFAULT_FORMAT_SLUG,
@@ -96,6 +98,12 @@ const ChampionsTournamentDetailContainer = ({
           </a>
         )}
       </header>
+
+      {/* 광고 — 대회 정보(헤더) 아래·TOP3 앞(champions 통일) */}
+      <ChampionsInContentBanner
+        mobileSlot={CHAMPIONS_SLOTS.tournamentsDetailMobile}
+        desktopSlot={CHAMPIONS_SLOTS.tournamentsDetailDesktop}
+      />
 
       {/* Top 1~3 강조 */}
       {top3.length > 0 && (

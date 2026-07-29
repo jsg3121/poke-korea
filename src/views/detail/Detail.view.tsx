@@ -1,3 +1,6 @@
+import DetailBottomBanner from '~/components/adSlot/DetailBottomBanner'
+import DetailSkillsBanner from '~/components/adSlot/DetailSkillsBanner'
+import DetailStatsBanner from '~/components/adSlot/DetailStatsBanner'
 import DetailEvolutionContainer from '~/container/detail/DetailEvolution.container'
 import DetailExclusiveMovesContainer from '~/container/detail/DetailExclusiveMoves.container'
 import DetailFormRowContainer from '~/container/detail/DetailFormRow.container'
@@ -13,12 +16,16 @@ import DetailTypeMatchupContainer from '~/container/detail/DetailTypeMatchup.con
  * 콘텐츠를 대체한다. UA 분기·display:none 없이 CSS(desktop:)만으로 반응(ADR-0007).
  *
  * IA(§2·§7): 종 내비 → 히어로(식별 정보 승격) → 폼 로우(히어로 외부 분리) →
- * 스탯(StatBar) → 기본정보|특성(+특성 퀴즈 CTA) → 전용기 → 습득 기술 →
- * 타입 상성(+상성 퀴즈 CTA) → 진화 체인. 폼 상태는 DetailProvider(호출부 주입).
+ * 스탯(StatBar) → [광고 지점1] → 기본정보|특성(+특성 퀴즈 CTA) → 전용기 →
+ * 습득 기술 → [광고 지점2] → 타입 상성(+상성 퀴즈 CTA) → 진화 체인 → [광고 지점3].
+ * 폼 상태는 DetailProvider(호출부 주입).
  *
- * 광고 배너는 이 페이지에서 일단 제거(리스트 개편과 동일한 사용자 결정) — UA 분기
- * 없는 반응형 광고 유닛이 정해지면 스탯 아래·최하단에 재도입한다. 크롬(헤더/푸터/
- * 탭바) 선택은 호출부(page) 책임.
+ * 광고(RES-004 재도입): 콘텐츠 소비 후 섹션 사이 3지점. 폴드 상단(히어로)엔 두지
+ * 않는다(모바일 상단 배너 CTR 0.06% vs 하단 2.02%, 34배 차이 실측). 기기별 성과
+ * 분리 추적을 위해 각 광고 컴포넌트가 내부에서 useDevice(서버 주입 isMobile)로
+ * 모바일/데스크톱 슬롯을 나눠 렌더한다 — 미노출 유닛의 숨김 렌더는 AdSense 정책
+ * 위반이라 CSS 분기 대신 조건부 렌더를 쓴다. 지점1·2는 320×100/728×90 고정(높이
+ * 예측), 지점3은 검증된 반응형 슬롯 재사용. 크롬 선택은 호출부 책임.
  */
 
 interface DetailViewProps {
@@ -44,11 +51,18 @@ const DetailView = ({
         <DetailFormRowContainer />
         <DetailStatsContainer />
         <div className="flex w-full flex-col gap-5 px-4 desktop:mx-auto desktop:max-w-7xl desktop:gap-8">
+          {/* 지점1: 능력치 소비 직후 */}
+          <DetailStatsBanner />
           <DetailInfoSectionContainer />
           <DetailExclusiveMovesContainer />
           <DetailSkillsContainer />
+          {/* 지점2: 습득 기술 표 소비 직후 */}
+          <DetailSkillsBanner />
           <DetailTypeMatchupContainer />
           <DetailEvolutionContainer evolutionPokemons={evolutionPokemons} />
+          {/* 지점3: 콘텐츠 최하단(과거 수익 1위 위치). 모바일 하단 탭바와는
+              페이지 크롬의 여백으로 분리된다. */}
+          <DetailBottomBanner />
         </div>
       </div>
     </>

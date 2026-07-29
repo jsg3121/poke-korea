@@ -1,10 +1,12 @@
 'use client'
 
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
 import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
 import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
 import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
@@ -19,7 +21,9 @@ import {
  * 구버전 desktop/mobile 2벌 컨테이너를 CSS 반응형 단일로 통합한다(UX-E1).
  * - 그리드: grid-cols-2 desktop:grid-cols-5 (도감 list와 동일 DS 패턴)
  * - 카드: ChampionsPokemonCard(DS PokemonCardShell 기반, useDevice 제거)
- * - 광고 슬롯 제거(A~D 선례, 반응형 광고 유닛 재도입은 별도 트랙)
+ * - 광고(RES-004 재배치): sticky 타입 필터 바로 아래·카드 그리드 앞 1개(항상
+ *   노출). 진입 시 조기 노출 목적(사용자 결정). sticky 요소 "밖"의 일반 흐름에
+ *   둬 스크롤 시 z-index 충돌을 피한다.
  * - 무한스크롤 sentinel은 Footer와 분리(크롬은 page.tsx가 담당)
  *
  * SSR은 뷰포트를 모르므로 priority/observer 임계는 단일 고정값을 쓴다.
@@ -80,6 +84,12 @@ const ChampionsPokedexContainer = ({
           <ChampionsTypeFilter />
         </div>
       </div>
+
+      {/* 광고 — 타입 필터 바로 아래·카드 그리드 앞(진입 시 조기 노출) */}
+      <ChampionsInContentBanner
+        mobileSlot={CHAMPIONS_SLOTS.pokedexMobile}
+        desktopSlot={CHAMPIONS_SLOTS.pokedexDesktop}
+      />
 
       {pokemonList.length === 0 && (
         <div className="w-full h-20 desktop:h-80">

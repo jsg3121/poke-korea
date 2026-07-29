@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
+import ChampionsDetailStatsBanner from '~/components/adSlot/ChampionsDetailStatsBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import StatBarComponent, {
   StatBarItem,
 } from '~/components/statBar/StatBar.component'
@@ -8,6 +10,7 @@ import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetai
 import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
 import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
 import ChampionsPartnerList from '~/components/champions/ChampionsPartnerList.component'
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import {
@@ -165,6 +168,19 @@ const ChampionsDetailContainer = ({
         <ChampionsDetailMetaSummaryBar meta={meta} />
       </div>
 
+      {/* 모바일 전용 광고 — 히어로↔능력치 사이(진입 시 조기 노출로 노출 수
+          극대화). 세로 스택인 모바일에서만 이 위치가 유효하다. 데스크톱 슬롯은
+          빈 값(데스크톱은 좌측 능력치 컬럼 아래에 300×250로 별도 배치 —
+          컴포넌트가 데스크톱에선 slot='' → null 반환, DOM에 안 들어간다). */}
+      {meta && (
+        <div className="mb-6">
+          <ChampionsInContentBanner
+            mobileSlot={CHAMPIONS_SLOTS.detailMobile}
+            desktopSlot=""
+          />
+        </div>
+      )}
+
       {/* 모바일: 세로 스택 / 데스크톱: 완화된 2단 (좌 능력치 + 우 메타).
           카드는 E-1 카드 셸과 동일한 라인(테두리 2px + 3px 셸 그림자)으로 통일. */}
       <div className="flex flex-col desktop:flex-row gap-7 desktop:gap-8">
@@ -176,6 +192,12 @@ const ChampionsDetailContainer = ({
             </h2>
             {statItems.length > 0 && <StatBarComponent stats={statItems} />}
           </div>
+
+          {/* 데스크톱 전용 광고(300×250) — 좌측 능력치 컬럼은 우측 메타패널보다
+              짧아 하단에 빈 공간이 생긴다. 그 공간을 채워 콘텐츠를 밀어내지 않는다.
+              384px 컬럼에 인아티클을 넣으면 소재 폭에 따라 삐져나갈 수 있어 폭
+              고정 사각형을 쓴다. 모바일에선 렌더 안 함(모바일 광고는 메타패널 뒤). */}
+          {meta && <ChampionsDetailStatsBanner />}
         </aside>
 
         <div className="flex-1 min-w-0">

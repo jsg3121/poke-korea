@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import AbilityIcon from '~/assets/icons/ability.svg'
+import AbilityListTopBanner from '~/components/adSlot/AbilityListTopBanner'
 import AbilityCardComponent from '~/components/ability/AbilityCard.component'
 import AbilityCardSkeletonComponent from '~/components/ability/AbilityCardSkeleton.component'
 import AbilityDescriptionBodyComponent from '~/components/ability/AbilityDescriptionBody.component'
@@ -23,9 +24,10 @@ import AbilitySearchContainer from './AbilitySearch.container'
  * 높인다. pageSize는 데/모로 갈리던 값을 12로 통일(반응형 단일 컨테이너는 훅 호출이
  * 하나라 뷰포트별 분기가 어색 — SSR 시점엔 뷰포트를 모른다).
  *
- * 광고 배너 제거(사용자 결정, 홈·리스트·상세·moves와 동일 계열). 빈 상태는 EmptyState
- * + "검색어 지우기" CTA(기존엔 텍스트만 있어 이탈 유발). 추가 로드 중엔 카드 스켈레톤
- * (크기 SSOT 공유로 CLS 방지)을 표시한다.
+ * 광고(RES-004 재도입): 페이지 헤더 바로 아래·검색 앞(기존 위치 복원, 기존 슬롯
+ * 재사용 PC 970×250/모바일 320×100). 빈 상태는 EmptyState + "검색어 지우기"
+ * CTA(기존엔 텍스트만 있어 이탈 유발). 추가 로드 중엔 카드 스켈레톤(크기 SSOT
+ * 공유로 CLS 방지)을 표시한다.
  */
 
 /** 데/모 통일 페이지 크기 */
@@ -69,6 +71,9 @@ const AbilityListContainer = ({
         title="특성 도감"
         description="포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요."
       />
+
+      {/* 광고 — 페이지 헤더 바로 아래(검색 앞) */}
+      <AbilityListTopBanner />
 
       <AbilitySearchContainer totalCount={totalCount} />
 

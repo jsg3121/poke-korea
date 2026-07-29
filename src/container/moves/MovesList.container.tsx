@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
 import MovesListIcon from '~/assets/icons/movesList.svg'
+import MovesListTopBanner from '~/components/adSlot/MovesListTopBanner'
 import ButtonComponent from '~/components/button/Button.component'
 import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 import MoveListCardComponent from '~/components/moves/moveCard/MoveListCard.component'
@@ -26,7 +27,11 @@ import MovesSearchContainer from './MovesSearch.container'
  * 모바일 그리드는 1열(UX-008 §10-1 시안 비교 후 사용자 확정 — 위력/명중/PP dl
  * 3분할의 넉넉한 밀도 유지), 데스크톱은 auto-fill(minmax 300px)로 3~4열 자동.
  * 데이터는 MovesProvider(context)가 URL 쿼리 기반 필터로 공급한다(구조 유지).
- * 광고 배너 제거(A/B그룹과 동일 관례, 반응형 유닛 재도입은 별도 트랙).
+ *
+ * 광고(RES-004 재도입): 페이지 헤더 바로 아래·검색/필터 앞 상단 배너 1개(기존
+ * 슬롯 재사용, ability와 위치 통일). 인피드(카드 사이)는 커버리지·CTR 붕괴로
+ * 재도입하지 않고 상단 배너만 둔다. 컴포넌트가 내부 useDevice로 PC 970×250/
+ * 모바일 320×100을 분기한다.
  */
 
 /** 추가 로드 중 표시할 스켈레톤 수 (ability/list와 동일 수치) */
@@ -62,6 +67,9 @@ const MovesListContainer = () => {
         title="포켓몬 기술 도감"
         description="포켓몬이 사용할 수 있는 모든 기술을 한눈에 확인하세요. 타입, 위력, PP, 설명을 확인하고 검색할 수 있습니다."
       />
+
+      {/* 광고 — 페이지 헤더 바로 아래(검색·필터 앞). ability와 위치 통일 */}
+      <MovesListTopBanner />
 
       {/* sticky 크롬 — 검색(상시) + 필터바(접이식) + 적용 필터 칩(상시).
           -mx-4/px-4로 배경(bg-primary-1)을 gutter까지 채워 스크롤 콘텐츠를 가린다 */}
