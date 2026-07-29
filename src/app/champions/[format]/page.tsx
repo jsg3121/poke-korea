@@ -122,7 +122,7 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
   const webPageJsonLd = getChampionsHomeJsonLd({
     formatSlug,
     name: `포켓몬 챔피언스 ${formatShort} 도감`,
-    description: `${getFormatDescription(formatSlug)} 메타 분석 — 포켓몬 사용률, 추천 기술·도구·특성, 인기 팀 조합 정보를 확인하세요.`,
+    description: `${getFormatDescription(formatSlug)} 분석 — 포켓몬 채택 순위와 티어, 인기 기술·도구·특성, 팀 조합 정보를 확인하세요.`,
   })
 
   return (

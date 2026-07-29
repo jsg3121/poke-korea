@@ -44,7 +44,7 @@ export const generateChampionsHomeMetadata = async (
   const formatDesc = getFormatDescription(formatSlug)
 
   const title = `포켓몬 챔피언스 ${formatShort} 도감`
-  const description = `${formatDesc} 메타 분석. ${totalCount}종 포켓몬 사용률, 추천 기술/도구/특성, 인기 팀 조합 정보를 확인하세요.`
+  const description = `${formatDesc} 분석. ${totalCount}종 포켓몬 채택 순위와 티어, 인기 기술/도구/특성, 팀 조합 정보를 확인하세요.`
   const url = `${SITE_URL}/champions/${formatSlug}`
 
   return {
@@ -157,8 +157,8 @@ export const generateChampionsTierMetadata = async (
     ? `포켓몬 챔피언스 티어 리스트 (${formatShort})`
     : `포켓몬 챔피언스 ${formatShort} 티어 리스트`
   const description = isDefaultFormat
-    ? `포켓몬 챔피언스 티어 리스트. ${formatShort} 더블 기준 ${totalCount}종 포켓몬의 S/A/B/C/D 티어별 사용률과 메타 분석을 확인하세요.`
-    : `포켓몬 챔피언스 ${formatShort} 티어 리스트. ${totalCount}종 포켓몬의 S/A/B/C/D 티어별 사용률과 메타 분석을 확인하세요.`
+    ? `포켓몬 챔피언스 티어 리스트. ${formatShort} 더블 기준 ${totalCount}종 포켓몬의 S/A/B/C/D 티어와 채택 순위 기반 메타 분석을 확인하세요.`
+    : `포켓몬 챔피언스 ${formatShort} 티어 리스트. ${totalCount}종 포켓몬의 S/A/B/C/D 티어와 채택 순위 기반 메타 분석을 확인하세요.`
   const url = `${SITE_URL}/champions/${formatSlug}/tier`
 
   return {

@@ -26,7 +26,7 @@ const ChampionsQuickLinks = ({ formatSlug }: ChampionsQuickLinksProps) => {
     {
       href: `/champions/tier`,
       title: '티어 리스트',
-      description: 'S/A/B/C/D 티어 분류와 사용률',
+      description: 'S/A/B/C/D 티어 분류와 채택 순위',
       icon: '🏆',
     },
     {

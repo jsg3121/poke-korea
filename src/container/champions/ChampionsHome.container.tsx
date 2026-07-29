@@ -91,7 +91,7 @@ const ChampionsHomeContainer = ({
           <div id="atier-heading">
             <ChampionsHomeSectionHeader
               title="자주 보이는 포켓몬"
-              description="S티어 제외 고 사용률 포켓몬"
+              description="S티어 제외 상위 채택 포켓몬"
               moreHref={`/champions/${formatSlug}/list`}
               moreLabel="도감 전체 보기"
             />

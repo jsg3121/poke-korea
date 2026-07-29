@@ -121,6 +121,30 @@ export const getFormatIntro = (slug: ChampionsFormatSlug): string => {
 }
 
 /**
+ * 폼 종류 배지 정보 (도감 리스트 카드 / 티어 아이템 공용).
+ *
+ * Why: 실게임 데이터(championsbattledata)로 전환되며 메가진화가 도감에 별도 항목으로
+ * 노출된다. 능력치·타입·이름은 메가 폼 것이지만 순위/기술/도구/특성은 베이스를 상속하므로,
+ * 사용자가 메가/리전 폼임을 한눈에 알 수 있도록 카드에 폼 배지를 단다. 도감 카드와
+ * 티어 아이템이 동일한 배지 규칙을 써야 하므로 공용 헬퍼로 분리했다.
+ *
+ * 판별은 formType enum(BASE/MEGA/REGION/NORMAL 등)을 우선 근거로 삼는다. formType이
+ * 없을 때만 region 필드 존재 여부로 리전을 보조 판별한다. BASE/NORMAL은 배지 없음(null).
+ */
+export const getChampionsFormBadge = (
+  formType: string | null | undefined,
+  region: string | null | undefined,
+): { label: string; className: string } | null => {
+  if (formType === 'MEGA') {
+    return { label: '메가', className: 'bg-amber-500 text-white' }
+  }
+  if (formType === 'REGION' || (!formType && region)) {
+    return { label: '리전', className: 'bg-teal-500 text-white' }
+  }
+  return null
+}
+
+/**
  * ISO 문자열을 YYYY-MM-DD 형식으로 포맷.
  *
  * Why: 서버 환경(예: UTC) 과 무관하게 항상 한국 시간(KST, UTC+9) 기준으로
