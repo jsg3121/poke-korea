@@ -98,7 +98,7 @@ tags: [feature, ux, css, bug-fix]
 ## 🔧 기술적 세부사항
 
 - **신규**: `src/components/quiz/`(9), `src/views/quiz/`(17 — 허브 + 4퀴즈 ×
-  {view, before, play, result})
+  `{view, before, play, result}`)
 - **수정**: `src/app/quiz/**/page.tsx`(5)
 - 광고 배너는 champions·ability 선례대로 제거 후 보류(반응형 광고 유닛 재도입 공통
   트랙)
