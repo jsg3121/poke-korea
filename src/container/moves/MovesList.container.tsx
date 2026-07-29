@@ -28,9 +28,10 @@ import MovesSearchContainer from './MovesSearch.container'
  * 3분할의 넉넉한 밀도 유지), 데스크톱은 auto-fill(minmax 300px)로 3~4열 자동.
  * 데이터는 MovesProvider(context)가 URL 쿼리 기반 필터로 공급한다(구조 유지).
  *
- * 광고(RES-004 재도입): sticky 크롬 뒤·카드 그리드 앞 상단 배너 1개(기존 슬롯
- * 재사용). 인피드(카드 사이)는 커버리지·CTR 붕괴로 재도입하지 않고 상단 배너만
- * 둔다. 컴포넌트가 내부 useDevice로 PC 970×250/모바일 320×100을 분기한다.
+ * 광고(RES-004 재도입): 페이지 헤더 바로 아래·검색/필터 앞 상단 배너 1개(기존
+ * 슬롯 재사용, ability와 위치 통일). 인피드(카드 사이)는 커버리지·CTR 붕괴로
+ * 재도입하지 않고 상단 배너만 둔다. 컴포넌트가 내부 useDevice로 PC 970×250/
+ * 모바일 320×100을 분기한다.
  */
 
 /** 추가 로드 중 표시할 스켈레톤 수 (ability/list와 동일 수치) */
@@ -67,16 +68,14 @@ const MovesListContainer = () => {
         description="포켓몬이 사용할 수 있는 모든 기술을 한눈에 확인하세요. 타입, 위력, PP, 설명을 확인하고 검색할 수 있습니다."
       />
 
+      {/* 광고 — 페이지 헤더 바로 아래(검색·필터 앞). ability와 위치 통일 */}
+      <MovesListTopBanner />
+
       {/* sticky 크롬 — 검색(상시) + 필터바(접이식) + 적용 필터 칩(상시).
           -mx-4/px-4로 배경(bg-primary-1)을 gutter까지 채워 스크롤 콘텐츠를 가린다 */}
       <div className="sticky top-12 z-30 -mx-4 bg-primary-1 px-4 pb-1 pt-4 desktop:top-30">
         <MovesSearchContainer totalCount={totalCount} />
         <MovesFilterBarContainer />
-      </div>
-
-      {/* 상단 광고 — sticky 크롬 뒤·카드 그리드 앞(mt-4로 크롬과 간격 확보) */}
-      <div className="mt-4">
-        <MovesListTopBanner />
       </div>
 
       {isEmpty ? (

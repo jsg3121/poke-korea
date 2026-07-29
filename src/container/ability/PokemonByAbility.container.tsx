@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import AbilityIcon from '~/assets/icons/ability.svg'
+import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner'
 import PokemonByAbilityCardComponent from '~/components/ability/PokemonByAbilityCard.component'
 import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
@@ -17,7 +18,9 @@ import { usePokemonByAbility } from '~/hook/usePokemonByAbility'
  * 전용 gutter)을 대체해 moves 상세 Hero의 "뒤로가기 + 좌측 제목" 톤으로 통일한다.
  *
  * 카운트 문구는 시각적으로 섹션 제목 역할을 하므로 h2로 승격(스크린리더 구조 탐색).
- * 광고 배너 제거(사용자 결정). 포켓몬 카드는 도감 카드와 셸을 공유(PokemonByAbilityCard).
+ * 광고(RES-004 재도입): 특성 설명 헤더 아래·카운트/그리드 앞(기존 슬롯 재사용
+ * PC 970×250/모바일 320×100). 포켓몬 카드는 도감 카드와 셸을 공유
+ * (PokemonByAbilityCard).
  */
 
 /** LCP 후보(첫 화면 카드)만 eager 로딩 — 모바일 2열 커버 */
@@ -69,6 +72,9 @@ const PokemonByAbilityContainer = ({
           </p>
         </header>
       )}
+
+      {/* 광고 — 특성 설명 헤더 아래·카운트/그리드 앞 */}
+      <AbilityDetailTopBanner />
 
       {isEmpty ? (
         <EmptyStateComponent
