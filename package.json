@@ -19,13 +19,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_OPTIONS='--max-old-space-size=3072' next build",
     "build:docs": "cd changelog && npm run build",
     "start": "next start",
     "start:local": "npm run build && npm run start",
     "codegen": "graphql-codegen --config codegen.ts",
     "analyze": "ANALYZE=true next build",
-    "deploy": "npm run build:docs && next build && pm2 restart ecosystem.config.js --env production",
+    "deploy": "npm run build:docs && NODE_OPTIONS='--max-old-space-size=3072' next build && pm2 restart ecosystem.config.js --env production",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
