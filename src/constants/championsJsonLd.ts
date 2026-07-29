@@ -68,6 +68,24 @@ export const getChampionsHomeJsonLd = ({
   }
 }
 
+/** 챔피언스 상세 mainEntity(Thing) 구성용 — usageRate/winRate는 데이터 원천
+ *  변경(PR #195)으로 더 이상 들어오지 않아 제외한다. */
+interface ChampionsEntityInfo {
+  stats?: {
+    hp: number
+    attack: number
+    defense: number
+    specialAttack: number
+    specialDefense: number
+    speed: number
+    total: number
+  } | null
+  tier?: string | null
+  topMove?: string | null
+  topAbility?: string | null
+  topItem?: string | null
+}
+
 interface ChampionsDetailJsonLdParams {
   /** 포맷 슬러그 */
   formatSlug: string
@@ -81,6 +99,41 @@ interface ChampionsDetailJsonLdParams {
   description: string
   /** 상세 전용 OG 이미지 URL (없으면 공용 OG 사용) */
   imageUrl?: string
+  /** mainEntity(포켓몬 메타) 구성용 — 없으면 mainEntity 생략 */
+  entityInfo?: ChampionsEntityInfo
+}
+
+/**
+ * 챔피언스 상세 mainEntity(Thing) — 표준 엔티티 타입이 없어 포켓몬/기술 상세와
+ * 동일한 Thing + additionalProperty 패턴. stats는 항상, 메타(tier·인기 기술 등)는
+ * 있을 때만 넣는다. null 값은 제외해 스키마-콘텐츠 불일치를 막는다.
+ */
+const buildChampionsMainEntity = (
+  pokemonName: string,
+  info: ChampionsEntityInfo,
+) => {
+  const displayName = pokemonName.replace('_', ' ')
+  const properties = [
+    info.tier && { name: '티어', value: info.tier },
+    info.topMove && { name: '인기 기술', value: info.topMove },
+    info.topAbility && { name: '인기 특성', value: info.topAbility },
+    info.topItem && { name: '인기 도구', value: info.topItem },
+    info.stats && { name: '체력', value: info.stats.hp },
+    info.stats && { name: '공격', value: info.stats.attack },
+    info.stats && { name: '특수공격', value: info.stats.specialAttack },
+    info.stats && { name: '방어', value: info.stats.defense },
+    info.stats && { name: '특수방어', value: info.stats.specialDefense },
+    info.stats && { name: '스피드', value: info.stats.speed },
+    info.stats && { name: '종족값 총합', value: info.stats.total },
+  ]
+    .filter(Boolean)
+    .map((prop) => ({ '@type': 'PropertyValue' as const, ...prop }))
+
+  return {
+    '@type': 'Thing' as const,
+    name: `${displayName} 챔피언스 메타`,
+    ...(properties.length > 0 ? { additionalProperty: properties } : {}),
+  }
 }
 
 export const getChampionsDetailJsonLd = ({
@@ -90,6 +143,7 @@ export const getChampionsDetailJsonLd = ({
   name,
   description,
   imageUrl,
+  entityInfo,
 }: ChampionsDetailJsonLdParams) => {
   const url = `${SITE_URL}${detailPath}`
 
@@ -105,6 +159,9 @@ export const getChampionsDetailJsonLd = ({
       name: SITE_NAME,
       url: SITE_URL,
     },
+    ...(entityInfo
+      ? { mainEntity: buildChampionsMainEntity(pokemonName, entityInfo) }
+      : {}),
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [

@@ -107,7 +107,7 @@ export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
  * @param pokemonNumber 포켓몬 도감번호
  */
 export const getSeoTitle: GetSeoTitleFn = ({ pokemonName, pokemonNumber }) => {
-  // 브랜드 접미사는 layout의 title.template(`%s | 포케 코리아`)이 붙인다.
+  // 브랜드 접미사는 layout의 title.template(`%s - 포케 코리아`)이 붙인다.
   // 여기서 접미사를 붙이면 이중 접미사가 되므로 페이지명(No.N 이름)만 반환한다.
   return `No. ${pokemonNumber} ${pokemonName}`
 }

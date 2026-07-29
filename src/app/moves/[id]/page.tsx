@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 import MobileTabBar from '~/components/MobileTabBar'
 import { getMoveDetailJsonLd } from '~/constants/movesJsonLd'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { getDamageTypeKorean } from '~/utils/skill.util'
 import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
@@ -83,7 +85,15 @@ const MoveDetailPage = async ({ params }: PageProps) => {
     ) || []
   const totalCount = pokemonData?.getPokemonsBySkill?.totalCount ?? 0
 
-  const jsonLd = getMoveDetailJsonLd(skillId, skill.nameKo)
+  const damageTypeKorean = getDamageTypeKorean(skill.damageType)
+  const jsonLd = getMoveDetailJsonLd(skillId, skill.nameKo, {
+    typeLabel: skill.type ? PokemonTypes[skill.type] : null,
+    // getDamageTypeKorean은 미보유 시 '-'를 반환 — JSON-LD에선 제외
+    damageTypeLabel: damageTypeKorean === '-' ? null : damageTypeKorean,
+    power: skill.power,
+    accuracy: skill.accuracy,
+    description: skill.description,
+  })
 
   return (
     <Fragment>

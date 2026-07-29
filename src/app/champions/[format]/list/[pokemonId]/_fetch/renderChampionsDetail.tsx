@@ -63,12 +63,21 @@ export const renderChampionsDetail = async ({
     formCode: detail.pokemon.formCode,
   })
   const pokemonName = detail.pokemon.name
+  const meta = detail.meta
   const webPageJsonLd = getChampionsDetailJsonLd({
     formatSlug,
     pokemonName,
     detailPath,
     name: `${pokemonName.replace('_', ' ')} 챔피언스 도감`,
-    description: `${pokemonName.replace('_', ' ')} 챔피언스 메타 정보 — 사용률, 추천 기술·도구·특성, 스탯을 확인하세요.`,
+    description: `${pokemonName.replace('_', ' ')} 챔피언스 메타 정보 — 추천 기술·도구·특성, 스탯을 확인하세요.`,
+    entityInfo: {
+      stats: detail.pokemon.stats,
+      tier: meta?.tier,
+      // usageRate/winRate는 데이터 원천 변경으로 제외. 인기 상위 1개만 요약 전달.
+      topMove: meta?.topMoves?.[0]?.name,
+      topAbility: meta?.topAbilities?.[0]?.name,
+      topItem: meta?.topItems?.[0]?.name,
+    },
   })
 
   return (
