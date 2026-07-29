@@ -9,37 +9,13 @@ import { imageMode } from '~/module/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
+  getChampionsFormBadge,
 } from '~/utils/championsFormat.util'
 
 interface ChampionsTierPokemonItemProps {
   pokemon: ChampionsMetaSummaryFragment
   isHighPriority?: boolean
   formatSlug: ChampionsFormatSlug
-}
-
-/**
- * 폼 종류 식별
- * - formCode 가 'M' 으로 시작하면 메가
- * - region 필드 존재 시 리전
- * - 그 외 BASE
- */
-const getFormBadge = (
-  formCode: string | null | undefined,
-  region: string | null | undefined,
-): { label: string; className: string } | null => {
-  if (formCode && formCode.startsWith('M')) {
-    return {
-      label: '메가',
-      className: 'bg-amber-500 text-white',
-    }
-  }
-  if (region) {
-    return {
-      label: '리전',
-      className: 'bg-teal-500 text-white',
-    }
-  }
-  return null
 }
 
 const ChampionsTierPokemonItem = ({
@@ -53,7 +29,7 @@ const ChampionsTierPokemonItem = ({
       threshold: 0.1,
     })
 
-  const formBadge = getFormBadge(pokemon.formCode, pokemon.region)
+  const formBadge = getChampionsFormBadge(pokemon.formType, pokemon.region)
 
   return (
     <Link
@@ -76,7 +52,7 @@ const ChampionsTierPokemonItem = ({
       {pokemon.usageRank != null && (
         <span
           className="absolute right-2 top-2 z-10 bg-primary-1 text-white text-[10px] font-bold rounded px-1.5 py-0.5"
-          aria-label={`사용률 순위 ${pokemon.usageRank}위`}
+          aria-label={`채택 순위 ${pokemon.usageRank}위`}
         >
           #{pokemon.usageRank}
         </span>

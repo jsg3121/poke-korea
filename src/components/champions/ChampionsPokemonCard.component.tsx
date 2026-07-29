@@ -9,6 +9,7 @@ import {
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
+  getChampionsFormBadge,
 } from '~/utils/championsFormat.util'
 
 /**
@@ -50,6 +51,10 @@ const ChampionsPokemonCard = ({
   const pokemonNumber = pokemonNumberFormat(pokemonData.pokemonNumber)
   const nameHeaderClass = getNameHeaderClass(pokemonData.name)
   const backgroundColor = getBackgroundColor(pokemonData.types)
+  const formBadge = getChampionsFormBadge(
+    pokemonData.formType,
+    pokemonData.region,
+  )
 
   const detailHref = buildChampionsDetailHref({
     formatSlug,
@@ -68,9 +73,22 @@ const ChampionsPokemonCard = ({
       imageSize={{ width: 160, height: 160 }}
       isHighPriority={isHighPriority}
       ariaLabel={`포켓몬 ${pokemonData.name} 카드`}
+      ballBadge={
+        formBadge && (
+          // 포켓볼 위에 겹쳐 표시(absolute). 헤더 인라인으로 두면 배지 폭만큼 No.가
+          // 밀려 긴 이름이 불필요하게 줄바꿈되므로, 폼 배지는 포켓볼 좌상단에 얹는다.
+          // 셸이 제공하는 ballBadge 슬롯(포켓볼 위 겹침용)을 그대로 사용 — 셸 코드 무수정.
+          <span
+            className={`absolute -top-1 -left-1 z-10 ${formBadge.className} text-[10px] font-bold rounded px-1 py-0.5 leading-none whitespace-nowrap`}
+            aria-label={`${formBadge.label} 폼`}
+          >
+            {formBadge.label}
+          </span>
+        )
+      }
       header={
         <div className="w-full flex items-start content-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-x-2 gap-y-0.5">
-          <p className="flex-shrink-0 text-xs desktop:text-base leading-tight font-medium text-black-2">
+          <p className="flex-shrink-0 text-xs desktop:text-sm leading-tight font-medium text-black-2">
             No.{pokemonNumber}
           </p>
           <h3

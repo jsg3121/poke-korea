@@ -6,6 +6,7 @@ import StatBarComponent, {
   StatBarItem,
 } from '~/components/statBar/StatBar.component'
 import TagComponent from '~/components/tag/Tag.component'
+import ChampionsDetailFormatSwitch from '~/components/champions/ChampionsDetailFormatSwitch.component'
 import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetailMetaSummaryBar.component'
 import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
 import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
@@ -36,11 +37,15 @@ const getGeneralDetailUrl = (
   const baseUrl = `/detail/${pokemonNumber}`
   const index = formIndex ?? 0
 
+  // 일반 도감(/detail)의 폼 라우트 규칙: index 0 = 폼 경로 유지(/mega, /region, /form),
+  // index N>0 = /mega/N 형태. 첫 번째 폼(index 0)도 base가 아니라 폼 경로여야 한다
+  // (parseIndexParam: /detail/6/mega → activeIndex 0). MEGA·NORMAL이 index 0일 때
+  // baseUrl로 떨어지면 메가리자몽X(formIndex=0)에서 "도감 보기"가 일반 리자몽으로 가버린다.
   switch (formType) {
     case 'NORMAL':
-      return index > 0 ? `${baseUrl}/form/${index}` : baseUrl
+      return index > 0 ? `${baseUrl}/form/${index}` : `${baseUrl}/form`
     case 'MEGA':
-      return index > 0 ? `${baseUrl}/mega/${index}` : baseUrl
+      return index > 0 ? `${baseUrl}/mega/${index}` : `${baseUrl}/mega`
     case 'REGION':
       return index > 0 ? `${baseUrl}/region/${index}` : `${baseUrl}/region`
     default:
@@ -97,6 +102,16 @@ const ChampionsDetailContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 py-6 desktop:px-5 desktop:py-8">
+      {/* 포맷 전환(더블/싱글) — 현재 포켓몬/폼을 유지한 채 상대 포맷 상세로 이동.
+          폼 전환보다 상위 개념(포맷 안에 폼이 나뉨)이라 최상단에 둔다. */}
+      <ChampionsDetailFormatSwitch
+        currentFormat={formatSlug}
+        pokemonId={pokemon.externalDexId}
+        formType={pokemon.formType}
+        formCode={pokemon.formCode}
+        className="mb-4"
+      />
+
       <ChampionsFormTab formSiblings={formSiblings} formatSlug={formatSlug} />
 
       {/* 히어로 카드 (타입 그라데이션, 전폭) */}
