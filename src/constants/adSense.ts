@@ -105,4 +105,11 @@ export const CHAMPIONS_SLOTS = {
   tierDesktop: '8682718029', // 인아티클
   detailMobile: '7869284098', // 320×100 디스플레이 (모바일 메타패널 뒤)
   detailDesktop: '1482884857', // 300×250 디스플레이 (데스크톱 좌측 능력치 아래)
+  // 대회(tournaments) — 목록=헤더 아래, 상세=대회정보 아래·TOP3 앞.
+  // 형식은 champions 계열 통일(PC 인아티클/모바일 320×100).
+  // PC 인아티클은 detail-moves용으로 발급했다 안 쓰던 슬롯 재활용.
+  tournamentsListMobile: '7386782370', // 320×100 디스플레이
+  tournamentsListDesktop: '3598746451', // 인아티클
+  tournamentsDetailMobile: '7478547641', // 320×100 디스플레이
+  tournamentsDetailDesktop: '6033604039', // 인아티클
 } as const

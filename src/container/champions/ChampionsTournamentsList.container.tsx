@@ -1,7 +1,9 @@
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import ChampionsBssNotice from '~/components/champions/ChampionsBssNotice.component'
 import ChampionsMonthFilter from '~/components/champions/ChampionsMonthFilter.component'
 import ChampionsTournamentCard from '~/components/champions/ChampionsTournamentCard.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 
 /**
@@ -13,7 +15,8 @@ import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated
  * - 카드: ChampionsTournamentCard(전용 카드, DS 코어카드 규격)
  * - 월 필터: sticky 필터바로 승격(-mx로 배경 전체폭, 뒤 카드 비침 방지 — Pokedex 패턴)
  * - 대회 데이터는 소량이므로 무한스크롤 없이 page.tsx에서 전량 SSR 로드(사용자 결정)
- * - 광고 제거(A~E 공통 트랙)
+ * - 광고(RES-004 재도입): 페이지 헤더 아래(champions 통일). PC 인아티클/모바일
+ *   320×100. 컴포넌트 내부 useDevice 분기.
  */
 interface ChampionsTournamentsListContainerProps {
   tournaments: GetChampionsTournamentsWithTopTeamQuery['championsTournaments']
@@ -31,6 +34,12 @@ const ChampionsTournamentsListContainer = ({
       <PageHeaderComponent
         title="포켓몬 VGC 대회 결과"
         description="실전 대회 입상팀의 풀빌드를 확인하세요"
+      />
+
+      {/* 광고 — 페이지 헤더 아래(champions 통일) */}
+      <ChampionsInContentBanner
+        mobileSlot={CHAMPIONS_SLOTS.tournamentsListMobile}
+        desktopSlot={CHAMPIONS_SLOTS.tournamentsListDesktop}
       />
 
       <ChampionsBssNotice />
