@@ -1,11 +1,13 @@
 'use client'
 
 import ImageComponent from '~/components/Image.component'
+import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
 import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
 import TagComponent from '~/components/tag/Tag.component'
+import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
@@ -26,6 +28,11 @@ const PokemonTypeQuizResult = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pt-4 pb-8 desktop:px-5">
+      {/* 광고 — 결과 최상단(헤더 앞) */}
+      <QuizResultTopBanner
+        mobileSlot={QUIZ_RESULT_SLOTS.pokemonType.mobile}
+        desktopSlot={QUIZ_RESULT_SLOTS.pokemonType.desktop}
+      />
       <ResultHeaderComponent
         headline={headline}
         medal={medal}

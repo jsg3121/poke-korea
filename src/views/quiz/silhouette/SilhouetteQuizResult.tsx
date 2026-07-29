@@ -1,10 +1,12 @@
 'use client'
 
 import ImageComponent from '~/components/Image.component'
+import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
 import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
+import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import { imageMode } from '~/module/buildMode'
 import { getQuizResultCopy } from '~/module/quiz.module'
@@ -24,6 +26,11 @@ const SilhouetteQuizResult = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pt-4 pb-8 desktop:px-5">
+      {/* 광고 — 결과 최상단(헤더 앞) */}
+      <QuizResultTopBanner
+        mobileSlot={QUIZ_RESULT_SLOTS.silhouette.mobile}
+        desktopSlot={QUIZ_RESULT_SLOTS.silhouette.desktop}
+      />
       <ResultHeaderComponent
         headline={headline}
         medal={medal}

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 
@@ -19,6 +20,11 @@ const QuizMainView = () => {
         title="포켓몬 퀴즈"
         description="다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!"
       />
+
+      {/* 광고 — 페이지 헤더 바로 아래(소개 섹션 앞) */}
+      <div className="mt-6">
+        <QuizMainTopBanner />
+      </div>
 
       <article className="mt-6 bg-primary-4 rounded-[1rem] p-5 desktop:p-6">
         <h2 className="text-lg desktop:text-xl font-bold text-primary-1 mb-3 desktop:mb-4">

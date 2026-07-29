@@ -66,6 +66,19 @@ export const DETAIL_MOVES_SLOTS = {
 } as const
 
 /**
+ * 퀴즈 4종 결과(RESULT) 화면 상단 광고 슬롯 (RES-004 재도입). 결과 최상단
+ * (ResultHeader 앞). 퀴즈별로 슬롯이 다르므로 QuizResultTopBanner에 slot을
+ * 주입한다. 검증된 기존 슬롯 재사용(발급 불필요). 형식은 PC 가로형(h-90)/모바일
+ * (h-50) 디스플레이 — 컴포넌트가 기기별로 렌더.
+ */
+export const QUIZ_RESULT_SLOTS = {
+  silhouette: { mobile: '5386861180', desktop: '1431304306' },
+  ability: { mobile: '5230307889', desktop: '7459873641' },
+  pokemonType: { mobile: '8942962819', desktop: '8236385800' },
+  typeEffectiveness: { mobile: '6906351634', desktop: '8389811933' },
+} as const
+
+/**
  * 챔피언스(champions) 광고 슬롯 (RES-004 재배치). 4라우트 각 1지점, 진입 시
  * 조기 노출되도록 상단 배치(홈=TOP3↔자주보이는, 도감=타입필터 아래, 티어=S티어
  * 위, 상세=데스크톱 좌측 능력치 아래 / 모바일 메타패널 뒤).
