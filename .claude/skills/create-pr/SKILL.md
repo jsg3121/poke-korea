@@ -202,7 +202,7 @@ git log {대상 브랜치}...HEAD --oneline
 
 ### 4.2 PR 본문 작성
 
-`.claude/conventions/templates/pr-template.md` 템플릿을 기반으로 작성한다.
+`.claude/skills/create-pr/templates/pr-template.md` 템플릿을 기반으로 작성한다.
 
 **작업 유형 체크 규칙:**
 
@@ -287,6 +287,6 @@ EOF
 
 ## 참고
 
-- PR 템플릿: `.claude/conventions/templates/pr-template.md`
+- PR 템플릿: `.claude/skills/create-pr/templates/pr-template.md`
 - 워크플로우 컨벤션: `.claude/conventions/guides/workflow.md`
 - 코드 리뷰 스킬: `.claude/skills/code-review/SKILL.md`

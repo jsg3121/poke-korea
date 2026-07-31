@@ -14,7 +14,7 @@ const HeaderContainer = () => {
 
   return (
     <header className={`w-full h-30 bg-primary-2 fixed left-0 top-0 z-50 pt-3`}>
-      <div className="w-full max-w-[1280px] h-12 mx-auto px-5 relative z-20">
+      <div className="w-full max-w-[1280px] h-12 mx-auto px-5 relative z-[550]">
         {/* /list의 h1·필터는 리스트 뷰가 소유한다(개편 — 헤더 높이 가변 원인 제거) */}
         <Link
           href="/"

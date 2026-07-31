@@ -2,71 +2,31 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent } from 'react'
-import ImageComponent from '~/components/Image.component'
+import TypeChip from '~/components/chip/TypeChip.component'
 import { getChangeTypeList } from '~/module/getChangeTypeList'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-interface TypeButtonProps {
-  typeValue: string
-  typeName: string
-  checked: boolean
-  disabled: boolean
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-}
+/**
+ * 챔피언스 도감 타입 필터. 포켓몬 도감 리스트(FilterBar.organism)와 동일한 공유
+ * TypeChip 원자를 사용해 타입 필터 디자인을 통일한다(아이콘 하단 타입명 상시 노출,
+ * 미선택은 원본색 연하게·선택 시 컬러). 도메인 로직(URL 쿼리 동기화, 최대 2개
+ * 선택 제약)은 이 컴포넌트가 담당하고, 개별 토글 표현은 TypeChip에 위임한다.
+ */
 
-const TypeButton = ({
-  typeValue,
-  typeName,
-  checked,
-  disabled,
-  onChange,
-}: TypeButtonProps) => {
-  return (
-    <button
-      className="group w-6 desktop:w-9 text-center duration-200 ease-out cursor-pointer hover:scale-[1.4] active:scale-120"
-      aria-label={`포켓몬 필터 ${typeName}타입`}
-    >
-      <label
-        htmlFor={`champions-type-${typeValue}`}
-        className="w-6 h-6 desktop:w-9 desktop:h-9 opacity-60 grayscale drop-shadow-[1px_2px_0px_var(--color-black-1)] block has-[:checked]:opacity-100 has-[:checked]:grayscale-0 has-[:disabled]:opacity-20 cursor-pointer"
-      >
-        <input
-          type="checkbox"
-          id={`champions-type-${typeValue}`}
-          disabled={disabled}
-          value={typeValue}
-          checked={checked}
-          onChange={onChange}
-          className="hidden"
-        />
-        <ImageComponent
-          alt={`${typeName} 타입 필터 선택`}
-          height="100%"
-          width="100%"
-          src={`/assets/type/${typeValue.toLowerCase()}.svg`}
-          fetchPriority="high"
-          imageSize={{
-            width: 32,
-            height: 32,
-          }}
-        />
-      </label>
-      <span
-        className="field__tooltip w-0 h-0 overflow-hidden text-xs leading-5 text-center text-[#142129] bg-[#f3f6f7] rounded-lg absolute left-1/2 top-10 -translate-x-1/2 group-hover:w-12 group-hover:h-5 group-hover:opacity-100"
-        role="tooltip"
-      >
-        {typeName}
-      </span>
-    </button>
-  )
-}
+/** 타입 동시 선택 최대 수 */
+const MAX_TYPE_SELECTION = 2
+
+const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
+  [string, PokemonTypes]
+>
 
 const ChampionsTypeFilter = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const typeList = searchParams.get('type')?.split(',') ?? []
+  // filter(Boolean)으로 빈 문자열 방어 — `type=`(빈값)이면 split이 ['']을 반환하므로
+  const typeList = searchParams.get('type')?.split(',').filter(Boolean) ?? []
 
   const handleClickTypeFilter = (e: ChangeEvent<HTMLInputElement>) => {
     const type = e.target.value
@@ -90,25 +50,27 @@ const ChampionsTypeFilter = () => {
 
   return (
     <div
-      role="searchbox"
+      role="search"
       aria-label="타입별 포켓몬 필터 검색"
       className="w-full h-full flex items-center relative gap-2"
     >
-      <div className="flex-1 min-w-0 flex items-center gap-2 overflow-x-auto desktop:overflow-visible desktop:justify-between [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        {Object.entries(PokemonTypes).map(([types, typeName]) => {
+      <ul className="flex-1 min-w-0 flex items-start gap-2 overflow-x-auto py-1 desktop:overflow-visible desktop:justify-between [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {TYPE_ENTRIES.map(([value, name]) => {
+          const active = typeList.includes(value)
+          const disabled = !active && typeList.length >= MAX_TYPE_SELECTION
           return (
-            <div key={`champions-type-key-${types}`} className="flex-shrink-0">
-              <TypeButton
+            <li key={`champions-type-filter-${value}`}>
+              <TypeChip
+                value={value}
+                label={name}
+                active={active}
+                disabled={disabled}
                 onChange={handleClickTypeFilter}
-                typeValue={types}
-                typeName={typeName}
-                checked={typeList.includes(types)}
-                disabled={typeList.length === 2 && !typeList.includes(types)}
               />
-            </div>
+            </li>
           )
         })}
-      </div>
+      </ul>
       <button
         className="flex-shrink-0 text-primary-4 disabled:text-primary-2 text-xs whitespace-nowrap desktop:ml-4"
         onClick={handleClickReset}
