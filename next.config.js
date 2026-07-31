@@ -187,7 +187,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -197,7 +198,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -207,7 +209,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -217,7 +220,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -227,7 +231,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -237,7 +242,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -247,7 +253,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -257,7 +264,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -267,7 +275,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -277,7 +286,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -287,7 +297,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -297,7 +308,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -307,7 +319,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -317,7 +330,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -327,7 +341,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -337,7 +352,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -347,7 +363,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
@@ -361,12 +378,13 @@ const nextConfig = {
         ],
       },
       {
-        // 타입 상성 계산기 - 장기간 캐싱
+        // 타입 상성 계산기 - CDN 장기 캐싱 + 브라우저 단기 캐싱
         source: '/type-effectiveness',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value:
+              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
           },
         ],
       },
