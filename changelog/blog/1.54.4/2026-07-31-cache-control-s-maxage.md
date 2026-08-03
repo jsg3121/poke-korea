@@ -87,5 +87,3 @@ public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60
 
 - CloudFront 무효화를 수행해도, 이미 브라우저에 캐시된 사용자는 `max-age=10800`(3시간)이 만료되기 전까지 옛 페이지를 볼 수 있다. 다만 기존 1년 대비 크게 완화되며, `stale-while-revalidate`로 만료 후 다음 방문 시 백그라운드 갱신된다.
 - 근거: [MDN — Cache-Control `s-maxage`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control#s-maxage), [MDN — Cache-Control `immutable`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control#immutable)
-</content>
-</invoke>
