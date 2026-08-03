@@ -7,6 +7,16 @@ const config: Config = {
   tagline: '포케코리아 프로젝트의 기술적 의사결정과 개발 과정을 기록합니다',
   favicon: 'img/favicon.ico',
 
+  // [1단계] changelog 전체 색인 제외.
+  // 모든 생성 페이지 <head>에 <meta name="robots" content="noindex, nofollow"> 주입.
+  // Why: changelog는 개발 내부 기록이라 검색 수요가 없고(GSC 노출<10/일·클릭 0),
+  //      태그/페이지네이션 등 thin content가 크롤링 예산을 낭비한다.
+  //      크롤은 허용된 상태여야 구글이 noindex를 읽고 색인에서 제거하므로,
+  //      이 단계에서는 robots.txt 차단·sitemap 제거를 하지 않는다(2단계에서 진행).
+  // Ref: https://docusaurus.io/docs/api/docusaurus-config#noIndex
+  //      https://developers.google.com/search/docs/crawling-indexing/block-indexing
+  noIndex: true,
+
   future: {
     v4: true,
   },
