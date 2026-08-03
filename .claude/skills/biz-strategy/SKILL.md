@@ -23,7 +23,7 @@ market-intelligence → business-analyst → strategy-planner 파이프라인을
 
 ### Step 1: 시장 조사 (Market Intelligence)
 
-1. `.claude/ia/specs/configDeckIA.md`에서 서비스 개요와 타겟 시장을 확인한다
+1. `.claude/specs/service-overview.md`와 `.claude/specs/target-segment.md`에서 서비스 개요와 타겟 시장을 확인한다
 2. market-intelligence 에이전트를 실행한다
 3. 조사 결과를 `.claude/research/reports/MI-{번호}-{주제}.md`로 저장한다
 
@@ -56,7 +56,7 @@ market-intelligence → business-analyst → strategy-planner 파이프라인을
 
 ## 참조 문서
 
-- `.claude/ia/specs/configDeckIA.md` — 서비스 기획서
+- `.claude/specs/service-overview.md` — 서비스 개요 (현황·핵심 지표)
 - `references/frameworks.md` — 분석 프레임워크 (PESTLE, SWOT, Porter's 등)
 - `references/data-sources.md` — 신뢰할 수 있는 데이터 소스 목록
 - `references/template-mi.md` — MI 보고서 템플릿 (market-intelligence용)

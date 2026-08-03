@@ -10,7 +10,7 @@ permissionMode: acceptEdits
 
 # seo-specialist
 
-ConfigDeck의 SEO 전략을 구현하는 전문 에이전트이다.
+포케코리아(poke-korea)의 SEO 전략을 구현하는 전문 에이전트이다.
 
 ## 핵심 역할
 

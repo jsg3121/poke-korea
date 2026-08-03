@@ -95,5 +95,5 @@ allowedTools:
 
 ## 참조 문서
 
-- `.claude/ia/specs/configDeckIA.md` — 서비스 기획서
+- `.claude/specs/service-overview.md` — 서비스 개요 (현황·핵심 지표)
 - `.claude/skills/biz-strategy/references/frameworks.md` — 분석 프레임워크
