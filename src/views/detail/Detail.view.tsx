@@ -6,6 +6,7 @@ import DetailExclusiveMovesContainer from '~/container/detail/DetailExclusiveMov
 import DetailFormRowContainer from '~/container/detail/DetailFormRow.container'
 import DetailHeroContainer from '~/container/detail/DetailHero.container'
 import DetailInfoSectionContainer from '~/container/detail/DetailInfoSection.container'
+import DetailSignatureMovesContainer from '~/container/detail/DetailSignatureMoves.container'
 import DetailSkillsContainer from '~/container/detail/DetailSkills.container'
 import { AdjacentPokemon } from '~/container/detail/DetailSpeciesNav.container'
 import DetailStatsContainer from '~/container/detail/DetailStats.container'
@@ -16,8 +17,9 @@ import DetailTypeMatchupContainer from '~/container/detail/DetailTypeMatchup.con
  * 콘텐츠를 대체한다. UA 분기·display:none 없이 CSS(desktop:)만으로 반응(ADR-0007).
  *
  * IA(§2·§7): 종 내비 → 히어로(식별 정보 승격) → 폼 로우(히어로 외부 분리) →
- * 스탯(StatBar) → [광고 지점1] → 기본정보|특성(+특성 퀴즈 CTA) → 전용기 →
- * 습득 기술 → [광고 지점2] → 타입 상성(+상성 퀴즈 CTA) → 진화 체인 → [광고 지점3].
+ * 스탯(StatBar) → [광고 지점1] → 기본정보|특성(+특성 퀴즈 CTA) → 전용 Z기술 →
+ * 전용기 → 습득 기술 → [광고 지점2] → 타입 상성(+상성 퀴즈 CTA) → 진화 체인 →
+ * [광고 지점3].
  * 폼 상태는 DetailProvider(호출부 주입).
  *
  * 광고(RES-004 재도입): 콘텐츠 소비 후 섹션 사이 3지점. 폴드 상단(히어로)엔 두지
@@ -55,6 +57,7 @@ const DetailView = ({
           <DetailStatsBanner />
           <DetailInfoSectionContainer />
           <DetailExclusiveMovesContainer />
+          <DetailSignatureMovesContainer />
           <DetailSkillsContainer />
           {/* 지점2: 습득 기술 표 소비 직후 */}
           <DetailSkillsBanner />
