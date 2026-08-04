@@ -142,6 +142,7 @@ query PokemonDetail($pokemonId: ID!) {
         type
         damageType
         power
+        description
       }
       baseSkill {
         skillId
@@ -233,6 +234,7 @@ query GetPokemonRegionForm($pokemonId: Int) {
         type
         damageType
         power
+        description
       }
       baseSkill {
         skillId
@@ -306,6 +308,7 @@ query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
         type
         damageType
         power
+        description
       }
       baseSkill {
         skillId
