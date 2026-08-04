@@ -3,7 +3,7 @@ import {
   type GetPokemonByAbilityQuery,
   type GetPokemonByAbilityQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { extractApolloState, initializeApollo } from '~/module/apolloClient'
 
 interface FetchAbilityDetailParams {
   abilityId: number
@@ -38,5 +38,7 @@ export async function fetchAbilityDetailQueries({
     fetchPolicy: 'network-only',
   })
 
-  return { data }
+  // SSR 캐시를 클라이언트로 전달해 usePokemonByAbility의 useQuery가 초기 재요청
+  // 없이 캐시를 읽도록 한다(metadata 생성 호출에서는 이 값을 사용하지 않는다).
+  return { data, initialApolloState: extractApolloState(apolloClient) }
 }
