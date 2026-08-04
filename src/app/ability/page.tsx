@@ -6,13 +6,14 @@ import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import Providers from '~/app/providers'
 import { GetAbilityListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
   AbilityEdge,
   GetAbilityListPaginatedQuery,
   GetAbilityListPaginatedQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { extractApolloState, initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import AbilityListView from '~/views/ability/AbilityList.view'
 import { ABILITY_LIST_META } from './_metadata/abilityListMetadata'
@@ -61,31 +62,37 @@ const AbilityPage = async ({ searchParams }: PageProps) => {
     }) || []
   const totalCount = data.getAbilityListPaginated.totalCount
 
+  // SSR로 실행한 GetAbilityListPaginated 결과를 클라이언트 캐시로 하이드레이트해
+  // useAbilityList의 useQuery가 초기 재요청 없이 캐시를 읽도록 한다.
+  const initialApolloState = extractApolloState(apolloClient)
+
   return (
     <Fragment>
       {/* 콘텐츠는 반응형 단일(AbilityListView, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(list·홈 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <AbilityListView
-            initialAbilities={abilityList}
-            totalCount={totalCount}
-          />
-          <MobileFooterContainer />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // pt-30(120px) = 데스크톱 fixed 헤더 실높이. 검색바 sticky(desktop:top-30)와 맞춤
-        <main className="w-full min-h-screen pt-30">
-          <DesktopHeaderContainer />
-          <AbilityListView
-            initialAbilities={abilityList}
-            totalCount={totalCount}
-          />
-          <DesktopFooterContainer />
-        </main>
-      )}
+      <Providers initialApolloState={initialApolloState}>
+        {isMobile ? (
+          <main className="w-full min-h-screen">
+            <MobileHeaderContainer />
+            <AbilityListView
+              initialAbilities={abilityList}
+              totalCount={totalCount}
+            />
+            <MobileFooterContainer />
+            <MobileTabBar />
+          </main>
+        ) : (
+          // pt-30(120px) = 데스크톱 fixed 헤더 실높이. 검색바 sticky(desktop:top-30)와 맞춤
+          <main className="w-full min-h-screen pt-30">
+            <DesktopHeaderContainer />
+            <AbilityListView
+              initialAbilities={abilityList}
+              totalCount={totalCount}
+            />
+            <DesktopFooterContainer />
+          </main>
+        )}
+      </Providers>
       <script
         id="ability-webpage-jsonLd"
         type="application/ld+json"

@@ -3,10 +3,7 @@
 import { createContext, ReactNode } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
 import { PokemonSkill, PokemonSkillFilterInput } from '~/graphql/typeGenerated'
-import {
-  mergePagedResults,
-  extractNodesFromEdges,
-} from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
 
 interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>
@@ -48,6 +45,8 @@ export const MovesProvider = ({
   })
 
   const loadMore = async () => {
+    // edges 병합은 InMemoryCache의 typePolicies(getPokemonSkillList.merge)가
+    // 담당하므로 updateQuery는 지정하지 않는다(이중 병합 시 항목 중복 방지).
     await fetchMore({
       variables: {
         input: {
@@ -58,8 +57,6 @@ export const MovesProvider = ({
           },
         },
       },
-      updateQuery: (prev, { fetchMoreResult }) =>
-        mergePagedResults('getPokemonSkillList', prev, fetchMoreResult),
     })
   }
 

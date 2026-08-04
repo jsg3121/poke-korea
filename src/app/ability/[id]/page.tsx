@@ -11,6 +11,7 @@ import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { PokemonByAbilityEdge } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
 import AbilityDetailView from '~/views/ability/AbilityDetail.view'
+import Providers from '~/app/providers'
 import { fetchAbilityDetailQueries } from './_fetch/abilityDetail.fetch'
 import { generateAbilityDetailMetadata } from './_metadata/generateAbilityDetailMetadata'
 
@@ -67,7 +68,7 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const { data } = await fetchAbilityDetailQueries({
+  const { data, initialApolloState } = await fetchAbilityDetailQueries({
     abilityId,
     first: 20,
   })
@@ -89,31 +90,33 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
     <Fragment>
       {/* 콘텐츠는 반응형 단일(AbilityDetailView, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(list·홈 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <AbilityDetailView
-            abilityId={abilityId}
-            initialAbility={ability}
-            initialPokemon={pokemonList}
-            totalCount={totalCount}
-          />
-          <MobileFooterContainer />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // pt-30(120px) = 데스크톱 fixed 헤더 실높이
-        <main className="w-full min-h-screen pt-30">
-          <DesktopHeaderContainer />
-          <AbilityDetailView
-            abilityId={abilityId}
-            initialAbility={ability}
-            initialPokemon={pokemonList}
-            totalCount={totalCount}
-          />
-          <DesktopFooterContainer />
-        </main>
-      )}
+      <Providers initialApolloState={initialApolloState}>
+        {isMobile ? (
+          <main className="w-full min-h-screen">
+            <MobileHeaderContainer />
+            <AbilityDetailView
+              abilityId={abilityId}
+              initialAbility={ability}
+              initialPokemon={pokemonList}
+              totalCount={totalCount}
+            />
+            <MobileFooterContainer />
+            <MobileTabBar />
+          </main>
+        ) : (
+          // pt-30(120px) = 데스크톱 fixed 헤더 실높이
+          <main className="w-full min-h-screen pt-30">
+            <DesktopHeaderContainer />
+            <AbilityDetailView
+              abilityId={abilityId}
+              initialAbility={ability}
+              initialPokemon={pokemonList}
+              totalCount={totalCount}
+            />
+            <DesktopFooterContainer />
+          </main>
+        )}
+      </Providers>
       <script
         id="ability-detail-webpage-jsonLd"
         type="application/ld+json"

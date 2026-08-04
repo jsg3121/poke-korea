@@ -3,10 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { useGetAbilityListPaginatedQuery } from '~/graphql/gqlGenerated'
 import { Ability } from '~/graphql/typeGenerated'
-import {
-  mergePagedResults,
-  extractNodesFromEdges,
-} from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
 
 interface UseAbilityListProps {
   initialAbilities?: Array<Ability>
@@ -35,6 +32,8 @@ export const useAbilityList = ({
   const loadMore = async () => {
     if (!data?.getAbilityListPaginated.pageInfo.hasNextPage) return
 
+    // edges 병합은 InMemoryCache의 typePolicies(getAbilityListPaginated.merge)가
+    // 담당하므로 updateQuery는 지정하지 않는다(이중 병합 시 항목 중복 방지).
     await fetchMore({
       variables: {
         input: {
@@ -47,8 +46,6 @@ export const useAbilityList = ({
           },
         },
       },
-      updateQuery: (prev, { fetchMoreResult }) =>
-        mergePagedResults('getAbilityListPaginated', prev, fetchMoreResult),
     })
   }
 
