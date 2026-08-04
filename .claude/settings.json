@@ -24,7 +24,8 @@
       "Grep",
       "mcp__postgres-local__query",
       "WebFetch(domain:pokemonkorea.co.kr)",
-      "WebFetch(domain:www.pokemon.com)"
+      "WebFetch(domain:www.pokemon.com)",
+      "WebSearch"
     ]
   },
   "hooks": {
