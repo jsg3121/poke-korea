@@ -179,6 +179,8 @@ query PokemonDetail($pokemonId: ID!) {
         resultNormalFormCode
         resultDisplayName
         resultImagePath
+        resultFormType
+        resultFormIndex
       }
     }
   }

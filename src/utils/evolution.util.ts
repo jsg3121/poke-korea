@@ -41,8 +41,10 @@ export interface EvolutionVersion {
  * 들어오는 조건이다. stage 0(진화 전)은 versions가 빈 배열이다.
  */
 export interface EvolutionNode {
-  /** 도감번호(라우팅용) */
+  /** 도감번호(표시용) */
   targetNumber: number
+  /** 진화 대상 상세 URL. 리전폼·폼체인지면 해당 폼 경로로 조립된다 */
+  targetHref: string
   displayName: string
   imagePath: string
   stage: number
@@ -50,6 +52,35 @@ export interface EvolutionNode {
   triggerLabel: string
   /** 이 포켓몬으로 진화하는 조건. 공통(null)이 맨 앞, 이후 versionGroupId 내림차순 */
   versions: Array<EvolutionVersion>
+}
+
+/**
+ * 진화 대상의 폼 타입·index로 상세 페이지 URL을 조립한다.
+ *
+ * 백엔드 resultFormType/resultFormIndex는 검색 API(PokemonFormInfo)와 동일한
+ * enum·index 체계라, 검색 결과의 formType→경로 매핑(ResultListData)을 그대로 따른다.
+ * REGION_FORM→/region, NORMAL_FORM→/form, MEGA→/mega, BASE→경로 없음. index가 0이면
+ * 뒤 index를 생략한다(예: /detail/38/region).
+ *
+ * @param number - 진화 대상 도감번호
+ * @param formType - 백엔드 resultFormType ("BASE"|"REGION_FORM"|"NORMAL_FORM"|"MEGA")
+ * @param formIndex - 백엔드 resultFormIndex (기본형이면 0)
+ * @returns 진화 대상 상세 URL
+ */
+export const buildEvolutionTargetHref = (
+  number: number,
+  formType: string,
+  formIndex: number,
+): string => {
+  const base = `/detail/${number}`
+  const segment: Record<string, string> = {
+    REGION_FORM: 'region',
+    NORMAL_FORM: 'form',
+    MEGA: 'mega',
+  }
+  const path = segment[formType]
+  if (!path) return base
+  return formIndex > 0 ? `${base}/${path}/${formIndex}` : `${base}/${path}`
 }
 
 /**
@@ -120,8 +151,18 @@ export const buildEvolutionChain = (
     // edge의 from*에서 가져온다 — 알로라 식스테일을 알로라 이미지·이름으로 그린다.
     if (incoming.length === 0) {
       const outgoing = outgoingBySource.get(stage.pokemonId)
+      // stage 0(진화 전)은 어떤 edge에도 to로 안 와서 from 정보로 그린다. edge에
+      // from 폼 타입/index는 없으나, from이 리전폼이면(fromRegionFormCode 존재)
+      // 리전폼은 포켓몬당 1개라 /detail/{번호}/region(index 0)으로 정확히 조립된다.
+      // 알로라 나인테일 상세에서 진화 전 "알로라 식스테일"을 눌러도 알로라로 이동.
+      const fromIsRegion =
+        outgoing?.fromRegionFormCode !== null &&
+        outgoing?.fromRegionFormCode !== undefined
       nodes.push({
         targetNumber: stage.number,
+        targetHref: fromIsRegion
+          ? `/detail/${stage.number}/region`
+          : `/detail/${stage.number}`,
         displayName: outgoing?.fromDisplayName ?? stage.displayName,
         imagePath: outgoing?.fromImagePath ?? stage.imagePath,
         stage: stage.stage,
@@ -154,6 +195,13 @@ export const buildEvolutionChain = (
 
       nodes.push({
         targetNumber: stage.number,
+        // 진화 대상 상세 URL은 폼 타입·index로 조립 — 리전폼(알로라 나인테일)·
+        // 폼체인지(밤/황혼 루가루암)도 해당 폼 상세로 정확히 이동한다.
+        targetHref: buildEvolutionTargetHref(
+          stage.number,
+          representative.resultFormType,
+          representative.resultFormIndex,
+        ),
         // 이미지·이름은 edge result*가 정확하다(리전/노말폼 반영).
         displayName: representative.resultDisplayName,
         imagePath: representative.resultImagePath,

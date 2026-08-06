@@ -51,7 +51,7 @@ const EvolutionConditionCardComponent = ({
     <div className="flex w-full flex-col gap-3 rounded-2xl border border-solid border-primary-3 p-3 desktop:p-4">
       <div className="flex items-center gap-3">
         <Link
-          href={`/detail/${node.targetNumber}`}
+          href={node.targetHref}
           aria-label={`${baseName}의 진화 관련 포켓몬 ${node.displayName} 상세 보기`}
           className="block shrink-0 rounded-2xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
         >
