@@ -152,6 +152,35 @@ query PokemonDetail($pokemonId: ID!) {
         power
       }
     }
+    evolutionChain {
+      stages {
+        pokemonId
+        name
+        displayName
+        imagePath
+        regionFormCode
+        number
+        stage
+      }
+      edges {
+        fromPokemonId
+        fromDisplayName
+        fromImagePath
+        fromRegionFormCode
+        fromNormalFormCode
+        toPokemonId
+        trigger
+        triggerLabel
+        description
+        versionGroupId
+        baseVersionGroupId
+        baseVersionGroupName
+        resultRegionFormCode
+        resultNormalFormCode
+        resultDisplayName
+        resultImagePath
+      }
+    }
   }
 }
 
