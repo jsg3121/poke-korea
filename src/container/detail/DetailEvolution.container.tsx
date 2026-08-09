@@ -7,23 +7,31 @@ import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
 import { imageMode } from '~/module/buildMode'
 import { pokemonNumberFormat } from '~/module/pokemonCard.module'
+import { buildEvolutionGroups } from '~/utils/evolution.util'
+import EvolutionConditionCardComponent from './components/EvolutionConditionCard.component'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import { AdjacentPokemon } from './DetailSpeciesNav.container'
 
 /**
- * 진화 체인 카드 (기존 데/모 RelationPokemon 이관 — UX-005 m1).
- * 기존의 맨 이미지 나열은 클릭 가능 여부가 드러나지 않았다 — 각 단계를
- * 밝은 카드 셸(hover scale·focus ring)로 감싸 어포던스를 명시한다.
- * 가로 스크롤은 홈에서 규격화한 HorizontalScrollList(엣지 페이드) 재사용.
+ * 진화 계통 카드 (기존 데/모 RelationPokemon 이관 — UX-005 m1).
+ * 각 진화 단계를 밝은 카드 셸(hover scale·focus ring)로 감싸 클릭 어포던스를 명시한다.
  *
- * 이름은 컨텍스트에 없어서(evolutionId뿐) 호출부가 경량 조회한 목록을
- * props로 받는다(QA 라운드 2 — 번호만으로는 어떤 포켓몬인지 알 수 없음).
+ * 1.55.0 진화조건 확장: 백엔드 `evolutionChain.groups`(폼별 진화 루트 묶음)를 폼
+ * 그룹 섹션으로 렌더한다. 리전폼 계통(알로라·가라르·히스이 등)은 그룹별 섹션으로
+ * 나뉘고(예: 나옹 → 기본/알로라/가라르 3섹션), 각 섹션은 계통을 진화 단계순으로
+ * 나열하며 각 단계에 진화 조건 문장(description)을 붙인다. 이름·이미지·상세 URL은
+ * edge의 from/result 폼 정보에서 와, 리전폼(알로라 나인테일)·폼체인지(황혼 루가루암)도
+ * 정확히 표시·링크된다. 버전마다 조건이 다르면 버전 탭으로 노출한다.
+ *
+ * 그룹이 하나면 섹션 라벨을 생략하고(불필요), 둘 이상이면 라벨(기본/알로라/…)을 붙인다.
+ * `evolutionChain`이 없으면(구 캐시) 기존 체인 나열로 폴백한다. 폴백 시 이름은
+ * 컨텍스트에 없어(evolutionId뿐) 호출부가 경량 조회한 목록을 props로 받는다.
  * HorizontalScrollList가 각 자식을 li로 래핑하므로 Link를 직접 전달한다
- * (li 중첩 → hydration 오류, QA 라운드 1에서 수정).
+ * (li 중첩 → hydration 오류).
  */
 
 interface DetailEvolutionProps {
-  /** 진화 체인 포켓몬 번호+이름 (evolutionId 순서, 조회 실패분 제외) */
+  /** 진화 체인 포켓몬 번호+이름 (evolutionId 순서, 조회 실패분 제외) — 폴백용 */
   evolutionPokemons: Array<AdjacentPokemon>
 }
 
@@ -32,7 +40,52 @@ const DetailEvolutionContainer = ({
 }: DetailEvolutionProps) => {
   const { pokemonBaseInfo } = useContext(DetailContext)
 
-  // 이름 조회가 전부 실패한 예외 상황에도 번호 카드로 강등 렌더한다
+  const name = pokemonBaseInfo?.name ?? ''
+
+  const groups = pokemonBaseInfo?.evolutionChain?.groups ?? []
+  const sections = buildEvolutionGroups(groups)
+
+  // 그룹이 하나뿐이면 섹션 라벨을 숨긴다(폼 구분이 없어 라벨이 불필요).
+  const showGroupLabels = sections.length > 1
+
+  if (sections.length > 0) {
+    return (
+      <section
+        className="card-detail w-full"
+        aria-labelledby="pokemon-evolution-chain"
+      >
+        <InfoCardTitleComponent
+          title="진화 정보"
+          id="pokemon-evolution-chain"
+        />
+        <div className="flex w-full flex-col gap-5 desktop:gap-6">
+          {sections.map((groupSection) => (
+            <div key={groupSection.groupKey} className="flex flex-col gap-2">
+              {showGroupLabels && (
+                <h3 className="text-sm font-semibold text-primary-2 desktop:text-base">
+                  {groupSection.label}
+                </h3>
+              )}
+              <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2">
+                {groupSection.nodes.map((node) => (
+                  <EvolutionConditionCardComponent
+                    // targetHref는 번호+폼(타입·index)을 담아 그룹 내 유일하고
+                    // 정렬 순서에 안정적이다 — 카드의 버전 탭 상태가 리셋되지 않게
+                    // index를 key에 섞지 않는다.
+                    key={`evolution-node-${groupSection.groupKey}-${node.targetHref}`}
+                    node={node}
+                    baseName={name}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  // 폴백: evolutionChain이 없으면 기존 체인 나열(이름 조회 실패 시 번호만).
   const chain: Array<AdjacentPokemon> =
     evolutionPokemons.length > 0
       ? evolutionPokemons
@@ -41,8 +94,6 @@ const DetailEvolutionContainer = ({
           name: '',
         }))
   if (chain.length === 0) return null
-
-  const name = pokemonBaseInfo?.name ?? ''
 
   return (
     <section

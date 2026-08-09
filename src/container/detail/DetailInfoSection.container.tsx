@@ -22,17 +22,8 @@ const infoRowClass =
 
 const DetailInfoSectionContainer = () => {
   const { activeTypeInfo } = useContext(DetailContext)
-  const {
-    types,
-    generation,
-    isEvolution,
-    name,
-    pokemonNumber,
-    activeType,
-    isMega,
-    isRegion,
-    abilities,
-  } = activeTypeInfo
+  const { types, generation, name, pokemonNumber, activeType, abilities } =
+    activeTypeInfo
 
   return (
     <div className="flex w-full flex-col gap-5 desktop:gap-8">
@@ -82,34 +73,6 @@ const DetailInfoSectionContainer = () => {
                 ))}
               </dd>
             </div>
-            <div className={infoRowClass}>
-              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
-                진화체
-              </dt>
-              <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
-                {isEvolution ? '진화체 있음' : '진화 불가'}
-              </dd>
-            </div>
-            {isRegion && (
-              <div className={infoRowClass}>
-                <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
-                  리전폼
-                </dt>
-                <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
-                  리전폼 존재
-                </dd>
-              </div>
-            )}
-            {isMega && (
-              <div className={infoRowClass}>
-                <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
-                  메가진화
-                </dt>
-                <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
-                  메가진화 가능
-                </dd>
-              </div>
-            )}
           </dl>
         </section>
 

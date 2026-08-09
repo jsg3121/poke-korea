@@ -59,5 +59,5 @@ market-intelligence와 business-analyst의 분석 결과를 종합하여 전략 
 
 ## 참조 문서
 
-- `.claude/ia/specs/configDeckIA.md` — 서비스 기획서
+- `.claude/specs/service-overview.md` — 서비스 개요 (현황·핵심 지표)
 - `.claude/skills/biz-strategy/references/template-str.md` — 전략 보고서 템플릿

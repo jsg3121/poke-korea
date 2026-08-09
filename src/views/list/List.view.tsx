@@ -4,7 +4,6 @@ import ListTopBanner from '~/components/adSlot/ListTopBanner'
 import FilterBarOrganism from '~/components/filter/FilterBar.organism'
 import { ListProvider } from '~/context/List.context'
 import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
-import { useRouteChangeCache } from '~/hook/useRouteChangeCache'
 import ListGridContainer from '~/container/list/ListGrid.container'
 
 /**
@@ -32,8 +31,6 @@ const ListView = ({
   initialFilter,
   hasNextPage,
 }: ListViewProps) => {
-  useRouteChangeCache()
-
   return (
     <ListProvider
       initialList={pokemonList}

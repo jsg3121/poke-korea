@@ -12,7 +12,7 @@ import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { initializeApollo } from '~/module/apolloClient'
+import { extractApolloState, initializeApollo } from '~/module/apolloClient'
 import { detectUserAgent } from '~/module/device.module'
 import {
   changeTypeArrayToString,
@@ -20,6 +20,7 @@ import {
   toBooleanOrUndefined,
 } from '~/module/filter.module'
 import { getDailyRandomPokemon } from '~/module/list.module'
+import Providers from '~/app/providers'
 import ListView from '~/views/list/List.view'
 import { generateListMetadata } from './_metadata/generateListMetadata'
 
@@ -111,6 +112,10 @@ const ListPage = async ({ searchParams }: PageProps) => {
     }) || []
   const hasNextPage = !!data?.getPokemonList.pageInfo.hasNextPage
 
+  // SSR로 실행한 GetPokemonListPaginated 결과를 클라이언트 캐시로 하이드레이트해
+  // ListProvider의 useQuery가 초기 재요청 없이 캐시를 읽도록 한다.
+  const initialApolloState = extractApolloState(apolloClient)
+
   // Breadcrumb JSON-LD for SEO
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -164,30 +169,32 @@ const ListPage = async ({ searchParams }: PageProps) => {
       />
       {/* 콘텐츠는 반응형 단일(ListView, ADR-0007). UA 분기는 전역 크롬(헤더/푸터/
           탭바)과 디바이스별 AdSense 유닛 선택으로만 남는다(홈 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ListView
-            pokemonList={pokemonList}
-            initialFilter={filterInput}
-            hasNextPage={hasNextPage}
-          />
-          <MobileFooterContainer />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // pt-30(120px) = 데스크톱 fixed 헤더 실높이(pt-3 12 + 로고행 48 +
-        // nav mt-3 12 + nav 48). pt-28(112px)은 8px 겹쳐 필터바 상단이 잘렸다
-        <main className="w-full min-h-screen pt-30">
-          <DesktopHeaderContainer />
-          <ListView
-            pokemonList={pokemonList}
-            initialFilter={filterInput}
-            hasNextPage={hasNextPage}
-          />
-          <DesktopFooterContainer />
-        </main>
-      )}
+      <Providers initialApolloState={initialApolloState}>
+        {isMobile ? (
+          <main className="w-full min-h-screen">
+            <MobileHeaderContainer />
+            <ListView
+              pokemonList={pokemonList}
+              initialFilter={filterInput}
+              hasNextPage={hasNextPage}
+            />
+            <MobileFooterContainer />
+            <MobileTabBar />
+          </main>
+        ) : (
+          // pt-30(120px) = 데스크톱 fixed 헤더 실높이(pt-3 12 + 로고행 48 +
+          // nav mt-3 12 + nav 48). pt-28(112px)은 8px 겹쳐 필터바 상단이 잘렸다
+          <main className="w-full min-h-screen pt-30">
+            <DesktopHeaderContainer />
+            <ListView
+              pokemonList={pokemonList}
+              initialFilter={filterInput}
+              hasNextPage={hasNextPage}
+            />
+            <DesktopFooterContainer />
+          </main>
+        )}
+      </Providers>
     </>
   )
 }

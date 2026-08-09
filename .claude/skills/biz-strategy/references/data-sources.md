@@ -4,18 +4,16 @@ market-intelligence 에이전트가 시장 조사 시 참조하는 데이터 소
 
 ---
 
-## 개발자 생태계 / 시장 데이터
+## 게임 / 포켓몬 시장 데이터
 
 | 소스 | URL | 설명 |
 |------|-----|------|
-| Stack Overflow Developer Survey | stackoverflow.com/survey | 연간 개발자 설문 (기술 스택, 도구 사용률, 급여 등) |
-| GitHub Octoverse | github.blog/octoverse | GitHub 기반 개발 트렌드, 언어 인기도, 오픈소스 활동 |
-| State of JS | stateofjs.com | JavaScript 생태계 연간 설문 (프레임워크, 빌드 도구, 테스트 등) |
-| State of CSS | stateofcss.com | CSS 생태계 연간 설문 |
-| npm trends | npmtrends.com | npm 패키지 다운로드 비교 |
-| JetBrains Developer Survey | jetbrains.com/lp/devecosystem | 개발 도구/언어 사용 현황 |
-| Statista - Developers | statista.com | 전 세계 개발자 수, 기술 시장 규모 |
-| SlashData - Developer Nation | slashdata.co | 글로벌 개발자 인구 통계 |
+| Google Trends | trends.google.com | 포켓몬 관련 검색어 트렌드, 지역별·시기별 관심도 |
+| 네이버 데이터랩 | datalab.naver.com | 한국 검색 트렌드 (포켓몬 키워드, 연령/성별 분포) |
+| Newzoo | newzoo.com | 글로벌 게임 시장 규모·이용자 통계 |
+| Statista - Gaming | statista.com | 게임·콘텐츠 시장 규모, 지역별 이용자 수 |
+| 위키(나무위키/포켓몬 위키) | namu.wiki, pokemon.fandom.com | 경쟁 정보 사이트의 콘텐츠 범위·구조 파악 |
+| Bulbapedia / Serebii / PokemonDB | bulbapedia.bulbagarden.net 등 | 해외 레퍼런스 사이트의 데이터 깊이·기능 벤치마크 |
 
 ## 웹 트래픽 / 경쟁사 분석
 
@@ -32,13 +30,13 @@ market-intelligence 에이전트가 시장 조사 시 참조하는 데이터 소
 | Google Trends | trends.google.com | 검색어 트렌드, 지역별 관심도 |
 | Ahrefs / SEMrush | ahrefs.com, semrush.com | 키워드 볼륨, 경쟁 강도 (유료) |
 
-## SaaS / 스타트업 시장
+## 광고 / 수익 시장
 
 | 소스 | URL | 설명 |
 |------|-----|------|
-| Crunchbase | crunchbase.com | 스타트업 투자/인수 정보 |
-| ProductHunt | producthunt.com | 신규 제품 론칭 트렌드 |
-| G2 / Capterra | g2.com, capterra.com | 소프트웨어 리뷰 및 비교 |
+| Google AdSense 대시보드 | adsense.google.com | 자사 광고 노출·클릭·RPM 실측 (내부 데이터) |
+| IAB / 온라인 광고 시장 리포트 | iab.com | 디스플레이 광고 단가·시장 트렌드 |
+| 한국 온라인광고협회(KOA) | onlinead.or.kr | 국내 온라인 광고 시장 규모·동향 |
 
 ## 데이터 사용 원칙
 

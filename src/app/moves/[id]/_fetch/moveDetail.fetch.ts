@@ -11,7 +11,7 @@ import {
   type GetVersionGroupsQuery,
   type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { extractApolloState, initializeApollo } from '~/module/apolloClient'
 
 interface FetchMoveDetailParams {
   skillId: number
@@ -64,7 +64,12 @@ export async function fetchMoveDetailQueries({
   const skill = skillData?.getPokemonSkillDetail
 
   if (!skill) {
-    return { skill: null, pokemonData: null, versionGroups: null }
+    return {
+      skill: null,
+      pokemonData: null,
+      versionGroups: null,
+      initialApolloState: null,
+    }
   }
 
   const { data: versionGroupData } = await apolloClient.query<
@@ -78,9 +83,13 @@ export async function fetchMoveDetailQueries({
     fetchPolicy: 'cache-first',
   })
 
+  // 서버에서 실행한 쿼리 결과가 정규화되어 담긴 캐시 상태를 추출한다. 클라이언트가
+  // 이를 restore하면 useQuery(cache-first)가 초기 네트워크 요청 없이 캐시를 읽는다.
+  // 특히 버전 탭 전환 시 GetPokemonsBySkill 재요청을 없애는 것이 목적이다.
   return {
     skill,
     pokemonData,
     versionGroups: versionGroupData?.getVersionGroups ?? null,
+    initialApolloState: extractApolloState(apolloClient),
   }
 }

@@ -8,6 +8,10 @@ import { DetailContext } from '~/context/Detail.context'
 import { PokemonZMove } from '~/graphql/typeGenerated'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
+import {
+  MoveConceptNote,
+  MoveEffectDescription,
+} from './components/MoveDescription.component'
 
 /** 백엔드 damageType(소문자) → Chip color 매핑 (MoveDetailHero와 동일) */
 const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
@@ -45,11 +49,14 @@ const DetailExclusiveMovesContainer = () => {
         return regionFormInfo?.[activeIndex]?.exclusiveZMoves ?? []
       }
       default: {
-        return (
-          normalForm?.[0]?.exclusiveZMoves ??
-          pokemonBaseInfo?.exclusiveZMoves ??
-          []
-        )
+        // 폼체인지 포켓몬(루가루암 등)은 폼 테이블(normalForm)에 전용 Z기술이 없고
+        // 기본 정보(pokemonBaseInfo)에만 있는 경우가 있다. normalForm[0]가 빈
+        // 배열이면 nullish(??)로는 폴백되지 않으므로, "비어 있으면 base로 폴백"을
+        // 명시한다(빈 배열도 폴백 대상).
+        const formZMoves = normalForm?.[0]?.exclusiveZMoves
+        return formZMoves && formZMoves.length > 0
+          ? formZMoves
+          : (pokemonBaseInfo?.exclusiveZMoves ?? [])
       }
     }
   }
@@ -103,11 +110,11 @@ const DetailExclusiveMovesContainer = () => {
               </tr>
             </tbody>
           </table>
-          {gmaxMove.effect && (
-            <p className="mt-4 text-sm font-medium leading-relaxed text-primary-1">
-              {gmaxMove.effect}
-            </p>
-          )}
+          {gmaxMove.effect && <MoveEffectDescription text={gmaxMove.effect} />}
+          <MoveConceptNote
+            title="거다이맥스 전용 기술 정보"
+            text="거다이맥스 전용 기술은 특정 포켓몬이 거다이맥스했을 때만 사용할 수 있는 전용 기술이에요. 다이맥스 기술을 대체하며, 포켓몬마다 고유한 추가 효과를 발휘해요."
+          />
         </section>
       )}
 
@@ -184,16 +191,21 @@ const DetailExclusiveMovesContainer = () => {
               ))}
             </tbody>
           </table>
-          <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
-            <h3 className="mb-1 text-xs font-bold text-amber-800 desktop:text-sm">
-              전용 Z기술 정보
-            </h3>
-            <p className="text-2xs leading-relaxed text-amber-700 desktop:text-sm">
-              전용 Z기술은 특정 포켓몬만 사용할 수 있는 Z기술입니다. 해당
-              포켓몬이 전용 Z크리스탈을 지닌 상태에서 기반 기술을 사용하면 전용
-              Z기술로 변환됩니다.
-            </p>
-          </div>
+          {exclusiveZMoves.map((zMove) =>
+            zMove.zSkill.description ? (
+              <MoveEffectDescription
+                key={`${zMove.id}-desc`}
+                name={
+                  exclusiveZMoves.length > 1 ? zMove.zSkill.nameKo : undefined
+                }
+                text={zMove.zSkill.description}
+              />
+            ) : null,
+          )}
+          <MoveConceptNote
+            title="전용 Z기술 정보"
+            text="전용 Z기술은 특정 포켓몬만 사용할 수 있는 Z기술이에요. 해당 포켓몬이 전용 Z크리스탈을 지닌 상태에서 기반 기술을 사용하면 전용 Z기술로 변환돼요."
+          />
         </section>
       )}
     </>
