@@ -49,11 +49,14 @@ const DetailExclusiveMovesContainer = () => {
         return regionFormInfo?.[activeIndex]?.exclusiveZMoves ?? []
       }
       default: {
-        return (
-          normalForm?.[0]?.exclusiveZMoves ??
-          pokemonBaseInfo?.exclusiveZMoves ??
-          []
-        )
+        // 폼체인지 포켓몬(루가루암 등)은 폼 테이블(normalForm)에 전용 Z기술이 없고
+        // 기본 정보(pokemonBaseInfo)에만 있는 경우가 있다. normalForm[0]가 빈
+        // 배열이면 nullish(??)로는 폴백되지 않으므로, "비어 있으면 base로 폴백"을
+        // 명시한다(빈 배열도 폴백 대상).
+        const formZMoves = normalForm?.[0]?.exclusiveZMoves
+        return formZMoves && formZMoves.length > 0
+          ? formZMoves
+          : (pokemonBaseInfo?.exclusiveZMoves ?? [])
       }
     }
   }
