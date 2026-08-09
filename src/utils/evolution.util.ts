@@ -118,7 +118,9 @@ const buildNodesFromEdges = (
   ): string => `${number}|${formType}|${formIndex}`
 
   const nodeMap = new Map<string, EvolutionNode>()
-  const stageOf = new Map<string, number>()
+  // 위상 전파용: from→to 인접 리스트와 노드별 진입 차수.
+  const adjacency = new Map<string, Array<string>>()
+  const indegree = new Map<string, number>()
 
   const ensureNode = (
     key: string,
@@ -140,6 +142,7 @@ const buildNodesFromEdges = (
       versions: [],
     }
     nodeMap.set(key, node)
+    if (!indegree.has(key)) indegree.set(key, 0)
     return node
   }
 
@@ -179,25 +182,36 @@ const buildNodesFromEdges = (
       description: edge.description,
       versionLabel: edge.baseVersionGroupName ?? '',
     })
+
+    // 위상 전파용 그래프: from→to 간선과 to 진입 차수.
+    const list = adjacency.get(fromKey) ?? []
+    list.push(toKey)
+    adjacency.set(fromKey, list)
+    indegree.set(toKey, (indegree.get(toKey) ?? 0) + 1)
   })
 
-  // stage 계산: 최초 단계(들어오는 edge 없음)=0, edge를 따라 +1. 선형·분기 모두
-  // from의 stage+1로 to의 stage를 확정한다(여러 경로면 최댓값).
-  edges.forEach((edge) => {
-    const fromKey = nodeKey(
-      edge.fromPokemonId,
-      edge.fromFormType,
-      edge.fromFormIndex,
-    )
-    const toKey = nodeKey(
-      edge.toPokemonId,
-      edge.resultFormType,
-      edge.resultFormIndex,
-    )
-    const fromStage = stageOf.get(fromKey) ?? 0
-    stageOf.set(fromKey, fromStage)
-    stageOf.set(toKey, Math.max(stageOf.get(toKey) ?? 0, fromStage + 1))
+  // stage 계산: 위상 정렬(BFS)로 루트(진입 차수 0)부터 전파한다. edge 배열 순서와
+  // 무관하게 정확하다 — 단일 패스는 edges가 위상 순서로 와야만 맞아서 3단계 계통이
+  // 순서에 따라 틀릴 수 있었다. 여러 경로로 도달하면 최댓값(가장 깊은 단계)을 쓴다.
+  const stageOf = new Map<string, number>()
+  const queue: Array<string> = []
+  indegree.forEach((deg, key) => {
+    if (deg === 0) {
+      stageOf.set(key, 0)
+      queue.push(key)
+    }
   })
+  const remaining = new Map(indegree)
+  while (queue.length > 0) {
+    const key = queue.shift() as string
+    const current = stageOf.get(key) ?? 0
+    ;(adjacency.get(key) ?? []).forEach((toKey) => {
+      stageOf.set(toKey, Math.max(stageOf.get(toKey) ?? 0, current + 1))
+      const left = (remaining.get(toKey) ?? 0) - 1
+      remaining.set(toKey, left)
+      if (left === 0) queue.push(toKey)
+    })
+  }
 
   nodeMap.forEach((node, key) => {
     node.stage = stageOf.get(key) ?? 0

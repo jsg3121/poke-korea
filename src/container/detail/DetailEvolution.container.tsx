@@ -67,9 +67,12 @@ const DetailEvolutionContainer = ({
                 </h3>
               )}
               <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2">
-                {groupSection.nodes.map((node, index) => (
+                {groupSection.nodes.map((node) => (
                   <EvolutionConditionCardComponent
-                    key={`evolution-node-${groupSection.groupKey}-${node.targetNumber}-${node.displayName}-${index}`}
+                    // targetHref는 번호+폼(타입·index)을 담아 그룹 내 유일하고
+                    // 정렬 순서에 안정적이다 — 카드의 버전 탭 상태가 리셋되지 않게
+                    // index를 key에 섞지 않는다.
+                    key={`evolution-node-${groupSection.groupKey}-${node.targetHref}`}
                     node={node}
                     baseName={name}
                   />
