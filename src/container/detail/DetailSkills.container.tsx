@@ -7,6 +7,7 @@ import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 import { DetailContext } from '~/context/Detail.context'
+import { useDevice } from '~/context/Device.context'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 
 /**
@@ -15,9 +16,14 @@ import InfoCardTitleComponent from './components/InfoCardTitle.component'
  * overflow-y 스크롤"을 폐기한다 — 페이지 스크롤 안 내부 스크롤 중첩은 기술 표
  * 가로 스크롤을 기각한 것과 같은 이유(사용자 결정)로, 상위 N개만 보여주고
  * 전체는 기존 moves 하위 페이지 링크로 유도한다.
+ *
+ * 미리보기 개수는 모바일 5 / 데스크톱 10 — 모바일은 세로 폭이 좁아 10개면 표가
+ * 화면을 과도하게 차지한다. 데이터 슬라이스라 CSS로 못 줄여 useDevice(서버 주입
+ * isMobile)로 분기한다(광고 슬롯과 동일 패턴, 하이드레이션 불일치 없음).
  */
 
-const SKILL_PREVIEW_COUNT = 10
+const SKILL_PREVIEW_COUNT_MOBILE = 5
+const SKILL_PREVIEW_COUNT_DESKTOP = 10
 
 /** GraphQL damageType(physical/special/status)을 Chip 색 키로 — 미지의 값은 변화로 폴백 */
 const toChipColor = (damageType?: string | null): ChipColor => {
@@ -30,6 +36,11 @@ const toChipColor = (damageType?: string | null): ChipColor => {
 const DetailSkillsContainer = () => {
   const { pokemonBaseInfo, activeTypeInfo, activeType, activeIndex } =
     useContext(DetailContext)
+  const { isMobile } = useDevice()
+
+  const previewCount = isMobile
+    ? SKILL_PREVIEW_COUNT_MOBILE
+    : SKILL_PREVIEW_COUNT_DESKTOP
 
   const pokemonNumber = pokemonBaseInfo?.number ?? 0
   const levelUpSkills = activeTypeInfo.learnableSkills?.levelUpSkills ?? []
@@ -48,7 +59,7 @@ const DetailSkillsContainer = () => {
   }
 
   const levelUpMoves: Array<MoveTableItem> = levelUpSkills
-    .slice(0, SKILL_PREVIEW_COUNT)
+    .slice(0, previewCount)
     .map(({ level, skill }) => ({
       condition: level === 0 ? '진화' : level === 1 ? '최초' : `Lv.${level}`,
       name: skill.nameKo,
@@ -60,7 +71,7 @@ const DetailSkillsContainer = () => {
     }))
 
   const machineMoves: Array<MoveTableItem> = machineSkills
-    .slice(0, SKILL_PREVIEW_COUNT)
+    .slice(0, previewCount)
     .map(({ skill }) => ({
       condition: '머신',
       name: skill.nameKo,
