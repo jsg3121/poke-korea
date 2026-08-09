@@ -7,23 +7,23 @@ import ImageComponent from '~/components/Image.component'
 import { DetailContext } from '~/context/Detail.context'
 import { imageMode } from '~/module/buildMode'
 import { pokemonNumberFormat } from '~/module/pokemonCard.module'
-import { buildEvolutionChain } from '~/utils/evolution.util'
+import { buildEvolutionGroups } from '~/utils/evolution.util'
 import EvolutionConditionCardComponent from './components/EvolutionConditionCard.component'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import { AdjacentPokemon } from './DetailSpeciesNav.container'
 
 /**
  * 진화 계통 카드 (기존 데/모 RelationPokemon 이관 — UX-005 m1).
- * 기존의 맨 이미지 나열은 클릭 가능 여부가 드러나지 않았다 — 각 단계를
- * 밝은 카드 셸(hover scale·focus ring)로 감싸 어포던스를 명시한다.
+ * 각 진화 단계를 밝은 카드 셸(hover scale·focus ring)로 감싸 클릭 어포던스를 명시한다.
  *
- * 1.55.0 진화조건 확장: 백엔드 `evolutionChain`(stages + edges)이 오면 계통
- * 전체를 진화 단계순으로 나열하고, 각 단계로 들어오는 진화 조건 문장(description)을
- * 함께 렌더한다. 어느 단계에서 조회해도 계통 전체가 동일하게 온다(이상해씨→
- * 이상해풀→이상해꽃). 폼별로 조건이 갈리는 종은 현재 폼(리전/일반)으로
- * 필터링(§4)하고, 버전별로 다른 종은 버전 탭으로 노출(§5)한다. imagePath·
- * displayName을 써서 리전폼(알로라 나인테일 등) 이미지·이름도 정확히 나온다.
+ * 1.55.0 진화조건 확장: 백엔드 `evolutionChain.groups`(폼별 진화 루트 묶음)를 폼
+ * 그룹 섹션으로 렌더한다. 리전폼 계통(알로라·가라르·히스이 등)은 그룹별 섹션으로
+ * 나뉘고(예: 나옹 → 기본/알로라/가라르 3섹션), 각 섹션은 계통을 진화 단계순으로
+ * 나열하며 각 단계에 진화 조건 문장(description)을 붙인다. 이름·이미지·상세 URL은
+ * edge의 from/result 폼 정보에서 와, 리전폼(알로라 나인테일)·폼체인지(황혼 루가루암)도
+ * 정확히 표시·링크된다. 버전마다 조건이 다르면 버전 탭으로 노출한다.
  *
+ * 그룹이 하나면 섹션 라벨을 생략하고(불필요), 둘 이상이면 라벨(기본/알로라/…)을 붙인다.
  * `evolutionChain`이 없으면(구 캐시) 기존 체인 나열로 폴백한다. 폴백 시 이름은
  * 컨텍스트에 없어(evolutionId뿐) 호출부가 경량 조회한 목록을 props로 받는다.
  * HorizontalScrollList가 각 자식을 li로 래핑하므로 Link를 직접 전달한다
@@ -38,22 +38,17 @@ interface DetailEvolutionProps {
 const DetailEvolutionContainer = ({
   evolutionPokemons,
 }: DetailEvolutionProps) => {
-  const { pokemonBaseInfo, activeType } = useContext(DetailContext)
+  const { pokemonBaseInfo } = useContext(DetailContext)
 
   const name = pokemonBaseInfo?.name ?? ''
 
-  // 리전폼 뷰(알로라 식스테일 등)일 때 진화 대상도 리전폼 버전을 보여준다.
-  // 메가·거다이맥스는 폼이 바뀌어도 진화 계통은 일반폼과 같으므로 일반 기준.
-  const isRegionForm = activeType === 'region'
+  const groups = pokemonBaseInfo?.evolutionChain?.groups ?? []
+  const sections = buildEvolutionGroups(groups)
 
-  const stages = pokemonBaseInfo?.evolutionChain?.stages ?? []
-  const edges = pokemonBaseInfo?.evolutionChain?.edges ?? []
+  // 그룹이 하나뿐이면 섹션 라벨을 숨긴다(폼 구분이 없어 라벨이 불필요).
+  const showGroupLabels = sections.length > 1
 
-  const nodes = buildEvolutionChain(stages, edges, isRegionForm)
-
-  // 진화 대상이 하나라도 있으면 "진화 정보"로 보여준다(단독 포켓몬은 edges가
-  // 없어 노드 0개 → 폴백). 현재 폼에 맞는 edge만 필터링돼 있다.
-  if (nodes.length > 0) {
+  if (sections.length > 0) {
     return (
       <section
         className="card-detail w-full"
@@ -63,13 +58,24 @@ const DetailEvolutionContainer = ({
           title="진화 정보"
           id="pokemon-evolution-chain"
         />
-        <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2">
-          {nodes.map((node, index) => (
-            <EvolutionConditionCardComponent
-              key={`evolution-node-${node.targetNumber}-${node.displayName}-${index}`}
-              node={node}
-              baseName={name}
-            />
+        <div className="flex w-full flex-col gap-5 desktop:gap-6">
+          {sections.map((groupSection) => (
+            <div key={groupSection.groupKey} className="flex flex-col gap-2">
+              {showGroupLabels && (
+                <h3 className="text-sm font-semibold text-primary-2 desktop:text-base">
+                  {groupSection.label}
+                </h3>
+              )}
+              <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2">
+                {groupSection.nodes.map((node, index) => (
+                  <EvolutionConditionCardComponent
+                    key={`evolution-node-${groupSection.groupKey}-${node.targetNumber}-${node.displayName}-${index}`}
+                    node={node}
+                    baseName={name}
+                  />
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>

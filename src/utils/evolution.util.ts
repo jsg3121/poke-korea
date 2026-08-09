@@ -1,26 +1,22 @@
 import {
   EvolutionChainEdge,
-  EvolutionChainStage,
+  EvolutionRouteGroup,
 } from '~/graphql/typeGenerated'
 
 /**
- * 진화 계통(evolutionChain: stages + edges) 가공 유틸.
+ * 진화 계통(evolutionChain) 가공 유틸.
  *
- * 백엔드 계약:
- * - stages = 계통에 속한 모든 포켓몬(본인 포함, stage 순). 계통 뼈대(노드).
- * - edges = 진화 화살표(from→to). 조건(description)과 진화 후 대상 정보(result*)를 담는다.
- *   ⭐ 진화 대상의 이미지·이름은 stages가 아니라 edge의 result*에서 가져온다 —
- *   리전폼(알로라 나인테일)·노말폼(밤 루가루암)은 stages엔 기본형만, edges에만 폼별
- *   정보가 있기 때문이다.
+ * 백엔드 계약(groups 구조):
+ * - groups = 폼별 진화 루트 묶음. 리전폼만 그룹을 나누고 기본형·노말폼 진화는 BASE
+ *   그룹에 흡수된다(예: 나옹 → 기본/알로라/가라르 3그룹, 침바루 → 히스이 1그룹).
+ *   프론트는 폼 필터링을 하지 않고 groups를 groupOrder 순으로 섹션 렌더한다.
+ * - 각 그룹의 edges = 진화 화살표(from→to). from·result 양쪽에 폼별 이름·이미지·타입·
+ *   index가 완비돼, 진화 전/후 노드를 폼에 맞게(알로라 나인테일 등) 그리고 상세 URL도
+ *   폼 경로로 조립할 수 있다. description은 완성 한글 문장이라 그대로 노출한다.
  *
- * 이 유틸은 stages를 노드로 삼고(본인 포함 계통 전체), 각 노드로 들어오는 edge의
- * result*·조건을 병합해 카드 목록으로 만든다. stage 0(진화 전 최초)은 들어오는 edge가
- * 없어 조건이 비고, stage의 이미지·이름을 그대로 쓴다.
- *
- * 폼 필터링(§4): 현재 보고 있는 폼(리전/일반)에 맞는 edge만 매칭한다. 알로라 식스테일을
- * 보면 나인테일 노드에 알로라 edge(R0038007)를 붙여 "나인테일 (알로라의 모습)"으로 그린다.
- *
- * 렌더 코드와 섞이면 검증이 어려워 순수 함수로 분리한다(기존 skill.util 패턴).
+ * 이 유틸은 각 그룹의 edges에서 계통 노드를 뽑아(from·to 모두 노드화) 진화 단계순으로
+ * 정렬한 섹션 목록을 만든다. 같은 대상으로 버전만 다른 조건은 versions로 합쳐 버전 탭
+ * 후보가 된다(리피아·우라오스 등). 렌더 코드와 섞이면 검증이 어려워 순수 함수로 분리한다.
  */
 
 /** 특정 버전 그룹에서의 진화 조건 문장 */
@@ -36,9 +32,9 @@ export interface EvolutionVersion {
 }
 
 /**
- * 계통 노드 하나(포켓몬 한 마리). 이미지·이름은 들어오는 edge의 result*가 있으면
- * 그것을(리전폼 정확), 없으면 stage 값을 쓴다. versions는 이 포켓몬으로 진화해
- * 들어오는 조건이다. stage 0(진화 전)은 versions가 빈 배열이다.
+ * 계통 노드 하나(포켓몬 한 마리). 이름·이미지·URL은 edge의 from/result 폼 정보에서
+ * 온다. versions는 이 포켓몬으로 진화해 들어오는 조건이다. 최초 단계(진화 전)는
+ * versions가 빈 배열이다.
  */
 export interface EvolutionNode {
   /** 도감번호(표시용) */
@@ -47,6 +43,7 @@ export interface EvolutionNode {
   targetHref: string
   displayName: string
   imagePath: string
+  /** 진화 단계(0=기본, 1=1차, …). from→to 체인으로 계산 */
   stage: number
   /** 진화 방식 한글 라벨(백엔드 triggerLabel). 진화 조건이 없으면 빈 문자열 */
   triggerLabel: string
@@ -55,17 +52,27 @@ export interface EvolutionNode {
 }
 
 /**
- * 진화 대상의 폼 타입·index로 상세 페이지 URL을 조립한다.
+ * 한 폼 그룹의 진화 계통 섹션. 라벨(기본/알로라/…)과 그 그룹의 노드 목록을 담는다.
+ */
+export interface EvolutionGroupSection {
+  /** 그룹 식별 키('BASE' 또는 리전폼 코드) — React key용 */
+  groupKey: string
+  /** 섹션 라벨. BASE→"기본", REGION_FORM→지역명(groupRegion) */
+  label: string
+  /** 진화 단계순 노드 목록(진화 전 포함) */
+  nodes: Array<EvolutionNode>
+}
+
+/**
+ * 폼 타입·index로 상세 페이지 URL을 조립한다.
  *
- * 백엔드 resultFormType/resultFormIndex는 검색 API(PokemonFormInfo)와 동일한
- * enum·index 체계라, 검색 결과의 formType→경로 매핑(ResultListData)을 그대로 따른다.
- * REGION_FORM→/region, NORMAL_FORM→/form, MEGA→/mega, BASE→경로 없음. index가 0이면
- * 뒤 index를 생략한다(예: /detail/38/region).
+ * 백엔드 formType/formIndex는 검색 API(PokemonFormInfo)와 동일한 enum·index 체계라,
+ * 검색 결과의 formType→경로 매핑(ResultListData)을 그대로 따른다. REGION_FORM→/region,
+ * NORMAL_FORM→/form, MEGA→/mega, BASE→경로 없음. index가 0이면 뒤 index를 생략한다.
  *
- * @param number - 진화 대상 도감번호
- * @param formType - 백엔드 resultFormType ("BASE"|"REGION_FORM"|"NORMAL_FORM"|"MEGA")
- * @param formIndex - 백엔드 resultFormIndex (기본형이면 0)
- * @returns 진화 대상 상세 URL
+ * @param number - 대상 도감번호
+ * @param formType - "BASE"|"REGION_FORM"|"NORMAL_FORM"|"MEGA"
+ * @param formIndex - 폼 순서(기본형이면 0)
  */
 export const buildEvolutionTargetHref = (
   number: number,
@@ -83,136 +90,146 @@ export const buildEvolutionTargetHref = (
   return formIndex > 0 ? `${base}/${path}/${formIndex}` : `${base}/${path}`
 }
 
-/**
- * 현재 보고 있는 폼(리전/일반)에 맞는 진화 edge인지 판정한다.
- *
- * 판정 기준은 진화 "전"(from) 폼이다. 알로라 식스테일을 보면 fromRegionFormCode가
- * 리전폼인 edge를 고른다 — 그 edge의 from/result로 진화 전(식스테일)과 후(나인테일)를
- * 모두 알로라로 그린다(백엔드가 edge에 from* 추가로 양쪽 폼을 완결함). from과 to의
- * 리전 코드는 함께 움직이므로 결과적으로 진화 후도 알로라만 남는다.
- */
-const matchesForm = (
-  edge: EvolutionChainEdge,
-  isRegionForm: boolean,
-): boolean => {
-  return isRegionForm
-    ? edge.fromRegionFormCode !== null && edge.fromRegionFormCode !== undefined
-    : (edge.fromRegionFormCode ?? null) === null
+const rank = (versionGroupId: number | null) =>
+  versionGroupId ?? Number.POSITIVE_INFINITY
+
+/** 그룹 섹션 라벨: BASE는 "기본", 리전폼은 지역명(없으면 "리전") */
+const getGroupLabel = (group: EvolutionRouteGroup): string => {
+  if (group.groupFormType === 'BASE') return '기본'
+  return group.groupRegion ?? '리전'
 }
 
 /**
- * stages를 노드로 삼아 계통 전체(본인 포함)를 만들고, 각 노드에 들어오는 edge의
- * 조건·대상 정보를 병합한다.
+ * 한 그룹의 edges에서 계통 노드 배열을 만든다.
  *
- * 각 stage로 들어오는(toPokemonId=stage) edge 중 현재 폼에 맞는 것만 고른다. 그런 다음
- * edge를 폼(resultRegionFormCode + resultNormalFormCode) 조합으로 그룹핑한다:
- * - 폼 조합이 하나면(이상해씨·이브이) stage당 노드 하나. 버전만 다른 조건은 versions로
- *   합쳐 버전 탭 후보가 된다(리피아 등).
- * - 폼 조합이 여럿이면(암멍이 → 루가루암 낮/밤/황혼, resultNormalFormCode로 갈림) 폼마다
- *   별도 노드로 쪼갠다 — 같은 도감번호라도 폼이 다르므로 카드가 나뉜다.
- * 이미지·이름은 edge의 result*(리전/노말폼 반영)를 쓰고, 들어오는 edge가 없는 최초
- * 단계(stage 0)만 stage 값을 그대로 쓴다.
- *
- * @param stages - evolutionChain.stages(계통 전체)
- * @param edges - evolutionChain.edges
- * @param isRegionForm - 현재 보고 있는 폼이 리전폼이면 true
- * @returns stage 오름차순 노드 배열(본인 포함, 폼별 분리 반영)
+ * from·to 포켓몬을 모두 노드로 수집하되, "폼 identity"(도감번호 + 폼 타입·index)를
+ * 키로 삼아 같은 폼은 하나의 노드로 합친다. edge의 to로 한 번도 등장하지 않은 노드가
+ * 최초 단계(진화 전)다. 진화 조건(versions)은 그 노드로 들어오는 edge에서 모으고,
+ * 같은 대상에 버전만 다른 여러 edge는 versions로 합친다.
  */
-export const buildEvolutionChain = (
-  stages: Array<EvolutionChainStage>,
+const buildNodesFromEdges = (
   edges: Array<EvolutionChainEdge>,
-  isRegionForm: boolean,
 ): Array<EvolutionNode> => {
-  // 폼(진화 전 기준)에 맞는 edge를 to/from별로 모은다.
-  const formEdges = edges.filter((edge) => matchesForm(edge, isRegionForm))
-  const incomingByTarget = new Map<number, Array<EvolutionChainEdge>>()
-  const outgoingBySource = new Map<number, EvolutionChainEdge>()
-  formEdges.forEach((edge) => {
-    const list = incomingByTarget.get(edge.toPokemonId) ?? []
-    list.push(edge)
-    incomingByTarget.set(edge.toPokemonId, list)
-    // 최초 단계 노드의 폼 정보용: 나가는 edge의 from* 하나면 충분하다.
-    if (!outgoingBySource.has(edge.fromPokemonId)) {
-      outgoingBySource.set(edge.fromPokemonId, edge)
+  // 폼 단위 노드 식별 키(같은 번호라도 폼이 다르면 별개 노드).
+  const nodeKey = (
+    number: number,
+    formType: string,
+    formIndex: number,
+  ): string => `${number}|${formType}|${formIndex}`
+
+  const nodeMap = new Map<string, EvolutionNode>()
+  const stageOf = new Map<string, number>()
+
+  const ensureNode = (
+    key: string,
+    number: number,
+    displayName: string,
+    imagePath: string,
+    formType: string,
+    formIndex: number,
+  ): EvolutionNode => {
+    const existing = nodeMap.get(key)
+    if (existing) return existing
+    const node: EvolutionNode = {
+      targetNumber: number,
+      targetHref: buildEvolutionTargetHref(number, formType, formIndex),
+      displayName,
+      imagePath,
+      stage: 0,
+      triggerLabel: '',
+      versions: [],
     }
-  })
+    nodeMap.set(key, node)
+    return node
+  }
 
-  const rank = (versionGroupId: number | null) =>
-    versionGroupId ?? Number.POSITIVE_INFINITY
-  const formKey = (edge: EvolutionChainEdge) =>
-    `${edge.resultRegionFormCode ?? ''}|${edge.resultNormalFormCode ?? ''}`
+  edges.forEach((edge) => {
+    const fromKey = nodeKey(
+      edge.fromPokemonId,
+      edge.fromFormType,
+      edge.fromFormIndex,
+    )
+    const toKey = nodeKey(
+      edge.toPokemonId,
+      edge.resultFormType,
+      edge.resultFormIndex,
+    )
 
-  const nodes: Array<EvolutionNode> = []
-
-  stages.forEach((stage) => {
-    const incoming = incomingByTarget.get(stage.pokemonId) ?? []
-
-    // 들어오는 edge가 없는 최초 단계(stage 0): 조건은 없지만, 폼 정보는 나가는
-    // edge의 from*에서 가져온다 — 알로라 식스테일을 알로라 이미지·이름으로 그린다.
-    if (incoming.length === 0) {
-      const outgoing = outgoingBySource.get(stage.pokemonId)
-      // stage 0(진화 전)은 어떤 edge에도 to로 안 와서 from 정보로 그린다. edge에
-      // from 폼 타입/index는 없으나, from이 리전폼이면(fromRegionFormCode 존재)
-      // 리전폼은 포켓몬당 1개라 /detail/{번호}/region(index 0)으로 정확히 조립된다.
-      // 알로라 나인테일 상세에서 진화 전 "알로라 식스테일"을 눌러도 알로라로 이동.
-      const fromIsRegion =
-        outgoing?.fromRegionFormCode !== null &&
-        outgoing?.fromRegionFormCode !== undefined
-      nodes.push({
-        targetNumber: stage.number,
-        targetHref: fromIsRegion
-          ? `/detail/${stage.number}/region`
-          : `/detail/${stage.number}`,
-        displayName: outgoing?.fromDisplayName ?? stage.displayName,
-        imagePath: outgoing?.fromImagePath ?? stage.imagePath,
-        stage: stage.stage,
-        triggerLabel: '',
-        versions: [],
-      })
-      return
-    }
-
-    // 들어오는 edge를 폼 조합으로 그룹핑 → 폼이 다르면(루가루암 3폼) 노드가 나뉜다.
-    const byForm = new Map<string, Array<EvolutionChainEdge>>()
-    incoming.forEach((edge) => {
-      const key = formKey(edge)
-      const list = byForm.get(key) ?? []
-      list.push(edge)
-      byForm.set(key, list)
-    })
-
-    byForm.forEach((formEdges) => {
-      const representative = formEdges[0]
-      const versions: Array<EvolutionVersion> = formEdges
-        .map((edge) => ({
-          versionGroupId: edge.versionGroupId ?? null,
-          description: edge.description,
-          // 버전 라벨은 백엔드 baseVersionGroupName(DLC→base 버전명 정규화됨).
-          versionLabel: edge.baseVersionGroupName ?? '',
-        }))
-        // 공통(null)을 맨 앞(현행/기본 진화법), 이후 최신(vg 큰 값) 우선.
-        .sort((a, b) => rank(b.versionGroupId) - rank(a.versionGroupId))
-
-      nodes.push({
-        targetNumber: stage.number,
-        // 진화 대상 상세 URL은 폼 타입·index로 조립 — 리전폼(알로라 나인테일)·
-        // 폼체인지(밤/황혼 루가루암)도 해당 폼 상세로 정확히 이동한다.
-        targetHref: buildEvolutionTargetHref(
-          stage.number,
-          representative.resultFormType,
-          representative.resultFormIndex,
-        ),
-        // 이미지·이름은 edge result*가 정확하다(리전/노말폼 반영).
-        displayName: representative.resultDisplayName,
-        imagePath: representative.resultImagePath,
-        stage: stage.stage,
-        triggerLabel: representative.triggerLabel,
-        versions,
-      })
+    // from 노드(진화 전)는 이미지·이름을 from* 필드에서.
+    ensureNode(
+      fromKey,
+      edge.fromPokemonId,
+      edge.fromDisplayName,
+      edge.fromImagePath,
+      edge.fromFormType,
+      edge.fromFormIndex,
+    )
+    // to 노드(진화 후)는 result* 필드에서. 이 노드로 들어오는 진화 조건을 붙인다.
+    const toNode = ensureNode(
+      toKey,
+      edge.toPokemonId,
+      edge.resultDisplayName,
+      edge.resultImagePath,
+      edge.resultFormType,
+      edge.resultFormIndex,
+    )
+    toNode.triggerLabel = edge.triggerLabel
+    toNode.versions.push({
+      versionGroupId: edge.versionGroupId ?? null,
+      description: edge.description,
+      versionLabel: edge.baseVersionGroupName ?? '',
     })
   })
 
-  return nodes.sort((a, b) => a.stage - b.stage)
+  // stage 계산: 최초 단계(들어오는 edge 없음)=0, edge를 따라 +1. 선형·분기 모두
+  // from의 stage+1로 to의 stage를 확정한다(여러 경로면 최댓값).
+  edges.forEach((edge) => {
+    const fromKey = nodeKey(
+      edge.fromPokemonId,
+      edge.fromFormType,
+      edge.fromFormIndex,
+    )
+    const toKey = nodeKey(
+      edge.toPokemonId,
+      edge.resultFormType,
+      edge.resultFormIndex,
+    )
+    const fromStage = stageOf.get(fromKey) ?? 0
+    stageOf.set(fromKey, fromStage)
+    stageOf.set(toKey, Math.max(stageOf.get(toKey) ?? 0, fromStage + 1))
+  })
+
+  nodeMap.forEach((node, key) => {
+    node.stage = stageOf.get(key) ?? 0
+    // 공통(null)을 맨 앞(현행/기본 진화법), 이후 최신(vg 큰 값) 우선.
+    node.versions.sort(
+      (a, b) => rank(b.versionGroupId) - rank(a.versionGroupId),
+    )
+  })
+
+  return Array.from(nodeMap.values()).sort((a, b) => a.stage - b.stage)
+}
+
+/**
+ * evolutionChain.groups를 폼별 섹션 배열로 가공한다.
+ *
+ * groupOrder 순으로 정렬해, 각 그룹을 라벨(기본/알로라/…) + 노드 목록 섹션으로 만든다.
+ * 노드가 없는(빈) 그룹은 제외한다.
+ *
+ * @param groups - evolutionChain.groups
+ * @returns groupOrder 순 섹션 배열
+ */
+export const buildEvolutionGroups = (
+  groups: Array<EvolutionRouteGroup>,
+): Array<EvolutionGroupSection> => {
+  return [...groups]
+    .sort((a, b) => a.groupOrder - b.groupOrder)
+    .map((group) => ({
+      groupKey: group.groupKey,
+      label: getGroupLabel(group),
+      nodes: buildNodesFromEdges(group.edges),
+    }))
+    .filter((section) => section.nodes.length > 0)
 }
 
 /**
