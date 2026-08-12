@@ -5,6 +5,7 @@ import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 import PokemonBySkillCardComponent from '~/components/moves/PokemonBySkillCard.component'
 import { PokemonLearnInfo } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hook/useInfiniteScroll'
+import { useLearnMethodLabels } from '~/hook/useLearnMethodLabels'
 import { usePokemonsBySkill } from '~/hook/usePokemonsBySkill'
 
 /**
@@ -45,6 +46,10 @@ const PokemonBySkillListContainer = ({
     initialPokemonList,
   })
 
+  // 습득법 라벨은 마스터 쿼리에서 받아 카드에 주입한다 — 습득법이 9종으로 늘었고
+  // 앞으로도 추가될 수 있어, 하드코딩 매핑은 신규 값을 enum 원문으로 노출시킨다.
+  const { getLabel } = useLearnMethodLabels()
+
   const sentinelRef = useInfiniteScroll({
     hasNextPage,
     loadMore,
@@ -81,6 +86,7 @@ const PokemonBySkillListContainer = ({
                 <PokemonBySkillCardComponent
                   pokemonData={pokemon}
                   isHighPriority={index < HIGH_PRIORITY_COUNT}
+                  getMethodLabel={getLabel}
                 />
               </li>
             ))}

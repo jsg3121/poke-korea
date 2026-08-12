@@ -1,11 +1,11 @@
 'use client'
 
 import { useContext } from 'react'
-import { ChipColor } from '~/components/chip/chipStyle'
 import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
+import { getDamageTypeChipColor } from '~/utils/skill.util'
 
 /**
  * 습득 기술 목록 (UX-006) — 현재 학습법(레벨업 또는 기술머신) 한 종류만 노출한다.
@@ -16,14 +16,6 @@ import { DetailMovesContext } from '~/context/DetailMoves.context'
  * 기술 상세 링크는 현재 선택 버전이 있으면 /moves/{id}/version/{vgId}, 최신이면
  * /moves/{id} — 구버전의 /generation/{genId}는 존재하지 않는 라우트(dead link)라 쓰지 않는다.
  */
-
-/** GraphQL damageType(physical/special/status)을 Chip 색 키로 — 미지의 값은 변화로 폴백 */
-const toChipColor = (damageType?: string | null): ChipColor => {
-  const normalized = damageType?.toLowerCase()
-  return normalized === 'physical' || normalized === 'special'
-    ? normalized
-    : 'status'
-}
 
 const DetailMovesListContainer = () => {
   const {
@@ -54,7 +46,7 @@ const DetailMovesListContainer = () => {
     condition: level === 0 ? '진화' : level === 1 ? '최초' : `Lv.${level}`,
     name: skill.nameKo,
     type: skill.type,
-    damageClass: toChipColor(skill.damageType),
+    damageClass: getDamageTypeChipColor(skill.damageType),
     power: skill.power,
     accuracy: skill.accuracy,
     pp: skill.pp,
@@ -67,7 +59,7 @@ const DetailMovesListContainer = () => {
     condition: '머신',
     name: skill.nameKo,
     type: skill.type,
-    damageClass: toChipColor(skill.damageType),
+    damageClass: getDamageTypeChipColor(skill.damageType),
     power: skill.power,
     accuracy: skill.accuracy,
     pp: skill.pp,

@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import ChipComponent from '~/components/chip/Chip.component'
-import { ChipColor } from '~/components/chip/chipStyle'
 import TagComponent from '~/components/tag/Tag.component'
 import { PokemonSkill } from '~/graphql/typeGenerated'
-import { getDamageTypeKorean } from '~/utils/skill.util'
+import {
+  getDamageTypeChipColor,
+  getDamageTypeKorean,
+  hasDamageType,
+} from '~/utils/skill.util'
 
 /**
  * 기술 목록 카드 (DS). 기술 도감(/moves) 목록의 기술 항목 하나를 표시한다 (UX-008).
@@ -26,20 +29,14 @@ import { getDamageTypeKorean } from '~/utils/skill.util'
 /** 이름이 길면 폰트를 한 단계 줄이는 기준 (A그룹 선례와 동일) */
 const LONG_NAME_LENGTH = 9
 
-/** 백엔드 damageType(소문자) → Chip color 매핑. 그 외 값은 Chip 생략 */
-const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
-  physical: 'physical',
-  special: 'special',
-  status: 'status',
-}
-
 interface MoveListCardProps {
   moveData: PokemonSkill
 }
 
 const MoveListCardComponent = ({ moveData }: MoveListCardProps) => {
-  const damageColor = moveData.damageType
-    ? DAMAGE_CHIP_COLOR[moveData.damageType.toLowerCase()]
+  // 미지의 값은 Chip을 생략한다 — hasDamageType으로 보유 여부를 먼저 가른다
+  const damageColor = hasDamageType(moveData.damageType)
+    ? getDamageTypeChipColor(moveData.damageType)
     : undefined
 
   // 긴 기술명(9자+)은 한 단계 축소 — 배지와 한 줄 경합 시 줄바꿈을 완화

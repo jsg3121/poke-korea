@@ -748,6 +748,7 @@ query GetPokemonGigantamax($pokemonId: Int!) {
       type
       power
       effect
+      dependsOnBaseMove
     }
   }
 }
@@ -768,7 +769,23 @@ query GetPokemonGigantamaxList {
       power
       effect
       pokemonId
+      dependsOnBaseMove
     }
+  }
+}
+
+# ========== Master Queries ==========
+# 정적 마스터 데이터. 값이 늘어도 프론트 배포 없이 반영되도록 쿼리로 받는다.
+
+# 습득법 목록. 레벨업·기술머신 2종에서 9종으로 확장됐고 앞으로도 늘 수 있어,
+# 하드코딩 대신 이 목록을 기준으로 렌더한다. isExposed=false는 스핀오프(XD 정화 등)라
+# 기본 숨김이며, 노출 정책은 백엔드 DB 컬럼이므로 양쪽 배포 없이 변경된다.
+query GetLearnMethods {
+  getLearnMethods {
+    method
+    nameKo
+    displayOrder
+    isExposed
   }
 }
 

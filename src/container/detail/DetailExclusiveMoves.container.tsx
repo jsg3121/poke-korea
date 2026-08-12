@@ -2,23 +2,19 @@
 
 import { useContext } from 'react'
 import ChipComponent from '~/components/chip/Chip.component'
-import { ChipColor } from '~/components/chip/chipStyle'
 import TagComponent from '~/components/tag/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
 import { PokemonZMove } from '~/graphql/typeGenerated'
-import { getDamageTypeKorean } from '~/utils/skill.util'
+import {
+  getDamageTypeChipColor,
+  getDamageTypeKorean,
+  hasDamageType,
+} from '~/utils/skill.util'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import {
   MoveConceptNote,
   MoveEffectDescription,
 } from './components/MoveDescription.component'
-
-/** 백엔드 damageType(소문자) → Chip color 매핑 (MoveDetailHero와 동일) */
-const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
-  physical: 'physical',
-  special: 'special',
-  status: 'status',
-}
 
 /**
  * 전용 기술 카드 — Z기술·거다이맥스 기술 (기존 데/모 ZMoveInfo·GmaxMoveInfo 통합
@@ -167,16 +163,10 @@ const DetailExclusiveMovesContainer = () => {
                     {zMove.zSkill.power || '-'}
                   </td>
                   <td className="justify-items-center text-center">
-                    {DAMAGE_CHIP_COLOR[
-                      zMove.zSkill.damageType?.toLowerCase()
-                    ] ? (
+                    {hasDamageType(zMove.zSkill.damageType) ? (
                       <ChipComponent
                         label={getDamageTypeKorean(zMove.zSkill.damageType)}
-                        color={
-                          DAMAGE_CHIP_COLOR[
-                            zMove.zSkill.damageType.toLowerCase()
-                          ]
-                        }
+                        color={getDamageTypeChipColor(zMove.zSkill.damageType)}
                       />
                     ) : (
                       <span className="text-2xs desktop:text-sm">
