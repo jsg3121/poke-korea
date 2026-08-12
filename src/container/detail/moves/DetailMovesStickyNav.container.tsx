@@ -52,14 +52,19 @@ const DetailMovesStickyNavContainer = () => {
       movesType,
     })
 
-  // 활성 버전: 명시된 currentVersionGroupId, 없으면 최신(목록의 첫 항목)
+  // 활성 버전: 명시된 currentVersionGroupId, 없으면 최신.
+  // 백엔드가 order 내림차순 정렬을 계약으로 보장하므로 첫 항목이 최신이다
+  // (isLatest=true도 함께 오지만, 첫 항목 접근이 더 단순해 그대로 쓴다).
   const activeVersionId =
     currentVersionGroupId ?? versionGroup?.[0]?.versionGroupId
 
   const versionItems: MovesVersionNavItem[] = (versionGroup ?? []).map(
     (item) => ({
       versionGroupId: item.versionGroupId,
-      label: item.baseVersionGroupName ?? item.nameKo ?? '',
+      // displayName은 백엔드가 DLC를 베이스 시리즈로 정규화한 표시 전용 단일 필드다.
+      // 기존엔 이 화면만 baseVersionGroupName을, 기술 상세는 nameKo를 써서 같은
+      // 버전이 화면마다 다르게 표기되던 문제가 있었다.
+      label: item.displayName ?? item.baseVersionGroupName ?? item.nameKo ?? '',
       active: item.versionGroupId === activeVersionId,
       href: buildMovesPath({
         pokemonId,

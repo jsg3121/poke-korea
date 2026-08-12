@@ -36,9 +36,14 @@ const DetailMovesListContainer = () => {
       ? `/moves/${skillId}/version/${activeVersionId}`
       : `/moves/${skillId}`
 
+  // displayName은 백엔드가 DLC를 정규화한 표시 전용 단일 필드 — 화면마다 다른
+  // 필드(nameKo/baseVersionGroupName)를 쓰던 표기 불일치를 이걸로 통일한다.
+  const activeVersion = versionGroup?.find(
+    (v) => v.versionGroupId === activeVersionId,
+  )
   const versionName =
-    versionGroup?.find((v) => v.versionGroupId === activeVersionId)
-      ?.baseVersionGroupName ?? versionGroup?.[0]?.baseVersionGroupName
+    (activeVersion ?? versionGroup?.[0])?.displayName ??
+    (activeVersion ?? versionGroup?.[0])?.baseVersionGroupName
 
   const levelUpMoves: Array<MoveTableItem> = (
     pokemonLearnableData?.levelUpSkills ?? []

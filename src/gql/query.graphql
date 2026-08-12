@@ -76,6 +76,19 @@ query PokemonDetail($pokemonId: ID!) {
     isMegaEvolution
     isRegionForm
     isGigantamax
+    # 전용기 전체(버전·습득법·폼 무관). 기존엔 레벨업/머신 목록을 순회해
+    # signatureMoves=true를 필터링했는데, 그 방식은 현재 버전 러닝셋에 없는
+    # 전용기를 누락시켰다(꿈트렁 소금절이, 갈라르 야도킹 썰렁개그 등).
+    signatureSkills {
+      skillId
+      nameKo
+      type
+      damageType
+      power
+      accuracy
+      pp
+      isSignature
+    }
     types
     number
     typePrimary
@@ -771,6 +784,24 @@ query GetPokemonGigantamaxList {
       pokemonId
       dependsOnBaseMove
     }
+  }
+}
+
+# 기술이 존재하는 버전 그룹. order 내림차순(최신 우선) 정렬이 계약으로 보장되고,
+# 첫 항목이 isLatest=true다. 삭제된 기술(isAvailable=false)만 있는 버전은 제외되므로
+# 첫 항목이 곧 "이 기술의 최신 사용 가능 버전"이다.
+# 기존 GetVersionGroups(filter에 6가지 용도 혼재)를 기술 상세에서 대체한다.
+query GetVersionGroupsBySkill($skillId: Int!) {
+  getVersionGroupsBySkill(skillId: $skillId) {
+    versionGroupId
+    displayName
+    isLatest
+    order
+    generationId
+    baseVersionGroupId
+    name
+    nameKo
+    baseVersionGroupName
   }
 }
 
