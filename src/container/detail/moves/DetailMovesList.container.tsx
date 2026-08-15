@@ -5,6 +5,7 @@ import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
+import { useLearnMethodLabels } from '~/hook/useLearnMethodLabels'
 import { DEFAULT_LEARN_METHOD } from '~/module/movesParams.module'
 import { getDamageTypeChipColor } from '~/utils/skill.util'
 
@@ -30,6 +31,8 @@ const DetailMovesListContainer = () => {
     currentVersionGroupId,
     currentLearnMethod,
   } = useContext(DetailMovesContext)
+
+  const { getLabel } = useLearnMethodLabels()
 
   const activeMethod = currentLearnMethod ?? DEFAULT_LEARN_METHOD
   const activeGroup = skillsByMethod?.find(
@@ -68,12 +71,12 @@ const DetailMovesListContainer = () => {
     }),
   )
 
-  // 라벨도 백엔드 methodLabel을 쓴다 — 습득법이 늘어도 문구 수정이 불필요하다
-  const methodLabel = activeGroup?.methodLabel ?? ''
-  const title = methodLabel ? `${methodLabel}으로 배우는 기술` : '습득 기술'
-  const ariaLabel = methodLabel
-    ? `${methodLabel} 습득 기술 목록`
-    : '습득 기술 목록'
+  // 라벨은 응답 그룹이 아니라 마스터 쿼리에서 받는다 — 해당 습득법으로 배우는 기술이
+  // 없으면 그룹 자체가 오지 않아 methodLabel을 얻을 수 없는데, 탭은 4종을 항상
+  // 노출하므로 빈 탭에서도 "무엇이 없는지"를 말해줘야 한다.
+  const methodLabel = getLabel(activeMethod)
+  const title = `${methodLabel}으로 배우는 기술`
+  const ariaLabel = `${methodLabel} 습득 기술 목록`
   const titleId = 'detail-moves-list-title'
 
   return (
@@ -93,8 +96,7 @@ const DetailMovesListContainer = () => {
         <MoveTableComponent moves={moves} ariaLabel={ariaLabel} />
       ) : (
         <p className="py-8 text-center text-sm text-primary-2">
-          해당 버전에서 {methodLabel ? `${methodLabel}으로 ` : ''}배우는 기술이
-          없습니다.
+          해당 버전에서 {methodLabel}으로 배우는 기술이 없습니다.
         </p>
       )}
     </section>

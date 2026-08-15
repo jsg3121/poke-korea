@@ -5,8 +5,10 @@ import { useContext } from 'react'
 import TabItemComponent from '~/components/tab/TabItem.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import { LearnMethod } from '~/graphql/typeGenerated'
+import { useLearnMethodLabels } from '~/hook/useLearnMethodLabels'
 import {
   DEFAULT_LEARN_METHOD,
+  VISIBLE_LEARN_METHODS,
   buildMovesPath,
 } from '~/module/movesParams.module'
 import MovesVersionNavComponent, {
@@ -32,7 +34,6 @@ const DetailMovesStickyNavContainer = () => {
   const {
     pokemonInfo,
     versionGroup,
-    skillsByMethod,
     currentActiveIndex,
     currentVersionGroupId,
     currentLearnMethod,
@@ -42,11 +43,17 @@ const DetailMovesStickyNavContainer = () => {
   const activeIndex = currentActiveIndex
   const activeMethod = currentLearnMethod ?? DEFAULT_LEARN_METHOD
 
-  // 학습법 탭은 백엔드가 내려준 skillsByMethod 그대로 그린다(displayOrder 순 정렬).
-  // 기존엔 레벨업·기술머신 2개가 하드코딩돼 있어 알 기술·기술 가르침을 추가할 수
-  // 없었다. 기술이 없는 습득법은 그룹 자체가 오지 않으므로 빈 탭이 생기지 않는다 —
-  // Z-A처럼 교배 시스템이 없는 버전에서 알 기술 탭이 자동으로 사라지는 것도 이 덕이다.
-  const methodTabs = skillsByMethod ?? []
+  // 라벨은 마스터 쿼리에서 받는다 — 데이터가 없는 습득법은 skillsByMethod에 그룹이
+  // 오지 않아 methodLabel을 얻을 수 없기 때문이다.
+  const { getLabel } = useLearnMethodLabels()
+
+  // 탭은 VISIBLE_LEARN_METHODS 4종을 데이터 유무와 무관하게 항상 그린다.
+  // 버전에 따라 탭이 나타났다 사라지면 사용자가 조작 실수로 오인하므로,
+  // 레벨업·기술머신과 동일하게 알 기술·기술 가르침도 자리를 지킨다.
+  const methodTabs = VISIBLE_LEARN_METHODS.map((method) => ({
+    method,
+    label: getLabel(method),
+  }))
 
   // 현재 폼/버전을 유지하면서 학습법만 바꾸는 경로
   const buildMethodPath = (learnMethod: LearnMethod) =>
@@ -104,13 +111,13 @@ const DetailMovesStickyNavContainer = () => {
           aria-label="학습 방법 선택"
           className="flex gap-1 border-b border-solid border-primary-3/25 px-4 desktop:gap-2 desktop:px-0"
         >
-          {methodTabs.map(({ method, methodLabel }) => (
+          {methodTabs.map(({ method, label }) => (
             <TabItemComponent
               key={method}
               href={buildMethodPath(method)}
               active={method === activeMethod}
             >
-              {methodLabel}으로 배우기
+              {label}
             </TabItemComponent>
           ))}
         </nav>

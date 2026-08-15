@@ -10,23 +10,33 @@ import { LearnMethod } from '~/graphql/typeGenerated'
  *
  * 슬러그는 기존 URL(`/moves/machine`)을 그대로 유지한다 — 이미 색인된 경로라
  * 바꾸면 SEO 손실이 난다. 레벨업은 슬러그 없는 기본 경로(`/moves`)다.
- *
- * 스핀오프 습득법(XD 정화 등)은 백엔드 `isExposed=false`라 응답에 오지 않으므로
- * 여기에도 두지 않는다. 노출 정책이 바뀌면 이 맵에만 추가하면 된다.
  */
 const METHOD_SLUG: Partial<Record<LearnMethod, string>> = {
   [LearnMethod.MACHINE]: 'machine',
   [LearnMethod.EGG]: 'egg',
   [LearnMethod.TUTOR]: 'tutor',
-  [LearnMethod.REMINDER]: 'reminder',
-  [LearnMethod.FORM_CHANGE]: 'form-change',
-  [LearnMethod.TRAIN]: 'train',
-  [LearnMethod.ZYGARDE_CUBE]: 'zygarde-cube',
-  [LearnMethod.LIGHT_BALL_EGG]: 'light-ball-egg',
 }
 
 /** 기본 습득법 — 슬러그 없는 경로(`/moves`)가 가리키는 값 */
 export const DEFAULT_LEARN_METHOD = LearnMethod.LEVEL_UP
+
+/**
+ * 화면에 노출하는 습득법 — 탭 순서와 동일하다.
+ *
+ * 백엔드는 `isExposed=true`인 9종을 내려주지만, 그중 기술 떠올리기(1건)·폼체인지
+ * (59건)·지가르데 큐브(40건)·전기구슬 유전(10건)은 극소수 포켓몬에만 해당한다.
+ * 전부 탭으로 만들면 모든 포켓몬 화면에 빈 탭이 늘어서므로 주요 4종만 노출한다.
+ *
+ * 4종은 데이터 유무와 무관하게 **항상** 표시한다 — 버전을 바꿀 때마다 탭이
+ * 나타났다 사라지면 사용자가 조작 실수로 오인한다. 데이터가 없는 탭은 들어갔을 때
+ * 안내 문구를 보여준다(레벨업·기술머신이 항상 있는 것과 같은 취급).
+ */
+export const VISIBLE_LEARN_METHODS: ReadonlyArray<LearnMethod> = [
+  LearnMethod.LEVEL_UP,
+  LearnMethod.MACHINE,
+  LearnMethod.EGG,
+  LearnMethod.TUTOR,
+]
 
 const SLUG_TO_METHOD = new Map<string, LearnMethod>(
   Object.entries(METHOD_SLUG).map(([method, slug]) => [
