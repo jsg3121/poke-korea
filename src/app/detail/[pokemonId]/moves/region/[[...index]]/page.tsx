@@ -8,10 +8,10 @@ import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
-import { LearnMethod } from '~/graphql/typeGenerated'
+import { LearnMethod, PokemonFormType } from '~/graphql/typeGenerated'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
-import { fetchRegionMovesQueries } from '../../_fetch/regionMoves.fetch'
+import { fetchLearnsetQueries } from '../../_fetch/learnset.fetch'
 import { generateRegionMovesMetadata } from '../../_metadata/generateFormMovesMetadata'
 
 export const revalidate = 31536000
@@ -42,12 +42,12 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const { pokemonInfoData, regionFormLearnableSkill, versionGroup } =
-    await fetchRegionMovesQueries({
+  const { pokemonInfoData, versionGroups, regionForms } =
+    await fetchLearnsetQueries({
       pokemonId,
-      activeIndex,
+      formType: PokemonFormType.REGION_FORM,
+      formIndex: activeIndex,
       versionGroupId,
-      learnMethod,
     })
 
   if (!pokemonInfoData.getPokemonDetail?.isRegionForm) {
@@ -55,12 +55,11 @@ export const generateMetadata = async ({
   }
 
   const version = versionGroupId
-    ? versionGroup?.getVersionGroups?.find(
-        (v) => v.versionGroupId === versionGroupId,
-      )
-    : versionGroup?.getVersionGroups?.[0]
+    ? versionGroups?.find((v) => v.versionGroupId === versionGroupId)
+    : versionGroups?.[0]
 
-  const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[activeIndex]?.name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.name})` : ''}`
+  const activeRegionForm = regionForms?.[activeIndex]
+  const regionFormSuffixText = `${activeRegionForm ? ` ${activeRegionForm.region}의 모습` : ''} ${activeRegionForm?.name ? `(${activeRegionForm.name})` : ''}`
   const pokemonName = `${pokemonInfoData.getPokemonDetail?.name}${regionFormSuffixText}`
 
   const canonicalUrl = `https://poke-korea.com${buildMovesPath({
@@ -76,7 +75,7 @@ export const generateMetadata = async ({
     movesType: learnMethod === LearnMethod.LEVEL_UP ? 'LEVELUP' : 'MACHINE',
     canonicalUrl,
     version,
-    versionGroups: versionGroup?.getVersionGroups,
+    versionGroups,
   })
 }
 
@@ -120,12 +119,12 @@ const RegionMovesPage = async ({
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const { pokemonInfoData, regionFormLearnableSkill, versionGroup } =
-    await fetchRegionMovesQueries({
+  const { pokemonInfoData, learnset, versionGroups, regionForms } =
+    await fetchLearnsetQueries({
       pokemonId,
-      activeIndex,
+      formType: PokemonFormType.REGION_FORM,
+      formIndex: activeIndex,
       versionGroupId,
-      learnMethod,
     })
 
   if (
@@ -135,24 +134,14 @@ const RegionMovesPage = async ({
     notFound()
   }
 
-  const regionFormSuffixText = `${regionFormLearnableSkill ? ` ${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.region}의 모습` : ''} ${regionFormLearnableSkill?.getPokemonRegionForm?.[activeIndex]?.name ? `(${regionFormLearnableSkill.getPokemonRegionForm?.[activeIndex]?.name})` : ''}`
+  const activeRegionForm = regionForms?.[activeIndex]
+  const regionFormSuffixText = `${activeRegionForm ? ` ${activeRegionForm.region}의 모습` : ''} ${activeRegionForm?.name ? `(${activeRegionForm.name})` : ''}`
   const pokemonName = `${pokemonInfoData.getPokemonDetail.name}${regionFormSuffixText}`
 
-  const pokemonLearnableData = {
-    levelUpSkills:
-      regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills
-        ?.levelUpSkills || [],
-    machineSkills:
-      regionFormLearnableSkill?.getPokemonRegionFormLearnableSkills
-        ?.machineSkills || [],
-  }
-
   const pokemonInfoTypes =
-    regionFormLearnableSkill?.getPokemonRegionForm?.[activeIndex]?.types ??
-    pokemonInfoData.getPokemonDetail.types
+    activeRegionForm?.types ?? pokemonInfoData.getPokemonDetail.types
 
-  const formDataLength =
-    regionFormLearnableSkill?.getPokemonRegionForm?.length ?? 0
+  const formDataLength = regionForms?.length ?? 0
 
   const initialValue = {
     pokemonInfo: {
@@ -162,8 +151,8 @@ const RegionMovesPage = async ({
       isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
       activeType: 'region' as const,
     },
-    versionGroup: versionGroup?.getVersionGroups,
-    pokemonLearnableData,
+    versionGroup: versionGroups,
+    skillsByMethod: learnset?.skillsByMethod ?? [],
     formDataLength,
     normalFormInfo: {
       name: pokemonName,

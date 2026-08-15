@@ -430,6 +430,75 @@ query GetDetailMovesPokemonInfo($pokemonId: ID!) {
   }
 }
 
+# 포켓몬 습득 기술 통합 조회.
+# 기존 3종(getPokemonLearnableSkills / ...NormalForm... / ...RegionForm...)을 대체한다.
+# formType을 생략하면 서버가 BASE로 처리하므로, 폼 종류를 알아내기 위한 선행 조회가
+# 불필요해진다(기존엔 isFormChange를 먼저 받느라 왕복을 한 번 더 썼다).
+#
+# skillsByMethod는 습득법별 그룹 배열이라 알 기술·기술 가르침 등이 데이터로 들어온다.
+# 탭을 이 배열 기준으로 그리면 습득법이 늘어도 프론트 배포가 필요 없다.
+query GetPokemonLearnset(
+  $pokemonId: Int!
+  $formType: PokemonFormType
+  $formIndex: Int
+  $versionGroupId: Int
+  $limit: Int
+) {
+  getPokemonLearnset(
+    pokemonId: $pokemonId
+    formType: $formType
+    formIndex: $formIndex
+    versionGroupId: $versionGroupId
+    limit: $limit
+  ) {
+    pokemonId
+    formType
+    formIndex
+    formCode
+    versionGroup {
+      versionGroupId
+      displayName
+      isLatest
+      order
+      generationId
+      baseVersionGroupId
+      baseVersionGroupName
+      nameKo
+    }
+    skillsByMethod {
+      method
+      methodLabel
+      totalCount
+      displayOrder
+      skills {
+        level
+        conditionLabel
+        machineNumber
+        skill {
+          skillId
+          nameKo
+          type
+          damageType
+          power
+          accuracy
+          pp
+          isSignature
+        }
+      }
+    }
+    signatureSkillsInVersion {
+      skillId
+      nameKo
+      type
+      damageType
+      power
+      accuracy
+      pp
+      isSignature
+    }
+  }
+}
+
 query GetPokemonLearnableSkills($filter: PokemonSkillsFilterInput!) {
   getPokemonLearnableSkills(filter: $filter) {
     pokemonId
@@ -784,6 +853,31 @@ query GetPokemonGigantamaxList {
       pokemonId
       dependsOnBaseMove
     }
+  }
+}
+
+# 포켓몬이 등장하는 버전 그룹. 버전 선택 nav가 전체 목록을 필요로 하므로
+# getPokemonLearnset(선택된 버전 하나만 반환)과 별도로 조회한다.
+# order 내림차순(최신 우선) 정렬이 계약으로 보장되고 첫 항목이 isLatest=true다.
+query GetVersionGroupsByPokemon(
+  $pokemonId: Int!
+  $formType: PokemonFormType
+  $formIndex: Int
+) {
+  getVersionGroupsByPokemon(
+    pokemonId: $pokemonId
+    formType: $formType
+    formIndex: $formIndex
+  ) {
+    versionGroupId
+    displayName
+    isLatest
+    order
+    generationId
+    baseVersionGroupId
+    baseVersionGroupName
+    name
+    nameKo
   }
 }
 

@@ -3,20 +3,20 @@
 import { ReactNode, createContext } from 'react'
 import {
   LearnMethod,
-  PokemonFormSkillLevelUp,
-  PokemonFormSkillMachine,
-  PokemonSkillLevelUp,
-  PokemonSkillMachine,
   PokemonType,
+  SkillsByMethod,
   VersionGroup,
 } from '~/graphql/typeGenerated'
 
 export type TPokemonType = 'default' | 'region' | 'normalForm'
 
-export type PokemonLearnableDataType = {
-  levelUpSkills: Array<PokemonSkillLevelUp | PokemonFormSkillLevelUp>
-  machineSkills: Array<PokemonSkillMachine | PokemonFormSkillMachine>
-}
+/**
+ * 습득법별 기술 그룹. 백엔드가 displayOrder 순으로 정렬해 내려준다.
+ *
+ * 기존엔 `{ levelUpSkills, machineSkills }` 2필드 고정이라 알 기술·기술 가르침 등을
+ * 담을 자리가 없었다. 배열로 받으면 습득법이 늘어도 화면이 자동으로 따라간다.
+ */
+export type SkillsByMethodType = Array<SkillsByMethod>
 
 export type PokemonInfoType = {
   name: string
@@ -28,7 +28,7 @@ export type PokemonInfoType = {
 
 interface IDetailMovesProviderProps {
   pokemonInfo: PokemonInfoType
-  pokemonLearnableData: PokemonLearnableDataType
+  skillsByMethod: SkillsByMethodType
   formDataLength: number
   versionGroup?: Array<VersionGroup> | null
   normalFormInfo?: {
@@ -43,7 +43,7 @@ interface IDetailMovesProviderProps {
 
 interface IDetailMovesProps {
   pokemonInfo?: PokemonInfoType
-  pokemonLearnableData?: PokemonLearnableDataType
+  skillsByMethod?: SkillsByMethodType
   formDataLength: number
   versionGroup?: Array<VersionGroup> | null
   normalFormInfo?: {
@@ -62,7 +62,7 @@ const DetailMovesContext = createContext<IDetailMovesProps>({
 
 const DetailMovesProvider = ({
   pokemonInfo,
-  pokemonLearnableData,
+  skillsByMethod,
   formDataLength,
   normalFormInfo,
   versionGroup,
@@ -73,7 +73,7 @@ const DetailMovesProvider = ({
 }: IDetailMovesProviderProps) => {
   const initialValue: IDetailMovesProps = {
     pokemonInfo,
-    pokemonLearnableData,
+    skillsByMethod,
     formDataLength,
     normalFormInfo,
     versionGroup,

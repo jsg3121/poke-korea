@@ -13,11 +13,11 @@ import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
-import { LearnMethod } from '~/graphql/typeGenerated'
+import { LearnMethod, PokemonFormType } from '~/graphql/typeGenerated'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
 import { fetchDefaultMovesMetadata } from '../../_fetch/defaultMovesMetadata.fetch'
-import { fetchFormMovesQueries } from '../../_fetch/formMoves.fetch'
+import { fetchLearnsetQueries } from '../../_fetch/learnset.fetch'
 import { generateFormMovesMetadata } from '../../_metadata/generateFormMovesMetadata'
 
 export const revalidate = 31536000
@@ -123,11 +123,11 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const fetchResult = await fetchFormMovesQueries({
+  const fetchResult = await fetchLearnsetQueries({
     pokemonId,
-    activeIndex,
+    formType: PokemonFormType.NORMAL_FORM,
+    formIndex: activeIndex,
     versionGroupId,
-    learnMethod,
   })
 
   const { pokemonInfoData } = fetchResult
@@ -147,45 +147,21 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     )
   }
 
-  const { data, normalFormLearnableSkill, versionGroup, normalFormImageList } =
-    fetchResult
+  const { learnset, versionGroups, formImageList, formInfo } = fetchResult
 
-  const getPokemonLearnableData = () => {
-    if (activeIndex > 0) {
-      return {
-        levelUpSkills:
-          normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
-            ?.levelUpSkills || [],
-        machineSkills:
-          normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
-            ?.machineSkills || [],
-      }
-    } else {
-      return {
-        levelUpSkills: data?.getPokemonLearnableSkills?.levelUpSkills || [],
-        machineSkills: data?.getPokemonLearnableSkills?.machineSkills || [],
-      }
-    }
-  }
-
-  const pokemonLearnableData = getPokemonLearnableData()
-
-  const normalFormName =
-    normalFormLearnableSkill?.getPokemonNormalForm?.[0]?.name ??
-    pokemonInfoData.getPokemonDetail.name
+  // 폼별 이름·타입은 러닝셋에 없어 폼 조회 결과를 쓴다(히트로토무 등 폼마다
+  // 이름·타입이 다른 경우). 기본 폼(index 0)은 포켓몬 기본 정보를 그대로 쓴다.
+  const normalFormName = formInfo?.name ?? pokemonInfoData.getPokemonDetail.name
   const pokemonName =
     activeIndex > 0 ? normalFormName : pokemonInfoData.getPokemonDetail.name
 
   const pokemonInfoTypes =
     activeIndex > 0
-      ? (normalFormLearnableSkill?.getPokemonNormalForm?.[0]?.types ??
-        pokemonInfoData.getPokemonDetail.types)
+      ? (formInfo?.types ?? pokemonInfoData.getPokemonDetail.types)
       : pokemonInfoData.getPokemonDetail.types
 
-  const formDataLength = normalFormImageList?.getPokemonNormalFormImageList
-    ?.length
-    ? normalFormImageList.getPokemonNormalFormImageList.length
-    : 0
+  const formDataLength =
+    formImageList?.getPokemonNormalFormImageList?.length ?? 0
 
   const initialValue = {
     pokemonInfo: {
@@ -195,12 +171,12 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
       isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
       activeType: undefined,
     },
-    versionGroup: versionGroup?.getVersionGroups,
-    pokemonLearnableData,
+    versionGroup: versionGroups,
+    skillsByMethod: learnset?.skillsByMethod ?? [],
     formDataLength,
     normalFormInfo: {
       name: normalFormName,
-      imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0]?.imagePath,
+      imagePath: formInfo?.imagePath,
     },
     currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,

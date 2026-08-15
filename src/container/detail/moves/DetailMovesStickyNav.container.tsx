@@ -32,6 +32,7 @@ const DetailMovesStickyNavContainer = () => {
   const {
     pokemonInfo,
     versionGroup,
+    skillsByMethod,
     currentActiveIndex,
     currentVersionGroupId,
     currentLearnMethod,
@@ -39,7 +40,13 @@ const DetailMovesStickyNavContainer = () => {
 
   const activeType = pokemonInfo?.activeType
   const activeIndex = currentActiveIndex
-  const isMachine = currentLearnMethod === LearnMethod.MACHINE
+  const activeMethod = currentLearnMethod ?? DEFAULT_LEARN_METHOD
+
+  // 학습법 탭은 백엔드가 내려준 skillsByMethod 그대로 그린다(displayOrder 순 정렬).
+  // 기존엔 레벨업·기술머신 2개가 하드코딩돼 있어 알 기술·기술 가르침을 추가할 수
+  // 없었다. 기술이 없는 습득법은 그룹 자체가 오지 않으므로 빈 탭이 생기지 않는다 —
+  // Z-A처럼 교배 시스템이 없는 버전에서 알 기술 탭이 자동으로 사라지는 것도 이 덕이다.
+  const methodTabs = skillsByMethod ?? []
 
   // 현재 폼/버전을 유지하면서 학습법만 바꾸는 경로
   const buildMethodPath = (learnMethod: LearnMethod) =>
@@ -80,7 +87,7 @@ const DetailMovesStickyNavContainer = () => {
               : undefined,
         activeIndex,
         versionGroupId: item.versionGroupId,
-        learnMethod: currentLearnMethod ?? DEFAULT_LEARN_METHOD,
+        learnMethod: activeMethod,
       }),
     }),
   )
@@ -97,18 +104,15 @@ const DetailMovesStickyNavContainer = () => {
           aria-label="학습 방법 선택"
           className="flex gap-1 border-b border-solid border-primary-3/25 px-4 desktop:gap-2 desktop:px-0"
         >
-          <TabItemComponent
-            href={buildMethodPath(LearnMethod.LEVEL_UP)}
-            active={!isMachine}
-          >
-            레벨업으로 배우기
-          </TabItemComponent>
-          <TabItemComponent
-            href={buildMethodPath(LearnMethod.MACHINE)}
-            active={isMachine}
-          >
-            기술머신으로 배우기
-          </TabItemComponent>
+          {methodTabs.map(({ method, methodLabel }) => (
+            <TabItemComponent
+              key={method}
+              href={buildMethodPath(method)}
+              active={method === activeMethod}
+            >
+              {methodLabel}으로 배우기
+            </TabItemComponent>
+          ))}
         </nav>
         {versionItems.length > 0 && (
           <MovesVersionNavComponent items={versionItems} />
