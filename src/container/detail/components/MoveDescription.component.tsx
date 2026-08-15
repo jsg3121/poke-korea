@@ -9,9 +9,10 @@
  * 라벨을 앞에 붙여(전용기·Z기술처럼 기술이 여러 개일 때 어느 설명인지 구분).
  * 좌측 강조 바(border-l-4) + 배경(primary-1/10)으로 개념 안내보다 부각한다.
  *
- * 원본 description에는 게임 내 표시용 줄바꿈(\n)이 들어 있으나(예: "Z파워로 최대
- * 전력을\n몸에 두른…"), 웹 레이아웃에선 불필요한 줄바꿈을 만드므로 공백으로
- * 치환해 한 문단으로 흐르게 한다.
+ * 개행 치환은 제거했다 — 원본 description에 있던 게임 내 표시용 줄바꿈(\n)을
+ * 백엔드가 적재 시점에 정규화한다. 프론트 치환은 이 컴포넌트를 쓰는 곳에만
+ * 적용돼 화면마다 처리가 달랐는데(기술 상세 히어로·목록 카드는 미적용),
+ * 출처에서 해결되어 그 불일치도 사라졌다.
  */
 export const MoveEffectDescription = ({
   name,
@@ -27,7 +28,7 @@ export const MoveEffectDescription = ({
       </p>
     )}
     <p className="text-xs leading-relaxed text-primary-1 desktop:text-sm">
-      {text.replace(/\n/g, ' ')}
+      {text}
     </p>
   </div>
 )

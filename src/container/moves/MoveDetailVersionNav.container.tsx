@@ -18,7 +18,13 @@ import { VersionGroup } from '~/graphql/typeGenerated'
  * 스크롤 콘텐츠를 가리고, 내부 콘텐츠만 max-w-7xl로 가둔다(A그룹 패턴).
  */
 
-/** "최신" 항목의 sentinel id — 실제 버전 그룹 id(양수)와 충돌하지 않는 값 */
+/**
+ * "최신" 항목의 sentinel id — 실제 버전 그룹 id(양수)와 충돌하지 않는 값.
+ *
+ * 백엔드가 VersionGroup.isLatest를 제공하지만 이 sentinel을 대체하지는 않는다 —
+ * "최신" 탭은 최신 버전 항목이 아니라 **버전 미지정 URL**(/moves/[id])을 가리키는
+ * 별개 항목이기 때문이다. isLatest는 목록 안에서 어느 버전이 최신인지를 알려줄 뿐이다.
+ */
 const LATEST_SENTINEL_ID = 0
 
 interface MoveDetailVersionNavContainerProps {
@@ -45,7 +51,10 @@ const MoveDetailVersionNavContainer = ({
     },
     ...versionGroups.map((vg) => ({
       versionGroupId: vg.versionGroupId,
-      label: vg.nameKo ?? '',
+      // displayName은 백엔드가 DLC를 베이스 시리즈로 정규화한 표시 전용 필드다
+      // (예: 왕관설원 → 소드·실드). name/nameKo/baseVersionGroupName 중 무엇을
+      // 써야 하는지 화면마다 달랐던 혼선을 이 단일 필드로 정리한다.
+      label: vg.displayName ?? vg.nameKo ?? '',
       href: `/moves/${skillId}/version/${vg.versionGroupId}`,
       active: vg.versionGroupId === selectedVersionGroupId,
     })),

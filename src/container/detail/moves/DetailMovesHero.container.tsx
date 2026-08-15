@@ -32,8 +32,9 @@ const DetailMovesHeroContainer = () => {
   const activeType = pokemonInfo?.activeType
   const activeIndex = currentActiveIndex
 
-  // 최신/최초 등장 버전 (버전 목록은 최신 → 과거 순)
-  const lastVersionInfo = versionGroup?.[0]
+  // 최신/최초 등장 버전. 백엔드가 order 내림차순(최신 우선) 정렬을 계약으로
+  // 보장하므로 첫 항목이 최신, 마지막 항목이 최초 등장이다.
+  const latestVersionInfo = versionGroup?.[0]
   const firstVersionInfo = versionGroup?.[versionGroup.length - 1]
 
   // 리전폼은 인덱스 기반 이미지 코드, 그 외는 폼/기본 이미지 경로
@@ -129,13 +130,15 @@ const DetailMovesHeroContainer = () => {
               <div className="flex gap-2">
                 <dt className="font-semibold text-primary-2">최초 등장</dt>
                 <dd className="font-bold text-primary-1">
-                  {firstVersionInfo?.baseVersionGroupName}
+                  {firstVersionInfo?.displayName ??
+                    firstVersionInfo?.baseVersionGroupName}
                 </dd>
               </div>
               <div className="flex gap-2">
                 <dt className="font-semibold text-primary-2">최신 등장</dt>
                 <dd className="font-bold text-primary-1">
-                  {lastVersionInfo?.baseVersionGroupName}
+                  {latestVersionInfo?.displayName ??
+                    latestVersionInfo?.baseVersionGroupName}
                 </dd>
               </div>
             </dl>

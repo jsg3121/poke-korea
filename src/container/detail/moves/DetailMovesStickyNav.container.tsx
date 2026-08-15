@@ -4,7 +4,13 @@ import { useParams } from 'next/navigation'
 import { useContext } from 'react'
 import TabItemComponent from '~/components/tab/TabItem.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
-import { buildMovesPath } from '~/module/movesParams.module'
+import { LearnMethod } from '~/graphql/typeGenerated'
+import { useLearnMethodLabels } from '~/hook/useLearnMethodLabels'
+import {
+  DEFAULT_LEARN_METHOD,
+  VISIBLE_LEARN_METHODS,
+  buildMovesPath,
+} from '~/module/movesParams.module'
 import MovesVersionNavComponent, {
   MovesVersionNavItem,
 } from '~/components/moves/MovesVersionNav.component'
@@ -30,15 +36,27 @@ const DetailMovesStickyNavContainer = () => {
     versionGroup,
     currentActiveIndex,
     currentVersionGroupId,
-    currentMovesType,
+    currentLearnMethod,
   } = useContext(DetailMovesContext)
 
   const activeType = pokemonInfo?.activeType
   const activeIndex = currentActiveIndex
-  const isMachine = currentMovesType === 'MACHINE'
+  const activeMethod = currentLearnMethod ?? DEFAULT_LEARN_METHOD
 
-  // 현재 폼/버전을 유지하면서 학습법(레벨업/머신)만 바꾸는 경로
-  const buildMethodPath = (movesType: 'LEVELUP' | 'MACHINE') =>
+  // 라벨은 마스터 쿼리에서 받는다 — 데이터가 없는 습득법은 skillsByMethod에 그룹이
+  // 오지 않아 methodLabel을 얻을 수 없기 때문이다.
+  const { getLabel } = useLearnMethodLabels()
+
+  // 탭은 VISIBLE_LEARN_METHODS 4종을 데이터 유무와 무관하게 항상 그린다.
+  // 버전에 따라 탭이 나타났다 사라지면 사용자가 조작 실수로 오인하므로,
+  // 레벨업·기술머신과 동일하게 알 기술·기술 가르침도 자리를 지킨다.
+  const methodTabs = VISIBLE_LEARN_METHODS.map((method) => ({
+    method,
+    label: getLabel(method),
+  }))
+
+  // 현재 폼/버전을 유지하면서 학습법만 바꾸는 경로
+  const buildMethodPath = (learnMethod: LearnMethod) =>
     buildMovesPath({
       pokemonId,
       activeType:
@@ -49,17 +67,22 @@ const DetailMovesStickyNavContainer = () => {
             : undefined,
       activeIndex,
       versionGroupId: currentVersionGroupId,
-      movesType,
+      learnMethod,
     })
 
-  // 활성 버전: 명시된 currentVersionGroupId, 없으면 최신(목록의 첫 항목)
+  // 활성 버전: 명시된 currentVersionGroupId, 없으면 최신.
+  // 백엔드가 order 내림차순 정렬을 계약으로 보장하므로 첫 항목이 최신이다
+  // (isLatest=true도 함께 오지만, 첫 항목 접근이 더 단순해 그대로 쓴다).
   const activeVersionId =
     currentVersionGroupId ?? versionGroup?.[0]?.versionGroupId
 
   const versionItems: MovesVersionNavItem[] = (versionGroup ?? []).map(
     (item) => ({
       versionGroupId: item.versionGroupId,
-      label: item.baseVersionGroupName ?? item.nameKo ?? '',
+      // displayName은 백엔드가 DLC를 베이스 시리즈로 정규화한 표시 전용 단일 필드다.
+      // 기존엔 이 화면만 baseVersionGroupName을, 기술 상세는 nameKo를 써서 같은
+      // 버전이 화면마다 다르게 표기되던 문제가 있었다.
+      label: item.displayName ?? item.baseVersionGroupName ?? item.nameKo ?? '',
       active: item.versionGroupId === activeVersionId,
       href: buildMovesPath({
         pokemonId,
@@ -71,7 +94,7 @@ const DetailMovesStickyNavContainer = () => {
               : undefined,
         activeIndex,
         versionGroupId: item.versionGroupId,
-        movesType: currentMovesType,
+        learnMethod: activeMethod,
       }),
     }),
   )
@@ -88,21 +111,22 @@ const DetailMovesStickyNavContainer = () => {
           aria-label="학습 방법 선택"
           className="flex gap-1 border-b border-solid border-primary-3/25 px-4 desktop:gap-2 desktop:px-0"
         >
-          <TabItemComponent
-            href={buildMethodPath('LEVELUP')}
-            active={!isMachine}
-          >
-            레벨업으로 배우기
-          </TabItemComponent>
-          <TabItemComponent
-            href={buildMethodPath('MACHINE')}
-            active={isMachine}
-          >
-            기술머신으로 배우기
-          </TabItemComponent>
+          {/* scroll={false}: 이 크롬은 sticky라 이동 후에도 화면에 남는데,
+              기본 동작대로 최상단으로 튀면 방금 누른 탭이 시야에서 사라져
+              맥락이 끊긴다(버전 nav도 동일 이유로 false) */}
+          {methodTabs.map(({ method, label }) => (
+            <TabItemComponent
+              key={method}
+              href={buildMethodPath(method)}
+              active={method === activeMethod}
+              scroll={false}
+            >
+              {label}
+            </TabItemComponent>
+          ))}
         </nav>
         {versionItems.length > 0 && (
-          <MovesVersionNavComponent items={versionItems} />
+          <MovesVersionNavComponent items={versionItems} scroll={false} />
         )}
       </div>
     </div>

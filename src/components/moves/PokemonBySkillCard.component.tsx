@@ -5,7 +5,6 @@ import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell
 import { LearnMethod, PokemonLearnInfo } from '~/graphql/typeGenerated'
 import { imageMode } from '~/module/buildMode'
 import { CardColor } from '~/types/pokemonTypes.types'
-import { getLearnMethodKorean } from '~/utils/skill.util'
 
 /**
  * 기술별 포켓몬 카드 (반응형 단일 DS 컴포넌트, UX-008).
@@ -19,17 +18,21 @@ import { getLearnMethodKorean } from '~/utils/skill.util'
  * 구버전의 useDevice(UA 분기) 이미지 크기 분기를 제거했다 — 셸이 CSS sizes 속성으로
  * 반응형을 처리하므로 JS 뷰포트 분기가 불필요하고, SSR/CSR 불일치로 인한 CLS도 없앤다.
  * 습득 방법 배지 색은 비토큰(green-600·slate-500)을 토큰(damage-status·card-accent)으로
- * 정규화한다. 라벨은 skill.util의 한글 매핑을 재사용한다(레벨업/기술머신/알).
+ * 정규화한다. 습득법 라벨은 백엔드 마스터 쿼리에서 오므로(useLearnMethodLabels) 상위
+ * 컨테이너가 getMethodLabel로 주입한다 — 프레젠테이션 컴포넌트는 데이터를 직접 페칭하지
+ * 않는다. 미주입 시 enum 원문을 그대로 쓴다(Storybook 등 단독 렌더 대비).
  */
 
 interface PokemonBySkillCardProps {
   pokemonData: PokemonLearnInfo
   isHighPriority?: boolean
+  getMethodLabel?: (method: LearnMethod) => string
 }
 
 const PokemonBySkillCardComponent = ({
   pokemonData,
   isHighPriority = false,
+  getMethodLabel = (method) => method,
 }: PokemonBySkillCardProps) => {
   const pokemonNumber = String(pokemonData.number).padStart(3, '0')
 
@@ -40,11 +43,14 @@ const PokemonBySkillCardComponent = ({
   )
 
   // 폼 타입에 따른 표시 텍스트 — PokemonLearnInfo.formType은
-  // 'BASE' | 'NORMAL' | 'REGION' | 'MEGA' (PokemonWithAbility의 *_FORM 표기와 다름)
+  // 'BASE' | 'NORMAL' | 'REGION' (PokemonWithAbility의 *_FORM 표기와 다름)
+  //
+  // MEGA 분기는 제거했다 — 백엔드 통합 테이블 전환으로 메가진화가 이 목록에서
+  // 빠졌기 때문이다. 메가는 기술을 새로 배우지 않고 원본 종의 러닝셋을 그대로
+  // 쓰므로(실측상 메가 폼 러닝셋 전량이 원본과 중복), 노출하면 같은 종이 두 번
+  // 나온다. 향후 메가 전용 기술이 생기면 백엔드가 다시 내려주므로 그때 되살린다.
   const formLabel = useMemo(() => {
     switch (pokemonData.formType) {
-      case 'MEGA':
-        return '메가진화'
       case 'REGION':
         return pokemonData.region ? `${pokemonData.region} 폼` : '지역 폼'
       case 'NORMAL':
@@ -57,13 +63,6 @@ const PokemonBySkillCardComponent = ({
   // Path 기반 URL 생성 (폼 분기)
   const pokemonHref = useMemo(() => {
     const baseUrl = `/detail/${pokemonData.number}`
-
-    if (pokemonData.formType === 'MEGA') {
-      const megaIndex = pokemonData.imagePath
-        ? parseInt(pokemonData.imagePath[pokemonData.imagePath.length - 1], 10)
-        : 0
-      return megaIndex > 0 ? `${baseUrl}/mega/${megaIndex}` : `${baseUrl}/mega`
-    }
 
     if (pokemonData.formType === 'REGION') {
       const regionIndex = pokemonData.imagePath
@@ -129,7 +128,7 @@ const PokemonBySkillCardComponent = ({
               <MachineMoveIcon width={16} height={16} aria-hidden="true" />
             )}
             <span className="h-6 text-aligned-sm text-xs">
-              {getLearnMethodKorean(method.method)}
+              {getMethodLabel(method.method)}
             </span>
           </span>
         ))}

@@ -2,23 +2,19 @@
 
 import { useContext } from 'react'
 import ChipComponent from '~/components/chip/Chip.component'
-import { ChipColor } from '~/components/chip/chipStyle'
 import TagComponent from '~/components/tag/Tag.component'
 import { DetailContext } from '~/context/Detail.context'
 import { PokemonZMove } from '~/graphql/typeGenerated'
-import { getDamageTypeKorean } from '~/utils/skill.util'
+import {
+  getDamageTypeChipColor,
+  getDamageTypeKorean,
+  hasDamageType,
+} from '~/utils/skill.util'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import {
   MoveConceptNote,
   MoveEffectDescription,
 } from './components/MoveDescription.component'
-
-/** 백엔드 damageType(소문자) → Chip color 매핑 (MoveDetailHero와 동일) */
-const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
-  physical: 'physical',
-  special: 'special',
-  status: 'status',
-}
 
 /**
  * 전용 기술 카드 — Z기술·거다이맥스 기술 (기존 데/모 ZMoveInfo·GmaxMoveInfo 통합
@@ -102,10 +98,12 @@ const DetailExclusiveMovesContainer = () => {
                   {gmaxMove.type && <TagComponent type={gmaxMove.type} />}
                 </td>
                 <td className="text-center">{gmaxMove.power || '-'}</td>
-                {/* 거다이맥스 기술은 기반 기술에 따라 물리/특수 모두 가능(GmaxMove에 damageType 없음 — 기존과 동일) */}
+                {/* 거다이맥스 기술은 고정 분류가 없고 기반 기술(다이맥스 전 기술)의
+                    분류를 그대로 따른다(Bulbapedia 전 거다이맥스 기술 damagecategory=Varies).
+                    기존엔 '물리 / 특수'를 문자열로 지어냈으나 애초에 표현 불가능한
+                    값이었다 — 백엔드 dependsOnBaseMove를 근거로 그 사실을 그대로 쓴다. */}
                 <td className="text-center text-sm">
-                  {getDamageTypeKorean('physical')} /{' '}
-                  {getDamageTypeKorean('special')}
+                  {gmaxMove.dependsOnBaseMove ? '기반 기술에 따름' : '-'}
                 </td>
               </tr>
             </tbody>
@@ -167,16 +165,10 @@ const DetailExclusiveMovesContainer = () => {
                     {zMove.zSkill.power || '-'}
                   </td>
                   <td className="justify-items-center text-center">
-                    {DAMAGE_CHIP_COLOR[
-                      zMove.zSkill.damageType?.toLowerCase()
-                    ] ? (
+                    {hasDamageType(zMove.zSkill.damageType) ? (
                       <ChipComponent
                         label={getDamageTypeKorean(zMove.zSkill.damageType)}
-                        color={
-                          DAMAGE_CHIP_COLOR[
-                            zMove.zSkill.damageType.toLowerCase()
-                          ]
-                        }
+                        color={getDamageTypeChipColor(zMove.zSkill.damageType)}
                       />
                     ) : (
                       <span className="text-2xs desktop:text-sm">

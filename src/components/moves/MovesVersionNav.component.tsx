@@ -29,9 +29,16 @@ export interface MovesVersionNavItem {
 
 interface MovesVersionNavProps {
   items: MovesVersionNavItem[]
+  /**
+   * 이동 시 스크롤을 맨 위로 올리지 않는다(기본값 true = 올림).
+   *
+   * 이 nav가 sticky 크롬 안에 있으면 이동할 때마다 최상단으로 튀어, 방금 누른
+   * 버전 칩이 시야에서 사라진다. 그런 배치에서만 false로 준다.
+   */
+  scroll?: boolean
 }
 
-const MovesVersionNavComponent = ({ items }: MovesVersionNavProps) => {
+const MovesVersionNavComponent = ({ items, scroll }: MovesVersionNavProps) => {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   // 최초 마운트 시 활성 버전이 보이도록 스크롤(모바일에서 뒤쪽 버전이 선택됐을 때)
@@ -59,6 +66,7 @@ const MovesVersionNavComponent = ({ items }: MovesVersionNavProps) => {
             <Link
               key={item.versionGroupId}
               href={item.href}
+              scroll={scroll}
               data-active={item.active}
               aria-current={item.active ? 'page' : undefined}
               className={`inline-block h-6 shrink-0 whitespace-nowrap rounded-lg px-2.5 text-xs text-aligned-sm font-medium transition-all desktop:h-7 desktop:px-3 desktop:text-sm desktop:text-aligned-md ${

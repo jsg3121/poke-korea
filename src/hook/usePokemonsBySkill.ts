@@ -36,9 +36,9 @@ export const usePokemonsBySkill = ({
   })
 
   const loadMore = async () => {
-    if (!data?.getPokemonsBySkill?.pageInfo.hasNextPage) return
+    if (!data?.getPokemonsBySkillV2?.pageInfo.hasNextPage) return
 
-    // edges 병합은 InMemoryCache의 typePolicies(getPokemonsBySkill.merge)가
+    // edges 병합은 InMemoryCache의 typePolicies(getPokemonsBySkillV2.merge)가
     // 담당하므로 updateQuery는 지정하지 않는다. updateQuery를 함께 쓰면 병합이
     // 이중 적용되어 항목이 중복될 수 있다.
     await fetchMore({
@@ -51,7 +51,7 @@ export const usePokemonsBySkill = ({
           },
           pagination: {
             first: pageSize,
-            after: data?.getPokemonsBySkill.pageInfo.endCursor,
+            after: data?.getPokemonsBySkillV2.pageInfo.endCursor,
           },
         },
       },
@@ -59,17 +59,17 @@ export const usePokemonsBySkill = ({
   }
 
   const pokemonList = extractNodesFromEdges(
-    data?.getPokemonsBySkill?.edges,
+    data?.getPokemonsBySkillV2?.edges,
     initialPokemonList,
   )
 
   return {
-    skillName: data?.getPokemonsBySkill?.skillName,
+    skillName: data?.getPokemonsBySkillV2?.skillName,
     pokemonList,
-    hasNextPage: data?.getPokemonsBySkill?.pageInfo.hasNextPage,
+    hasNextPage: data?.getPokemonsBySkillV2?.pageInfo.hasNextPage,
     loading,
     error,
-    totalCount: data?.getPokemonsBySkill?.totalCount || 0,
+    totalCount: data?.getPokemonsBySkillV2?.totalCount || 0,
     loadMore,
   }
 }
