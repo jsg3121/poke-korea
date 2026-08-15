@@ -119,13 +119,18 @@ const RegionMovesPage = async ({
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const { pokemonInfoData, learnset, versionGroups, regionForms } =
-    await fetchLearnsetQueries({
-      pokemonId,
-      formType: PokemonFormType.REGION_FORM,
-      formIndex: activeIndex,
-      versionGroupId,
-    })
+  const {
+    pokemonInfoData,
+    learnset,
+    versionGroups,
+    regionForms,
+    learnMethodLabels,
+  } = await fetchLearnsetQueries({
+    pokemonId,
+    formType: PokemonFormType.REGION_FORM,
+    formIndex: activeIndex,
+    versionGroupId,
+  })
 
   if (
     !pokemonInfoData.getPokemonDetail ||
@@ -161,6 +166,7 @@ const RegionMovesPage = async ({
     currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,
     currentLearnMethod: learnMethod,
+    learnMethodLabels,
   }
 
   return (

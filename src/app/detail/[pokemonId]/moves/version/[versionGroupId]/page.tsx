@@ -49,11 +49,16 @@ const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const { pokemonInfoData, learnset, versionGroups, formImageList } =
-    await fetchLearnsetQueries({
-      pokemonId,
-      versionGroupId: parsedVersionId,
-    })
+  const {
+    pokemonInfoData,
+    learnset,
+    versionGroups,
+    formImageList,
+    learnMethodLabels,
+  } = await fetchLearnsetQueries({
+    pokemonId,
+    versionGroupId: parsedVersionId,
+  })
 
   if (!pokemonInfoData.getPokemonDetail) return
 
@@ -82,6 +87,7 @@ const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
     currentActiveIndex: 0,
     currentVersionGroupId: parsedVersionId,
     currentLearnMethod: LearnMethod.LEVEL_UP,
+    learnMethodLabels,
   }
 
   return (

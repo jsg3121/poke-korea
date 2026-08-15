@@ -111,18 +111,22 @@ const DetailMovesStickyNavContainer = () => {
           aria-label="학습 방법 선택"
           className="flex gap-1 border-b border-solid border-primary-3/25 px-4 desktop:gap-2 desktop:px-0"
         >
+          {/* scroll={false}: 이 크롬은 sticky라 이동 후에도 화면에 남는데,
+              기본 동작대로 최상단으로 튀면 방금 누른 탭이 시야에서 사라져
+              맥락이 끊긴다(버전 nav도 동일 이유로 false) */}
           {methodTabs.map(({ method, label }) => (
             <TabItemComponent
               key={method}
               href={buildMethodPath(method)}
               active={method === activeMethod}
+              scroll={false}
             >
               {label}
             </TabItemComponent>
           ))}
         </nav>
         {versionItems.length > 0 && (
-          <MovesVersionNavComponent items={versionItems} />
+          <MovesVersionNavComponent items={versionItems} scroll={false} />
         )}
       </div>
     </div>

@@ -147,7 +147,13 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     )
   }
 
-  const { learnset, versionGroups, formImageList, formInfo } = fetchResult
+  const {
+    learnset,
+    versionGroups,
+    formImageList,
+    formInfo,
+    learnMethodLabels,
+  } = fetchResult
 
   // 폼별 이름·타입은 러닝셋에 없어 폼 조회 결과를 쓴다(히트로토무 등 폼마다
   // 이름·타입이 다른 경우). 기본 폼(index 0)은 포켓몬 기본 정보를 그대로 쓴다.
@@ -181,6 +187,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,
     currentLearnMethod: learnMethod,
+    learnMethodLabels,
   }
 
   return (

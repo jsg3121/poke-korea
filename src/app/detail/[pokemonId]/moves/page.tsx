@@ -97,8 +97,13 @@ const DetailMovesPage = async ({
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const { pokemonInfoData, learnset, versionGroups, formImageList } =
-    await fetchLearnsetQueries({ pokemonId })
+  const {
+    pokemonInfoData,
+    learnset,
+    versionGroups,
+    formImageList,
+    learnMethodLabels,
+  } = await fetchLearnsetQueries({ pokemonId })
 
   if (!pokemonInfoData.getPokemonDetail) return
 
@@ -127,6 +132,7 @@ const DetailMovesPage = async ({
     currentActiveIndex: 0,
     currentVersionGroupId: undefined,
     currentLearnMethod: LearnMethod.LEVEL_UP,
+    learnMethodLabels,
   }
 
   return (

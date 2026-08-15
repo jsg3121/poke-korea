@@ -1,5 +1,6 @@
 import {
   GetDetailMovesPokemonInfoDocument,
+  GetLearnMethodsDocument,
   GetPokemonLearnsetDocument,
   GetPokemonNormalFormDocument,
   GetPokemonNormalFormImageListDocument,
@@ -10,6 +11,8 @@ import {
   PokemonFormType,
   type GetDetailMovesPokemonInfoQuery,
   type GetDetailMovesPokemonInfoQueryVariables,
+  type GetLearnMethodsQuery,
+  type GetLearnMethodsQueryVariables,
   type GetPokemonLearnsetQuery,
   type GetPokemonLearnsetQueryVariables,
   type GetPokemonNormalFormQuery,
@@ -64,6 +67,7 @@ export async function fetchLearnsetQueries({
     { data: versionGroupData },
     { data: formImageList },
     formDetail,
+    { data: learnMethodData },
   ] = await Promise.all([
     apolloClient.query<
       GetDetailMovesPokemonInfoQuery,
@@ -132,6 +136,14 @@ export async function fetchLearnsetQueries({
             fetchPolicy: 'cache-first',
           })
         : Promise.resolve(null),
+    // 습득법 한글 라벨. 클라이언트 훅으로만 받으면 SSR HTML에 enum 원문
+    // (LEVEL_UP 등)이 들어가고 쿼리가 도착해야 한글로 바뀐다 — 네트워크가 느린
+    // 환경에서 영문이 그대로 보이는 구간이 길어진다. 서버에서 미리 받아 첫
+    // 렌더부터 한글이 나오게 한다.
+    apolloClient.query<GetLearnMethodsQuery, GetLearnMethodsQueryVariables>({
+      query: GetLearnMethodsDocument,
+      fetchPolicy: 'cache-first',
+    }),
   ])
 
   const formData = formDetail?.data
@@ -153,5 +165,7 @@ export async function fetchLearnsetQueries({
     formInfo: normalForms?.[0] ?? null,
     /** 리전폼 목록 — 페이지가 activeIndex로 선택한다 */
     regionForms,
+    /** 습득법 한글 라벨 — 탭·목록 제목이 SSR 시점부터 한글로 나오게 한다 */
+    learnMethodLabels: learnMethodData.getLearnMethods,
   }
 }
