@@ -49,12 +49,12 @@ const EvolutionConditionCardComponent = ({
 
   return (
     <div className="flex w-full flex-col gap-3 rounded-2xl border border-solid border-primary-3 p-3 desktop:p-4">
-      <div className="flex items-center gap-3">
-        <Link
-          href={node.targetHref}
-          aria-label={`${baseName}의 진화 관련 포켓몬 ${node.displayName} 상세 보기`}
-          className="block shrink-0 rounded-2xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
-        >
+      <Link
+        href={node.targetHref}
+        aria-label={`${baseName}의 진화 관련 포켓몬 ${node.displayName} 상세 보기`}
+        className="flex items-center gap-3"
+      >
+        <div className="block shrink-0 rounded-2xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1">
           <ImageComponent
             src={`${imageMode}/${node.imagePath}`}
             width="5rem"
@@ -65,7 +65,7 @@ const EvolutionConditionCardComponent = ({
             sizes="5rem"
             loading="lazy"
           />
-        </Link>
+        </div>
         <div className="flex flex-col gap-0.5">
           <p className="text-2xs text-primary-2 desktop:text-xs">
             No.{pokemonNumberFormat(node.targetNumber)}
@@ -79,7 +79,7 @@ const EvolutionConditionCardComponent = ({
             </span>
           )}
         </div>
-      </div>
+      </Link>
 
       {showVersionTabs ? (
         <>
