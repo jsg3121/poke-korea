@@ -51,9 +51,18 @@ const DAMAGE_LABEL: Record<ChipColor, string> = {
   status: '변화',
 }
 
-/** 데스크톱 열 폭 — 헤더와 셀이 같은 토큰을 공유해야 열이 맞는다 */
+/**
+ * 데스크톱 열 폭 — 헤더와 셀이 같은 토큰을 공유해야 열이 맞는다.
+ *
+ * condition은 습득법에 따라 들어가는 문자열 길이가 크게 다르다.
+ * `Lv.12`·`TM100`(5자) 정도면 좁아도 되지만, 기술 가르침 탭은 `기술 가르침`
+ * (공백 포함 6자)이 들어가고 한글은 글자 폭이 넓어 w-14(56px)에서 줄바꿈이 났다.
+ * w-20(80px) = 한글 5자 + px-2 좌우 패딩(16px)을 수용하는 값.
+ *
+ * 기술명은 flex-1이라 남는 폭을 가져가므로, 이 열을 넓히면 기술명이 그만큼 줄어든다.
+ */
 const COL = {
-  condition: 'desktop:w-14',
+  condition: 'desktop:w-20',
   type: 'desktop:w-14',
   damage: 'desktop:w-16',
   stat: 'desktop:w-12',
@@ -116,8 +125,10 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
                 (flex-wrap이면 이름 길이에 따라 칩이 다음 줄로 밀려 행마다 배치가
                 달라진다, QA 라운드 2) */}
             <div className="flex flex-nowrap items-center gap-2 desktop:contents">
+              {/* whitespace-nowrap: 습득법이 늘어 더 긴 라벨이 와도 줄바꿈 대신
+                  가로로 넘치게 둔다 — 행 높이가 들쭉날쭉해지는 편이 더 나쁘다 */}
               <span
-                className={`min-w-10 shrink-0 rounded-lg bg-primary-1/10 px-2 py-0.5 text-center text-2xs font-bold text-primary-2 ${COL.condition}`}
+                className={`min-w-10 shrink-0 whitespace-nowrap rounded-lg bg-primary-1/10 px-2 py-0.5 text-center text-2xs font-bold text-primary-2 ${COL.condition}`}
               >
                 {move.condition}
               </span>
