@@ -49,12 +49,17 @@ const EvolutionConditionCardComponent = ({
 
   return (
     <div className="flex w-full flex-col gap-3 rounded-2xl border border-solid border-primary-3 p-3 desktop:p-4">
+      {/* 링크 영역이 이미지에서 헤더 전체로 넓어졌으므로 어포던스도 함께 넓힌다 —
+          hover 효과가 이미지에만 걸려 있으면 이름 쪽은 눌러도 반응이 없어 보여
+          클릭 가능하다는 인지가 안 된다. 평상시엔 화살표로 링크임을 알리고,
+          hover 시 배경·이름 색·화살표가 함께 반응한다(ChampionsQuickLinks·
+          MoveTable에서 쓰는 group-hover 패턴). */}
       <Link
         href={node.targetHref}
         aria-label={`${baseName}의 진화 관련 포켓몬 ${node.displayName} 상세 보기`}
-        className="flex items-center gap-3"
+        className="group -m-1 flex items-center gap-3 rounded-2xl p-1 transition-colors hover:bg-primary-1/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
       >
-        <div className="block shrink-0 rounded-2xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1">
+        <div className="block shrink-0 rounded-2xl transition-transform group-hover:scale-105">
           <ImageComponent
             src={`${imageMode}/${node.imagePath}`}
             width="5rem"
@@ -66,11 +71,11 @@ const EvolutionConditionCardComponent = ({
             loading="lazy"
           />
         </div>
-        <div className="flex flex-col gap-0.5">
+        <div className="flex min-w-0 flex-col gap-0.5">
           <p className="text-2xs text-primary-2 desktop:text-xs">
             No.{pokemonNumberFormat(node.targetNumber)}
           </p>
-          <p className="text-sm font-semibold text-primary-1 desktop:text-base">
+          <p className="text-sm font-semibold text-primary-1 underline decoration-transparent underline-offset-2 transition-colors group-hover:decoration-current desktop:text-base">
             {node.displayName}
           </p>
           {triggerLabel && (
@@ -79,6 +84,14 @@ const EvolutionConditionCardComponent = ({
             </span>
           )}
         </div>
+        {/* 링크임을 평상시에도 알리는 신호 — 텍스트 콘텐츠가 아니라 장식이라
+            aria-hidden(링크 목적은 Link의 aria-label이 이미 전달한다) */}
+        <span
+          aria-hidden="true"
+          className="ml-auto shrink-0 self-center text-lg text-primary-2 transition-[transform,color] group-hover:translate-x-1 group-hover:text-primary-1"
+        >
+          ›
+        </span>
       </Link>
 
       {showVersionTabs ? (
