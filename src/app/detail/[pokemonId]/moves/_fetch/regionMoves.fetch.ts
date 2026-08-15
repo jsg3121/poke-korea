@@ -18,7 +18,7 @@ interface FetchRegionMovesParams {
   pokemonId: string
   activeIndex: number
   versionGroupId?: number
-  movesType: 'LEVELUP' | 'MACHINE'
+  learnMethod: LearnMethod
 }
 
 /**
@@ -28,7 +28,7 @@ export async function fetchRegionMovesQueries({
   pokemonId,
   activeIndex,
   versionGroupId,
-  movesType,
+  learnMethod,
 }: FetchRegionMovesParams) {
   const apolloClient = initializeApollo()
   const pokemonIdNumber = parseInt(pokemonId, 10)
@@ -52,9 +52,6 @@ export async function fetchRegionMovesQueries({
       versionGroup: null,
     }
   }
-
-  const learnMethod =
-    movesType === 'LEVELUP' ? LearnMethod['LEVEL_UP'] : LearnMethod['MACHINE']
 
   const [{ data: regionFormLearnableSkill }, { data: versionGroup }] =
     await Promise.all([

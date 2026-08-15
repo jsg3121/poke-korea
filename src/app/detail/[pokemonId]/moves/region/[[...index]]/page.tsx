@@ -8,6 +8,7 @@ import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
+import { LearnMethod } from '~/graphql/typeGenerated'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
 import { fetchRegionMovesQueries } from '../../_fetch/regionMoves.fetch'
@@ -35,7 +36,7 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const { activeIndex, versionGroupId, movesType, isValid } =
+  const { activeIndex, versionGroupId, learnMethod, isValid } =
     parseFormSegments(segments)
   if (!isValid) {
     return {}
@@ -46,7 +47,7 @@ export const generateMetadata = async ({
       pokemonId,
       activeIndex,
       versionGroupId,
-      movesType,
+      learnMethod,
     })
 
   if (!pokemonInfoData.getPokemonDetail?.isRegionForm) {
@@ -67,12 +68,12 @@ export const generateMetadata = async ({
     activeType: 'region',
     activeIndex,
     versionGroupId,
-    movesType,
+    learnMethod,
   })}`
 
   return generateRegionMovesMetadata({
     pokemonName,
-    movesType,
+    movesType: learnMethod === LearnMethod.LEVEL_UP ? 'LEVELUP' : 'MACHINE',
     canonicalUrl,
     version,
     versionGroups: versionGroup?.getVersionGroups,
@@ -94,7 +95,8 @@ const RegionMovesPage = async ({
       firstSegment && firstSegment !== 'version' && firstSegment !== 'machine'
         ? parseInt(firstSegment, 10)
         : 0
-    const resolvedMovesType = legacyMovesType ?? 'LEVELUP'
+    const resolvedLearnMethod =
+      legacyMovesType === 'MACHINE' ? LearnMethod.MACHINE : LearnMethod.LEVEL_UP
     redirect(
       buildMovesPath({
         pokemonId,
@@ -103,12 +105,12 @@ const RegionMovesPage = async ({
         versionGroupId: legacySelectVersion
           ? parseInt(legacySelectVersion, 10)
           : undefined,
-        movesType: resolvedMovesType,
+        learnMethod: resolvedLearnMethod,
       }),
     )
   }
 
-  const { activeIndex, versionGroupId, movesType, isValid } =
+  const { activeIndex, versionGroupId, learnMethod, isValid } =
     parseFormSegments(segments)
   if (!isValid) {
     notFound()
@@ -123,7 +125,7 @@ const RegionMovesPage = async ({
       pokemonId,
       activeIndex,
       versionGroupId,
-      movesType,
+      learnMethod,
     })
 
   if (
@@ -169,7 +171,7 @@ const RegionMovesPage = async ({
     },
     currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,
-    currentMovesType: movesType,
+    currentLearnMethod: learnMethod,
   }
 
   return (

@@ -104,7 +104,7 @@ const MachineMovesPage = async ({ params }: MachineMovesPageProps) => {
     },
     currentActiveIndex: 0,
     currentVersionGroupId: undefined,
-    currentMovesType: 'MACHINE' as const,
+    currentLearnMethod: LearnMethod.MACHINE,
   }
 
   return (

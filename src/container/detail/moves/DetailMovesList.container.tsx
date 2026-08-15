@@ -5,12 +5,13 @@ import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
+import { LearnMethod } from '~/graphql/typeGenerated'
 import { getDamageTypeChipColor } from '~/utils/skill.util'
 
 /**
  * 습득 기술 목록 (UX-006) — 현재 학습법(레벨업 또는 기술머신) 한 종류만 노출한다.
  * 학습법 구분은 path 분리(/moves ↔ /moves/machine)라 이 컨테이너는 컨텍스트의
- * currentMovesType에 해당하는 목록만 MoveTable로 그린다(토글·동시 노출 폐기).
+ * currentLearnMethod에 해당하는 목록만 MoveTable로 그린다(토글·동시 노출 폐기).
  *
  * MoveTable 행에 href를 주어 행 전체가 기술 상세로 가는 stretched-link가 된다.
  * 기술 상세 링크는 현재 선택 버전이 있으면 /moves/{id}/version/{vgId}, 최신이면
@@ -22,10 +23,10 @@ const DetailMovesListContainer = () => {
     pokemonLearnableData,
     versionGroup,
     currentVersionGroupId,
-    currentMovesType,
+    currentLearnMethod,
   } = useContext(DetailMovesContext)
 
-  const isMachine = currentMovesType === 'MACHINE'
+  const isMachine = currentLearnMethod === LearnMethod.MACHINE
 
   // 활성 버전: 명시된 것 우선, 없으면 최신(목록 첫 항목). 기술 상세 링크 세그먼트 결정용.
   const activeVersionId =

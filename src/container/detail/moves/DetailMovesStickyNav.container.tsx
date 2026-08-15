@@ -4,7 +4,11 @@ import { useParams } from 'next/navigation'
 import { useContext } from 'react'
 import TabItemComponent from '~/components/tab/TabItem.component'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
-import { buildMovesPath } from '~/module/movesParams.module'
+import { LearnMethod } from '~/graphql/typeGenerated'
+import {
+  DEFAULT_LEARN_METHOD,
+  buildMovesPath,
+} from '~/module/movesParams.module'
 import MovesVersionNavComponent, {
   MovesVersionNavItem,
 } from '~/components/moves/MovesVersionNav.component'
@@ -30,15 +34,15 @@ const DetailMovesStickyNavContainer = () => {
     versionGroup,
     currentActiveIndex,
     currentVersionGroupId,
-    currentMovesType,
+    currentLearnMethod,
   } = useContext(DetailMovesContext)
 
   const activeType = pokemonInfo?.activeType
   const activeIndex = currentActiveIndex
-  const isMachine = currentMovesType === 'MACHINE'
+  const isMachine = currentLearnMethod === LearnMethod.MACHINE
 
-  // 현재 폼/버전을 유지하면서 학습법(레벨업/머신)만 바꾸는 경로
-  const buildMethodPath = (movesType: 'LEVELUP' | 'MACHINE') =>
+  // 현재 폼/버전을 유지하면서 학습법만 바꾸는 경로
+  const buildMethodPath = (learnMethod: LearnMethod) =>
     buildMovesPath({
       pokemonId,
       activeType:
@@ -49,7 +53,7 @@ const DetailMovesStickyNavContainer = () => {
             : undefined,
       activeIndex,
       versionGroupId: currentVersionGroupId,
-      movesType,
+      learnMethod,
     })
 
   // 활성 버전: 명시된 currentVersionGroupId, 없으면 최신.
@@ -76,7 +80,7 @@ const DetailMovesStickyNavContainer = () => {
               : undefined,
         activeIndex,
         versionGroupId: item.versionGroupId,
-        movesType: currentMovesType,
+        learnMethod: currentLearnMethod ?? DEFAULT_LEARN_METHOD,
       }),
     }),
   )
@@ -94,13 +98,13 @@ const DetailMovesStickyNavContainer = () => {
           className="flex gap-1 border-b border-solid border-primary-3/25 px-4 desktop:gap-2 desktop:px-0"
         >
           <TabItemComponent
-            href={buildMethodPath('LEVELUP')}
+            href={buildMethodPath(LearnMethod.LEVEL_UP)}
             active={!isMachine}
           >
             레벨업으로 배우기
           </TabItemComponent>
           <TabItemComponent
-            href={buildMethodPath('MACHINE')}
+            href={buildMethodPath(LearnMethod.MACHINE)}
             active={isMachine}
           >
             기술머신으로 배우기

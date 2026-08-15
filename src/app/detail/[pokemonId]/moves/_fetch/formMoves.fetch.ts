@@ -24,7 +24,7 @@ interface FetchFormMovesParams {
   pokemonId: string
   activeIndex: number
   versionGroupId?: number
-  movesType: 'LEVELUP' | 'MACHINE'
+  learnMethod: LearnMethod
 }
 
 /**
@@ -35,7 +35,7 @@ export async function fetchFormMovesQueries({
   pokemonId,
   activeIndex,
   versionGroupId,
-  movesType,
+  learnMethod,
 }: FetchFormMovesParams) {
   const apolloClient = initializeApollo()
   const pokemonIdNumber = parseInt(pokemonId, 10)
@@ -61,9 +61,6 @@ export async function fetchFormMovesQueries({
       normalFormImageList: null,
     }
   }
-
-  const learnMethod =
-    movesType === 'LEVELUP' ? LearnMethod['LEVEL_UP'] : LearnMethod['MACHINE']
 
   const [
     { data },

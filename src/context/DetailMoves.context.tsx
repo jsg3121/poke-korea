@@ -2,6 +2,7 @@
 
 import { ReactNode, createContext } from 'react'
 import {
+  LearnMethod,
   PokemonFormSkillLevelUp,
   PokemonFormSkillMachine,
   PokemonSkillLevelUp,
@@ -36,7 +37,7 @@ interface IDetailMovesProviderProps {
   }
   currentActiveIndex: number
   currentVersionGroupId?: number
-  currentMovesType?: 'LEVELUP' | 'MACHINE'
+  currentLearnMethod?: LearnMethod
   children: ReactNode
 }
 
@@ -51,7 +52,7 @@ interface IDetailMovesProps {
   }
   currentActiveIndex: number
   currentVersionGroupId?: number
-  currentMovesType?: 'LEVELUP' | 'MACHINE'
+  currentLearnMethod?: LearnMethod
 }
 
 const DetailMovesContext = createContext<IDetailMovesProps>({
@@ -67,7 +68,7 @@ const DetailMovesProvider = ({
   versionGroup,
   currentActiveIndex,
   currentVersionGroupId,
-  currentMovesType,
+  currentLearnMethod,
   children,
 }: IDetailMovesProviderProps) => {
   const initialValue: IDetailMovesProps = {
@@ -78,7 +79,7 @@ const DetailMovesProvider = ({
     versionGroup,
     currentActiveIndex,
     currentVersionGroupId,
-    currentMovesType,
+    currentLearnMethod,
   }
 
   return (

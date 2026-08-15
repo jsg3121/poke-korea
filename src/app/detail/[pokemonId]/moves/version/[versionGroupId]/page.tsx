@@ -117,7 +117,7 @@ const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
     },
     currentActiveIndex: 0,
     currentVersionGroupId: parsedVersionId,
-    currentMovesType: 'LEVELUP' as const,
+    currentLearnMethod: LearnMethod.LEVEL_UP,
   }
 
   return (

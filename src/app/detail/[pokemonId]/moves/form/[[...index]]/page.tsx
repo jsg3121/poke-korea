@@ -13,6 +13,7 @@ import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
 import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
+import { LearnMethod } from '~/graphql/typeGenerated'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
 import { fetchDefaultMovesMetadata } from '../../_fetch/defaultMovesMetadata.fetch'
@@ -42,7 +43,7 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const { activeIndex, versionGroupId, movesType, isValid } =
+  const { activeIndex, versionGroupId, learnMethod, isValid } =
     parseFormSegments(segments)
   if (!isValid) {
     return {}
@@ -73,12 +74,12 @@ export const generateMetadata = async ({
     pokemonId,
     activeIndex,
     versionGroupId,
-    movesType,
+    learnMethod,
   })}`
 
   return generateFormMovesMetadata({
     pokemonName: pokemonName ?? '',
-    movesType,
+    movesType: learnMethod === LearnMethod.LEVEL_UP ? 'LEVELUP' : 'MACHINE',
     canonicalUrl,
     version,
     versionGroups: versionInfo.getVersionGroups,
@@ -98,7 +99,8 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
       firstSegment && firstSegment !== 'version' && firstSegment !== 'machine'
         ? parseInt(firstSegment, 10)
         : 0
-    const resolvedMovesType = legacyMovesType ?? 'LEVELUP'
+    const resolvedLearnMethod =
+      legacyMovesType === 'MACHINE' ? LearnMethod.MACHINE : LearnMethod.LEVEL_UP
     redirect(
       buildMovesPath({
         pokemonId,
@@ -106,12 +108,12 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
         versionGroupId: legacySelectVersion
           ? parseInt(legacySelectVersion, 10)
           : undefined,
-        movesType: resolvedMovesType,
+        learnMethod: resolvedLearnMethod,
       }),
     )
   }
 
-  const { activeIndex, versionGroupId, movesType, isValid } =
+  const { activeIndex, versionGroupId, learnMethod, isValid } =
     parseFormSegments(segments)
   if (!isValid) {
     notFound()
@@ -125,7 +127,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     pokemonId,
     activeIndex,
     versionGroupId,
-    movesType,
+    learnMethod,
   })
 
   const { pokemonInfoData } = fetchResult
@@ -139,7 +141,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
       buildMovesPath({
         pokemonId,
         versionGroupId,
-        movesType,
+        learnMethod,
       }),
       RedirectType.replace,
     )
@@ -202,7 +204,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     },
     currentActiveIndex: activeIndex,
     currentVersionGroupId: versionGroupId,
-    currentMovesType: movesType,
+    currentLearnMethod: learnMethod,
   }
 
   return (

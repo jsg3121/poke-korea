@@ -119,7 +119,7 @@ const VersionMachineMovesPage = async ({
     },
     currentActiveIndex: 0,
     currentVersionGroupId: parsedVersionId,
-    currentMovesType: 'MACHINE' as const,
+    currentLearnMethod: LearnMethod.MACHINE,
   }
 
   return (

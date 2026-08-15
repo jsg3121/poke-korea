@@ -164,7 +164,7 @@ const DetailMovesPage = async ({
     },
     currentActiveIndex: 0,
     currentVersionGroupId: undefined,
-    currentMovesType: 'LEVELUP' as const,
+    currentLearnMethod: LearnMethod.LEVEL_UP,
   }
 
   return (
