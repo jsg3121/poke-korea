@@ -56,8 +56,11 @@ export async function generateMovesMetadata({
     return {}
   }
 
+  // 배열이 비어 있을 수 있어 [0] 뒤에도 옵셔널 체이닝이 필요하다 — isNormalForm이
+  // true인데 폼 목록이 비면 .name 접근에서 metadata 생성이 통째로 실패한다.
   const pokemonName = isNormalForm
-    ? normalFormData.getPokemonNormalForm?.[0].name.replace('_', ' ')
+    ? (normalFormData.getPokemonNormalForm?.[0]?.name?.replace('_', ' ') ??
+      pokemonDetail.getPokemonDetail?.name)
     : pokemonDetail.getPokemonDetail?.name
 
   const versionLabel = version

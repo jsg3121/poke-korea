@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import { useGetLearnMethodsQuery } from '~/graphql/gqlGenerated'
 import { LearnMethod } from '~/graphql/typeGenerated'
@@ -29,12 +29,18 @@ export const useLearnMethodLabels = () => {
 
   const source = hasContextLabels ? learnMethodLabels : data?.getLearnMethods
 
-  const labelMap = new Map(
-    source?.map(({ method, nameKo }) => [method, nameKo]),
+  // getLabel은 목록 카드마다 prop으로 내려간다(기술 상세의 포켓몬 카드 수백 개).
+  // 매 렌더 새 참조가 되면 카드에 memo를 걸어도 즉시 무효화되므로 참조를 고정한다.
+  const labelMap = useMemo(
+    () => new Map(source?.map(({ method, nameKo }) => [method, nameKo])),
+    [source],
   )
 
-  const getLabel = (method: LearnMethod | string): string =>
-    labelMap.get(method as LearnMethod) ?? method
+  const getLabel = useCallback(
+    (method: LearnMethod | string): string =>
+      labelMap.get(method as LearnMethod) ?? method,
+    [labelMap],
+  )
 
   return { getLabel }
 }

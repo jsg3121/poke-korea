@@ -19,20 +19,20 @@ export const extractNodesFromEdges = <T>(
   edges: Array<{ node: T }> | undefined | null,
   fallback: Array<T> = [],
 ): Array<T> => {
-  if (!edges) return fallback
-
   // node.id 기준 중복 제거 — 목록 렌더 직전 방어(근거는 dedupeEdges 주석).
   //
   // 캐시 병합(dedupeEdges)과 별개로 여기도 거르는 이유: SSR 초기 목록은 페이지가
   // edges를 직접 map해 props로 넘기므로 캐시 정책을 거치지 않는다. 캐시만 막으면
   // 첫 화면에 중복이 남는다.
   //
+  // fallback도 같은 경로를 통과시킨다 — fallback이 곧 그 SSR 초기 목록이라
+  // (usePokemonsBySkill의 initialPokemonList), 여기서 거르지 않으면 방어가
+  // 의도한 지점을 정확히 비켜간다.
+  //
   // id가 없는 타입은 걸러내지 않는다(정상 항목을 잃는 것이 더 나쁘다).
   const seen = new Set<unknown>()
-
-  return edges
-    .map((edge) => edge.node)
-    .filter((node) => {
+  const dedupe = (nodes: Array<T>): Array<T> =>
+    nodes.filter((node) => {
       const id = (node as { id?: unknown })?.id
       if (id === undefined || id === null) return true
       if (seen.has(id)) return false
@@ -40,6 +40,10 @@ export const extractNodesFromEdges = <T>(
 
       return true
     })
+
+  if (!edges) return dedupe(fallback)
+
+  return dedupe(edges.map((edge) => edge.node))
 }
 
 /**
