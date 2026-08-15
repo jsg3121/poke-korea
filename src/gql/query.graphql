@@ -395,6 +395,8 @@ query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
   }
 }
 
+# 기술 도감 목록. 무한 스크롤로 20개씩 누적되므로 카드가 쓰지 않는 필드는 받지 않는다.
+# description은 카드에 렌더되지 않는데(하단은 고정 문구) 가장 무거운 필드라 제외했다.
 query GetPokemonSkillList($input: PokemonSkillListInput) {
   getPokemonSkillList(input: $input) {
     edges {
@@ -407,7 +409,6 @@ query GetPokemonSkillList($input: PokemonSkillListInput) {
         power
         accuracy
         pp
-        description
         firstGenerationId
         signatureMoves
         damageType
@@ -428,6 +429,13 @@ query GetDetailMovesPokemonInfo($pokemonId: ID!) {
   getPokemonDetail(pokemonId: $pokemonId) {
     ...LearnableSkillPokemonInfo
   }
+}
+
+# 사이트맵 전용 경량 조회 — 기술 ID 전체만 받는다.
+# 기존엔 GetPokemonSkillList(first:1000)로 기술당 12개 필드(description 포함)를
+# 받아놓고 id 하나만 썼다. 6시간마다 재생성되므로 누적 낭비가 컸다.
+query GetAllSkillIds {
+  getAllSkillIds
 }
 
 # 메타데이터 전용 경량 조회 — 습득법별 개수만 받는다.
@@ -809,8 +817,17 @@ query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
   }
 }
 
+# 기술을 배우는 포켓몬 목록 (V2 — 통합 테이블 기반).
+# 응답 형태는 레거시 getPokemonsBySkill과 동일하고 데이터 소스만 바뀌었다.
+#
+# 달라지는 점(모두 의도된 개선):
+# - 알 기술·기술 가르침 등 신규 습득법이 methods 배열에 함께 나온다
+#   (불꽃펀치 USUM 기준 TUTOR 0 → 100건)
+# - 메가진화는 제외된다 — 메가는 기술을 새로 배우지 않고 원본 종의 러닝셋을
+#   그대로 쓰므로 같은 종이 두 번 나오는 중복이었다
+# - 폼 상속으로 생략됐던 폼이 복원된다
 query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
-  getPokemonsBySkill(input: $input) {
+  getPokemonsBySkillV2(input: $input) {
     skillId
     skillName
     edges {

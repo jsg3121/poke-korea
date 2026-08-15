@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import {
   GetPokemonListDocument,
   GetAbilityListPaginatedDocument,
-  GetPokemonSkillListDocument,
+  GetAllSkillIdsDocument,
   GetPokemonGigantamaxListDocument,
   GetChampionsPokemonListDocument,
   GetChampionsTournamentsDocument,
@@ -12,7 +12,6 @@ import {
   PokemonList,
   PokemonType,
   AbilityEdge,
-  PokemonSkillEdge,
   PokemonGigantamax,
   ChampionsPokemonEdge,
   ChampionsTournamentSummaryFragment,
@@ -191,15 +190,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           },
         },
       }),
+      // 사이트맵은 기술 ID만 필요하다. GetPokemonSkillList(first:1000)는 기술당
+      // 12개 필드(description 포함)를 받아놓고 id 하나만 쓰고 있었다.
       apolloClient.query({
-        query: GetPokemonSkillListDocument,
-        variables: {
-          input: {
-            pagination: {
-              first: 1000, // 모든 기술을 가져오기 위해 충분히 큰 숫자
-            },
-          },
-        },
+        query: GetAllSkillIdsDocument,
       }),
       apolloClient.query({
         query: GetChampionsPokemonListDocument,
@@ -413,9 +407,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
 
     // 기술 상세 페이지들
-    const moveDetailPages = skillsData.getPokemonSkillList.edges.map(
-      (edge: PokemonSkillEdge) => ({
-        url: `https://poke-korea.com/moves/${edge.node.id}`,
+    const moveDetailPages = skillsData.getAllSkillIds.map(
+      (skillId: number) => ({
+        url: `https://poke-korea.com/moves/${skillId}`,
         lastModified: BUILD_TIME,
         changeFrequency: 'daily',
         priority: 0.7,

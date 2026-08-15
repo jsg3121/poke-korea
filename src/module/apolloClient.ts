@@ -31,7 +31,7 @@ const PAGINATED_QUERY_FIELDS: Record<string, FieldPolicy['keyArgs']> = {
   getPokemonSkillList: [['input', ['filter']]],
   getAbilityListPaginated: [['input', ['filter']]],
   getPokemonByAbility: [['input', ['filter']]],
-  getPokemonsBySkill: [['input', ['filter']]],
+  getPokemonsBySkillV2: [['input', ['filter']]],
   getChampionsPokemonList: [['input', ['format', 'sort', 'filter']]],
 }
 

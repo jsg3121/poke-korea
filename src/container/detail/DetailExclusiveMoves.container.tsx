@@ -98,10 +98,12 @@ const DetailExclusiveMovesContainer = () => {
                   {gmaxMove.type && <TagComponent type={gmaxMove.type} />}
                 </td>
                 <td className="text-center">{gmaxMove.power || '-'}</td>
-                {/* 거다이맥스 기술은 기반 기술에 따라 물리/특수 모두 가능(GmaxMove에 damageType 없음 — 기존과 동일) */}
+                {/* 거다이맥스 기술은 고정 분류가 없고 기반 기술(다이맥스 전 기술)의
+                    분류를 그대로 따른다(Bulbapedia 전 거다이맥스 기술 damagecategory=Varies).
+                    기존엔 '물리 / 특수'를 문자열로 지어냈으나 애초에 표현 불가능한
+                    값이었다 — 백엔드 dependsOnBaseMove를 근거로 그 사실을 그대로 쓴다. */}
                 <td className="text-center text-sm">
-                  {getDamageTypeKorean('physical')} /{' '}
-                  {getDamageTypeKorean('special')}
+                  {gmaxMove.dependsOnBaseMove ? '기반 기술에 따름' : '-'}
                 </td>
               </tr>
             </tbody>

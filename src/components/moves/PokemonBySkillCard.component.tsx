@@ -43,11 +43,14 @@ const PokemonBySkillCardComponent = ({
   )
 
   // 폼 타입에 따른 표시 텍스트 — PokemonLearnInfo.formType은
-  // 'BASE' | 'NORMAL' | 'REGION' | 'MEGA' (PokemonWithAbility의 *_FORM 표기와 다름)
+  // 'BASE' | 'NORMAL' | 'REGION' (PokemonWithAbility의 *_FORM 표기와 다름)
+  //
+  // MEGA 분기는 제거했다 — 백엔드 통합 테이블 전환으로 메가진화가 이 목록에서
+  // 빠졌기 때문이다. 메가는 기술을 새로 배우지 않고 원본 종의 러닝셋을 그대로
+  // 쓰므로(실측상 메가 폼 러닝셋 전량이 원본과 중복), 노출하면 같은 종이 두 번
+  // 나온다. 향후 메가 전용 기술이 생기면 백엔드가 다시 내려주므로 그때 되살린다.
   const formLabel = useMemo(() => {
     switch (pokemonData.formType) {
-      case 'MEGA':
-        return '메가진화'
       case 'REGION':
         return pokemonData.region ? `${pokemonData.region} 폼` : '지역 폼'
       case 'NORMAL':
@@ -60,13 +63,6 @@ const PokemonBySkillCardComponent = ({
   // Path 기반 URL 생성 (폼 분기)
   const pokemonHref = useMemo(() => {
     const baseUrl = `/detail/${pokemonData.number}`
-
-    if (pokemonData.formType === 'MEGA') {
-      const megaIndex = pokemonData.imagePath
-        ? parseInt(pokemonData.imagePath[pokemonData.imagePath.length - 1], 10)
-        : 0
-      return megaIndex > 0 ? `${baseUrl}/mega/${megaIndex}` : `${baseUrl}/mega`
-    }
 
     if (pokemonData.formType === 'REGION') {
       const regionIndex = pokemonData.imagePath

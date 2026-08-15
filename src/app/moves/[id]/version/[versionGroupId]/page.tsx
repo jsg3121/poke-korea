@@ -109,10 +109,10 @@ const MoveDetailVersionPage = async ({ params }: PageProps) => {
   }
 
   const pokemonList =
-    pokemonData?.getPokemonsBySkill?.edges.map(
+    pokemonData?.getPokemonsBySkillV2?.edges.map(
       (edge: PokemonLearnInfoEdge) => edge.node,
     ) || []
-  const totalCount = pokemonData?.getPokemonsBySkill?.totalCount ?? 0
+  const totalCount = pokemonData?.getPokemonsBySkillV2?.totalCount ?? 0
 
   const versionGroupName =
     versionGroups?.find((vg) => vg.versionGroupId === versionGroupId)?.nameKo ??
