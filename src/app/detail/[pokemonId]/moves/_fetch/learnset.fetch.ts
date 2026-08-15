@@ -64,7 +64,7 @@ export async function fetchLearnsetQueries({
   const [
     { data: pokemonInfoData },
     learnsetResult,
-    { data: versionGroupData },
+    versionGroupResult,
     { data: formImageList },
     formDetail,
     { data: learnMethodData },
@@ -91,18 +91,23 @@ export async function fetchLearnsetQueries({
         fetchPolicy: 'cache-first',
       })
       .catch(() => null),
-    apolloClient.query<
-      GetVersionGroupsByPokemonQuery,
-      GetVersionGroupsByPokemonQueryVariables
-    >({
-      query: GetVersionGroupsByPokemonDocument,
-      variables: {
-        pokemonId: numericPokemonId,
-        ...(formType && { formType }),
-        ...(formIndex !== undefined && { formIndex }),
-      },
-      fetchPolicy: 'cache-first',
-    }),
+    // 러닝셋과 마찬가지로 존재하지 않는 폼이면 서버가 에러를 던진다. 여기서
+    // 막지 않으면 Promise.all 전체가 실패해, 페이지가 리다이렉트/notFound로
+    // 처리할 기회도 없이 500이 난다(리자몽에 /form/1로 접근하는 등).
+    apolloClient
+      .query<
+        GetVersionGroupsByPokemonQuery,
+        GetVersionGroupsByPokemonQueryVariables
+      >({
+        query: GetVersionGroupsByPokemonDocument,
+        variables: {
+          pokemonId: numericPokemonId,
+          ...(formType && { formType }),
+          ...(formIndex !== undefined && { formIndex }),
+        },
+        fetchPolicy: 'cache-first',
+      })
+      .catch(() => null),
     apolloClient.query<
       GetPokemonNormalFormImageListQuery,
       GetPokemonNormalFormImageListQueryVariables
@@ -159,7 +164,7 @@ export async function fetchLearnsetQueries({
   return {
     pokemonInfoData,
     learnset: learnsetResult?.data.getPokemonLearnset ?? null,
-    versionGroups: versionGroupData.getVersionGroupsByPokemon,
+    versionGroups: versionGroupResult?.data.getVersionGroupsByPokemon ?? null,
     formImageList,
     /** 노말폼 표시 정보 (formIndex > 0일 때만) */
     formInfo: normalForms?.[0] ?? null,
