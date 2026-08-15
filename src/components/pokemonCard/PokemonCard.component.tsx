@@ -106,7 +106,11 @@ const PokemonCardComponent = ({
               >
                 {label}
               </dt>
-              <dd className="h-4 desktop:h-6 text-2xs desktop:text-sm leading-4 desktop:leading-6 text-right text-black">
+              {/* 수치는 font-bold로 라벨과 위계를 준다 — 라벨과 같은 굵기면
+                  스캔할 때 둘이 뭉쳐 보인다(MoveTable의 MoveStat과 동일 패턴).
+                  색은 건드리지 않는다: 카드 배경이 타입별 그라데이션이라
+                  대비가 타입마다 달라진다. */}
+              <dd className="h-4 desktop:h-6 text-2xs desktop:text-sm leading-4 desktop:leading-6 text-right font-bold text-black">
                 {pokemonData.pokemonStats[key]}
               </dd>
             </Fragment>
