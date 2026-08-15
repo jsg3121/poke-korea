@@ -58,7 +58,7 @@ export const generateMetadata = async ({
 
   return generateMovesMetadata({
     pokemonId,
-    movesType: learnMethod === LearnMethod.MACHINE ? 'MACHINE' : 'LEVELUP',
+    learnMethod,
     versionGroupId: parsedVersionId,
     canonicalPath: `/detail/${pokemonId}/moves/version/${versionGroupId}/${slug}`,
   })

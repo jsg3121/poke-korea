@@ -430,6 +430,34 @@ query GetDetailMovesPokemonInfo($pokemonId: ID!) {
   }
 }
 
+# 메타데이터 전용 경량 조회 — 습득법별 개수만 받는다.
+# skills 배열을 요청하지 않으므로 기술 수백 건을 받지 않고도 "이 버전·이 습득법에
+# 배울 기술이 있는가"를 판정할 수 있다(빈 페이지 noindex 처리용).
+query GetLearnsetCounts(
+  $pokemonId: Int!
+  $formType: PokemonFormType
+  $formIndex: Int
+  $versionGroupId: Int
+) {
+  getPokemonLearnset(
+    pokemonId: $pokemonId
+    formType: $formType
+    formIndex: $formIndex
+    versionGroupId: $versionGroupId
+  ) {
+    versionGroup {
+      versionGroupId
+      displayName
+      generationId
+    }
+    skillsByMethod {
+      method
+      methodLabel
+      totalCount
+    }
+  }
+}
+
 # 포켓몬 습득 기술 통합 조회.
 # 기존 3종(getPokemonLearnableSkills / ...NormalForm... / ...RegionForm...)을 대체한다.
 # formType을 생략하면 서버가 BASE로 처리하므로, 폼 종류를 알아내기 위한 선행 조회가

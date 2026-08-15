@@ -12,6 +12,7 @@ import { LearnMethod, PokemonFormType } from '~/graphql/typeGenerated'
 import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
 import { fetchLearnsetQueries } from '../../_fetch/learnset.fetch'
+import { fetchLearnMethodCounts } from '../../_metadata/fetchLearnMethodCounts'
 import { generateRegionMovesMetadata } from '../../_metadata/generateFormMovesMetadata'
 
 export const revalidate = 31536000
@@ -42,13 +43,22 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const { pokemonInfoData, versionGroups, regionForms } =
-    await fetchLearnsetQueries({
-      pokemonId,
-      formType: PokemonFormType.REGION_FORM,
-      formIndex: activeIndex,
-      versionGroupId,
-    })
+  const [{ pokemonInfoData, versionGroups, regionForms }, methodCounts] =
+    await Promise.all([
+      fetchLearnsetQueries({
+        pokemonId,
+        formType: PokemonFormType.REGION_FORM,
+        formIndex: activeIndex,
+        versionGroupId,
+      }),
+      fetchLearnMethodCounts({
+        pokemonId,
+        learnMethod,
+        versionGroupId,
+        formType: PokemonFormType.REGION_FORM,
+        formIndex: activeIndex,
+      }),
+    ])
 
   if (!pokemonInfoData.getPokemonDetail?.isRegionForm) {
     return {}
@@ -72,7 +82,8 @@ export const generateMetadata = async ({
 
   return generateRegionMovesMetadata({
     pokemonName,
-    movesType: learnMethod === LearnMethod.LEVEL_UP ? 'LEVELUP' : 'MACHINE',
+    methodLabel: methodCounts.methodLabel,
+    skillCount: methodCounts.skillCount,
     canonicalUrl,
     version,
     versionGroups,

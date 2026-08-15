@@ -31,7 +31,7 @@ export const generateMetadata = async ({
 
   return generateMovesMetadata({
     pokemonId,
-    movesType: 'LEVELUP',
+    learnMethod: LearnMethod.LEVEL_UP,
     versionGroupId: parsedVersionId,
     canonicalPath: `/detail/${pokemonId}/moves/version/${versionGroupId}`,
   })

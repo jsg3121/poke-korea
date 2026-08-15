@@ -18,6 +18,7 @@ import { buildMovesPath, parseFormSegments } from '~/module/movesParams.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
 import { fetchDefaultMovesMetadata } from '../../_fetch/defaultMovesMetadata.fetch'
 import { fetchLearnsetQueries } from '../../_fetch/learnset.fetch'
+import { fetchLearnMethodCounts } from '../../_metadata/fetchLearnMethodCounts'
 import { generateFormMovesMetadata } from '../../_metadata/generateFormMovesMetadata'
 
 export const revalidate = 31536000
@@ -49,12 +50,21 @@ export const generateMetadata = async ({
     return {}
   }
 
-  const { pokemonDetail, versionInfo, normalFormData } =
-    await fetchDefaultMovesMetadata({
-      pokemonId,
-      activeIndex,
-      activeType: 'NORMAL',
-    })
+  const [{ pokemonDetail, versionInfo, normalFormData }, methodCounts] =
+    await Promise.all([
+      fetchDefaultMovesMetadata({
+        pokemonId,
+        activeIndex,
+        activeType: 'NORMAL',
+      }),
+      fetchLearnMethodCounts({
+        pokemonId,
+        learnMethod,
+        versionGroupId,
+        formType: PokemonFormType.NORMAL_FORM,
+        formIndex: activeIndex,
+      }),
+    ])
 
   if (!pokemonDetail.getPokemonDetail?.isFormChange) {
     return {}
@@ -79,7 +89,8 @@ export const generateMetadata = async ({
 
   return generateFormMovesMetadata({
     pokemonName: pokemonName ?? '',
-    movesType: learnMethod === LearnMethod.LEVEL_UP ? 'LEVELUP' : 'MACHINE',
+    methodLabel: methodCounts.methodLabel,
+    skillCount: methodCounts.skillCount,
     canonicalUrl,
     version,
     versionGroups: versionInfo.getVersionGroups,

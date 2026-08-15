@@ -49,7 +49,7 @@ export const generateMetadata = async ({
 
   return generateMovesMetadata({
     pokemonId,
-    movesType: 'LEVELUP',
+    learnMethod: LearnMethod.LEVEL_UP,
     canonicalPath: `/detail/${pokemonId}/moves`,
   })
 }
