@@ -43,14 +43,17 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 
 **Why:** 계층을 명확히 분리하면 테스트 용이성, 재사용성, 유지보수성이 향상됨. views에서 components를 직접 호출하면 비즈니스 로직이 views로 누출되어 계층 구조가 무너짐.
 
-## App Router 프라이빗 폴더 (`_fetch` / `_metadata`)
+## App Router 프라이빗 폴더 (`_fetch` / `_metadata` / `_components`)
 
 `src/app/` 하위에서 페이지가 아닌 파일은 `_` 접두 폴더로 분리합니다.
 
-| 폴더         | 역할                                              |
-| ------------ | ------------------------------------------------- |
-| `_fetch/`    | 서버 데이터 패칭 함수. 라우트가 여러 개일 때 공유 |
-| `_metadata/` | `generateMetadata`용 메타데이터 생성 함수         |
+| 폴더           | 역할                                                   |
+| -------------- | ------------------------------------------------------ |
+| `_fetch/`      | 서버 데이터 패칭 함수. 라우트가 여러 개일 때 공유      |
+| `_metadata/`   | `generateMetadata`용 메타데이터 생성 함수              |
+| `_components/` | 해당 라우트 그룹 전용 컴포넌트. 여러 `page.tsx`가 공유 |
+
+> **`_components/`와 `src/components/`의 구분:** `src/components/`는 도메인 무관 재사용 UI(DS)입니다. 반면 특정 라우트 그룹 안에서만 의미가 있고 서버 컴포넌트 조립(크롬 선택·Providers·JSON-LD 등)을 담는 것은 `_components/`에 둡니다. DS로 올리면 그 라우트의 맥락(예: `initialApolloState` 하이드레이션)이 전역 컴포넌트에 새어 들어갑니다.
 
 ### 분리 기준 — "공유되면 분리"
 
