@@ -63,7 +63,13 @@ const MoveDetailVersionNavContainer = ({
   return (
     <div className="sticky top-12 z-40 border-b border-solid border-primary-3/30 bg-primary-1 desktop:top-30">
       <div className="mx-auto w-full desktop:max-w-7xl">
-        <MovesVersionNavComponent items={versionItems} />
+        {/* storageKey: 버전 이동 시 재마운트돼 사라지는 가로 스크롤 위치를
+            이어주는 sessionStorage 키. 기술별로 버전 목록이 달라 skillId까지 넣어야
+            다른 기술의 위치를 물려받지 않는다(ADR-0015) */}
+        <MovesVersionNavComponent
+          items={versionItems}
+          storageKey={`move:${skillId}`}
+        />
       </div>
     </div>
   )

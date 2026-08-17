@@ -125,8 +125,15 @@ const DetailMovesStickyNavContainer = () => {
             </TabItemComponent>
           ))}
         </nav>
+        {/* storageKey: 버전 이동 시 재마운트돼 사라지는 가로 스크롤 위치를
+            이어주는 sessionStorage 키. 포켓몬별로 버전 목록이 달라 pokemonId까지
+            넣어야 다른 포켓몬의 위치를 물려받지 않는다(ADR-0015) */}
         {versionItems.length > 0 && (
-          <MovesVersionNavComponent items={versionItems} scroll={false} />
+          <MovesVersionNavComponent
+            items={versionItems}
+            scroll={false}
+            storageKey={`detail:${pokemonId}`}
+          />
         )}
       </div>
     </div>
