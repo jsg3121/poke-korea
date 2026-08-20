@@ -25,6 +25,10 @@
 - [ui-publisher](ui-publisher.md) — 페이지, UI 컴포넌트 구현, Tailwind 스타일링 전문
 - [ux-designer](ux-designer.md) — 사용자 플로우, 레이아웃, 인터랙션, 반응형 설계 전문
 
+### 품질 검증 에이전트
+
+- [qa-orchestrator](qa-orchestrator.md) — QA 검사 선별·병렬 실행·통합 판정 오케스트레이션
+
 ### 비즈니스 분석 에이전트
 
 - [market-intelligence](market-intelligence.md) — 시장 규모, 경쟁사, 산업 트렌드, 거시환경 조사 전문
@@ -74,6 +78,18 @@ ux-designer → ui-publisher
 - SEO 관련 → seo-specialist
 - UI/컴포넌트 관련 → ui-publisher
 - UX/플로우 관련 → ux-designer
+
+### 품질 검증 (Fan-out / Fan-in)
+
+```
+                  ┌─ lint-check ──┐
+qa-orchestrator ──┼─ code-review ─┼──→ 통합 판정
+(변경 범위 분석)   ├─ a11y-check ──┤    (중복 제거·심각도 정렬·게이트)
+                  └─ seo-audit ───┘
+```
+
+변경 파일을 분석해 **필요한 검사만** 선별한 뒤 독립 서브에이전트로 병렬 실행한다.
+각 검사는 사전 맥락 없이 수행되어 작성자가 넘긴 가정을 잡아낸다.
 
 ### 비즈니스 전략 분석 (Pipeline)
 
