@@ -10,7 +10,7 @@ import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { LearnMethod } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/module/device.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
-import { fetchDefaultMovesQueries } from './_fetch/defaultMoves.fetch'
+import { fetchLearnsetQueries } from './_fetch/learnset.fetch'
 import { generateMovesMetadata } from './_metadata/generateMovesMetadata'
 
 export const revalidate = 31536000
@@ -49,7 +49,7 @@ export const generateMetadata = async ({
 
   return generateMovesMetadata({
     pokemonId,
-    movesType: 'LEVELUP',
+    learnMethod: LearnMethod.LEVEL_UP,
     canonicalPath: `/detail/${pokemonId}/moves`,
   })
 }
@@ -99,72 +99,40 @@ const DetailMovesPage = async ({
 
   const {
     pokemonInfoData,
-    isNormalForm,
-    data,
-    normalFormLearnableSkill,
-    versionGroup,
-    normalFormImageList,
-  } = await fetchDefaultMovesQueries({
-    pokemonId,
-    learnMethod: LearnMethod['LEVEL_UP'],
-  })
+    learnset,
+    versionGroups,
+    formImageList,
+    learnMethodLabels,
+  } = await fetchLearnsetQueries({ pokemonId })
 
   if (!pokemonInfoData.getPokemonDetail) return
 
-  const getPokemonLearnableData = () => {
-    if (isNormalForm) {
-      return {
-        levelUpSkills:
-          normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
-            ?.levelUpSkills || [],
-        machineSkills:
-          normalFormLearnableSkill?.getPokemonNormalFormLearnableSkills
-            ?.machineSkills || [],
-      }
-    } else {
-      return {
-        levelUpSkills: data?.getPokemonLearnableSkills?.levelUpSkills || [],
-        machineSkills: data?.getPokemonLearnableSkills?.machineSkills || [],
-      }
-    }
-  }
+  const pokemonDetail = pokemonInfoData.getPokemonDetail
+  const isFormChange = !!pokemonDetail.isFormChange
 
-  const pokemonLearnableData = getPokemonLearnableData()
-
-  const normalFormName =
-    normalFormLearnableSkill?.getPokemonNormalForm?.[0].name ??
-    pokemonInfoData.getPokemonDetail.name
-  const pokemonName = isNormalForm
-    ? normalFormName
-    : pokemonInfoData.getPokemonDetail.name
-
-  const pokemonInfoTypes = isNormalForm
-    ? (normalFormLearnableSkill?.getPokemonNormalForm?.[0].types ??
-      pokemonInfoData.getPokemonDetail.types)
-    : pokemonInfoData.getPokemonDetail.types
-
-  const formDataLength = isNormalForm
-    ? (normalFormImageList.getPokemonNormalFormImageList?.length ?? 0)
+  // 폼체인지 포켓몬은 폼 전환 UI가 폼 개수를 알아야 한다
+  const formDataLength = isFormChange
+    ? (formImageList.getPokemonNormalFormImageList?.length ?? 0)
     : 0
 
   const initialValue = {
     pokemonInfo: {
-      name: pokemonName,
-      types: pokemonInfoTypes,
-      isFormChange: pokemonInfoData.getPokemonDetail.isFormChange,
-      isRegionForm: pokemonInfoData.getPokemonDetail.isRegionForm,
+      name: pokemonDetail.name,
+      types: pokemonDetail.types,
+      isFormChange: pokemonDetail.isFormChange,
+      isRegionForm: pokemonDetail.isRegionForm,
       activeType: undefined,
     },
-    versionGroup: versionGroup.getVersionGroups,
-    pokemonLearnableData,
+    versionGroup: versionGroups,
+    skillsByMethod: learnset?.skillsByMethod ?? [],
     formDataLength,
     normalFormInfo: {
-      name: normalFormName,
-      imagePath: normalFormLearnableSkill?.getPokemonNormalForm?.[0].imagePath,
+      name: pokemonDetail.name,
     },
     currentActiveIndex: 0,
     currentVersionGroupId: undefined,
-    currentMovesType: 'LEVELUP' as const,
+    currentLearnMethod: LearnMethod.LEVEL_UP,
+    learnMethodLabels,
   }
 
   return (
@@ -174,7 +142,7 @@ const DetailMovesPage = async ({
       {isMobile ? (
         <main className="min-h-screen w-full">
           <MobileHeaderContainer />
-          <DetailMovesView pokemonName={pokemonName} />
+          <DetailMovesView pokemonName={pokemonDetail.name} />
           <MobileFooterContainer />
           <MobileTabBar />
         </main>
@@ -182,7 +150,7 @@ const DetailMovesPage = async ({
         // pt-30(120px) = 데스크톱 fixed 헤더 실높이(리스트 개편에서 실측 확정)
         <main className="min-h-screen w-full pt-30">
           <DesktopHeaderContainer />
-          <DetailMovesView pokemonName={pokemonName} />
+          <DetailMovesView pokemonName={pokemonDetail.name} />
           <DesktopFooterContainer />
         </main>
       )}

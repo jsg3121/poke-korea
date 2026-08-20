@@ -76,6 +76,19 @@ query PokemonDetail($pokemonId: ID!) {
     isMegaEvolution
     isRegionForm
     isGigantamax
+    # 전용기 전체(버전·습득법·폼 무관). 기존엔 레벨업/머신 목록을 순회해
+    # signatureMoves=true를 필터링했는데, 그 방식은 현재 버전 러닝셋에 없는
+    # 전용기를 누락시켰다(꿈트렁 소금절이, 갈라르 야도킹 썰렁개그 등).
+    signatureSkills {
+      skillId
+      nameKo
+      type
+      damageType
+      power
+      accuracy
+      pp
+      isSignature
+    }
     types
     number
     typePrimary
@@ -382,6 +395,8 @@ query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
   }
 }
 
+# 기술 도감 목록. 무한 스크롤로 20개씩 누적되므로 카드가 쓰지 않는 필드는 받지 않는다.
+# description은 카드에 렌더되지 않는데(하단은 고정 문구) 가장 무거운 필드라 제외했다.
 query GetPokemonSkillList($input: PokemonSkillListInput) {
   getPokemonSkillList(input: $input) {
     edges {
@@ -394,7 +409,6 @@ query GetPokemonSkillList($input: PokemonSkillListInput) {
         power
         accuracy
         pp
-        description
         firstGenerationId
         signatureMoves
         damageType
@@ -414,6 +428,110 @@ query GetPokemonSkillList($input: PokemonSkillListInput) {
 query GetDetailMovesPokemonInfo($pokemonId: ID!) {
   getPokemonDetail(pokemonId: $pokemonId) {
     ...LearnableSkillPokemonInfo
+  }
+}
+
+# 사이트맵 전용 경량 조회 — 기술 ID 전체만 받는다.
+# 기존엔 GetPokemonSkillList(first:1000)로 기술당 12개 필드(description 포함)를
+# 받아놓고 id 하나만 썼다. 6시간마다 재생성되므로 누적 낭비가 컸다.
+query GetAllSkillIds {
+  getAllSkillIds
+}
+
+# 메타데이터 전용 경량 조회 — 습득법별 개수만 받는다.
+# skills 배열을 요청하지 않으므로 기술 수백 건을 받지 않고도 "이 버전·이 습득법에
+# 배울 기술이 있는가"를 판정할 수 있다(빈 페이지 noindex 처리용).
+query GetLearnsetCounts(
+  $pokemonId: Int!
+  $formType: PokemonFormType
+  $formIndex: Int
+  $versionGroupId: Int
+) {
+  getPokemonLearnset(
+    pokemonId: $pokemonId
+    formType: $formType
+    formIndex: $formIndex
+    versionGroupId: $versionGroupId
+  ) {
+    versionGroup {
+      versionGroupId
+      displayName
+      generationId
+    }
+    skillsByMethod {
+      method
+      methodLabel
+      totalCount
+    }
+  }
+}
+
+# 포켓몬 습득 기술 통합 조회.
+# 기존 3종(getPokemonLearnableSkills / ...NormalForm... / ...RegionForm...)을 대체한다.
+# formType을 생략하면 서버가 BASE로 처리하므로, 폼 종류를 알아내기 위한 선행 조회가
+# 불필요해진다(기존엔 isFormChange를 먼저 받느라 왕복을 한 번 더 썼다).
+#
+# skillsByMethod는 습득법별 그룹 배열이라 알 기술·기술 가르침 등이 데이터로 들어온다.
+# 탭을 이 배열 기준으로 그리면 습득법이 늘어도 프론트 배포가 필요 없다.
+query GetPokemonLearnset(
+  $pokemonId: Int!
+  $formType: PokemonFormType
+  $formIndex: Int
+  $versionGroupId: Int
+  $limit: Int
+) {
+  getPokemonLearnset(
+    pokemonId: $pokemonId
+    formType: $formType
+    formIndex: $formIndex
+    versionGroupId: $versionGroupId
+    limit: $limit
+  ) {
+    pokemonId
+    formType
+    formIndex
+    formCode
+    versionGroup {
+      versionGroupId
+      displayName
+      isLatest
+      order
+      generationId
+      baseVersionGroupId
+      baseVersionGroupName
+      nameKo
+    }
+    skillsByMethod {
+      method
+      methodLabel
+      totalCount
+      displayOrder
+      skills {
+        level
+        conditionLabel
+        machineNumber
+        skill {
+          skillId
+          nameKo
+          type
+          damageType
+          power
+          accuracy
+          pp
+          isSignature
+        }
+      }
+    }
+    signatureSkillsInVersion {
+      skillId
+      nameKo
+      type
+      damageType
+      power
+      accuracy
+      pp
+      isSignature
+    }
   }
 }
 
@@ -699,8 +817,17 @@ query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
   }
 }
 
+# 기술을 배우는 포켓몬 목록 (V2 — 통합 테이블 기반).
+# 응답 형태는 레거시 getPokemonsBySkill과 동일하고 데이터 소스만 바뀌었다.
+#
+# 달라지는 점(모두 의도된 개선):
+# - 알 기술·기술 가르침 등 신규 습득법이 methods 배열에 함께 나온다
+#   (불꽃펀치 USUM 기준 TUTOR 0 → 100건)
+# - 메가진화는 제외된다 — 메가는 기술을 새로 배우지 않고 원본 종의 러닝셋을
+#   그대로 쓰므로 같은 종이 두 번 나오는 중복이었다
+# - 폼 상속으로 생략됐던 폼이 복원된다
 query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
-  getPokemonsBySkill(input: $input) {
+  getPokemonsBySkillV2(input: $input) {
     skillId
     skillName
     edges {
@@ -748,6 +875,7 @@ query GetPokemonGigantamax($pokemonId: Int!) {
       type
       power
       effect
+      dependsOnBaseMove
     }
   }
 }
@@ -768,7 +896,66 @@ query GetPokemonGigantamaxList {
       power
       effect
       pokemonId
+      dependsOnBaseMove
     }
+  }
+}
+
+# 포켓몬이 등장하는 버전 그룹. 버전 선택 nav가 전체 목록을 필요로 하므로
+# getPokemonLearnset(선택된 버전 하나만 반환)과 별도로 조회한다.
+# order 내림차순(최신 우선) 정렬이 계약으로 보장되고 첫 항목이 isLatest=true다.
+query GetVersionGroupsByPokemon(
+  $pokemonId: Int!
+  $formType: PokemonFormType
+  $formIndex: Int
+) {
+  getVersionGroupsByPokemon(
+    pokemonId: $pokemonId
+    formType: $formType
+    formIndex: $formIndex
+  ) {
+    versionGroupId
+    displayName
+    isLatest
+    order
+    generationId
+    baseVersionGroupId
+    baseVersionGroupName
+    name
+    nameKo
+  }
+}
+
+# 기술이 존재하는 버전 그룹. order 내림차순(최신 우선) 정렬이 계약으로 보장되고,
+# 첫 항목이 isLatest=true다. 삭제된 기술(isAvailable=false)만 있는 버전은 제외되므로
+# 첫 항목이 곧 "이 기술의 최신 사용 가능 버전"이다.
+# 기존 GetVersionGroups(filter에 6가지 용도 혼재)를 기술 상세에서 대체한다.
+query GetVersionGroupsBySkill($skillId: Int!) {
+  getVersionGroupsBySkill(skillId: $skillId) {
+    versionGroupId
+    displayName
+    isLatest
+    order
+    generationId
+    baseVersionGroupId
+    name
+    nameKo
+    baseVersionGroupName
+  }
+}
+
+# ========== Master Queries ==========
+# 정적 마스터 데이터. 값이 늘어도 프론트 배포 없이 반영되도록 쿼리로 받는다.
+
+# 습득법 목록. 레벨업·기술머신 2종에서 9종으로 확장됐고 앞으로도 늘 수 있어,
+# 하드코딩 대신 이 목록을 기준으로 렌더한다. isExposed=false는 스핀오프(XD 정화 등)라
+# 기본 숨김이며, 노출 정책은 백엔드 DB 컬럼이므로 양쪽 배포 없이 변경된다.
+query GetLearnMethods {
+  getLearnMethods {
+    method
+    nameKo
+    displayOrder
+    isExposed
   }
 }
 

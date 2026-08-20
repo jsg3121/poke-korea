@@ -1,11 +1,11 @@
 'use client'
 
 import { useContext } from 'react'
-import { ChipColor } from '~/components/chip/chipStyle'
 import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 import { DetailContext } from '~/context/Detail.context'
+import { getDamageTypeChipColor } from '~/utils/skill.util'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import {
   MoveConceptNote,
@@ -19,14 +19,6 @@ import {
  * 뽑아 skill.id로 중복 제거한 뒤 기존 MoveTable을 재활용해 표시한다.
  * 전용기가 없는 포켓몬은 렌더하지 않는다(Z기술 카드와 동일 패턴).
  */
-
-/** GraphQL damageType(physical/special/status)을 Chip 색 키로 — 미지의 값은 변화로 폴백 */
-const toChipColor = (damageType?: string | null): ChipColor => {
-  const normalized = damageType?.toLowerCase()
-  return normalized === 'physical' || normalized === 'special'
-    ? normalized
-    : 'status'
-}
 
 const DetailSignatureMovesContainer = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -52,7 +44,7 @@ const DetailSignatureMovesContainer = () => {
       condition,
       name: skill.nameKo,
       type: skill.type,
-      damageClass: toChipColor(skill.damageType),
+      damageClass: getDamageTypeChipColor(skill.damageType),
       power: skill.power,
       accuracy: skill.accuracy,
       pp: skill.pp,

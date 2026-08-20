@@ -118,8 +118,10 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 │       ├── rendering.md       #   렌더링 (SSR/ISR, Apollo, GraphQL 연동)
 │       └── changelog.md       #   Changelog 관리 (Docusaurus 블로그)
 ├── decisions/                 # ADR (의사결정 기록)
+│   ├── README.md              #   타 프로젝트 이식용 설치 안내
+│   ├── index.md               #   ADR 규칙 (권위 원본)
 │   ├── template.md            #   ADR 작성 템플릿
-│   └── records/               #   ADR 기록
+│   └── records/               #   ADR 기록 (index.md = 목록)
 ├── specs/                     # 서비스/비즈니스 분석 스펙
 │   ├── service-overview.md    #   서비스 현황 (현재 지표 포함)
 │   ├── metrics-baseline.md    #   핵심 지표 기준값
@@ -161,7 +163,7 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 | 브랜치/PR     | `.claude/conventions/guides/workflow.md`                                        |
 | Changelog     | `.claude/conventions/guides/changelog.md`                                       |
 | 렌더링/API    | `.claude/conventions/guides/rendering.md`                                       |
-| 의사결정      | `.claude/decisions/template.md`                                                 |
+| 의사결정      | `.claude/decisions/index.md` (규칙), `.claude/decisions/template.md` (템플릿)   |
 | 비즈니스 분석 | `.claude/specs/`, `.claude/skills/biz-strategy/`                                |
 | 경쟁사 분석   | `.claude/specs/competitor-map.md`                                               |
 | SEO 검사      | `/seo-audit` 스킬, `.claude/skills/seo-audit/`                                  |
@@ -233,19 +235,13 @@ SKILL.md와 가이드 문서는 500줄 이하로 유지한다. 상세 내용은 
 
 > **Why:** 기술적 근거 없이 수정하면 잘못된 방향으로 코드가 변경될 수 있다. 공식 문서 기반의 근거를 제시하면 사용자가 해결 방법의 정확성을 검증할 수 있고, 유사한 문제 발생 시 참고 자료로 활용할 수 있다.
 
-### 의사결정 기록
+### 의사결정 기록 (ADR)
 
-새로운 기술적 의사결정이 발생하면 ADR로 기록한다. `.claude/decisions/template.md`를 기반으로 작성하며, 반드시 참고 자료(공식 문서, 신뢰할 수 있는 블로그 등) 링크를 포함한다.
+새로운 기술적 의사결정이 발생하면 ADR로 기록한다. 작성 규칙·트리거 신호·상태 값·지침 변경 절차는 `.claude/decisions/index.md`가 권위 있는 원본이며, 의사결정 관련 작업 시 반드시 먼저 읽는다.
 
-### 지침 변경 관리
+**IMPORTANT**: 하나의 이슈에 **해결 후보가 2개 이상** 등장하거나, **트레이드오프**를 따지거나, 어떤 방안을 **검토 후 기각**하게 되면 — 논의가 끝나기를 기다리지 말고 **그 시점에 ADR 작성을 제안**한다. 작성 여부는 사용자가 결정하며, 제안 없이 임의로 작성하지 않는다.
 
-개발 진행이나 논의 과정에서 기존에 명시된 지침, 규칙, 계획과 어긋나는 상황이 발생할 수 있다. 이 경우 다음 절차를 따른다.
-
-1. **기존 지침 확인**: 변경하려는 영역의 관련 ADR, 컨벤션, 가이드라인을 먼저 읽고 현재 규칙이 무엇인지 파악한다
-2. **충돌 지점 명시**: 기존 지침의 어떤 부분이 현재 상황과 맞지 않는지 구체적으로 식별한다
-3. **변경 논의**: 왜 변경이 필요한지 근거를 제시하고, 사용자와 합의한다
-4. **ADR 기록**: 변경 사항을 새로운 ADR로 작성한다. 기존 ADR을 대체하는 경우, 기존 ADR의 상태를 `대체됨`으로 변경하고 새 ADR 번호를 명시한다
-5. **관련 문서 동기화**: 변경이 반영되어야 하는 모든 문서(CLAUDE.md, 컨벤션, 가이드라인 등)를 함께 업데이트한다
+기존 지침·컨벤션과 충돌하는 결정을 내릴 때는 `.claude/decisions/index.md`의 "지침 변경 관리" 절차를 따른다.
 
 ### 지침 저장 우선순위
 

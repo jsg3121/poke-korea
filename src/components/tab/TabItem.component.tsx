@@ -34,6 +34,13 @@ interface TabItemBaseProps {
 /** 이동 모드: href 필수, next/link 렌더 */
 interface TabItemLinkProps extends TabItemBaseProps {
   href: string
+  /**
+   * 이동 시 스크롤을 맨 위로 올리지 않는다(기본값 true = 올림).
+   *
+   * 탭이 sticky 크롬 안에 있어 화면에 계속 보이는 경우, 이동할 때마다 최상단으로
+   * 튀면 방금 누른 탭이 시야에서 사라져 맥락이 끊긴다. 그런 배치에서만 false로 준다.
+   */
+  scroll?: boolean
   onClick?: never
   type?: never
 }
@@ -65,6 +72,7 @@ const TabItemComponent = (props: TabItemComponentProps) => {
         aria-current={active ? 'page' : undefined}
         id={props.id}
         aria-controls={props['aria-controls']}
+        scroll={props.scroll}
       >
         {children}
       </Link>

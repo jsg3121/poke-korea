@@ -66,7 +66,7 @@ const DetailEvolutionContainer = ({
                   {groupSection.label}
                 </h3>
               )}
-              <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2">
+              <div className="grid grid-cols-1 gap-3 desktop:grid-cols-3">
                 {groupSection.nodes.map((node) => (
                   <EvolutionConditionCardComponent
                     // targetHref는 번호+폼(타입·index)을 담아 그룹 내 유일하고

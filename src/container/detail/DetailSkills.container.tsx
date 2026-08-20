@@ -2,12 +2,12 @@
 
 import { useContext } from 'react'
 import LinkButtonComponent from '~/components/button/LinkButton.component'
-import { ChipColor } from '~/components/chip/chipStyle'
 import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 import { DetailContext } from '~/context/Detail.context'
 import { useDevice } from '~/context/Device.context'
+import { getDamageTypeChipColor } from '~/utils/skill.util'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 
 /**
@@ -24,14 +24,6 @@ import InfoCardTitleComponent from './components/InfoCardTitle.component'
 
 const SKILL_PREVIEW_COUNT_MOBILE = 5
 const SKILL_PREVIEW_COUNT_DESKTOP = 10
-
-/** GraphQL damageType(physical/special/status)을 Chip 색 키로 — 미지의 값은 변화로 폴백 */
-const toChipColor = (damageType?: string | null): ChipColor => {
-  const normalized = damageType?.toLowerCase()
-  return normalized === 'physical' || normalized === 'special'
-    ? normalized
-    : 'status'
-}
 
 const DetailSkillsContainer = () => {
   const { pokemonBaseInfo, activeTypeInfo, activeType, activeIndex } =
@@ -64,7 +56,7 @@ const DetailSkillsContainer = () => {
       condition: level === 0 ? '진화' : level === 1 ? '최초' : `Lv.${level}`,
       name: skill.nameKo,
       type: skill.type,
-      damageClass: toChipColor(skill.damageType),
+      damageClass: getDamageTypeChipColor(skill.damageType),
       power: skill.power,
       accuracy: skill.accuracy,
       pp: skill.pp,
@@ -76,7 +68,7 @@ const DetailSkillsContainer = () => {
       condition: '머신',
       name: skill.nameKo,
       type: skill.type,
-      damageClass: toChipColor(skill.damageType),
+      damageClass: getDamageTypeChipColor(skill.damageType),
       power: skill.power,
       accuracy: skill.accuracy,
       pp: skill.pp,

@@ -101,12 +101,12 @@ export const Linkable: Story = {
   },
 }
 
-/** 머신 습득 기술 — 조건 라벨이 '머신'으로 고정되는 케이스 */
+/** 머신 습득 기술 — 조건 라벨에 기술머신 번호(TM24)가 들어가는 케이스 */
 export const Machine: Story = {
   args: {
     moves: [
       {
-        condition: '머신',
+        condition: 'TM24',
         name: '불꽃펀치',
         type: PokemonType.FIRE,
         damageClass: 'physical',
@@ -115,7 +115,7 @@ export const Machine: Story = {
         pp: 15,
       },
       {
-        condition: '머신',
+        condition: 'TM100',
         name: '번개펀치',
         type: PokemonType.ELECTRIC,
         damageClass: 'physical',
@@ -124,7 +124,7 @@ export const Machine: Story = {
         pp: 15,
       },
       {
-        condition: '머신',
+        condition: 'TM175',
         name: '칼춤',
         type: PokemonType.NORMAL,
         damageClass: 'status',
@@ -134,5 +134,64 @@ export const Machine: Story = {
       },
     ],
     ariaLabel: '머신 습득 기술 목록',
+  },
+}
+
+/**
+ * 기술 가르침 습득 기술 — 조건 라벨이 가장 긴 케이스.
+ *
+ * 습득 열 폭 회귀 확인용. '기술 가르침'은 공백 포함 6자이고 한글은 글자 폭이 넓어,
+ * 열이 좁으면 줄바꿈이 나 행 높이가 들쭉날쭉해진다(데스크톱에서 확인).
+ */
+export const Tutor: Story = {
+  args: {
+    moves: [
+      {
+        condition: '기술 가르침',
+        name: '불꽃펀치',
+        type: PokemonType.FIRE,
+        damageClass: 'physical',
+        power: 75,
+        accuracy: 100,
+        pp: 15,
+      },
+      {
+        condition: '기술 가르침',
+        name: '섀도크루',
+        type: PokemonType.GHOST,
+        damageClass: 'physical',
+        power: 70,
+        accuracy: 100,
+        pp: 15,
+      },
+    ],
+    ariaLabel: '기술 가르침 습득 기술 목록',
+  },
+}
+
+/** 알 기술 습득 — 조건 라벨 '알 기술'(4자) 케이스 */
+export const Egg: Story = {
+  args: {
+    moves: [
+      {
+        condition: '알 기술',
+        name: '기가드레인',
+        type: PokemonType.GRASS,
+        damageClass: 'special',
+        power: 75,
+        accuracy: 100,
+        pp: 10,
+      },
+      {
+        condition: '알 기술',
+        name: '아침햇살',
+        type: PokemonType.NORMAL,
+        damageClass: 'status',
+        power: null,
+        accuracy: null,
+        pp: 5,
+      },
+    ],
+    ariaLabel: '알 기술 습득 기술 목록',
   },
 }

@@ -106,7 +106,7 @@ const PokemonCardComponent = ({
               >
                 {label}
               </dt>
-              <dd className="h-4 desktop:h-6 text-2xs desktop:text-sm leading-4 desktop:leading-6 text-right text-black">
+              <dd className="h-4 desktop:h-6 text-2xs desktop:text-sm leading-4 desktop:leading-6 text-right font-bold text-black">
                 {pokemonData.pokemonStats[key]}
               </dd>
             </Fragment>

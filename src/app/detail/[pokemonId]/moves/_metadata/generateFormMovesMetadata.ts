@@ -9,7 +9,10 @@ interface VersionGroup {
 
 interface MovesMetadataParams {
   pokemonName: string
-  movesType: 'LEVELUP' | 'MACHINE'
+  /** 습득법 한글 라벨 (예: '레벨업', '기술 가르침') */
+  methodLabel: string
+  /** 이 버전·이 습득법으로 배우는 기술 수 — 0이면 noindex */
+  skillCount: number
   canonicalUrl: string
   version?: VersionGroup | null
   versionGroups?: VersionGroup[] | null
@@ -18,28 +21,41 @@ interface MovesMetadataParams {
 const createMovesMetadata = (
   {
     pokemonName,
-    movesType,
+    methodLabel,
+    skillCount,
     canonicalUrl,
     version,
-    versionGroups,
   }: MovesMetadataParams,
   formLabel: string,
 ): Metadata => {
-  const isSingleSeries = versionGroups?.length === 1
-  const movesTypeLabel = movesType === 'LEVELUP' ? ' 레벨업 습득' : ' 머신 습득'
   const versionLabel = version
-    ? ` ${version.generationId}세대 ${version.baseVersionGroupName} 시리즈`
+    ? `${version.generationId}세대 ${version.baseVersionGroupName} 시리즈`
     : ''
 
-  const title = `${pokemonName}${formLabel}${versionLabel}${movesTypeLabel} 기술 정보`
-  const description = isSingleSeries
-    ? `${versionGroups?.[0].baseVersionGroupName}시리즈에 출현한 ${pokemonName}의 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
-    : `${pokemonName}의 ${versionGroups?.[versionGroups.length - 1].baseVersionGroupName} 시리즈부터 ${versionGroups?.[0].baseVersionGroupName} 시리즈까지 습득 가능한 모든 기술을 확인하고 다양한 포켓몬의 정보를 확인해보세요!`
+  // '알 기술'·'기술 가르침'처럼 라벨에 이미 "기술"이 들어간 경우 "기술 정보"를
+  // 덧붙이면 중복되므로("알 기술 습득 기술 정보"), 접미사를 조정한다.
+  const titleSuffix = methodLabel.includes('기술')
+    ? '습득 정보'
+    : '습득 기술 정보'
+
+  const title = `${pokemonName}${formLabel}${versionLabel ? ` ${versionLabel}` : ''} ${methodLabel} ${titleSuffix}`
+
+  // description도 버전·습득법을 반영한다 — 기존엔 전체 버전 범위만 서술해
+  // 탭과 버전이 달라도 모든 페이지가 같은 설명을 가졌다.
+  const target = versionLabel
+    ? `${versionLabel}의 ${pokemonName}${formLabel}`
+    : `${pokemonName}${formLabel}`
+  const description =
+    skillCount === 0
+      ? `${target}은(는) ${methodLabel}(으)로 배우는 기술이 없습니다. 다른 버전과 습득 방법에서 배울 수 있는 기술을 확인해보세요.`
+      : `${target}이(가) ${methodLabel}(으)로 배우는 기술 ${skillCount}개를 확인하세요. 위력·명중률·PP와 함께 버전별 습득 정보를 한눈에 볼 수 있습니다.`
 
   return {
     title,
     description,
-    robots: getRobotsConfig(),
+    // 배울 기술이 없는 조합은 색인하지 않되, 다른 버전·습득법 링크는 따라가게
+    // follow는 유지한다.
+    robots: skillCount > 0 ? getRobotsConfig() : { index: false, follow: true },
     openGraph: {
       type: 'website',
       url: canonicalUrl,

@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import ChipComponent from '~/components/chip/Chip.component'
-import { ChipColor } from '~/components/chip/chipStyle'
 import TagComponent from '~/components/tag/Tag.component'
 import { PokemonSkillDetail, VersionGroup } from '~/graphql/typeGenerated'
-import { getDamageTypeKorean } from '~/utils/skill.util'
+import {
+  getDamageTypeChipColor,
+  getDamageTypeKorean,
+  hasDamageType,
+} from '~/utils/skill.util'
 
 /**
  * 기술 상세 미니 히어로 (반응형 단일 — UX-008). 구버전 MoveDetail.component
@@ -17,13 +20,6 @@ import { getDamageTypeKorean } from '~/utils/skill.util'
  * 버전별 조회(/moves/[id]/version/[vgId]) 시 해당 세대 데이터(generations)를
  * 우선 표시하고, 어떤 버전 기준인지 배지로 알린다.
  */
-
-/** 백엔드 damageType(소문자) → Chip color 매핑 */
-const DAMAGE_CHIP_COLOR: Record<string, ChipColor> = {
-  physical: 'physical',
-  special: 'special',
-  status: 'status',
-}
 
 interface MoveDetailHeroContainerProps {
   skillData: PokemonSkillDetail
@@ -74,8 +70,9 @@ const MoveDetailHeroContainer = ({
       : badgeVersionName
     : undefined
 
-  const damageColor = displayData.damageType
-    ? DAMAGE_CHIP_COLOR[displayData.damageType.toLowerCase()]
+  // 미지의 값은 Chip을 생략한다 — hasDamageType으로 보유 여부를 먼저 가른다
+  const damageColor = hasDamageType(displayData.damageType)
+    ? getDamageTypeChipColor(displayData.damageType)
     : undefined
 
   return (

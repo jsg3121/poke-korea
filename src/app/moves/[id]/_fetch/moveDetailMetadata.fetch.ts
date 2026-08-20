@@ -1,12 +1,12 @@
 import {
   GetPokemonSkillDetailDocument,
-  GetVersionGroupsDocument,
+  GetVersionGroupsBySkillDocument,
 } from '~/graphql/gqlGenerated'
 import {
   type GetPokemonSkillDetailQuery,
   type GetPokemonSkillDetailQueryVariables,
-  type GetVersionGroupsQuery,
-  type GetVersionGroupsQueryVariables,
+  type GetVersionGroupsBySkillQuery,
+  type GetVersionGroupsBySkillQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
 
@@ -40,19 +40,17 @@ export async function fetchMoveDetailMetadata({
     }),
     versionGroupId
       ? apolloClient.query<
-          GetVersionGroupsQuery,
-          GetVersionGroupsQueryVariables
+          GetVersionGroupsBySkillQuery,
+          GetVersionGroupsBySkillQueryVariables
         >({
-          query: GetVersionGroupsDocument,
-          variables: {
-            filter: { skillId },
-          },
+          query: GetVersionGroupsBySkillDocument,
+          variables: { skillId },
           fetchPolicy: 'cache-first',
         })
       : null,
   ])
 
-  const versionGroups = versionGroupData?.data?.getVersionGroups ?? null
+  const versionGroups = versionGroupData?.data?.getVersionGroupsBySkill ?? null
 
   return {
     skill: data?.getPokemonSkillDetail ?? null,
