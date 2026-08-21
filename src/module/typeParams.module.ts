@@ -27,9 +27,14 @@ export const TYPE_SLUGS: ReadonlyArray<string> = Object.values(PokemonType).map(
  *
  * 호출부는 이 값이 undefined일 때 `notFound()`(페이지) 또는 오류 메타
  * (generateMetadata)로 분기한다 — 두 함수는 독립 실행되므로 양쪽 모두 가드가 필요하다.
+ *
+ * **대소문자를 구분한다.** `toLowerCase()`로 관대하게 받으면 `/water`와 `/WATER`가
+ * 같은 내용을 다른 URL로 서빙해 중복 URL이 된다(§22). canonical이 정규 URL을
+ * 가리키므로 색인은 통합되지만, 크롤 예산이 낭비되고 잘못된 링크가 방치된다.
+ * 소문자 슬러그 하나만 유효한 경로로 둔다.
  */
 export const parseTypeSlug = (slug: string): PokemonType | undefined =>
-  SLUG_TO_TYPE[slug.toLowerCase()]
+  SLUG_TO_TYPE[slug]
 
 /** 타입 → 슬러그. 내부 링크를 만들 때 쓴다. */
 export const buildTypeSlug = (type: PokemonType): string => type.toLowerCase()
