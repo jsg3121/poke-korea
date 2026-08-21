@@ -7,10 +7,9 @@ import {
   TYPE_EFFECTIVENESS_CHART,
   TYPE_ORDER,
 } from '~/constants/typeEffectivenessChart'
-import ImageComponent from '~/components/Image.component'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { buildTypeDetailPath, buildTypeSlug } from '~/module/typeParams.module'
+import { buildTypeDetailPath } from '~/module/typeParams.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TableActivePointerComponent, {
   ActivePointerType,
@@ -186,49 +185,11 @@ const TypeEffectivenessTableContainer = () => {
         </table>
       </div>
 
-      {/* 18개 타입 상세 링크 — 커버리지 안전망.
-          행 헤더 링크(위)와 계산 결과 CTA는 각각 조건부이거나 사용자가 표를
-          스크롤해야 닿는다. 이 블록이 있어야 **모든 타입 페이지가 최소 1개
-          텍스트 링크를 받는다**는 보장이 생긴다(§15). */}
-      <nav aria-labelledby="type-detail-links-heading" className="w-full pt-6">
-        <h3
-          id="type-detail-links-heading"
-          className="mb-3 text-base font-bold text-primary-4 desktop:text-lg"
-        >
-          타입별 약점·상성 자세히 보기
-        </h3>
-        <ul className="grid grid-cols-2 gap-2 desktop:grid-cols-6 desktop:gap-3">
-          {TYPE_ORDER.map((label) => {
-            const type = toPokemonType(label)
-            return (
-              <li key={`detail-link-${label}`}>
-                <Link
-                  href={buildTypeDetailPath(type)}
-                  aria-label={`${label} 타입 약점과 상성 보기`}
-                  className="flex min-h-touch w-full min-w-0 items-center justify-between gap-2 whitespace-nowrap rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
-                      <ImageComponent
-                        alt=""
-                        aria-hidden="true"
-                        src={`/assets/type/${buildTypeSlug(type)}.svg`}
-                        width="100%"
-                        height="100%"
-                        imageSize={{ width: 24, height: 24 }}
-                      />
-                    </span>
-                    {label}
-                  </span>
-                  <span aria-hidden="true" className="text-primary-3">
-                    ›
-                  </span>
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-      </nav>
+      {/* 표 하단에 타입 상세 링크 그리드를 두지 않는다.
+          한때 "커버리지 안전망"으로 넣었으나, 그 논리는 상단 빠른 링크가
+          6개였을 때만 유효했다. 빠른 링크가 18개 전체가 된 이상 같은 목적지를
+          가리키는 목록이 한 페이지에 둘이 되어 중복이다. 표 안의 행 헤더 링크와
+          상단 빠른 링크로 모든 타입이 이미 링크를 받는다. */}
     </section>
   )
 }

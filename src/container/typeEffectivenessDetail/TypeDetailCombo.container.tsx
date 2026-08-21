@@ -1,6 +1,8 @@
+import { Fragment } from 'react'
+import TagComponent from '~/components/tag/Tag.component'
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { getTypeLabel } from '~/module/typeParams.module'
+import { getTypeLabel, parseTypeLabel } from '~/module/typeParams.module'
 
 /**
  * 복합 타입 사례 + 고유 효과.
@@ -49,8 +51,29 @@ const TypeDetailComboContainer = ({
               key={combo.label}
               className="rounded-2xl bg-primary-4 p-5 desktop:p-6"
             >
-              <h3 className="text-base font-bold text-primary-1 desktop:text-lg">
-                {combo.label}
+              {/* `독/땅` 문자열을 타입 배지로 렌더한다. 같은 페이지의 상성
+                  섹션이 타입을 Tag로 표시하므로 여기만 텍스트면 일관성이
+                  어긋난다. 데이터(label)는 문자열 그대로 두고 표시만 바꾼다 —
+                  54개 조합을 배열 구조로 고치는 것보다 변경 범위가 작다.
+                  매핑에 실패한 조각(있어서는 안 되지만)은 텍스트로 흘린다. */}
+              <h3 className="flex flex-wrap items-center gap-1.5 text-base font-bold text-primary-1 desktop:text-lg">
+                {combo.label.split('/').map((part, index) => {
+                  const type = parseTypeLabel(part)
+                  return (
+                    <Fragment key={`${combo.label}-${part}`}>
+                      {index > 0 && (
+                        <span aria-hidden="true" className="text-primary-2">
+                          /
+                        </span>
+                      )}
+                      {type ? (
+                        <TagComponent type={type} />
+                      ) : (
+                        <span>{part}</span>
+                      )}
+                    </Fragment>
+                  )
+                })}
               </h3>
               <p className="mt-1.5 text-sm leading-relaxed text-primary-1 desktop:text-base">
                 {combo.description}

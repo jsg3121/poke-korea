@@ -45,3 +45,13 @@ export const buildTypeDetailPath = (type: PokemonType): string =>
 
 /** 타입의 한국어 표기(`불꽃`, `페어리` …). 제목·본문 조립에 쓴다. */
 export const getTypeLabel = (type: PokemonType): string => PokemonTypes[type]
+
+/**
+ * 한국어 타입명(`불꽃`) → `PokemonType`. 없는 이름이면 undefined.
+ *
+ * 상성표(`TYPE_ORDER`)나 콘텐츠 상수처럼 **한글 라벨로 적힌 데이터**를 컴포넌트
+ * (Tag·링크)에 넘길 때 필요한 역변환이다. 여러 컨테이너에서 같은 변환을 각자
+ * 구현하고 있어 여기로 모은다.
+ */
+export const parseTypeLabel = (label: string): PokemonType | undefined =>
+  Object.values(PokemonType).find((type) => PokemonTypes[type] === label.trim())

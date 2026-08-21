@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useContext } from 'react'
 import ImageComponent from '~/components/Image.component'
+import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath, buildTypeSlug } from '~/module/typeParams.module'
@@ -32,8 +33,19 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
  * 크게 두면 페이지 1순위 자산인 타입 선택 버튼에서 시선을 뺏는다.
  */
 
-/** 18개 전체. 순서는 상성표와 같은 도감 표기 순서(TYPE_ORDER)를 따른다. */
-const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = Object.values(PokemonType)
+/**
+ * 18개 전체. 순서는 **상성표와 동일한 도감 순서**(TYPE_ORDER)를 따른다.
+ *
+ * `Object.values(PokemonType)`는 GraphQL enum이라 알파벳순(벌레·악·드래곤…)
+ * 으로 나온다. 같은 페이지의 상성표는 도감 순(노말·불꽃·물…)이라 두 목록의
+ * 순서가 어긋나면 사용자가 같은 타입을 두 번 찾게 된다.
+ */
+const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
+  (label) =>
+    Object.values(PokemonType).find(
+      (type) => PokemonTypes[type] === label,
+    ) as PokemonType,
+)
 
 const TypeQuickLinksContainer = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
