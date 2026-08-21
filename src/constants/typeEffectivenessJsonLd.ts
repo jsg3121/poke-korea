@@ -1,6 +1,12 @@
+import { PokemonType } from '~/graphql/typeGenerated'
+import { buildTypeSlug, getTypeLabel } from '~/module/typeParams.module'
+import { TYPE_DETAIL_CONTENT } from './typeDetailContent'
+
 const description =
   '포켓몬 타입 상성표와 계산기로 상대의 약점을 빠르게 찾으세요! 불꽃, 물, 풀 등 각 타입의 약점과 강점을 한눈에 확인하고, 2배, 0.5배 데미지 계산부터 타입별 상태이상 면역 정보까지 한 번에 확인할 수 있어요.'
-const name = '포켓몬 타입 상성 계산기'
+// title·H1과 같은 문구를 쓴다 — 메타·화면·구조화 데이터가 어긋나면 주제
+// 신호가 분산된다(2026-08-21 title 개편, §14.1).
+const name = '포켓몬 타입 상성표·상성 계산기'
 
 export const TYPE_EFFECTIVENESS_WEBPAGE_JSON_LD = {
   '@context': 'https://schema.org',
@@ -124,4 +130,91 @@ export const TYPE_EFFECTIVENESS_ITEMLIST_JSON_LD = {
         '강철 타입의 포켓몬은 모래바람의 데미지, 독, 맹독 상태 면역을 가지고 있어요.',
     },
   ],
+}
+
+/**
+ * 타입 상세 페이지(`/type-effectiveness/[type]`) WebPage JSON-LD.
+ *
+ * breadcrumb는 별도 `<script>`가 아니라 WebPage의 `breadcrumb` 필드에 중첩한다
+ * (`abilityJsonLd.ts`·`movesJsonLd.ts`와 같은 패턴). 3단 구조로 홈 → 타입 상성
+ * 계산기 → 해당 타입을 잇는다.
+ */
+export const getTypeDetailWebPageJsonLd = (
+  type: PokemonType,
+): Record<string, unknown> => {
+  const label = getTypeLabel(type)
+  const url = `https://poke-korea.com/type-effectiveness/${buildTypeSlug(type)}`
+  const content = TYPE_DETAIL_CONTENT[type]
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: `${label} 타입 약점과 상성 - 포케 코리아`,
+    description:
+      content?.lead ?? `${label} 타입의 약점과 상성을 확인할 수 있어요.`,
+    url,
+    inLanguage: 'ko-KR',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: '포케 코리아',
+      url: 'https://poke-korea.com',
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: '홈',
+          item: 'https://poke-korea.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: '타입 상성 계산기',
+          item: 'https://poke-korea.com/type-effectiveness',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: `${label} 타입`,
+          item: url,
+        },
+      ],
+    },
+    image: 'https://poke-korea.com/assets/image/ogImage.png',
+  }
+}
+
+/**
+ * 타입 상세 페이지 FAQPage JSON-LD.
+ *
+ * 이 프로젝트에서 **동적 페이지에 FAQPage를 붙이는 첫 사례**다(기존 선례는
+ * `shinyJsonLd.ts`의 정적 상수 하나뿐). 타입마다 질문 3개가 전부 다르기 때문에
+ * (§26.9.5) 구조화 데이터로서 의미가 있다 — 타입명만 치환한 공통 질문이었다면
+ * 18개 페이지가 같은 FAQ를 신고하는 셈이라 넣을 이유가 없다.
+ *
+ * FAQ가 없는 타입은 null을 반환하고 호출부가 script 자체를 렌더하지 않는다.
+ */
+export const getTypeDetailFaqJsonLd = (
+  type: PokemonType,
+): Record<string, unknown> | null => {
+  const content = TYPE_DETAIL_CONTENT[type]
+
+  if (!content || content.faq.length === 0) {
+    return null
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: content.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
 }

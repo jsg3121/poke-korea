@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useContext } from 'react'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { buildTypeDetailPath } from '~/module/typeParams.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 /**
@@ -41,6 +42,19 @@ const TypeEffectivenessCtaContainer = () => {
         다음에는 어떤 걸 해볼까요?
       </h3>
       <ul className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
+        {/* 타입 상세 링크를 1순위로 둔다 — 이 시점의 사용자는 이미 그 타입에
+            관심을 표명했고 결과를 다 읽은 뒤라 다음 행동을 찾는 상태다.
+            계산기 조작을 방해하지 않으면서 전환율이 가장 높은 지점이다(§15).
+            2개를 골랐으면 복합 타입 페이지는 만들지 않으므로(§13) 개별 타입
+            2개로 나눠 노출한다. */}
+        {selectTypeList.map((type) => (
+          <li key={`type-detail-${type}`}>
+            <Link href={buildTypeDetailPath(type)} className={CTA_LINK_CLASS}>
+              <span>{PokemonTypes[type]} 타입 약점과 상성 자세히 보기</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </li>
+        ))}
         {isSingleTypeSelected && (
           <li>
             <Link
