@@ -33,9 +33,12 @@ import TypeQuickLinksContainer from '~/container/typeEffectiveness/TypeQuickLink
 const TypeEffectivenessView = () => {
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8">
+      {/* H1은 title과 같은 방향으로 맞춘다 — 둘이 어긋나면 주제 신호가
+          절반만 전달된다. `상성표`를 앞에 두되 `계산기`를 남겨 1위 자산인
+          계산기 의도를 지킨다(§14.1·§26.9). */}
       <PageHeaderComponent
-        title="타입 상성 계산기"
-        description="상대 포켓몬의 타입을 선택하면 약점과 주의할 타입을 바로 알려드려요. 18개 타입 전체 상성표도 함께 확인하세요."
+        title="포켓몬 타입 상성표·상성 계산기"
+        description="상대 포켓몬의 타입을 선택하면 약점과 주의할 타입을 바로 알려드려요. 18개 타입 전체 상성표와 타입별 약점도 함께 확인하세요."
       />
 
       <TypeEffectivenessProvider>
