@@ -7,6 +7,7 @@ import TypeCalculatorContainer from '~/container/typeEffectiveness/TypeCalculato
 import TypeCalculatorResultContainer from '~/container/typeEffectiveness/TypeCalculatorResult.container'
 import TypeEffectivenessDescriptionContainer from '~/container/typeEffectiveness/TypeEffectivenessDescription.container'
 import TypeEffectivenessTableContainer from '~/container/typeEffectiveness/TypeEffectivenessTable.container'
+import TypeQuickLinksContainer from '~/container/typeEffectiveness/TypeQuickLinks.container'
 
 /**
  * 타입 상성 계산기 뷰 (반응형 단일 — UX-009). 데/모 2벌
@@ -41,6 +42,9 @@ const TypeEffectivenessView = () => {
         <TypeCalculatorContainer />
         {/* 타입 선택↔결과 사이 — 선택 직후 결과로 내려오는 길목(항상 노출) */}
         <TypeEffectivenessTopBanner />
+        {/* 미선택 시에만 노출 — 결과가 비어 있는 자리를 타입 상세 링크로 채운다.
+            타입을 고르면 물러나므로 계산기 흐름을 막지 않는다. */}
+        <TypeQuickLinksContainer />
         <TypeCalculatorResultContainer />
         <TypeEffectivenessTableContainer />
       </TypeEffectivenessProvider>

@@ -1,12 +1,16 @@
 'use client'
 
+import Link from 'next/link'
 import { useContext, useState } from 'react'
 import {
   EffectivenessValue,
   TYPE_EFFECTIVENESS_CHART,
   TYPE_ORDER,
 } from '~/constants/typeEffectivenessChart'
+import ImageComponent from '~/components/Image.component'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { buildTypeDetailPath, buildTypeSlug } from '~/module/typeParams.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import TableActivePointerComponent, {
   ActivePointerType,
@@ -34,6 +38,17 @@ import TableActivePointerComponent, {
  * 배경을 준다. border-collapse는 sticky와 함께 쓰면 브라우저별로 테두리가
  * 스크롤을 따라가는 버그가 있어 border-separate + 셀별 보더를 쓴다.
  */
+
+/**
+ * 표의 한글 타입 라벨(PokemonTypes) → GraphQL enum(PokemonType).
+ *
+ * 이 표는 TYPE_ORDER(한글 값 enum)로 순회하는데 링크 경로는 영문 enum이
+ * 필요하다. 상세 페이지 링크를 걸면서 생긴 경계 변환이다.
+ */
+const toPokemonType = (label: PokemonTypes): PokemonType =>
+  Object.values(PokemonType).find(
+    (type) => PokemonTypes[type] === label,
+  ) as PokemonType
 
 /** 상성 배율별 표시 라벨·색·활성 강조 규칙 (데/모 단일 — 구버전 데스크톱 표기 통일) */
 const VALUE_STYLE: Record<
@@ -146,11 +161,21 @@ const TypeEffectivenessTableContainer = () => {
           <tbody>
             {TYPE_ORDER.map((attackType) => (
               <tr key={`row-${attackType}`}>
+                {/* 행 헤더(공격 축)만 타입 상세로 링크한다. 열 헤더는 걸지
+                    않는다 — sticky로 상시 노출되는 데다 셀 폭이 44px이라
+                    가로 스크롤 중 오탭 위험이 크다. 앵커 텍스트가 타입명
+                    단독이라 aria-label로 목적지를 보강한다(§15). */}
                 <th
                   scope="row"
-                  className="sticky left-0 z-10 min-w-14 border-b border-r border-solid border-primary-3 bg-primary-2 text-center align-middle text-xs text-white desktop:min-w-16 desktop:text-sm"
+                  className="sticky left-0 z-10 min-w-14 border-b border-r border-solid border-primary-3 bg-primary-2 p-0 text-center align-middle text-xs text-white desktop:min-w-16 desktop:text-sm"
                 >
-                  {attackType}
+                  <Link
+                    href={buildTypeDetailPath(toPokemonType(attackType))}
+                    aria-label={`${attackType} 타입 약점과 상성 보기`}
+                    className="flex h-full w-full items-center justify-center px-1 py-2 hover:underline focus-visible:underline"
+                  >
+                    {attackType}
+                  </Link>
                 </th>
                 {TYPE_ORDER.map((defenseType) =>
                   renderCell(attackType, defenseType),
@@ -160,6 +185,50 @@ const TypeEffectivenessTableContainer = () => {
           </tbody>
         </table>
       </div>
+
+      {/* 18개 타입 상세 링크 — 커버리지 안전망.
+          행 헤더 링크(위)와 계산 결과 CTA는 각각 조건부이거나 사용자가 표를
+          스크롤해야 닿는다. 이 블록이 있어야 **모든 타입 페이지가 최소 1개
+          텍스트 링크를 받는다**는 보장이 생긴다(§15). */}
+      <nav aria-labelledby="type-detail-links-heading" className="w-full pt-6">
+        <h3
+          id="type-detail-links-heading"
+          className="mb-3 text-base font-bold text-primary-4 desktop:text-lg"
+        >
+          타입별 약점·상성 자세히 보기
+        </h3>
+        <ul className="grid grid-cols-2 gap-2 desktop:grid-cols-6 desktop:gap-3">
+          {TYPE_ORDER.map((label) => {
+            const type = toPokemonType(label)
+            return (
+              <li key={`detail-link-${label}`}>
+                <Link
+                  href={buildTypeDetailPath(type)}
+                  aria-label={`${label} 타입 약점과 상성 보기`}
+                  className="flex min-h-touch items-center justify-between gap-2 rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
+                      <ImageComponent
+                        alt=""
+                        aria-hidden="true"
+                        src={`/assets/type/${buildTypeSlug(type)}.svg`}
+                        width="100%"
+                        height="100%"
+                        imageSize={{ width: 24, height: 24 }}
+                      />
+                    </span>
+                    {label}
+                  </span>
+                  <span aria-hidden="true" className="text-primary-3">
+                    ›
+                  </span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
     </section>
   )
 }
