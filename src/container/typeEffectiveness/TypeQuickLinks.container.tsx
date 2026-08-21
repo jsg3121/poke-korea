@@ -24,24 +24,16 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
  *
  * 기존 요소를 하나도 건드리지 않아 리스크가 가장 낮은 내부 링크 진입점이다.
  *
- * ## 노출 타입 선정
+ * ## 18개 전체를 노출한다
  *
- * Search Console에서 노출 감소가 컸던 검색어 순으로 고른다(spec §26.8.4) —
- * `악타입 약점`(-83.7%)·`독타입 약점`(-77.5%)·`격투 약점`(-82.6%)·
- * `물타입 약점`(-79.2%)·`전기 약점`(-87.0%)·`페어리 타입 약점`(-86.1%).
- * 잃은 검색 의도를 하위 페이지로 되받는 것이 이 트랙의 목적이므로, 노출이
- * 많이 빠진 타입을 앞에 둔다.
+ * 일부만 노출하면 "왜 이 타입만?"이라는 기준을 설명해야 하고, 빠진 타입은
+ * 이 진입점에서 링크를 받지 못한다. 18개 전부 두되 **칩을 작게** 만들어
+ * 시각 비중을 낮췄다 — 이 블록은 계산기의 보조 수단이지 주인공이 아니다.
+ * 크게 두면 페이지 1순위 자산인 타입 선택 버튼에서 시선을 뺏는다.
  */
 
-/** 검색 노출 손실이 컸던 순서(§26.8.4). 6개만 노출해 계산기를 밀어내지 않는다. */
-const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = [
-  PokemonType.DARK,
-  PokemonType.POISON,
-  PokemonType.FIGHTING,
-  PokemonType.WATER,
-  PokemonType.ELECTRIC,
-  PokemonType.FAIRY,
-]
+/** 18개 전체. 순서는 상성표와 같은 도감 표기 순서(TYPE_ORDER)를 따른다. */
+const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = Object.values(PokemonType)
 
 const TypeQuickLinksContainer = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
@@ -50,43 +42,58 @@ const TypeQuickLinksContainer = () => {
   if (selectTypeList.length > 0) return null
 
   return (
+    // 이 블록은 계산기의 보조 수단이지 주인공이 아니다. 제목을 h3로 낮추고
+    // (계산기·결과·상성표가 h2) 폰트·여백·칩 크기를 줄여 시각 비중을 낮춘다 —
+    // 크게 두면 페이지 1순위 자산인 타입 선택 버튼에서 시선을 뺏는다.
     <section
       aria-labelledby="type-quick-links-heading"
-      className="w-full pt-6 desktop:pt-8"
+      className="w-full pt-5 desktop:pt-6"
     >
-      <h2
+      <h3
         id="type-quick-links-heading"
-        className="text-xl font-semibold leading-tight text-primary-4 desktop:text-3xl"
+        className="text-base font-bold leading-tight text-primary-4 desktop:text-lg"
       >
         타입별 약점 바로 보기
-      </h2>
-      <p className="mt-2 text-base text-primary-4/80">
+      </h3>
+      <p className="mt-1 text-sm text-primary-3">
         타입을 고르지 않아도 각 타입의 약점과 상성을 자세히 확인할 수 있어요.
       </p>
-      <ul className="mt-4 grid grid-cols-2 gap-2 desktop:grid-cols-6 desktop:gap-3">
+      {/* 모바일 3열 → 데스크톱 6열.
+          9열은 쓰지 않는다 — 970px 이하에서 칩이 좁아져 3글자 타입
+          (에스퍼·페어리·드래곤)이 칸을 넘는다. 구간을 나누려면
+          `desktop-970`(max-970px)을 써야 하는데 이 브레이크포인트는 모바일까지
+          포함해 grid-cols-3을 덮어쓰고, `desktop:desktop-970:` 중첩은 Tailwind가
+          규칙을 생성하지 않는다. 6열이면 769px에서도 글자 여유가 74px라
+          전 구간에서 안전하다. */}
+      <ul className="mt-3 grid grid-cols-3 gap-1.5 desktop:grid-cols-6 desktop:gap-2">
         {QUICK_LINK_TYPES.map((type) => (
           <li key={type}>
+            {/* 18개를 한 화면에 두려면 칩이 작아야 한다. 화살표(›)는 빼고
+                아이콘 + 타입명만 남긴다 — 9열에서는 화살표가 들어갈 폭이
+                없고, 없어도 링크임은 hover·커서로 전달된다. 터치 타겟은
+                min-h-touch(44px)로 유지한다. */}
             <Link
               href={buildTypeDetailPath(type)}
               aria-label={`${PokemonTypes[type]} 타입 약점과 상성 보기`}
-              className="flex min-h-touch items-center justify-between gap-2 rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+              // whitespace-nowrap: 열 수 분기로 대부분 해결되지만, 폰트 크기가
+              // 다른 환경에서도 타입명이 두 줄로 쪼개지지 않게 못 박는다.
+              // w-full + min-w-0: 이게 없으면 링크가 콘텐츠 크기로 부풀어
+              // 그리드 칸을 넘어 밖으로 튀어나온다(whitespace-nowrap이 줄바꿈을
+              // 막으니 대신 가로로 넘친다). 칸 안에 가두는 것이 먼저다.
+              // 좁은 화면(340px)에서는 px-1.5·gap-1로 내부 고정 소모를 줄인다.
+              className="flex min-h-touch w-full min-w-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-solid border-primary-2 px-1.5 py-1.5 text-sm font-semibold text-primary-3 transition-colors hover:border-primary-4 hover:bg-primary-2 hover:text-primary-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 desktop:gap-1.5 desktop:px-2"
             >
-              <span className="flex items-center gap-2">
-                <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
-                  <ImageComponent
-                    alt=""
-                    aria-hidden="true"
-                    src={`/assets/type/${buildTypeSlug(type)}.svg`}
-                    width="100%"
-                    height="100%"
-                    imageSize={{ width: 24, height: 24 }}
-                  />
-                </span>
-                {PokemonTypes[type]}
+              <span className="block h-3.5 w-3.5 shrink-0 desktop:h-5 desktop:w-5">
+                <ImageComponent
+                  alt=""
+                  aria-hidden="true"
+                  src={`/assets/type/${buildTypeSlug(type)}.svg`}
+                  width="100%"
+                  height="100%"
+                  imageSize={{ width: 20, height: 20 }}
+                />
               </span>
-              <span aria-hidden="true" className="text-primary-3">
-                ›
-              </span>
+              {PokemonTypes[type]}
             </Link>
           </li>
         ))}
