@@ -1,0 +1,69 @@
+import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { getTypeLabel } from '~/module/typeParams.module'
+
+/**
+ * FAQ — 네이티브 `<details>` 아코디언.
+ *
+ * `'use client'` 없이 동작하고, **접힌 답변도 DOM에 남아 크롤러가 읽는다.**
+ * JS로 접었다 펴는 구현이면 초기 HTML에 답변이 없거나 있어도 숨김 처리라
+ * 색인 가치가 떨어진다. 이 페이지는 검색 유입이 목적이라 그 차이가 크다.
+ *
+ * 같은 내용이 FAQPage JSON-LD로도 나간다(`getTypeDetailFaqJsonLd`). 구조화
+ * 데이터와 화면 내용이 일치해야 하므로 **두 곳 모두 같은 상수를 원천으로** 쓴다.
+ *
+ * 데스크톱에서 아코디언 헤더·테두리는 전체 폭을 쓰고, 답변 본문만 가독 폭으로
+ * 제한한다(시안 결정) — 질문 한 줄짜리 목록이 좁은 폭에 갇히면 어색하다.
+ */
+
+interface TypeDetailFaqContainerProps {
+  pokemonType: PokemonType
+}
+
+const TypeDetailFaqContainer = ({
+  pokemonType,
+}: TypeDetailFaqContainerProps) => {
+  const label = getTypeLabel(pokemonType)
+  const content = TYPE_DETAIL_CONTENT[pokemonType]
+
+  if (!content || content.faq.length === 0) return null
+
+  return (
+    <section
+      aria-labelledby="type-detail-faq"
+      className="w-full pt-10 desktop:pt-14"
+    >
+      <h2
+        id="type-detail-faq"
+        className="mb-4 text-xl font-semibold leading-tight text-primary-4 desktop:text-3xl"
+      >
+        {label} 타입 자주 묻는 질문
+      </h2>
+      <div className="flex w-full flex-col gap-3">
+        {content.faq.map((item) => (
+          <details
+            key={item.question}
+            className="group w-full overflow-hidden rounded-2xl border border-solid border-primary-3 bg-primary-1 transition-colors hover:border-primary-4 hover:bg-primary-2"
+          >
+            {/* 패딩을 details가 아니라 summary에 준다 — details에 주면 그 여백이
+                클릭 영역 밖이라 카드 가장자리를 눌러도 열리지 않는다. */}
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-base font-bold text-primary-4 marker:content-none desktop:px-6 desktop:py-5 [&::-webkit-details-marker]:hidden">
+              {item.question}
+              <span
+                aria-hidden="true"
+                className="shrink-0 text-primary-3 transition-transform group-open:rotate-180"
+              >
+                ▾
+              </span>
+            </summary>
+            <p className="px-5 pb-4 text-base leading-relaxed text-primary-3 desktop:px-6 desktop:pb-5">
+              {item.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export default TypeDetailFaqContainer

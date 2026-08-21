@@ -17,6 +17,7 @@ import {
   ChampionsTournamentSummaryFragment,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/module/apolloClient'
+import { TYPE_SLUGS } from '~/module/typeParams.module'
 
 export const revalidate = 21600
 
@@ -57,6 +58,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.8,
     },
+    // 타입별 상세 18개 — 슬러그 목록에서 생성한다. 하드코딩하면 타입이 늘거나
+    // 슬러그가 바뀔 때 사이트맵만 조용히 뒤처진다.
+    ...TYPE_SLUGS.map((slug) => ({
+      url: `https://poke-korea.com/type-effectiveness/${slug}`,
+      lastModified: BUILD_TIME,
+      changeFrequency: 'weekly' as const,
+      // 메인 계산기(0.8)보다 낮게 둔다 — 허브가 상위, 하위 페이지가 그 아래라는
+      // 구조를 사이트맵에도 반영한다.
+      priority: 0.7,
+    })),
     {
       url: 'https://poke-korea.com/moves',
       lastModified: BUILD_TIME,

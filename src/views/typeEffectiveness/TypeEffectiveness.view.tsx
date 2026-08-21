@@ -7,6 +7,7 @@ import TypeCalculatorContainer from '~/container/typeEffectiveness/TypeCalculato
 import TypeCalculatorResultContainer from '~/container/typeEffectiveness/TypeCalculatorResult.container'
 import TypeEffectivenessDescriptionContainer from '~/container/typeEffectiveness/TypeEffectivenessDescription.container'
 import TypeEffectivenessTableContainer from '~/container/typeEffectiveness/TypeEffectivenessTable.container'
+import TypeQuickLinksContainer from '~/container/typeEffectiveness/TypeQuickLinks.container'
 
 /**
  * 타입 상성 계산기 뷰 (반응형 단일 — UX-009). 데/모 2벌
@@ -32,15 +33,21 @@ import TypeEffectivenessTableContainer from '~/container/typeEffectiveness/TypeE
 const TypeEffectivenessView = () => {
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8">
+      {/* H1은 title과 같은 방향으로 맞춘다 — 둘이 어긋나면 주제 신호가
+          절반만 전달된다. `상성표`를 앞에 두되 `계산기`를 남겨 1위 자산인
+          계산기 의도를 지킨다(§14.1·§26.9). */}
       <PageHeaderComponent
-        title="타입 상성 계산기"
-        description="상대 포켓몬의 타입을 선택하면 약점과 주의할 타입을 바로 알려드려요. 18개 타입 전체 상성표도 함께 확인하세요."
+        title="포켓몬 타입 상성표·상성 계산기"
+        description="상대 포켓몬의 타입을 선택하면 약점과 주의할 타입을 바로 알려드려요. 18개 타입 전체 상성표와 타입별 약점도 함께 확인하세요."
       />
 
       <TypeEffectivenessProvider>
         <TypeCalculatorContainer />
         {/* 타입 선택↔결과 사이 — 선택 직후 결과로 내려오는 길목(항상 노출) */}
         <TypeEffectivenessTopBanner />
+        {/* 미선택 시에만 노출 — 결과가 비어 있는 자리를 타입 상세 링크로 채운다.
+            타입을 고르면 물러나므로 계산기 흐름을 막지 않는다. */}
+        <TypeQuickLinksContainer />
         <TypeCalculatorResultContainer />
         <TypeEffectivenessTableContainer />
       </TypeEffectivenessProvider>
