@@ -79,7 +79,9 @@ const TypeDetailChampionsContainer = ({
                   width={72}
                   height={72}
                   loading="lazy"
-                  className="h-16 w-16 shrink-0 object-contain desktop:h-18 desktop:w-18"
+                  // h-18/w-18은 Tailwind 기본 스케일에도 이 프로젝트 spacing
+                  // 확장에도 없는 키라 CSS가 생성되지 않는다. h-20(80px)을 쓴다.
+                  className="h-16 w-16 shrink-0 object-contain desktop:h-20 desktop:w-20"
                 />
               )}
               <div className="min-w-0 flex-1">

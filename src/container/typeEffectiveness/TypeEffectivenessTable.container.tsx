@@ -166,7 +166,10 @@ const TypeEffectivenessTableContainer = () => {
                     단독이라 aria-label로 목적지를 보강한다(§15). */}
                 <th
                   scope="row"
-                  className="sticky left-0 z-10 min-w-14 border-b border-r border-solid border-primary-3 bg-primary-2 p-0 text-center align-middle text-xs text-white desktop:min-w-16 desktop:text-sm"
+                  // h-10/h-12: 링크를 넣으며 p-0으로 바꾸는 바람에 셀 높이를
+                  // 결정하던 패딩이 사라졌다. 다른 셀(td·열 헤더)과 같은 높이를
+                  // 명시해야 내부 링크의 h-full이 해석되고 터치 타겟이 확보된다.
+                  className="sticky left-0 z-10 h-10 min-w-14 border-b border-r border-solid border-primary-3 bg-primary-2 p-0 text-center align-middle text-xs text-white desktop:h-12 desktop:min-w-16 desktop:text-sm"
                 >
                   <Link
                     href={buildTypeDetailPath(toPokemonType(attackType))}

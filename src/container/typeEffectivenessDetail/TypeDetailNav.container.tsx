@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import LinkButtonComponent from '~/components/button/LinkButton.component'
+import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import {
   buildTypeDetailPath,
   buildTypeSlug,
   getTypeLabel,
+  parseTypeLabel,
 } from '~/module/typeParams.module'
 
 /**
@@ -30,7 +32,15 @@ interface TypeDetailNavContainerProps {
   pokemonType: PokemonType
 }
 
-const TYPE_ORDER: ReadonlyArray<PokemonType> = Object.values(PokemonType)
+/**
+ * 도감 순서. `Object.values(PokemonType)`는 GraphQL enum이라 알파벳순
+ * (벌레·악·드래곤…)으로 나오는데, 메인 페이지의 타입 링크·상성표는 도감 순
+ * (노말·불꽃·물…)이다. 같은 18개 목록이 화면마다 다른 순서로 보이면 사용자가
+ * 같은 타입을 두 번 찾게 된다.
+ */
+const TYPE_LINK_ORDER: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
+  (label) => parseTypeLabel(label) as PokemonType,
+)
 
 const TypeDetailNavContainer = ({
   pokemonType,
@@ -88,32 +98,34 @@ const TypeDetailNavContainer = ({
             svgr 컴포넌트 import는 `src/assets/` 하위만 대상이라 여기서는
             ImageComponent로 불러온다(TypeChip과 동일한 방식). */}
         <ul className="grid grid-cols-2 gap-2 desktop:grid-cols-6 desktop:gap-3">
-          {TYPE_ORDER.filter((type) => type !== pokemonType).map((type) => (
-            <li key={type}>
-              <Link
-                href={buildTypeDetailPath(type)}
-                aria-label={`${getTypeLabel(type)} 타입 약점과 상성 보기`}
-                className="flex min-h-touch w-full min-w-0 items-center justify-between gap-2 whitespace-nowrap rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
-              >
-                <span className="flex items-center gap-2">
-                  <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
-                    <ImageComponent
-                      alt=""
-                      aria-hidden="true"
-                      src={`/assets/type/${buildTypeSlug(type)}.svg`}
-                      width="100%"
-                      height="100%"
-                      imageSize={{ width: 24, height: 24 }}
-                    />
+          {TYPE_LINK_ORDER.filter((type) => type !== pokemonType).map(
+            (type) => (
+              <li key={type}>
+                <Link
+                  href={buildTypeDetailPath(type)}
+                  aria-label={`${getTypeLabel(type)} 타입 약점과 상성 보기`}
+                  className="flex min-h-touch w-full min-w-0 items-center justify-between gap-2 whitespace-nowrap rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
+                      <ImageComponent
+                        alt=""
+                        aria-hidden="true"
+                        src={`/assets/type/${buildTypeSlug(type)}.svg`}
+                        width="100%"
+                        height="100%"
+                        imageSize={{ width: 24, height: 24 }}
+                      />
+                    </span>
+                    {getTypeLabel(type)}
                   </span>
-                  {getTypeLabel(type)}
-                </span>
-                <span aria-hidden="true" className="text-primary-3">
-                  ›
-                </span>
-              </Link>
-            </li>
-          ))}
+                  <span aria-hidden="true" className="text-primary-3">
+                    ›
+                  </span>
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       </nav>
     </>
