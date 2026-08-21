@@ -14,6 +14,7 @@ import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
 import { parseTypeSlug } from '~/module/typeParams.module'
 import TypeEffectivenessDetailView from '~/views/typeEffectivenessDetail/TypeEffectivenessDetail.view'
+import { fetchTypeDetailData } from './_fetch/typeDetail.fetch'
 import { generateTypeDetailMetadata } from './_metadata/generateTypeDetailMetadata'
 
 /**
@@ -70,6 +71,11 @@ const TypeDetailPage = async ({ params }: TypeDetailPageProps) => {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
+  // 상성·문안은 정적 상수라 조회가 없다. 포켓몬 6종·챔피언스 티어만 서버에서
+  // 가져오며, 실패해도 해당 블록만 비고 페이지는 정상 렌더된다.
+  const { pokemons, pokemonTotalCount, champions } =
+    await fetchTypeDetailData(pokemonType)
+
   const webPageJsonLd = getTypeDetailWebPageJsonLd(pokemonType)
   const faqJsonLd = getTypeDetailFaqJsonLd(pokemonType)
 
@@ -79,7 +85,12 @@ const TypeDetailPage = async ({ params }: TypeDetailPageProps) => {
       {isMobile ? (
         <main className="w-full min-h-screen">
           <MobileHeaderContainer />
-          <TypeEffectivenessDetailView pokemonType={pokemonType} />
+          <TypeEffectivenessDetailView
+            pokemonType={pokemonType}
+            pokemons={pokemons}
+            pokemonTotalCount={pokemonTotalCount}
+            champions={champions}
+          />
           <MobileFooterContainer />
           <MobileTabBar />
         </main>
@@ -87,7 +98,12 @@ const TypeDetailPage = async ({ params }: TypeDetailPageProps) => {
         // pt-30(120px) = 데스크톱 fixed 헤더 실높이
         <main className="w-full min-h-screen pt-30">
           <DesktopHeaderContainer />
-          <TypeEffectivenessDetailView pokemonType={pokemonType} />
+          <TypeEffectivenessDetailView
+            pokemonType={pokemonType}
+            pokemons={pokemons}
+            pokemonTotalCount={pokemonTotalCount}
+            champions={champions}
+          />
           <DesktopFooterContainer />
         </main>
       )}

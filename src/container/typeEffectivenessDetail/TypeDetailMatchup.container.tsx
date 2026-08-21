@@ -32,7 +32,7 @@ const TypeDetailMatchupContainer = ({
     <>
       <section
         aria-labelledby="type-detail-defense"
-        className="w-full pt-8 desktop:pt-10"
+        className="w-full pt-10 desktop:pt-14"
       >
         <h2
           id="type-detail-defense"
@@ -44,7 +44,7 @@ const TypeDetailMatchupContainer = ({
           {label} 타입 포켓몬이 각 타입 공격을 받을 때의 배율이에요. 복합 타입은
           두 타입의 배율이 곱해져요.
         </p>
-        <div className="rounded-2xl bg-primary-4 p-4 desktop:p-6">
+        <div className="rounded-2xl bg-primary-4 p-5 desktop:p-8">
           <TypeMatchupComponent
             quad={defense.quad}
             double={defense.double}
@@ -57,7 +57,7 @@ const TypeDetailMatchupContainer = ({
 
       <section
         aria-labelledby="type-detail-attack"
-        className="w-full pt-8 desktop:pt-10"
+        className="w-full pt-10 desktop:pt-14"
       >
         <h2
           id="type-detail-attack"
@@ -68,7 +68,7 @@ const TypeDetailMatchupContainer = ({
         <p className="mb-4 text-sm text-primary-3">
           {label} 타입 기술로 공격할 때의 배율이에요. 단일 타입 상대 기준이에요.
         </p>
-        <div className="rounded-2xl bg-primary-4 p-4 desktop:p-6">
+        <div className="rounded-2xl bg-primary-4 p-5 desktop:p-8">
           <TypeAttackMatchupComponent
             double={attack.double}
             half={attack.half}

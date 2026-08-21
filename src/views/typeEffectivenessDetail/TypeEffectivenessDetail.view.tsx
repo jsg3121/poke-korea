@@ -1,8 +1,11 @@
-import { PokemonType } from '~/graphql/typeGenerated'
+import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
+import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
+import TypeDetailChampionsContainer from '~/container/typeEffectivenessDetail/TypeDetailChampions.container'
 import TypeDetailComboContainer from '~/container/typeEffectivenessDetail/TypeDetailCombo.container'
 import TypeDetailFaqContainer from '~/container/typeEffectivenessDetail/TypeDetailFaq.container'
 import TypeDetailMatchupContainer from '~/container/typeEffectivenessDetail/TypeDetailMatchup.container'
 import TypeDetailNavContainer from '~/container/typeEffectivenessDetail/TypeDetailNav.container'
+import TypeDetailPokemonContainer from '~/container/typeEffectivenessDetail/TypeDetailPokemon.container'
 import TypeDetailSummaryContainer from '~/container/typeEffectivenessDetail/TypeDetailSummary.container'
 
 /**
@@ -35,16 +38,35 @@ import TypeDetailSummaryContainer from '~/container/typeEffectivenessDetail/Type
 
 interface TypeEffectivenessDetailViewProps {
   pokemonType: PokemonType
+  pokemons: Array<PokemonInfoFragment>
+  pokemonTotalCount: number
+  champions: Array<ChampionsTypeEntry>
 }
 
 const TypeEffectivenessDetailView = ({
   pokemonType,
+  pokemons,
+  pokemonTotalCount,
+  champions,
 }: TypeEffectivenessDetailViewProps) => {
   return (
-    <section className="mx-auto w-full max-w-[1280px] px-4 pb-8">
+    // pt-6: 전역 헤더(GNB)와 본문이 붙지 않게 하는 최소 여백. PageHeader를 쓰는
+    // 다른 페이지는 그 컴포넌트가 pt-4를 갖지만, 이 페이지는 폴드 확보를 위해
+    // PageHeader 대신 자체 헤더를 쓰므로 여백을 여기서 준다.
+    // pb-20: 모바일 하단 고정 탭바(h-16=64px) 클리어런스.
+    <section className="mx-auto w-full max-w-[1280px] px-4 pb-20 pt-6 desktop:pb-10 desktop:pt-8">
       <TypeDetailSummaryContainer pokemonType={pokemonType} />
       <TypeDetailMatchupContainer pokemonType={pokemonType} />
       <TypeDetailComboContainer pokemonType={pokemonType} />
+      <TypeDetailPokemonContainer
+        pokemonType={pokemonType}
+        pokemons={pokemons}
+        totalCount={pokemonTotalCount}
+      />
+      <TypeDetailChampionsContainer
+        pokemonType={pokemonType}
+        entries={champions}
+      />
       <TypeDetailFaqContainer pokemonType={pokemonType} />
       <TypeDetailNavContainer pokemonType={pokemonType} />
     </section>

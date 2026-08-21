@@ -31,7 +31,7 @@ const TypeDetailComboContainer = ({
     <>
       <section
         aria-labelledby="type-detail-combo"
-        className="w-full pt-8 desktop:pt-10"
+        className="w-full pt-10 desktop:pt-14"
       >
         <h2
           id="type-detail-combo"
@@ -43,11 +43,11 @@ const TypeDetailComboContainer = ({
           실제로 존재하는 조합이에요. 두 타입의 배율이 곱해져 4배 약점이나
           무효가 생기기도 해요.
         </p>
-        <ul className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
+        <ul className="grid grid-cols-1 gap-4 desktop:grid-cols-2 desktop:gap-5">
           {content.combos.map((combo) => (
             <li
               key={combo.label}
-              className="rounded-2xl bg-primary-4 p-4 desktop:p-5"
+              className="rounded-2xl bg-primary-4 p-5 desktop:p-6"
             >
               <h3 className="text-base font-bold text-primary-1 desktop:text-lg">
                 {combo.label}
@@ -66,7 +66,7 @@ const TypeDetailComboContainer = ({
       {content.specialEffect && (
         <section
           aria-labelledby="type-detail-effect"
-          className="w-full pt-8 desktop:pt-10"
+          className="w-full pt-10 desktop:pt-14"
         >
           <h2
             id="type-detail-effect"

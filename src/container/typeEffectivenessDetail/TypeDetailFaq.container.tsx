@@ -31,7 +31,7 @@ const TypeDetailFaqContainer = ({
   return (
     <section
       aria-labelledby="type-detail-faq"
-      className="w-full pt-8 desktop:pt-10"
+      className="w-full pt-10 desktop:pt-14"
     >
       <h2
         id="type-detail-faq"
@@ -39,11 +39,11 @@ const TypeDetailFaqContainer = ({
       >
         {label} 타입 자주 묻는 질문
       </h2>
-      <div className="flex w-full flex-col gap-2">
+      <div className="flex w-full flex-col gap-3">
         {content.faq.map((item) => (
           <details
             key={item.question}
-            className="group w-full rounded-2xl border border-solid border-primary-3 bg-primary-1 px-4 py-3 desktop:px-5"
+            className="group w-full rounded-2xl border border-solid border-primary-3 bg-primary-1 px-5 py-4 desktop:px-6 desktop:py-5"
           >
             <summary className="cursor-pointer list-none text-base font-bold text-primary-4 marker:content-none">
               <span className="flex items-center justify-between gap-3">

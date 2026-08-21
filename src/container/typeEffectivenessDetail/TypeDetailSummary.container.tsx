@@ -68,8 +68,8 @@ const TypeDetailSummaryContainer = ({
       )}
 
       {/* 약점 즉답 카드 — 폴드의 핵심. 배율표 전체가 아니라 2배/0.5배만 */}
-      <div className="mt-4 rounded-2xl bg-primary-4 p-4 desktop:p-6">
-        <dl className="flex flex-col gap-4 desktop:flex-row desktop:gap-8">
+      <div className="mt-5 rounded-2xl bg-primary-4 p-5 desktop:p-8">
+        <dl className="flex flex-col gap-5 desktop:flex-row desktop:gap-8">
           <div className="flex-1 border-l-4 border-solid border-grade-warning pl-3">
             <dt className="text-sm font-bold text-primary-1 desktop:text-base">
               약한 공격 (2배)
