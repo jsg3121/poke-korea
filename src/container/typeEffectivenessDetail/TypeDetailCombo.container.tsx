@@ -74,7 +74,7 @@ const TypeDetailComboContainer = ({
           >
             {label} 타입의 고유 효과
           </h2>
-          <p className="max-w-2xl text-base leading-relaxed text-primary-4">
+          <p className=" text-base leading-relaxed text-primary-4">
             {content.specialEffect}
           </p>
         </section>

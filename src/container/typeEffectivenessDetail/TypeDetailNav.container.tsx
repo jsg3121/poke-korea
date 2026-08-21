@@ -1,7 +1,12 @@
 import Link from 'next/link'
+import ImageComponent from '~/components/Image.component'
 import LinkButtonComponent from '~/components/button/LinkButton.component'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { buildTypeDetailPath, getTypeLabel } from '~/module/typeParams.module'
+import {
+  buildTypeDetailPath,
+  buildTypeSlug,
+  getTypeLabel,
+} from '~/module/typeParams.module'
 
 /**
  * 하단 이동 영역 — 계산기 복귀 CTA + 다른 타입 18개 링크.
@@ -27,34 +32,6 @@ interface TypeDetailNavContainerProps {
 
 const TYPE_ORDER: ReadonlyArray<PokemonType> = Object.values(PokemonType)
 
-/**
- * 링크 카드의 타입 색 점.
- *
- * Tag의 TYPE_COLOR는 배경+글자색 조합이라 그대로 쓸 수 없고, 여기서는 배경색만
- * 필요하다. `bg-type-*` 토큰은 tailwind.config.js에 정의돼 있다. 정적 매핑이라
- * purge에 안전하다(동적 문자열 조합 금지).
- */
-const TYPE_DOT_COLOR: Record<PokemonType, string> = {
-  NORMAL: 'bg-type-normal',
-  FIRE: 'bg-type-fire',
-  WATER: 'bg-type-water',
-  ELECTRIC: 'bg-type-electric',
-  GRASS: 'bg-type-grass',
-  ICE: 'bg-type-ice',
-  FIGHTING: 'bg-type-fighting',
-  POISON: 'bg-type-poison',
-  GROUND: 'bg-type-ground',
-  FLYING: 'bg-type-flying',
-  PSYCHIC: 'bg-type-psychic',
-  BUG: 'bg-type-bug',
-  ROCK: 'bg-type-rock',
-  GHOST: 'bg-type-ghost',
-  DRAGON: 'bg-type-dragon',
-  DARK: 'bg-type-dark',
-  STEEL: 'bg-type-steel',
-  FAIRY: 'bg-type-fairy',
-}
-
 const TypeDetailNavContainer = ({
   pokemonType,
 }: TypeDetailNavContainerProps) => {
@@ -72,13 +49,25 @@ const TypeDetailNavContainer = ({
         >
           복합 타입 조합이 궁금하다면
         </h2>
-        <p className="mb-4 max-w-2xl text-base leading-relaxed text-primary-3">
+        <p className="mb-4 text-base leading-relaxed text-primary-3">
           이 페이지는 {label} 타입 단독 기준이에요. 상대가 두 가지 타입을 가지고
           있다면 계산기에서 조합 배율을 바로 확인할 수 있어요.
         </p>
-        <LinkButtonComponent href="/type-effectiveness" showArrow>
-          타입 상성 계산기로 이동
-        </LinkButtonComponent>
+        {/* 모바일 1열, 데스크톱 2열 균등. fullWidth로 각 칼럼을 채워 두 CTA의
+            폭이 같아지게 한다(문구 길이에 따라 버튼 크기가 달라지지 않도록). */}
+        <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
+          <LinkButtonComponent href="/type-effectiveness" fullWidth showArrow>
+            타입 상성 계산기로 이동
+          </LinkButtonComponent>
+          <LinkButtonComponent
+            href="/quiz/type-effectiveness"
+            variant="secondary"
+            fullWidth
+            showArrow
+          >
+            타입 상성 퀴즈 풀어보기
+          </LinkButtonComponent>
+        </div>
       </section>
 
       <nav
@@ -93,8 +82,11 @@ const TypeDetailNavContainer = ({
         </h2>
         {/* Tag(타입 배지)를 링크로 쓰지 않는다 — Tag는 "이 포켓몬의 타입"을
             나타내는 표시용 DS라 링크로 전용하면 의미가 흐려지고, 배지 형태만으로는
-            누를 수 있다는 신호도 약하다. 여기서는 타입명 + 화살표를 갖춘 링크
-            카드로 만들어 이동 가능함을 형태로 드러낸다. */}
+            누를 수 있다는 신호도 약하다. 여기서는 타입 아이콘 + 타입명 + 화살표를
+            갖춘 링크 카드로 만들어 이동 가능함을 형태로 드러낸다.
+            아이콘은 계산기의 TypeChip과 같은 `public/assets/type/*.svg`를 쓴다 —
+            svgr 컴포넌트 import는 `src/assets/` 하위만 대상이라 여기서는
+            ImageComponent로 불러온다(TypeChip과 동일한 방식). */}
         <ul className="grid grid-cols-2 gap-2 desktop:grid-cols-6 desktop:gap-3">
           {TYPE_ORDER.filter((type) => type !== pokemonType).map((type) => (
             <li key={type}>
@@ -104,10 +96,16 @@ const TypeDetailNavContainer = ({
                 className="flex min-h-touch items-center justify-between gap-2 rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
               >
                 <span className="flex items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className={`inline-block h-3 w-3 shrink-0 rounded-full ${TYPE_DOT_COLOR[type]}`}
-                  />
+                  <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
+                    <ImageComponent
+                      alt=""
+                      aria-hidden="true"
+                      src={`/assets/type/${buildTypeSlug(type)}.svg`}
+                      width="100%"
+                      height="100%"
+                      imageSize={{ width: 24, height: 24 }}
+                    />
+                  </span>
                   {getTypeLabel(type)}
                 </span>
                 <span aria-hidden="true" className="text-primary-3">

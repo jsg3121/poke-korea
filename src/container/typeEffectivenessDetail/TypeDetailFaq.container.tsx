@@ -43,20 +43,20 @@ const TypeDetailFaqContainer = ({
         {content.faq.map((item) => (
           <details
             key={item.question}
-            className="group w-full rounded-2xl border border-solid border-primary-3 bg-primary-1 px-5 py-4 desktop:px-6 desktop:py-5"
+            className="group w-full overflow-hidden rounded-2xl border border-solid border-primary-3 bg-primary-1 transition-colors hover:border-primary-4 hover:bg-primary-2"
           >
-            <summary className="cursor-pointer list-none text-base font-bold text-primary-4 marker:content-none">
-              <span className="flex items-center justify-between gap-3">
-                {item.question}
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 text-primary-3 transition-transform group-open:rotate-180"
-                >
-                  ▾
-                </span>
+            {/* 패딩을 details가 아니라 summary에 준다 — details에 주면 그 여백이
+                클릭 영역 밖이라 카드 가장자리를 눌러도 열리지 않는다. */}
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-base font-bold text-primary-4 marker:content-none desktop:px-6 desktop:py-5 [&::-webkit-details-marker]:hidden">
+              {item.question}
+              <span
+                aria-hidden="true"
+                className="shrink-0 text-primary-3 transition-transform group-open:rotate-180"
+              >
+                ▾
               </span>
             </summary>
-            <p className="mt-2 max-w-2xl text-base leading-relaxed text-primary-3">
+            <p className="px-5 pb-4 text-base leading-relaxed text-primary-3 desktop:px-6 desktop:pb-5">
               {item.answer}
             </p>
           </details>

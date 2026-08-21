@@ -1,4 +1,5 @@
 import LinkButtonComponent from '~/components/button/LinkButton.component'
+import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component'
 import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
 import { getTypeLabel } from '~/module/typeParams.module'
@@ -54,18 +55,23 @@ const TypeDetailPokemonContainer = ({
           ? `${label} 타입 포켓몬은 전부 ${totalCount}종이에요. 그중 널리 알려진 ${pokemons.length}종을 보여드려요.`
           : `널리 알려진 ${label} 타입 포켓몬 ${pokemons.length}종이에요.`}
       </p>
-      <ul className="grid grid-cols-2 gap-3 desktop:grid-cols-6 desktop:gap-4">
+      {/* 그리드가 아니라 가로 스크롤을 쓴다.
+          그리드로는 6종을 데스크톱 한 줄에 담을 수 없다 — 본문 폭 1248px에
+          카드(w-56=224px) 6개는 1344px이 필요해 물리적으로 초과한다. 5열로
+          낮추면 둘째 줄에 1개만 남고, 6열로 두면 카드가 칸을 넘어 겹친다.
+          가로 스크롤은 카드 고정폭을 지키면서 6종을 한 줄에 두고, 좁은 화면에서
+          다음 카드가 살짝 보이는 peek 단서까지 DS가 처리한다. */}
+      <HorizontalScrollListComponent aria-label={`${label} 타입 포켓몬 목록`}>
         {pokemons.map((pokemon, index) => (
-          <li key={pokemon.id} className="flex justify-center">
-            <PokemonCardComponent
-              pokemonData={pokemon}
-              variant="pokedex"
-              // 폴드 밖 블록이라 첫 카드만 우선 로드해도 충분하다.
-              isHighPriority={index === 0}
-            />
-          </li>
+          <PokemonCardComponent
+            key={pokemon.id}
+            pokemonData={pokemon}
+            variant="pokedex"
+            // 폴드 밖 블록이라 첫 카드만 우선 로드해도 충분하다.
+            isHighPriority={index === 0}
+          />
         ))}
-      </ul>
+      </HorizontalScrollListComponent>
       <div className="mt-5">
         <LinkButtonComponent
           href={`/list?type=${pokemonType}`}

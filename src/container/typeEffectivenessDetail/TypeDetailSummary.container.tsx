@@ -62,7 +62,7 @@ const TypeDetailSummaryContainer = ({
       </h1>
 
       {content && (
-        <p className="mt-2 max-w-2xl text-base leading-relaxed text-primary-3">
+        <p className="mt-2 text-base leading-relaxed text-primary-3">
           {content.lead}
         </p>
       )}
@@ -115,7 +115,7 @@ const TypeDetailSummaryContainer = ({
 
       {/* 고유 사실 — 이 타입에만 성립하는 서술(§26.9.5 복제 회피 슬롯) */}
       {content && (
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-4">
+        <p className="mt-4 text-base leading-relaxed text-primary-4">
           {content.uniqueFacts}
         </p>
       )}
