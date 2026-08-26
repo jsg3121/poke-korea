@@ -149,7 +149,7 @@ Search Console 실측상 상세 페이지는 **전체 검색 노출의 49%(88만
 | 파일 | 변경 |
 | --- | --- |
 | `src/gql/query.graphql` | `PokemonDetail`에 제원 11개, 폼 쿼리 4개에 `height`/`weight` 추가. 미사용 `normalForms` 블록 제거 |
-| `src/module/pokemonSpec.module.ts` | 신규 — 단위 변환(데시미터→m, 헥토그램→kg), 성비 코드 해석, 부화 걸음수 환산, 결측 처리 |
+| `src/module/pokemonSpec.module.ts` | 신규 — 단위 변환(데시미터→m, 헥토그램→kg), 성비 코드 해석, 포획률 게이지 비율, 결측 처리 |
 | `src/container/detail/DetailSpecSection.container.tsx` | 신규 — 카드 2장(`DetailBodySpecSection`·`DetailBreedingSpecSection`). grid wrapper 없이 section만 내보내 상위가 조립한다 |
 | `src/container/detail/components/SpecGauge.component.tsx` | 신규 — 포획률 게이지, 성비 막대 (`progress` 지원) |
 | `src/hook/useEnterViewProgress.ts` | 신규 — 뷰포트 진입 모션 진행도. StatBar·ChampionsMetaList의 중복 로직을 추출 |

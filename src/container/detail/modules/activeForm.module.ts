@@ -43,13 +43,17 @@ export const getActiveFormInfo = ({
   activeIndex,
 }: ActiveFormArgs): ActiveFormInfo => {
   switch (activeType) {
-    case 'mega':
+    case 'mega': {
+      const form = megaEvolutions?.[activeIndex]
       return {
-        name: megaEvolutions?.[activeIndex]?.name ?? '',
-        stats: megaEvolutions?.[activeIndex]?.megaEvolutionStats ?? undefined,
-        height: megaEvolutions?.[activeIndex]?.height,
-        weight: megaEvolutions?.[activeIndex]?.weight,
+        name: form?.name ?? '',
+        stats: form?.megaEvolutionStats ?? undefined,
+        // 메가·거다이맥스는 원종 폴백을 두지 않는다 — 원종 크기를 대신 보여주면
+        // 잘못된 정보가 된다(메가이상해꽃 2.4m를 2.0m로 표시하는 셈).
+        height: form?.height,
+        weight: form?.weight,
       }
+    }
     case 'region': {
       const form = regionFormInfo?.[activeIndex]
       return {
@@ -61,13 +65,16 @@ export const getActiveFormInfo = ({
         weight: form ? form.weight : pokemonBaseInfo?.weight,
       }
     }
-    case 'gigantamax':
+    case 'gigantamax': {
+      const form = gigantamaxInfo?.[activeIndex]
       return {
-        name: gigantamaxInfo?.[activeIndex]?.name ?? '',
+        name: form?.name ?? '',
         stats: pokemonBaseInfo?.pokemonStats,
-        height: gigantamaxInfo?.[activeIndex]?.height,
-        weight: gigantamaxInfo?.[activeIndex]?.weight,
+        // mega와 동일하게 원종 폴백 없음
+        height: form?.height,
+        weight: form?.weight,
       }
+    }
     default: {
       const form = normalForm?.[0]
       return {

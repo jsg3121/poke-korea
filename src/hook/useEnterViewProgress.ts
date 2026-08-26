@@ -1,6 +1,6 @@
 'use client'
 
-import { RefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * 뷰포트 진입 시 0→1로 진행되는 모션 진행도(1회).
@@ -38,10 +38,13 @@ export const useEnterViewProgress = <T extends HTMLElement>({
   durationMs = DEFAULT_DURATION_MS,
   threshold = DEFAULT_THRESHOLD,
 }: UseEnterViewProgressOptions = {}): {
-  ref: RefObject<T>
+  ref: (node: T | null) => void
   progress: number
 } => {
-  const ref = useRef<T>(null)
+  // 노드 부착을 ref 콜백으로 상태에 담는다. useRef만 쓰면 effect가 처음 돌 때
+  // ref.current가 아직 null인 경우(소비자가 첫 렌더에 null을 반환하는 등)
+  // 다시 실행되지 않아 모션이 영구히 사라진다.
+  const [node, setNode] = useState<T | null>(null)
   const [progress, setProgress] = useState(1)
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export const useEnterViewProgress = <T extends HTMLElement>({
       return undefined
     }
 
-    const root = ref.current
+    const root = node
     if (!root) {
       return undefined
     }
@@ -99,7 +102,7 @@ export const useEnterViewProgress = <T extends HTMLElement>({
       observer.disconnect()
       cancelAnimationFrame(rafId)
     }
-  }, [enabled, durationMs, threshold])
+  }, [node, enabled, durationMs, threshold])
 
-  return { ref, progress }
+  return { ref: setNode, progress }
 }
