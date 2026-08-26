@@ -50,17 +50,17 @@ export const getActiveFormInfo = ({
         height: megaEvolutions?.[activeIndex]?.height,
         weight: megaEvolutions?.[activeIndex]?.weight,
       }
-    case 'region':
+    case 'region': {
+      const form = regionFormInfo?.[activeIndex]
       return {
-        name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex]?.region}의 모습 ${regionFormInfo?.[activeIndex]?.name && `(${regionFormInfo?.[activeIndex]?.name})`}`,
-        stats:
-          regionFormInfo?.[activeIndex]?.regionFormStats ??
-          pokemonBaseInfo?.pokemonStats,
-        height:
-          regionFormInfo?.[activeIndex]?.height ?? pokemonBaseInfo?.height,
-        weight:
-          regionFormInfo?.[activeIndex]?.weight ?? pokemonBaseInfo?.weight,
+        name: `${pokemonBaseInfo?.name} ${form?.region}의 모습 ${form?.name && `(${form?.name})`}`,
+        stats: form?.regionFormStats ?? pokemonBaseInfo?.pokemonStats,
+        // 폼 객체가 있으면 그 값을 그대로 쓴다(null이어도). ??로 폴백하면 값이
+        // 공식적으로 불명인 폼에 원종 수치가 잘못 표시된다(무한다이맥스 사례).
+        height: form ? form.height : pokemonBaseInfo?.height,
+        weight: form ? form.weight : pokemonBaseInfo?.weight,
       }
+    }
     case 'gigantamax':
       return {
         name: gigantamaxInfo?.[activeIndex]?.name ?? '',
@@ -68,17 +68,16 @@ export const getActiveFormInfo = ({
         height: gigantamaxInfo?.[activeIndex]?.height,
         weight: gigantamaxInfo?.[activeIndex]?.weight,
       }
-    default:
+    default: {
+      const form = normalForm?.[0]
       return {
-        name:
-          normalForm?.[0]?.name.replace('_', ' ') ??
-          pokemonBaseInfo?.name ??
-          '',
-        stats:
-          normalForm?.[0]?.normalFormStats ?? pokemonBaseInfo?.pokemonStats,
-        height: normalForm?.[0]?.height ?? pokemonBaseInfo?.height,
-        weight: normalForm?.[0]?.weight ?? pokemonBaseInfo?.weight,
+        name: form?.name.replace('_', ' ') ?? pokemonBaseInfo?.name ?? '',
+        stats: form?.normalFormStats ?? pokemonBaseInfo?.pokemonStats,
+        // region과 동일 — 폼이 있으면 null도 그대로 전달해 "불명"으로 표시되게 한다
+        height: form ? form.height : pokemonBaseInfo?.height,
+        weight: form ? form.weight : pokemonBaseInfo?.weight,
       }
+    }
   }
 }
 
