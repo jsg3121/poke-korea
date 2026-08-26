@@ -21,7 +21,7 @@ const InfoCardTitleComponent = ({
     >
       {title}
       {badge && (
-        <span className="h-5 rounded-md bg-primary-1 px-2 text-2xs font-semibold leading-5 text-primary-4 desktop:h-6 desktop:text-xs desktop:leading-6">
+        <span className="h-5 rounded-md bg-primary-1 px-2 text-2xs font-semibold leading-5 text-primary-4 desktop:h-6 desktop:text-xs desktop:leading-[calc(1.5rem+2px)]">
           {badge}
         </span>
       )}

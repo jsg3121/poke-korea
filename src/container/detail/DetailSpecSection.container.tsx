@@ -219,7 +219,7 @@ export const DetailBreedingSpecSection = () => {
               : eggGroups.map((group) => (
                   <span
                     key={group}
-                    className="h-5 rounded-lg bg-primary-2 px-2 text-2xs font-normal leading-5 text-primary-4 desktop:h-7 desktop:text-sm desktop:leading-7"
+                    className="h-5 rounded-lg bg-primary-2 px-2 text-2xs font-normal leading-5 text-primary-4 desktop:h-7 desktop:text-sm desktop:leading-[calc(1.75rem+2px)]"
                   >
                     {group}
                   </span>
