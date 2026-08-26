@@ -8,6 +8,7 @@ import {
 } from '~/graphql/typeGenerated'
 import {
   getPokemonNameByType,
+  getPokemonSize,
   getPokemonTypes,
   getSeoCanonicalUrl,
   getSeoDescription,
@@ -97,6 +98,12 @@ export const generateDetailMetadata = ({
     isShiny,
   })
 
+  // 키·몸무게는 폼마다 다르므로 활성 폼 기준으로 뽑는다
+  const { height, weight } = getPokemonSize({
+    ...commonParams,
+    gigantamaxData,
+  })
+
   const description = getSeoDescription({
     generation: pokemonDetail.generation,
     pokemonNumber: pokemonDetail.number,
@@ -104,6 +111,9 @@ export const generateDetailMetadata = ({
     types,
     activeType,
     isShiny,
+    genus: pokemonDetail.genus,
+    height,
+    weight,
   })
 
   const ogImages = getOgImageUrls(pokemonDetail.number, activeType, activeIndex)
