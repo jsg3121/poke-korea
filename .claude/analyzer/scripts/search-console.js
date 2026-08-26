@@ -32,7 +32,11 @@ const daysAgo = (n) =>
   new Date(Date.now() - n * 86400000).toISOString().slice(0, 10)
 
 /**
- * 검색 분석 질의. rowLimit이 25000을 넘으면 startRow로 페이지네이션한다.
+ * 검색 분석 질의.
+ *
+ * rowLimit 상한은 API 기준 25000이다. 그보다 많이 받으려면 startRow로
+ * 페이지네이션해야 하는데, 현재는 구현하지 않았다 — 상세 페이지 검색어
+ * 전수가 23000행 수준이라 한 번에 들어온다. 넘칠 일이 생기면 그때 추가한다.
  */
 const query = async (body) => {
   const token = await getAccessToken([SCOPE])
@@ -55,15 +59,26 @@ const query = async (body) => {
   return json.rows || []
 }
 
+const ROW_LIMIT_MAX = 25000
+
 const main = async () => {
   const dimensions = arg('dim', 'query').split(',')
   const contains = arg('contains')
+  const limit = Number(arg('limit', 1000))
+
+  if (limit > ROW_LIMIT_MAX) {
+    console.error(
+      `--limit=${limit} 은 API 상한(${ROW_LIMIT_MAX})을 넘어 요청이 거부된다. ` +
+        `더 많이 받으려면 startRow 페이지네이션이 필요하다(미구현).`,
+    )
+    process.exit(1)
+  }
 
   const body = {
     startDate: arg('start', daysAgo(90)),
     endDate: arg('end', daysAgo(3)),
     dimensions,
-    rowLimit: Number(arg('limit', 1000)),
+    rowLimit: limit,
   }
   if (contains) {
     body.dimensionFilterGroups = [

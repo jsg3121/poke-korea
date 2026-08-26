@@ -89,9 +89,13 @@ const main = async () => {
   )
 
   rows.forEach((r) => {
-    const dims = r.dimensionValues.map((v) => v.value.slice(0, 40).padEnd(40))
-    const mets = r.metricValues.map((v) => {
+    // 일부 필드가 빠진 행이 섞여도 리포트 전체를 버리지 않는다
+    const dims = (r.dimensionValues ?? []).map((v) =>
+      String(v.value ?? '').slice(0, 40).padEnd(40),
+    )
+    const mets = (r.metricValues ?? []).map((v) => {
       const n = Number(v.value)
+      if (!Number.isFinite(n)) return '-'.padStart(13)
       return (Number.isInteger(n) ? String(n) : n.toFixed(2)).padStart(13)
     })
     console.log([...dims, ...mets].join(''))

@@ -308,7 +308,9 @@ export const getPokemonTypes: GetPokemonTypesFn = ({
       // 거다이맥스는 타입이 변경되지 않으므로 기본 포켓몬 타입 사용
       return pokemonDetail.types
     default:
-      return normalForm?.[activeIndex]?.types || pokemonDetail.types
+      // normalForm은 fetchNormalFormData(id, activeIndex)가 해당 인덱스 하나만
+      // 담아 오므로 [0]으로 읽는다(getPokemonSize·getActiveFormInfo와 동일).
+      return normalForm?.[0]?.types || pokemonDetail.types
   }
 }
 
@@ -381,7 +383,8 @@ export const getPokemonStats: GetPokemonStatsFn = ({
       return pokemonDetail.pokemonStats
     default:
       return (
-        normalForm?.[activeIndex]?.normalFormStats || pokemonDetail.pokemonStats
+        // getPokemonSize·getActiveFormInfo와 동일하게 [0]으로 읽는다
+        normalForm?.[0]?.normalFormStats || pokemonDetail.pokemonStats
       )
   }
 }
