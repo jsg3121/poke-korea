@@ -2,15 +2,23 @@
 
 이 폴더는 서비스 분석에 필요한 외부 데이터(애드센스, GA 등)를 관리합니다.
 
+**Search Console·GA4는 API로 직접 조회할 수 있습니다.** 수동 다운로드보다 이쪽을 우선하세요 — 아래 "Google API 연동" 절을 참고하면 항상 최신 데이터를 얻을 수 있습니다.
+
 ## 폴더 구조
 
 ```text
 .claude/analyzer/
 ├── index.md                          # 이 파일
+├── scripts/                          # API 조회 스크립트 (버전 관리 대상)
+│   ├── google-auth.js                #   서비스 계정 → 액세스 토큰
+│   ├── search-console.js             #   Search Console 검색 분석
+│   └── ga4.js                        #   GA4 리포트
 ├── 애드센스최근1달 보고서.csv         # 애드센스 수익/노출 데이터
 ├── 광고이름_id.txt                    # 광고 슬롯 ID 매핑
 └── 페이지 및 화면_*.csv              # GA 페이지별 트래픽 데이터
 ```
+
+> `.claude/analyzer/*.*`는 `.gitignore` 대상이라 **직속 데이터 파일은 커밋되지 않습니다.** `scripts/` 하위는 확장자 패턴에 걸리지 않아 정상 추적됩니다.
 
 ## 데이터 설명
 
@@ -31,6 +39,72 @@
 - 각 광고 컴포넌트의 `data-ad-slot` ID와 위치 매핑
 - 새 광고 슬롯 추가 시 여기에 기록
 
+## Google API 연동
+
+Search Console과 GA4를 API로 직접 조회합니다. zip·CSV를 수동으로 내려받아 올릴 필요가 없고, 조회 시점 기준 최신 데이터를 얻습니다.
+
+### 왜 API인가
+
+수동 다운로드 파일은 **받은 시점에 고정**됩니다. 실제로 이 폴더의 서치콘솔 zip은 2026-08-03 기준이라, 이후 변화를 반영하지 못합니다. 또 CSV는 상위 N행만 담기는 경우가 많아 롱테일 분석이 불가능합니다 — API는 검색어 25,000행까지 한 번에 받을 수 있습니다.
+
+### 사전 준비 (최초 1회, 사람이 직접)
+
+에이전트가 대신할 수 없는 단계입니다. 브라우저 작업이 필요합니다.
+
+1. **GCP 프로젝트에서 API 활성화** — `Google Search Console API`, `Google Analytics Data API`
+2. **서비스 계정 생성 + JSON 키 발급** — IAM 및 관리자 → 서비스 계정 → 키 추가(JSON)
+3. **속성에 서비스 계정 이메일 추가**
+   - Search Console: 설정 → 사용자 및 권한 → 권한 `제한됨`(읽기 전용으로 충분)
+   - GA4: 관리 → 속성 액세스 관리 → 역할 `뷰어`
+4. **키 파일을 저장소 밖에 배치**
+
+```bash
+mkdir -p ~/.config/poke-korea
+mv ~/Downloads/<발급받은키>.json ~/.config/poke-korea/gcp-service-account.json
+chmod 600 ~/.config/poke-korea/gcp-service-account.json
+```
+
+> **키 파일을 저장소 안에 두지 마세요.** 서비스 계정 비밀키는 유출되면 분석 데이터 접근 권한이 통째로 넘어갑니다. `~/.config/` 같은 홈 디렉토리에 두고 경로만 참조합니다. 스크립트는 이 경로를 기본값으로 쓰며, `GOOGLE_APPLICATION_CREDENTIALS` 환경변수로 덮어쓸 수 있습니다.
+
+### 사용법
+
+외부 의존성이 없습니다. Node 내장 모듈만 쓰므로 `npm install` 없이 바로 실행됩니다.
+
+```bash
+# 상세 페이지 유입 검색어 전수 (롱테일 분석용)
+node .claude/analyzer/scripts/search-console.js \
+  --dim=query --contains=/detail/ --limit=25000 --json=/tmp/queries.json
+
+# 페이지별 실적
+node .claude/analyzer/scripts/search-console.js --dim=page --limit=50
+
+# 특정 기간
+node .claude/analyzer/scripts/search-console.js --start=2026-08-01 --end=2026-08-25
+
+# GA4 랜딩 페이지 행동 지표
+node .claude/analyzer/scripts/ga4.js \
+  --dim=landingPagePlusQueryString --met=sessions,bounceRate,averageSessionDuration \
+  --contains=/detail/
+```
+
+옵션 전체는 각 스크립트 상단 주석에 있습니다.
+
+### 설정값
+
+민감 정보가 아니라 환경변수 기본값으로 두었습니다. 필요 시 덮어쓸 수 있습니다.
+
+| 항목 | 기본값 | 환경변수 |
+| --- | --- | --- |
+| Search Console 속성 | `sc-domain:poke-korea.com` | `SC_SITE` |
+| GA4 속성 ID | `453267557` | `GA4_PROPERTY_ID` |
+| 키 파일 경로 | `~/.config/poke-korea/gcp-service-account.json` | `GOOGLE_APPLICATION_CREDENTIALS` |
+
+### 해석 시 주의
+
+- **종료일은 3일 전이 기본입니다.** Search Console은 최근 며칠 데이터가 확정되지 않아 과소 집계됩니다. 최신일까지 당겨 보면 "최근 급감"으로 오독할 수 있습니다.
+- **GA4는 과거 텐센트 봇에 오염된 이력이 있습니다.** 해당 유입은 차단됐으나, 오래된 기간을 조회할 때는 서치콘솔·네이버 지표와 교차 확인하세요.
+- **CTR 이상치는 순위와 함께 보세요.** 순위가 좋은데 CTR이 낮으면 랭킹 문제가 아니라 title·description이 검색 의도에 응답하지 못하는 문제입니다.
+
 ## 활용 사례
 
 1. **애드센스 배치 최적화**: 페이지별 수익 분석 후 광고 위치/크기 조정
@@ -39,6 +113,8 @@
 
 ## 주의사항
 
+- **서비스 계정 키를 저장소에 커밋하지 말 것.** `~/.config/poke-korea/`에 두고 경로만 참조한다
 - 수익 관련 데이터는 민감 정보이므로 `.gitignore`에 추가
 - 데이터 갱신 시 파일명에 날짜 포함 또는 기존 파일 덮어쓰기
+- API 조회 결과(JSON)는 스크래치패드나 `/tmp`에 저장한다. 이 폴더에 두면 `.gitignore`에 걸려 어차피 추적되지 않는다
 - 분석 결과는 `.claude/research/reports/`에 보고서로 정리
