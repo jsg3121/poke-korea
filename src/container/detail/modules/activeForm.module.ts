@@ -27,6 +27,10 @@ interface ActiveFormArgs {
 interface ActiveFormInfo {
   name: string
   stats?: PokemonStats
+  /** 활성 폼의 키(데시미터). 폼마다 값이 다르므로 스탯과 같은 기준으로 선택한다 */
+  height?: number | null
+  /** 활성 폼의 몸무게(헥토그램) */
+  weight?: number | null
 }
 
 export const getActiveFormInfo = ({
@@ -43,6 +47,8 @@ export const getActiveFormInfo = ({
       return {
         name: megaEvolutions?.[activeIndex]?.name ?? '',
         stats: megaEvolutions?.[activeIndex]?.megaEvolutionStats ?? undefined,
+        height: megaEvolutions?.[activeIndex]?.height,
+        weight: megaEvolutions?.[activeIndex]?.weight,
       }
     case 'region':
       return {
@@ -50,11 +56,17 @@ export const getActiveFormInfo = ({
         stats:
           regionFormInfo?.[activeIndex]?.regionFormStats ??
           pokemonBaseInfo?.pokemonStats,
+        height:
+          regionFormInfo?.[activeIndex]?.height ?? pokemonBaseInfo?.height,
+        weight:
+          regionFormInfo?.[activeIndex]?.weight ?? pokemonBaseInfo?.weight,
       }
     case 'gigantamax':
       return {
         name: gigantamaxInfo?.[activeIndex]?.name ?? '',
         stats: pokemonBaseInfo?.pokemonStats,
+        height: gigantamaxInfo?.[activeIndex]?.height,
+        weight: gigantamaxInfo?.[activeIndex]?.weight,
       }
     default:
       return {
@@ -64,6 +76,8 @@ export const getActiveFormInfo = ({
           '',
         stats:
           normalForm?.[0]?.normalFormStats ?? pokemonBaseInfo?.pokemonStats,
+        height: normalForm?.[0]?.height ?? pokemonBaseInfo?.height,
+        weight: normalForm?.[0]?.weight ?? pokemonBaseInfo?.weight,
       }
   }
 }

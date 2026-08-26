@@ -76,6 +76,19 @@ query PokemonDetail($pokemonId: ID!) {
     isMegaEvolution
     isRegionForm
     isGigantamax
+    # 기본 제원(1.58.0). height는 데시미터, weight는 헥토그램 정수라
+    # 표시 시 /10 변환이 필요하다(formatPokemonSpec 모듈에서 처리).
+    genus
+    height
+    weight
+    captureRate
+    genderRate
+    hatchCounter
+    baseHappiness
+    maxExperience
+    eggGroups
+    isLegendary
+    isMythical
     # 전용기 전체(버전·습득법·폼 무관). 기존엔 레벨업/머신 목록을 순회해
     # signatureMoves=true를 필터링했는데, 그 방식은 현재 버전 러닝셋에 없는
     # 전용기를 누락시켰다(꿈트렁 소금절이, 갈라르 야도킹 썰렁개그 등).
@@ -98,17 +111,6 @@ query PokemonDetail($pokemonId: ID!) {
     }
     pokemonAbilityList {
       ...PokemonAbilityList
-    }
-    normalForms {
-      id
-      pokemonId
-      name
-      types
-      imagePath
-      normalFormCode
-      stats {
-        ...PokemonStats
-      }
     }
     learnableSkills {
       levelUpVersionGroupId
@@ -238,6 +240,9 @@ query GetPokemonMegaEvolution($pokemonId: Int) {
     typePrimary
     typeSecondary
     megaEvolutionCode
+    # 폼별 제원(1.58.0) — 메가는 원종과 키·몸무게가 다르다
+    height
+    weight
     megaEvolutionStats {
       ...PokemonStats
     }
@@ -257,6 +262,9 @@ query GetPokemonRegionForm($pokemonId: Int) {
     typeSecondary
     regionFormCode
     region
+    # 폼별 제원(1.58.0)
+    height
+    weight
     regionFormAbilityList {
       ...PokemonAbilityList
     }
@@ -331,6 +339,9 @@ query GetPokemonNormalForm($pokemonId: Int, $activeIndex: Int) {
     typeSecondary
     imagePath
     normalFormCode
+    # 폼별 제원(1.58.0) — 호바귀 4종처럼 폼마다 크기가 다르다
+    height
+    weight
     normalFormAbilityList {
       ...PokemonAbilityList
     }
@@ -867,6 +878,9 @@ query GetPokemonGigantamax($pokemonId: Int!) {
     formName
     imagePath
     gigantamaxCode
+    # 폼별 제원(1.58.0)
+    height
+    weight
     gmaxMove {
       id
       identifier
