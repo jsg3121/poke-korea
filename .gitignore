@@ -19,6 +19,11 @@
 .DS_Store
 *.pem
 
+# service account keys — 저장소 밖(~/.config/poke-korea/)에 두는 것이 원칙이나,
+# 실수로 옮겨왔을 때를 대비한 방어선 (.claude/analyzer/index.md 참조)
+*service-account*.json
+gcp-*.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*

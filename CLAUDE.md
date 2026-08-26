@@ -151,7 +151,8 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 │   ├── capture-screenshots.js #   스크린샷 캡처 스크립트
 │   └── screenshots/           #   캡처된 스크린샷 (gitignore)
 └── analyzer/                  # 분석 데이터/보고서
-    └── index.md               #   분석 데이터 가이드
+    ├── index.md               #   분석 데이터 가이드 + Google API 연동 방법
+    └── scripts/               #   Search Console·GA4 조회 스크립트
 ```
 
 ### 상세 문서 참조 가이드
@@ -167,6 +168,7 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 | 비즈니스 분석 | `.claude/specs/`, `.claude/skills/biz-strategy/`                                |
 | 경쟁사 분석   | `.claude/specs/competitor-map.md`                                               |
 | SEO 검사      | `/seo-audit` 스킬, `.claude/skills/seo-audit/`                                  |
+| 트래픽 조회   | `.claude/analyzer/index.md` (Search Console·GA4 API — 수동 CSV보다 우선)        |
 | SEO 설계/구현 | `seo-specialist` 에이전트, `.claude/agents/seo-specialist.md`                   |
 
 ## 하네스 컨벤션

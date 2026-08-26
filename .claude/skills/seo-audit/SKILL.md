@@ -4,7 +4,6 @@ description: |
   SEO 감사 스킬. Next.js Metadata API·JSON-LD 상수·sitemap/robots를 검사해 메타태그, 헤딩 구조, 구조화 데이터, canonical, OG 태그의 결함과 개선점을 보고한다.
   TRIGGER when: "SEO 검사", "SEO 감사", "SEO 체크", "메타태그 확인", "구조화 데이터 확인" 요청, 특정 페이지 SEO 상태 점검 필요
   DO NOT TRIGGER when: SEO 설계/구현(seo-specialist 에이전트 사용), 접근성 검사(a11y-check 사용), 새 SEO 랜딩 페이지 생성
-disable-model-invocation: true
 ---
 
 # SEO 감사 스킬
@@ -32,6 +31,7 @@ poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)
 ### 2. 검사 항목
 
 #### 메타태그
+
 - `title` 존재 및 대략 60자 이내. 동적 라우트는 데이터 기반으로 **고유**한지.
 - ⚠️ **이중 접미사 검사**: title.template이 `| 포케 코리아`를 붙이므로, 페이지 title에 수동 접미사가 남아 있으면 `... | 포케 코리아 | 포케 코리아`가 된다. `grep`으로 페이지 title 필드의 브랜드 접미사 잔존을 확인.
 - `description` 존재, 고유. 길이는 **한국어 기준 80~120자**를 권장한다.
@@ -42,15 +42,18 @@ poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)
 - 브랜드 표기 일관성: 붙여쓰기(`포케코리아`)와 띄어쓰기(`포케 코리아`) 혼용 여부(alternateName 별칭은 예외).
 
 #### Open Graph / Twitter Card
+
 - `openGraph`(title/description/type/url/images), `twitter`(card/title) 존재.
 - og:image URL 유효성. 상세는 동적 OG, 목록/도구는 공용 `/assets/image/ogImage.png`.
 - og/twitter title에 브랜드 접미사(`- 포케 코리아`)가 명시돼 있는지(template 미적용이므로).
 
 #### 시맨틱 구조
+
 - `<h1>`이 페이지당 **하나만**(PageHeader 또는 Hero 컨테이너, sr-only 포함 — view가 아니라 container 계층에 있을 수 있으니 따라갈 것).
 - heading 계층 순차성(h1→h2→h3), `<main>` 태그 존재.
 
 #### 구조화 데이터 (JSON-LD)
+
 - `<script type="application/ld+json">` 존재 및 문법 유효성.
 - 페이지 유형별 스키마 적정성:
   - 홈: **WebSite + SearchAction**(홈에만 1회 — 전역 삽입 중복 금지).
@@ -59,6 +62,7 @@ poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)
 - BreadcrumbList의 item URL이 실제 canonical과 일치하는지.
 
 #### robots / sitemap
+
 - `robots.ts` disallow가 실제 라우트와 충돌하지 않는지, sitemap 등록.
 - `sitemap.ts`가 실제 존재하는 라우트를 커버하는지. 존재하지 않는 조합 URL을 생성하지 않는지.
 
@@ -68,22 +72,27 @@ poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)
 ## SEO 감사 결과
 
 ### 요약
+
 - 검사 라우트: {N}개
 - 🔴 필수 수정: {N}건 · 🟡 권장 개선: {N}건 · ✅ 양호: {N}건
 
 ### 🔴 필수 수정
+
 #### [{라우트}] {이슈}
+
 - **현재**: {코드 근거 파일:라인}
 - **문제**: {왜 SEO 결함인지}
 - **수정 방안**: {구체적 방법 + 근거(공식 문서)}
 
 ### 🟡 권장 개선
+
 - {라우트}: {개선 내용}
 
 ### 라우트별 상세
+
 | 라우트 | title | desc | canonical | OG/Twitter | JSON-LD(타입) | h1/main |
-|--------|-------|------|-----------|------------|---------------|---------|
-| / | ✅ | ✅ | ✅ | ✅ | WebSite | ✅ |
+| ------ | ----- | ---- | --------- | ---------- | ------------- | ------- |
+| /      | ✅    | ✅   | ✅        | ✅         | WebSite       | ✅      |
 ```
 
 ## 참고 자료

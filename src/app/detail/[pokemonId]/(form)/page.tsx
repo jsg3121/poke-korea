@@ -10,7 +10,6 @@ import MobileHeaderContainer from '~/container/mobile/header/Header.container'
 import { detectUserAgent } from '~/module/device.module'
 import DetailView from '~/views/detail/Detail.view'
 import { generatePokemonJsonLd } from '../../../../constants/pokemonJsonLd'
-import { SHINY_QNA_JSON_LD } from '../../../../constants/shinyJsonLd'
 import {
   fetchAdjacentPokemon,
   fetchNormalFormData,
@@ -181,15 +180,6 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
           __html: JSON.stringify(pokemonJsonLd),
         }}
       />
-      {isShiny && (
-        <script
-          id="shiny-faq-jsonLd"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(SHINY_QNA_JSON_LD),
-          }}
-        />
-      )}
     </DetailProvider>
   )
 }

@@ -27,6 +27,10 @@ interface ActiveFormArgs {
 interface ActiveFormInfo {
   name: string
   stats?: PokemonStats
+  /** 활성 폼의 키(데시미터). 폼마다 값이 다르므로 스탯과 같은 기준으로 선택한다 */
+  height?: number | null
+  /** 활성 폼의 몸무게(헥토그램) */
+  weight?: number | null
 }
 
 export const getActiveFormInfo = ({
@@ -39,32 +43,48 @@ export const getActiveFormInfo = ({
   activeIndex,
 }: ActiveFormArgs): ActiveFormInfo => {
   switch (activeType) {
-    case 'mega':
+    case 'mega': {
+      const form = megaEvolutions?.[activeIndex]
       return {
-        name: megaEvolutions?.[activeIndex]?.name ?? '',
-        stats: megaEvolutions?.[activeIndex]?.megaEvolutionStats ?? undefined,
+        name: form?.name ?? '',
+        stats: form?.megaEvolutionStats ?? undefined,
+        // 메가·거다이맥스는 원종 폴백을 두지 않는다 — 원종 크기를 대신 보여주면
+        // 잘못된 정보가 된다(메가이상해꽃 2.4m를 2.0m로 표시하는 셈).
+        height: form?.height,
+        weight: form?.weight,
       }
-    case 'region':
+    }
+    case 'region': {
+      const form = regionFormInfo?.[activeIndex]
       return {
-        name: `${pokemonBaseInfo?.name} ${regionFormInfo?.[activeIndex]?.region}의 모습 ${regionFormInfo?.[activeIndex]?.name && `(${regionFormInfo?.[activeIndex]?.name})`}`,
-        stats:
-          regionFormInfo?.[activeIndex]?.regionFormStats ??
-          pokemonBaseInfo?.pokemonStats,
+        name: `${pokemonBaseInfo?.name} ${form?.region}의 모습 ${form?.name && `(${form?.name})`}`,
+        stats: form?.regionFormStats ?? pokemonBaseInfo?.pokemonStats,
+        // 폼 객체가 있으면 그 값을 그대로 쓴다(null이어도). ??로 폴백하면 값이
+        // 공식적으로 불명인 폼에 원종 수치가 잘못 표시된다(무한다이맥스 사례).
+        height: form ? form.height : pokemonBaseInfo?.height,
+        weight: form ? form.weight : pokemonBaseInfo?.weight,
       }
-    case 'gigantamax':
+    }
+    case 'gigantamax': {
+      const form = gigantamaxInfo?.[activeIndex]
       return {
-        name: gigantamaxInfo?.[activeIndex]?.name ?? '',
+        name: form?.name ?? '',
         stats: pokemonBaseInfo?.pokemonStats,
+        // mega와 동일하게 원종 폴백 없음
+        height: form?.height,
+        weight: form?.weight,
       }
-    default:
+    }
+    default: {
+      const form = normalForm?.[0]
       return {
-        name:
-          normalForm?.[0]?.name.replace('_', ' ') ??
-          pokemonBaseInfo?.name ??
-          '',
-        stats:
-          normalForm?.[0]?.normalFormStats ?? pokemonBaseInfo?.pokemonStats,
+        name: form?.name.replace('_', ' ') ?? pokemonBaseInfo?.name ?? '',
+        stats: form?.normalFormStats ?? pokemonBaseInfo?.pokemonStats,
+        // region과 동일 — 폼이 있으면 null도 그대로 전달해 "불명"으로 표시되게 한다
+        height: form ? form.height : pokemonBaseInfo?.height,
+        weight: form ? form.weight : pokemonBaseInfo?.weight,
       }
+    }
   }
 }
 
