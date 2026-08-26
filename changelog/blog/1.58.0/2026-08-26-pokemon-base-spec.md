@@ -136,6 +136,60 @@ Search Console 실측상 상세 페이지는 **전체 검색 노출의 49%(88만
 - **정보 카드 본문 폰트 20px → 16px.** 기본 정보·특성·신체 정보·육성·포획 정보 카드의 `dt`/`dd`에 해당한다. 원래 16px이던 특성 설명 등은 그대로 두고, 20px이던 것만 낮춰 카드 안 텍스트 크기를 하나로 맞췄다. 모바일은 변경 없다.
 - **습득 기술 미리보기 데스크톱 10개 → 5개.** 모바일과 같은 개수가 됐다. 뷰포트별 분기가 필요 없어져 `useDevice` 의존과 상수 2개를 하나로 정리했다. 전체 목록은 그대로 moves 하위 페이지가 담당한다.
 
+## 🔍 검색 노출 정비
+
+제원을 화면에만 두면 검색엔진은 알지 못한다. SEO 감사를 돌려 메타·구조화 데이터에도 반영했다.
+
+### description에 제원 반영
+
+기존 description의 뒷부분은 모든 포켓몬에 동일한 문구였다.
+
+```text
+이상해꽃 (No. 3, 1세대, 풀·독 타입). 진화·종족값, 기술, 특성 정보를 포케 코리아에서 확인.  (58자)
+```
+
+`기술, 특성 정보를 포케 코리아에서 확인`은 1,025종에 똑같이 붙는 boilerplate라 정보량이 0이었다. 이 자리를 실제 값으로 바꿨다.
+
+```text
+이상해꽃 (No. 3, 1세대, 풀·독 타입). 씨앗포켓몬, 키 2.0m, 몸무게 100.0kg. 진화·종족값과 기술·특성 정보.  (72자)
+```
+
+**폼마다 값이 달라 스니펫도 갈린다.** 기존에는 폼별 차이가 형용사 하나(`강화된 종족값`)뿐이었다.
+
+| 폼 | description 제원 부분 |
+| --- | --- |
+| 원종 | 키 2.0m, 몸무게 100.0kg |
+| 메가 | 키 2.4m, 몸무게 155.5kg |
+| 거다이맥스 | 키 24.0m, 몸무게 1000.0kg |
+
+값이 없으면 해당 조각을 통째로 생략한다 — 스니펫에 "불명"을 노출하지 않는다. 무한다이맥스는 몸무게가 빠진 채 `키 100.0m.`만 나온다.
+
+경쟁 사이트(Pokémon Wiki)도 description에 `키, 몸무게. 1.0m, 34.5kg. 포획률, 성비` 형태로 같은 항목을 노출하고 있어, 우리만 데이터를 갖고도 쓰지 않던 상태였다.
+
+### JSON-LD에 제원 추가
+
+`additionalProperty`에 분류·키·몸무게·포획률·성비·알그룹·희귀도를 `PropertyValue`로 넣었다. 키·몸무게에는 `unitText`, 포획률에는 `maxValue: 255`를 명시했다.
+
+포켓몬은 Google 리치결과 지원 타입이 없어 **표시 효과는 없다.** 다만 검색엔진의 엔티티 이해와 AI 개요 인용 가능성에 기여할 수 있고, 이미 있는 데이터를 넘기는 것이라 비용이 거의 없다.
+
+값이 없는 항목은 배열에서 아예 뺀다. `0`이나 빈 문자열을 넣으면 잘못된 사실을 구조화 데이터로 주장하게 된다.
+
+### 이로치 FAQPage 제거
+
+상세 페이지 5곳이 이로치일 때 `FAQPage` JSON-LD를 삽입하고 있었다. 두 가지 이유로 제거했다.
+
+- **Google이 2023-08부터 FAQPage 리치결과를 정부·의료 사이트로 제한**해 우리 사이트에서는 표시되지 않는다
+- 질문 2개가 **모든 이로치 페이지에 동일**했다. 수백 개 페이지가 같은 FAQ를 신고하는 셈이라 구조화 데이터로서 가치가 없다
+
+`/type-effectiveness/[type]`의 FAQPage는 타입마다 질문이 전부 달라 그대로 둔다(관찰 기간 중이기도 하다).
+
+### 함께 잡은 결함 2건
+
+구현 중 렌더 검증에서 드러났다.
+
+- **조사 오류** — `거다이맥스 형태과`, `리전 한정 모습과`처럼 받침과 무관하게 "과"가 붙고 있었다. 한글 음절 코드로 받침을 판별해 과/와를 고른다
+- **폼 인덱스 오독** — `getPokemonSize`의 노말폼 분기가 `normalForm[activeIndex]`를 읽어, `index > 0`에서 `undefined`가 되어 원종 값으로 폴백됐다(펌킨인 소과종에 중과종 크기 표시). `fetchNormalFormData`가 이미 해당 인덱스 하나만 담아 오므로 `[0]`이 맞다
+
 ## 🔧 백엔드 연동 과정에서 잡은 것
 
 착수 전 introspection과 실제 쿼리로 응답을 확인하는 과정에서 문제 몇 건을 찾아 백엔드와 정리했다.
@@ -159,12 +213,20 @@ Search Console 실측상 상세 페이지는 **전체 검색 노출의 49%(88만
 | `src/container/detail/modules/activeForm.module.ts` | 활성 폼의 `height`/`weight` 선택 추가 |
 | `src/container/detail/DetailInfoSection.container.tsx` | 정보 카드 4장을 하나의 2×2 grid로 조립 (기본정보 → 신체정보 → 특성 → 육성·포획) |
 | `src/container/detail/DetailSkills.container.tsx` | 미리보기 개수 통일(5개), `useDevice` 분기 제거 |
+| `src/module/generateDetailSeoMetaData.ts` | description에 제원 반영, `getPokemonSize` 신규(활성 폼 크기 선택), 조사 과/와 판별 |
+| `src/app/detail/[pokemonId]/(form)/modules/generateMetadata.ts` | 활성 폼 제원을 description으로 전달 |
+| `src/constants/pokemonJsonLd.ts` | `additionalProperty`에 분류·키·몸무게·포획률·성비·알그룹·희귀도 추가 |
+| `src/constants/shinyJsonLd.ts` | **삭제** — 이로치 FAQPage(리치결과 미지원 + 전 페이지 동일 질문) |
+| `src/app/detail/[pokemonId]/(form)/**/page.tsx` (5개) | FAQPage 삽입 블록·import 제거 |
+| `src/constants/typeEffectivenessJsonLd.ts` | 삭제된 파일을 참조하던 주석 갱신 |
 
 ## ✅ 검증
 
 - `tsc --noEmit` 통과, ESLint 신규 파일 경고 없음
 - 실제 라우트 6종 200 확인 — 원종·메가·거다이맥스·리전폼·노말폼·무성종
 - 렌더된 HTML에서 값 대조 — 폼 전환(2.0m → 2.4m → 24.0m), 무성("성별 없음"), 전설·환상 배지, 성비 100%/50% 포맷
+- description 7종 대조 — 폼별 제원 반영, 조사 정확성, 결측 시 조각 생략(무한다이맥스), 길이 66~83자
+- JSON-LD 문법 유효성 + breadcrumb ↔ canonical 일치 7종 확인, FAQPage 완전 제거 확인
 
 ## 🔜 다음
 

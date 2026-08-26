@@ -8,10 +8,16 @@ import {
 import { imageMode } from '~/module/buildMode'
 import {
   getPokemonNameByType,
+  getPokemonSize,
   getPokemonStats,
   getPokemonTypes,
   getSeoCanonicalUrl,
 } from '~/module/generateDetailSeoMetaData'
+import {
+  CAPTURE_RATE_MAX,
+  formatGenderPercent,
+  parseGenderRate,
+} from '~/module/pokemonSpec.module'
 import { TActiveType } from '~/types/detailContext.type'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
@@ -102,6 +108,9 @@ export const generatePokemonJsonLd = ({
 
   const pokemonTypes = getPokemonTypes(commonParams)
   const stats = getPokemonStats(commonParams)
+  // 키·몸무게는 폼마다 다르므로 활성 폼 기준(메타 description과 동일 소스)
+  const { height, weight } = getPokemonSize({ ...commonParams, gigantamaxData })
+  const genderRatio = parseGenderRate(pokemonDetail.genderRate)
 
   const displayName = getPokemonNameByType({
     activeType,
@@ -273,6 +282,77 @@ export const generatePokemonJsonLd = ({
           name: '능력치 총합',
           value: stats?.total ?? 0,
         },
+        // 기본 제원(1.58.0). 값이 없는 항목은 배열에서 아예 뺀다 —
+        // 0이나 빈 문자열을 신고하면 잘못된 사실을 구조화 데이터로 주장하게 된다.
+        // 포켓몬은 Google 리치결과 지원 타입이 없어 표시 효과는 없으나,
+        // 검색엔진의 엔티티 이해와 AI 개요 인용 가능성에 기여한다.
+        ...(pokemonDetail.genus
+          ? [
+              {
+                '@type': 'PropertyValue',
+                name: '분류',
+                value: pokemonDetail.genus,
+              },
+            ]
+          : []),
+        ...(height !== null && height !== undefined
+          ? [
+              {
+                '@type': 'PropertyValue',
+                name: '키',
+                value: (height / 10).toFixed(1),
+                unitText: 'm',
+              },
+            ]
+          : []),
+        ...(weight !== null && weight !== undefined
+          ? [
+              {
+                '@type': 'PropertyValue',
+                name: '몸무게',
+                value: (weight / 10).toFixed(1),
+                unitText: 'kg',
+              },
+            ]
+          : []),
+        ...(pokemonDetail.captureRate !== null &&
+        pokemonDetail.captureRate !== undefined
+          ? [
+              {
+                '@type': 'PropertyValue',
+                name: '포획률',
+                value: pokemonDetail.captureRate,
+                maxValue: CAPTURE_RATE_MAX,
+              },
+            ]
+          : []),
+        ...(genderRatio
+          ? [
+              {
+                '@type': 'PropertyValue',
+                name: '성비',
+                value: genderRatio.isGenderless
+                  ? '성별 없음'
+                  : `수컷 ${formatGenderPercent(genderRatio.male)}, 암컷 ${formatGenderPercent(genderRatio.female)}`,
+              },
+            ]
+          : []),
+        ...(pokemonDetail.eggGroups?.map((group) => ({
+          '@type': 'PropertyValue',
+          name: '알 그룹',
+          value: group,
+        })) ?? []),
+        ...(pokemonDetail.isLegendary || pokemonDetail.isMythical
+          ? [
+              {
+                '@type': 'PropertyValue',
+                name: '희귀도',
+                value: pokemonDetail.isLegendary
+                  ? '전설의 포켓몬'
+                  : '환상의 포켓몬',
+              },
+            ]
+          : []),
         ...(abilities?.map((ability) => ({
           '@type': 'PropertyValue',
           name: '특성',

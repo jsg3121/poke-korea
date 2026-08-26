@@ -1,5 +1,6 @@
 import {
   PokemonDetail,
+  PokemonGigantamax,
   PokemonMegaEvolution,
   PokemonNormalForm,
   PokemonRegionForm,
@@ -32,6 +33,12 @@ type GetSeoDescriptionParams = {
   types: Array<PokemonType>
   activeType: TActiveType
   isShiny: boolean
+  /** 분류(예: "씨앗포켓몬"). 폼과 무관한 종 단위 값 */
+  genus?: string | null
+  /** 활성 폼의 키(데시미터) */
+  height?: number | null
+  /** 활성 폼의 몸무게(헥토그램) */
+  weight?: number | null
 }
 
 type GetSeoDescriptionFn = (params: GetSeoDescriptionParams) => string
@@ -60,6 +67,11 @@ type GetPokemonTypesFn = (params: PokemonDataParams) => PokemonType[]
 type GetPokemonStatsFn = (
   params: PokemonDataParams,
 ) => PokemonStats | undefined | null
+type GetPokemonSizeFn = (
+  params: PokemonDataParams & {
+    gigantamaxData?: PokemonGigantamax[]
+  },
+) => { height?: number | null; weight?: number | null }
 
 /**
  * @description 타입별 포켓몬 명
@@ -134,10 +146,30 @@ const getDetailFormKeyword = (
 }
 
 /**
+ * 앞말의 받침 유무로 "과/와"를 고른다.
+ * 한글 음절(가~힣)은 (코드 - 0xAC00) % 28 이 0이면 받침이 없다.
+ * 한글이 아니면(영문·숫자 등) 받침 없는 것으로 보고 "와"를 쓴다.
+ */
+const josaWaGwa = (word: string): string => {
+  const last = word.charCodeAt(word.length - 1)
+  const isHangul = last >= 0xac00 && last <= 0xd7a3
+  if (!isHangul) return '와'
+  return (last - 0xac00) % 28 === 0 ? '와' : '과'
+}
+
+/**
  * @description 포켓몬 사이트 메타태그 디스크립션
  * - 네이버 80자 가이드라인 충족
  * - 라벨식 나열("도감번호 : XXX | 포켓몬명 : XXX") 대신 자연어 패턴 적용
  * - 폼/이로치별로 자연어 키워드를 다양화하여 boilerplate 회피
+ *
+ * **제원(분류·키·몸무게)을 넣는 이유(1.58.0):** 기존 뒷부분은 모든 포켓몬에
+ * 동일한 문구("기술, 특성 정보를 포케 코리아에서 확인")라 정보량이 0이었다.
+ * 실제 값으로 바꾸면 스니펫이 고유해지고, 폼마다 키·몸무게가 달라 메가·
+ * 거다이맥스 description이 형용사 하나가 아니라 수치로 차별화된다.
+ * 경쟁 사이트(Pokémon Wiki)도 description에 같은 항목을 노출한다.
+ *
+ * 값이 없으면 해당 조각을 생략한다 — "불명"을 스니펫에 노출하지 않는다.
  *
  * @param pokemonNumber 포켓몬 도감 번호
  * @param pokemonName 타입별 변환된 포켓몬 이름 (이미 폼/이로치 정보 포함)
@@ -145,6 +177,9 @@ const getDetailFormKeyword = (
  * @param types 포켓몬 타입
  * @param activeType 현재 활성 폼 (mega/region/gigantamax/normal)
  * @param isShiny 이로치 여부
+ * @param genus 분류
+ * @param height 활성 폼의 키(데시미터)
+ * @param weight 활성 폼의 몸무게(헥토그램)
  */
 export const getSeoDescription: GetSeoDescriptionFn = ({
   pokemonNumber,
@@ -153,11 +188,26 @@ export const getSeoDescription: GetSeoDescriptionFn = ({
   types,
   activeType,
   isShiny,
+  genus,
+  height,
+  weight,
 }) => {
   const typeList = types.map((type) => PokemonTypes[type]).join('·')
   const formKeyword = getDetailFormKeyword(activeType, isShiny)
 
-  return `${pokemonName} (No. ${pokemonNumber}, ${generation}세대, ${typeList} 타입). ${formKeyword}, 기술, 특성 정보를 포케 코리아에서 확인.`
+  const specParts = [
+    genus,
+    height !== null && height !== undefined
+      ? `키 ${(height / 10).toFixed(1)}m`
+      : null,
+    weight !== null && weight !== undefined
+      ? `몸무게 ${(weight / 10).toFixed(1)}kg`
+      : null,
+  ].filter(Boolean)
+
+  const specText = specParts.length > 0 ? `${specParts.join(', ')}. ` : ''
+
+  return `${pokemonName} (No. ${pokemonNumber}, ${generation}세대, ${typeList} 타입). ${specText}${formKeyword}${josaWaGwa(formKeyword)} 기술·특성 정보.`
 }
 
 /**
@@ -258,7 +308,53 @@ export const getPokemonTypes: GetPokemonTypesFn = ({
       // 거다이맥스는 타입이 변경되지 않으므로 기본 포켓몬 타입 사용
       return pokemonDetail.types
     default:
-      return normalForm?.[activeIndex]?.types || pokemonDetail.types
+      // normalForm은 fetchNormalFormData(id, activeIndex)가 해당 인덱스 하나만
+      // 담아 오므로 [0]으로 읽는다(getPokemonSize·getActiveFormInfo와 동일).
+      return normalForm?.[0]?.types || pokemonDetail.types
+  }
+}
+
+/**
+ * @description 현재 활성화된 폼의 키·몸무게를 반환 (공통 함수, 1.58.0)
+ *
+ * 컨테이너의 getActiveFormInfo와 같은 선택 기준을 쓴다. 폼 객체가 있으면
+ * 그 값을 그대로(null이어도) 반환하고, 폼 자체가 없을 때만 원종으로 폴백한다
+ * — ??로 폴백하면 값이 공식적으로 불명인 폼에 원종 수치가 붙는다.
+ * 메가·거다이맥스는 원종 폴백을 두지 않는다(원종 크기는 잘못된 정보).
+ */
+export const getPokemonSize: GetPokemonSizeFn = ({
+  pokemonDetail,
+  activeType,
+  activeIndex,
+  normalForm,
+  megaEvolutionData,
+  regionFormData,
+  gigantamaxData,
+}) => {
+  switch (activeType) {
+    case 'mega': {
+      const form = megaEvolutionData?.[activeIndex]
+      return { height: form?.height, weight: form?.weight }
+    }
+    case 'region': {
+      const form = regionFormData?.[activeIndex]
+      return form
+        ? { height: form.height, weight: form.weight }
+        : { height: pokemonDetail.height, weight: pokemonDetail.weight }
+    }
+    case 'gigantamax': {
+      const form = gigantamaxData?.[activeIndex]
+      return { height: form?.height, weight: form?.weight }
+    }
+    default: {
+      // normalForm은 fetchNormalFormData(id, activeIndex)가 이미 해당 인덱스
+      // 하나만 담아 오므로 [0]으로 읽는다. [activeIndex]로 읽으면 index>0에서
+      // undefined가 되어 원종 값으로 잘못 폴백된다(컨테이너 getActiveFormInfo와 동일).
+      const form = normalForm?.[0]
+      return form
+        ? { height: form.height, weight: form.weight }
+        : { height: pokemonDetail.height, weight: pokemonDetail.weight }
+    }
   }
 }
 
@@ -287,7 +383,8 @@ export const getPokemonStats: GetPokemonStatsFn = ({
       return pokemonDetail.pokemonStats
     default:
       return (
-        normalForm?.[activeIndex]?.normalFormStats || pokemonDetail.pokemonStats
+        // getPokemonSize·getActiveFormInfo와 동일하게 [0]으로 읽는다
+        normalForm?.[0]?.normalFormStats || pokemonDetail.pokemonStats
       )
   }
 }
