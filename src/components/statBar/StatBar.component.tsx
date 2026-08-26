@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEnterViewProgress } from '~/hook/useEnterViewProgress'
 
 /**
  * 종족값 가로 막대 (DS). 스탯명 + 수치 + 막대 + 최고/최저 마커를 한 행으로 표시한다.
@@ -12,14 +12,11 @@ import { useEffect, useRef, useState } from 'react'
  *   maxPoint+10과 같은 동적 방식) — 개체마다 최고 스탯이 화면을 크게 쓰도록.
  * - 최고/최저는 색 차등 + "최고"/"최저" 텍스트 마커 병기(색 단독 의존 금지,
  *   WCAG 1.4.1). 동률이면 전부 마킹한다(사용자 결정).
- * - 뷰포트 진입 시 수치 카운트업 + 막대 채움 모션(1회). SSR HTML에는 처음부터
- *   최종값이 렌더되고(SEO·no-JS 안전) 모션은 클라이언트 enhancement다.
- *   prefers-reduced-motion 사용자는 모션 없이 즉시 최종값을 본다.
+ * - 뷰포트 진입 시 수치 카운트업 + 막대 채움 모션(1회). 진행도 계산은
+ *   useEnterViewProgress가 담당한다(SSR 최종값 유지·reduced-motion 대응 포함).
  */
 
 const STAT_MAX_PADDING = 20
-const COUNT_UP_DURATION_MS = 900
-const ENTER_THRESHOLD = 0.35
 
 export interface StatBarItem {
   /** 스탯명 (예: '체력') */
@@ -34,8 +31,6 @@ interface StatBarProps {
   /** 뷰포트 진입 카운트업 모션 (기본 true — reduced-motion 시 자동 비활성) */
   animated?: boolean
 }
-
-const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
 /** 수치를 aria-hidden 카운터 + sr-only 최종값 쌍으로 표시 — 모션 중에도 SR은 항상 최종값만 읽는다 */
 const AnimatedValue = ({
@@ -58,69 +53,9 @@ const StatBarComponent = ({
   showTotal = true,
   animated = true,
 }: StatBarProps) => {
-  const rootRef = useRef<HTMLDivElement>(null)
-  // SSR/초기 렌더는 progress=1(최종값). 모션이 가능할 때만 클라이언트에서 0으로 되감는다.
-  const [progress, setProgress] = useState(1)
-
-  useEffect(() => {
-    if (!animated) {
-      return undefined
-    }
-    const prefersReduced = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-    if (prefersReduced || !('IntersectionObserver' in window)) {
-      return undefined
-    }
-
-    const root = rootRef.current
-    if (!root) {
-      return undefined
-    }
-
-    let rafId = 0
-    // 최초 콜백은 "관찰 시작 시점의 상태"다 — 이미 뷰포트에 보이면 모션 없이
-    // 최종값을 유지한다(최종값 표시 → 0 리셋 → 카운트업의 이중 표시가 어색,
-    // QA 라운드 1). 화면 밖에서 시작한 경우에만 0으로 되감고 진입 시 재생한다.
-    let isFirstCallback = true
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const isIntersecting = entries.some((entry) => entry.isIntersecting)
-
-        if (isFirstCallback) {
-          isFirstCallback = false
-          if (isIntersecting) {
-            observer.disconnect()
-            return
-          }
-          setProgress(0)
-          return
-        }
-
-        if (!isIntersecting) {
-          return
-        }
-        observer.disconnect()
-        const start = performance.now()
-        const tick = (now: number) => {
-          const t = Math.min((now - start) / COUNT_UP_DURATION_MS, 1)
-          setProgress(easeOutCubic(t))
-          if (t < 1) {
-            rafId = requestAnimationFrame(tick)
-          }
-        }
-        rafId = requestAnimationFrame(tick)
-      },
-      { threshold: ENTER_THRESHOLD },
-    )
-    observer.observe(root)
-
-    return () => {
-      observer.disconnect()
-      cancelAnimationFrame(rafId)
-    }
-  }, [animated])
+  const { ref: rootRef, progress } = useEnterViewProgress<HTMLDivElement>({
+    enabled: animated,
+  })
 
   const values = stats.map((stat) => stat.value)
   const barMax = Math.max(...values) + STAT_MAX_PADDING

@@ -7,6 +7,10 @@ import { DetailContext } from '~/context/Detail.context'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import DetailQuizCtaComponent from './components/DetailQuizCta.component'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
+import {
+  DetailBodySpecSection,
+  DetailBreedingSpecSection,
+} from './DetailSpecSection.container'
 
 /**
  * 기본 정보 + 특성 카드 (반응형 단일 — 기존 데/모 Description·AbilitiesInfo 이관).
@@ -32,10 +36,10 @@ const DetailInfoSectionContainer = () => {
           <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
           <dl className="w-full">
             <div className={infoRowClass}>
-              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
+              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
                 이름
               </dt>
-              <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
+              <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
                 {name}&nbsp;
                 {activeType === 'mega'
                   ? '(메가진화)'
@@ -45,28 +49,28 @@ const DetailInfoSectionContainer = () => {
               </dd>
             </div>
             <div className={infoRowClass}>
-              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
+              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
                 전국도감번호
               </dt>
-              <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
+              <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
                 No. {pokemonNumber.toString().padStart(3, '0')}
               </dd>
             </div>
             <div className={infoRowClass}>
-              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
+              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
                 등장 세대
               </dt>
-              <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
+              <dd className="dl-desc h-6 text-xs leading-6 desktop:h-10 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
                 {generation} 세대
               </dd>
             </div>
             <div className={infoRowClass}>
-              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]">
+              <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
                 타입
               </dt>
               <dd
                 aria-label={types.map((type) => PokemonTypes[type]).join(',')}
-                className="dl-desc flex h-6 gap-1 text-xs leading-6 desktop:h-10 desktop:text-xl desktop:leading-[calc(2.5rem+2px)]"
+                className="dl-desc flex h-6 gap-1 text-xs leading-6 desktop:h-10 desktop:text-base desktop:leading-[calc(2.5rem+2px)]"
               >
                 {types.map((type) => (
                   <TagComponent key={type} type={type} />
@@ -76,6 +80,8 @@ const DetailInfoSectionContainer = () => {
           </dl>
         </section>
 
+        <DetailBodySpecSection />
+
         <section className="card-detail" aria-labelledby="pokemon-abilities">
           <InfoCardTitleComponent title="특성" id="pokemon-abilities" />
           <dl className="flex w-full flex-col gap-2 desktop:gap-4">
@@ -84,7 +90,7 @@ const DetailInfoSectionContainer = () => {
                 key={`ability-id-${index}`}
                 className="w-full border-b border-solid border-primary-3 py-1.5 last:border-b-0 last:pb-0 desktop:py-2"
               >
-                <dt className="relative w-full pb-2 text-sm font-bold leading-6 desktop:text-xl">
+                <dt className="relative w-full pb-2 text-sm font-bold leading-6 desktop:text-base">
                   {ability.name}&nbsp;
                   {ability.isHidden && (
                     <span className="text-xs font-normal">(숨겨진 특성)</span>
@@ -103,6 +109,8 @@ const DetailInfoSectionContainer = () => {
             ))}
           </dl>
         </section>
+
+        <DetailBreedingSpecSection />
       </div>
 
       {/* 특성 직후 맥락 배치 — 퀴즈 유입 확대(UX-005 §6-3) */}

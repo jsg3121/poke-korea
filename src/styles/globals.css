@@ -290,7 +290,7 @@
 
   /* 6. 설명 리스트 (34회 사용) */
   .dl-term {
-    @apply w-48 h-10 text-xl;
+    @apply w-48 h-10 text-base;
     line-height: calc(2.5rem + 2px);
   }
   .dl-term::after {
@@ -298,7 +298,7 @@
     float: right;
   }
   .dl-desc {
-    @apply h-10 text-xl font-semibold flex items-center gap-2;
+    @apply h-10 text-base font-semibold flex items-center gap-2;
     line-height: calc(2.5rem + 2px);
   }
 
