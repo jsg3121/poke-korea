@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEnterViewProgress } from '~/hook/useEnterViewProgress'
 
 /**
  * 챔피언스 메타 순위 막대 (인기 기술/도구/특성). 이름 + 채택률(%) 막대를 순위대로
@@ -11,12 +11,11 @@ import { useEffect, useRef, useState } from 'react'
  * - 2위 이하는 bg-primary-2(진한 중립 블루) — 이전 primary-3(연한 회청)가 너무
  *   흐릿하다는 피드백으로 강화. 1위보다는 덜 강조되어 위계는 유지된다.
  *
- * 뷰포트 진입 시 막대 채움 + % 숫자 카운트업(1회, StatBar와 동일 방식). SSR HTML에는
- * 처음부터 최종값이 렌더되고(SEO·no-JS 안전) 모션은 클라이언트 enhancement다.
- * prefers-reduced-motion 사용자는 모션 없이 즉시 최종값을 본다.
+ * 뷰포트 진입 시 막대 채움 + % 숫자 카운트업(1회). 진행도 계산은
+ * useEnterViewProgress가 담당한다(SSR 최종값 유지·reduced-motion 대응 포함).
  */
 
-const COUNT_UP_DURATION_MS = 900
+/** StatBar(0.35)보다 낮다 — 목록이 짧아 더 일찍 채워지는 편이 자연스럽다 */
 const ENTER_THRESHOLD = 0.25
 
 interface ChampionsMetaListProps {
@@ -24,71 +23,13 @@ interface ChampionsMetaListProps {
   items: Array<{ name: string; usageRate: number }>
 }
 
-const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
-
 /** usageRate 문자열의 소수 자릿수를 보존해 카운트업 중에도 최종 표기와 일치시킨다 */
 const formatRate = (value: number, decimals: number) => value.toFixed(decimals)
 
 const ChampionsMetaList = ({ title, items }: ChampionsMetaListProps) => {
-  const rootRef = useRef<HTMLDivElement>(null)
-  // SSR/초기 렌더는 progress=1(최종값). 모션이 가능할 때만 클라이언트에서 0으로 되감는다.
-  const [progress, setProgress] = useState(1)
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-    if (prefersReduced || !('IntersectionObserver' in window)) {
-      return undefined
-    }
-
-    const root = rootRef.current
-    if (!root) {
-      return undefined
-    }
-
-    let rafId = 0
-    // 최초 콜백은 "관찰 시작 시점의 상태"다 — 이미 뷰포트에 보이면 모션 없이
-    // 최종값을 유지한다(StatBar와 동일, 최종값→0→카운트업의 이중 표시 회피).
-    let isFirstCallback = true
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const isIntersecting = entries.some((entry) => entry.isIntersecting)
-
-        if (isFirstCallback) {
-          isFirstCallback = false
-          if (isIntersecting) {
-            observer.disconnect()
-            return
-          }
-          setProgress(0)
-          return
-        }
-
-        if (!isIntersecting) {
-          return
-        }
-        observer.disconnect()
-        const start = performance.now()
-        const tick = (now: number) => {
-          const t = Math.min((now - start) / COUNT_UP_DURATION_MS, 1)
-          setProgress(easeOutCubic(t))
-          if (t < 1) {
-            rafId = requestAnimationFrame(tick)
-          }
-        }
-        rafId = requestAnimationFrame(tick)
-      },
-      { threshold: ENTER_THRESHOLD },
-    )
-    observer.observe(root)
-
-    return () => {
-      observer.disconnect()
-      cancelAnimationFrame(rafId)
-    }
-  }, [])
+  const { ref: rootRef, progress } = useEnterViewProgress<HTMLDivElement>({
+    threshold: ENTER_THRESHOLD,
+  })
 
   const maxRate = Math.max(...items.map((item) => item.usageRate), 1)
 
