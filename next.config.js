@@ -169,6 +169,22 @@ const nextConfig = {
     ]
   },
   async headers() {
+    // 페이지 HTML의 s-maxage 상한은 1일(86400)로 통일한다.
+    //
+    // 도감 데이터 자체는 배포 전까지 바뀌지 않지만, 캐싱 대상은 데이터가 아니라
+    // HTML 문서다. HTML에는 배포마다 해시가 바뀌는 JS 청크 파일명이 박혀 있어,
+    // CDN이 옛 HTML을 들고 있으면 참조하는 청크가 404가 되고 hydration이 실패해
+    // 페이지 전체가 클릭 불가 상태가 된다(1.58.2 배포 장애).
+    //
+    // 즉 캐시 수명을 결정하는 건 콘텐츠 갱신 주기가 아니라 배포 주기다.
+    // 이전 값이던 1년(31536000)은 무효화가 한 번이라도 실패하면 자연 복구
+    // 경로가 없어, 누군가 장애를 발견하고 수동 개입할 때까지 방치된다.
+    // 배포 시 무효화는 deploy.sh가 자동 수행하므로 이 값은 그것이 실패했을
+    // 때만 쓰이는 안전망이다. 안전망은 짧을수록 좋다.
+    //
+    // stale-while-revalidate는 붙이지 않는다. CloudFront가 이 지시자를
+    // 지원하지 않고(엣지의 stale 서빙은 Error Caching Minimum TTL 기반의
+    // 오류 응답에 한정), 브라우저 쪽은 max-age가 이미 커버한다.
     return [
       {
         // 메인 페이지 - 기본 캐싱
@@ -176,8 +192,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=0, s-maxage=86400, stale-while-revalidate=600',
+            value: 'public, max-age=0, s-maxage=86400',
           },
         ],
       },
@@ -187,8 +202,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -198,8 +212,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -209,8 +222,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -220,8 +232,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -231,8 +242,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -242,8 +252,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -253,8 +262,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -264,8 +272,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -275,8 +282,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -286,8 +292,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -297,8 +302,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -308,8 +312,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -319,8 +322,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -330,8 +332,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -341,8 +342,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -352,8 +352,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -363,8 +362,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
@@ -392,13 +390,25 @@ const nextConfig = {
         ],
       },
       {
+        // 웹폰트 - 브라우저 1일 / CloudFront 1년 캐싱
+        // 파일명에 해시가 없어 immutable은 붙이지 않는다. 서브셋을 다시 뜨면
+        // 같은 파일명으로 내용만 바뀔 수 있어, 하루마다 재검증할 여지를 남긴다.
+        // 교체 시 CloudFront /fonts/* 경로를 수동 무효화한다.
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=31536000',
+          },
+        ],
+      },
+      {
         // 타입 상성 계산기 - CDN 장기 캐싱 + 브라우저 단기 캐싱
         source: '/type-effectiveness',
         headers: [
           {
             key: 'Cache-Control',
-            value:
-              'public, max-age=10800, s-maxage=31536000, stale-while-revalidate=60',
+            value: 'public, max-age=10800, s-maxage=86400',
           },
         ],
       },
