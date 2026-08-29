@@ -2,7 +2,8 @@
 #
 # 프로덕션 배포 스크립트
 #
-# 빌드 → PM2 재시작 → 기동 확인 → CloudFront 무효화를 한 번에 수행한다.
+# 블로그 빌드 → 프론트 빌드 → PM2 재시작 → 기동 확인 → CloudFront 무효화를
+# 한 번에 수행한다.
 #
 # 무효화를 스크립트 안에 둔 이유:
 #   HTML에는 배포마다 해시가 바뀌는 JS 청크 파일명이 박혀 있다. CDN이 옛 HTML을
@@ -20,7 +21,7 @@
 #   export CF_DISTRIBUTION_ID=E...        # 필수
 #   export APP_DIR=/root/pokemon-server   # 선택, 기본값은 스크립트 위치
 #   export HEALTH_URL=http://localhost/   # 선택
-#   ./deploy.sh
+#   npm run deploy
 #
 set -euo pipefail
 
@@ -46,10 +47,21 @@ echo "▶ 코드 갱신"
 # --ff-only: 로컬에 예상치 못한 커밋이 있으면 머지 커밋을 만들지 않고 실패시킨다.
 git pull --ff-only
 
-echo "▶ 의존성 설치"
+echo "▶ 의존성 설치 (루트)"
 npm install
 
-echo "▶ 빌드"
+echo "▶ 의존성 설치 (changelog)"
+# 블로그는 별도 Docusaurus 프로젝트라 자체 node_modules가 필요하다.
+npm install --prefix changelog
+
+echo "▶ 블로그 빌드"
+# docusaurus serve는 이미 빌드된 changelog/build/ 를 서빙만 한다.
+# 여기서 빌드하지 않으면 새로 추가한 changelog 글이 반영되지 않는다.
+# Next.js 빌드보다 먼저 돌린다 — 블로그가 실패해도 본 서비스는 건드리지 않은
+# 상태로 남기 위해서다(set -e 로 즉시 중단).
+npm run build:docs
+
+echo "▶ 프론트 빌드"
 npm run build
 
 echo "▶ PM2 재시작"
