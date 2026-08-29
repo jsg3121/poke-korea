@@ -390,6 +390,19 @@ const nextConfig = {
         ],
       },
       {
+        // 웹폰트 - 브라우저 1일 / CloudFront 1년 캐싱
+        // 파일명에 해시가 없어 immutable은 붙이지 않는다. 서브셋을 다시 뜨면
+        // 같은 파일명으로 내용만 바뀔 수 있어, 하루마다 재검증할 여지를 남긴다.
+        // 교체 시 CloudFront /fonts/* 경로를 수동 무효화한다.
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=31536000',
+          },
+        ],
+      },
+      {
         // 타입 상성 계산기 - CDN 장기 캐싱 + 브라우저 단기 캐싱
         source: '/type-effectiveness',
         headers: [
