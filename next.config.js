@@ -378,6 +378,20 @@ const nextConfig = {
         ],
       },
       {
+        // 파비콘 - 브라우저 1일 / CloudFront 1년 캐싱
+        // URL에 해시가 없는 고정 경로라 immutable은 붙이지 않는다.
+        // 브라우저가 하루마다 재검증할 여지를 남겨야 교체분이 반영된다.
+        // CloudFront는 /favicon.ico 전용 동작으로 분리돼 있으며,
+        // 파비콘 교체 시 해당 경로를 수동 무효화한다.
+        source: '/favicon.ico',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=31536000',
+          },
+        ],
+      },
+      {
         // 타입 상성 계산기 - CDN 장기 캐싱 + 브라우저 단기 캐싱
         source: '/type-effectiveness',
         headers: [
