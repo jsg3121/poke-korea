@@ -66,6 +66,23 @@ chmod 600 ~/.config/poke-korea/gcp-service-account.json
 
 > **키 파일을 저장소 안에 두지 마세요.** 서비스 계정 비밀키는 유출되면 분석 데이터 접근 권한이 통째로 넘어갑니다. `~/.config/` 같은 홈 디렉토리에 두고 경로만 참조합니다. 스크립트는 이 경로를 기본값으로 쓰며, `GOOGLE_APPLICATION_CREDENTIALS` 환경변수로 덮어쓸 수 있습니다.
 
+### 자격증명 관리 규약
+
+**스크립트와 자격증명은 분리한다.** 스크립트는 버전 관리하고, 비밀값은 저장소 밖에 둔 뒤 경로만 참조한다.
+
+| 대상 | 위치 | 커밋 |
+| --- | --- | --- |
+| 조회 스크립트 (`scripts/*.js`) | `.claude/analyzer/scripts/` | O |
+| 서비스 계정 키 | `~/.config/poke-korea/gcp-service-account.json` | X |
+| OAuth 클라이언트 시크릿 | `~/.config/poke-korea/adsense-client.json` | X |
+| OAuth 리프레시 토큰 | `~/.config/poke-korea/adsense-oauth.json` | X |
+
+새 스크립트를 추가할 때도 **비밀값을 파일에 직접 쓰지 않는다.** 토큰을 저장해야 하면 위 규약대로 `~/.config/poke-korea/` 아래에 쓰고 `chmod 600`을 건다.
+
+`.gitignore`에 `*service-account*.json`, `gcp-*.json`, `*oauth*.json`, `*-client.json`, `client_secret*.json` 방어선이 있어 실수로 저장소 안에 옮겨와도 커밋되지 않는다. 다만 이는 **최후의 안전망일 뿐 1차 규칙이 아니다** — 파일명이 패턴에서 벗어나면 그대로 뚫린다.
+
+> **Why 스크립트는 커밋하는가:** `.claude/analyzer/*.*` 패턴은 폴더 직속 파일(수익 CSV·zip 등 민감 데이터)만 제외한다. `scripts/` 하위는 한 단계 더 들어가 있어 걸리지 않으며, 이는 의도된 설계다. 스크립트에는 비밀값이 없고 경로만 있어 공유해도 안전하며, 버전 관리해야 다른 환경에서 재현할 수 있다.
+
 ### 사용법
 
 외부 의존성이 없습니다. Node 내장 모듈만 쓰므로 `npm install` 없이 바로 실행됩니다.

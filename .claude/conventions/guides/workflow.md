@@ -49,11 +49,14 @@ git log origin/main --oneline | grep -m1 -oE '[0-9]+\.[0-9]+\.[0-9]+'
 ```bash
 git fetch origin
 git checkout -b feature/{version} origin/main
+git branch --unset-upstream        # ← 반드시 함께 실행
 ```
 
 로컬 `main`을 경유하지 않는다. 로컬 main은 뒤처져 있거나 커밋되지 않은 변경이 남아 있을 수 있고, 그 상태에서 분기하면 오염이 그대로 딸려 들어간다.
 
-> **주의:** 이 명령은 시작 커밋만 `origin/main`으로 지정할 뿐 upstream을 설정하지 않는다. push 목적지와는 무관하다 — upstream은 최초 push 때 `git push -u origin {브랜치명}`으로 정해진다.
+**CRITICAL**: `git checkout -b <새브랜치> origin/main`은 시작 커밋 지정과 **동시에 upstream을 `origin/main`으로 설정한다**(`branch.autoSetupMerge` 기본값이 `true`라 원격 추적 브랜치에서 분기하면 자동으로 추적이 걸린다). 이 상태로 `git push`하면 작업 커밋이 **main으로 올라간다.** 그래서 분기 직후 `git branch --unset-upstream`을 반드시 실행하고, 최초 push는 `git push -u origin {브랜치명}`으로 한다.
+
+> **Why:** 이 절이 처음 작성됐을 때는 "upstream을 설정하지 않는다"고 적혀 있었으나 사실과 달랐다. 실제로 `feature/1.58.9`를 이 명령으로 분기했더니 upstream이 `origin/main`으로 잡혔고, 아래 push 가드 훅이 이를 차단해 발견했다. 문서를 실제 동작에 맞춰 고쳤다.
 
 ### push 전 upstream 확인
 
