@@ -152,6 +152,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.8,
     },
+    // 정책 문서는 검색 유입 대상이 아니라 색인만 되면 충분하다.
+    // 색인 자체는 필요하다 — 애드센스는 이용자가 방침에 접근할 수 있어야 한다.
+    {
+      url: 'https://poke-korea.com/privacy',
+      lastModified: BUILD_TIME,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
   ]
 
   try {

@@ -36,6 +36,19 @@
           {
             "type": "command",
             "command": ".claude/hooks/block-claude-html.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-main-branch-edit.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/guard-git-push.sh"
           }
         ]
       }
