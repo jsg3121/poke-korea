@@ -76,4 +76,65 @@ const getAccessToken = async (scopes, keyPath) => {
   return json.access_token
 }
 
-module.exports = { getAccessToken, DEFAULT_KEY_PATH }
+const DEFAULT_OAUTH_PATH = path.join(
+  os.homedir(),
+  '.config/poke-korea/adsense-oauth.json',
+)
+
+/**
+ * 리프레시 토큰 → 액세스 토큰 (애드센스 전용).
+ *
+ * 애드센스는 서비스 계정을 지원하지 않아 위 getAccessToken 을 쓸 수 없다.
+ * https://developers.google.com/adsense/management/direct_requests
+ *
+ * 토큰 파일은 adsense-authorize.js 가 만든다.
+ *
+ * @param {string} [tokenPath] 토큰 JSON 경로. 생략 시 ADSENSE_OAUTH_PATH → 기본 경로 순
+ * @returns {Promise<string>} 액세스 토큰(1시간 유효)
+ */
+const getAccessTokenFromRefreshToken = async (tokenPath) => {
+  const resolved =
+    tokenPath || process.env.ADSENSE_OAUTH_PATH || DEFAULT_OAUTH_PATH
+
+  if (!fs.existsSync(resolved)) {
+    throw new Error(
+      `OAuth 토큰을 찾을 수 없다: ${resolved}\n` +
+        `먼저 인증을 한 번 수행할 것:\n` +
+        `  node .claude/analyzer/scripts/adsense-authorize.js`,
+    )
+  }
+
+  const saved = JSON.parse(fs.readFileSync(resolved, 'utf8'))
+
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: saved.client_id,
+      client_secret: saved.client_secret,
+      refresh_token: saved.refresh_token,
+      grant_type: 'refresh_token',
+    }),
+  })
+
+  const json = await res.json()
+  if (!res.ok) {
+    const hint =
+      json.error === 'invalid_grant'
+        ? `\n\n리프레시 토큰이 무효다. 재인증할 것:\n` +
+          `  node .claude/analyzer/scripts/adsense-authorize.js\n` +
+          `반복 만료되면 GCP 동의 화면이 '테스트 중'인지 확인할 것(7일 만료).`
+        : ''
+    throw new Error(
+      `토큰 갱신 실패(${res.status}): ${JSON.stringify(json)}${hint}`,
+    )
+  }
+  return json.access_token
+}
+
+module.exports = {
+  getAccessToken,
+  getAccessTokenFromRefreshToken,
+  DEFAULT_KEY_PATH,
+  DEFAULT_OAUTH_PATH,
+}
