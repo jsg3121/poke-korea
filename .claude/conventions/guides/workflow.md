@@ -33,6 +33,61 @@ feature/{version}
   - **Patch (1.26.X)**: 버그 수정, 소규모 개선
 - 브랜치는 사용자가 직접 생성하므로, 새로운 작업 시작 시 브랜치 생성 여부 확인 필요
 
+### 버전 확인: main에 머지된 마지막 PR 기준
+
+**IMPORTANT**: 다음 버전을 정할 때는 반드시 `origin/main`에 **머지된 마지막 PR의 버전**을 확인한다. 추측하거나 로컬 폴더 목록을 눈대중으로 훑고 정하지 않는다.
+
+```bash
+git fetch origin
+git log origin/main --oneline | grep -m1 -oE '[0-9]+\.[0-9]+\.[0-9]+'
+```
+
+> **Why:** `changelog/blog/` 폴더 목록이나 로컬 브랜치 이름은 근거가 되지 못한다. 로컬에 없는 버전이 원격에 있을 수 있고(원격에서만 머지된 hotfix), `ls | tail`류 출력은 정렬이 사전순이라 `1.58.10`이 `1.58.2`보다 앞에 오는 등 오독하기 쉽다. 실제로 이미 배포된 `1.58.6`을 놓치고 `1.58.1`로 브랜치를 만든 사고가 있었다 — 당시 `ls` 출력에 `1.58.6`이 있었는데도 읽지 않았다. **머지 이력이 유일한 권위 원본이다.**
+
+### 브랜치는 origin/main에서 직접 분기한다
+
+```bash
+git fetch origin
+git checkout -b feature/{version} origin/main
+```
+
+로컬 `main`을 경유하지 않는다. 로컬 main은 뒤처져 있거나 커밋되지 않은 변경이 남아 있을 수 있고, 그 상태에서 분기하면 오염이 그대로 딸려 들어간다.
+
+> **주의:** 이 명령은 시작 커밋만 `origin/main`으로 지정할 뿐 upstream을 설정하지 않는다. push 목적지와는 무관하다 — upstream은 최초 push 때 `git push -u origin {브랜치명}`으로 정해진다.
+
+### push 전 upstream 확인
+
+**CRITICAL**: push하기 전에 **실제 목적지**를 확인한다. 브랜치 이름만으로는 알 수 없다.
+
+```bash
+git branch --show-current          # 로컬 브랜치
+git rev-parse --abbrev-ref @{upstream}   # 실제 push 대상
+```
+
+두 값이 대응하지 않으면 push하지 않는다. 특히 upstream이 `origin/main`인데 현재 브랜치가 main이 아니면 **즉시 교정**한다.
+
+```bash
+git branch --unset-upstream
+git push -u origin "$(git branch --show-current)"
+```
+
+> **Why:** `git push -u origin main`을 한 번이라도 실행하면 그 브랜치의 upstream이 main으로 고정된다. 이후 `git push`는 브랜치 이름이 `feature/A`여도 커밋을 **main에 올린다**. 로컬에서는 브랜치가 A로 보여 정상 같은데 원격 main만 조용히 갱신되는, 사람이 알아채기 가장 어려운 사고다. 실제 사례로 기능 브랜치 작업이 main에 쌓인 적이 있다.
+>
+> GitHub의 "Require a pull request before merging"이 켜져 있어도 이 확인은 필요하다. 원격 보호는 push가 거부된 뒤에야 알려주므로 개발 중 인지 시점을 주지 못하고, 보호 규칙이 없는 저장소로 같은 습관이 옮겨가면 그대로 사고가 된다.
+
+### 자동 가드 (훅)
+
+위 규칙은 판독에 맡기지 않고 `PreToolUse` 훅으로 강제한다. 설정은 `.claude/settings.json`에 있다.
+
+| 훅 | 대상 | 차단 조건 |
+| --- | --- | --- |
+| `block-main-branch-edit.sh` | `Write`/`Edit` | 현재 브랜치가 `main`·`master` |
+| `guard-git-push.sh` | `Bash` | main을 향하는 push (명시 지정, `HEAD:main` refspec, `--all`/`--mirror`, upstream이 main인 브랜치, 현재 브랜치가 main) |
+
+훅에 차단되면 우회하지 말고 안내된 명령으로 브랜치를 정상화한 뒤 진행한다. 차단 메시지에 교정 명령이 함께 출력된다.
+
+> **Why:** "main에서 작업하지 않는다"는 규칙은 이미 CLAUDE.md에 절대 규칙으로 있었는데도 실제로 뚫렸다. 브랜치를 만들었다고 보고한 뒤 어떤 이유로 main으로 돌아온 채 파일을 쓴 사례다 — 브랜치 생성과 파일 편집 사이에 checkout이 끼면 그 사이를 확인하는 절차가 없었기 때문이다. 편집·push 시점마다 물리적으로 검사해야 재발하지 않는다.
+
 ### 기본 워크플로우
 
 1. 사용자가 main에서 신규 버전 루트 브랜치 생성 (예: `feature/1.28.0`)
