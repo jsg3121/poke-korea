@@ -1,5 +1,6 @@
 import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
+import TypeDetailBanner from '~/components/adSlot/TypeDetailBanner'
 import TypeDetailChampionsContainer from '~/container/typeEffectivenessDetail/TypeDetailChampions.container'
 import TypeDetailComboContainer from '~/container/typeEffectivenessDetail/TypeDetailCombo.container'
 import TypeDetailFaqContainer from '~/container/typeEffectivenessDetail/TypeDetailFaq.container'
@@ -33,8 +34,11 @@ import TypeDetailSummaryContainer from '~/container/typeEffectivenessDetail/Type
  * 받아 props로 내려온다(`_fetch/typeDetail.fetch.ts`). 조회가 실패하면 해당
  * 블록만 비고 페이지는 정상 렌더된다 — 핵심인 상성 정보는 상수에서 나온다.
  *
- * 광고는 폴드에 두지 않는다 — 검색 유입 즉답이 이 페이지의 존재 이유다. 슬롯
- * 발급 후 복합 타입 블록 뒤에 배치한다(메모리 규칙: 빈 슬롯 커밋 금지).
+ * 광고는 폴드에 두지 않는다 — 검색 유입 즉답이 이 페이지의 존재 이유다. 상성
+ * 전체 뒤·복합 타입 헤딩 앞에 1지점만 둔다(섹션 경계에 두되 다음 섹션 헤딩
+ * 위에 붙여, 제목과 그 본문이 광고로 갈라지지 않게 한다). 실측상 이 지점은
+ * 뷰포트와 무관하게 1,226px 고정이라 폴드(900~1,117) 밖이며, 폴드 안에는
+ * 약점 즉답부터 주는 데미지까지 모두 들어간다. 배치 근거는 컴포넌트 주석 참조.
  */
 
 interface TypeEffectivenessDetailViewProps {
@@ -58,6 +62,7 @@ const TypeEffectivenessDetailView = ({
     <section className="mx-auto w-full max-w-[1280px] px-4 pb-20 pt-6 desktop:pb-10 desktop:pt-8">
       <TypeDetailSummaryContainer pokemonType={pokemonType} />
       <TypeDetailMatchupContainer pokemonType={pokemonType} />
+      <TypeDetailBanner />
       <TypeDetailComboContainer pokemonType={pokemonType} />
       <TypeDetailPokemonContainer
         pokemonType={pokemonType}
