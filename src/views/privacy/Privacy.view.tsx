@@ -50,7 +50,7 @@ const LINK_CLASS = 'font-bold text-primary-4 underline underline-offset-2'
 
 const PrivacyView = () => {
   return (
-    <article className="w-full max-w-[800px] mx-auto px-5 py-10">
+    <article className="w-full max-w-[1280px] mx-auto px-5 py-10">
       <header className="mb-8 pb-6 border-b border-primary-2">
         <h1 className="text-2xl font-bold text-primary-4 mb-2">
           개인정보처리방침
