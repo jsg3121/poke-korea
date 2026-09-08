@@ -112,7 +112,8 @@ const buildChampionsMainEntity = (
   pokemonName: string,
   info: ChampionsEntityInfo,
 ) => {
-  const displayName = pokemonName.replace('_', ' ')
+  // 백엔드 name이 완결된 표시명이다 — 언더바 구분자는 제거됐다(2026-09-08).
+  const displayName = pokemonName
   const properties = [
     info.tier && { name: '티어', value: info.tier },
     info.topMove && { name: '인기 기술', value: info.topMove },

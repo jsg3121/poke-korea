@@ -62,7 +62,7 @@ const getMetaHighlight = (meta: DetailMeta): string | null => {
  *      프론트에서 추가 합성 시 중첩 발생하므로 백엔드 name 그대로 사용. (Phase 2/3 결정)
  */
 const buildDetailTitle = (pokemon: DetailPokemon): string => {
-  return `${pokemon.name.replace('_', ' ')} 챔피언스 도감 - 스탯·기술·특성`
+  return `${pokemon.name} 챔피언스 도감 - 스탯·기술·특성`
 }
 
 /**

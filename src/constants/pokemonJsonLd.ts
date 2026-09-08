@@ -116,7 +116,9 @@ export const generatePokemonJsonLd = ({
     activeType,
     pokemonBaseInfoName: pokemonDetail.name,
     megaEvolutionName: megaEvolutionData?.[activeIndex]?.name || '',
-    regionFormPlace: regionFormData?.[activeIndex]?.region || '',
+    regionFormName: regionFormData?.[activeIndex]?.name || '',
+    // normalForm은 해당 인덱스 하나만 담겨 오므로 [0]으로 읽는다
+    normalFormName: normalForm?.[0]?.name || '',
     gigantamaxName: gigantamaxData?.[activeIndex]?.name || '',
     isShiny,
   })

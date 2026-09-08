@@ -23,9 +23,7 @@ interface DetailMovesViewProps {
 const DetailMovesView = ({ pokemonName }: DetailMovesViewProps) => {
   return (
     <>
-      <h1 className="sr-only">
-        {pokemonName.replace('_', ' ')} 상세 습득 기술 정보
-      </h1>
+      <h1 className="sr-only">{pokemonName} 상세 습득 기술 정보</h1>
       <div className="flex w-full flex-col gap-5 py-6 desktop:gap-6 desktop:py-8">
         <DetailMovesHeroContainer />
         {/* 광고 — 히어로 아래·학습법(레벨업/기술머신) 탭 위 */}

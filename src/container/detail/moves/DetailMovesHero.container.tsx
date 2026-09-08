@@ -27,8 +27,8 @@ const DetailMovesHeroContainer = () => {
     currentActiveIndex,
   } = useContext(DetailMovesContext)
 
-  const pokemonName = pokemonInfo?.name ?? ''
-  const displayName = pokemonName.replace('_', ' ')
+  // 백엔드 name이 완결된 표시명이다 — 언더바 구분자는 제거됐다(2026-09-08).
+  const displayName = pokemonInfo?.name ?? ''
   const activeType = pokemonInfo?.activeType
   const activeIndex = currentActiveIndex
 

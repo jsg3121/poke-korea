@@ -68,8 +68,8 @@ export const renderChampionsDetail = async ({
     formatSlug,
     pokemonName,
     detailPath,
-    name: `${pokemonName.replace('_', ' ')} 챔피언스 도감`,
-    description: `${pokemonName.replace('_', ' ')} 챔피언스 메타 정보 — 추천 기술·도구·특성, 스탯을 확인하세요.`,
+    name: `${pokemonName} 챔피언스 도감`,
+    description: `${pokemonName} 챔피언스 메타 정보 — 추천 기술·도구·특성, 스탯을 확인하세요.`,
     entityInfo: {
       stats: detail.pokemon.stats,
       tier: meta?.tier,
