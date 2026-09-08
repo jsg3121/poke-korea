@@ -76,8 +76,9 @@ export const generateMetadata = async ({
       )
     : versionInfo.getVersionGroups?.[0]
 
+  // 언더바 구분자는 백엔드에서 제거됐다(2026-09-08 폼 표시명 변경).
   const pokemonName =
-    normalFormData.getPokemonNormalForm?.[0]?.name?.replace('_', ' ') ??
+    normalFormData.getPokemonNormalForm?.[0]?.name ??
     pokemonDetail.getPokemonDetail?.name
 
   const canonicalUrl = `https://poke-korea.com${buildMovesPath({

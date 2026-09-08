@@ -57,7 +57,9 @@ export const getActiveFormInfo = ({
     case 'region': {
       const form = regionFormInfo?.[activeIndex]
       return {
-        name: `${pokemonBaseInfo?.name} ${form?.region}의 모습 ${form?.name && `(${form?.name})`}`,
+        // 백엔드 name이 그 자체로 완전한 표시명이다(2026-09-08 폼 표시명 변경).
+        // 종명·지역명을 덧붙이면 "나옹 (알로라 나옹)"처럼 이름이 중복된다.
+        name: form?.name || pokemonBaseInfo?.name || '',
         stats: form?.regionFormStats ?? pokemonBaseInfo?.pokemonStats,
         // 폼 객체가 있으면 그 값을 그대로 쓴다(null이어도). ??로 폴백하면 값이
         // 공식적으로 불명인 폼에 원종 수치가 잘못 표시된다(무한다이맥스 사례).
@@ -78,7 +80,8 @@ export const getActiveFormInfo = ({
     default: {
       const form = normalForm?.[0]
       return {
-        name: form?.name.replace('_', ' ') ?? pokemonBaseInfo?.name ?? '',
+        // 언더바 구분자("캐스퐁_빗방울폼")는 백엔드에서 제거됐다(2026-09-08).
+        name: form?.name ?? pokemonBaseInfo?.name ?? '',
         stats: form?.normalFormStats ?? pokemonBaseInfo?.pokemonStats,
         // region과 동일 — 폼이 있으면 null도 그대로 전달해 "불명"으로 표시되게 한다
         height: form ? form.height : pokemonBaseInfo?.height,

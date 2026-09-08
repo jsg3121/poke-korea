@@ -14,7 +14,8 @@ type GetPokemonNameByTypeParams = {
   activeType: TActiveType
   pokemonBaseInfoName: string
   megaEvolutionName: string
-  regionFormPlace: string
+  regionFormName: string
+  normalFormName: string
   gigantamaxName: string
   isShiny: boolean
 }
@@ -77,20 +78,27 @@ type GetPokemonSizeFn = (
  * @description 타입별 포켓몬 명
  * - 기본 : 도감번호 + 포켓몬 명 `No. 6 리자몽`
  * - 메가진화 : 도감번호 + 메가진화 포켓몬 명 `No. 6 메가리자몽X `
- * - 리전폼 : 도감번호 + 포켓몬 명 + 리전폼 지역 + 리전폼 `No. 19 꼬렛 알로라 리전폼`
- * - 이로치 : 각 케이스별 포켓몬 이름 + 이로치 `No. 19 꼬렛 알로라 리전폼 이로치`
+ * - 리전폼 : 도감번호 + 리전폼 명 `No. 52 알로라 나옹`
+ * - 노말폼 : 도감번호 + 폼 명 `No. 745 루가루암 한밤중의 모습`
+ * - 이로치 : 각 케이스별 포켓몬 이름 + 이로치 `No. 52 알로라 나옹 이로치`
+ *
+ * 리전폼·노말폼은 2026-09-08 백엔드 폼 표시명 변경으로 `name`이 종명·지역까지
+ * 포함한 완결된 표시명이 됐다(`알로라 나옹`·`캐스퐁 빗방울의 모습`). 메가·
+ * 거다이맥스와 같은 규칙이므로 무엇도 덧붙이지 않는다 — 붙이면 이름이 중복된다.
  *
  * @param activeType 현재 포켓몬 모습
  * @param pokemonBaseInfoName 포켓몬 기본상태 이름
  * @param megaEvolutionName 포켓몬 메가진화상태 이름
- * @param regionFormPlace 리전폼 포켓몬 지역
+ * @param regionFormName 리전폼 표시명(지역 포함)
+ * @param normalFormName 노말폼 표시명(종명 포함). 폼이 없으면 빈 문자열
  * @param isShiny 이로치 여부
  */
 export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
   activeType,
   pokemonBaseInfoName,
   megaEvolutionName,
-  regionFormPlace,
+  regionFormName,
+  normalFormName,
   gigantamaxName,
   isShiny,
 }) => {
@@ -101,14 +109,15 @@ export const getPokemonNameByType: GetPokemonNameByTypeFn = ({
       return `${megaEvolutionName}${shinyText}`
     }
     case 'region': {
-      const regionFormText = `${pokemonBaseInfoName} ${regionFormPlace} 리전폼`
-      return `${regionFormText}${shinyText}`
+      // 값이 비면 원종명으로 떨어뜨린다(과거 리전폼 name이 빈 문자열이던 이력).
+      return `${regionFormName || pokemonBaseInfoName}${shinyText}`
     }
     case 'gigantamax': {
       return `${gigantamaxName}${shinyText}`
     }
     default: {
-      return `${pokemonBaseInfoName}${shinyText}`
+      // 폼이 없는 포켓몬은 normalFormName이 비어 원종명이 그대로 쓰인다.
+      return `${normalFormName || pokemonBaseInfoName}${shinyText}`
     }
   }
 }
@@ -281,9 +290,13 @@ export const getPokemonName: GetPokemonNameFn = ({
     case 'mega':
       return megaEvolutionData?.[activeIndex]?.name || pokemonDetail.name
     case 'region':
-      return `${pokemonDetail.name} ${regionFormData?.[activeIndex]?.region}의 모습`
+      // 백엔드 name이 완결된 표시명이다 — 종명·지역명을 덧붙이지 않는다
+      // (2026-09-08 폼 표시명 변경). 값이 비면 원종명으로 떨어뜨린다.
+      return regionFormData?.[activeIndex]?.name || pokemonDetail.name
     default:
-      return normalForm?.[activeIndex]?.name || pokemonDetail.name
+      // normalForm은 fetchNormalFormData(id, activeIndex)가 해당 인덱스 하나만
+      // 담아 오므로 [0]으로 읽는다(getPokemonTypes·getPokemonSize와 동일 기준).
+      return normalForm?.[0]?.name || pokemonDetail.name
   }
 }
 

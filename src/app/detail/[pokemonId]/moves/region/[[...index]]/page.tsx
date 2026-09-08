@@ -69,8 +69,9 @@ export const generateMetadata = async ({
     : versionGroups?.[0]
 
   const activeRegionForm = regionForms?.[activeIndex]
-  const regionFormSuffixText = `${activeRegionForm ? ` ${activeRegionForm.region}의 모습` : ''} ${activeRegionForm?.name ? `(${activeRegionForm.name})` : ''}`
-  const pokemonName = `${pokemonInfoData.getPokemonDetail?.name}${regionFormSuffixText}`
+  // 백엔드 name이 그 자체로 완전한 표시명이다(2026-09-08 폼 표시명 변경).
+  const pokemonName =
+    activeRegionForm?.name || pokemonInfoData.getPokemonDetail?.name || ''
 
   const canonicalUrl = `https://poke-korea.com${buildMovesPath({
     pokemonId,
@@ -151,8 +152,9 @@ const RegionMovesPage = async ({
   }
 
   const activeRegionForm = regionForms?.[activeIndex]
-  const regionFormSuffixText = `${activeRegionForm ? ` ${activeRegionForm.region}의 모습` : ''} ${activeRegionForm?.name ? `(${activeRegionForm.name})` : ''}`
-  const pokemonName = `${pokemonInfoData.getPokemonDetail.name}${regionFormSuffixText}`
+  // 백엔드 name이 그 자체로 완전한 표시명이다(2026-09-08 폼 표시명 변경).
+  const pokemonName =
+    activeRegionForm?.name || pokemonInfoData.getPokemonDetail.name
 
   const pokemonInfoTypes =
     activeRegionForm?.types ?? pokemonInfoData.getPokemonDetail.types

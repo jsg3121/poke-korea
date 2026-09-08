@@ -53,6 +53,12 @@ export const generateMetadata = async ({
 
   const { megaEvolutionData } = await fetchMegaEvolutionData(parsedPokemonId)
 
+  // 존재하지 않는 폼 인덱스는 페이지가 notFound()로 처리한다. 여기서 메타를
+  // 만들면 404 응답에 정상 title이 붙으므로 빈 객체를 반환한다.
+  if (!megaEvolutionData[activeIndex]) {
+    return {}
+  }
+
   return generateDetailMetadata({
     pokemonDetail,
     activeType: 'mega',
@@ -112,6 +118,11 @@ const MegaPage = async ({ params, searchParams }: MegaPageProps) => {
       fetchAdjacentPokemon(parsedPokemonId),
       fetchPokemonSummaries(pokemonDetail.evolutionId),
     ])
+
+  // 존재하지 않는 폼 인덱스는 404(예: 메가진화 1종인데 /mega/1 요청).
+  if (!megaEvolutionData[activeIndex]) {
+    notFound()
+  }
 
   const props = {
     pokemonBaseInfo: pokemonDetail,

@@ -61,6 +61,12 @@ export const generateMetadata = async ({
     activeIndex,
   )
 
+  // 존재하지 않는 폼 인덱스는 페이지가 notFound()로 처리한다. 여기서 메타를
+  // 만들면 404 응답에 정상 title이 붙으므로 빈 객체를 반환한다.
+  if (normalFormData.length === 0) {
+    return {}
+  }
+
   return generateDetailMetadata({
     pokemonDetail,
     activeType: 'normal',
@@ -126,6 +132,13 @@ const NormalFormPage = async ({
     fetchAdjacentPokemon(parsedPokemonId),
     fetchPokemonSummaries(pokemonDetail.evolutionId),
   ])
+
+  // 존재하지 않는 폼 인덱스는 404. 백엔드가 범위 밖 activeIndex에 빈 배열을
+  // 반환하므로(2026-09-08 수정) 여기서 판별할 수 있다. 가드가 없으면 폼이
+  // 없는데도 200으로 원종 내용을 보여줘 중복 URL이 색인된다.
+  if (normalFormData.length === 0) {
+    notFound()
+  }
 
   const props = {
     pokemonBaseInfo: pokemonDetail,

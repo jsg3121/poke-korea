@@ -80,7 +80,10 @@ export const generateDetailMetadata = ({
   const pokemonNameByType = getPokemonNameByType({
     activeType,
     megaEvolutionName: megaEvolutionData[activeIndex]?.name ?? '',
-    regionFormPlace: regionFormData[activeIndex]?.region ?? '',
+    regionFormName: regionFormData[activeIndex]?.name ?? '',
+    // normalFormData는 fetchNormalFormData(id, activeIndex)가 해당 인덱스 하나만
+    // 담아 오므로 [0]으로 읽는다(getPokemonTypes·getPokemonSize와 동일 기준).
+    normalFormName: normalFormData[0]?.name ?? '',
     gigantamaxName: gigantamaxData[activeIndex]?.name ?? '',
     pokemonBaseInfoName: pokemonDetail.name,
     isShiny,
