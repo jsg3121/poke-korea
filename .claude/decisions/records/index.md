@@ -25,3 +25,4 @@
 | [ADR-0014](ADR-0014-apollo-ssr-cache-hydration.md)         | Apollo Client SSR 캐시 하이드레이션                  | 승인   |
 | [ADR-0015](ADR-0015-moves-version-nav-scroll-restore.md)   | 버전 nav 가로 스크롤 위치 sessionStorage 복원        | 승인   |
 | [ADR-0016](ADR-0016-folder-structure-by-domain-usage.md)   | 폴더 구조를 사용 도메인 수로 결정                    | 승인   |
+| [ADR-0017](ADR-0017-naming-conventions.md)                 | 네이밍 규칙 분리와 접미사 체계 정리                  | 승인   |
