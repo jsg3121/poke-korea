@@ -26,3 +26,4 @@
 | [ADR-0015](ADR-0015-moves-version-nav-scroll-restore.md)   | 버전 nav 가로 스크롤 위치 sessionStorage 복원        | 승인   |
 | [ADR-0016](ADR-0016-folder-structure-by-domain-usage.md)   | 폴더 구조를 사용 도메인 수로 결정                    | 승인   |
 | [ADR-0017](ADR-0017-naming-conventions.md)                 | 네이밍 규칙 분리와 접미사 체계 정리                  | 승인   |
+| [ADR-0018](ADR-0018-strict-code-conventions.md)            | 코딩 컨벤션 재정의 — 엄격한 타입·Context·핸들러 규칙 | 승인   |

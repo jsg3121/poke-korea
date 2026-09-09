@@ -134,6 +134,26 @@ layout.tsx  →  page.tsx  →  views  →  containers  →  components
 
 원본과 생성물을 `graphql/` 한 폴더에서 관리한다. 생성물(`gqlGenerated.ts`, `typeGenerated.ts`, `schema.graphql`)은 **직접 수정하지 않는다.** 원본 수정 후 `npm run codegen`을 실행한다.
 
+### App Router 프라이빗 폴더
+
+`app/` 하위에서 페이지가 아닌 파일은 `_` 접두 폴더로 분리한다.
+
+| 폴더           | 담는 것                                  |
+| -------------- | ---------------------------------------- |
+| `_fetch/`      | 서버 데이터 패칭 + 응답 가공             |
+| `_metadata/`   | `generateMetadata`용 메타데이터 생성     |
+| `_components/` | 해당 라우트 그룹 전용 서버 컴포넌트 조립 |
+
+**분리 기준은 두 가지다.** 하나는 위의 도메인 수 규칙(여러 라우트가 공유하면 분리), 다른 하나는 `page.tsx`를 라우트 계약만 담게 유지하는 것이다. `_metadata/`는 후자에 해당해 라우트마다 하나씩 있어도 된다 — 메타데이터 생성 로직이 `page.tsx`에 들어가면 계층 책임이 흐려진다.
+
+`_fetch/`로 옮길 때는 **응답 가공까지 함께** 옮긴다.
+
+> **Why:** 쿼리만 분리하고 후처리를 각 `page.tsx`에 남긴 사례가 있다. `getPokemonLearnableData()`가 5개 파일에 복붙된 채 유지됐고, 1.56.0에서야 제거됐다. 패칭만 옮기면 분리의 목적을 달성하지 못한다.
+
+`_components/`와 `components/`의 구분 — `components/`는 도메인 UI이고, `_components/`는 그 라우트 그룹 안에서만 의미가 있는 서버 컴포넌트 조립(Providers·JSON-LD 등)을 담는다. 전역으로 올리면 라우트 맥락(`initialApolloState` 하이드레이션 등)이 전역 컴포넌트로 새어 나간다.
+
+> **`_` 접두사의 의미:** [Next.js Private Folders](https://nextjs.org/docs/app/getting-started/project-structure#private-folders) 규약이다. 다만 App Router는 `page.tsx`가 있는 폴더만 라우트로 만들므로 `_`가 없어도 라우트가 생기지는 않는다. 실질 가치는 "이 폴더는 라우트가 아니다"를 이름으로 선언해 나중에 `page.tsx`를 넣는 실수를 막고, 파일 트리에서 라우트와 시각적으로 분리하는 데 있다.
+
 ### 디바이스별 분리를 새로 만들지 않는다
 
 `containers/desktop/`·`containers/mobile/`처럼 디바이스로 나눈 폴더는 UA 분기 시대의 잔재이며 점진 제거 대상이다([ADR-0007](../../decisions/records/ADR-0007-responsive-rendering-strategy.md)).
@@ -200,16 +220,17 @@ UI 시안은 `public/preview/`에 둔다. `.claude/` 하위 `.html` 생성은 �
 
 ## 요약
 
-| 상황                             | 배치                              |
-| -------------------------------- | --------------------------------- |
-| 한 컴포넌트에서만 쓰는 하위 요소 | 같은 파일 안                      |
-| 한 도메인 안에서 공용            | `<도메인>/shared/`                |
-| 2개 이상 도메인에서 공용 (UI)    | `components/common/`              |
-| 2개 이상 도메인에서 공용 (로직)  | `modules/` 또는 `utils/`          |
-| 다른 도메인의 코드가 필요할 때   | 직접 참조 금지 — 전역으로 승격    |
-| 도메인 무관 DS 원자              | `components/<원자명>/`            |
-| 헤더·푸터·탭바                   | `app/layout.tsx`                  |
-| 기능 기획서                      | `specs/features/`                 |
-| 실행 계획서                      | `specs/plans/`                    |
-| 조사 보고서                      | `research/<유형>/YYYY-MM-DD-*.md` |
-| UI 시안 HTML                     | `public/preview/`                 |
+| 상황                             | 배치                                 |
+| -------------------------------- | ------------------------------------ |
+| 한 컴포넌트에서만 쓰는 하위 요소 | 같은 파일 안                         |
+| 한 도메인 안에서 공용            | `<도메인>/shared/`                   |
+| 2개 이상 도메인에서 공용 (UI)    | `components/common/`                 |
+| 2개 이상 도메인에서 공용 (로직)  | `modules/` 또는 `utils/`             |
+| 다른 도메인의 코드가 필요할 때   | 직접 참조 금지 — 전역으로 승격       |
+| 도메인 무관 DS 원자              | `components/<원자명>/`               |
+| 헤더·푸터·탭바                   | `app/layout.tsx`                     |
+| 라우트 전용 패칭·메타데이터      | `app/<라우트>/_fetch/`, `_metadata/` |
+| 기능 기획서                      | `specs/features/`                    |
+| 실행 계획서                      | `specs/plans/`                       |
+| 조사 보고서                      | `research/<유형>/YYYY-MM-DD-*.md`    |
+| UI 시안 HTML                     | `public/preview/`                    |

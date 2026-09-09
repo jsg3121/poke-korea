@@ -1,98 +1,199 @@
 # 코딩 컨벤션
 
-## 파일 네이밍
+**코드를 어떻게 작성하는가**를 규정한다.
 
-| 유형          | 패턴                                | 예시                    |
-| ------------- | ----------------------------------- | ----------------------- |
-| 컴포넌트      | `이름.component.tsx`                | `Tag.component.tsx`     |
-| 컨테이너      | `이름.container.tsx`                | `List.container.tsx`    |
-| 컨텍스트      | `이름.context.tsx`                  | `Device.context.tsx`    |
-| 커스텀 훅     | `use이름.ts`                        | `useDebounce.ts`        |
-| 타입 정의     | `이름.type.ts` 또는 `이름.types.ts` | `detailContext.type.ts` |
-| 모듈          | `이름.module.ts`                    | `metadata.module.ts`    |
-| 뷰 (데스크톱) | `이름.desktop.tsx`                  | `Home.desktop.tsx`      |
-| 뷰 (모바일)   | `이름.mobile.tsx`                   | `Home.mobile.tsx`       |
+관련 문서 — 폴더 배치는 `structure.md`, 이름 짓기는 `naming.md`, 주석은 `comments.md`, 스타일은 `styling.md`.
+
+---
 
 ## 경로 별칭
 
-`~/` 접두어로 모든 내부 모듈 import (`tsconfig.json`에서 `src/*`에 매핑)
+내부 모듈은 `~/` 접두어로 import한다(`tsconfig.json`에서 `src/*`에 매핑).
 
 ```tsx
 import { useDevice } from '~/context/Device.context'
 ```
 
-## 컴포넌트 계층 구조
+상대 경로(`../../`)는 같은 폴더 안(`./`)을 제외하고 쓰지 않는다 — 파일을 옮길 때 전부 깨진다.
+
+---
+
+## 계층별 책임
 
 ```text
-page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로직) → components (UI)
+layout.tsx  →  page.tsx  →  views  →  containers  →  components
+   크롬          라우트 계약    조립        로직          UI
 ```
 
-- **page.tsx**: 라우트 엔트리, 메타데이터 설정, 서버 데이터 패칭
-- **views**: 디바이스별 페이지 레이아웃 조합. Container만 호출하며, 직접 components를 호출하지 않음
-- **container**: 상태 관리/로직 처리, desktop/mobile 분리. 비즈니스 로직(데이터 변환, 포맷팅 등) 포함
-- **components**: 재사용 가능한 순수 UI 컴포넌트. Props만 받아서 렌더링
+| 계층          | 책임                              | 하지 않는 것          |
+| ------------- | --------------------------------- | --------------------- |
+| `layout.tsx`  | 헤더·푸터·탭바 등 크롬, Providers | 페이지별 내용         |
+| `page.tsx`    | 메타데이터, 서버 패칭, JSON-LD    | 크롬 조립, UI 렌더    |
+| `views/`      | 페이지 조립                       | 서버 패칭, 메타데이터 |
+| `containers/` | 비즈니스 로직, 상태 관리          | 서버 패칭             |
+| `components/` | props 기반 순수 UI                | 비즈니스 로직         |
 
-### 계층별 책임 상세
+**참조 방향** — 상위는 모든 하위를 참조할 수 있고(깊이 무관), 하위는 상위를 참조하지 않는다. 도메인끼리는 직접 참조하지 않고 전역으로 승격한다. 자세한 규칙은 `structure.md`.
 
-| 계층       | 허용                                                | 금지                                |
-| ---------- | --------------------------------------------------- | ----------------------------------- |
-| page.tsx   | 서버 데이터 패칭, 메타데이터, JSON-LD, views 분기   | 비즈니스 로직, UI 렌더링            |
-| views      | Container 호출, 광고/푸터 등 레이아웃 컴포넌트 배치 | components 직접 호출, 비즈니스 로직 |
-| container  | 비즈니스 로직, 상태 관리, components 호출           | 서버 데이터 패칭                    |
-| components | Props 기반 순수 UI 렌더링                           | 비즈니스 로직, 상태 관리            |
+---
 
-**Why:** 계층을 명확히 분리하면 테스트 용이성, 재사용성, 유지보수성이 향상됨. views에서 components를 직접 호출하면 비즈니스 로직이 views로 누출되어 계층 구조가 무너짐.
+## 타입
 
-## App Router 프라이빗 폴더 (`_fetch` / `_metadata` / `_components`)
+### 엄격 옵션
 
-`src/app/` 하위에서 페이지가 아닌 파일은 `_` 접두 폴더로 분리합니다.
+`tsconfig.json`은 `strict: true`에 더해 다음을 켠다.
 
-| 폴더           | 역할                                                   |
-| -------------- | ------------------------------------------------------ |
-| `_fetch/`      | 서버 데이터 패칭 함수. 라우트가 여러 개일 때 공유      |
-| `_metadata/`   | `generateMetadata`용 메타데이터 생성 함수              |
-| `_components/` | 해당 라우트 그룹 전용 컴포넌트. 여러 `page.tsx`가 공유 |
+| 옵션                                    | 목적                                          |
+| --------------------------------------- | --------------------------------------------- |
+| `noUncheckedIndexedAccess`              | 배열·객체 인덱스 접근 결과에 `undefined` 포함 |
+| `noImplicitReturns`                     | 일부 경로에서만 return하는 함수 차단          |
+| `noFallthroughCasesInSwitch`            | switch fallthrough 차단                       |
+| `noUnusedLocals` · `noUnusedParameters` | 미사용 선언 차단                              |
 
-> **`_components/`와 `src/components/`의 구분:** `src/components/`는 도메인 무관 재사용 UI(DS)입니다. 반면 특정 라우트 그룹 안에서만 의미가 있고 서버 컴포넌트 조립(크롬 선택·Providers·JSON-LD 등)을 담는 것은 `_components/`에 둡니다. DS로 올리면 그 라우트의 맥락(예: `initialApolloState` 하이드레이션)이 전역 컴포넌트에 새어 들어갑니다.
+> **Why `noUncheckedIndexedAccess`:** 컴파일러는 배열 길이를 알 수 없으므로 `arr[0]`이 존재한다고 보장할 수 없다. 이 옵션이 없으면 빈 배열에서 `undefined`를 꺼내 쓰는 코드가 타입 검사를 통과한다.
 
-### 분리 기준 — "공유되면 분리"
+`exactOptionalPropertyTypes`는 켜지 않는다 — `aria-current={active ? 'page' : undefined}` 같은 React 정석 패턴을 에러로 만들어, 우회 코드가 늘면 가독성이 떨어진다. TypeScript 팀도 이 옵션을 `strict`에 포함하지 않았다.
 
-**모든 패칭을 `_fetch`로 옮기지 않습니다.** 실제 기준은 재사용 여부입니다.
+### `any`와 non-null 단언을 쓰지 않는다
 
-| 상황                              | 방식                |
-| --------------------------------- | ------------------- |
-| 쿼리 1개 + 라우트 1개             | `page.tsx`에 인라인 |
-| 쿼리 여러 개를 여러 라우트가 공유 | `_fetch/`로 분리    |
+둘 다 타입 검사를 무력화한다. 현재 저장소에 0건이며 이 상태를 유지한다.
 
-`/list`·`/ability`·`/moves` 목록 페이지가 인라인인 것은 쿼리도 라우트도 하나뿐이라 분리해도 파일만 늘기 때문입니다. 반대로 `/detail/[pokemonId]/moves`는 하위 라우트 6개가 같은 데이터를 쓰므로, 인라인으로 두면 동일 패칭 블록이 6번 복제됩니다.
+### 외부 입력은 단언하지 말고 검증한다
 
-> **Why:** 실제로 이 복제가 발생한 사례가 있다. `_fetch`로 쿼리는 분리했으나 응답 후처리(`getPokemonLearnableData()`)는 각 `page.tsx`에 남겨, **같은 함수가 5개 파일에 복붙**된 상태가 유지됐다(1.56.0 습득 기술 통합에서 제거). 패칭을 분리할 때는 **응답 가공까지 함께** 옮겨야 목적을 달성한다.
-
-### `_` 접두사의 의미
-
-Next.js의 [Private Folders](https://nextjs.org/docs/app/getting-started/project-structure#private-folders) 규약입니다. `_`로 시작하는 폴더와 그 하위는 라우팅에서 제외됩니다.
-
-다만 App Router는 `page.tsx`가 있는 폴더만 라우트로 만들므로, **`_`가 없어도 라우트가 생기지는 않습니다.** 접두사의 실질적 가치는 두 가지입니다.
-
-- **의도 명시**: "이 폴더는 라우트 세그먼트가 아니다"를 이름으로 선언해, 나중에 `page.tsx`를 넣는 실수를 막는다
-- **탐색성**: 에디터 파일 트리에서 라우트 폴더와 시각적으로 분리된다
-
-**How to apply:** 새 라우트 그룹을 만들 때, 하위 라우트가 2개 이상이고 데이터를 공유한다면 `_fetch/`를 먼저 만든다. 단일 라우트라면 `page.tsx`에 인라인으로 두고, 라우트가 늘어나는 시점에 분리한다.
-
-## 디바이스 반응형 구조
-
-모바일/데스크톱 레이아웃을 이중 컨테이너 패턴으로 분리합니다:
-
-- `src/container/desktop/` — 데스크톱 전용 컨테이너
-- `src/container/mobile/` — 모바일 전용 컨테이너
-- `src/views/desktop/` / `src/views/mobile/` — 디바이스별 페이지 뷰
-- `DeviceProvider` 컨텍스트에서 서버 사이드 User Agent 기반 기기 감지
+URL 파라미터·API 응답처럼 **런타임에 무엇이 올지 모르는 값**에 `as`를 쓰지 않는다. 타입 가드로 좁힌다.
 
 ```tsx
-const { isMobile } = useDevice()
-return isMobile ? <MobileComponent /> : <DesktopComponent />
+// ❌ 잘못된 URL이 와도 타입은 안전하다고 말한다
+formatSlug as ChampionsFormatSlug
+
+// ✅ 검증 후 좁힌다
+const isFormatSlug = (v: string): v is ChampionsFormatSlug =>
+  v === 'single' || v === 'double'
+
+if (!isFormatSlug(slug)) notFound()
 ```
 
-**Why:** SSR 시점에서 User Agent로 기기를 판별하여 불필요한 컴포넌트 로딩을 방지하고, 각 디바이스에 최적화된 레이아웃을 제공하기 위함.
+`as const`는 예외다 — 타입을 넓히는 게 아니라 좁히므로 안전하다.
 
-**How to apply:** 새로운 페이지/컨테이너 추가 시 반드시 desktop/mobile 분리 구조를 따를 것. 공용 UI 컴포넌트는 `src/components/`에 배치.
+### `interface`와 `type`
+
+객체 형태는 `interface`, 유니온·튜플·매핑은 `type`을 쓴다. `I`·`IF` 접두사는 붙이지 않는다.
+
+---
+
+## Context
+
+**Provider와 함께 커스텀 훅을 export하고, 소비처는 훅만 쓴다.**
+
+```tsx
+const DetailContext = createContext<DetailContextValue | null>(null)
+
+export const useDetail = () => {
+  const context = useContext(DetailContext)
+  if (!context) {
+    throw new Error('useDetail은 DetailProvider 안에서만 쓸 수 있습니다')
+  }
+  return context
+}
+```
+
+소비처에서 `useContext`를 직접 호출하지 않는다.
+
+> **Why:** `createContext`에 기본값을 주면 Provider 밖에서 써도 에러가 나지 않고 빈 값이 반환된다. 화면은 비어 보이는데 원인을 알 수 없는 실패가 된다. 훅에서 null을 걸러내면 즉시 명확한 메시지로 터지고, 반환 타입도 non-null로 좁혀져 소비처에서 옵셔널 체이닝이 사라진다. 가짜 기본값을 만들 필요도 없다.
+
+---
+
+## 이벤트 핸들러
+
+**props로 받은 콜백을 JSX에 바로 넘기지 않고, 컴포넌트 안에서 핸들러를 만들어 호출한다.**
+
+```text
+// ❌ 렌더마다 새 함수가 생성된다
+<Button onClick={() => onClickClose(id)} />
+
+// ✅ 이름 있는 핸들러
+const handleClickClose = () => {
+  onClickClose(id)
+}
+
+return <Button onClickClose={handleClickClose} />
+```
+
+> **Why:** JSX 안의 화살표 함수는 렌더마다 새로 만들어진다. 리스트가 1,000개면 함수도 1,000개가 생성되고, 자식이 `memo`여도 props가 매번 바뀌어 메모이제이션이 무효화된다. 이름 있는 핸들러로 분리하면 스택 트레이스에 함수명이 남아 디버깅도 쉽고, JSX가 구조만 담게 되어 읽기 좋다.
+
+이름 규칙은 `naming.md` 참조 — 내부 정의는 `handle{이벤트}{동작}`, props는 `on{이벤트}{동작}`.
+
+---
+
+## 조건부 렌더링
+
+**early return을 우선한다.**
+
+```tsx
+// ✅ 렌더 불가 조건은 먼저 걸러낸다
+if (!pokemon) return null
+
+return <section>{pokemon.name}</section>
+```
+
+JSX 안에서 분기해야 하면 `&&` 대신 삼항을 쓰거나, 불리언으로 명시적으로 변환한다.
+
+```text
+// ❌ count가 0이면 화면에 0이 렌더된다
+{items.length && <List items={items} />}
+
+// ✅
+{items.length > 0 && <List items={items} />}
+```
+
+> **Why:** `&&`는 좌변을 그대로 반환한다. 숫자 `0`과 빈 문자열은 falsy지만 React가 렌더할 수 있는 값이라, 의도치 않게 화면에 나타난다.
+
+---
+
+## 서버·클라이언트 경계
+
+`'use client'`는 **실제로 필요한 컴포넌트에만** 붙인다 — 상태(`useState`), 생명주기(`useEffect`), 브라우저 API, 이벤트 핸들러를 쓸 때다.
+
+경계는 트리 **아래쪽**으로 민다. 상위에 붙이면 그 아래 전부가 클라이언트 번들에 포함된다.
+
+```text
+❌ page(client) → view → container → component
+✅ page(server) → view(server) → container(client) → component
+```
+
+> **근거:** [Next.js — Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components)
+
+---
+
+## 조건 비교
+
+`==` 대신 `===`를 쓴다. 값의 존재 확인은 암묵 변환에 기대지 않고 명시한다.
+
+```tsx
+// ❌ 빈 문자열·0도 함께 걸러진다
+if (name) { ... }
+
+// ✅ 의도를 드러낸다
+if (name !== '') { ... }
+if (count > 0) { ... }
+```
+
+기본값은 `||`가 아니라 `??`를 쓴다 — `||`는 빈 문자열과 `0`을 폴백시킨다.
+
+```tsx
+const label = value ?? '알 수 없음'
+```
+
+---
+
+## 요약
+
+| 항목           | 규칙                                      |
+| -------------- | ----------------------------------------- |
+| import 경로    | `~/` 별칭                                 |
+| Context        | 커스텀 훅 + Provider 밖 가드              |
+| 이벤트 핸들러  | JSX 인라인 금지, 이름 있는 핸들러로 분리  |
+| 조건부 렌더링  | early return 우선, `&&`는 불리언으로 명시 |
+| `'use client'` | 필요한 곳에만, 트리 아래쪽으로            |
+| 외부 입력      | `as` 대신 타입 가드                       |
+| 비교           | `===`, 기본값은 `??`                      |
