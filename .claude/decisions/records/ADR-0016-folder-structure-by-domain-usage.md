@@ -1,0 +1,85 @@
+# ADR-0016: 폴더 구조를 사용 도메인 수로 결정한다
+
+- **상태**: 승인
+- **날짜**: 2026-09-09
+- **담당**: jsg3121 + Claude
+
+## 맥락
+
+컴포넌트 복잡도 점검 중 폴더 구조와 파일 배치에 일관된 기준이 없다는 것이 드러났다.
+
+- `components/` 루트에 7개 파일이 폴더 없이 방치돼 있었다. 그중 `Portal`·`RadioGroup`은 실제 사용처가 `filter/` 하나뿐이었다.
+- `Tag.component.tsx`가 루트와 `tag/` 두 곳에 존재하며, 전자를 2곳·후자를 20곳이 import한다. 둘 다 `TagComponent`로 불러오므로 경로를 봐야만 구분된다.
+- 폴더명 규칙이 갈렸다. `champions/`·`pokemonCard/` 같은 일반 표기와 `detail.summary/summary.shinyRate/shinyRate.modal/modal.footer/` 같은 점 표기 4단계 중첩이 공존한다.
+- 최상위 폴더의 단복수가 섞였다(`views/` 복수, `hook/`·`module/`·`container/` 단수).
+
+기존 `conventions/guides/coding.md`는 파일 네이밍과 계층 책임만 다루고, **"어느 폴더에 두는가"를 규정하지 않았다.** 기준이 없으니 판단이 사람마다 갈리고, 애매한 파일이 루트에 쌓였다.
+
+## 결정
+
+**폴더 구조 지침(`conventions/guides/structure.md`)을 신설하고, 배치를 "사용 도메인 수"로 결정한다.**
+
+여기서 도메인은 하나의 기능 영역을 뜻하며 대체로 페이지 단위와 일치한다(`champions`, `detail`, `list`, `ability`, `moves`, `quiz`, `home`, `typeEffectiveness`).
+
+| 사용 범위 | 위치 |
+| --- | --- |
+| 한 컴포넌트에서만 | 그 파일 안 (분리하지 않음) |
+| 한 도메인 안 여러 곳 | `<도메인>/shared/` |
+| 2개 이상 도메인 | 전역 (`components/common/`, `modules/`, `hooks/`, `utils/`) |
+
+이 규칙 하나를 `components`·`modules`·`hooks`·`utils`에 동일하게 적용한다.
+
+함께 확정한 부수 규칙:
+
+1. **도메인끼리 직접 참조 금지** — 두 도메인이 같은 코드를 쓰면 참조가 아니라 전역 승격으로 해결한다. `views/`·`app/`은 조합이 본래 역할이므로 예외.
+2. **최상위 도메인 폴더는 복수형**(`components/`, `containers/`, `modules/`, `hooks/`, `utils/`, `views/`), **DS 원자 폴더는 단수**(`button/`, `chip/`).
+3. **폴더명에 점(`.`)을 쓰지 않는다** — 파일명 접미사 규칙(`Tag.component.tsx`)과 충돌한다.
+4. **중첩은 3단계까지** — `components/<도메인>/shared/`가 상한.
+5. **같은 이름의 컴포넌트를 두지 않는다.**
+6. **`modules/`와 `utils/` 구분** — `modules/`는 API 연동·비즈니스 로직, `utils/`는 단순 계산·포맷.
+
+## 근거
+
+**개수는 세면 되는 값이라 판정이 흔들리지 않는다.** "공용 같으니 전역에 두자"는 판단은 사람마다 다르고, 시간이 지나면 전역 폴더가 분류 실패한 파일의 보관함이 된다. 사용처를 세는 방식은 누가 판단해도 같은 결과가 나온다.
+
+실제 데이터가 이를 뒷받침했다.
+
+| 파일 | 사용 도메인 | 판정 |
+| --- | --- | --- |
+| `Image` | 12개 | 전역 |
+| `SectionHeading` | 2개 | 전역 |
+| `Portal` | 1개 (`filter`) | `filter/` 안으로 |
+| `RadioGroup` | 1개 (`filter`) | `filter/` 안으로 |
+
+루트 직속 7개 중 전역 자격을 갖춘 것은 2개뿐이었고, 나머지는 분류되지 않은 채 방치된 상태였음이 규칙만으로 드러난다.
+
+**도메인 간 참조 금지는 이 규칙의 자연스러운 귀결이다.** 두 도메인이 같은 코드를 쓰는 순간 이미 전역 대상이므로, 직접 참조가 남아 있다는 것은 승격을 건너뛴 상태를 뜻한다. 별도 논리가 아니라 같은 원칙의 다른 표현이다. 전수 조사 결과 위반 4건이 발견됐고(모두 `champions/`를 참조), 전부 이 규칙으로 해소된다 — 예외 처리가 필요한 사례는 없었다.
+
+**승격은 실적으로 한다.** 두 번째 도메인이 실제로 쓰기 시작할 때 올린다. "나중에 쓸 것 같아서" 미리 올리면 전역 폴더가 다시 비대해진다.
+
+## 대안
+
+| 대안 | 장점 | 단점 | 불채택 사유 |
+| --- | --- | --- | --- |
+| **FSD (Feature-Sliced Design)** | 검증된 표준, 도메인 중심, 단방향 참조 규칙 내장 | `entities`/`features` 분리 판정이 실무에서 가장 논쟁적 | 계층 구조(`page→views→containers→components`)가 39개 라우트에 이미 박혀 있어 전면 재작성이 필요하다. 단일 개발자에 화면=도메인이 거의 1:1이라 `entities`/`features` 분리의 이득이 작다. 다만 **슬라이스 간 참조 금지 규칙만 차용**했다 |
+| **루트 직속 유지** | 변경 없음 | 애매한 파일이 `components/` 최상단에 계속 쌓인다 | 위치만 옮길 뿐 문제를 해결하지 못한다 |
+| **역할별 폴더로 분산**(`primitives/`, `typography/`) | 폴더명이 역할을 설명 | 파일마다 역할을 새로 정의해야 하고, 경계가 모호한 것은 여전히 갈 곳이 없다 | `common/`보다 판정 비용이 크다. "3개 이상" 같은 임의 숫자 기준이 필요해진다 |
+| **`common/` 무조건 허용** | 단순 | "애매하면 common"이 되어 쓰레기통화 | 사용 도메인 수라는 입장 조건을 붙여 채택했다 |
+| **전 폴더 복수형 통일** | 완전한 일관성 | DS 원자 폴더(`buttons/Button.component.tsx`)가 어색해진다 | Atomic Design 관례상 원자는 단수. 최상위만 복수형으로 부분 적용 |
+
+## 결과
+
+- `conventions/guides/structure.md` 신설, `conventions/index.md`에 등재.
+- `coding.md`의 폴더 관련 서술은 `structure.md`로 이관하고, `coding.md`는 파일명·계층 책임만 담당한다(ADR-0018).
+- 기존 코드에 다음 위반이 남아 있으며 후속 작업에서 정리한다.
+  - 도메인 간 직접 참조 4건 (전부 `champions/` 참조)
+  - `Tag.component.tsx` 중복 2벌
+  - 점 표기 폴더 및 4단계 중첩
+  - 최상위 폴더 단수형(`hook`·`module`·`container`) → 복수형 변경 시 import 약 400곳 수정 필요
+- 이 정리는 파일명 규칙 확정 이후 일괄 진행한다 — 통합으로 사라질 파일을 먼저 정리해야 헛작업을 피한다.
+
+## 참고 자료
+
+- [Feature-Sliced Design 공식 문서](https://feature-sliced.design/) — 슬라이스 간 참조 금지 규칙의 출처
+- [ADR-0007](./ADR-0007-responsive-rendering-strategy.md) — 반응형 단일 전환, `containers/desktop`·`mobile` 폴더가 제거 대상인 근거
+- [ADR-0010](./ADR-0010-atomic-first-ds-build-order.md) — DS 원자 우선 구축, 원자 폴더 단수형의 근거

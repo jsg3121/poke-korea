@@ -114,6 +114,7 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 │       ├── coding.md          #   코딩 컨벤션 (네이밍, 경로 별칭, 컴포넌트 계층)
 │       ├── styling.md         #   스타일링 (Tailwind, 색상 체계, 브레이크포인트)
 │       ├── linting.md         #   린팅 (ESLint, Prettier 설정)
+│       ├── comments.md        #   주석 (3원칙, JSDoc/TSDoc, 인라인 허용 범위)
 │       ├── workflow.md        #   워크플로우 (브랜치 전략, 버전 관리)
 │       ├── rendering.md       #   렌더링 (SSR/ISR, Apollo, GraphQL 연동)
 │       └── changelog.md       #   Changelog 관리 (Docusaurus 블로그)
@@ -160,6 +161,7 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 | 작업 유형     | 참조할 문서                                                                     |
 | ------------- | ------------------------------------------------------------------------------- |
 | 코드 작성     | `.claude/conventions/guides/coding.md`, `.claude/conventions/guides/styling.md` |
+| 주석 작성     | `.claude/conventions/guides/comments.md`                                        |
 | 린트/포맷     | `.claude/conventions/guides/linting.md`                                         |
 | 브랜치/PR     | `.claude/conventions/guides/workflow.md`                                        |
 | Changelog     | `.claude/conventions/guides/changelog.md`                                       |
@@ -176,6 +178,8 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 ### 1. Why-First 원칙
 
 규칙만 나열하지 말고 "왜 그런지"를 설명한다. 이유를 이해한 에이전트는 엣지 케이스에서도 올바르게 판단할 수 있다.
+
+이 원칙은 **`.claude/` 하네스 문서에만 적용**한다. `src/` 코드 주석은 `.claude/conventions/guides/comments.md`를 따른다 — 설계 근거는 ADR·SPEC·changelog가 담당하므로 코드에 중복 기록하지 않는다.
 
 ### 2. Progressive Disclosure
 
