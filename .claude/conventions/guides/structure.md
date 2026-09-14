@@ -53,13 +53,13 @@ src/components/
 
 `components/<도메인>/shared/`까지가 상한이다. 더 깊어지면 도메인 분리를 잘못한 것이다.
 
-> **Why:** 깊은 중첩은 import 경로를 길게 만들고 파일 이동 시 연쇄 수정을 부른다. 실제로 `components/detail.summary/summary.shinyRate/shinyRate.modal/modal.footer/`(4단계)가 만들어져 있고, 폴더명이 부모를 반복하는 형태로 길어졌다.
+> **Why:** 깊은 중첩은 import 경로를 길게 만들고 파일 이동 시 연쇄 수정을 부른다. 또 깊어질수록 폴더명이 부모를 반복하게 되어(`summary` → `summary-shiny-rate` → `shiny-rate-modal`) 이름만 길고 정보는 늘지 않는다.
 
 ### 같은 이름의 컴포넌트를 두지 않는다
 
 경로만 다르고 이름이 같으면 import에서 구분되지 않아 잘못 가져다 쓴다.
 
-> **Why:** `components/Tag.component.tsx`와 `components/tag/Tag.component.tsx`가 동시에 존재하고 전자를 2곳·후자를 20곳이 쓰는 상태가 실재한다. 둘 다 `TagComponent`로 import되므로 경로를 봐야만 어느 쪽인지 알 수 있다.
+> **Why:** `components/Tag.component.tsx`와 `components/tag/Tag.component.tsx`처럼 경로만 다른 두 파일이 있으면, 둘 다 같은 이름으로 import되어 호출부에서 어느 쪽인지 알 수 없다. 한쪽만 고치고 다른 쪽을 놓치는 실수로 이어진다.
 
 ---
 
@@ -97,7 +97,7 @@ layout.tsx  →  page.tsx  →  views  →  containers  →  components
 | `containers/` | 비즈니스 로직, 상태 관리                         | 서버 패칭             |
 | `components/` | props 기반 순수 UI                               | 비즈니스 로직         |
 
-> **Why 크롬을 layout에 두는가:** 크롬을 `page.tsx`가 조립하면 라우트마다 같은 코드가 복제된다. 실제로 헤더·푸터·탭바 import가 **29개 `page.tsx`에 반복**돼 있어, 크롬을 한 번 바꾸면 29곳을 고쳐야 한다. App Router의 `layout.tsx`는 이 목적의 계층이며, 라우트 전환 시 재렌더되지 않는 이점도 있다.
+> **Why 크롬을 layout에 두는가:** 크롬을 `page.tsx`가 조립하면 라우트 수만큼 같은 코드가 복제되어, 헤더를 한 번 바꾸는 데 모든 라우트를 고쳐야 한다. App Router의 `layout.tsx`는 이 목적의 계층이며, 라우트 전환 시 재렌더되지 않는 이점도 있다.
 
 ### 계층 참조 규칙
 
@@ -168,7 +168,7 @@ App Router에서는 폴더 구조가 곧 URL이다. 경로를 설계하는 규�
 
 `_fetch/`로 옮길 때는 **응답 가공까지 함께** 옮긴다.
 
-> **Why:** 쿼리만 분리하고 후처리를 각 `page.tsx`에 남긴 사례가 있다. `getPokemonLearnableData()`가 5개 파일에 복붙된 채 유지됐고, 1.56.0에서야 제거됐다. 패칭만 옮기면 분리의 목적을 달성하지 못한다.
+> **Why:** 쿼리만 분리하고 후처리를 각 `page.tsx`에 남기면, 응답 가공 코드가 라우트 수만큼 복제된 채로 남는다. 중복을 없애려고 분리했는데 중복이 그대로 유지되므로, 분리의 목적을 달성하지 못한다.
 
 `_components/`와 `components/`의 구분 — `components/`는 도메인 UI이고, `_components/`는 그 라우트 그룹 안에서만 의미가 있는 서버 컴포넌트 조립(Providers·JSON-LD 등)을 담는다. 전역으로 올리면 라우트 맥락(`initialApolloState` 하이드레이션 등)이 전역 컴포넌트로 새어 나간다.
 
