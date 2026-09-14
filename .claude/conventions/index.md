@@ -12,7 +12,7 @@
 | `comments.md`  | 코드 주석 3원칙, JSDoc/TSDoc 형식, 인라인 주석 허용 범위    |
 | `styling.md`   | Tailwind CSS, 색상 체계, 브레이크포인트, SVG 처리           |
 | `linting.md`   | ESLint, Prettier 설정 및 주요 규칙                          |
-| `rendering.md` | Next.js 설정, GraphQL 연동, Apollo Client, 페이지 라우트 맵 |
+| `rendering.md` | 라우트 구조 규칙, 캐시 정책(ISR·Cache-Control), 데이터 패칭 |
 | `workflow.md`  | 브랜치 전략, 버전 관리, PR 규칙                             |
 | `changelog.md` | Docusaurus 기반 changelog 관리 규칙 및 템플릿               |
 
