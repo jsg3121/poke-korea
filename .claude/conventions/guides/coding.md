@@ -165,6 +165,20 @@ JSX 안에서 분기해야 하면 `&&` 대신 삼항을 쓰거나, 불리언으�
 
 ---
 
+## 데이터 패칭
+
+**서버에서 가져와 클라이언트로 흘린다.** `page.tsx`가 Apollo로 데이터를 가져와 `initialApolloState`로 하이드레이션하고, 클라이언트에서 같은 쿼리를 다시 쏘지 않는다([ADR-0014](../../decisions/records/ADR-0014-apollo-ssr-cache-hydration.md)).
+
+패칭 코드의 배치(`_fetch/` 분리 기준)는 `structure.md` 참조. 분리할 때는 **응답 가공까지 함께** 옮긴다.
+
+GraphQL 원본을 수정한 뒤에는 `npm run codegen`을 실행한다. 생성물은 직접 수정하지 않는다.
+
+```bash
+npm run codegen   # localhost:4000/graphql 서버가 떠 있어야 한다
+```
+
+---
+
 ## 조건 비교
 
 `==` 대신 `===`를 쓴다. 값의 존재 확인은 암묵 변환에 기대지 않고 명시한다.

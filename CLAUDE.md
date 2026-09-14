@@ -27,7 +27,7 @@
 - **CRITICAL**: 에이전트·스킬을 호출하기 **전에**, 해당 `.claude/agents/*.md` 또는 `.claude/skills/*/SKILL.md`의 **산출물 위치·파일명 규칙·제약을 반드시 `Read`로 확인**하고 그 규칙대로 프롬프트를 작성한다. 다음을 절대 하지 않는다:
   - "이전에 써봐서 안다"는 이유로 정의 문서 확인을 건너뛰기 — 세션이 바뀌면 그 기억은 없고, **정의 문서가 유일한 권위 원본(single source of truth)**이다. 짧은 description만으로는 산출물 규칙(저장 경로 등)을 알 수 없다.
   - 프롬프트에 저장 경로·파일명·출력 형식을 **임의로 지정**하기 — 에이전트가 이미 가진 올바른 기본 규칙을 잘못된 값으로 덮어쓸 수 있다. 경로 지정이 꼭 필요하면 정의 문서에 규정된 위치를 그대로 인용한다.
-  > **Why:** 실제로 ui-publisher 호출 시 정의 문서(`public/preview/`에 저장 규칙)를 읽지 않고 프롬프트에 `.claude/playwright/`를 임의 지정해, 이미 여러 메모리에 기록돼 있던 동일 실수를 반복한 사례가 있다. "다음엔 잘 읽겠다"는 다짐은 이미 실패한 방법이므로, 실행 전 정의 문서 확인을 절차로 강제한다. (관련: `public/preview` 시안 저장 규칙은 `ui-publisher.md` 및 메모리 참조)
+    > **Why:** 실제로 ui-publisher 호출 시 정의 문서(`public/preview/`에 저장 규칙)를 읽지 않고 프롬프트에 `.claude/playwright/`를 임의 지정해, 이미 여러 메모리에 기록돼 있던 동일 실수를 반복한 사례가 있다. "다음엔 잘 읽겠다"는 다짐은 이미 실패한 방법이므로, 실행 전 정의 문서 확인을 절차로 강제한다. (관련: `public/preview` 시안 저장 규칙은 `ui-publisher.md` 및 메모리 참조)
 
 ---
 
@@ -111,12 +111,14 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 ├── settings.local.json        # 로컬 권한 오버라이드
 ├── conventions/               # 코딩/워크플로우 규칙
 │   └── guides/
-│       ├── coding.md          #   코딩 컨벤션 (네이밍, 경로 별칭, 컴포넌트 계층)
+│       ├── structure.md       #   폴더 구조 (src/ 계층·도메인, .claude/ 하네스)
+│       ├── naming.md          #   네이밍 (파일·컴포넌트·함수·훅·타입·상수)
+│       ├── coding.md          #   코딩 컨벤션 (계층 책임, 타입, Context, 핸들러)
 │       ├── styling.md         #   스타일링 (Tailwind, 색상 체계, 브레이크포인트)
 │       ├── linting.md         #   린팅 (ESLint, Prettier 설정)
 │       ├── comments.md        #   주석 (3원칙, JSDoc/TSDoc, 인라인 허용 범위)
 │       ├── workflow.md        #   워크플로우 (브랜치 전략, 버전 관리)
-│       ├── rendering.md       #   렌더링 (SSR/ISR, Apollo, GraphQL 연동)
+│       ├── nextjs.md          #   Next.js (캐시 정책, next.config 의사결정)
 │       └── changelog.md       #   Changelog 관리 (Docusaurus 블로그)
 ├── decisions/                 # ADR (의사결정 기록)
 │   ├── README.md              #   타 프로젝트 이식용 설치 안내
@@ -160,12 +162,14 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 
 | 작업 유형     | 참조할 문서                                                                     |
 | ------------- | ------------------------------------------------------------------------------- |
+| 폴더 배치     | `.claude/conventions/guides/structure.md`                                       |
+| 이름 짓기     | `.claude/conventions/guides/naming.md`                                          |
 | 코드 작성     | `.claude/conventions/guides/coding.md`, `.claude/conventions/guides/styling.md` |
 | 주석 작성     | `.claude/conventions/guides/comments.md`                                        |
 | 린트/포맷     | `.claude/conventions/guides/linting.md`                                         |
 | 브랜치/PR     | `.claude/conventions/guides/workflow.md`                                        |
 | Changelog     | `.claude/conventions/guides/changelog.md`                                       |
-| 렌더링/API    | `.claude/conventions/guides/rendering.md`                                       |
+| 캐시/빌드설정 | `.claude/conventions/guides/nextjs.md`                                          |
 | 의사결정      | `.claude/decisions/index.md` (규칙), `.claude/decisions/template.md` (템플릿)   |
 | 비즈니스 분석 | `.claude/specs/`, `.claude/skills/biz-strategy/`                                |
 | 경쟁사 분석   | `.claude/specs/competitor-map.md`                                               |
