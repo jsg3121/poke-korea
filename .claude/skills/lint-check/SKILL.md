@@ -38,24 +38,28 @@ npm run lint 2>&1
 ## 린트 체크 결과
 
 ### Prettier
+
 - ✅ 통과: {N}개 파일
 - ❌ 위반: {N}개 파일
 
 위반 파일:
+
 - `src/components/detail/StatBar.component.tsx`
 - `src/utils/formatCode.ts`
 
 ### ESLint
+
 - ✅ 통과: {N}개 파일
 - ⚠️ 경고: {N}건
 - ❌ 에러: {N}건
 
-| 파일 | 심각도 | 규칙 | 메시지 |
-|------|--------|------|--------|
-| `src/utils/helpers.ts:12` | error | @typescript-eslint/no-explicit-any | Unexpected any |
-| `src/components/Card.component.tsx:5` | warn | no-console | Unexpected console statement |
+| 파일                                  | 심각도 | 규칙                               | 메시지                       |
+| ------------------------------------- | ------ | ---------------------------------- | ---------------------------- |
+| `src/utils/helpers.ts:12`             | error  | @typescript-eslint/no-explicit-any | Unexpected any               |
+| `src/components/Card.component.tsx:5` | warn   | no-console                         | Unexpected console statement |
 
 ### 요약
+
 {전체 통과 여부. 에러가 있으면 수정이 필요한 항목을 우선순위별로 정리}
 ```
 

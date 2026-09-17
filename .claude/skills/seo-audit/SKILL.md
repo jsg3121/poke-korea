@@ -97,7 +97,7 @@ poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)
 
 ## 참고 자료
 
-- 이전 감사: `.claude/research/reports/SEO-2026-07-28-route-audit.md`
+- 이전 감사: `.claude/research/seo/SEO-2026-07-28-route-audit.md`
 - [Google 검색 센터 — 구조화 데이터 일반 가이드라인](https://developers.google.com/search/docs/appearance/structured-data/sd-policies)
 - [Google — BreadcrumbList](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb)
 - [Google — 사이트링크 검색창(SearchAction)](https://developers.google.com/search/docs/appearance/structured-data/sitelinks-searchbox)

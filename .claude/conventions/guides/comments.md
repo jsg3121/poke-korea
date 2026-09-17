@@ -94,7 +94,7 @@ const formLabel = FORM_LABELS[formType]
 // 모바일 슬롯 채움률 58~62%
 ```
 
-필요하면 changelog나 `.claude/research/reports/`에 남긴다.
+필요하면 changelog나 `.claude/research/`에 남긴다.
 
 ### 외부 시스템의 동작 제약은 1줄로 남긴다
 

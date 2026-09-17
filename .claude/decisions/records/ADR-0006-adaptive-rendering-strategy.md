@@ -10,7 +10,7 @@
 
 poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크톱을 판별해 `isMobile ? <XxxMobile/> : <XxxDesktop/>` 로 분기하는 **적응형(Adaptive)** 구조를 쓴다(38개 라우트 전부). 그러나 그 하위의 공용 컴포넌트(`src/components/`의 moves·ability·champions·chart 등)는 CSS 미디어쿼리(`md:`, `sm:`, `lg:`, `xl:`) 기반의 **반응형(Responsive)** 으로 작성되어 있다.
 
-즉 **적응형과 반응형이 한 코드베이스에 혼재**한다. 모바일 사용성 전면 개편([mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md))을 진행하면서, 향후 한 방향으로 일관되게 관리할 필요가 생겼다. `md:` 사용처 조사 결과 27건이 발견되었고, 일부는 모바일 전용 파일에 있어 발동조차 안 되는 죽은 코드였다.
+즉 **적응형과 반응형이 한 코드베이스에 혼재**한다. 모바일 사용성 전면 개편([mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md))을 진행하면서, 향후 한 방향으로 일관되게 관리할 필요가 생겼다. `md:` 사용처 조사 결과 27건이 발견되었고, 일부는 모바일 전용 파일에 있어 발동조차 안 되는 죽은 코드였다.
 
 ## 결정
 
@@ -78,11 +78,11 @@ poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크�
 - 서버 컴포넌트의 디바이스 분기는 `getIsMobile()`(`headers()` 기반)로 전환해 RSC를 보존한다. `headers()`는 이미 요청 단위로 메모이제이션되며, UA 파싱 비용이 무시할 수준이라 `cache()` 래핑은 불필요하다. 컴포넌트 로직은 순수 함수 모듈로 추출한다.
 - `useDevice()` context는 유지하되, **클라이언트 컴포넌트 전용**으로 사용한다(서버 컴포넌트는 `getIsMobile()`).
 - [styling.md](../../conventions/guides/styling.md)에 적응형 컴포넌트 아키텍처 지침을 명문화한다.
-- [mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md)의 Phase 0 "브레이크포인트 일원화" 완료 기준을 본 ADR에 맞춰 갱신한다.
+- [mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md)의 Phase 0 "브레이크포인트 일원화" 완료 기준을 본 ADR에 맞춰 갱신한다.
 
 ## 참고 자료
 
-- [mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md) — 모바일 개편 기획서
+- [mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md) — 모바일 개편 기획서
 - [디자인 분기 전략: Adaptive vs Responsive (MDN — Responsive design)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 - [React `'use client'` — 훅은 클라이언트 전용](https://react.dev/reference/rsc/use-client)
 - [Next.js `headers()` — 서버 전용 동적 함수 (요청 단위 메모이제이션)](https://nextjs.org/docs/app/api-reference/functions/headers)

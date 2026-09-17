@@ -56,6 +56,6 @@
 ## 참고 자료
 
 - [ADR-0006](./ADR-0006-adaptive-rendering-strategy.md) — 대체 대상(순수 적응형)
-- [mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md) — 모바일 개편 기획서
+- [mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md) — 모바일 개편 기획서
 - [Adaptive vs Responsive (MDN — Responsive design)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 - [Martin Fowler — StranglerFigApplication](https://martinfowler.com/bliki/StranglerFigApplication.html)

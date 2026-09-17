@@ -6,7 +6,7 @@
 
 ## 맥락
 
-[mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md)의 4단계 전략은
+[mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md)의 4단계 전략은
 **"1단계는 토큰/Foundations만, 컴포넌트는 페이지를 그려봐야 뭐가 필요한지 아니까
 2단계에서 페이지 작업과 함께 만든다"** 는 가정 위에 있었다(기획서 4.1, 4.2).
 
@@ -67,6 +67,6 @@ DS 구축 순서를 **원자(atom) 우선**으로 바꾼다. Atomic Design 계�
 
 ## 참고 자료
 
-- [mobile-redesign-plan.md — 4단계 전략](../../specs/mobile-redesign-plan.md)
+- [mobile-redesign-plan.md — 4단계 전략](../../specs/plans/mobile-redesign-plan.md)
 - [ADR-0008 Storybook 디자인 시스템](./ADR-0008-storybook-design-system.md)
 - [Atomic Design — Brad Frost](https://bradfrost.com/blog/post/atomic-web-design/)

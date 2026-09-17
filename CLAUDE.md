@@ -158,7 +158,7 @@ layout.tsx  →  page.tsx  →  views  →  container  →  components
 | 캐시/빌드설정 | `.claude/conventions/guides/nextjs.md`                                          |
 | 의사결정      | `.claude/decisions/index.md` (규칙), `.claude/decisions/template.md` (템플릿)   |
 | 비즈니스 분석 | `.claude/specs/`, `.claude/skills/biz-strategy/`                                |
-| 경쟁사 분석   | `.claude/specs/competitor-map.md`                                               |
+| 경쟁사 분석   | `.claude/specs/service/competitor-map.md`                                       |
 | SEO 검사      | `/seo-audit` 스킬, `.claude/skills/seo-audit/`                                  |
 | 트래픽 조회   | `.claude/analyzer/index.md` (Search Console·GA4 API — 수동 CSV보다 우선)        |
 | SEO 설계/구현 | `seo-specialist` 에이전트, `.claude/agents/seo-specialist.md`                   |

@@ -243,4 +243,4 @@ HTML/CSS 단일 파일.
 - `tailwind.config.js` (토큰 — 색상/spacing/fontSize, 시안 CSS 변수의 원본)
 - `src/components/**/*.stories.tsx` (DS 등록 컴포넌트 인벤토리)
 - `src/components/` 하위 스타일 파일 (buttonStyle.ts·tabItemStyle.ts·chipStyle.ts 등 — DS 시각 규격의 SSOT)
-- `.claude/specs/mobile-redesign-plan.md` 4.2 (DS 컴포넌트 승격 기준)
+- `.claude/specs/plans/mobile-redesign-plan.md` 4.2 (DS 컴포넌트 승격 기준)
