@@ -17,4 +17,4 @@
 | `workflow.md`   | 브랜치 전략, 버전 관리, PR 규칙                             |
 | `changelog.md`  | Docusaurus 기반 changelog 관리 규칙 및 템플릿               |
 
-구조·코드 작성(`structure` → `naming` → `coding` → `comments` → `styling`), 도구·빌드(`linting`, `rendering`), 프로세스(`workflow`, `changelog`) 순으로 배열했습니다.
+구조·코드 작성(`structure` → `naming` → `coding` → `comments` → `styling`), 도구·빌드(`linting`, `formatting`, `nextjs`), 프로세스(`workflow`, `changelog`) 순으로 배열했습니다.
