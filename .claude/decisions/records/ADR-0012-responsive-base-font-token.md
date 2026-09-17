@@ -1,8 +1,8 @@
 # ADR-0012: text-base 토큰 반응형화 (모바일 14px)
 
-- 상태: 승인됨
-- 날짜: 2026-07-12
-- 관련: [ADR-0009](ADR-0009-root-font-size-fixed.md) (보완 — 대체 아님)
+- **상태**: 승인
+- **날짜**: 2026-07-12
+- **관련**: [ADR-0009](ADR-0009-root-font-size-fixed.md) (보완 — 대체 아님)
 
 ## 맥락
 
@@ -21,7 +21,7 @@ ADR-0009는 root `font-size`를 16px로 고정했다(rem 자동 축소 폐기 �
 
 - `tailwind.config.js`: `base: 'var(--font-size-base)'`
 - `globals.css`: `:root { --font-size-base: 0.875rem }` + `@media (min-width:
-  769px) { --font-size-base: 1rem }`
+769px) { --font-size-base: 1rem }`
 
 ## 근거
 

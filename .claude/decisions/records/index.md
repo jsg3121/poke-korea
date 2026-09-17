@@ -11,9 +11,9 @@
 | ---------------------------------------------------------- | ---------------------------------------------------- | ------ |
 | [ADR-0001](ADR-0001-harness-engineering.md)                | 하네스 엔지니어링 도입                               | 승인   |
 | [ADR-0002](ADR-0002-feature-roadmap-branching.md)          | 기능 개선 로드맵 및 다중 Phase 체이닝 브랜치 전략    | 승인   |
-| [ADR-0003](ADR-0003-champions-detail-layout.md)            | 챔피언스 상세 페이지 데스크톱 레이아웃 구조          | 승인   |
+| [ADR-0003](ADR-0003-champions-detail-layout.md)            | 챔피언스 상세 페이지 데스크톱 레이아웃 구조          | 대체됨 |
 | [ADR-0004](ADR-0004-nextjs-15-migration.md)                | Next.js 14 → 15 메이저 업그레이드 (보안 패치)        | 승인   |
-| [ADR-0005](ADR-0005-traffic-growth-kpi-2026-09.md)         | 단기 트래픽 성장 KPI 도입 및 목표 변경               | 승인   |
+| [ADR-0005](ADR-0005-traffic-growth-kpi-2026-09.md)         | 단기 트래픽 성장 KPI 도입 및 목표 변경               | 폐기   |
 | [ADR-0006](ADR-0006-adaptive-rendering-strategy.md)        | 적응형 렌더링 일원화 + 데스크톱 min-width 전략       | 대체됨 |
 | [ADR-0007](ADR-0007-responsive-rendering-strategy.md)      | 반응형 렌더링으로 전환 — 디자인 시스템 기반 재구축   | 승인   |
 | [ADR-0008](ADR-0008-storybook-design-system.md)            | 디자인 시스템 도구로 Storybook 채택                  | 승인   |
