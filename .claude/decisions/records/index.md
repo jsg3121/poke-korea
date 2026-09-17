@@ -28,3 +28,4 @@
 | [ADR-0017](ADR-0017-naming-conventions.md)                 | 네이밍 규칙 분리와 접미사 체계 정리                  | 승인   |
 | [ADR-0018](ADR-0018-strict-code-conventions.md)            | 코딩 컨벤션 재정의 — 엄격한 타입·Context·핸들러 규칙 | 승인   |
 | [ADR-0019](ADR-0019-lint-format-separation.md)             | 린트·포맷 지침 분리와 import 계층 정렬 도입          | 승인   |
+| [ADR-0020](ADR-0020-breakpoint-two-only.md)                | 브레이크포인트를 2종으로 고정                        | 승인   |
