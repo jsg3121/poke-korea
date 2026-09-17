@@ -1,6 +1,6 @@
 # ADR-0005: 단기(~2026-09-30) 트래픽 성장 KPI 도입 및 목표 변경
 
-- **상태**: 폐기됨 (2026-05-28)
+- **상태**: 폐기 (2026-05-28)
 - **날짜**: 2026-05-26
 - **담당**: jsg3121 + Claude
 
@@ -136,10 +136,10 @@ Similarweb 추적은 KPI에서 제외하고 **분기 1회(2026-06, 2026-09) 보�
 
 ### 즉시 변경되는 문서
 
-- `.claude/specs/service-overview.md`
+- `.claude/specs/service/service-overview.md`
   - "핵심 성장 목표" 표의 MAU 항목: **"20K 안정 유지" → "30K 도달"**
   - 광고 수익 목표: **월 $20 유지** (변경 없음)
-- `.claude/research/reports/MI-BA-2026-05-26-podic-traffic-overtake.md`: 본 ADR의 근거 분석 보고서로 연결
+- `.claude/research/market/MI-BA-2026-05-26-podic-traffic-overtake.md`: 본 ADR의 근거 분석 보고서로 연결
 
 ### 신규 도입되는 KPI 측정 루틴
 
@@ -173,12 +173,12 @@ Similarweb 추적은 KPI에서 제외하고 **분기 1회(2026-06, 2026-09) 보�
 
 ## 참고 자료
 
-- 본 ADR의 근거 보고서: `.claude/research/reports/MI-BA-2026-05-26-podic-traffic-overtake.md`
-- 영향받는 SPEC: `.claude/specs/service-overview.md`, `.claude/specs/metrics-baseline.md`
+- 본 ADR의 근거 보고서: `.claude/research/market/MI-BA-2026-05-26-podic-traffic-overtake.md`
+- 영향받는 SPEC: `.claude/specs/service/service-overview.md`, `.claude/specs/service/metrics-baseline.md`
 - 이전 트래픽 분석 보고서:
-  - `.claude/research/reports/MI-2026-05-04-poke-korea-traffic-growth.md`
-  - `.claude/research/reports/BA-2026-05-04-poke-korea-competitiveness.md`
-  - `.claude/research/reports/STR-2026-05-04-poke-korea-traffic-growth.md`
+  - `.claude/research/market/MI-2026-05-04-poke-korea-traffic-growth.md`
+  - `.claude/research/business/BA-2026-05-04-poke-korea-competitiveness.md`
+  - `.claude/research/strategy/STR-2026-05-04-poke-korea-traffic-growth.md`
 - 외부 출처:
   - [Similarweb — podic.kr](https://www.similarweb.com/website/podic.kr/)
   - [Similarweb — poketory.com](https://www.similarweb.com/website/poketory.com/)

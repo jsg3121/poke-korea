@@ -82,10 +82,10 @@ git push -u origin "$(git branch --show-current)"
 
 위 규칙은 판독에 맡기지 않고 `PreToolUse` 훅으로 강제한다. 설정은 `.claude/settings.json`에 있다.
 
-| 훅 | 대상 | 차단 조건 |
-| --- | --- | --- |
-| `block-main-branch-edit.sh` | `Write`/`Edit` | 현재 브랜치가 `main`·`master` |
-| `guard-git-push.sh` | `Bash` | main을 향하는 push (명시 지정, `HEAD:main` refspec, `--all`/`--mirror`, upstream이 main인 브랜치, 현재 브랜치가 main) |
+| 훅                          | 대상           | 차단 조건                                                                                                             |
+| --------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `block-main-branch-edit.sh` | `Write`/`Edit` | 현재 브랜치가 `main`·`master`                                                                                         |
+| `guard-git-push.sh`         | `Bash`         | main을 향하는 push (명시 지정, `HEAD:main` refspec, `--all`/`--mirror`, upstream이 main인 브랜치, 현재 브랜치가 main) |
 
 훅에 차단되면 우회하지 말고 안내된 명령으로 브랜치를 정상화한 뒤 진행한다. 차단 메시지에 교정 명령이 함께 출력된다.
 
@@ -134,11 +134,13 @@ main
 Claude가 **새 컨텍스트(새 대화)**에서 처음 작업 요청을 받았을 때, 그리고 **파일 수정·생성·삭제가 수반되는 신규 작업을 시작할 때마다**:
 
 1. **브랜치 확인** (필수, 매 신규 작업 진입 시점):
+
    - 현재 브랜치 확인 (`git branch --show-current`)
    - `main` 브랜치인 경우 → **파일을 절대 수정하지 말고**, 새 브랜치 생성을 사용자에게 제안한다
    - 이미 `feature/*` 브랜치인 경우 → 바로 작업 진행
 
 2. **브랜치 생성 필요 시** (`main`에서 작업 시작하는 경우):
+
    - 사용자에게 새 브랜치 생성 여부 확인
    - 루트 브랜치: `feature/{version}` (예: `feature/1.28.0`)
    - 작업 브랜치: `feature/{version}-{작업기능명}` (예: `feature/1.28.0-refactor`)
@@ -152,21 +154,25 @@ Claude가 **새 컨텍스트(새 대화)**에서 처음 작업 요청을 받았�
    > **Note**: 동일 컨텍스트 내에서 이미 브랜치를 확인했다면, 이후 작업에서는 매번 확인하지 않아도 됨. 단, 새 작업으로 전환되면 다시 확인한다.
 
 3. **미커밋 변경이 main에 누적된 경우 복구 절차**:
+
    - `git stash push -u -m "{작업명}"` — 변경 보관
    - `git checkout -b feature/{version}` (루트) → `git checkout -b feature/{version}-{작업기능명}` (작업)
    - `git stash pop` — 변경 복원
    - 이후 정상 워크플로우 재개
 
 4. **Changelog 폴더 확인**:
+
    - `changelog/blog/{version}/` 폴더 존재 여부 확인
    - 없으면 생성: `mkdir -p changelog/blog/{version}`
 
 5. **Changelog 파일 생성**:
+
    - 작업 브랜치명에서 작업 기능명 추출
    - `changelog/blog/{version}/{YYYY-MM-DD}-{작업기능명}.md` 파일 생성
    - Docusaurus frontmatter + 템플릿에 따라 초기 구조 작성
 
 6. **로그 실시간 업데이트**:
+
    - 주요 변경사항 발생 시 해당 changelog 파일 업데이트
    - 통계 정보 업데이트 (파일 수, 변경 횟수, 감소율 등)
 
@@ -195,6 +201,18 @@ feature/1.39.0 (트래픽 성장 — 기능 루트)
 3. **기능 루트 브랜치 단위로 main 릴리즈**: 모든 분석·코드 작업이 완료된 후 기능 루트 브랜치 → main으로 단일 릴리즈 PR
 
 > **Why:** 분석 결과(보고서)와 그에 따른 코드 변경(메타 최적화, 신규 페이지 등)이 같은 버전 안에 누적되어야 추적성이 확보된다. 문서와 코드를 별도 버전으로 분리하면 어떤 분석이 어떤 코드 변경의 근거였는지 혼란스러워진다.
+
+---
+
+## 작업 완료 시 검증
+
+라우팅·메타데이터를 바꾼 뒤에는 **실제 페이지를 요청해 확인한다.** 타입 검사·린트·빌드를 모두 통과하고도 런타임 500이 나는 경우가 있다.
+
+```bash
+curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/detail/6/mega
+```
+
+> **주의:** 개발 서버가 떠 있는 상태에서 `npm run build`를 실행하지 않는다. `.next` 디렉토리를 공유해 실행 중인 서버가 죽는다.
 
 ---
 
