@@ -90,7 +90,7 @@ VSCode 내장 정리 기능은 자체 방식으로 정렬해 계층 순서를 �
   - `.eslintrc`에 `unused-imports` 플러그인·규칙, `eqeqeq` 추가
   - `.prettierignore` 신설 — codegen 생성물 제외
   - `.vscode/settings.json` 신설 — `formatOnSave`, `source.fixAll.eslint`
-  - `package.json`에 `lint` 스크립트 추가 (CLAUDE.md는 `npm run lint`를 안내하나 스크립트가 정의돼 있지 않다)
+  - `package.json`의 `lint` 스크립트에 `--fix` 변형 추가 검토
   - 전체 파일 재포맷 — import 순서가 바뀌므로 diff가 크다. 파일 재배치(ADR-0016·0017 후속)와 함께 진행한다
 
 ## 참고 자료

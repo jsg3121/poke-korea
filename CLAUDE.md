@@ -41,6 +41,9 @@
 | `npm run start:local` | 로컬에서 빌드 후 프로덕션 서버 실행                                          |
 | `npm run lint`        | ESLint 코드 품질 검사                                                        |
 | `npm run codegen`     | GraphQL 스키마로부터 TypeScript 타입 생성 (localhost:4000/graphql 서버 필요) |
+| `npm run storybook`   | Storybook 실행 (컴포넌트 카탈로그)                                           |
+| `npm run analyze`     | 번들 크기 분석 (ANALYZE=true 빌드)                                           |
+| `npm run build:docs`  | changelog(Docusaurus) 빌드                                                   |
 
 ---
 
@@ -48,7 +51,7 @@
 
 | 영역          | 기술                             | 버전              |
 | ------------- | -------------------------------- | ----------------- |
-| 프레임워크    | Next.js (App Router)             | ^14.2.35          |
+| 프레임워크    | Next.js (App Router)             | ^15.5.18          |
 | 언어          | TypeScript (strict 모드)         | ^5.7.2            |
 | UI 라이브러리 | React                            | ^18.3.1           |
 | 스타일링      | Tailwind CSS                     | ^3.4.17           |
@@ -79,24 +82,27 @@ poke-korea/
 │   ├── assets/             # SVG 컴포넌트용 원본 자산
 │   ├── components/         # 공유 UI 컴포넌트
 │   ├── constants/          # 상수 정의 (JSON-LD, SEO, AdSense, 퀴즈)
-│   ├── container/          # 컨테이너 컴포넌트 (desktop/mobile 분리)
-│   ├── context/            # React Context (10개)
+│   ├── container/          # 컨테이너 (비즈니스 로직, 상태 관리)
+│   ├── context/            # React Context
 │   ├── gql/                # GraphQL 원본 파일 (수정 후 codegen 필수)
 │   ├── graphql/            # GraphQL 코드 생성 결과 (자동 생성, 직접 수정 금지)
-│   ├── hook/               # 커스텀 React 훅 (14개)
-│   ├── module/             # 유틸리티 모듈 (19개)
+│   ├── hook/               # 커스텀 React 훅
+│   ├── module/             # API 연동·비즈니스 로직
 │   ├── styles/             # 전역 스타일
 │   ├── types/              # TypeScript 타입 정의
 │   ├── utils/              # 유틸리티 함수
-│   └── views/              # 페이지 뷰 컴포넌트 (desktop/mobile 분리)
+│   └── views/              # 페이지 뷰 (화면 조립)
 └── .claude/                # 하네스 중심 허브 (아래 참조)
 ```
 
 ### 컴포넌트 계층 구조
 
 ```text
-page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로직) → components (UI)
+layout.tsx  →  page.tsx  →  views  →  container  →  components
+   크롬        라우트 계약    조립        로직          UI
 ```
+
+상위는 모든 하위를 참조할 수 있고, 하위는 상위를 참조하지 않는다. 배치 규칙과 도메인 분리는 `.claude/conventions/guides/structure.md`가 권위 원본이다.
 
 ---
 
@@ -126,38 +132,16 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 │   ├── index.md               #   ADR 규칙 (권위 원본)
 │   ├── template.md            #   ADR 작성 템플릿
 │   └── records/               #   ADR 기록 (index.md = 목록)
-├── specs/                     # 서비스/비즈니스 분석 스펙
-│   ├── service-overview.md    #   서비스 현황 (현재 지표 포함)
-│   ├── metrics-baseline.md    #   핵심 지표 기준값
-│   ├── target-segment.md      #   타겟 사용자 정의
-│   └── competitor-map.md      #   경쟁사 목록 및 포지셔닝
-├── skills/                    # 커스텀 스킬 (폴더/SKILL.md 구조)
-│   ├── create-pr/             #   /create-pr (조건부 검증 포함)
-│   ├── lint-check/            #   /lint-check
-│   ├── seo-audit/             #   /seo-audit
-│   ├── a11y-check/            #   /a11y-check (WCAG 접근성 검사)
-│   ├── code-review/           #   /code-review
-│   ├── research/              #   /research (자동 트리거)
-│   └── biz-strategy/          #   /biz-strategy (비즈니스 전략 파이프라인, references/ 포함)
+├── specs/                     # 기획서·계획서 (service/features/plans/incidents)
+├── skills/                    # 커스텀 스킬 (<name>/SKILL.md 구조)
 ├── agents/                    # 에이전트 정의
-│   ├── index.md               #   에이전트 목록 및 활용 패턴
-│   ├── product-planner.md     #   기획서(SPEC) 작성/관리
-│   ├── seo-specialist.md      #   SEO 설계/구현 (메타태그, JSON-LD, hreflang)
-│   ├── ui-publisher.md        #   페이지, UI 컴포넌트 구현
-│   ├── ux-designer.md         #   사용자 플로우, 레이아웃, 인터랙션 설계
-│   ├── market-intelligence.md #   시장/경쟁사/트렌드 조사
-│   ├── business-analyst.md    #   서비스 경쟁력/포지셔닝 분석
-│   └── strategy-planner.md    #   MI+BA 종합 후 전략 방향 도출
-├── research/                  # 리서치 보고서 저장
-│   └── reports/               #   MI-/BA-/STR- 보고서
-├── playwright/                # Playwright 스크린샷/스크립트
-│   ├── index.md               #   사용법 및 가이드
-│   ├── capture-screenshots.js #   스크린샷 캡처 스크립트
-│   └── screenshots/           #   캡처된 스크린샷 (gitignore)
-└── analyzer/                  # 분석 데이터/보고서
-    ├── index.md               #   분석 데이터 가이드 + Google API 연동 방법
-    └── scripts/               #   Search Console·GA4 조회 스크립트
+├── research/                  # 조사 보고서 (유형별 폴더)
+├── hooks/                     # 자동 가드 스크립트 (main 편집·push 차단)
+├── playwright/                # 캡처 도구 (capture.js, screenshots/)
+└── analyzer/                  # 분석 데이터·스크립트 (Search Console·GA4)
 ```
+
+각 폴더의 `index.md`가 하위 구조와 문서 목록을 설명한다. 폴더 진입 시 `index.md`를 먼저 읽는다. 배치 규칙은 `.claude/conventions/guides/structure.md` 참조.
 
 ### 상세 문서 참조 가이드
 
