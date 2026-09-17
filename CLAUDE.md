@@ -115,7 +115,8 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 │       ├── naming.md          #   네이밍 (파일·컴포넌트·함수·훅·타입·상수)
 │       ├── coding.md          #   코딩 컨벤션 (계층 책임, 타입, Context, 핸들러)
 │       ├── styling.md         #   스타일링 (Tailwind, 색상 체계, 브레이크포인트)
-│       ├── linting.md         #   린팅 (ESLint, Prettier 설정)
+│       ├── linting.md         #   린팅 (ESLint 품질 규칙, 미사용 import 제거)
+│       ├── formatting.md      #   포맷팅 (Prettier, import 계층 정렬)
 │       ├── comments.md        #   주석 (3원칙, JSDoc/TSDoc, 인라인 허용 범위)
 │       ├── workflow.md        #   워크플로우 (브랜치 전략, 버전 관리)
 │       ├── nextjs.md          #   Next.js (캐시 정책, next.config 의사결정)
@@ -166,7 +167,8 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 | 이름 짓기     | `.claude/conventions/guides/naming.md`                                          |
 | 코드 작성     | `.claude/conventions/guides/coding.md`, `.claude/conventions/guides/styling.md` |
 | 주석 작성     | `.claude/conventions/guides/comments.md`                                        |
-| 린트/포맷     | `.claude/conventions/guides/linting.md`                                         |
+| 린트          | `.claude/conventions/guides/linting.md`                                         |
+| 포맷          | `.claude/conventions/guides/formatting.md`                                      |
 | 브랜치/PR     | `.claude/conventions/guides/workflow.md`                                        |
 | Changelog     | `.claude/conventions/guides/changelog.md`                                       |
 | 캐시/빌드설정 | `.claude/conventions/guides/nextjs.md`                                          |

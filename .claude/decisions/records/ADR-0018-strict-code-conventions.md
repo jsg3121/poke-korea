@@ -19,7 +19,7 @@
 
 - **Context 소비 방식이 갈렸다.** 11개 중 5개만 커스텀 훅을 제공하고, 나머지는 소비처가 `useContext`를 직접 호출한다. 훅이 있는 것 중에도 `useDevice`는 Provider 밖 가드가 없다.
 - **`'use client'` 경계 기준이 없다.** `components` 113개 중 44개, `containers` 79개 중 44개가 클라이언트인데 근거가 문서화돼 있지 않다.
-- **타입 엄격도가 `strict: true`에 머물러 있다.** `any` 0건·non-null 단언 0건으로 이미 양호하지만, URL 파라미터를 검증 없이 `as`로 단언하는 곳이 7곳 있다.
+- **타입 엄격도가 `strict: true`에 머물러 있다.** non-null 단언은 없고 `any`도 1건(`useInfiniteScroll`의 `Array<any>`)뿐이라 양호하지만, URL 파라미터를 검증 없이 `as`로 단언하는 곳이 7곳 있다.
 
 ## 결정
 
