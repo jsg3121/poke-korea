@@ -1,19 +1,12 @@
 import { Fragment } from 'react'
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import {
   getTypeDetailFaqJsonLd,
   getTypeDetailWebPageJsonLd,
 } from '~/constants/typeEffectivenessJsonLd'
-import { detectUserAgent } from '~/modules/device.module'
 import { parseTypeSlug } from '~/modules/typeParams.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import TypeEffectivenessDetail from '~/views/typeEffectivenessDetail/TypeEffectivenessDetail.view'
 
 import { fetchTypeDetailData } from './_fetch/typeDetail.fetch'
@@ -69,10 +62,6 @@ const TypeDetailPage = async ({ params }: TypeDetailPageProps) => {
     notFound()
   }
 
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   // 상성·문안은 정적 상수라 조회가 없다. 포켓몬 6종·챔피언스 티어만 서버에서
   // 가져오며, 실패해도 해당 블록만 비고 페이지는 정상 렌더된다.
   const { pokemons, pokemonTotalCount, champions } =
@@ -84,30 +73,12 @@ const TypeDetailPage = async ({ params }: TypeDetailPageProps) => {
   return (
     <Fragment>
       {/* 콘텐츠는 반응형 단일(ADR-0007). UA 분기는 전역 크롬 선택으로만 남는다. */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <TypeEffectivenessDetail
-            pokemonType={pokemonType}
-            pokemons={pokemons}
-            pokemonTotalCount={pokemonTotalCount}
-            champions={champions}
-          />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        <main className="w-full min-h-screen">
-          <DesktopHeader />
-          <TypeEffectivenessDetail
-            pokemonType={pokemonType}
-            pokemons={pokemons}
-            pokemonTotalCount={pokemonTotalCount}
-            champions={champions}
-          />
-          <DesktopFooter />
-        </main>
-      )}
+      <TypeEffectivenessDetail
+        pokemonType={pokemonType}
+        pokemons={pokemons}
+        pokemonTotalCount={pokemonTotalCount}
+        champions={champions}
+      />
       <script
         id="type-detail-webpage-jsonLd"
         type="application/ld+json"

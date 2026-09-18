@@ -1,14 +1,7 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 
-import { detectUserAgent } from '~/modules/device.module'
 import { DetailProvider } from '~/context/Detail.context'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import Detail from '~/views/detail/Detail.view'
 
 import { generatePokemonJsonLd } from '../../../../constants/pokemonJsonLd'
@@ -97,10 +90,6 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     redirect(`/detail/${pokemonId}/form/${query.activeIndex}${queryParams}`)
   }
 
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const parsedPokemonId = parseInt(pokemonId, 10)
 
   if (isNaN(parsedPokemonId)) {
@@ -152,28 +141,11 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
     <DetailProvider {...props}>
       {/* 콘텐츠는 반응형 단일(Detail, ADR-0007). UA 분기는 전역 크롬(헤더/
           푸터/탭바) 선택으로만 남는다(홈·리스트 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <Detail
-            prevPokemon={adjacent.prev}
-            nextPokemon={adjacent.next}
-            evolutionPokemons={evolutionPokemons}
-          />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        <main className="w-full min-h-screen">
-          <DesktopHeader />
-          <Detail
-            prevPokemon={adjacent.prev}
-            nextPokemon={adjacent.next}
-            evolutionPokemons={evolutionPokemons}
-          />
-          <DesktopFooter />
-        </main>
-      )}
+      <Detail
+        prevPokemon={adjacent.prev}
+        nextPokemon={adjacent.next}
+        evolutionPokemons={evolutionPokemons}
+      />
       <script
         id="pokemon-jsonLd"
         type="application/ld+json"

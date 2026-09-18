@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import {
@@ -19,12 +18,6 @@ import {
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
 import { initializeApollo } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import ChampionsTier from '~/views/champions/ChampionsTier.view'
 
 import { generateChampionsTierMetadata } from '../../_metadata/championsMetadata'
@@ -60,10 +53,6 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
   }
 
   const formatEnum = resolveFormatEnum(formatSlug)
-
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
 
   const apolloClient = initializeApollo()
 
@@ -173,30 +162,12 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
       />
       {/* 콘텐츠는 반응형 단일(ChampionsTier, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(ability·list 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <ChampionsTier
-            tierGroups={tierGroups}
-            teamCores={teamCores}
-            formatSlug={formatSlug as ChampionsFormatSlug}
-            latestUpdatedAt={latestUpdatedAt}
-          />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        <main className="w-full min-h-screen">
-          <DesktopHeader />
-          <ChampionsTier
-            tierGroups={tierGroups}
-            teamCores={teamCores}
-            formatSlug={formatSlug as ChampionsFormatSlug}
-            latestUpdatedAt={latestUpdatedAt}
-          />
-          <DesktopFooter />
-        </main>
-      )}
+      <ChampionsTier
+        tierGroups={tierGroups}
+        teamCores={teamCores}
+        formatSlug={formatSlug as ChampionsFormatSlug}
+        latestUpdatedAt={latestUpdatedAt}
+      />
     </>
   )
 }

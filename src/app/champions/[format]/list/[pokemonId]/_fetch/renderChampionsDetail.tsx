@@ -1,4 +1,3 @@
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { getChampionsDetailJsonLd } from '~/constants/championsJsonLd'
@@ -8,12 +7,6 @@ import {
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import ChampionsDetail from '~/views/champions/ChampionsDetail.view'
 
 import { fetchChampionsDetail } from './fetchChampionsDetail'
@@ -54,10 +47,6 @@ export const renderChampionsDetail = async ({
     notFound()
   }
 
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const detailPath = buildChampionsDetailHref({
     formatSlug,
     pokemonId: parsedPokemonId,
@@ -90,26 +79,10 @@ export const renderChampionsDetail = async ({
       />
       {/* 콘텐츠는 반응형 단일(ChampionsDetail, ADR-0013). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(E-1·ability·list 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <ChampionsDetail
-            detail={detail}
-            formatSlug={formatSlug as ChampionsFormatSlug}
-          />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        <main className="w-full min-h-screen">
-          <DesktopHeader />
-          <ChampionsDetail
-            detail={detail}
-            formatSlug={formatSlug as ChampionsFormatSlug}
-          />
-          <DesktopFooter />
-        </main>
-      )}
+      <ChampionsDetail
+        detail={detail}
+        formatSlug={formatSlug as ChampionsFormatSlug}
+      />
     </>
   )
 }

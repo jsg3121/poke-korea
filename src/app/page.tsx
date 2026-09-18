@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import { headers } from 'next/headers'
 import { permanentRedirect } from 'next/navigation'
 
 import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
@@ -19,16 +18,8 @@ import {
 } from '~/graphql/typeGenerated'
 import { compareByUsageRank } from '~/utils/championsFormat.util'
 import { initializeApollo } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
-import DesktopHomeBottomBanner from '~/components/adSlot/DesktopHomeBottomBanner.component'
-import DesktopHomeTopBanner from '~/components/adSlot/DesktopHomeTopBanner.component'
-import MobileHomeBottomBanner from '~/components/adSlot/MobileHomeBottomBanner.component'
-import MobileHomeTopBanner from '~/components/adSlot/MobileHomeTopBanner.component'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
+import HomeBottomBanner from '~/components/adSlot/HomeBottomBanner.component'
+import HomeTopBanner from '~/components/adSlot/HomeTopBanner.component'
 import Home from '~/views/home/Home.view'
 
 import { HOME_META } from './_metadata/homeMetadata'
@@ -52,9 +43,6 @@ type PageProps = {
 }
 
 const HomePage = async ({ searchParams }: PageProps) => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
   const apolloClient = initializeApollo()
 
   const params = await searchParams
@@ -112,35 +100,15 @@ const HomePage = async ({ searchParams }: PageProps) => {
 
   return (
     <Fragment>
-      {/* 홈 콘텐츠는 반응형 단일(Home, ADR-0007). UA 분기는 아직 데/모 2벌인
-          전역 크롬(헤더/푸터/탭바)과 디바이스별 AdSense 유닛 선택으로만 남는다 —
-          크롬 통합은 전 페이지 공용이라 별도 트랙에서 진행. */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <Home
-            dailyPokemon={dailyPokemon}
-            dailyQuiz={dailyQuiz}
-            topChampionsPokemons={topChampionsPokemons}
-            topBanner={<MobileHomeTopBanner />}
-            bottomBanner={<MobileHomeBottomBanner />}
-          />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        <main className="w-full max-w-[1280px] min-h-screen mx-auto">
-          <DesktopHeader />
-          <Home
-            dailyPokemon={dailyPokemon}
-            dailyQuiz={dailyQuiz}
-            topChampionsPokemons={topChampionsPokemons}
-            topBanner={<DesktopHomeTopBanner />}
-            bottomBanner={<DesktopHomeBottomBanner />}
-          />
-          <DesktopFooter />
-        </main>
-      )}
+      <div className="w-full max-w-[1280px] mx-auto">
+        <Home
+          dailyPokemon={dailyPokemon}
+          dailyQuiz={dailyQuiz}
+          topChampionsPokemons={topChampionsPokemons}
+          topBanner={<HomeTopBanner />}
+          bottomBanner={<HomeBottomBanner />}
+        />
+      </div>
       <script
         id="website-jsonLd"
         type="application/ld+json"

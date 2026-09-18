@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { getChampionsHomeJsonLd } from '~/constants/championsJsonLd'
@@ -25,12 +24,6 @@ import {
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
 import { initializeApollo } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import ChampionsHome from '~/views/champions/ChampionsHome.view'
 
 import { generateChampionsHomeMetadata } from '../_metadata/championsMetadata'
@@ -66,10 +59,6 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
   }
 
   const formatEnum = resolveFormatEnum(formatSlug)
-
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
 
   const apolloClient = initializeApollo()
 
@@ -135,30 +124,12 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
       />
       {/* 콘텐츠는 반응형 단일(ChampionsHome, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(티어·도감 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <ChampionsHome
-            topPokemons={topPokemons}
-            teamCores={teamCores}
-            recentTournaments={recentTournaments}
-            formatSlug={formatSlug as ChampionsFormatSlug}
-          />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        <main className="w-full min-h-screen">
-          <DesktopHeader />
-          <ChampionsHome
-            topPokemons={topPokemons}
-            teamCores={teamCores}
-            recentTournaments={recentTournaments}
-            formatSlug={formatSlug as ChampionsFormatSlug}
-          />
-          <DesktopFooter />
-        </main>
-      )}
+      <ChampionsHome
+        topPokemons={topPokemons}
+        teamCores={teamCores}
+        recentTournaments={recentTournaments}
+        formatSlug={formatSlug as ChampionsFormatSlug}
+      />
     </>
   )
 }

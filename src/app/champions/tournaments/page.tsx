@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 
 import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import { GetChampionsTournamentsWithTopTeamDocument } from '~/graphql/gqlGenerated'
@@ -9,12 +8,6 @@ import {
   GetChampionsTournamentsWithTopTeamQueryVariables,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import ChampionsTournamentsList from '~/views/champions/ChampionsTournamentsList.view'
 
 export const revalidate = 86400
@@ -62,9 +55,6 @@ interface PageProps {
 
 const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
   const { month } = await searchParams
-
-  const headersList = await headers()
-  const isMobile = detectUserAgent(headersList.get('user-agent') || '')
 
   const apolloClient = initializeApollo()
   const { data } = await apolloClient.query<
@@ -144,29 +134,11 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
       />
       {/* 콘텐츠는 반응형 단일(ChampionsTournamentsList, ADR-0007). UA 분기는
           전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <ChampionsTournamentsList
-            tournaments={tournaments}
-            availableMonths={availableMonths}
-            currentMonth={month ?? null}
-          />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // sticky 필터 desktop:top-40과 정합(E-1 도감과 동일).
-        <main className="w-full min-h-screen">
-          <DesktopHeader />
-          <ChampionsTournamentsList
-            tournaments={tournaments}
-            availableMonths={availableMonths}
-            currentMonth={month ?? null}
-          />
-          <DesktopFooter />
-        </main>
-      )}
+      <ChampionsTournamentsList
+        tournaments={tournaments}
+        availableMonths={availableMonths}
+        currentMonth={month ?? null}
+      />
     </>
   )
 }
