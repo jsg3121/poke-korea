@@ -5,7 +5,7 @@ import FeedbackIcon from '~/assets/icons/feedback.svg'
 import ImageComponent from '~/components/Image.component'
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
-import { useOutSideClickMobile } from '~/hook/useOutSideClickMobile'
+import { useOutSideClick } from '~/hook/useOutSideClick'
 import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 
 const HeaderSearchContainer = () => {
@@ -53,7 +53,7 @@ const HeaderSearchContainer = () => {
     }
   }, [searchKeyword])
 
-  useOutSideClickMobile({
+  useOutSideClick({
     ref: searchRef,
     isActive: isShowSearchResult,
     onOutsideClick: handleHideSearchResult,
