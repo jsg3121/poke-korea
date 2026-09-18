@@ -21,20 +21,6 @@ const DetailSearch = () => {
     debounce(keyword)
   }
 
-  const searchPokemon = async () => {
-    await searchPokemonWithAllForms({
-      variables: {
-        input: {
-          name: searchKeyword,
-        },
-      },
-      onCompleted: (data) => {
-        setIsShowSearchResult(() => true)
-        return data
-      },
-    })
-  }
-
   const handleHideSearchResult = () => {
     setIsShowSearchResult(() => false)
   }
@@ -42,6 +28,20 @@ const DetailSearch = () => {
   const pokemonList = (data && data.searchPokemonWithAllForms) || []
 
   useEffect(() => {
+    const searchPokemon = async () => {
+      await searchPokemonWithAllForms({
+        variables: {
+          input: {
+            name: searchKeyword,
+          },
+        },
+        onCompleted: (data) => {
+          setIsShowSearchResult(() => true)
+          return data
+        },
+      })
+    }
+
     if (searchKeyword !== '') {
       searchPokemon()
     }
@@ -49,7 +49,7 @@ const DetailSearch = () => {
     if (searchKeyword === '') {
       setIsShowSearchResult(false)
     }
-  }, [searchKeyword])
+  }, [searchKeyword, searchPokemonWithAllForms])
 
   useOutSideClick({
     ref: searchRef,

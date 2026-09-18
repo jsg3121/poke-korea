@@ -2,11 +2,11 @@
 import Link from 'next/link'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import FeedbackIcon from '~/assets/icons/feedback.svg'
+import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 import ImageComponent from '~/components/Image.component'
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
 import { useOutSideClick } from '~/hook/useOutSideClick'
-import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 
 const HeaderSearchContainer = () => {
   const searchRef = useRef<HTMLDivElement>(null)
@@ -23,20 +23,6 @@ const HeaderSearchContainer = () => {
     debounce(keyword)
   }
 
-  const searchPokemon = async () => {
-    await searchPokemonWithAllForms({
-      variables: {
-        input: {
-          name: searchKeyword,
-        },
-      },
-      onCompleted: (data) => {
-        setIsShowSearchResult(() => true)
-        return data
-      },
-    })
-  }
-
   const handleHideSearchResult = () => {
     setIsShowSearchResult(() => false)
   }
@@ -44,6 +30,20 @@ const HeaderSearchContainer = () => {
   const pokemonList = (data && data.searchPokemonWithAllForms) || []
 
   useEffect(() => {
+    const searchPokemon = async () => {
+      await searchPokemonWithAllForms({
+        variables: {
+          input: {
+            name: searchKeyword,
+          },
+        },
+        onCompleted: (data) => {
+          setIsShowSearchResult(() => true)
+          return data
+        },
+      })
+    }
+
     if (searchKeyword !== '') {
       searchPokemon()
     }
@@ -51,7 +51,7 @@ const HeaderSearchContainer = () => {
     if (searchKeyword === '') {
       setIsShowSearchResult(false)
     }
-  }, [searchKeyword])
+  }, [searchKeyword, searchPokemonWithAllForms])
 
   useOutSideClick({
     ref: searchRef,
