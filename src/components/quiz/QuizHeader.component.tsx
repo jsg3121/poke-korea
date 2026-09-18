@@ -1,4 +1,3 @@
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
 import { formatTimeShort } from '~/utils/quiz.util'
 
 /**
@@ -12,6 +11,7 @@ import { formatTimeShort } from '~/utils/quiz.util'
 interface QuizHeaderProps {
   quizName: string
   currentQuestionIndex: number
+  totalQuestions: number
   timeElapsed: number
   progress: number
 }
@@ -19,6 +19,7 @@ interface QuizHeaderProps {
 const QuizHeader = ({
   quizName,
   currentQuestionIndex,
+  totalQuestions,
   progress,
   timeElapsed,
 }: QuizHeaderProps) => {
@@ -30,7 +31,7 @@ const QuizHeader = ({
             {quizName}
           </h1>
           <p className="text-sm desktop:text-base text-primary-2">
-            문제 {currentQuestionIndex + 1} / {QUIZ_CONSTANTS.TOTAL_QUESTIONS}
+            문제 {currentQuestionIndex + 1} / {totalQuestions}
           </p>
         </div>
         <div className="text-right">

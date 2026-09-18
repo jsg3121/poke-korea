@@ -20,6 +20,7 @@ const SilhouetteQuizPlay = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
   const {
     currentQuestionIndex,
+    questions,
     timeElapsed,
     progress,
     currentQuestion,
@@ -45,6 +46,7 @@ const SilhouetteQuizPlay = () => {
         <QuizHeader
           quizName="실루엣 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
+          totalQuestions={questions.length}
           progress={progress}
           timeElapsed={timeElapsed}
         />

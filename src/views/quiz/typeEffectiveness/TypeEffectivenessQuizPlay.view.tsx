@@ -19,6 +19,7 @@ const TypeEffectivenessQuizPlay = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
   const {
     currentQuestionIndex,
+    questions,
     timeElapsed,
     progress,
     currentQuestion,
@@ -44,6 +45,7 @@ const TypeEffectivenessQuizPlay = () => {
         <QuizHeader
           quizName="타입 상성 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
+          totalQuestions={questions.length}
           progress={progress}
           timeElapsed={timeElapsed}
         />

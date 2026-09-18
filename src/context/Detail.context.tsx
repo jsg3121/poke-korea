@@ -71,10 +71,10 @@ const DetailProvider = ({
   const getTypes = () => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutionData?.[activeIndex].types ?? []
+        return megaEvolutionData?.[activeIndex]?.types ?? []
       }
       case 'region': {
-        return regionFormData?.[activeIndex].types ?? []
+        return regionFormData?.[activeIndex]?.types ?? []
       }
       default: {
         return (
@@ -92,10 +92,10 @@ const DetailProvider = ({
   const getAbilities = () => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutionData?.[activeIndex].megaEvolutionAbilityList ?? []
+        return megaEvolutionData?.[activeIndex]?.megaEvolutionAbilityList ?? []
       }
       case 'region': {
-        return regionFormData?.[activeIndex].regionFormAbilityList ?? []
+        return regionFormData?.[activeIndex]?.regionFormAbilityList ?? []
       }
       default: {
         return (
@@ -126,14 +126,14 @@ const DetailProvider = ({
           levelUpSkillVersion: versionGroup?.find((version) => {
             return (
               version.versionGroupId ===
-              regionFormData?.[activeIndex].learnableSkills
+              regionFormData?.[activeIndex]?.learnableSkills
                 ?.levelUpVersionGroupId
             )
           }),
           machineSkillVersion: versionGroup?.find((version) => {
             return (
               version.versionGroupId ===
-              regionFormData?.[activeIndex].learnableSkills
+              regionFormData?.[activeIndex]?.learnableSkills
                 ?.machineVersionGroupId
             )
           }),

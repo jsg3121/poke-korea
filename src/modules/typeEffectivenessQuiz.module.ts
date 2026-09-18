@@ -3,6 +3,16 @@ import { TypeEffectivenessQuizQuestion } from '~/types/quiz.type'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { relationList } from '~/modules/calculateRelationType.module'
 
+/**
+ * 비어 있지 않은 배열에서 무작위로 하나를 고른다.
+ *
+ * @remarks
+ * - 인덱스가 `0 ~ length-1`로 항상 유효하지만 타입은 그걸 알 수 없다. 호출부마다
+ *   폴백을 두면 실행되지 않는 분기가 늘어나므로 여기서 한 번만 좁힌다.
+ */
+const pickRandom = <T>(list: ReadonlyArray<T>, fallback: T): T =>
+  list[Math.floor(Math.random() * list.length)] ?? fallback
+
 // 타입을 한글명으로 변환
 export const getKoreanTypeName = (type: PokemonType): string => {
   return PokemonTypes[type] || type
@@ -62,7 +72,7 @@ export const generateTypeEffectivenessQuestions = (
 
   for (let i = 0; i < count; i++) {
     // 랜덤하게 공격 타입 선택
-    const attackingType = allTypes[Math.floor(Math.random() * allTypes.length)]
+    const attackingType = pickRandom(allTypes, PokemonType.NORMAL)
 
     // 랜덤하게 방어 타입 1~2개 선택
     const defendingTypeCount = Math.random() < 0.6 ? 1 : 2 // 60% 확률로 단일 타입
@@ -71,7 +81,7 @@ export const generateTypeEffectivenessQuestions = (
     for (let j = 0; j < defendingTypeCount; j++) {
       let defendingType: PokemonType
       do {
-        defendingType = allTypes[Math.floor(Math.random() * allTypes.length)]
+        defendingType = pickRandom(allTypes, PokemonType.NORMAL)
       } while (defendingTypes.includes(defendingType))
 
       defendingTypes.push(defendingType)
@@ -92,10 +102,7 @@ export const generateTypeEffectivenessQuestions = (
 
     // 오답 3개 추가
     while (options.length < 4) {
-      const randomEffectiveness =
-        possibleEffectiveness[
-          Math.floor(Math.random() * possibleEffectiveness.length)
-        ]
+      const randomEffectiveness = pickRandom(possibleEffectiveness, 1)
       const optionText = getEffectivenessText(randomEffectiveness)
 
       if (!options.includes(optionText)) {
@@ -103,10 +110,15 @@ export const generateTypeEffectivenessQuestions = (
       }
     }
 
-    // 옵션 섞기
+    // 옵션 섞기 (Fisher–Yates)
     for (let k = options.length - 1; k > 0; k--) {
       const j = Math.floor(Math.random() * (k + 1))
-      ;[options[k], options[j]] = [options[j], options[k]]
+      const swap = options[k]
+      const target = options[j]
+      if (swap !== undefined && target !== undefined) {
+        options[k] = target
+        options[j] = swap
+      }
     }
 
     const correctAnswerIndex = options.indexOf(

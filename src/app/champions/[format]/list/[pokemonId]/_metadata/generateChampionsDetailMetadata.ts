@@ -38,8 +38,11 @@ const getStatHighlights = (stats: DetailStats): string => {
     { label: '특수방어', value: stats.specialDefense },
     { label: '스피드', value: stats.speed },
   ]
-  const sorted = [...statEntries].sort((a, b) => b.value - a.value)
-  return `${sorted[0].label} ${sorted[0].value}, ${sorted[1].label} ${sorted[1].value}`
+  const [top, second] = [...statEntries].sort((a, b) => b.value - a.value)
+  if (!top || !second) {
+    return ''
+  }
+  return `${top.label} ${top.value}, ${second.label} ${second.value}`
 }
 
 /**
