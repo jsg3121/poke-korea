@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 
 import {
   MOVES_TYPE_ITEMLIST_JSON_LD,
@@ -17,13 +16,7 @@ import {
   extractApolloState,
   initializeApollo,
 } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
 import { MovesProvider } from '~/context/Moves.context'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import MovesList from '~/views/moves/MovesList.view'
 import Providers from '~/app/providers'
 
@@ -57,9 +50,6 @@ export const generateMetadata = async ({
 
 export default async function MovesPage({ searchParams }: MovesPageProps) {
   const client = initializeApollo()
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
   const { damageTypeFilter, typeFilter, search, firstGenerationId } =
     await searchParams
 
@@ -105,21 +95,7 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
         >
           {/* 콘텐츠는 반응형 단일(MovesList, ADR-0007). UA 분기는 전역 크롬
             (헤더/푸터/탭바) 선택으로만 남는다(list·ability 개편과 동일 패턴). */}
-          {isMobile ? (
-            <main className="w-full min-h-screen">
-              <MobileHeader />
-              <MovesList />
-              <MobileFooter />
-              <MobileTabBar />
-            </main>
-          ) : (
-            // pt-30(120px) = 데스크톱 fixed 헤더 실높이. sticky(desktop:top-30)와 맞춤
-            <main className="w-full min-h-screen pt-30">
-              <DesktopHeader />
-              <MovesList />
-              <DesktopFooter />
-            </main>
-          )}
+          <MovesList />
         </MovesProvider>
       </Providers>
       <script

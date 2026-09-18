@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 
 import { GetPokemonListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
@@ -12,18 +11,12 @@ import {
   extractApolloState,
   initializeApollo,
 } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
 import {
   changeTypeArrayToString,
   getGenerationParams,
   toBooleanOrUndefined,
 } from '~/modules/filter.module'
 import { getDailyRandomPokemon } from '~/modules/list.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import List from '~/views/list/List.view'
 import Providers from '~/app/providers'
 
@@ -65,10 +58,6 @@ type PageProps = {
 }
 
 const ListPage = async ({ searchParams }: PageProps) => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const apolloClient = initializeApollo()
 
   const {
@@ -175,30 +164,11 @@ const ListPage = async ({ searchParams }: PageProps) => {
       {/* 콘텐츠는 반응형 단일(List, ADR-0007). UA 분기는 전역 크롬(헤더/푸터/
           탭바)과 디바이스별 AdSense 유닛 선택으로만 남는다(홈 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
-        {isMobile ? (
-          <main className="w-full min-h-screen">
-            <MobileHeader />
-            <List
-              pokemonList={pokemonList}
-              initialFilter={filterInput}
-              hasNextPage={hasNextPage}
-            />
-            <MobileFooter />
-            <MobileTabBar />
-          </main>
-        ) : (
-          // pt-30(120px) = 데스크톱 fixed 헤더 실높이(pt-3 12 + 로고행 48 +
-          // nav mt-3 12 + nav 48). pt-28(112px)은 8px 겹쳐 필터바 상단이 잘렸다
-          <main className="w-full min-h-screen pt-30">
-            <DesktopHeader />
-            <List
-              pokemonList={pokemonList}
-              initialFilter={filterInput}
-              hasNextPage={hasNextPage}
-            />
-            <DesktopFooter />
-          </main>
-        )}
+        <List
+          pokemonList={pokemonList}
+          initialFilter={filterInput}
+          hasNextPage={hasNextPage}
+        />
       </Providers>
     </>
   )

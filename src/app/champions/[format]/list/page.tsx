@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
@@ -17,13 +16,7 @@ import {
   extractApolloState,
   initializeApollo,
 } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
 import { changeTypeArrayToString } from '~/modules/filter.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import ChampionsPokedex from '~/views/champions/ChampionsPokedex.view'
 import Providers from '~/app/providers'
 
@@ -70,10 +63,6 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
   }
 
   const formatEnum = resolveFormatEnum(formatSlug)
-
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
 
   const { type, search, sort } = await searchParams
   const sortEnum = parseSort(sort)
@@ -165,41 +154,15 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
       {/* 콘텐츠는 반응형 단일(ChampionsPokedex, ADR-0007). UA 분기는 전역
           크롬(헤더/푸터/탭바) 선택으로만 남는다(ability·list 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
-        {isMobile ? (
-          <main className="w-full min-h-screen">
-            <MobileHeader />
-            <ChampionsPokedex
-              pokemonList={pokemonList}
-              hasNextPage={hasNextPage}
-              endCursor={endCursor}
-              totalCount={totalCount}
-              initialFilter={filterInput}
-              formatSlug={formatSlug}
-              sort={sortEnum}
-            />
-            <MobileFooter />
-            <MobileTabBar />
-          </main>
-        ) : (
-          // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
-          // champions는 헤더 안에 SubNav가 붙어 ability/list의 pt-30(120px)보다 40px 크다.
-          // sticky 필터 desktop:top-40과 정합.
-          <main className="w-full min-h-screen">
-            <div className="h-40">
-              <DesktopHeader />
-            </div>
-            <ChampionsPokedex
-              pokemonList={pokemonList}
-              hasNextPage={hasNextPage}
-              endCursor={endCursor}
-              totalCount={totalCount}
-              initialFilter={filterInput}
-              formatSlug={formatSlug}
-              sort={sortEnum}
-            />
-            <DesktopFooter />
-          </main>
-        )}
+        <ChampionsPokedex
+          pokemonList={pokemonList}
+          hasNextPage={hasNextPage}
+          endCursor={endCursor}
+          totalCount={totalCount}
+          initialFilter={filterInput}
+          formatSlug={formatSlug}
+          sort={sortEnum}
+        />
       </Providers>
     </>
   )

@@ -1,10 +1,8 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { getMoveDetailVersionJsonLd } from '~/constants/movesJsonLd'
 import { PokemonLearnInfoEdge } from '~/graphql/typeGenerated'
-import { detectUserAgent } from '~/modules/device.module'
 
 import MoveDetailPageShell from '../../_components/MoveDetailPageShell'
 import { fetchMoveDetailQueries } from '../../_fetch/moveDetail.fetch'
@@ -73,10 +71,6 @@ export async function generateMetadata({
 }
 
 const MoveDetailVersionPage = async ({ params }: PageProps) => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const { id, versionGroupId: versionGroupIdParam } = await params
   const skillId = parseInt(id, 10)
   const versionGroupId = parseInt(versionGroupIdParam, 10)
@@ -122,7 +116,6 @@ const MoveDetailVersionPage = async ({ params }: PageProps) => {
 
   return (
     <MoveDetailPageShell
-      isMobile={isMobile}
       initialApolloState={initialApolloState}
       skillId={skillId}
       skill={skill}

@@ -1,16 +1,9 @@
 import { Fragment } from 'react'
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { getAbilityDetailJsonLd } from '~/constants/abilityJsonLd'
 import { PokemonByAbilityEdge } from '~/graphql/typeGenerated'
-import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import AbilityDetail from '~/views/ability/AbilityDetail.view'
 import Providers from '~/app/providers'
 
@@ -59,10 +52,6 @@ export async function generateMetadata({
 }
 
 const AbilityDetailPage = async ({ params }: PageProps) => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const { id } = await params
   const abilityId = parseInt(id, 10)
 
@@ -93,31 +82,12 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
       {/* 콘텐츠는 반응형 단일(AbilityDetail, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(list·홈 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
-        {isMobile ? (
-          <main className="w-full min-h-screen">
-            <MobileHeader />
-            <AbilityDetail
-              abilityId={abilityId}
-              initialAbility={ability}
-              initialPokemon={pokemonList}
-              totalCount={totalCount}
-            />
-            <MobileFooter />
-            <MobileTabBar />
-          </main>
-        ) : (
-          // pt-30(120px) = 데스크톱 fixed 헤더 실높이
-          <main className="w-full min-h-screen pt-30">
-            <DesktopHeader />
-            <AbilityDetail
-              abilityId={abilityId}
-              initialAbility={ability}
-              initialPokemon={pokemonList}
-              totalCount={totalCount}
-            />
-            <DesktopFooter />
-          </main>
-        )}
+        <AbilityDetail
+          abilityId={abilityId}
+          initialAbility={ability}
+          initialPokemon={pokemonList}
+          totalCount={totalCount}
+        />
       </Providers>
       <script
         id="ability-detail-webpage-jsonLd"

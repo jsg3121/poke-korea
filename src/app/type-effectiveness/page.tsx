@@ -1,16 +1,9 @@
 import { Fragment } from 'react'
-import { headers } from 'next/headers'
 
 import {
   TYPE_EFFECTIVENESS_ITEMLIST_JSON_LD,
   TYPE_EFFECTIVENESS_WEBPAGE_JSON_LD,
 } from '~/constants/typeEffectivenessJsonLd'
-import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import TypeEffectiveness from '~/views/typeEffectiveness/TypeEffectiveness.view'
 
 import { TYPE_EFFECTIVENESS_META } from './_metadata/typeEffectivenessMetadata'
@@ -22,29 +15,11 @@ import { TYPE_EFFECTIVENESS_META } from './_metadata/typeEffectivenessMetadata'
 export const metadata = TYPE_EFFECTIVENESS_META
 
 const TypeEffectivenessPage = async () => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   return (
     <Fragment>
       {/* 콘텐츠는 반응형 단일(TypeEffectiveness, ADR-0007). UA 분기는 전역
           크롬(헤더/푸터/탭바) 선택으로만 남는다(list·ability·moves와 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <TypeEffectiveness />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // pt-30(120px) = 데스크톱 fixed 헤더 실높이
-        <main className="w-full min-h-screen pt-30">
-          <DesktopHeader />
-          <TypeEffectiveness />
-          <DesktopFooter />
-        </main>
-      )}
+      <TypeEffectiveness />
       <script
         id="type-effectiveness-webpage-jsonLd"
         type="application/ld+json"

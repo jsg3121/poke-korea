@@ -6,11 +6,6 @@ import {
   PokemonSkillDetail,
   VersionGroup,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import MoveDetail from '~/views/moves/MoveDetail.view'
 import Providers from '~/app/providers'
 
@@ -28,7 +23,6 @@ import Providers from '~/app/providers'
  */
 
 interface MoveDetailPageShellProps {
-  isMobile: boolean
   initialApolloState: NormalizedCacheObject | null
   skillId: number
   skill: PokemonSkillDetail
@@ -44,7 +38,6 @@ interface MoveDetailPageShellProps {
 }
 
 const MoveDetailPageShell = ({
-  isMobile,
   initialApolloState,
   skillId,
   skill,
@@ -68,23 +61,7 @@ const MoveDetailPageShell = ({
 
   return (
     <Fragment>
-      <Providers initialApolloState={initialApolloState}>
-        {isMobile ? (
-          <main className="w-full min-h-screen">
-            <MobileHeader />
-            {view}
-            <MobileFooter />
-            <MobileTabBar />
-          </main>
-        ) : (
-          // pt-30(120px) = 데스크톱 fixed 헤더 실높이. 버전 nav sticky(desktop:top-30)와 맞춤
-          <main className="w-full min-h-screen pt-30">
-            <DesktopHeader />
-            {view}
-            <DesktopFooter />
-          </main>
-        )}
-      </Providers>
+      <Providers initialApolloState={initialApolloState}>{view}</Providers>
       <script
         id={jsonLdId}
         type="application/ld+json"

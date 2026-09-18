@@ -7,6 +7,11 @@ import { getCssFiles, getFontFiles } from '~/utils/getCssFiles'
 import { detectUserAgent } from '~/modules/device.module'
 import { getRobotsConfig } from '~/modules/metadata.module'
 import { DeviceProvider } from '~/context/Device.context'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
 
 import Providers from './providers'
 
@@ -106,7 +111,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       </head>
       <body>
         <Providers>
-          <DeviceProvider isMobile={isMobile}>{children}</DeviceProvider>
+          <DeviceProvider isMobile={isMobile}>
+            {isMobile ? <MobileHeader /> : <DesktopHeader />}
+            <main className="w-full min-h-screen">{children}</main>
+            {isMobile ? <MobileFooter /> : <DesktopFooter />}
+            {isMobile && <MobileTabBar />}
+          </DeviceProvider>
         </Providers>
         {isProduction && (
           <>

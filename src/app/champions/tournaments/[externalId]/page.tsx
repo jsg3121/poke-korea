@@ -1,6 +1,5 @@
 import { cache } from 'react'
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
@@ -14,12 +13,6 @@ import {
   getFormatEnumShortLabel,
 } from '~/utils/championsFormat.util'
 import { initializeApollo } from '~/modules/apolloClient.module'
-import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import ChampionsTournamentDetail from '~/views/champions/ChampionsTournamentDetail.view'
 
 export const revalidate = 86400
@@ -105,9 +98,6 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const headersList = await headers()
-  const isMobile = detectUserAgent(headersList.get('user-agent') || '')
-
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -171,23 +161,7 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
       )}
       {/* 콘텐츠는 반응형 단일(ChampionsTournamentDetail, ADR-0007). UA 분기는
           전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeader />
-          <ChampionsTournamentDetail detail={detail} />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
-        <main className="w-full min-h-screen">
-          <div className="h-40">
-            <DesktopHeader />
-          </div>
-          <ChampionsTournamentDetail detail={detail} />
-          <DesktopFooter />
-        </main>
-      )}
+      <ChampionsTournamentDetail detail={detail} />
     </>
   )
 }

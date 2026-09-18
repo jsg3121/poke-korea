@@ -1,13 +1,8 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import Link from 'next/link'
 
 import { imageMode } from '~/modules/buildMode.module'
-import { detectUserAgent } from '~/modules/device.module'
 import Image from '~/components/Image.component'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import HeaderContainerDesktop from '~/containers/desktop/header/Header.container'
-import HeaderContainerMobile from '~/containers/mobile/header/Header.container'
 
 export const metadata: Metadata = {
   title: '404 - 페이지를 찾을 수 없습니다',
@@ -18,56 +13,39 @@ export const metadata: Metadata = {
   },
 }
 
-const NotFound = async () => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
+const NotFound = () => {
   return (
-    <main
-      className={
-        isMobile
-          ? 'w-full min-h-screen relative'
-          : 'flex min-h-screen flex-col items-center justify-center'
-      }
-    >
-      {isMobile ? <HeaderContainerMobile /> : <HeaderContainerDesktop />}
-      <div
-        className={
-          isMobile
-            ? 'w-full text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-            : 'text-center'
-        }
-      >
+    <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className="w-full px-4 text-center desktop:px-0">
         <h1
-          className={`${isMobile ? 'text-[4rem]' : 'text-[6rem]'} mb-4 font-bold text-primary-3`}
+          className={`text-[4rem] desktop:text-[6rem] mb-4 font-bold text-primary-3`}
         >
           404
         </h1>
         <h2
-          className={`${isMobile ? 'text-2xl' : 'text-[2rem]'} mb-6 font-bold text-primary-3`}
+          className={`text-2xl desktop:text-[2rem] mb-6 font-bold text-primary-3`}
         >
           페이지를 찾을 수 없습니다
         </h2>
         <strong
-          className={`${isMobile ? 'text-[1.2rem]' : 'text-lg'} mb-8 text-primary-3 block`}
+          className={`text-[1.2rem] desktop:text-lg mb-8 text-primary-3 block`}
         >
           요청하신 페이지가 존재하지 않거나 잘못되었습니다.
         </strong>
         <Link
           href="/"
-          className={`${isMobile ? 'w-1/2' : 'w-[15rem]'} mx-auto text-xl text-aligned-xl text-white h-12 border-solid border-primary-4 border block mb-12`}
+          className={`w-1/2 desktop:w-[15rem] mx-auto text-xl text-aligned-xl text-white h-12 border-solid border-primary-4 border block mb-12`}
         >
           홈으로 돌아가기
         </Link>
-        <div className={`${isMobile ? 'px-4' : ''}`}>
+        <div className="px-4 desktop:px-0">
           <p
-            className={`${isMobile ? 'text-base' : 'text-lg'} text-primary-3 mb-4 font-medium`}
+            className={`text-base desktop:text-lg text-primary-3 mb-4 font-medium`}
           >
             인기 포켓몬 보러가는건 어때요?
           </p>
           <div
-            className={`flex ${isMobile ? 'flex-wrap justify-center' : ''} gap-3 justify-center`}
+            className={`flex flex-wrap justify-center gap-3 desktop:flex-nowrap`}
           >
             <Link href="/detail/25">
               <Image
@@ -132,8 +110,7 @@ const NotFound = async () => {
           </div>
         </div>
       </div>
-      {isMobile && <MobileTabBar />}
-    </main>
+    </div>
   )
 }
 

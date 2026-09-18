@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import {
   notFound,
   permanentRedirect,
@@ -8,14 +7,8 @@ import {
 } from 'next/navigation'
 
 import { LearnMethod, PokemonFormType } from '~/graphql/typeGenerated'
-import { detectUserAgent } from '~/modules/device.module'
 import { buildMovesPath, parseFormSegments } from '~/modules/movesParams.module'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooter from '~/containers/desktop/footer/Footer.container'
-import DesktopHeader from '~/containers/desktop/header/Header.container'
-import MobileFooter from '~/containers/mobile/footer/Footer.container'
-import MobileHeader from '~/containers/mobile/header/Header.container'
 import DetailMoves from '~/views/detail/DetailMoves.view'
 
 import { fetchDefaultMovesMetadata } from '../../_fetch/defaultMovesMetadata.fetch'
@@ -133,10 +126,6 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     notFound()
   }
 
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const fetchResult = await fetchLearnsetQueries({
     pokemonId,
     formType: PokemonFormType.NORMAL_FORM,
@@ -208,21 +197,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     <DetailMovesProvider {...initialValue}>
       {/* 콘텐츠는 반응형 단일(DetailMoves, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(홈·리스트·상세 개편과 동일 패턴). */}
-      {isMobile ? (
-        <main className="min-h-screen w-full">
-          <MobileHeader />
-          <DetailMoves pokemonName={pokemonName} />
-          <MobileFooter />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // pt-30(120px) = 데스크톱 fixed 헤더 실높이(리스트 개편에서 실측 확정)
-        <main className="min-h-screen w-full pt-30">
-          <DesktopHeader />
-          <DetailMoves pokemonName={pokemonName} />
-          <DesktopFooter />
-        </main>
-      )}
+      <DetailMoves pokemonName={pokemonName} />
     </DetailMovesProvider>
   )
 }
