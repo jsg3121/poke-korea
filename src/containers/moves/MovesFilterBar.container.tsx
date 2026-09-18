@@ -7,7 +7,7 @@ import FilterIcon from '~/assets/icons/filter.svg'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import AppliedFilterChip from '~/components/chip/AppliedFilterChip.component'
 import ChipComponent from '~/components/chip/Chip.component'
-import { ChipColor } from '~/components/chip/chipStyle'
+import { ChipColor } from '~/components/chip/chip.types'
 import TypeChip from '~/components/chip/TypeChip.component'
 
 /**

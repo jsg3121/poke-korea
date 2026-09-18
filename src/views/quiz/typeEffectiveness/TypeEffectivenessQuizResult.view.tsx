@@ -1,35 +1,34 @@
 'use client'
 
 import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
-import { imageMode } from '~/modules/buildMode'
+import { PokemonType } from '~/graphql/typeGenerated'
 import { getQuizResultCopy } from '~/modules/quiz.module'
-import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
-import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
-import ImageComponent from '~/components/Image.component'
+import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
+import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner.component'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
 import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
+import TagComponent from '~/components/tag/Tag.component'
 
 /**
- * 실루엣 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을 폐기하고
- * 4종 공통 QuizResultCard(세로 카드)로 통일했다. desktop은 2열 그리드로 배치.
+ * 타입 상성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.
+ * 본문 슬롯 = 공격 → 방어 타입칩(신규 DS Tag). desktop 2열 그리드.
  */
-const SilhouetteQuizResult = () => {
-  const { result, questions, onClickRetryQuiz } = useSilhouetteQuizContext()
+const TypeEffectivenessQuizResult = () => {
+  const { result, questions, onClickRetryQuiz } =
+    useTypeEffectivenessQuizContext()
 
-  const { headline, subcopy, medal } = getQuizResultCopy(result?.score ?? 0)
+  const { headline, medal, subcopy } = getQuizResultCopy(result?.score || 0)
 
-  if (!result) {
-    return null
-  }
+  if (!result) return null
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pt-4 pb-8 desktop:px-5">
       {/* 광고 — 결과 최상단(헤더 앞) */}
       <QuizResultTopBanner
-        mobileSlot={QUIZ_RESULT_SLOTS.silhouette.mobile}
-        desktopSlot={QUIZ_RESULT_SLOTS.silhouette.desktop}
+        mobileSlot={QUIZ_RESULT_SLOTS.typeEffectiveness.mobile}
+        desktopSlot={QUIZ_RESULT_SLOTS.typeEffectiveness.desktop}
       />
       <ResultHeaderComponent
         headline={headline}
@@ -48,35 +47,31 @@ const SilhouetteQuizResult = () => {
         </h2>
         <ul className="w-full grid grid-cols-1 desktop:grid-cols-2 gap-4">
           {questions.map((quiz, index) => {
-            const isSkipped = result.userAnswers[index] === 99
+            const userAnswerIndex = result.userAnswers[index]
+            const isSkipped = userAnswerIndex === 99
             const userAnswer = isSkipped
               ? '건너뛰기'
-              : quiz.options[result.userAnswers[index]]
+              : quiz.options[userAnswerIndex]
             const realAnswer = quiz.options[quiz.correctAnswerIndex]
-            const isCorrect = userAnswer === realAnswer
+            const isCorrect = userAnswerIndex === quiz.correctAnswerIndex
 
             return (
               <QuizResultCardComponent
                 key={quiz.id}
                 index={index + 1}
                 isCorrect={isCorrect}
-                typeLabel="실루엣"
+                typeLabel="타입 상성"
                 correctAnswer={realAnswer}
                 userAnswer={userAnswer}
               >
-                <div className="flex justify-center">
-                  <i className="block w-24 h-24">
-                    <ImageComponent
-                      width="6rem"
-                      height="6rem"
-                      src={`${imageMode}/${quiz.correctPokemonId}`}
-                      alt={`정답 포켓몬 ${realAnswer}`}
-                      imageSize={{ width: 96, height: 96 }}
-                      densities={[1, 1.5]}
-                      sizes="6rem"
-                      loading="lazy"
-                    />
-                  </i>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-sm text-primary-2">공격:</span>
+                  <TagComponent type={quiz.attackingType as PokemonType} />
+                  <span className="text-sm text-primary-1">→</span>
+                  <span className="text-sm text-primary-2">방어:</span>
+                  {quiz.defendingTypes.map((type, typeIndex) => (
+                    <TagComponent key={typeIndex} type={type as PokemonType} />
+                  ))}
                 </div>
               </QuizResultCardComponent>
             )
@@ -85,12 +80,12 @@ const SilhouetteQuizResult = () => {
       </article>
       <ResultFooterComponent
         onClickRetryButton={onClickRetryQuiz}
-        quizType="silhouette"
-        relationPageHref="/list"
-        relationPageHrefLabel="포켓몬 확인하러 가기"
+        quizType="type-effectiveness"
+        relationPageHref="/type-effectiveness"
+        relationPageHrefLabel="타입 상성 계산 하러 가기"
       />
     </section>
   )
 }
 
-export default SilhouetteQuizResult
+export default TypeEffectivenessQuizResult

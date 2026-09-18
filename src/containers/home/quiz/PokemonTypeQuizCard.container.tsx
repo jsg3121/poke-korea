@@ -1,7 +1,7 @@
 'use client'
 
 import { PokemonTypeQuizQuestion } from '~/graphql/typeGenerated'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton.component'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import QuizCardComponent from '~/components/quizCard/QuizCard.component'
 import TagComponent from '~/components/tag/Tag.component'

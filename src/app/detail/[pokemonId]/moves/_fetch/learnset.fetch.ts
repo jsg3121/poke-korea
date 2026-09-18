@@ -24,7 +24,7 @@ import {
   type GetVersionGroupsByPokemonQuery,
   type GetVersionGroupsByPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 interface FetchLearnsetParams {
   pokemonId: string

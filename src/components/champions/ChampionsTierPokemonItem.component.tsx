@@ -8,7 +8,7 @@ import {
   ChampionsFormatSlug,
   getChampionsFormBadge,
 } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'

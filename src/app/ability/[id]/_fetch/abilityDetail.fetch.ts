@@ -3,7 +3,10 @@ import {
   type GetPokemonByAbilityQuery,
   type GetPokemonByAbilityQueryVariables,
 } from '~/graphql/typeGenerated'
-import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
+import {
+  extractApolloState,
+  initializeApollo,
+} from '~/modules/apolloClient.module'
 
 interface FetchAbilityDetailParams {
   abilityId: number

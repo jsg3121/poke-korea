@@ -7,7 +7,7 @@ import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { usePokemonByAbility } from '~/hooks/usePokemonByAbility'
 import PokemonByAbilityCardComponent from '~/components/ability/PokemonByAbilityCard.component'
-import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner'
+import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner.component'
 import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 
 /**

@@ -13,7 +13,7 @@ import {
   getFormatShortLabel,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 const fetchChampionsTotalCount = async (
   formatSlug: ChampionsFormatSlug = CHAMPIONS_DEFAULT_FORMAT_SLUG,

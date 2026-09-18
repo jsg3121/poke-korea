@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { ChampionsTournamentTeamFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import ImageComponent from '~/components/Image.component'
 
 import ChampionsTournamentSlotCard from './ChampionsTournamentSlotCard.component'

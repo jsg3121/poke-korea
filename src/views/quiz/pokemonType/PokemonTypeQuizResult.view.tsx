@@ -2,10 +2,10 @@
 
 import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { getQuizResultCopy } from '~/modules/quiz.module'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
-import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
+import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner.component'
 import ImageComponent from '~/components/Image.component'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'

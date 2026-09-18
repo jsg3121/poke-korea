@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import FilterBarOrganism from './FilterBar.organism'
+import FilterBarOrganism from './FilterBar.component'
 
 /**
  * useRouter/useSearchParams/usePathname를 nextjs navigation 목킹으로 주입한다

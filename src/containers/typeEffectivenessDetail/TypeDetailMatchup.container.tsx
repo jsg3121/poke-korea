@@ -1,6 +1,6 @@
 import { PokemonType } from '~/graphql/typeGenerated'
-import { calculateRelationType } from '~/modules/calculateRelationType'
-import { calculateAttackEffectiveness } from '~/modules/typeAttackEffectiveness'
+import { calculateRelationType } from '~/modules/calculateRelationType.module'
+import { calculateAttackEffectiveness } from '~/modules/typeAttackEffectiveness.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
 import TypeAttackMatchupComponent from '~/components/typeMatchup/TypeAttackMatchup.component'
 import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component'

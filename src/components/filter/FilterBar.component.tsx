@@ -5,11 +5,11 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import FilterIcon from '~/assets/icons/filter.svg'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import { getChangeTypeList } from '~/modules/getChangeTypeList'
+import { getChangeTypeList } from '~/modules/getChangeTypeList.module'
 import AppliedFilterChip from '~/components/chip/AppliedFilterChip.component'
 import TypeChip from '~/components/chip/TypeChip.component'
 
-import FilterModal from './FilterModal.organism'
+import FilterModal from './FilterModal.component'
 
 /**
  * 도감 타입 필터 바 (organism). TypeChip(18종) 가로 스크롤 + 필터 버튼 + 초기화 버튼 +

@@ -2,8 +2,8 @@
 
 import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
 import { ListProvider } from '~/context/List.context'
-import ListTopBanner from '~/components/adSlot/ListTopBanner'
-import FilterBarOrganism from '~/components/filter/FilterBar.organism'
+import ListTopBanner from '~/components/adSlot/ListTopBanner.component'
+import FilterBarOrganism from '~/components/filter/FilterBar.component'
 import ListGridContainer from '~/containers/list/ListGrid.container'
 
 /**

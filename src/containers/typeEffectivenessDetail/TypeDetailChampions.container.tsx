@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildChampionsDetailHref } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
 import ChampionsTierBadge from '~/components/champions/ChampionsTierBadge.component'
 import TagComponent from '~/components/tag/Tag.component'

@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { calculateRelationType } from '~/modules/calculateRelationType'
+import { calculateRelationType } from '~/modules/calculateRelationType.module'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import TagComponent from '~/components/tag/Tag.component'
 

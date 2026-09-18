@@ -4,9 +4,9 @@ import { Fragment } from 'react'
 
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 
-import SilhouetteQuizBefore from './SilhouetteQuizBefore'
-import SilhouetteQuizPlay from './SilhouetteQuizPlay'
-import SilhouetteQuizResult from './SilhouetteQuizResult'
+import SilhouetteQuizBefore from './SilhouetteQuizBefore.view'
+import SilhouetteQuizPlay from './SilhouetteQuizPlay.view'
+import SilhouetteQuizResult from './SilhouetteQuizResult.view'
 
 /**
  * 실루엣 퀴즈 본문 (반응형 단일). quizViewStage로 BEFORE/QUIZ/RESULT를 전환하는

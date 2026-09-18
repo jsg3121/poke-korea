@@ -4,7 +4,7 @@ import { notFound, redirect } from 'next/navigation'
 
 import { detectUserAgent } from '~/modules/device.module'
 import { DetailProvider } from '~/context/Detail.context'
-import MobileTabBar from '~/components/MobileTabBar'
+import MobileTabBar from '~/components/MobileTabBar.component'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'

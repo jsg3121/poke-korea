@@ -4,7 +4,7 @@ import LevelUpIcon from '~/assets/icons/levelUp.svg'
 import MachineMoveIcon from '~/assets/icons/machineMove.svg'
 import { CardColor } from '~/types/pokemonTypes.types'
 import { LearnMethod, PokemonLearnInfo } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**

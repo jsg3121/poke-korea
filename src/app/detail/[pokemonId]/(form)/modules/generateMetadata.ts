@@ -15,7 +15,7 @@ import {
   getSeoCanonicalUrl,
   getSeoDescription,
   getSeoTitle,
-} from '~/modules/generateDetailSeoMetaData'
+} from '~/modules/generateDetailSeoMetaData.module'
 import { getRobotsConfig } from '~/modules/metadata.module'
 
 const OG_IMAGE_BASE = 'https://image.poke-korea.com/og-images'

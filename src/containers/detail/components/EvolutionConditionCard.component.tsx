@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { EvolutionNode, hasVersionVariants } from '~/utils/evolution.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import ImageComponent from '~/components/Image.component'
 

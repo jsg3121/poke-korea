@@ -2,10 +2,10 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { detectUserAgent } from '~/modules/device.module'
 import ImageComponent from '~/components/Image.component'
-import MobileTabBar from '~/components/MobileTabBar'
+import MobileTabBar from '~/components/MobileTabBar.component'
 import HeaderContainerDesktop from '~/containers/desktop/header/Header.container'
 import HeaderContainerMobile from '~/containers/mobile/header/Header.container'
 

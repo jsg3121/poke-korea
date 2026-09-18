@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import ChampionsSubNavOrganism from './ChampionsSubNav.organism'
+import ChampionsSubNavOrganism from './ChampionsSubNav.component'
 
 /**
  * usePathname을 nextjs navigation 목킹으로 주입해 active 상태를 story별로 렌더한다

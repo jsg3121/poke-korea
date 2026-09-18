@@ -1,4 +1,4 @@
-import DetailMovesTopBanner from '~/components/adSlot/DetailMovesTopBanner'
+import DetailMovesTopBanner from '~/components/adSlot/DetailMovesTopBanner.component'
 import DetailMovesHeroContainer from '~/containers/detail/moves/DetailMovesHero.container'
 import DetailMovesListContainer from '~/containers/detail/moves/DetailMovesList.container'
 import DetailMovesStickyNavContainer from '~/containers/detail/moves/DetailMovesStickyNav.container'

@@ -1,6 +1,6 @@
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsBssNotice from '~/components/champions/ChampionsBssNotice.component'
 import ChampionsMonthFilter from '~/components/champions/ChampionsMonthFilter.component'
 import ChampionsTournamentCard from '~/components/champions/ChampionsTournamentCard.component'

@@ -27,7 +27,7 @@ import {
   PokemonRegionForm,
   VersionGroup,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 export interface DetailPokemonInfo {
   pokemonBaseInfo: PokemonDetail

@@ -17,7 +17,7 @@ import {
   PokemonList,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 import { TYPE_SLUGS } from '~/modules/typeParams.module'
 
 export const revalidate = 21600

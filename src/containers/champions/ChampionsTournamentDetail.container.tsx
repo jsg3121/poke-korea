@@ -7,7 +7,7 @@ import {
   formatKstDate,
   getFormatEnumShortLabel,
 } from '~/utils/championsFormat.util'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournamentTeamCard.component'
 
 /**

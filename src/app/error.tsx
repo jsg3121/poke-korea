@@ -11,9 +11,12 @@ const DesktopHeader = dynamic(
   () => import('~/containers/desktop/header/Header.container'),
   { ssr: false },
 )
-const MobileTabBar = dynamic(() => import('~/components/MobileTabBar'), {
-  ssr: false,
-})
+const MobileTabBar = dynamic(
+  () => import('~/components/MobileTabBar.component'),
+  {
+    ssr: false,
+  },
+)
 
 const Error = () => {
   // 클라이언트에서 user-agent 감지

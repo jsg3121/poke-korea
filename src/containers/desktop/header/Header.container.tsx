@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import LogoIcon from '~/assets/logo.svg'
-import ChampionsSubNavOrganism from '~/components/champions/ChampionsSubNav.organism'
+import ChampionsSubNavOrganism from '~/components/champions/ChampionsSubNav.component'
 
-import DetailSearch from './header.search/DetailSearch'
-import HeaderNav from './nav/HeaderNav'
-import MainSearch from './search.main/MainSearch'
+import DetailSearch from './header.search/DetailSearch.container'
+import HeaderNav from './nav/HeaderNav.container'
+import MainSearch from './search.main/MainSearch.container'
 
 const HeaderContainer = () => {
   const pathname = usePathname()

@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import Link from 'next/link'
 
 import { buildEvolutionGroups } from '~/utils/evolution.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import { DetailContext } from '~/context/Detail.context'
 import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'

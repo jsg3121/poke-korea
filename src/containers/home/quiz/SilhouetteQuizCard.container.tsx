@@ -1,8 +1,8 @@
 'use client'
 
 import { SilhouetteQuizQuestion } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import { imageMode } from '~/modules/buildMode.module'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton.component'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import ImageComponent from '~/components/Image.component'
 import QuizCardComponent from '~/components/quizCard/QuizCard.component'

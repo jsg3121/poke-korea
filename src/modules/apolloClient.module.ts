@@ -7,7 +7,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 
-import { GqlMode } from './buildMode'
+import { GqlMode } from './buildMode.module'
 import { paginatedFieldPolicy } from './graphqlPagination.module'
 
 const GQLMode = GqlMode

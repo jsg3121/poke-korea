@@ -1,7 +1,7 @@
 'use client'
 
 import { AbilityQuizQuestion } from '~/graphql/typeGenerated'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton.component'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
 import QuizCardComponent from '~/components/quizCard/QuizCard.component'
 

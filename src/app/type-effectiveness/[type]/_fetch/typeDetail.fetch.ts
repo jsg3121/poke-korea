@@ -13,7 +13,7 @@ import {
   PokemonInfoFragment,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 /**
  * 타입 상세 페이지의 GraphQL 데이터 조회.

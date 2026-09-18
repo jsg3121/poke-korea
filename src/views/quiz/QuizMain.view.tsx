@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
-import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner'
+import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 
 /**

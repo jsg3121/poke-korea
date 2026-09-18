@@ -1,5 +1,5 @@
 import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
-import TypeDetailBanner from '~/components/adSlot/TypeDetailBanner'
+import TypeDetailBanner from '~/components/adSlot/TypeDetailBanner.component'
 import TypeDetailChampionsContainer from '~/containers/typeEffectivenessDetail/TypeDetailChampions.container'
 import TypeDetailComboContainer from '~/containers/typeEffectivenessDetail/TypeDetailCombo.container'
 import TypeDetailFaqContainer from '~/containers/typeEffectivenessDetail/TypeDetailFaq.container'

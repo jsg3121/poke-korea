@@ -1,7 +1,7 @@
 'use client'
 
 import { TypeEffectivenessProvider } from '~/context/TypeEffectiveness.context'
-import TypeEffectivenessTopBanner from '~/components/adSlot/TypeEffectivenessTopBanner'
+import TypeEffectivenessTopBanner from '~/components/adSlot/TypeEffectivenessTopBanner.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 import TypeCalculatorContainer from '~/containers/typeEffectiveness/TypeCalculator.container'
 import TypeCalculatorResultContainer from '~/containers/typeEffectiveness/TypeCalculatorResult.container'

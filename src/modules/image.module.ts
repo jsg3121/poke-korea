@@ -8,7 +8,7 @@ import {
   PokemonRegionForm,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 
 export type PokemonImageData = {
   imageCode?: string

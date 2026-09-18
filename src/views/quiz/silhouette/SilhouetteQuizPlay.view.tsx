@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from 'react'
 
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import ImageComponent from '~/components/Image.component'

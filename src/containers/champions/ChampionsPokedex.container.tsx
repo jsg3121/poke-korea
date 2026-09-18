@@ -8,7 +8,7 @@ import {
 } from '~/utils/championsFormat.util'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
 import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'

@@ -10,7 +10,7 @@ import {
   VISIBLE_LEARN_METHODS,
 } from '~/modules/movesParams.module'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import MobileTabBar from '~/components/MobileTabBar'
+import MobileTabBar from '~/components/MobileTabBar.component'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'

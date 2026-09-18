@@ -9,7 +9,7 @@ import {
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
 import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar'
+import MobileTabBar from '~/components/MobileTabBar.component'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'

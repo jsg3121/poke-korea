@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/tag/Tag.component'

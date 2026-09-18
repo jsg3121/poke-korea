@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import LogoIcon from '~/assets/logo.svg'
-import ChampionsSubNavOrganism from '~/components/champions/ChampionsSubNav.organism'
+import ChampionsSubNavOrganism from '~/components/champions/ChampionsSubNav.component'
 
-import HeaderSearchContainer from './header.search/HeaderSearchContainer'
-import ListSearchContainer from './header.search/ListSearchContainer'
+import HeaderSearchContainer from './header.search/HeaderSearchContainer.container'
+import ListSearchContainer from './header.search/ListSearchContainer.container'
 
 const HeaderContainer = () => {
   const pathname = usePathname()

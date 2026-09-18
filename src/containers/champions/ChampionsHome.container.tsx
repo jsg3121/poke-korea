@@ -10,7 +10,7 @@ import {
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
 import { groupChampionsByTier } from '~/utils/championsTier.util'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsHeroSection from '~/components/champions/ChampionsHeroSection.component'
 import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSectionHeader.component'

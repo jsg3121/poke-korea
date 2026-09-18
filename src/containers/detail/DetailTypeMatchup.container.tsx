@@ -2,7 +2,7 @@
 
 import { useContext } from 'react'
 
-import { calculateRelationType } from '~/modules/calculateRelationType'
+import { calculateRelationType } from '~/modules/calculateRelationType.module'
 import { DetailContext } from '~/context/Detail.context'
 import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component'
 

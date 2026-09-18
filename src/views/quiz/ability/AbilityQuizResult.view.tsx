@@ -3,7 +3,7 @@
 import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { getQuizResultCopy } from '~/modules/quiz.module'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
-import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
+import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner.component'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
 import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'

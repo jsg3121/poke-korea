@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
 import ImageComponent from '~/components/Image.component'
 

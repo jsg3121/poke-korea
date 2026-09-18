@@ -5,8 +5,8 @@ import {
   PokemonSkillDetail,
   VersionGroup,
 } from '~/graphql/typeGenerated'
-import MovesDetailBottomBanner from '~/components/adSlot/MovesDetailBottomBanner'
-import MovesDetailTopBanner from '~/components/adSlot/MovesDetailTopBanner'
+import MovesDetailBottomBanner from '~/components/adSlot/MovesDetailBottomBanner.component'
+import MovesDetailTopBanner from '~/components/adSlot/MovesDetailTopBanner.component'
 import MoveDetailHeroContainer from '~/containers/moves/MoveDetailHero.container'
 import MoveDetailVersionNavContainer from '~/containers/moves/MoveDetailVersionNav.container'
 import PokemonBySkillListContainer from '~/containers/moves/PokemonBySkillList.container'

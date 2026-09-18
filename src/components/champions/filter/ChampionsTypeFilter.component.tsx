@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import { getChangeTypeList } from '~/modules/getChangeTypeList'
+import { getChangeTypeList } from '~/modules/getChangeTypeList.module'
 import TypeChip from '~/components/chip/TypeChip.component'
 
 /**

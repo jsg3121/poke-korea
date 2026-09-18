@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
-import { changeColor } from '~/modules/changeColor'
+import { changeColor } from '~/modules/changeColor.module'
 import {
   getAltText,
   getFormUrl,

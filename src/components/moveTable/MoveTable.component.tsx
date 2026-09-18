@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 import ChipComponent from '~/components/chip/Chip.component'
-import { ChipColor } from '~/components/chip/chipStyle'
+import { ChipColor } from '~/components/chip/chip.types'
 import TagComponent from '~/components/tag/Tag.component'
 
 /**

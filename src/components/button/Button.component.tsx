@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 
-import { ButtonSize, ButtonVariant, getButtonClass } from './buttonStyle'
+import { ButtonSize, ButtonVariant, getButtonClass } from './button.util'
 
 /**
  * 액션 버튼 (DS 원자). 클릭 액션용 `<button>`.

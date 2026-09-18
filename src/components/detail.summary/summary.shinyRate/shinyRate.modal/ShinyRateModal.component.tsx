@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 
 import ModalDefinitionComponent from './modal.definition/ModalDefinition.component'
-import ModalFooter from './modal.footer/ModalFooter'
+import ModalFooter from './modal.footer/ModalFooter.component'
 import ModalTableComponent from './modal.table/ModalTable.component'
 import ModalTitleComponent from './modal.title/ModalTitle.component'
 

@@ -4,7 +4,7 @@ import {
   ChampionsFormatSlug,
   getChampionsFormBadge,
 } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import {
   getBackgroundColor,
   getNameHeaderClass,

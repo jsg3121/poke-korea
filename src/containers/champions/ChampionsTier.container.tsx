@@ -8,7 +8,7 @@ import {
   formatKstDate,
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
 import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'

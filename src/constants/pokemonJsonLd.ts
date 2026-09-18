@@ -7,14 +7,14 @@ import {
   PokemonNormalForm,
   PokemonRegionForm,
 } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import {
   getPokemonNameByType,
   getPokemonSize,
   getPokemonStats,
   getPokemonTypes,
   getSeoCanonicalUrl,
-} from '~/modules/generateDetailSeoMetaData'
+} from '~/modules/generateDetailSeoMetaData.module'
 import {
   CAPTURE_RATE_MAX,
   formatGenderPercent,

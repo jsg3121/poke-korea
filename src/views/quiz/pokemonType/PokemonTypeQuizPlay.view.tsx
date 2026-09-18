@@ -3,7 +3,7 @@
 import { Fragment, useState } from 'react'
 
 import { PokemonType } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import ImageComponent from '~/components/Image.component'

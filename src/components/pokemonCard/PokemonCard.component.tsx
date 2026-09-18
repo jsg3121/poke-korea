@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import {
   getBackgroundColor,
   getNameHeaderClass,

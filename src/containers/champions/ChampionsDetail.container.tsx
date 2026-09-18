@@ -3,13 +3,13 @@ import Link from 'next/link'
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import {
   getBackgroundColor,
   pokemonNumberFormat,
 } from '~/modules/pokemonCard.module'
-import ChampionsDetailStatsBanner from '~/components/adSlot/ChampionsDetailStatsBanner'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsDetailStatsBanner from '~/components/adSlot/ChampionsDetailStatsBanner.component'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsDetailFormatSwitch from '~/components/champions/ChampionsDetailFormatSwitch.component'
 import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetailMetaSummaryBar.component'
 import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'

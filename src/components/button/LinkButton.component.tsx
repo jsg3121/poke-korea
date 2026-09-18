@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
 
-import { ButtonSize, ButtonVariant, getButtonClass } from './buttonStyle'
+import { ButtonSize, ButtonVariant, getButtonClass } from './button.util'
 
 /**
  * 링크형 CTA (DS 원자). 이동용 `<Link>`. 시각 스타일은 Button과 공유한다
