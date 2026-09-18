@@ -51,6 +51,8 @@ layout.tsx  →  page.tsx  →  views  →  containers  →  components
 | `noUnusedLocals` · `noUnusedParameters` | 미사용 선언 차단                              |
 
 > **Why `noUncheckedIndexedAccess`:** 컴파일러는 배열 길이를 알 수 없으므로 `arr[0]`이 존재한다고 보장할 수 없다. 이 옵션이 없으면 빈 배열에서 `undefined`를 꺼내 쓰는 코드가 타입 검사를 통과한다.
+>
+> 이 옵션만 아직 `tsconfig.json`에 켜지 않았다. 표의 나머지는 적용돼 있다. 보류 근거와 재개 조건은 ADR-0018의 "적용 현황" 절에 있다 — 새 코드는 인덱스 접근 결과를 `undefined`일 수 있는 값으로 다룬다.
 
 `exactOptionalPropertyTypes`는 켜지 않는다 — `aria-current={active ? 'page' : undefined}` 같은 React 정석 패턴을 에러로 만들어, 우회 코드가 늘면 가독성이 떨어진다. TypeScript 팀도 이 옵션을 `strict`에 포함하지 않았다.
 

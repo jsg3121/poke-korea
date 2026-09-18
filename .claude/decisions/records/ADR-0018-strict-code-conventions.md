@@ -93,6 +93,22 @@ JSX 안에서 `&&`를 쓸 때는 좌변을 불리언으로 명시한다.
   - `IF` 접두사 타입명 정리(`naming.md`가 이미 금지)
 - 이 ADR로 `coding.md`의 UA 분기 관련 서술이 제거되어, `styling.md`와의 충돌이 해소된다.
 
+### 적용 현황 (1.61.0)
+
+에러가 0건이던 4개 옵션(`noImplicitReturns`·`noFallthroughCasesInSwitch`·`noUnusedLocals`·`noUnusedParameters`)은 `tsconfig.json`에 적용했다.
+
+**`noUncheckedIndexedAccess`는 적용을 보류한다.** 결정 자체를 뒤집는 것이 아니라 시점을 미루는 것이며, 나머지 4개 옵션의 결정은 그대로 유효하다.
+
+보류 근거는 세 가지다.
+
+1. **이 옵션이 드러낸 실제 결함은 이미 고쳤다.** 45건을 훑어 19건을 처리하는 과정에서 두 가지 실질 문제가 나왔고 둘 다 해소했다 — 퀴즈 완료 판정이 문항 수 상수에 묶여 있던 것(백엔드 응답 개수가 달라지면 결과 화면이 열리지 않거나 답이 빈 문항이 섞인다), `Detail.context`의 폼 인덱스 접근 6곳에서 옵셔널 체이닝이 중간에 끊겨 범위 초과 시 크래시하던 것.
+2. **남은 26건은 형식적 처리에 가깝다.** 배열 리터럴 직후의 `[0]`·`[1]`처럼 값이 반드시 존재하는 접근이 다수이고, 폴백을 넣으면 실행되지 않는 분기만 늘어난다.
+3. **위험 구간을 실측으로 확인했다.** 가장 우려되던 퀴즈 결과 화면은 GraphQL 응답을 직접 조회해 20문항·옵션 4개·`correctAnswerIndex` 0~3(이탈 0건)으로 정상임을 확인했다.
+
+> **Why 보류를 기록하는가:** 근거 없이 미루면 다음 사람이 이유를 모른 채 켜서 26건을 다시 마주하거나, 반대로 영원히 방치된다. "무엇을 이미 해결했고 무엇이 남았는가"를 남겨야 재개 시점을 판단할 수 있다.
+
+**재개 조건:** 남은 26건에 대해 "실행되지 않는 폴백을 만들지 않으면서 타입을 만족시키는 방법"이 정리되면 켠다. 인덱스 접근을 구조 분해나 전용 헬퍼로 바꾸는 방식이 후보다(`typeEffectivenessQuiz.module.ts`의 `pickRandom`이 그 예).
+
 ## 참고 자료
 
 - [TypeScript — noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig/#noUncheckedIndexedAccess)
