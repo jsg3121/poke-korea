@@ -1,10 +1,10 @@
 'use client'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 import ImageComponent from '~/components/Image.component'
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
 import { useOutSideClick } from '~/hook/useOutSideClick'
-import SearchResultList from './search.detail/SearchResultList'
 
 const DetailSearch = () => {
   const searchRef = useRef<HTMLDivElement>(null)

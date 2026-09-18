@@ -6,7 +6,7 @@ import ImageComponent from '~/components/Image.component'
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
 import { useOutSideClickMobile } from '~/hook/useOutSideClickMobile'
-import SearchResultList from './search.result/SearchResultList'
+import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 
 const HeaderSearchContainer = () => {
   const searchRef = useRef<HTMLDivElement>(null)
