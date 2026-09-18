@@ -4,10 +4,10 @@ import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { getQuizResultCopy } from '~/modules/quiz.module'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner.component'
-import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
-import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
-import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
-import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
+import QuizResultCard from '~/components/quiz/QuizResultCard.component'
+import ResultFooter from '~/components/quiz/ResultFooter.component'
+import ResultHeader from '~/components/quiz/ResultHeader.component'
+import ResultSummary from '~/components/quiz/ResultSummary.component'
 
 /**
  * 특성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.
@@ -27,12 +27,8 @@ const AbilityQuizResult = () => {
         mobileSlot={QUIZ_RESULT_SLOTS.ability.mobile}
         desktopSlot={QUIZ_RESULT_SLOTS.ability.desktop}
       />
-      <ResultHeaderComponent
-        headline={headline}
-        medal={medal}
-        subcopy={subcopy}
-      />
-      <ResultSummaryComponent
+      <ResultHeader headline={headline} medal={medal} subcopy={subcopy} />
+      <ResultSummary
         averageTime={result.averageTime}
         correctAnswers={result.correctAnswers}
         percentage={result.percentage}
@@ -52,7 +48,7 @@ const AbilityQuizResult = () => {
             const isCorrect = userAnswer === realAnswer
 
             return (
-              <QuizResultCardComponent
+              <QuizResultCard
                 key={quiz.id}
                 index={index + 1}
                 isCorrect={isCorrect}
@@ -63,12 +59,12 @@ const AbilityQuizResult = () => {
                 <p className="text-sm desktop:text-base text-primary-1 leading-relaxed">
                   {quiz.abilityDescription}
                 </p>
-              </QuizResultCardComponent>
+              </QuizResultCard>
             )
           })}
         </ul>
       </article>
-      <ResultFooterComponent
+      <ResultFooter
         onClickRetryButton={onClickRetryQuiz}
         quizType="ability"
         relationPageHref="/ability"

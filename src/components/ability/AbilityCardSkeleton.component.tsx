@@ -11,7 +11,7 @@
  * 책임이다(스켈레톤 개수만큼 중복 낭독 방지).
  */
 
-const AbilityCardSkeletonComponent = () => {
+const AbilityCardSkeleton = () => {
   return (
     <div
       className="w-full min-h-40 bg-primary-4 border-2 border-solid border-primary-1 rounded-xl shadow-[0_0_0_3px_var(--color-primary-4)] p-3 animate-pulse"
@@ -31,4 +31,4 @@ const AbilityCardSkeletonComponent = () => {
   )
 }
 
-export default AbilityCardSkeletonComponent
+export default AbilityCardSkeleton

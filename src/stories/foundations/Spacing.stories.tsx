@@ -20,7 +20,7 @@ const BASE_SCALE: { token: string; rem: string }[] = [
 
 const remToPx = (rem: string) => `${Math.round(parseFloat(rem) * 16)}px`
 
-const SpacingView = () => (
+const Spacing = () => (
   <div className="p-8 bg-white-3 min-h-screen">
     <h1 className="text-2xl font-bold text-primary-1 mb-1">
       Spacing &amp; Touch
@@ -77,10 +77,10 @@ const SpacingView = () => (
 
 const meta = {
   title: 'Foundations/Spacing',
-  component: SpacingView,
+  component: Spacing,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
-} satisfies Meta<typeof SpacingView>
+} satisfies Meta<typeof Spacing>
 
 export default meta
 export const All: StoryObj<typeof meta> = {}

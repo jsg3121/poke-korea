@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import AppliedFilterChipComponent from './AppliedFilterChip.component'
+import AppliedFilterChip from './AppliedFilterChip.component'
 
 const noop = () => undefined
 
 const meta = {
   title: 'Components/AppliedFilterChip',
-  component: AppliedFilterChipComponent,
+  component: AppliedFilterChip,
   parameters: {
     layout: 'centered',
     docs: {
@@ -21,7 +21,7 @@ const meta = {
   },
   args: { label: '불꽃', onRemove: noop },
   tags: ['autodocs'],
-} satisfies Meta<typeof AppliedFilterChipComponent>
+} satisfies Meta<typeof AppliedFilterChip>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -33,10 +33,10 @@ export const Default: Story = {}
 export const FilterRow: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-2">
-      <AppliedFilterChipComponent label="불꽃" onRemove={noop} />
-      <AppliedFilterChipComponent label="비행" onRemove={noop} />
-      <AppliedFilterChipComponent label="3세대" onRemove={noop} />
-      <AppliedFilterChipComponent label="메가진화 포함" onRemove={noop} />
+      <AppliedFilterChip label="불꽃" onRemove={noop} />
+      <AppliedFilterChip label="비행" onRemove={noop} />
+      <AppliedFilterChip label="3세대" onRemove={noop} />
+      <AppliedFilterChip label="메가진화 포함" onRemove={noop} />
     </div>
   ),
 }

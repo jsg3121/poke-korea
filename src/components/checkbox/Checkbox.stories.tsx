@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import CheckboxComponent from './Checkbox.component'
+import Checkbox from './Checkbox.component'
 
 /** 체크박스는 진한 네이비 배경(primary-1) 위에서 쓰이므로 그 맥락으로 렌더한다. */
 const NavyBg = (Story: React.ComponentType) => (
@@ -11,7 +11,7 @@ const NavyBg = (Story: React.ComponentType) => (
 
 const meta = {
   title: 'Components/Checkbox',
-  component: CheckboxComponent,
+  component: Checkbox,
   parameters: {
     layout: 'centered',
     docs: {
@@ -29,7 +29,7 @@ const meta = {
   tags: ['autodocs'],
   decorators: [NavyBg],
   args: { label: '옵션' },
-} satisfies Meta<typeof CheckboxComponent>
+} satisfies Meta<typeof Checkbox>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -52,9 +52,9 @@ export const Group: Story = {
   render: () => (
     <fieldset className="flex flex-col gap-3 border-0 p-0">
       <legend className="sr-only">세대 선택</legend>
-      <CheckboxComponent name="gen" value="1" label="1세대" defaultChecked />
-      <CheckboxComponent name="gen" value="2" label="2세대" />
-      <CheckboxComponent name="gen" value="3" label="3세대" defaultChecked />
+      <Checkbox name="gen" value="1" label="1세대" defaultChecked />
+      <Checkbox name="gen" value="2" label="2세대" />
+      <Checkbox name="gen" value="3" label="3세대" defaultChecked />
     </fieldset>
   ),
 }

@@ -22,10 +22,7 @@ interface AppliedFilterChipProps {
   onRemove: () => void
 }
 
-const AppliedFilterChipComponent = ({
-  label,
-  onRemove,
-}: AppliedFilterChipProps) => {
+const AppliedFilterChip = ({ label, onRemove }: AppliedFilterChipProps) => {
   return (
     <span className="inline-flex h-7 shrink-0 items-center gap-1 whitespace-nowrap rounded-lg bg-primary-3 pl-3 pr-1 text-xs font-medium text-white desktop:text-sm">
       {/* text-aligned-md(+2px line-height) 보정은 flex items-center와 상쇄되므로,
@@ -49,4 +46,4 @@ const AppliedFilterChipComponent = ({
   )
 }
 
-export default AppliedFilterChipComponent
+export default AppliedFilterChip

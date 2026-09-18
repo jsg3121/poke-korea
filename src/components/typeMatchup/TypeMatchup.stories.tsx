@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import TypeMatchupComponent from './TypeMatchup.component'
+import TypeMatchup from './TypeMatchup.component'
 
 const meta = {
   title: 'Components/TypeMatchup',
-  component: TypeMatchupComponent,
+  component: TypeMatchup,
   parameters: {
     layout: 'padded',
     docs: {
@@ -27,7 +27,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-} satisfies Meta<typeof TypeMatchupComponent>
+} satisfies Meta<typeof TypeMatchup>
 
 export default meta
 type Story = StoryObj<typeof meta>

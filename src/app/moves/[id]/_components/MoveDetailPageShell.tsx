@@ -7,11 +7,11 @@ import {
   VersionGroup,
 } from '~/graphql/typeGenerated'
 import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import MoveDetailView from '~/views/moves/MoveDetail.view'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import MoveDetail from '~/views/moves/MoveDetail.view'
 import Providers from '~/app/providers'
 
 /**
@@ -21,7 +21,7 @@ import Providers from '~/app/providers'
  * Providers 하이드레이션·뷰 조립이 완전히 동일했다(렌더 블록 47줄이 prop 하나를
  * 빼고 같은 코드). 한쪽만 고치면 다른 쪽이 어긋나므로 셸로 합친다.
  *
- * 콘텐츠는 반응형 단일(MoveDetailView, ADR-0007). UA 분기는 전역 크롬
+ * 콘텐츠는 반응형 단일(MoveDetail, ADR-0007). UA 분기는 전역 크롬
  * (헤더/푸터/탭바) 선택으로만 남는다(list·ability 개편과 동일 패턴).
  * SSR로 실행한 쿼리 결과를 클라이언트 캐시로 하이드레이트(initialApolloState)해
  * 버전 탭 전환 시 클라이언트 재요청을 없앤다.
@@ -56,7 +56,7 @@ const MoveDetailPageShell = ({
   jsonLdId,
 }: MoveDetailPageShellProps) => {
   const view = (
-    <MoveDetailView
+    <MoveDetail
       skillId={skillId}
       initialSkill={skill}
       initialPokemonList={pokemonList}
@@ -71,17 +71,17 @@ const MoveDetailPageShell = ({
       <Providers initialApolloState={initialApolloState}>
         {isMobile ? (
           <main className="w-full min-h-screen">
-            <MobileHeaderContainer />
+            <MobileHeader />
             {view}
-            <MobileFooterContainer />
+            <MobileFooter />
             <MobileTabBar />
           </main>
         ) : (
           // pt-30(120px) = 데스크톱 fixed 헤더 실높이. 버전 nav sticky(desktop:top-30)와 맞춤
           <main className="w-full min-h-screen pt-30">
-            <DesktopHeaderContainer />
+            <DesktopHeader />
             {view}
-            <DesktopFooterContainer />
+            <DesktopFooter />
           </main>
         )}
       </Providers>

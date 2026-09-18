@@ -31,12 +31,7 @@ interface HubLinkCardProps {
   icon: ReactNode
 }
 
-const HubLinkCardComponent = ({
-  href,
-  title,
-  description,
-  icon,
-}: HubLinkCardProps) => {
+const HubLinkCard = ({ href, title, description, icon }: HubLinkCardProps) => {
   return (
     <Link
       href={href}
@@ -60,4 +55,4 @@ const HubLinkCardComponent = ({
   )
 }
 
-export default HubLinkCardComponent
+export default HubLinkCard

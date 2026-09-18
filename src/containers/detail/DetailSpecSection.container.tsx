@@ -15,11 +15,8 @@ import {
 import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
 import { DetailContext } from '~/context/Detail.context'
 
-import InfoCardTitleComponent from './components/InfoCardTitle.component'
-import {
-  CaptureRateGaugeComponent,
-  GenderBarComponent,
-} from './components/SpecGauge.component'
+import InfoCardTitle from './components/InfoCardTitle.component'
+import { CaptureRateGauge, GenderBar } from './components/SpecGauge.component'
 import { getActiveFormInfo } from './modules/activeForm.module'
 
 /**
@@ -89,7 +86,7 @@ export const DetailBodySpecSection = () => {
 
   return (
     <section aria-labelledby="pokemon-body-spec" className="card-detail">
-      <InfoCardTitleComponent
+      <InfoCardTitle
         title="신체 정보"
         id="pokemon-body-spec"
         badge={rarityBadge}
@@ -141,10 +138,7 @@ export const DetailBreedingSpecSection = () => {
       aria-labelledby="pokemon-breeding-spec"
       className="card-detail"
     >
-      <InfoCardTitleComponent
-        title="육성·포획 정보"
-        id="pokemon-breeding-spec"
-      />
+      <InfoCardTitle title="육성·포획 정보" id="pokemon-breeding-spec" />
       <dl className="w-full">
         {/* 포획률: 성비와 같은 구조 — 데스크톱 가로(값·게이지), 모바일 2단.
               DOM은 텍스트(주) → 게이지(보조·aria-hidden) 순서를 유지한다. */}
@@ -162,7 +156,7 @@ export const DetailBreedingSpecSection = () => {
                   >{` / ${CAPTURE_RATE_MAX}`}</span>
                 </span>
                 <div className="w-full desktop:min-w-24 desktop:flex-1">
-                  <CaptureRateGaugeComponent
+                  <CaptureRateGauge
                     percent={getCaptureRatePercent(captureRate)}
                     progress={progress}
                   />
@@ -203,10 +197,7 @@ export const DetailBreedingSpecSection = () => {
                   </span>
                 </div>
                 <div className="w-full desktop:order-2 desktop:min-w-24 desktop:flex-1">
-                  <GenderBarComponent
-                    male={genderRatio.male}
-                    progress={progress}
-                  />
+                  <GenderBar male={genderRatio.male} progress={progress} />
                 </div>
               </div>
             )}

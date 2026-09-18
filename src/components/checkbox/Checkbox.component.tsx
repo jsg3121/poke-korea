@@ -13,11 +13,11 @@ import Ball from '~/components/ball/Ball.component'
  * (Radio와 같은 패턴 — 차이는 박스 모양(사각)과 크기(16px)뿐.)
  */
 
-interface CheckboxComponentProps extends InputHTMLAttributes<HTMLInputElement> {
+interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 
-const CheckboxComponent = forwardRef<HTMLInputElement, CheckboxComponentProps>(
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ id: passedId, label, disabled, ...inputProps }, ref) => {
     // 외부 id가 있으면 우선(label htmlFor와 input id가 반드시 일치해야 라벨 클릭이
     // 동작한다). 없으면 useId로 자동 생성해 충돌을 막는다.
@@ -57,6 +57,6 @@ const CheckboxComponent = forwardRef<HTMLInputElement, CheckboxComponentProps>(
   },
 )
 
-CheckboxComponent.displayName = 'CheckboxComponent'
+Checkbox.displayName = 'Checkbox'
 
-export default CheckboxComponent
+export default Checkbox

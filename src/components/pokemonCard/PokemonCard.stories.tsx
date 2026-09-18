@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import PokemonCardComponent from './PokemonCard.component'
+import PokemonCard from './PokemonCard.component'
 
 const mockPokemon = {
   __typename: 'PokemonList' as const,
@@ -63,7 +63,7 @@ const veryLongNamePokemon = {
 
 const meta = {
   title: 'Components/PokemonCard',
-  component: PokemonCardComponent,
+  component: PokemonCard,
   parameters: {
     layout: 'centered',
     docs: {
@@ -81,7 +81,7 @@ const meta = {
     variant: 'pokedex',
     isHighPriority: true,
   },
-} satisfies Meta<typeof PokemonCardComponent>
+} satisfies Meta<typeof PokemonCard>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -116,8 +116,8 @@ export const LongNameMobileGrid: Story = {
   args: { pokemonData: longNamePokemon },
   render: (args) => (
     <div className="grid grid-cols-2 gap-4 px-5 py-4">
-      <PokemonCardComponent {...args} pokemonData={longNamePokemon} />
-      <PokemonCardComponent {...args} pokemonData={mockPokemon} />
+      <PokemonCard {...args} pokemonData={longNamePokemon} />
+      <PokemonCard {...args} pokemonData={mockPokemon} />
     </div>
   ),
 }
@@ -132,8 +132,8 @@ export const MobileGrid: Story = {
   args: { pokemonData: mockPokemon },
   render: (args) => (
     <div className="grid grid-cols-2 gap-4 px-5 py-4">
-      <PokemonCardComponent {...args} pokemonData={mockPokemon} />
-      <PokemonCardComponent {...args} pokemonData={singleTypePokemon} />
+      <PokemonCard {...args} pokemonData={mockPokemon} />
+      <PokemonCard {...args} pokemonData={singleTypePokemon} />
     </div>
   ),
 }

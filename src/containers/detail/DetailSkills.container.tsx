@@ -4,12 +4,12 @@ import { useContext } from 'react'
 
 import { getDamageTypeChipColor } from '~/utils/skill.util'
 import { DetailContext } from '~/context/Detail.context'
-import LinkButtonComponent from '~/components/button/LinkButton.component'
-import MoveTableComponent, {
+import LinkButton from '~/components/button/LinkButton.component'
+import MoveTable, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 
-import InfoCardTitleComponent from './components/InfoCardTitle.component'
+import InfoCardTitle from './components/InfoCardTitle.component'
 
 /**
  * 습득 기술 카드 2종 — 레벨업/머신 (반응형 단일, MoveTable 조립 — UX-005 §7-4).
@@ -25,7 +25,7 @@ import InfoCardTitleComponent from './components/InfoCardTitle.component'
 
 const SKILL_PREVIEW_COUNT = 5
 
-const DetailSkillsContainer = () => {
+const DetailSkills = () => {
   const { pokemonBaseInfo, activeTypeInfo, activeType, activeIndex } =
     useContext(DetailContext)
   const pokemonNumber = pokemonBaseInfo?.number ?? 0
@@ -103,24 +103,24 @@ const DetailSkillsContainer = () => {
           aria-labelledby={block.titleId}
           className="card-detail flex flex-col"
         >
-          <InfoCardTitleComponent title={block.title} id={block.titleId} />
+          <InfoCardTitle title={block.title} id={block.titleId} />
           {block.versionName && (
             <p className="mb-3 text-sm text-primary-2">
               최신 버전 : <b className="font-bold">{block.versionName}</b>
             </p>
           )}
-          <MoveTableComponent moves={block.moves} ariaLabel={block.ariaLabel} />
+          <MoveTable moves={block.moves} ariaLabel={block.ariaLabel} />
           {/* 더보기는 개수와 무관하게 상시 노출 + 카드 하단 고정(mt-auto) —
               2컬럼에서 카드 높이가 달라도 버튼 라인이 맞는다(사용자 요청) */}
           <div className="mt-auto flex justify-center pt-4">
-            <LinkButtonComponent
+            <LinkButton
               href={block.href}
               variant="secondary"
               size="sm"
               showArrow
             >
               전체 기술 보기 ({block.total}개)
-            </LinkButtonComponent>
+            </LinkButton>
           </div>
         </section>
       ))}
@@ -128,4 +128,4 @@ const DetailSkillsContainer = () => {
   )
 }
 
-export default DetailSkillsContainer
+export default DetailSkills

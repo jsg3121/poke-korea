@@ -5,13 +5,13 @@ import { usePathname } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import LogoIcon from '~/assets/logo.svg'
-import ChampionsSubNavOrganism from '~/components/champions/ChampionsSubNav.component'
+import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
 
 import DetailSearch from './header.search/DetailSearch.container'
 import HeaderNav from './nav/HeaderNav.container'
 import MainSearch from './search.main/MainSearch.container'
 
-const HeaderContainer = () => {
+const Header = () => {
   const pathname = usePathname()
 
   return (
@@ -36,9 +36,9 @@ const HeaderContainer = () => {
         </Link>
       </div>
       <HeaderNav />
-      {pathname.includes('/champions') && <ChampionsSubNavOrganism />}
+      {pathname.includes('/champions') && <ChampionsSubNav />}
     </header>
   )
 }
 
-export default HeaderContainer
+export default Header

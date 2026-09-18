@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 import InputComponents from './components/Input.component'
 
@@ -64,7 +64,7 @@ const MainSearch = () => {
             type="submit"
             className="w-8 h-8 absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer"
           >
-            <ImageComponent
+            <Image
               src="/assets/image/search.svg"
               width="2rem"
               height="2rem"

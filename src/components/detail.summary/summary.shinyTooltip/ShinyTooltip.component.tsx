@@ -4,9 +4,9 @@ import { Fragment, useRef, useState } from 'react'
 
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 
-import ShinyTooltipModalComponent from './shinyTooltip.modal/ShinyTooltipModal.component'
+import ShinyTooltipModal from './shinyTooltip.modal/ShinyTooltipModal.component'
 
-const ShinyTooltipComponent = () => {
+const ShinyTooltip = () => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false)
 
@@ -35,7 +35,7 @@ const ShinyTooltipComponent = () => {
       >
         이로치란?
       </button>
-      <ShinyTooltipModalComponent
+      <ShinyTooltipModal
         ref={dialogRef}
         onClickCloseModal={handleClickCloseModal}
       />
@@ -43,4 +43,4 @@ const ShinyTooltipComponent = () => {
   )
 }
 
-export default ShinyTooltipComponent
+export default ShinyTooltip

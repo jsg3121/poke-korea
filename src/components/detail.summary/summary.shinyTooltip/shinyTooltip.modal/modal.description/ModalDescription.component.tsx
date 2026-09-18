@@ -1,4 +1,4 @@
-const ModalDescriptionComponent = () => {
+const ModalDescription = () => {
   return (
     <div className="w-full h-fit">
       <p className="w-full text-base leading-5 font-medium text-primary-1 mb-4">
@@ -51,4 +51,4 @@ const ModalDescriptionComponent = () => {
   )
 }
 
-export default ModalDescriptionComponent
+export default ModalDescription

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import MoveTableComponent from './MoveTable.component'
+import MoveTable from './MoveTable.component'
 
 /** 리자몽 레벨업 기술 (LEGENDS Z-A 발췌) — 변화 기술의 위력 없음(-) 케이스 포함 */
 const LEVEL_UP_MOVES = [
@@ -55,7 +55,7 @@ const LEVEL_UP_MOVES = [
 
 const meta = {
   title: 'Components/MoveTable',
-  component: MoveTableComponent,
+  component: MoveTable,
   parameters: {
     layout: 'padded',
     docs: {
@@ -80,7 +80,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-} satisfies Meta<typeof MoveTableComponent>
+} satisfies Meta<typeof MoveTable>
 
 export default meta
 type Story = StoryObj<typeof meta>

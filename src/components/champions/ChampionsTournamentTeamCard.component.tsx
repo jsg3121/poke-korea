@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { ChampionsTournamentTeamFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 import ChampionsTournamentSlotCard from './ChampionsTournamentSlotCard.component'
 
@@ -125,7 +125,7 @@ const ChampionsTournamentTeamCard = ({
                 className="w-8 h-8 shrink-0"
               >
                 {slot.imagePath ? (
-                  <ImageComponent
+                  <Image
                     src={`${imageMode}/${slot.imagePath}`}
                     alt={`${slot.displayName || slot.rawName} 포켓몬 이미지`}
                     width="2rem"

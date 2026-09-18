@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import StatBarComponent from './StatBar.component'
+import StatBar from './StatBar.component'
 
 /** 리자몽 종족값 — 최고(특수공격 109) 1건, 최저(체력·방어 78) 동률 2건 */
 const CHARIZARD_STATS = [
@@ -14,7 +14,7 @@ const CHARIZARD_STATS = [
 
 const meta = {
   title: 'Components/StatBar',
-  component: StatBarComponent,
+  component: StatBar,
   parameters: {
     layout: 'centered',
     docs: {
@@ -38,7 +38,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-} satisfies Meta<typeof StatBarComponent>
+} satisfies Meta<typeof StatBar>
 
 export default meta
 type Story = StoryObj<typeof meta>

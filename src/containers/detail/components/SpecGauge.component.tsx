@@ -20,7 +20,7 @@ interface CaptureRateGaugeProps {
  * 실제 포획 확률(체력·볼·상태이상에 좌우됨)과는 다른 개념이므로 확률을
  * 함께 표기하지 않는다. 병기하면 막대 비율과 숫자가 어긋나 오해를 부른다.
  */
-export const CaptureRateGaugeComponent = ({
+export const CaptureRateGauge = ({
   percent,
   progress = 1,
 }: CaptureRateGaugeProps) => {
@@ -55,7 +55,7 @@ interface GenderBarProps {
  * 호출부 텍스트가 담당하며, 여기서는 경계에 구분선을 둬 색 인지가 어려워도
  * 분할 지점이 형태로 드러나게 한다.
  */
-export const GenderBarComponent = ({ male, progress = 1 }: GenderBarProps) => {
+export const GenderBar = ({ male, progress = 1 }: GenderBarProps) => {
   // 한쪽이 100%면 분할이 없으므로 구분선을 넣지 않는다(끝에 걸쳐 잘려 보인다)
   const hasBoundary = male > 0 && male < 100
 

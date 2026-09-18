@@ -13,7 +13,7 @@ import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.co
 import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
 import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
 import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
 
 /**
  * 챔피언스 도감 본문 (반응형 단일, ADR-0007).
@@ -31,15 +31,15 @@ import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 // 첫 화면 카드 eager 로딩 수 — 데스크톱 5열 2행 기준(모바일 2열이면 5행)
 const HIGH_PRIORITY_COUNT = 10
 
-interface ChampionsPokedexContainerProps {
+interface ChampionsPokedexContentProps {
   formatSlug: ChampionsFormatSlug
   sort: ChampionsPokemonSort
 }
 
-const ChampionsPokedexContainer = ({
+const ChampionsPokedexContent = ({
   formatSlug,
   sort,
-}: ChampionsPokedexContainerProps) => {
+}: ChampionsPokedexContentProps) => {
   const { pokemonList, loadMore, hasNextPage, isLoadingMore, totalCount } =
     useChampionsPokedex()
 
@@ -54,7 +54,7 @@ const ChampionsPokedexContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh mx-auto px-4 pb-8 relative desktop:px-5">
-      <PageHeaderComponent
+      <PageHeader
         title={`챔피언스 ${formatShort} 도감`}
         description={`${formatShort} 메타 포켓몬 전체 목록`}
       />
@@ -130,4 +130,4 @@ const ChampionsPokedexContainer = ({
   )
 }
 
-export default ChampionsPokedexContainer
+export default ChampionsPokedexContent

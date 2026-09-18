@@ -12,11 +12,11 @@ import Ball from '~/components/ball/Ball.component'
  * (label htmlFor와 input id 일치 보장). 색은 등록된 토큰만 사용한다.
  */
 
-interface RadioComponentProps extends InputHTMLAttributes<HTMLInputElement> {
+interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 
-const RadioComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
+const Radio = forwardRef<HTMLInputElement, RadioProps>(
   ({ id: passedId, label, disabled, ...inputProps }, ref) => {
     // 외부 id가 있으면 우선(label htmlFor와 input id가 반드시 일치해야 라벨 클릭이
     // 동작한다). 없으면 useId로 자동 생성해 충돌을 막는다.
@@ -55,6 +55,6 @@ const RadioComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
   },
 )
 
-RadioComponent.displayName = 'RadioComponent'
+Radio.displayName = 'Radio'
 
-export default RadioComponent
+export default Radio

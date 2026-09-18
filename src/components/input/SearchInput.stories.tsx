@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import SearchInputComponent from './SearchInput.component'
+import SearchInput from './SearchInput.component'
 
 /** 입력 컨트롤은 진한 네이비 배경(primary-1) 위에서 쓰이므로 그 맥락으로 렌더한다. */
 const NavyBg = (Story: React.ComponentType) => (
@@ -11,7 +11,7 @@ const NavyBg = (Story: React.ComponentType) => (
 
 const meta = {
   title: 'Components/SearchInput',
-  component: SearchInputComponent,
+  component: SearchInput,
   parameters: {
     layout: 'centered',
     docs: {
@@ -32,7 +32,7 @@ const meta = {
     label: '기술 검색',
     placeholder: '기술 이름으로 검색하세요',
   },
-} satisfies Meta<typeof SearchInputComponent>
+} satisfies Meta<typeof SearchInput>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -18,14 +18,14 @@ import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.comp
 import ChampionsRecentTournamentsSection from '~/components/champions/ChampionsRecentTournamentsSection.component'
 import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSection.component'
 import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
 
 /**
  * 챔피언스 홈 본문 (반응형 단일, ADR-0007).
  *
  * 구버전 desktop/mobile 2벌 컨테이너를 CSS 반응형 단일로 통합한다(UX-E1).
- * - 제목 헤더는 공통 DS PageHeaderComponent를 쓴다(moves·ability·티어·도감과 통일,
+ * - 제목 헤더는 공통 DS PageHeader를 쓴다(moves·ability·티어·도감과 통일,
  *   사용자 결정 2026-07-22). h1은 짧게("챔피언스 VGC"), 긴 키워드는 메타 title에만.
  * - champions 고유 요소(포맷 탭 + 안내 캡션)는 헤더와 분리해 ChampionsFormatIntro가
  *   담당한다(관심사 분리).
@@ -34,19 +34,19 @@ import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
  *   핵심 콘텐츠(TOP3) 소비 직후 폴드 경계 지점(사용자 결정 — 진입 시 조기 노출).
  * - 전역 크롬(헤더/푸터/탭바)은 page.tsx가 담당(컨테이너 내부에 두지 않는다).
  */
-interface ChampionsHomeContainerProps {
+interface ChampionsHomeContentProps {
   topPokemons: ChampionsMetaSummaryFragment[]
   teamCores: ChampionsTeamCoreFragment[]
   recentTournaments: GetChampionsTournamentsWithTopTeamQuery['championsTournaments']
   formatSlug: ChampionsFormatSlug
 }
 
-const ChampionsHomeContainer = ({
+const ChampionsHomeContent = ({
   topPokemons,
   teamCores,
   recentTournaments,
   formatSlug,
-}: ChampionsHomeContainerProps) => {
+}: ChampionsHomeContentProps) => {
   const tierGroups = groupChampionsByTier(topPokemons)
   const sTier = tierGroups.find((g) => g.tier === 'S')?.pokemons ?? []
   const aTier = tierGroups.find((g) => g.tier === 'A')?.pokemons ?? []
@@ -56,7 +56,7 @@ const ChampionsHomeContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8 desktop:mt-12 desktop:px-5">
-      <PageHeaderComponent
+      <PageHeader
         title={`챔피언스 ${formatShort}`}
         description={`${formatLabel} 메타 분석`}
       />
@@ -98,7 +98,7 @@ const ChampionsHomeContainer = ({
           </div>
           {/* 일반 홈과 동일한 DS 가로 스크롤 사용 — Hero(TOP3)와 함께 메인 홈 카드와
               통일(사용자 피드백 2026-07-27). 자체 마크업이면 DS 폭 변경이 안 먹는다. */}
-          <HorizontalScrollListComponent aria-label="A 티어 포켓몬 슬라이드">
+          <HorizontalScrollList aria-label="A 티어 포켓몬 슬라이드">
             {aTier.map((pokemon) => (
               <ChampionsTopCard
                 key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
@@ -107,7 +107,7 @@ const ChampionsHomeContainer = ({
                 formatSlug={formatSlug}
               />
             ))}
-          </HorizontalScrollListComponent>
+          </HorizontalScrollList>
         </section>
       )}
 
@@ -123,4 +123,4 @@ const ChampionsHomeContainer = ({
   )
 }
 
-export default ChampionsHomeContainer
+export default ChampionsHomeContent

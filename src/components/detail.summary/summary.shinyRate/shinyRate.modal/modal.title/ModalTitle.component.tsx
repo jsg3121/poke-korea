@@ -1,10 +1,10 @@
 import CloseIcon from '~/assets/close.svg'
 
-interface ModalTitleComponentProps {
+interface ModalTitleProps {
   onClickClose: () => void
 }
 
-const ModalTitleComponent = ({ onClickClose }: ModalTitleComponentProps) => {
+const ModalTitle = ({ onClickClose }: ModalTitleProps) => {
   const handleClickClose = () => {
     onClickClose()
   }
@@ -28,4 +28,4 @@ const ModalTitleComponent = ({ onClickClose }: ModalTitleComponentProps) => {
   )
 }
 
-export default ModalTitleComponent
+export default ModalTitle

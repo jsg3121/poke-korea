@@ -6,17 +6,17 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import { useDebounce } from '~/hooks/useDebounce'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 /**
  * /list 전용 헤더 검색 (모바일). 셸(인풋 h-8·12px 폰트·피드백 버튼)은
- * HeaderSearchContainer(전역 검색)와 동일하되, 동작만 다르다:
+ * HeaderSearch(전역 검색)와 동일하되, 동작만 다르다:
  * 드롭다운(→상세 이동) 대신 **리스트 필터**(`?name=` 디바운스 반영).
  *
  * 데스크톱이 이미 쓰는 MainSearch/DetailSearch 분기 패턴을 모바일에 맞춘 것
  * (UX-004 검색 동작 확정 — 셸은 전 페이지 동일, /list만 필터 동작).
  */
-const ListSearchContainer = () => {
+const ListSearch = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   // 초기값을 URL의 name과 동기화 — ''로 시작하면 ?name= 직접 진입 시 마운트
@@ -58,7 +58,7 @@ const ListSearchContainer = () => {
           onChange={handleChangeKeyword}
           className="w-full h-full text-xs text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"
         />
-        <ImageComponent
+        <Image
           src="/assets/image/search.svg"
           width="1.5rem"
           height="1.5rem"
@@ -80,4 +80,4 @@ const ListSearchContainer = () => {
   )
 }
 
-export default ListSearchContainer
+export default ListSearch

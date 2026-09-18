@@ -10,11 +10,11 @@ import {
 } from '~/utils/championsFormat.util'
 import { detectUserAgent } from '~/modules/device.module'
 import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import ChampionsDetailView from '~/views/champions/ChampionsDetail.view'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import ChampionsDetail from '~/views/champions/ChampionsDetail.view'
 
 import { fetchChampionsDetail } from './fetchChampionsDetail'
 
@@ -88,16 +88,16 @@ export const renderChampionsDetail = async ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsDetailView, ADR-0013). UA 분기는 전역 크롬
+      {/* 콘텐츠는 반응형 단일(ChampionsDetail, ADR-0013). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(E-1·ability·list 개편과 동일 패턴). */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ChampionsDetailView
+          <MobileHeader />
+          <ChampionsDetail
             detail={detail}
             formatSlug={formatSlug as ChampionsFormatSlug}
           />
-          <MobileFooterContainer />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
@@ -105,13 +105,13 @@ export const renderChampionsDetail = async ({
         // champions는 헤더 안에 SubNav가 붙어 ability/list의 pt-30(120px)보다 40px 크다(E-1 tier와 동일).
         <main className="w-full min-h-screen">
           <div className="h-40">
-            <DesktopHeaderContainer />
+            <DesktopHeader />
           </div>
-          <ChampionsDetailView
+          <ChampionsDetail
             detail={detail}
             formatSlug={formatSlug as ChampionsFormatSlug}
           />
-          <DesktopFooterContainer />
+          <DesktopFooter />
         </main>
       )}
     </>

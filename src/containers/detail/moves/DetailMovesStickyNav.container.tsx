@@ -11,10 +11,10 @@ import {
 } from '~/modules/movesParams.module'
 import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
-import MovesVersionNavComponent, {
+import MovesVersionNav, {
   MovesVersionNavItem,
 } from '~/components/moves/MovesVersionNav.component'
-import TabItemComponent from '~/components/tab/TabItem.component'
+import TabItem from '~/components/tab/TabItem.component'
 
 /**
  * 습득 기술 sticky 크롬 블록 (UX-006) — 학습법 탭 + 버전 선택 nav.
@@ -30,7 +30,7 @@ import TabItemComponent from '~/components/tab/TabItem.component'
  * 폼(일반/리전)·activeIndex는 컨텍스트가 갖고 있어 탭·버전 링크가 현재 폼을 유지한다.
  */
 
-const DetailMovesStickyNavContainer = () => {
+const DetailMovesStickyNav = () => {
   const { pokemonId } = useParams<{ pokemonId: string }>()
   const {
     pokemonInfo,
@@ -116,21 +116,21 @@ const DetailMovesStickyNavContainer = () => {
               기본 동작대로 최상단으로 튀면 방금 누른 탭이 시야에서 사라져
               맥락이 끊긴다(버전 nav도 동일 이유로 false) */}
           {methodTabs.map(({ method, label }) => (
-            <TabItemComponent
+            <TabItem
               key={method}
               href={buildMethodPath(method)}
               active={method === activeMethod}
               scroll={false}
             >
               {label}
-            </TabItemComponent>
+            </TabItem>
           ))}
         </nav>
         {/* storageKey: 버전 이동 시 재마운트돼 사라지는 가로 스크롤 위치를
             이어주는 sessionStorage 키. 포켓몬별로 버전 목록이 달라 pokemonId까지
             넣어야 다른 포켓몬의 위치를 물려받지 않는다(ADR-0015) */}
         {versionItems.length > 0 && (
-          <MovesVersionNavComponent
+          <MovesVersionNav
             items={versionItems}
             scroll={false}
             storageKey={`detail:${pokemonId}`}
@@ -141,4 +141,4 @@ const DetailMovesStickyNavContainer = () => {
   )
 }
 
-export default DetailMovesStickyNavContainer
+export default DetailMovesStickyNav

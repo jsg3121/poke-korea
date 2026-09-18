@@ -5,7 +5,7 @@ import {
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 interface ChampionsPartnerListProps {
   title: string
@@ -39,7 +39,7 @@ const ChampionsPartnerList = ({
             <div className="group flex items-center justify-between gap-2 text-sm p-2 -mx-1 rounded-lg hover:bg-primary-4/80 transition-colors">
               <div className="flex min-w-0 items-center gap-3">
                 {item.imagePath && (
-                  <ImageComponent
+                  <Image
                     src={`${imageMode}/${item.imagePath}`}
                     alt={displayName}
                     width="2.5rem"

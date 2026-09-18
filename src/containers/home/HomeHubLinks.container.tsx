@@ -13,8 +13,8 @@ import PokeballIcon from '~/assets/icons/pokeball.svg'
 import QuizIcon from '~/assets/icons/quiz.svg'
 import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
 import { CHAMPIONS_DEFAULT_FORMAT_SLUG } from '~/utils/championsFormat.util'
-import HubLinkCardComponent from '~/components/hubLinkCard/HubLinkCard.component'
-import SectionHeadingComponent from '~/components/SectionHeading.component'
+import HubLinkCard from '~/components/hubLinkCard/HubLinkCard.component'
+import SectionHeading from '~/components/SectionHeading.component'
 
 /**
  * 홈 허브 링크 섹션 — 콘텐츠 축 6개(도감·타입상성·기술·특성·챔피언스·퀴즈) 진입 타일
@@ -75,19 +75,19 @@ const HUB_LINKS: HubLink[] = [
   },
 ]
 
-const HomeHubLinksContainer = () => {
+const HomeHubLinks = () => {
   return (
     <section
       className="w-full px-4 desktop:px-8"
       aria-labelledby="home-hub-links-heading"
     >
-      <SectionHeadingComponent id="home-hub-links-heading">
+      <SectionHeading id="home-hub-links-heading">
         무엇을 찾고 계신가요?
-      </SectionHeadingComponent>
+      </SectionHeading>
 
       <div className="mt-4 grid grid-cols-2 gap-4 desktop:grid-cols-3">
         {HUB_LINKS.map((hub) => (
-          <HubLinkCardComponent
+          <HubLinkCard
             key={hub.href}
             href={hub.href}
             title={hub.title}
@@ -100,4 +100,4 @@ const HomeHubLinksContainer = () => {
   )
 }
 
-export default HomeHubLinksContainer
+export default HomeHubLinks

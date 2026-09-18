@@ -46,7 +46,7 @@ interface AppliedFilter {
   label: string
 }
 
-const FilterBarOrganism = () => {
+const FilterBar = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -194,4 +194,4 @@ const FilterBarOrganism = () => {
   )
 }
 
-export default FilterBarOrganism
+export default FilterBar

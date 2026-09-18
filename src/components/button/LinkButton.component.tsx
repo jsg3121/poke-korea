@@ -14,7 +14,7 @@ import { ButtonSize, ButtonVariant, getButtonClass } from './button.util'
  * className/style 등 스타일 우회 속성은 받지 않는다(DS 규격 유지). 외부 링크 CTA에
  * 필요한 접근성/기능 속성(aria-label·target·rel)만 선별 허용한다.
  */
-interface LinkButtonComponentProps {
+interface LinkButtonProps {
   href: string
   children: ReactNode
   variant?: ButtonVariant
@@ -30,7 +30,7 @@ interface LinkButtonComponentProps {
   rel?: string
 }
 
-const LinkButtonComponent = ({
+const LinkButton = ({
   href,
   children,
   variant = 'primary',
@@ -40,7 +40,7 @@ const LinkButtonComponent = ({
   'aria-label': ariaLabel,
   target,
   rel,
-}: LinkButtonComponentProps) => {
+}: LinkButtonProps) => {
   return (
     <Link
       href={href}
@@ -55,4 +55,4 @@ const LinkButtonComponent = ({
   )
 }
 
-export default LinkButtonComponent
+export default LinkButton

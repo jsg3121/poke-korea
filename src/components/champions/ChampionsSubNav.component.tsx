@@ -60,7 +60,7 @@ const matchSection = (pathname: string, section: SubNavSection): boolean => {
   return sectionSegment === section
 }
 
-const ChampionsSubNavOrganism = () => {
+const ChampionsSubNav = () => {
   const pathname = usePathname()
 
   return (
@@ -90,4 +90,4 @@ const ChampionsSubNavOrganism = () => {
   )
 }
 
-export default ChampionsSubNavOrganism
+export default ChampionsSubNav

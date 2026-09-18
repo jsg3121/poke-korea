@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import FilterIcon from '~/assets/icons/filter.svg'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import AppliedFilterChip from '~/components/chip/AppliedFilterChip.component'
-import ChipComponent from '~/components/chip/Chip.component'
+import Chip from '~/components/chip/Chip.component'
 import { ChipColor } from '~/components/chip/chip.types'
 import TypeChip from '~/components/chip/TypeChip.component'
 
@@ -47,7 +47,7 @@ const DAMAGE_OPTIONS: Array<{ label: string; color: ChipColor }> = [
 /** 첫 등장 세대 옵션 (1~9세대) */
 const GENERATION_OPTIONS = Array.from({ length: 9 }, (_, i) => `${i + 1}`)
 
-const MovesFilterBarContainer = () => {
+const MovesFilterBar = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -178,7 +178,7 @@ const MovesFilterBarContainer = () => {
             className="flex flex-wrap items-center gap-2 py-1"
           >
             {DAMAGE_OPTIONS.map(({ label, color }) => (
-              <ChipComponent
+              <Chip
                 key={`damage-filter-${label}`}
                 label={label}
                 color={color}
@@ -202,7 +202,7 @@ const MovesFilterBarContainer = () => {
                 key={`generation-filter-${generation}`}
                 className="shrink-0"
               >
-                <ChipComponent
+                <Chip
                   label={`${generation}세대`}
                   clickable
                   active={firstGenerationId === generation}
@@ -240,4 +240,4 @@ const MovesFilterBarContainer = () => {
   )
 }
 
-export default MovesFilterBarContainer
+export default MovesFilterBar

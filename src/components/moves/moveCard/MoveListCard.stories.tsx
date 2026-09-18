@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonSkill, PokemonType } from '~/graphql/typeGenerated'
 
-import MoveListCardComponent from './MoveListCard.component'
+import MoveListCard from './MoveListCard.component'
 
 /**
  * 기술 목록 카드. 기술 도감(/moves) 목록의 기술 항목 하나를 표시하는
@@ -25,7 +25,7 @@ const 몸통박치기: PokemonSkill = {
 
 const meta = {
   title: 'Components/MoveListCard',
-  component: MoveListCardComponent,
+  component: MoveListCard,
   parameters: {
     layout: 'padded',
     nextjs: { appDirectory: true },
@@ -46,7 +46,7 @@ const meta = {
     moveData: 몸통박치기,
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof MoveListCardComponent>
+} satisfies Meta<typeof MoveListCard>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -157,7 +157,7 @@ export const ListGrid: Story = {
           damageType: 'status',
         },
       ].map((move) => (
-        <MoveListCardComponent key={move.id} moveData={move} />
+        <MoveListCard key={move.id} moveData={move} />
       ))}
     </div>
   ),

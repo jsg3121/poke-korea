@@ -121,9 +121,9 @@ interface TabItemButtonProps
   href?: undefined
 }
 
-type TabItemComponentProps = TabItemLinkProps | TabItemButtonProps
+type TabItemProps = TabItemLinkProps | TabItemButtonProps
 
-const TabItemComponent = (props: TabItemComponentProps) => {
+const TabItem = (props: TabItemProps) => {
   const {
     children,
     variant = 'underline',
@@ -164,4 +164,4 @@ const TabItemComponent = (props: TabItemComponentProps) => {
   )
 }
 
-export default TabItemComponent
+export default TabItem

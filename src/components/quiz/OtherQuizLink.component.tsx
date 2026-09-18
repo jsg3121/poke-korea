@@ -12,7 +12,7 @@ interface OtherQuizLinkProps {
   currentQuiz: QuizType
 }
 
-const OtherQuizLinkComponent = ({ currentQuiz }: OtherQuizLinkProps) => {
+const OtherQuizLink = ({ currentQuiz }: OtherQuizLinkProps) => {
   return (
     <article className="w-full p-4 desktop:p-6 rounded-[1rem] bg-primary-4">
       <h3 className="text-lg desktop:text-xl font-bold text-primary-1 mb-3 desktop:mb-4">
@@ -36,4 +36,4 @@ const OtherQuizLinkComponent = ({ currentQuiz }: OtherQuizLinkProps) => {
   )
 }
 
-export default OtherQuizLinkComponent
+export default OtherQuizLink

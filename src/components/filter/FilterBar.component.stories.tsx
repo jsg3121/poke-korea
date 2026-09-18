@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import FilterBarOrganism from './FilterBar.component'
+import FilterBar from './FilterBar.component'
 
 /**
  * useRouter/useSearchParams/usePathname를 nextjs navigation 목킹으로 주입한다
@@ -9,7 +9,7 @@ import FilterBarOrganism from './FilterBar.component'
  */
 const meta = {
   title: 'Organisms/FilterBar',
-  component: FilterBarOrganism,
+  component: FilterBar,
   parameters: {
     layout: 'fullscreen',
     nextjs: {
@@ -29,7 +29,7 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof FilterBarOrganism>
+} satisfies Meta<typeof FilterBar>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -50,7 +50,7 @@ export const TwoTypesSelected: Story = {
 }
 
 /** 모바일 뷰 (칩 스크롤 줄 + 하단 액션 바) */
-export const MobileView: Story = {
+export const Mobile: Story = {
   parameters: {
     nextjs: {
       navigation: { pathname: '/list', query: { type: 'GRASS' } },

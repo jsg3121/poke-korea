@@ -10,11 +10,11 @@ import {
 import { detectUserAgent } from '~/modules/device.module'
 import { parseTypeSlug } from '~/modules/typeParams.module'
 import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import TypeEffectivenessDetailView from '~/views/typeEffectivenessDetail/TypeEffectivenessDetail.view'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import TypeEffectivenessDetail from '~/views/typeEffectivenessDetail/TypeEffectivenessDetail.view'
 
 import { fetchTypeDetailData } from './_fetch/typeDetail.fetch'
 import { generateTypeDetailMetadata } from './_metadata/generateTypeDetailMetadata'
@@ -86,27 +86,27 @@ const TypeDetailPage = async ({ params }: TypeDetailPageProps) => {
       {/* 콘텐츠는 반응형 단일(ADR-0007). UA 분기는 전역 크롬 선택으로만 남는다. */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <TypeEffectivenessDetailView
+          <MobileHeader />
+          <TypeEffectivenessDetail
             pokemonType={pokemonType}
             pokemons={pokemons}
             pokemonTotalCount={pokemonTotalCount}
             champions={champions}
           />
-          <MobileFooterContainer />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
         // pt-30(120px) = 데스크톱 fixed 헤더 실높이
         <main className="w-full min-h-screen pt-30">
-          <DesktopHeaderContainer />
-          <TypeEffectivenessDetailView
+          <DesktopHeader />
+          <TypeEffectivenessDetail
             pokemonType={pokemonType}
             pokemons={pokemons}
             pokemonTotalCount={pokemonTotalCount}
             champions={champions}
           />
-          <DesktopFooterContainer />
+          <DesktopFooter />
         </main>
       )}
       <script

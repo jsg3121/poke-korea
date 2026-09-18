@@ -14,7 +14,7 @@ import {
 import ChampionsTierBadge, {
   getTierColors,
 } from '~/components/champions/ChampionsTierBadge.component'
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
+import PokemonCardShell from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**
  * 챔피언스 홈/티어 슬라이드용 포켓몬 카드 (반응형 단일 DS 컴포넌트, UX-E1).
@@ -57,7 +57,7 @@ const ChampionsTopCard = ({
     pokemonData.usageRank != null ? `#${pokemonData.usageRank}` : '-'
 
   return (
-    <PokemonCardShellComponent
+    <PokemonCardShell
       href={detailHref}
       backgroundColor={backgroundColor}
       outlineColor={tierColors.outlineColor}
@@ -103,7 +103,7 @@ const ChampionsTopCard = ({
           </dd>
         </div>
       </dl>
-    </PokemonCardShellComponent>
+    </PokemonCardShell>
   )
 }
 

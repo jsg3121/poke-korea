@@ -6,15 +6,15 @@ import AbilityIcon from '~/assets/icons/ability.svg'
 import { Ability } from '~/graphql/typeGenerated'
 import { useAbilityList } from '~/hooks/useAbilityList'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
-import AbilityCardComponent from '~/components/ability/AbilityCard.component'
-import AbilityCardSkeletonComponent from '~/components/ability/AbilityCardSkeleton.component'
-import AbilityDescriptionBodyComponent from '~/components/ability/AbilityDescriptionBody.component'
+import AbilityCard from '~/components/ability/AbilityCard.component'
+import AbilityCardSkeleton from '~/components/ability/AbilityCardSkeleton.component'
+import AbilityDescriptionBody from '~/components/ability/AbilityDescriptionBody.component'
 import AbilityListTopBanner from '~/components/adSlot/AbilityListTopBanner.component'
-import ButtonComponent from '~/components/button/Button.component'
-import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import Button from '~/components/button/Button.component'
+import EmptyState from '~/components/emptyState/EmptyState.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
 
-import AbilitySearchContainer from './AbilitySearch.container'
+import AbilitySearch from './AbilitySearch.container'
 
 /**
  * 특성 도감 목록 (반응형 단일 — UX-007). 구버전 데/모 2벌 AbilityList.container를
@@ -38,15 +38,15 @@ const PAGE_SIZE = 12
 /** 추가 로드 중 표시할 스켈레톤 수 */
 const SKELETON_COUNT = 4
 
-interface AbilityListContainerProps {
+interface AbilityListContentProps {
   initialAbilities: Array<Ability>
   totalCount: number
 }
 
-const AbilityListContainer = ({
+const AbilityListContent = ({
   initialAbilities,
   totalCount,
-}: AbilityListContainerProps) => {
+}: AbilityListContentProps) => {
   const router = useRouter()
   const { abilityList, loadMore, hasNextPage, loading } = useAbilityList({
     initialAbilities,
@@ -69,7 +69,7 @@ const AbilityListContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8">
-      <PageHeaderComponent
+      <PageHeader
         title="특성 도감"
         description="포켓몬의 숨겨진 특성, 효과를 한눈에! 특성을 확인하고, 어떤 포켓몬이 가지고 있는지 빠르고 쉽게 확인하세요."
       />
@@ -77,7 +77,7 @@ const AbilityListContainer = ({
       {/* 광고 — 페이지 헤더 바로 아래(검색 앞) */}
       <AbilityListTopBanner />
 
-      <AbilitySearchContainer totalCount={totalCount} />
+      <AbilitySearch totalCount={totalCount} />
 
       {/* "특성이란?" — 기본 접힘. 정적 설명이라 재방문자 스캔 비용을 낮춘다.
           네이티브 details라 JS 없이 동작(최소 구현). 설명 본문은 기존 DS 재사용. */}
@@ -91,18 +91,18 @@ const AbilityListContainer = ({
             ▾
           </span>
         </summary>
-        <AbilityDescriptionBodyComponent />
+        <AbilityDescriptionBody />
       </details>
 
       {isEmpty ? (
-        <EmptyStateComponent
+        <EmptyState
           title="검색하신 이름의 특성이 없어요"
           description="다른 검색어로 다시 시도해 보세요"
           icon={<AbilityIcon />}
           action={
-            <ButtonComponent variant="secondary" onClick={handleReset}>
+            <Button variant="secondary" onClick={handleReset}>
               검색어 지우기
-            </ButtonComponent>
+            </Button>
           }
         />
       ) : (
@@ -112,13 +112,13 @@ const AbilityListContainer = ({
         >
           {abilityList.map((ability) => (
             <li key={`ability-id-${ability.id}`} className="w-full">
-              <AbilityCardComponent abilityData={ability} />
+              <AbilityCard abilityData={ability} />
             </li>
           ))}
           {isLoadingMore &&
             Array.from({ length: SKELETON_COUNT }, (_, i) => (
               <li key={`skeleton-${i}`} className="w-full">
-                <AbilityCardSkeletonComponent />
+                <AbilityCardSkeleton />
               </li>
             ))}
         </ul>
@@ -137,4 +137,4 @@ const AbilityListContainer = ({
   )
 }
 
-export default AbilityListContainer
+export default AbilityListContent

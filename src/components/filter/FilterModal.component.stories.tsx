@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import FilterModalOrganism from './FilterModal.component'
+import FilterModal from './FilterModal.component'
 
 /**
  * useRouter/useSearchParams/usePathname를 nextjs navigation 목킹으로 주입한다
@@ -11,7 +11,7 @@ const noop = () => undefined
 
 const meta = {
   title: 'Organisms/FilterModal',
-  component: FilterModalOrganism,
+  component: FilterModal,
   parameters: {
     layout: 'fullscreen',
     nextjs: {
@@ -35,7 +35,7 @@ const meta = {
     onClose: noop,
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof FilterModalOrganism>
+} satisfies Meta<typeof FilterModal>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -56,7 +56,7 @@ export const WithSelection: Story = {
 }
 
 /** 모바일 뷰 (풀스크린 시트) */
-export const MobileView: Story = {
+export const Mobile: Story = {
   parameters: {
     viewport: { defaultViewport: 'mobile' },
   },

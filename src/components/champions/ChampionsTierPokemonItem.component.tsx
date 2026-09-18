@@ -10,8 +10,8 @@ import {
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/Tag.component'
+import Image from '~/components/Image.component'
+import Tag from '~/components/Tag.component'
 
 interface ChampionsTierPokemonItemProps {
   pokemon: ChampionsMetaSummaryFragment
@@ -62,7 +62,7 @@ const ChampionsTierPokemonItem = ({
       {isHighPriority ? (
         <div className="w-24 h-24">
           {pokemon.imagePath && (
-            <ImageComponent
+            <Image
               src={`${imageMode}/${pokemon.imagePath}`}
               alt={pokemon.name ?? ''}
               width="6rem"
@@ -77,7 +77,7 @@ const ChampionsTierPokemonItem = ({
         <div ref={imgRef} className="w-24 h-24">
           {isVisible ? (
             pokemon.imagePath && (
-              <ImageComponent
+              <Image
                 src={`${imageMode}/${pokemon.imagePath}`}
                 alt={pokemon.name ?? ''}
                 width="6rem"
@@ -112,7 +112,7 @@ const ChampionsTierPokemonItem = ({
           aria-label="포켓몬 타입"
         >
           {pokemon.types.map((type, index) => (
-            <TagComponent key={`${type}-${index}`} type={type} />
+            <Tag key={`${type}-${index}`} type={type} />
           ))}
         </div>
       )}

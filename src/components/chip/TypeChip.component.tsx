@@ -1,6 +1,6 @@
 import { ChangeEvent, ChangeEventHandler, MouseEvent } from 'react'
 
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 /**
  * 타입 필터 칩 (DS 원자). 포켓몬 18종 타입 중 하나를 나타내는 **선택 가능한 아이콘 토글**.
@@ -58,7 +58,7 @@ type TypeChipProps = BaseTypeChipProps &
       }
   )
 
-const TypeChipComponent = ({
+const TypeChip = ({
   value,
   label,
   active,
@@ -107,7 +107,7 @@ const TypeChipComponent = ({
           group(label 조상)을 한 클래스에 체이닝하면 셀렉터가 깨지므로 group-hover만 쓰고,
           잠금(disabled) 시엔 뒤에 오는 peer-disabled:scale-100으로 확대를 상쇄한다 */}
       <span className="block h-6 w-6 opacity-40 drop-shadow-[1px_2px_0px_var(--color-black-1)] transition-[filter,opacity,transform] group-hover:scale-110 peer-focus-visible:scale-110 peer-checked:opacity-100 peer-focus-visible:opacity-100 peer-disabled:scale-100 peer-disabled:opacity-20 peer-disabled:grayscale desktop:h-8 desktop:w-8">
-        <ImageComponent
+        <Image
           alt=""
           aria-hidden="true"
           src={`/assets/type/${value.toLowerCase()}.svg`}
@@ -126,4 +126,4 @@ const TypeChipComponent = ({
   )
 }
 
-export default TypeChipComponent
+export default TypeChip

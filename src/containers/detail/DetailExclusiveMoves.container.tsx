@@ -9,10 +9,10 @@ import {
   hasDamageType,
 } from '~/utils/skill.util'
 import { DetailContext } from '~/context/Detail.context'
-import ChipComponent from '~/components/chip/Chip.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Chip from '~/components/chip/Chip.component'
+import Tag from '~/components/tag/Tag.component'
 
-import InfoCardTitleComponent from './components/InfoCardTitle.component'
+import InfoCardTitle from './components/InfoCardTitle.component'
 import {
   MoveConceptNote,
   MoveEffectDescription,
@@ -25,7 +25,7 @@ import {
  * 활성 폼에 해당 데이터가 없으면 렌더하지 않는다.
  */
 
-const DetailExclusiveMovesContainer = () => {
+const DetailExclusiveMoves = () => {
   const {
     pokemonBaseInfo,
     normalForm,
@@ -74,10 +74,7 @@ const DetailExclusiveMovesContainer = () => {
           aria-labelledby="pokemon-gmax-move"
           className="card-detail w-full"
         >
-          <InfoCardTitleComponent
-            title="거다이맥스 전용 기술"
-            id="pokemon-gmax-move"
-          />
+          <InfoCardTitle title="거다이맥스 전용 기술" id="pokemon-gmax-move" />
           <table className="w-full table-fixed">
             <colgroup>
               <col width="35%" />
@@ -97,7 +94,7 @@ const DetailExclusiveMovesContainer = () => {
               <tr className="h-10 text-xs desktop:text-base [&>td]:align-middle">
                 <td className="text-center font-semibold">{gmaxMove.nameKo}</td>
                 <td className="justify-items-center text-center">
-                  {gmaxMove.type && <TagComponent type={gmaxMove.type} />}
+                  {gmaxMove.type && <Tag type={gmaxMove.type} />}
                 </td>
                 <td className="text-center">{gmaxMove.power || '-'}</td>
                 {/* 거다이맥스 기술은 고정 분류가 없고 기반 기술(다이맥스 전 기술)의
@@ -123,7 +120,7 @@ const DetailExclusiveMovesContainer = () => {
           aria-labelledby="pokemon-z-move"
           className="card-detail w-full"
         >
-          <InfoCardTitleComponent title="전용 Z기술" id="pokemon-z-move" />
+          <InfoCardTitle title="전용 Z기술" id="pokemon-z-move" />
           {/* 타입 Tag·유형 Chip은 고정/최소폭 요소라, 셀 폭이 좁으면 넘친다. col width(px)는
               반응형이 안 되고(Tag가 모바일 48→데스크톱 56px으로 커짐) 데스크톱에서 되레
               좁아지므로, 해당 열 셀에 반응형 min-w를 준다: 타입 50→60px, 유형 53→64px,
@@ -161,14 +158,14 @@ const DetailExclusiveMovesContainer = () => {
                     {zMove.zSkill.nameKo}
                   </td>
                   <td className="justify-items-center text-center">
-                    <TagComponent type={zMove.zSkill.type} />
+                    <Tag type={zMove.zSkill.type} />
                   </td>
                   <td className="text-center text-2xs desktop:text-sm">
                     {zMove.zSkill.power || '-'}
                   </td>
                   <td className="justify-items-center text-center">
                     {hasDamageType(zMove.zSkill.damageType) ? (
-                      <ChipComponent
+                      <Chip
                         label={getDamageTypeKorean(zMove.zSkill.damageType)}
                         color={getDamageTypeChipColor(zMove.zSkill.damageType)}
                       />
@@ -206,4 +203,4 @@ const DetailExclusiveMovesContainer = () => {
   )
 }
 
-export default DetailExclusiveMovesContainer
+export default DetailExclusiveMoves

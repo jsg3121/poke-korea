@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import ChipComponent from './Chip.component'
+import Chip from './Chip.component'
 
 const meta = {
   title: 'Components/Chip',
-  component: ChipComponent,
+  component: Chip,
   parameters: {
     layout: 'centered',
     docs: {
@@ -31,7 +31,7 @@ const meta = {
     clickable: { control: 'boolean' },
     active: { control: 'boolean' },
   },
-} satisfies Meta<typeof ChipComponent>
+} satisfies Meta<typeof Chip>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -48,10 +48,10 @@ export const Default: Story = { args: { label: '1세대', color: undefined } }
 export const AllColors: Story = {
   render: () => (
     <div className="flex items-center gap-6">
-      <ChipComponent label="물리" color="physical" />
-      <ChipComponent label="특수" color="special" />
-      <ChipComponent label="변화" color="status" />
-      <ChipComponent label="1세대" />
+      <Chip label="물리" color="physical" />
+      <Chip label="특수" color="special" />
+      <Chip label="변화" color="status" />
+      <Chip label="1세대" />
     </div>
   ),
 }
@@ -65,9 +65,9 @@ export const Clickable: Story = {
 
   render: () => (
     <div className="flex items-center gap-6">
-      <ChipComponent label="물리" color="physical" clickable active />
-      <ChipComponent label="특수" color="special" clickable />
-      <ChipComponent label="변화" color="status" clickable />
+      <Chip label="물리" color="physical" clickable active />
+      <Chip label="특수" color="special" clickable />
+      <Chip label="변화" color="status" clickable />
     </div>
   ),
 }
@@ -76,9 +76,9 @@ export const Clickable: Story = {
 export const ClickableDefault: Story = {
   render: () => (
     <div className="flex items-center gap-6">
-      <ChipComponent label="1세대" clickable active />
-      <ChipComponent label="2세대" clickable />
-      <ChipComponent label="3세대" clickable />
+      <Chip label="1세대" clickable active />
+      <Chip label="2세대" clickable />
+      <Chip label="3세대" clickable />
     </div>
   ),
 }

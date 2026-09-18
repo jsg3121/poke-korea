@@ -94,7 +94,7 @@ interface ChipClickableProps extends ChipBaseProps {
 
 type ChipProps = ChipDisplayProps | ChipClickableProps
 
-const ChipComponent = (props: ChipProps) => {
+const Chip = (props: ChipProps) => {
   const { label, color } = props
 
   // 표시 전용 — span (포커스/클릭 없음)
@@ -117,4 +117,4 @@ const ChipComponent = (props: ChipProps) => {
   )
 }
 
-export default ChipComponent
+export default Chip

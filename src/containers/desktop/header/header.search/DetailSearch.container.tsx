@@ -2,7 +2,7 @@
 
 import { useSearchPokemon } from '~/hooks/useSearchPokemon'
 import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 const DetailSearch = () => {
   const {
@@ -36,7 +36,7 @@ const DetailSearch = () => {
           type="submit"
           className="w-8 h-8 absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer"
         >
-          <ImageComponent
+          <Image
             src="/assets/image/search.svg"
             width="2rem"
             height="2rem"

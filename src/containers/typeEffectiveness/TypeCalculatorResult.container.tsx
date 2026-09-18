@@ -7,9 +7,9 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/modules/calculateRelationType.module'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
-import TagComponent from '~/components/tag/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 
-import TypeEffectivenessCtaContainer from './TypeEffectivenessCta.container'
+import TypeEffectivenessCta from './TypeEffectivenessCta.container'
 
 /**
  * 상성 계산 결과 (반응형 단일 — UX-009). 구버전 데/모 2벌
@@ -74,7 +74,7 @@ const ResultSection = ({
                   aria-label={`${PokemonTypes[type]} 타입 포켓몬 도감 보기`}
                   className="inline-flex rounded-lg p-0.5 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
                 >
-                  <TagComponent type={type} />
+                  <Tag type={type} />
                 </Link>
               ))}
             </dd>
@@ -85,7 +85,7 @@ const ResultSection = ({
   )
 }
 
-const TypeCalculatorResultContainer = () => {
+const TypeCalculatorResult = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
 
   const { double, half, quad, quarter, zero } =
@@ -163,11 +163,11 @@ const TypeCalculatorResultContainer = () => {
             />
           </div>
 
-          <TypeEffectivenessCtaContainer />
+          <TypeEffectivenessCta />
         </section>
       )}
     </div>
   )
 }
 
-export default TypeCalculatorResultContainer
+export default TypeCalculatorResult

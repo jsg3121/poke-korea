@@ -6,8 +6,8 @@ import {
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/Tag.component'
+import Image from '~/components/Image.component'
+import Tag from '~/components/Tag.component'
 
 interface ChampionsTournamentSlotCardProps {
   slot: ChampionsTeamSlotFragment
@@ -32,7 +32,7 @@ const getFormBadge = (
 
 /**
  * teraType 문자열 (예: "fairy") → PokemonType enum.
- * TagComponent 가 enum 만 받으므로 변환.
+ * Tag 가 enum 만 받으므로 변환.
  * 매칭 실패 시 null 반환 → 텍스트 폴백.
  */
 const resolveTeraType = (teraType: string | null): PokemonType | null => {
@@ -88,7 +88,7 @@ const ChampionsTournamentSlotCard = ({
       <div className="flex flex-col items-center mb-2">
         <div className="w-16 h-16" aria-hidden="true">
           {slot.imagePath ? (
-            <ImageComponent
+            <Image
               src={`${imageMode}/${slot.imagePath}`}
               alt={`${displayName} 포켓몬 이미지`}
               width="4rem"
@@ -141,7 +141,7 @@ const ChampionsTournamentSlotCard = ({
             </dt>
             <dd className="flex items-center">
               {teraEnum ? (
-                <TagComponent type={teraEnum} />
+                <Tag type={teraEnum} />
               ) : (
                 <span className="text-primary-1 font-semibold">
                   {slot.teraType}

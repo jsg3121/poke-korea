@@ -21,11 +21,11 @@ import {
 import { initializeApollo } from '~/modules/apolloClient.module'
 import { detectUserAgent } from '~/modules/device.module'
 import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import ChampionsTierView from '~/views/champions/ChampionsTier.view'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import ChampionsTier from '~/views/champions/ChampionsTier.view'
 
 import { generateChampionsTierMetadata } from '../../_metadata/championsMetadata'
 
@@ -171,18 +171,18 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(tierListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsTierView, ADR-0007). UA 분기는 전역 크롬
+      {/* 콘텐츠는 반응형 단일(ChampionsTier, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(ability·list 개편과 동일 패턴). */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ChampionsTierView
+          <MobileHeader />
+          <ChampionsTier
             tierGroups={tierGroups}
             teamCores={teamCores}
             formatSlug={formatSlug as ChampionsFormatSlug}
             latestUpdatedAt={latestUpdatedAt}
           />
-          <MobileFooterContainer />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
@@ -190,15 +190,15 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
         // champions는 헤더 안에 SubNav가 붙어 ability/list의 pt-30(120px)보다 40px 크다.
         <main className="w-full min-h-screen">
           <div className="h-40">
-            <DesktopHeaderContainer />
+            <DesktopHeader />
           </div>
-          <ChampionsTierView
+          <ChampionsTier
             tierGroups={tierGroups}
             teamCores={teamCores}
             formatSlug={formatSlug as ChampionsFormatSlug}
             latestUpdatedAt={latestUpdatedAt}
           />
-          <DesktopFooterContainer />
+          <DesktopFooter />
         </main>
       )}
     </>

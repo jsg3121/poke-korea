@@ -6,8 +6,8 @@ import { useParams } from 'next/navigation'
 
 import { imageMode } from '~/modules/buildMode.module'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Image from '~/components/Image.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 습득 기술 요약 히어로 (UX-006) — 상세로 돌아가기 링크 + 식별 정보(이미지·번호·
@@ -18,7 +18,7 @@ import TagComponent from '~/components/tag/Tag.component'
  * 단일 마크업 — UA 분기·display:none 없이 CSS(desktop:)만으로 반응(ADR-0007).
  */
 
-const DetailMovesHeroContainer = () => {
+const DetailMovesHero = () => {
   const { pokemonId } = useParams<{ pokemonId: string }>()
   const {
     pokemonInfo,
@@ -101,11 +101,11 @@ const DetailMovesHeroContainer = () => {
 
       <article className="card-detail mt-4 flex flex-col gap-4 desktop:flex-row desktop:items-center desktop:gap-6">
         <div className="flex items-center gap-4">
-          {/* ImageComponent는 figure(width/height prop)와 img(imageSize·className)가
+          {/* Image는 figure(width/height prop)와 img(imageSize·className)가
               별개다 — wrapper div가 반응형 크기·drop-shadow를 잡고, figure는 100%,
               img는 h-full w-full object-contain으로 채운다(상세 Hero 정석 패턴). */}
           <div className="h-24 w-24 shrink-0 [filter:drop-shadow(0px_2px_2px_#000000)] desktop:h-28 desktop:w-28">
-            <ImageComponent
+            <Image
               width="100%"
               height="100%"
               src={`${imageMode}/${imagePath}`}
@@ -127,7 +127,7 @@ const DetailMovesHeroContainer = () => {
             <ul className="flex gap-1.5" aria-label="타입">
               {pokemonInfo?.types?.map((type) => (
                 <li key={`${pokemonId}-type-${type}`}>
-                  <TagComponent type={type} />
+                  <Tag type={type} />
                 </li>
               ))}
             </ul>
@@ -233,4 +233,4 @@ const FormSlideLink = ({
   )
 }
 
-export default DetailMovesHeroContainer
+export default DetailMovesHero

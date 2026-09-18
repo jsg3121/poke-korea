@@ -48,7 +48,7 @@ const LIST_CLASS = 'list-disc pl-5 mt-2 space-y-1.5'
 const STRONG_CLASS = 'font-bold text-primary-4'
 const LINK_CLASS = 'font-bold text-primary-4 underline underline-offset-2'
 
-const PrivacyView = () => {
+const Privacy = () => {
   return (
     <article className="w-full max-w-[1280px] mx-auto px-5 py-10">
       <header className="mb-8 pb-6 border-b border-primary-2">
@@ -264,4 +264,4 @@ const PrivacyView = () => {
   )
 }
 
-export default PrivacyView
+export default Privacy

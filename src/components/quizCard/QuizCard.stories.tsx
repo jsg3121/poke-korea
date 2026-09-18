@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import TagComponent from '../tag/Tag.component'
-import QuizCardComponent from './QuizCard.component'
+import Tag from '../tag/Tag.component'
+import QuizCard from './QuizCard.component'
 
 /** 스토리용 답안 버튼 (실제 사용처는 QuizAnswerButton을 슬롯에 주입) */
 const AnswerButtons = ({ options }: { options: string[] }) => (
@@ -22,7 +22,7 @@ const AnswerButtons = ({ options }: { options: string[] }) => (
 
 const meta = {
   title: 'Components/QuizCard',
-  component: QuizCardComponent,
+  component: QuizCard,
   parameters: {
     docs: {
       description: {
@@ -36,7 +36,7 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof QuizCardComponent>
+} satisfies Meta<typeof QuizCard>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -102,7 +102,7 @@ export const PokemonTypeQuiz: Story = {
     answersLabel: '타입 퀴즈 답안 선택',
     body: (
       <div className="flex flex-col flex-wrap items-center justify-center gap-2">
-        <TagComponent type={'WATER' as PokemonType} />
+        <Tag type={'WATER' as PokemonType} />
         <p className="text-primary-1">타입을 가진 포켓몬은 누굴까요?</p>
       </div>
     ),
@@ -136,7 +136,7 @@ export const DesktopGrid: Story = {
   ],
   render: () => (
     <div className="grid grid-cols-3 gap-6">
-      <QuizCardComponent
+      <QuizCard
         icon="🔍"
         title="실루엣 퀴즈"
         description="이 실루엣은 어떤 포켓몬일까요?"
@@ -152,7 +152,7 @@ export const DesktopGrid: Story = {
           <AnswerButtons options={['이상해씨', '꼬부기', '파이리', '피카츄']} />
         }
       />
-      <QuizCardComponent
+      <QuizCard
         icon="✨"
         title="특성 퀴즈"
         description="이 특성을 가진 포켓몬은?"
@@ -167,7 +167,7 @@ export const DesktopGrid: Story = {
           <AnswerButtons options={['잔비', '가뭄', '모래날림', '눈퍼뜨리기']} />
         }
       />
-      <QuizCardComponent
+      <QuizCard
         icon="🎨"
         title="타입 퀴즈"
         description="주어진 타입의 포켓몬을 골라주세요!"
@@ -175,7 +175,7 @@ export const DesktopGrid: Story = {
         answersLabel="타입 퀴즈 답안 선택"
         body={
           <div className="flex flex-col flex-wrap items-center justify-center gap-2">
-            <TagComponent type={'WATER' as PokemonType} />
+            <Tag type={'WATER' as PokemonType} />
             <p className="text-primary-1">타입을 가진 포켓몬은 누굴까요?</p>
           </div>
         }
@@ -205,7 +205,7 @@ export const Mobile: Story = {
   },
   render: () => (
     <div className="grid gap-6 px-5 py-4">
-      <QuizCardComponent
+      <QuizCard
         icon="🔍"
         title="실루엣 퀴즈"
         description="이 실루엣은 어떤 포켓몬일까요?"
@@ -221,7 +221,7 @@ export const Mobile: Story = {
           <AnswerButtons options={['이상해씨', '꼬부기', '파이리', '피카츄']} />
         }
       />
-      <QuizCardComponent
+      <QuizCard
         icon="✨"
         title="특성 퀴즈"
         description="이 특성을 가진 포켓몬은?"

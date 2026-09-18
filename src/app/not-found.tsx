@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { imageMode } from '~/modules/buildMode.module'
 import { detectUserAgent } from '~/modules/device.module'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 import MobileTabBar from '~/components/MobileTabBar.component'
 import HeaderContainerDesktop from '~/containers/desktop/header/Header.container'
 import HeaderContainerMobile from '~/containers/mobile/header/Header.container'
@@ -70,7 +70,7 @@ const NotFound = async () => {
             className={`flex ${isMobile ? 'flex-wrap justify-center' : ''} gap-3 justify-center`}
           >
             <Link href="/detail/25">
-              <ImageComponent
+              <Image
                 height="10rem"
                 width="10rem"
                 src={`${imageMode}/25`}
@@ -85,7 +85,7 @@ const NotFound = async () => {
               </p>
             </Link>
             <Link href="/detail/6">
-              <ImageComponent
+              <Image
                 height="10rem"
                 width="10rem"
                 src={`${imageMode}/6`}
@@ -100,7 +100,7 @@ const NotFound = async () => {
               </p>
             </Link>
             <Link href="/detail/133">
-              <ImageComponent
+              <Image
                 height="10rem"
                 width="10rem"
                 src={`${imageMode}/133`}
@@ -115,7 +115,7 @@ const NotFound = async () => {
               </p>
             </Link>
             <Link href="/detail/150">
-              <ImageComponent
+              <Image
                 height="10rem"
                 width="10rem"
                 src={`${imageMode}/150`}

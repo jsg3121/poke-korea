@@ -8,7 +8,7 @@ import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath, buildTypeSlug } from '~/modules/typeParams.module'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 /**
  * 타입 미선택 시 노출하는 타입 상세 바로가기.
@@ -48,7 +48,7 @@ const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
     ) as PokemonType,
 )
 
-const TypeQuickLinksContainer = () => {
+const TypeQuickLinks = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
 
   // 타입을 고르면 결과가 이 자리를 차지하므로 물러난다.
@@ -97,7 +97,7 @@ const TypeQuickLinksContainer = () => {
               className="flex min-h-touch w-full min-w-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-solid border-primary-2 px-1.5 py-1.5 text-sm font-semibold text-primary-3 transition-colors hover:border-primary-4 hover:bg-primary-2 hover:text-primary-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 desktop:gap-1.5 desktop:px-2"
             >
               <span className="block h-3.5 w-3.5 shrink-0 desktop:h-5 desktop:w-5">
-                <ImageComponent
+                <Image
                   alt=""
                   aria-hidden="true"
                   src={`/assets/type/${buildTypeSlug(type)}.svg`}
@@ -115,4 +115,4 @@ const TypeQuickLinksContainer = () => {
   )
 }
 
-export default TypeQuickLinksContainer
+export default TypeQuickLinks

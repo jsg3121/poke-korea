@@ -7,9 +7,7 @@ interface QuizSkipButtonProps {
   onClickSkipButton: () => void
 }
 
-const QuizSkipButtonComponent = ({
-  onClickSkipButton,
-}: QuizSkipButtonProps) => {
+const QuizSkipButton = ({ onClickSkipButton }: QuizSkipButtonProps) => {
   return (
     <button
       type="button"
@@ -21,4 +19,4 @@ const QuizSkipButtonComponent = ({
   )
 }
 
-export default QuizSkipButtonComponent
+export default QuizSkipButton

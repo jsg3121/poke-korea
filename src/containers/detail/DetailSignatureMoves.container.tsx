@@ -4,11 +4,11 @@ import { useContext } from 'react'
 
 import { getDamageTypeChipColor } from '~/utils/skill.util'
 import { DetailContext } from '~/context/Detail.context'
-import MoveTableComponent, {
+import MoveTable, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 
-import InfoCardTitleComponent from './components/InfoCardTitle.component'
+import InfoCardTitle from './components/InfoCardTitle.component'
 import {
   MoveConceptNote,
   MoveEffectDescription,
@@ -22,7 +22,7 @@ import {
  * 전용기가 없는 포켓몬은 렌더하지 않는다(Z기술 카드와 동일 패턴).
  */
 
-const DetailSignatureMovesContainer = () => {
+const DetailSignatureMoves = () => {
   const { activeTypeInfo } = useContext(DetailContext)
 
   const levelUpSkills = activeTypeInfo.learnableSkills?.levelUpSkills ?? []
@@ -74,8 +74,8 @@ const DetailSignatureMovesContainer = () => {
       aria-labelledby="pokemon-signature-move"
       className="card-detail w-full"
     >
-      <InfoCardTitleComponent title="전용기" id="pokemon-signature-move" />
-      <MoveTableComponent moves={signatureMoves} ariaLabel="전용기 목록" />
+      <InfoCardTitle title="전용기" id="pokemon-signature-move" />
+      <MoveTable moves={signatureMoves} ariaLabel="전용기 목록" />
       {descriptions.map((desc) => (
         <MoveEffectDescription
           key={`${desc.id}-desc`}
@@ -91,4 +91,4 @@ const DetailSignatureMovesContainer = () => {
   )
 }
 
-export default DetailSignatureMovesContainer
+export default DetailSignatureMoves

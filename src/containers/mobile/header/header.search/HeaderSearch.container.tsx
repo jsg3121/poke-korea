@@ -5,9 +5,9 @@ import Link from 'next/link'
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import { useSearchPokemon } from '~/hooks/useSearchPokemon'
 import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
-const HeaderSearchContainer = () => {
+const HeaderSearch = () => {
   const {
     searchRef,
     isShowSearchResult,
@@ -35,7 +35,7 @@ const HeaderSearchContainer = () => {
           onChange={handleChangeKeyword}
           className="w-full h-full text-xs text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"
         />
-        <ImageComponent
+        <Image
           src="/assets/image/search.svg"
           width="1.5rem"
           height="1.5rem"
@@ -59,4 +59,4 @@ const HeaderSearchContainer = () => {
   )
 }
 
-export default HeaderSearchContainer
+export default HeaderSearch

@@ -2,9 +2,9 @@
 
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
-import ChampionsDetailContainer from '~/containers/champions/ChampionsDetail.container'
+import ChampionsDetailContent from '~/containers/champions/ChampionsDetailContent.container'
 
-interface ChampionsDetailViewProps {
+interface ChampionsDetailProps {
   detail: ChampionsPokemonDetailFragment
   formatSlug: ChampionsFormatSlug
 }
@@ -16,11 +16,8 @@ interface ChampionsDetailViewProps {
  * 전역 크롬(헤더/푸터/탭바)은 renderChampionsDetail이 UA로 선택하고, 본문만 이
  * 뷰가 담당한다(E-1·ability·list 개편과 동일 패턴).
  */
-const ChampionsDetailView = ({
-  detail,
-  formatSlug,
-}: ChampionsDetailViewProps) => {
-  return <ChampionsDetailContainer detail={detail} formatSlug={formatSlug} />
+const ChampionsDetail = ({ detail, formatSlug }: ChampionsDetailProps) => {
+  return <ChampionsDetailContent detail={detail} formatSlug={formatSlug} />
 }
 
-export default ChampionsDetailView
+export default ChampionsDetail

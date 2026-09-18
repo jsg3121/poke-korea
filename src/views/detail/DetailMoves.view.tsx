@@ -1,7 +1,7 @@
 import DetailMovesTopBanner from '~/components/adSlot/DetailMovesTopBanner.component'
-import DetailMovesHeroContainer from '~/containers/detail/moves/DetailMovesHero.container'
-import DetailMovesListContainer from '~/containers/detail/moves/DetailMovesList.container'
-import DetailMovesStickyNavContainer from '~/containers/detail/moves/DetailMovesStickyNav.container'
+import DetailMovesHero from '~/containers/detail/moves/DetailMovesHero.container'
+import DetailMovesList from '~/containers/detail/moves/DetailMovesList.container'
+import DetailMovesStickyNav from '~/containers/detail/moves/DetailMovesStickyNav.container'
 
 /**
  * 습득 기술 페이지 뷰 (반응형 단일 — UX-006). 데/모 2벌(DetailMoves.desktop/mobile)의
@@ -16,25 +16,25 @@ import DetailMovesStickyNavContainer from '~/containers/detail/moves/DetailMoves
  * DetailMovesProvider(호출부 주입).
  */
 
-interface DetailMovesViewProps {
+interface DetailMovesProps {
   pokemonName: string
 }
 
-const DetailMovesView = ({ pokemonName }: DetailMovesViewProps) => {
+const DetailMoves = ({ pokemonName }: DetailMovesProps) => {
   return (
     <>
       <h1 className="sr-only">{pokemonName} 상세 습득 기술 정보</h1>
       <div className="flex w-full flex-col gap-5 py-6 desktop:gap-6 desktop:py-8">
-        <DetailMovesHeroContainer />
+        <DetailMovesHero />
         {/* 광고 — 히어로 아래·학습법(레벨업/기술머신) 탭 위 */}
         <DetailMovesTopBanner />
-        <DetailMovesStickyNavContainer />
+        <DetailMovesStickyNav />
         <div className="w-full px-4 desktop:mx-auto desktop:max-w-7xl">
-          <DetailMovesListContainer />
+          <DetailMovesList />
         </div>
       </div>
     </>
   )
 }
 
-export default DetailMovesView
+export default DetailMoves

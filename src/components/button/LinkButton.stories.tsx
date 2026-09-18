@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import LinkButtonComponent from './LinkButton.component'
+import LinkButton from './LinkButton.component'
 
 const meta = {
   title: 'Components/LinkButton',
-  component: LinkButtonComponent,
+  component: LinkButton,
   parameters: {
     layout: 'centered',
     docs: {
@@ -25,7 +25,7 @@ const meta = {
     fullWidth: { control: 'boolean' },
     showArrow: { control: 'boolean' },
   },
-} satisfies Meta<typeof LinkButtonComponent>
+} satisfies Meta<typeof LinkButton>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -47,15 +47,15 @@ export const Secondary: Story = {
 export const AllVariants: Story = {
   render: (args) => (
     <div className="flex items-center gap-4">
-      <LinkButtonComponent {...args} variant="primary">
+      <LinkButton {...args} variant="primary">
         Primary
-      </LinkButtonComponent>
-      <LinkButtonComponent {...args} variant="secondary">
+      </LinkButton>
+      <LinkButton {...args} variant="secondary">
         Secondary
-      </LinkButtonComponent>
-      <LinkButtonComponent {...args} variant="ghost">
+      </LinkButton>
+      <LinkButton {...args} variant="ghost">
         Ghost
-      </LinkButtonComponent>
+      </LinkButton>
     </div>
   ),
 }

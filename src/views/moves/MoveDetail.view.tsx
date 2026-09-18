@@ -7,9 +7,9 @@ import {
 } from '~/graphql/typeGenerated'
 import MovesDetailBottomBanner from '~/components/adSlot/MovesDetailBottomBanner.component'
 import MovesDetailTopBanner from '~/components/adSlot/MovesDetailTopBanner.component'
-import MoveDetailHeroContainer from '~/containers/moves/MoveDetailHero.container'
-import MoveDetailVersionNavContainer from '~/containers/moves/MoveDetailVersionNav.container'
-import PokemonBySkillListContainer from '~/containers/moves/PokemonBySkillList.container'
+import MoveDetailHero from '~/containers/moves/MoveDetailHero.container'
+import MoveDetailVersionNav from '~/containers/moves/MoveDetailVersionNav.container'
+import PokemonBySkillList from '~/containers/moves/PokemonBySkillList.container'
 
 /**
  * 기술 상세 뷰 (반응형 단일 — UX-008). 데/모 2벌(MoveDetail.desktop/.mobile)의
@@ -30,7 +30,7 @@ import PokemonBySkillListContainer from '~/containers/moves/PokemonBySkillList.c
  * 크롬(전역 헤더/푸터/탭바) 선택은 호출부(page.tsx) 책임 — ability 뷰와 동일 패턴.
  */
 
-interface MoveDetailViewProps {
+interface MoveDetailProps {
   skillId: number
   initialSkill: PokemonSkillDetail
   initialPokemonList: Array<PokemonLearnInfo>
@@ -39,18 +39,18 @@ interface MoveDetailViewProps {
   versionGroups?: Array<VersionGroup> | null
 }
 
-const MoveDetailView = ({
+const MoveDetail = ({
   skillId,
   initialSkill,
   initialPokemonList,
   totalCount,
   selectedVersionGroupId,
   versionGroups,
-}: MoveDetailViewProps) => {
+}: MoveDetailProps) => {
   return (
     <>
       <div className="w-full max-w-[1280px] mx-auto px-4 py-6">
-        <MoveDetailHeroContainer
+        <MoveDetailHero
           skillData={initialSkill}
           selectedVersionGroupId={selectedVersionGroupId}
           learnablePokemonCount={totalCount}
@@ -60,14 +60,14 @@ const MoveDetailView = ({
         <MovesDetailTopBanner />
       </div>
 
-      <MoveDetailVersionNavContainer
+      <MoveDetailVersionNav
         skillId={skillId}
         versionGroups={versionGroups}
         selectedVersionGroupId={selectedVersionGroupId}
       />
 
       <div className="w-full max-w-[1280px] mx-auto px-4 py-6 pb-8">
-        <PokemonBySkillListContainer
+        <PokemonBySkillList
           skillId={skillId}
           initialPokemonList={initialPokemonList}
           totalCount={totalCount}
@@ -82,4 +82,4 @@ const MoveDetailView = ({
   )
 }
 
-export default MoveDetailView
+export default MoveDetail

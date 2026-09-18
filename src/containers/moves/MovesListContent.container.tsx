@@ -7,14 +7,14 @@ import MovesListIcon from '~/assets/icons/movesList.svg'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { MovesContext } from '~/context/Moves.context'
 import MovesListTopBanner from '~/components/adSlot/MovesListTopBanner.component'
-import ButtonComponent from '~/components/button/Button.component'
-import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
-import MoveListCardComponent from '~/components/moves/moveCard/MoveListCard.component'
-import MoveListCardSkeletonComponent from '~/components/moves/moveCard/MoveListCardSkeleton.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import Button from '~/components/button/Button.component'
+import EmptyState from '~/components/emptyState/EmptyState.component'
+import MoveListCard from '~/components/moves/moveCard/MoveListCard.component'
+import MoveListCardSkeleton from '~/components/moves/moveCard/MoveListCardSkeleton.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
 
-import MovesFilterBarContainer from './MovesFilterBar.container'
-import MovesSearchContainer from './MovesSearch.container'
+import MovesFilterBar from './MovesFilterBar.container'
+import MovesSearch from './MovesSearch.container'
 
 /**
  * 기술 도감 목록 (반응형 단일 — UX-008). 구버전 데/모 2벌 MovesList.container를
@@ -39,7 +39,7 @@ import MovesSearchContainer from './MovesSearch.container'
 /** 추가 로드 중 표시할 스켈레톤 수 (ability/list와 동일 수치) */
 const SKELETON_COUNT = 4
 
-const MovesListContainer = () => {
+const MovesListContent = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -65,7 +65,7 @@ const MovesListContainer = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8">
-      <PageHeaderComponent
+      <PageHeader
         title="포켓몬 기술 도감"
         description="포켓몬이 사용할 수 있는 모든 기술을 한눈에 확인하세요. 타입, 위력, PP, 설명을 확인하고 검색할 수 있습니다."
       />
@@ -76,20 +76,20 @@ const MovesListContainer = () => {
       {/* sticky 크롬 — 검색(상시) + 필터바(접이식) + 적용 필터 칩(상시).
           -mx-4/px-4로 배경(bg-primary-1)을 gutter까지 채워 스크롤 콘텐츠를 가린다 */}
       <div className="sticky top-12 z-30 -mx-4 bg-primary-1 px-4 pb-1 pt-4 desktop:top-30">
-        <MovesSearchContainer totalCount={totalCount} />
-        <MovesFilterBarContainer />
+        <MovesSearch totalCount={totalCount} />
+        <MovesFilterBar />
       </div>
 
       {isEmpty ? (
-        <EmptyStateComponent
+        <EmptyState
           title="검색하신 조건의 기술이 없어요"
           description="검색어나 필터 조건을 바꿔 다시 시도해 보세요"
           icon={<MovesListIcon />}
           action={
             hasAnyQuery ? (
-              <ButtonComponent variant="secondary" onClick={handleReset}>
+              <Button variant="secondary" onClick={handleReset}>
                 검색·필터 초기화
-              </ButtonComponent>
+              </Button>
             ) : undefined
           }
         />
@@ -100,13 +100,13 @@ const MovesListContainer = () => {
         >
           {skillList.map((skill) => (
             <li key={`move-id-${skill.id}`} className="w-full">
-              <MoveListCardComponent moveData={skill} />
+              <MoveListCard moveData={skill} />
             </li>
           ))}
           {isLoadingMore &&
             Array.from({ length: SKELETON_COUNT }, (_, i) => (
               <li key={`skeleton-${i}`} className="w-full">
-                <MoveListCardSkeletonComponent />
+                <MoveListCardSkeleton />
               </li>
             ))}
         </ul>
@@ -125,4 +125,4 @@ const MovesListContainer = () => {
   )
 }
 
-export default MovesListContainer
+export default MovesListContent

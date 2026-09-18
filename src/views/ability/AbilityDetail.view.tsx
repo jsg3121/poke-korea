@@ -1,7 +1,7 @@
 'use client'
 
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
-import PokemonByAbilityContainer from '~/containers/ability/PokemonByAbility.container'
+import PokemonByAbility from '~/containers/ability/PokemonByAbility.container'
 
 /**
  * 특성별 포켓몬 뷰 (반응형 단일 — UX-007). 데/모 2벌(AbilityDetail.desktop/.mobile)의
@@ -10,21 +10,21 @@ import PokemonByAbilityContainer from '~/containers/ability/PokemonByAbility.con
  * 크롬(전역 헤더/푸터/탭바) 선택은 호출부(page.tsx) 책임 — list 뷰와 동일 패턴.
  */
 
-interface AbilityDetailViewProps {
+interface AbilityDetailProps {
   abilityId: number
   initialAbility: Ability
   initialPokemon: Array<PokemonWithAbility>
   totalCount: number
 }
 
-const AbilityDetailView = ({
+const AbilityDetail = ({
   abilityId,
   initialAbility,
   initialPokemon,
   totalCount,
-}: AbilityDetailViewProps) => {
+}: AbilityDetailProps) => {
   return (
-    <PokemonByAbilityContainer
+    <PokemonByAbility
       abilityId={abilityId}
       initialAbility={initialAbility}
       initialPokemon={initialPokemon}
@@ -33,4 +33,4 @@ const AbilityDetailView = ({
   )
 }
 
-export default AbilityDetailView
+export default AbilityDetail

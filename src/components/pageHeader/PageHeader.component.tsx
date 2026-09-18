@@ -13,7 +13,7 @@ interface PageHeaderProps {
   description: string
 }
 
-const PageHeaderComponent = ({ title, description }: PageHeaderProps) => {
+const PageHeader = ({ title, description }: PageHeaderProps) => {
   return (
     <header className="w-full text-center border-b border-solid border-primary-4 pt-4 pb-2 mb-6 desktop:mb-8">
       <h1 className="text-2xl desktop:text-4xl font-bold leading-tight text-primary-4">
@@ -26,4 +26,4 @@ const PageHeaderComponent = ({ title, description }: PageHeaderProps) => {
   )
 }
 
-export default PageHeaderComponent
+export default PageHeader

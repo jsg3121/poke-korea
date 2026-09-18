@@ -5,10 +5,10 @@ import {
   DailyQuizPreview,
   PokemonCardFragment,
 } from '~/graphql/typeGenerated'
-import HomeChampionsContainer from '~/containers/home/HomeChampions.container'
-import HomeDailyPokemonContainer from '~/containers/home/HomeDailyPokemon.container'
-import HomeHubLinksContainer from '~/containers/home/HomeHubLinks.container'
-import HomeQuizContainer from '~/containers/home/HomeQuiz.container'
+import HomeChampions from '~/containers/home/HomeChampions.container'
+import HomeDailyPokemon from '~/containers/home/HomeDailyPokemon.container'
+import HomeHubLinks from '~/containers/home/HomeHubLinks.container'
+import HomeQuiz from '~/containers/home/HomeQuiz.container'
 
 /**
  * 홈 뷰 (반응형 단일 — UX-003). 데/모 2벌(Home.desktop/Home.mobile)의 콘텐츠를
@@ -25,7 +25,7 @@ import HomeQuizContainer from '~/containers/home/HomeQuiz.container'
  * CSS 분기 불가) — 콘텐츠는 단일, 크롬/광고 선택만 호출부(page) 책임.
  */
 
-interface HomeViewProps {
+interface HomeProps {
   dailyPokemon: Array<PokemonCardFragment>
   dailyQuiz: DailyQuizPreview
   topChampionsPokemons: Array<ChampionsMetaSummaryFragment>
@@ -35,26 +35,26 @@ interface HomeViewProps {
   bottomBanner: ReactNode
 }
 
-const HomeView = ({
+const Home = ({
   dailyPokemon,
   dailyQuiz,
   topChampionsPokemons,
   topBanner,
   bottomBanner,
-}: HomeViewProps) => {
+}: HomeProps) => {
   return (
     // py: 첫 섹션 제목이 헤더에, 마지막 광고가 푸터에 붙지 않게 상하 여백 확보
     <div className="w-full flex flex-col gap-8 py-6 desktop:gap-10 desktop:py-10">
       <h1 className="sr-only">포켓몬의 모든 정보 Poke Korea</h1>
 
-      <HomeChampionsContainer topPokemons={topChampionsPokemons} />
-      <HomeHubLinksContainer />
+      <HomeChampions topPokemons={topChampionsPokemons} />
+      <HomeHubLinks />
       {topBanner}
-      <HomeDailyPokemonContainer dailyPokemon={dailyPokemon} />
-      <HomeQuizContainer dailyQuiz={dailyQuiz} />
+      <HomeDailyPokemon dailyPokemon={dailyPokemon} />
+      <HomeQuiz dailyQuiz={dailyQuiz} />
       {bottomBanner}
     </div>
   )
 }
 
-export default HomeView
+export default Home

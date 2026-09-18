@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import PokemonCardComponent from '../pokemonCard/PokemonCard.component'
-import HorizontalScrollListComponent from './HorizontalScrollList.component'
+import PokemonCard from '../pokemonCard/PokemonCard.component'
+import HorizontalScrollList from './HorizontalScrollList.component'
 
 const samplePokemons = [
   {
@@ -89,17 +89,12 @@ const samplePokemons = [
 ]
 
 const cards = samplePokemons.map((p) => (
-  <PokemonCardComponent
-    key={p.id}
-    variant="pokedex"
-    pokemonData={p}
-    isHighPriority
-  />
+  <PokemonCard key={p.id} variant="pokedex" pokemonData={p} isHighPriority />
 ))
 
 const meta = {
   title: 'Components/HorizontalScrollList',
-  component: HorizontalScrollListComponent,
+  component: HorizontalScrollList,
   parameters: {
     docs: {
       description: {
@@ -129,7 +124,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof HorizontalScrollListComponent>
+} satisfies Meta<typeof HorizontalScrollList>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -7,11 +7,11 @@ import { buildEvolutionGroups } from '~/utils/evolution.util'
 import { imageMode } from '~/modules/buildMode.module'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import { DetailContext } from '~/context/Detail.context'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import ImageComponent from '~/components/Image.component'
+import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import Image from '~/components/Image.component'
 
-import EvolutionConditionCardComponent from './components/EvolutionConditionCard.component'
-import InfoCardTitleComponent from './components/InfoCardTitle.component'
+import EvolutionConditionCard from './components/EvolutionConditionCard.component'
+import InfoCardTitle from './components/InfoCardTitle.component'
 import { AdjacentPokemon } from './DetailSpeciesNav.container'
 
 /**
@@ -37,9 +37,7 @@ interface DetailEvolutionProps {
   evolutionPokemons: Array<AdjacentPokemon>
 }
 
-const DetailEvolutionContainer = ({
-  evolutionPokemons,
-}: DetailEvolutionProps) => {
+const DetailEvolution = ({ evolutionPokemons }: DetailEvolutionProps) => {
   const { pokemonBaseInfo } = useContext(DetailContext)
 
   const name = pokemonBaseInfo?.name ?? ''
@@ -56,10 +54,7 @@ const DetailEvolutionContainer = ({
         className="card-detail w-full"
         aria-labelledby="pokemon-evolution-chain"
       >
-        <InfoCardTitleComponent
-          title="진화 정보"
-          id="pokemon-evolution-chain"
-        />
+        <InfoCardTitle title="진화 정보" id="pokemon-evolution-chain" />
         <div className="flex w-full flex-col gap-5 desktop:gap-6">
           {sections.map((groupSection) => (
             <div key={groupSection.groupKey} className="flex flex-col gap-2">
@@ -70,7 +65,7 @@ const DetailEvolutionContainer = ({
               )}
               <div className="grid grid-cols-1 gap-3 desktop:grid-cols-3">
                 {groupSection.nodes.map((node) => (
-                  <EvolutionConditionCardComponent
+                  <EvolutionConditionCard
                     // targetHref는 번호+폼(타입·index)을 담아 그룹 내 유일하고
                     // 정렬 순서에 안정적이다 — 카드의 버전 탭 상태가 리셋되지 않게
                     // index를 key에 섞지 않는다.
@@ -102,8 +97,8 @@ const DetailEvolutionContainer = ({
       className="card-detail w-full"
       aria-labelledby="pokemon-evolution-chain"
     >
-      <InfoCardTitleComponent title="진화 체인" id="pokemon-evolution-chain" />
-      <HorizontalScrollListComponent aria-label="진화 체인 포켓몬 목록">
+      <InfoCardTitle title="진화 체인" id="pokemon-evolution-chain" />
+      <HorizontalScrollList aria-label="진화 체인 포켓몬 목록">
         {chain.map((pokemon) => (
           <Link
             key={`relation-pokemon-id-${pokemon.number}`}
@@ -111,7 +106,7 @@ const DetailEvolutionContainer = ({
             aria-label={`${name}와(과) 연관된 포켓몬 ${pokemon.name || `No.${pokemon.number}`} 상세 보기`}
             className="block rounded-2xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
           >
-            <ImageComponent
+            <Image
               src={`${imageMode}/${pokemon.number}`}
               width="9rem"
               height="9rem"
@@ -131,9 +126,9 @@ const DetailEvolutionContainer = ({
             )}
           </Link>
         ))}
-      </HorizontalScrollListComponent>
+      </HorizontalScrollList>
     </section>
   )
 }
 
-export default DetailEvolutionContainer
+export default DetailEvolution

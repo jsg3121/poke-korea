@@ -11,11 +11,11 @@ import {
 import { initializeApollo } from '~/modules/apolloClient.module'
 import { detectUserAgent } from '~/modules/device.module'
 import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import ChampionsTournamentsListView from '~/views/champions/ChampionsTournamentsList.view'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import ChampionsTournamentsList from '~/views/champions/ChampionsTournamentsList.view'
 
 export const revalidate = 86400
 
@@ -142,17 +142,17 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsTournamentsListView, ADR-0007). UA 분기는
+      {/* 콘텐츠는 반응형 단일(ChampionsTournamentsList, ADR-0007). UA 분기는
           전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ChampionsTournamentsListView
+          <MobileHeader />
+          <ChampionsTournamentsList
             tournaments={tournaments}
             availableMonths={availableMonths}
             currentMonth={month ?? null}
           />
-          <MobileFooterContainer />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
@@ -160,14 +160,14 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
         // sticky 필터 desktop:top-40과 정합(E-1 도감과 동일).
         <main className="w-full min-h-screen">
           <div className="h-40">
-            <DesktopHeaderContainer />
+            <DesktopHeader />
           </div>
-          <ChampionsTournamentsListView
+          <ChampionsTournamentsList
             tournaments={tournaments}
             availableMonths={availableMonths}
             currentMonth={month ?? null}
           />
-          <DesktopFooterContainer />
+          <DesktopFooter />
         </main>
       )}
     </>

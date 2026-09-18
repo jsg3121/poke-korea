@@ -7,9 +7,9 @@ import {
   QUIZ_DESCRIPTION_LIST_DATA,
 } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import GuideStartButtonComponent from '~/components/quiz/GuideStartButton.component'
-import OtherQuizLinkComponent from '~/components/quiz/OtherQuizLink.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
+import GuideStartButton from '~/components/quiz/GuideStartButton.component'
+import OtherQuizLink from '~/components/quiz/OtherQuizLink.component'
 
 /**
  * 실루엣 퀴즈 BEFORE 단계 (반응형 단일). 설명 3섹션 + 시작 버튼 + 관련 링크 +
@@ -21,7 +21,7 @@ const SilhouetteQuizBefore = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8 desktop:px-5">
-      <PageHeaderComponent
+      <PageHeader
         title={QUIZ_CONFIG[0].title}
         description={QUIZ_CONFIG[0].description}
       />
@@ -39,9 +39,7 @@ const SilhouetteQuizBefore = () => {
           </div>
         ))}
         <div className="mt-6">
-          <GuideStartButtonComponent
-            onClickStartButton={() => onChangeStage('QUIZ')}
-          />
+          <GuideStartButton onClickStartButton={() => onChangeStage('QUIZ')} />
         </div>
         <div className="mt-4 pt-4 border-t border-solid border-primary-3">
           {seoContent.relatedLinks.map((link) => (
@@ -56,7 +54,7 @@ const SilhouetteQuizBefore = () => {
         </div>
       </article>
       <div className="mt-4">
-        <OtherQuizLinkComponent currentQuiz="silhouette" />
+        <OtherQuizLink currentQuiz="silhouette" />
       </div>
     </section>
   )

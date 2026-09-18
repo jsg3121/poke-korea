@@ -6,12 +6,12 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { imageMode } from '~/modules/buildMode.module'
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
-import QuizHeaderComponent from '~/components/quiz/QuizHeader.component'
-import QuizOptionButtonComponent from '~/components/quiz/QuizOptionButton.component'
-import QuizSkipButtonComponent from '~/components/quiz/QuizSkipButton.component'
-import TagComponent from '~/components/tag/Tag.component'
+import QuizHeader from '~/components/quiz/QuizHeader.component'
+import QuizOptionButton from '~/components/quiz/QuizOptionButton.component'
+import QuizSkipButton from '~/components/quiz/QuizSkipButton.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 포켓몬 타입 퀴즈 QUIZ 단계 (반응형 단일). "다음 중 [타입칩] 타입을 가진 포켓몬은?" +
@@ -47,7 +47,7 @@ const PokemonTypeQuizPlay = () => {
         />
       )}
       <section className="w-full max-w-[1280px] mx-auto px-4 desktop:px-5 py-4 flex flex-col gap-4">
-        <QuizHeaderComponent
+        <QuizHeader
           quizName="포켓몬 타입 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
           progress={progress}
@@ -58,9 +58,7 @@ const PokemonTypeQuizPlay = () => {
             {currentQuestion?.targetType ? (
               <>
                 <span>다음 중</span>
-                <TagComponent
-                  type={currentQuestion.targetType as PokemonType}
-                />
+                <Tag type={currentQuestion.targetType as PokemonType} />
                 <span>타입을 가진 포켓몬은?</span>
               </>
             ) : (
@@ -69,7 +67,7 @@ const PokemonTypeQuizPlay = () => {
           </h2>
           <div className="grid grid-cols-2 gap-3 desktop:gap-4">
             {currentQuestion?.options.map((option, index) => (
-              <QuizOptionButtonComponent
+              <QuizOptionButton
                 key={index}
                 variant="image"
                 onClick={() => submitAnswer(index)}
@@ -78,7 +76,7 @@ const PokemonTypeQuizPlay = () => {
                     h-full w-full object-contain으로 채운다(상세 Hero 정석 패턴).
                     figure(width/height)와 img(imageSize)를 일치시켜 좌상단 쏠림 방지. */}
                 <div className="h-24 w-24 desktop:h-32 desktop:w-32 shrink-0 drop-shadow-[1px_1px_2px_#333333]">
-                  <ImageComponent
+                  <Image
                     width="100%"
                     height="100%"
                     src={`${imageMode}/${option.id}`}
@@ -92,10 +90,10 @@ const PokemonTypeQuizPlay = () => {
                   />
                 </div>
                 <p className="text-sm desktop:text-base">{option.koreanName}</p>
-              </QuizOptionButtonComponent>
+              </QuizOptionButton>
             ))}
           </div>
-          <QuizSkipButtonComponent onClickSkipButton={() => submitAnswer(99)} />
+          <QuizSkipButton onClickSkipButton={() => submitAnswer(99)} />
         </article>
       </section>
     </Fragment>

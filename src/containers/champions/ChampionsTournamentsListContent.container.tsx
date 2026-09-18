@@ -4,13 +4,13 @@ import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBann
 import ChampionsBssNotice from '~/components/champions/ChampionsBssNotice.component'
 import ChampionsMonthFilter from '~/components/champions/ChampionsMonthFilter.component'
 import ChampionsTournamentCard from '~/components/champions/ChampionsTournamentCard.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
 
 /**
  * 챔피언스 대회 목록 본문 (반응형 단일, ADR-0007 / UX-011, E-3).
  *
  * 구버전 desktop/mobile 2벌 컨테이너를 CSS 반응형 단일로 통합한다.
- * - 제목: 공용 PageHeaderComponent(champions 4화면 통일, 중앙정렬)
+ * - 제목: 공용 PageHeader(champions 4화면 통일, 중앙정렬)
  * - 그리드: grid-cols-1 desktop:grid-cols-2 (구버전 동일)
  * - 카드: ChampionsTournamentCard(전용 카드, DS 코어카드 규격)
  * - 월 필터: sticky 필터바로 승격(-mx로 배경 전체폭, 뒤 카드 비침 방지 — Pokedex 패턴)
@@ -18,20 +18,20 @@ import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
  * - 광고(RES-004 재도입): 페이지 헤더 아래(champions 통일). PC 인아티클/모바일
  *   320×100. 컴포넌트 내부 useDevice 분기.
  */
-interface ChampionsTournamentsListContainerProps {
+interface ChampionsTournamentsListContentProps {
   tournaments: GetChampionsTournamentsWithTopTeamQuery['championsTournaments']
   availableMonths: string[]
   currentMonth: string | null
 }
 
-const ChampionsTournamentsListContainer = ({
+const ChampionsTournamentsListContent = ({
   tournaments,
   availableMonths,
   currentMonth,
-}: ChampionsTournamentsListContainerProps) => {
+}: ChampionsTournamentsListContentProps) => {
   return (
     <section className="w-full max-w-[1280px] min-h-dvh mx-auto px-4 pb-8 desktop:px-5">
-      <PageHeaderComponent
+      <PageHeader
         title="포켓몬 VGC 대회 결과"
         description="실전 대회 입상팀의 풀빌드를 확인하세요"
       />
@@ -94,4 +94,4 @@ const ChampionsTournamentsListContainer = ({
   )
 }
 
-export default ChampionsTournamentsListContainer
+export default ChampionsTournamentsListContent

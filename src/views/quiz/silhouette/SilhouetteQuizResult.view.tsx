@@ -5,11 +5,11 @@ import { imageMode } from '~/modules/buildMode.module'
 import { getQuizResultCopy } from '~/modules/quiz.module'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
 import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner.component'
-import ImageComponent from '~/components/Image.component'
-import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
-import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
-import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
-import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
+import Image from '~/components/Image.component'
+import QuizResultCard from '~/components/quiz/QuizResultCard.component'
+import ResultFooter from '~/components/quiz/ResultFooter.component'
+import ResultHeader from '~/components/quiz/ResultHeader.component'
+import ResultSummary from '~/components/quiz/ResultSummary.component'
 
 /**
  * 실루엣 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을 폐기하고
@@ -31,12 +31,8 @@ const SilhouetteQuizResult = () => {
         mobileSlot={QUIZ_RESULT_SLOTS.silhouette.mobile}
         desktopSlot={QUIZ_RESULT_SLOTS.silhouette.desktop}
       />
-      <ResultHeaderComponent
-        headline={headline}
-        medal={medal}
-        subcopy={subcopy}
-      />
-      <ResultSummaryComponent
+      <ResultHeader headline={headline} medal={medal} subcopy={subcopy} />
+      <ResultSummary
         averageTime={result.averageTime}
         correctAnswers={result.correctAnswers}
         percentage={result.percentage}
@@ -56,7 +52,7 @@ const SilhouetteQuizResult = () => {
             const isCorrect = userAnswer === realAnswer
 
             return (
-              <QuizResultCardComponent
+              <QuizResultCard
                 key={quiz.id}
                 index={index + 1}
                 isCorrect={isCorrect}
@@ -66,7 +62,7 @@ const SilhouetteQuizResult = () => {
               >
                 <div className="flex justify-center">
                   <i className="block w-24 h-24">
-                    <ImageComponent
+                    <Image
                       width="6rem"
                       height="6rem"
                       src={`${imageMode}/${quiz.correctPokemonId}`}
@@ -78,12 +74,12 @@ const SilhouetteQuizResult = () => {
                     />
                   </i>
                 </div>
-              </QuizResultCardComponent>
+              </QuizResultCard>
             )
           })}
         </ul>
       </article>
-      <ResultFooterComponent
+      <ResultFooter
         onClickRetryButton={onClickRetryQuiz}
         quizType="silhouette"
         relationPageHref="/list"

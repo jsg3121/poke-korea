@@ -1,5 +1,5 @@
 import { PokemonType } from '~/graphql/typeGenerated'
-import TagComponent from '~/components/tag/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 타입 상성 (DS). 방어 상성 배율별 타입 그룹을 약점/강점 두 섹션으로 **동시 노출**한다.
@@ -73,7 +73,7 @@ const MatchupSection = ({
             </dt>
             <dd className="m-0 mt-1.5 flex flex-wrap gap-1.5">
               {row.types.map((type) => (
-                <TagComponent key={type} type={type} />
+                <Tag key={type} type={type} />
               ))}
             </dd>
           </div>
@@ -83,7 +83,7 @@ const MatchupSection = ({
   )
 }
 
-const TypeMatchupComponent = ({
+const TypeMatchup = ({
   quad,
   double,
   half,
@@ -141,4 +141,4 @@ const TypeMatchupComponent = ({
   )
 }
 
-export default TypeMatchupComponent
+export default TypeMatchup

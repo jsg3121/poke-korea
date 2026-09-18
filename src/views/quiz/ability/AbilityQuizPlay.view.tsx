@@ -5,9 +5,9 @@ import { Fragment, useState } from 'react'
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
-import QuizHeaderComponent from '~/components/quiz/QuizHeader.component'
-import QuizOptionButtonComponent from '~/components/quiz/QuizOptionButton.component'
-import QuizSkipButtonComponent from '~/components/quiz/QuizSkipButton.component'
+import QuizHeader from '~/components/quiz/QuizHeader.component'
+import QuizOptionButton from '~/components/quiz/QuizOptionButton.component'
+import QuizSkipButton from '~/components/quiz/QuizSkipButton.component'
 
 /**
  * 특성 퀴즈 QUIZ 단계 (반응형 단일). 특성 설명 카드 + 4개 텍스트 옵션(특성명).
@@ -39,7 +39,7 @@ const AbilityQuizPlay = () => {
         />
       )}
       <section className="w-full max-w-[1280px] mx-auto px-4 desktop:px-5 py-4 flex flex-col gap-4">
-        <QuizHeaderComponent
+        <QuizHeader
           quizName="특성 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
           progress={progress}
@@ -54,17 +54,17 @@ const AbilityQuizPlay = () => {
           </header>
           <div className="grid grid-cols-2 gap-3 desktop:gap-4">
             {currentQuestion?.options.map((option, index) => (
-              <QuizOptionButtonComponent
+              <QuizOptionButton
                 key={index}
                 variant="text"
                 optionNumber={index + 1}
                 onClick={() => submitAnswer(index)}
               >
                 {option.koreanName}
-              </QuizOptionButtonComponent>
+              </QuizOptionButton>
             ))}
           </div>
-          <QuizSkipButtonComponent onClickSkipButton={() => submitAnswer(99)} />
+          <QuizSkipButton onClickSkipButton={() => submitAnswer(99)} />
         </article>
       </section>
     </Fragment>

@@ -3,11 +3,11 @@
 import { AbilityQuizQuestion } from '~/graphql/typeGenerated'
 import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton.component'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
-import QuizCardComponent from '~/components/quizCard/QuizCard.component'
+import QuizCard from '~/components/quizCard/QuizCard.component'
 
 import { useCorrectQuizCheck } from './hooks/useCorrectQuizCheck'
 
-interface AbilityQuizCardContainerProps {
+interface AbilityQuizCardProps {
   abilityQuiz: AbilityQuizQuestion
 }
 
@@ -15,15 +15,13 @@ interface AbilityQuizCardContainerProps {
  * 특성 퀴즈 카드 (QuizCard DS 셸 + 기존 퀴즈 로직 재사용).
  * 본문은 특성 설명 텍스트, 답안은 특성 한글명.
  */
-const AbilityQuizCardContainer = ({
-  abilityQuiz,
-}: AbilityQuizCardContainerProps) => {
+const AbilityQuizCard = ({ abilityQuiz }: AbilityQuizCardProps) => {
   const { isCorrect, isShowModal, handleSelectAnswer, handleCloseModal } =
     useCorrectQuizCheck({ correctAnswer: abilityQuiz.correctAnswerIndex })
 
   return (
     <>
-      <QuizCardComponent
+      <QuizCard
         icon="✨"
         title="특성 퀴즈"
         description={abilityQuiz.question}
@@ -58,4 +56,4 @@ const AbilityQuizCardContainer = ({
   )
 }
 
-export default AbilityQuizCardContainer
+export default AbilityQuizCard

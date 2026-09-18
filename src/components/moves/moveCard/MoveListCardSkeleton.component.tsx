@@ -11,7 +11,7 @@
  * 책임이다(스켈레톤 개수만큼 중복 낭독 방지).
  */
 
-const MoveListCardSkeletonComponent = () => {
+const MoveListCardSkeleton = () => {
   return (
     <div
       className="w-full min-h-32 bg-primary-4 border-2 border-solid border-primary-1 rounded-xl shadow-[0_0_0_3px_var(--color-primary-4)] p-2.5 animate-pulse desktop:min-h-36 desktop:p-3"
@@ -32,4 +32,4 @@ const MoveListCardSkeletonComponent = () => {
   )
 }
 
-export default MoveListCardSkeletonComponent
+export default MoveListCardSkeleton

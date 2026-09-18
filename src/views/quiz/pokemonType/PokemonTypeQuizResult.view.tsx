@@ -6,12 +6,12 @@ import { imageMode } from '~/modules/buildMode.module'
 import { getQuizResultCopy } from '~/modules/quiz.module'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner.component'
-import ImageComponent from '~/components/Image.component'
-import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
-import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
-import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
-import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Image from '~/components/Image.component'
+import QuizResultCard from '~/components/quiz/QuizResultCard.component'
+import ResultFooter from '~/components/quiz/ResultFooter.component'
+import ResultHeader from '~/components/quiz/ResultHeader.component'
+import ResultSummary from '~/components/quiz/ResultSummary.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 포켓몬 타입 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을
@@ -33,12 +33,8 @@ const PokemonTypeQuizResult = () => {
         mobileSlot={QUIZ_RESULT_SLOTS.pokemonType.mobile}
         desktopSlot={QUIZ_RESULT_SLOTS.pokemonType.desktop}
       />
-      <ResultHeaderComponent
-        headline={headline}
-        medal={medal}
-        subcopy={subcopy}
-      />
-      <ResultSummaryComponent
+      <ResultHeader headline={headline} medal={medal} subcopy={subcopy} />
+      <ResultSummary
         averageTime={result.averageTime}
         correctAnswers={result.correctAnswers}
         percentage={result.percentage}
@@ -57,7 +53,7 @@ const PokemonTypeQuizResult = () => {
             const isCorrect = userAnswerIndex === quiz.correctAnswerIndex
 
             return (
-              <QuizResultCardComponent
+              <QuizResultCard
                 key={quiz.id}
                 index={index + 1}
                 isCorrect={isCorrect}
@@ -68,11 +64,11 @@ const PokemonTypeQuizResult = () => {
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm text-primary-2">문제 타입</span>
-                    <TagComponent type={quiz.targetType as PokemonType} />
+                    <Tag type={quiz.targetType as PokemonType} />
                   </div>
                   <div className="flex-1 flex justify-end">
                     <i className="block w-16 h-16">
-                      <ImageComponent
+                      <Image
                         width="4rem"
                         height="4rem"
                         src={`${imageMode}/${correctOption.id}`}
@@ -85,12 +81,12 @@ const PokemonTypeQuizResult = () => {
                     </i>
                   </div>
                 </div>
-              </QuizResultCardComponent>
+              </QuizResultCard>
             )
           })}
         </ul>
       </article>
-      <ResultFooterComponent
+      <ResultFooter
         onClickRetryButton={onClickRetryQuiz}
         quizType="pokemon-type"
         relationPageHref="/list"

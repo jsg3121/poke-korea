@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import TabItemComponent from './TabItem.component'
+import TabItem from './TabItem.component'
 
 /** 탭은 진한 네이비 배경(primary-1) 위에서 쓰이므로 그 맥락으로 렌더한다. */
 const NavyBg = (Story: React.ComponentType) => (
@@ -11,7 +11,7 @@ const NavyBg = (Story: React.ComponentType) => (
 
 const meta = {
   title: 'Components/TabItem',
-  component: TabItemComponent,
+  component: TabItem,
   parameters: {
     layout: 'centered',
     docs: {
@@ -36,7 +36,7 @@ const meta = {
     active: { control: 'boolean' },
     fullWidth: { control: 'boolean' },
   },
-} satisfies Meta<typeof TabItemComponent>
+} satisfies Meta<typeof TabItem>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -68,29 +68,29 @@ export const AllStates: Story = {
       <div>
         <p className="text-primary-3 text-xs mb-2">underline (네비게이션)</p>
         <div className="flex items-center gap-6">
-          <TabItemComponent href="#" variant="underline" active>
+          <TabItem href="#" variant="underline" active>
             챔피언스
-          </TabItemComponent>
-          <TabItemComponent href="#" variant="underline">
+          </TabItem>
+          <TabItem href="#" variant="underline">
             챔피언스 도감
-          </TabItemComponent>
-          <TabItemComponent href="#" variant="underline">
+          </TabItem>
+          <TabItem href="#" variant="underline">
             티어 리스트
-          </TabItemComponent>
-          <TabItemComponent href="#" variant="underline">
+          </TabItem>
+          <TabItem href="#" variant="underline">
             대회
-          </TabItemComponent>
+          </TabItem>
         </div>
       </div>
       <div>
         <p className="text-primary-3 text-xs mb-2">fill (컨텐츠 전환)</p>
         <div className="flex items-center gap-6">
-          <TabItemComponent href="#" variant="fill" active>
+          <TabItem href="#" variant="fill" active>
             VGC 더블
-          </TabItemComponent>
-          <TabItemComponent href="#" variant="fill">
+          </TabItem>
+          <TabItem href="#" variant="fill">
             BSS 싱글
-          </TabItemComponent>
+          </TabItem>
         </div>
       </div>
     </div>
@@ -101,12 +101,12 @@ export const AllStates: Story = {
 export const ButtonMode: Story = {
   render: () => (
     <div className="flex items-center gap-6" role="tablist">
-      <TabItemComponent variant="fill" active>
+      <TabItem variant="fill" active>
         기술
-      </TabItemComponent>
-      <TabItemComponent variant="fill">도구</TabItemComponent>
-      <TabItemComponent variant="fill">특성</TabItemComponent>
-      <TabItemComponent variant="fill">파트너</TabItemComponent>
+      </TabItem>
+      <TabItem variant="fill">도구</TabItem>
+      <TabItem variant="fill">특성</TabItem>
+      <TabItem variant="fill">파트너</TabItem>
     </div>
   ),
 }

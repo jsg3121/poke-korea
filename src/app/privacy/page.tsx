@@ -3,11 +3,11 @@ import { headers } from 'next/headers'
 
 import { detectUserAgent } from '~/modules/device.module'
 import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import PrivacyView from '~/views/privacy/Privacy.view'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import Privacy from '~/views/privacy/Privacy.view'
 
 import { PRIVACY_META } from './_metadata/privacyMetadata'
 
@@ -23,21 +23,21 @@ const PrivacyPage = async () => {
 
   return (
     <Fragment>
-      {/* 본문은 반응형 단일(PrivacyView, ADR-0007). UA 분기는 전역 크롬
+      {/* 본문은 반응형 단일(Privacy, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(quiz·champions와 동일 패턴). */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <PrivacyView />
-          <MobileFooterContainer />
+          <MobileHeader />
+          <Privacy />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
         // pt-30(120px) = 데스크톱 fixed 헤더 실높이.
         <main className="w-full min-h-screen pt-30">
-          <DesktopHeaderContainer />
-          <PrivacyView />
-          <DesktopFooterContainer />
+          <DesktopHeader />
+          <Privacy />
+          <DesktopFooter />
         </main>
       )}
     </Fragment>

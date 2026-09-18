@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import HomeQuizContainer from './HomeQuiz.container'
+import HomeQuiz from './HomeQuiz.container'
 
 const dailyQuiz = {
   __typename: 'DailyQuizPreview' as const,
@@ -81,7 +81,7 @@ const dailyQuiz = {
 
 const meta = {
   title: 'Containers/HomeQuiz',
-  component: HomeQuizContainer,
+  component: HomeQuiz,
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -96,7 +96,7 @@ const meta = {
     },
   },
   args: { dailyQuiz },
-} satisfies Meta<typeof HomeQuizContainer>
+} satisfies Meta<typeof HomeQuiz>
 
 export default meta
 type Story = StoryObj<typeof meta>

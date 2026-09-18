@@ -20,13 +20,13 @@ import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournam
  * - Top1~3 강조(항상 펼침) / Top4~8 컴팩트(접이식 개별). 두 그리드 모두 items-start 로
  *   같은 행에서 한 카드를 펼쳐도 옆 카드 높이가 끌려 늘어나지 않게 한다(UX-011 피드백).
  */
-interface ChampionsTournamentDetailContainerProps {
+interface ChampionsTournamentDetailContentProps {
   detail: ChampionsTournamentDetailFragment
 }
 
-const ChampionsTournamentDetailContainer = ({
+const ChampionsTournamentDetailContent = ({
   detail,
-}: ChampionsTournamentDetailContainerProps) => {
+}: ChampionsTournamentDetailContentProps) => {
   const formatLabel = getFormatEnumShortLabel(detail.format)
   const dateLabel = formatKstDate(detail.date)
   // 응답이 rank 오름차순이 아닐 수 있으니 안전하게 정렬 + Top 8 만 추출
@@ -165,4 +165,4 @@ const ChampionsTournamentDetailContainer = ({
   )
 }
 
-export default ChampionsTournamentDetailContainer
+export default ChampionsTournamentDetailContent

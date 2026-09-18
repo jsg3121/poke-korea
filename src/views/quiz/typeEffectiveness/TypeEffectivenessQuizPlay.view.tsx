@@ -6,10 +6,10 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
 import QuizCountDownModalComponents from '~/components/quiz.modal/CountdownModal.component'
-import QuizHeaderComponent from '~/components/quiz/QuizHeader.component'
-import QuizOptionButtonComponent from '~/components/quiz/QuizOptionButton.component'
-import QuizSkipButtonComponent from '~/components/quiz/QuizSkipButton.component'
-import TagComponent from '~/components/tag/Tag.component'
+import QuizHeader from '~/components/quiz/QuizHeader.component'
+import QuizOptionButton from '~/components/quiz/QuizOptionButton.component'
+import QuizSkipButton from '~/components/quiz/QuizSkipButton.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 타입 상성 퀴즈 QUIZ 단계 (반응형 단일). 문제 + "공격 → 방어" 타입칩 +
@@ -41,7 +41,7 @@ const TypeEffectivenessQuizPlay = () => {
         />
       )}
       <section className="w-full max-w-[1280px] mx-auto px-4 desktop:px-5 py-4 flex flex-col gap-4">
-        <QuizHeaderComponent
+        <QuizHeader
           quizName="타입 상성 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
           progress={progress}
@@ -54,29 +54,27 @@ const TypeEffectivenessQuizPlay = () => {
           {currentQuestion && (
             <div className="flex flex-wrap items-center justify-center gap-2 py-6 border-y border-solid border-primary-3">
               <span className="text-base text-primary-1">공격:</span>
-              <TagComponent
-                type={currentQuestion.attackingType as PokemonType}
-              />
+              <Tag type={currentQuestion.attackingType as PokemonType} />
               <span className="text-base text-primary-1">→</span>
               <span className="text-base text-primary-1">방어:</span>
               {currentQuestion.defendingTypes.map((type, index) => (
-                <TagComponent key={index} type={type as PokemonType} />
+                <Tag key={index} type={type as PokemonType} />
               ))}
             </div>
           )}
           <div className="grid grid-cols-2 gap-3 desktop:gap-4">
             {currentQuestion?.options.map((option, index) => (
-              <QuizOptionButtonComponent
+              <QuizOptionButton
                 key={index}
                 variant="text"
                 optionNumber={index + 1}
                 onClick={() => submitAnswer(index)}
               >
                 {option}
-              </QuizOptionButtonComponent>
+              </QuizOptionButton>
             ))}
           </div>
-          <QuizSkipButtonComponent onClickSkipButton={() => submitAnswer(99)} />
+          <QuizSkipButton onClickSkipButton={() => submitAnswer(99)} />
         </article>
       </section>
     </Fragment>

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import HomeDailyPokemonContainer from './HomeDailyPokemon.container'
+import HomeDailyPokemon from './HomeDailyPokemon.container'
 
 /** mock 포켓몬 카드 데이터 생성 */
 const makePokemon = (
@@ -67,7 +67,7 @@ const dailyPokemon = [
 
 const meta = {
   title: 'Containers/HomeDailyPokemon',
-  component: HomeDailyPokemonContainer,
+  component: HomeDailyPokemon,
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -82,7 +82,7 @@ const meta = {
     },
   },
   args: { dailyPokemon },
-} satisfies Meta<typeof HomeDailyPokemonContainer>
+} satisfies Meta<typeof HomeDailyPokemon>
 
 export default meta
 type Story = StoryObj<typeof meta>

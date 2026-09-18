@@ -28,7 +28,7 @@ const Swatch = ({ name, hex }: { name: string; hex: string }) => (
   </div>
 )
 
-const ColorsView = () => (
+const Colors = () => (
   <div className="p-8 bg-white-3 min-h-screen">
     <h1 className="text-2xl font-bold text-primary-1 mb-1">Colors</h1>
     <p className="text-sm text-shadow-3 mb-7">
@@ -54,10 +54,10 @@ const ColorsView = () => (
 
 const meta = {
   title: 'Foundations/Colors',
-  component: ColorsView,
+  component: Colors,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
-} satisfies Meta<typeof ColorsView>
+} satisfies Meta<typeof Colors>
 
 export default meta
 export const All: StoryObj<typeof meta> = {}

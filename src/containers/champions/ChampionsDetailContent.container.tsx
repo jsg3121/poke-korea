@@ -15,13 +15,11 @@ import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetai
 import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
 import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
 import ChampionsPartnerList from '~/components/champions/ChampionsPartnerList.component'
-import ImageComponent from '~/components/Image.component'
-import StatBarComponent, {
-  StatBarItem,
-} from '~/components/statBar/StatBar.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Image from '~/components/Image.component'
+import StatBar, { StatBarItem } from '~/components/statBar/StatBar.component'
+import Tag from '~/components/tag/Tag.component'
 
-interface ChampionsDetailContainerProps {
+interface ChampionsDetailContentProps {
   detail: ChampionsPokemonDetailFragment
   formatSlug: ChampionsFormatSlug
 }
@@ -66,10 +64,10 @@ const getGeneralDetailUrl = (
  * - 타입 배지는 신규 tag/Tag.component(토큰 기반).
  * - 좌측 능력치 컬럼 폭은 desktop:w-96(384px), 우측은 flex-1(우측 우세 비율 유지).
  */
-const ChampionsDetailContainer = ({
+const ChampionsDetailContent = ({
   detail,
   formatSlug,
-}: ChampionsDetailContainerProps) => {
+}: ChampionsDetailContentProps) => {
   const { pokemon, meta, formSiblings } = detail
   const pokemonNumber = pokemonNumberFormat(pokemon.pokemonNumber)
   const backgroundColor = getBackgroundColor(pokemon.types)
@@ -163,7 +161,7 @@ const ChampionsDetailContainer = ({
         {/* w-full + mx-auto 컨테이너로 이미지를 확실히 중앙 정렬 */}
         <div className="my-2 desktop:my-3 flex justify-center mx-auto w-48 h-48 desktop:w-72 desktop:h-72">
           {pokemon.imagePath && (
-            <ImageComponent
+            <Image
               src={`${imageMode}/${pokemon.imagePath}`}
               alt={displayName}
               height="100%"
@@ -177,7 +175,7 @@ const ChampionsDetailContainer = ({
 
         <div className="flex gap-2 justify-center">
           {pokemon.types.map((type) => (
-            <TagComponent key={type} type={type} />
+            <Tag key={type} type={type} />
           ))}
         </div>
 
@@ -206,7 +204,7 @@ const ChampionsDetailContainer = ({
             <h2 className="mb-3 text-lg desktop:text-xl font-extrabold text-primary-1">
               능력치
             </h2>
-            {statItems.length > 0 && <StatBarComponent stats={statItems} />}
+            {statItems.length > 0 && <StatBar stats={statItems} />}
           </div>
 
           {/* 데스크톱 전용 광고(300×250) — 좌측 능력치 컬럼은 우측 메타패널보다
@@ -279,4 +277,4 @@ const ChampionsDetailContainer = ({
   )
 }
 
-export default ChampionsDetailContainer
+export default ChampionsDetailContent

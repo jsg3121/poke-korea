@@ -5,7 +5,7 @@ import {
   ChampionsTeamCoreFragment,
 } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
-import ChampionsTierContainer from '~/containers/champions/ChampionsTier.container'
+import ChampionsTierContent from '~/containers/champions/ChampionsTierContent.container'
 
 interface TierGroups {
   S: ChampionsMetaSummaryFragment[]
@@ -15,7 +15,7 @@ interface TierGroups {
   D: ChampionsMetaSummaryFragment[]
 }
 
-interface ChampionsTierViewProps {
+interface ChampionsTierProps {
   tierGroups: TierGroups
   teamCores: ChampionsTeamCoreFragment[]
   formatSlug: ChampionsFormatSlug
@@ -29,14 +29,14 @@ interface ChampionsTierViewProps {
  * 전역 크롬(헤더/푸터/탭바)은 page.tsx가 UA로 선택하고, 본문만 이 뷰가 담당한다
  * (ability·list 개편과 동일 패턴).
  */
-const ChampionsTierView = ({
+const ChampionsTier = ({
   tierGroups,
   teamCores,
   formatSlug,
   latestUpdatedAt,
-}: ChampionsTierViewProps) => {
+}: ChampionsTierProps) => {
   return (
-    <ChampionsTierContainer
+    <ChampionsTierContent
       tierGroups={tierGroups}
       teamCores={teamCores}
       formatSlug={formatSlug}
@@ -45,4 +45,4 @@ const ChampionsTierView = ({
   )
 }
 
-export default ChampionsTierView
+export default ChampionsTier

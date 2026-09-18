@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import HomeChampionsContainer from './HomeChampions.container'
+import HomeChampions from './HomeChampions.container'
 
 const makeChampion = (
   pokemonId: number,
@@ -60,7 +60,7 @@ const topPokemons = [
 
 const meta = {
   title: 'Containers/HomeChampions',
-  component: HomeChampionsContainer,
+  component: HomeChampions,
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -75,7 +75,7 @@ const meta = {
     },
   },
   args: { topPokemons },
-} satisfies Meta<typeof HomeChampionsContainer>
+} satisfies Meta<typeof HomeChampions>
 
 export default meta
 type Story = StoryObj<typeof meta>

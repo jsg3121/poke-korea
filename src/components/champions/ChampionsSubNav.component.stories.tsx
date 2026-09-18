@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import ChampionsSubNavOrganism from './ChampionsSubNav.component'
+import ChampionsSubNav from './ChampionsSubNav.component'
 
 /**
  * usePathname을 nextjs navigation 목킹으로 주입해 active 상태를 story별로 렌더한다
@@ -8,7 +8,7 @@ import ChampionsSubNavOrganism from './ChampionsSubNav.component'
  */
 const meta = {
   title: 'Organisms/ChampionsSubNav',
-  component: ChampionsSubNavOrganism,
+  component: ChampionsSubNav,
   parameters: {
     layout: 'fullscreen',
     nextjs: { appDirectory: true },
@@ -25,7 +25,7 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof ChampionsSubNavOrganism>
+} satisfies Meta<typeof ChampionsSubNav>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -57,7 +57,7 @@ export const TournamentsActive: Story = {
 }
 
 /** 모바일 뷰 (flex-1 균등 배분, 12px — 스크롤 없이 꽉) */
-export const MobileView: Story = {
+export const Mobile: Story = {
   parameters: {
     nextjs: { navigation: { pathname: '/champions/double/list' } },
     viewport: { defaultViewport: 'mobile' },

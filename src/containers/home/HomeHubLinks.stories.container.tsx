@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import HomeHubLinksContainer from './HomeHubLinks.container'
+import HomeHubLinks from './HomeHubLinks.container'
 
 const meta = {
   title: 'Containers/HomeHubLinks',
-  component: HomeHubLinksContainer,
+  component: HomeHubLinks,
   parameters: {
     layout: 'fullscreen',
     nextjs: { appDirectory: true },
@@ -19,7 +19,7 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof HomeHubLinksContainer>
+} satisfies Meta<typeof HomeHubLinks>
 
 export default meta
 type Story = StoryObj<typeof meta>

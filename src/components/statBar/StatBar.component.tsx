@@ -48,7 +48,7 @@ const AnimatedValue = ({
   </span>
 )
 
-const StatBarComponent = ({
+const StatBar = ({
   stats,
   showTotal = true,
   animated = true,
@@ -138,4 +138,4 @@ const StatBarComponent = ({
   )
 }
 
-export default StatBarComponent
+export default StatBar

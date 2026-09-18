@@ -13,7 +13,7 @@ import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.co
 import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
 import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'
 import ChampionsTierTeamCoreSection from '~/components/champions/ChampionsTierTeamCoreSection.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
 
 interface TierGroups {
   S: ChampionsMetaSummaryFragment[]
@@ -23,7 +23,7 @@ interface TierGroups {
   D: ChampionsMetaSummaryFragment[]
 }
 
-interface ChampionsTierContainerProps {
+interface ChampionsTierContentProps {
   tierGroups: TierGroups
   teamCores: ChampionsTeamCoreFragment[]
   formatSlug: ChampionsFormatSlug
@@ -35,16 +35,16 @@ interface ChampionsTierContainerProps {
  *
  * 구버전 desktop/mobile 2벌 컨테이너를 CSS 반응형 단일로 통합한다(UX-E1).
  * 모바일 퍼스트: base=모바일, `desktop:`로 확장. 광고 슬롯은 제거(A~D 선례).
- * 제목 헤더는 공통 DS PageHeaderComponent를 쓰고(홈·도감과 통일, 사용자 결정
+ * 제목 헤더는 공통 DS PageHeader를 쓰고(홈·도감과 통일, 사용자 결정
  * 2026-07-22), h1은 짧게("챔피언스 VGC 티어"). 포맷 탭은 ChampionsFormatIntro,
  * 페이지 고유 캡션(채택 순위 기반·총 N종·출처)은 그 아래에 유지한다.
  */
-const ChampionsTierContainer = ({
+const ChampionsTierContent = ({
   tierGroups,
   teamCores,
   formatSlug,
   latestUpdatedAt,
-}: ChampionsTierContainerProps) => {
+}: ChampionsTierContentProps) => {
   const totalCount = Object.values(tierGroups).reduce(
     (acc, arr) => acc + arr.length,
     0,
@@ -54,7 +54,7 @@ const ChampionsTierContainer = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8 desktop:mt-12 desktop:px-5">
-      <PageHeaderComponent
+      <PageHeader
         title={`챔피언스 ${formatShort} 티어`}
         description={`${formatShort} 채택 순위 기반 티어 분류`}
       />
@@ -126,4 +126,4 @@ const ChampionsTierContainer = ({
   )
 }
 
-export default ChampionsTierContainer
+export default ChampionsTierContent

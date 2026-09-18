@@ -33,7 +33,7 @@ interface FilterFormValues {
   isEvolution: string | null
 }
 
-interface FilterModalOrganismProps {
+interface FilterModalProps {
   open: boolean
   onClose: () => void
 }
@@ -56,7 +56,7 @@ const RADIO_FIELDS = [
   { name: 'isGigantamax', label: '거다이맥스 가능 포켓몬 포함' },
 ] as const
 
-const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
+const FilterModal = ({ open, onClose }: FilterModalProps) => {
   // 폼은 open 동안만 마운트한다 — useForm의 defaultValues는 최초 렌더에 캐시되므로
   // (react-hook-form 공식), 항상 마운트한 채 open으로만 숨기면 초기화·칩 개별 해제로
   // URL이 바뀐 뒤 다시 열었을 때 이전 선택이 남는다(폼 상태와 URL 불일치). reset()
@@ -67,9 +67,7 @@ const FilterModalOrganism = ({ open, onClose }: FilterModalOrganismProps) => {
   return <FilterModalForm onClose={onClose} />
 }
 
-const FilterModalForm = ({
-  onClose,
-}: Pick<FilterModalOrganismProps, 'onClose'>) => {
+const FilterModalForm = ({ onClose }: Pick<FilterModalProps, 'onClose'>) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -213,4 +211,4 @@ const FilterModalForm = ({
   )
 }
 
-export default FilterModalOrganism
+export default FilterModal

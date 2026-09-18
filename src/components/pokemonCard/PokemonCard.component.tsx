@@ -8,7 +8,7 @@ import {
   pokemonNumberFormat,
 } from '~/modules/pokemonCard.module'
 
-import PokemonCardShellComponent from './PokemonCardShell.component'
+import PokemonCardShell from './PokemonCardShell.component'
 
 /**
  * 포켓도감 포켓몬 카드 (반응형 단일 DS 컴포넌트).
@@ -34,7 +34,7 @@ type PokemonCardVariant = {
 // | { variant: 'skill'; learnInfo: PokemonLearnInfo }
 // | { variant: 'ability'; abilityInfo: ... }
 
-type PokemonCardComponentProps = PokemonCardBaseProps & PokemonCardVariant
+type PokemonCardProps = PokemonCardBaseProps & PokemonCardVariant
 
 /** 스탯 중 숫자 능력치 키 (__typename·total 제외) */
 type PokemonStatKey =
@@ -56,17 +56,17 @@ const POKEDEX_STAT_ROWS: ReadonlyArray<{ label: string; key: PokemonStatKey }> =
     { label: '스피드', key: 'speed' },
   ]
 
-const PokemonCardComponent = ({
+const PokemonCard = ({
   pokemonData,
   isHighPriority = false,
   variant,
-}: PokemonCardComponentProps) => {
+}: PokemonCardProps) => {
   const pokemonNumber = pokemonNumberFormat(pokemonData.number)
   const nameHeaderClass = getNameHeaderClass(pokemonData.name)
   const backgroundColor = getBackgroundColor(pokemonData.types)
 
   return (
-    <PokemonCardShellComponent
+    <PokemonCardShell
       href={`/detail/${pokemonData.number}`}
       backgroundColor={backgroundColor}
       types={pokemonData.types}
@@ -115,8 +115,8 @@ const PokemonCardComponent = ({
           ))}
         </dl>
       )}
-    </PokemonCardShellComponent>
+    </PokemonCardShell>
   )
 }
 
-export default PokemonCardComponent
+export default PokemonCard

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-interface SectionHeadingComponentProps {
+interface SectionHeadingProps {
   children: ReactNode
   /** aria-labelledby 연결용 id (섹션 landmark와 매칭) */
   id?: string
@@ -14,10 +14,7 @@ interface SectionHeadingComponentProps {
  * 압도하고 긴 제목("이번 주 챔피언스 TOP 3")이 줄바꿈된다(사용자 피드백 2026-07-06).
  * 데스크톱은 기존 text-4xl 유지.
  */
-const SectionHeadingComponent = ({
-  children,
-  id,
-}: SectionHeadingComponentProps) => {
+const SectionHeading = ({ children, id }: SectionHeadingProps) => {
   return (
     <h2
       id={id}
@@ -28,4 +25,4 @@ const SectionHeadingComponent = ({
   )
 }
 
-export default SectionHeadingComponent
+export default SectionHeading

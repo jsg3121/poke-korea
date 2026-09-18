@@ -2,12 +2,12 @@
 
 import { TypeEffectivenessProvider } from '~/context/TypeEffectiveness.context'
 import TypeEffectivenessTopBanner from '~/components/adSlot/TypeEffectivenessTopBanner.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import TypeCalculatorContainer from '~/containers/typeEffectiveness/TypeCalculator.container'
-import TypeCalculatorResultContainer from '~/containers/typeEffectiveness/TypeCalculatorResult.container'
-import TypeEffectivenessDescriptionContainer from '~/containers/typeEffectiveness/TypeEffectivenessDescription.container'
-import TypeEffectivenessTableContainer from '~/containers/typeEffectiveness/TypeEffectivenessTable.container'
-import TypeQuickLinksContainer from '~/containers/typeEffectiveness/TypeQuickLinks.container'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
+import TypeCalculator from '~/containers/typeEffectiveness/TypeCalculator.container'
+import TypeCalculatorResult from '~/containers/typeEffectiveness/TypeCalculatorResult.container'
+import TypeEffectivenessDescription from '~/containers/typeEffectiveness/TypeEffectivenessDescription.container'
+import TypeEffectivenessTable from '~/containers/typeEffectiveness/TypeEffectivenessTable.container'
+import TypeQuickLinks from '~/containers/typeEffectiveness/TypeQuickLinks.container'
 
 /**
  * 타입 상성 계산기 뷰 (반응형 단일 — UX-009). 데/모 2벌
@@ -30,31 +30,31 @@ import TypeQuickLinksContainer from '~/containers/typeEffectiveness/TypeQuickLin
  * 크롬(전역 헤더/푸터/탭바) 선택은 호출부(page.tsx) 책임 — ability 뷰와 동일 패턴.
  */
 
-const TypeEffectivenessView = () => {
+const TypeEffectiveness = () => {
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8">
       {/* H1은 title과 같은 방향으로 맞춘다 — 둘이 어긋나면 주제 신호가
           절반만 전달된다. `상성표`를 앞에 두되 `계산기`를 남겨 1위 자산인
           계산기 의도를 지킨다(§14.1·§26.9). */}
-      <PageHeaderComponent
+      <PageHeader
         title="포켓몬 타입 상성표·상성 계산기"
         description="상대 포켓몬의 타입을 선택하면 약점과 주의할 타입을 바로 알려드려요. 18개 타입 전체 상성표와 타입별 약점도 함께 확인하세요."
       />
 
       <TypeEffectivenessProvider>
-        <TypeCalculatorContainer />
+        <TypeCalculator />
         {/* 타입 선택↔결과 사이 — 선택 직후 결과로 내려오는 길목(항상 노출) */}
         <TypeEffectivenessTopBanner />
         {/* 미선택 시에만 노출 — 결과가 비어 있는 자리를 타입 상세 링크로 채운다.
             타입을 고르면 물러나므로 계산기 흐름을 막지 않는다. */}
-        <TypeQuickLinksContainer />
-        <TypeCalculatorResultContainer />
-        <TypeEffectivenessTableContainer />
+        <TypeQuickLinks />
+        <TypeCalculatorResult />
+        <TypeEffectivenessTable />
       </TypeEffectivenessProvider>
 
-      <TypeEffectivenessDescriptionContainer />
+      <TypeEffectivenessDescription />
     </section>
   )
 }
 
-export default TypeEffectivenessView
+export default TypeEffectiveness

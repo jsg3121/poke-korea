@@ -1,8 +1,8 @@
 import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
 import { getTypeLabel } from '~/modules/typeParams.module'
-import LinkButtonComponent from '~/components/button/LinkButton.component'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component'
+import LinkButton from '~/components/button/LinkButton.component'
+import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import PokemonCard from '~/components/pokemonCard/PokemonCard.component'
 
 /**
  * 타입별 포켓몬 6종.
@@ -25,18 +25,18 @@ import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component
  * 엣지 페이드·peek 단서도 DS가 처리한다.
  */
 
-interface TypeDetailPokemonContainerProps {
+interface TypeDetailPokemonProps {
   pokemonType: PokemonType
   pokemons: Array<PokemonInfoFragment>
   /** 해당 타입 포켓몬 전체 수 — 부제에 쓴다. 0이면 표기를 생략한다. */
   totalCount: number
 }
 
-const TypeDetailPokemonContainer = ({
+const TypeDetailPokemon = ({
   pokemonType,
   pokemons,
   totalCount,
-}: TypeDetailPokemonContainerProps) => {
+}: TypeDetailPokemonProps) => {
   if (pokemons.length === 0) return null
 
   const label = getTypeLabel(pokemonType)
@@ -63,9 +63,9 @@ const TypeDetailPokemonContainer = ({
           낮추면 둘째 줄에 1개만 남고, 6열로 두면 카드가 칸을 넘어 겹친다.
           가로 스크롤은 카드 고정폭을 지키면서 6종을 한 줄에 두고, 좁은 화면에서
           다음 카드가 살짝 보이는 peek 단서까지 DS가 처리한다. */}
-      <HorizontalScrollListComponent aria-label={`${label} 타입 포켓몬 목록`}>
+      <HorizontalScrollList aria-label={`${label} 타입 포켓몬 목록`}>
         {pokemons.map((pokemon, index) => (
-          <PokemonCardComponent
+          <PokemonCard
             key={pokemon.id}
             pokemonData={pokemon}
             variant="pokedex"
@@ -73,18 +73,18 @@ const TypeDetailPokemonContainer = ({
             isHighPriority={index === 0}
           />
         ))}
-      </HorizontalScrollListComponent>
+      </HorizontalScrollList>
       <div className="mt-5">
-        <LinkButtonComponent
+        <LinkButton
           href={`/list?type=${pokemonType}`}
           variant="secondary"
           showArrow
         >
           {label} 타입 포켓몬 전체 보기
-        </LinkButtonComponent>
+        </LinkButton>
       </div>
     </section>
   )
 }
 
-export default TypeDetailPokemonContainer
+export default TypeDetailPokemon

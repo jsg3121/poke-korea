@@ -5,9 +5,9 @@ import Link from 'next/link'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hooks/useLazyImage'
-import BallComponent from '~/components/ball/Ball.component'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Ball from '~/components/ball/Ball.component'
+import Image from '~/components/Image.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 포켓몬 카드 계열의 공통 레이아웃 셸 (Link + article + 포켓볼 + 헤더 + 이미지 +
@@ -75,7 +75,7 @@ interface PokemonCardShellProps {
 
 const WHITE_OUTLINE = '#ffffff'
 
-const PokemonCardShellComponent = ({
+const PokemonCardShell = ({
   href,
   backgroundColor,
   outlineColor = WHITE_OUTLINE,
@@ -108,7 +108,7 @@ const PokemonCardShellComponent = ({
       >
         <header className="w-full min-h-8 flex items-start justify-between relative z-10">
           <i className="w-6 desktop:w-8 h-6 desktop:h-8 flex-shrink-0 mr-2 relative">
-            <BallComponent />
+            <Ball />
             {ballBadge}
           </i>
           {header}
@@ -120,7 +120,7 @@ const PokemonCardShellComponent = ({
         {isHighPriority ? (
           <div className="flex-1 min-h-0 w-full flex items-center justify-center my-1 relative">
             <div className="h-full max-h-28 desktop:max-h-40 aspect-square drop-shadow-[2px_3px_2px_#333333]">
-              <ImageComponent
+              <Image
                 height="100%"
                 width="100%"
                 imageSize={imageSize}
@@ -139,7 +139,7 @@ const PokemonCardShellComponent = ({
           >
             {isVisible ? (
               <div className="h-full max-h-28 desktop:max-h-40 aspect-square drop-shadow-[2px_3px_2px_#333333]">
-                <ImageComponent
+                <Image
                   height="100%"
                   width="100%"
                   imageSize={imageSize}
@@ -164,7 +164,7 @@ const PokemonCardShellComponent = ({
 
         <div className="w-full flex items-center gap-2 px-2 mx-auto justify-start">
           {types.map((item, index) => (
-            <TagComponent key={`${item}-id-${index}`} type={item} />
+            <Tag key={`${item}-id-${index}`} type={item} />
           ))}
         </div>
 
@@ -174,4 +174,4 @@ const PokemonCardShellComponent = ({
   )
 }
 
-export default PokemonCardShellComponent
+export default PokemonCardShell

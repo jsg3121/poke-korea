@@ -25,11 +25,11 @@ import DesktopHomeTopBanner from '~/components/adSlot/DesktopHomeTopBanner.compo
 import MobileHomeBottomBanner from '~/components/adSlot/MobileHomeBottomBanner.component'
 import MobileHomeTopBanner from '~/components/adSlot/MobileHomeTopBanner.component'
 import MobileTabBar from '~/components/MobileTabBar.component'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import HomeView from '~/views/home/Home.view'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import Home from '~/views/home/Home.view'
 
 import { HOME_META } from './_metadata/homeMetadata'
 
@@ -112,33 +112,33 @@ const HomePage = async ({ searchParams }: PageProps) => {
 
   return (
     <Fragment>
-      {/* 홈 콘텐츠는 반응형 단일(HomeView, ADR-0007). UA 분기는 아직 데/모 2벌인
+      {/* 홈 콘텐츠는 반응형 단일(Home, ADR-0007). UA 분기는 아직 데/모 2벌인
           전역 크롬(헤더/푸터/탭바)과 디바이스별 AdSense 유닛 선택으로만 남는다 —
           크롬 통합은 전 페이지 공용이라 별도 트랙에서 진행. */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <HomeView
+          <MobileHeader />
+          <Home
             dailyPokemon={dailyPokemon}
             dailyQuiz={dailyQuiz}
             topChampionsPokemons={topChampionsPokemons}
             topBanner={<MobileHomeTopBanner />}
             bottomBanner={<MobileHomeBottomBanner />}
           />
-          <MobileFooterContainer />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
         <main className="w-full max-w-[1280px] min-h-screen mx-auto pt-40">
-          <DesktopHeaderContainer />
-          <HomeView
+          <DesktopHeader />
+          <Home
             dailyPokemon={dailyPokemon}
             dailyQuiz={dailyQuiz}
             topChampionsPokemons={topChampionsPokemons}
             topBanner={<DesktopHomeTopBanner />}
             bottomBanner={<DesktopHomeBottomBanner />}
           />
-          <DesktopFooterContainer />
+          <DesktopFooter />
         </main>
       )}
       <script

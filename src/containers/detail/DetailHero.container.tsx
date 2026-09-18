@@ -13,12 +13,10 @@ import {
 } from '~/modules/image.module'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import { DetailContext } from '~/context/Detail.context'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Image from '~/components/Image.component'
+import Tag from '~/components/tag/Tag.component'
 
-import DetailSpeciesNavContainer, {
-  AdjacentPokemon,
-} from './DetailSpeciesNav.container'
+import DetailSpeciesNav, { AdjacentPokemon } from './DetailSpeciesNav.container'
 import { getActiveFormInfo } from './modules/activeForm.module'
 
 /**
@@ -38,7 +36,7 @@ interface DetailHeroProps {
   nextPokemon: AdjacentPokemon | null
 }
 
-const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
+const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
   const {
     pokemonBaseInfo,
     megaEvolutions,
@@ -99,13 +97,13 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
         aria-hidden="true"
       />
       <div className="relative desktop:mx-auto desktop:max-w-7xl">
-        <DetailSpeciesNavContainer prev={prevPokemon} next={nextPokemon} />
+        <DetailSpeciesNav prev={prevPokemon} next={nextPokemon} />
         {/* 데스크톱: 이미지 컬럼 고정폭(shrink-0) + 정보 컬럼 flex-1 —
             이름 길이와 무관하게 이미지가 항상 같은 위치(QA 라운드 2) */}
         <div className="flex flex-col items-center gap-4 px-4 pb-4 pt-2 desktop:flex-row desktop:gap-16 desktop:pb-6 desktop:pl-16">
           {currentItem && (
             <div className="h-48 w-48 shrink-0 [filter:drop-shadow(0px_5px_5px_#000000)] desktop:h-72 desktop:w-72">
-              <ImageComponent
+              <Image
                 src={getImageSrc({ imageCode: currentItem.imageCode, isShiny })}
                 width="100%"
                 height="100%"
@@ -133,7 +131,7 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
             <ul className="flex gap-2" aria-label="포켓몬 타입">
               {activeTypeInfo.types.map((type) => (
                 <li key={type}>
-                  <TagComponent type={type} />
+                  <Tag type={type} />
                 </li>
               ))}
             </ul>
@@ -207,4 +205,4 @@ const DetailHeroContainer = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
   )
 }
 
-export default DetailHeroContainer
+export default DetailHero
