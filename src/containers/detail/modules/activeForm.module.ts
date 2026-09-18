@@ -1,3 +1,4 @@
+import { TActiveType } from '~/types/detailContext.type'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -6,7 +7,6 @@ import {
   PokemonRegionForm,
   PokemonStats,
 } from '~/graphql/typeGenerated'
-import { TActiveType } from '~/types/detailContext.type'
 
 /**
  * 활성 폼(기본/메가/리전/거다이맥스)에 따른 표시 이름·스탯 선택.

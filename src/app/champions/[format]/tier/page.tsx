@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+
 import {
   GetChampionsMetaSummaryByFilterDocument,
   GetChampionsTeamCoresDocument,
@@ -11,20 +12,21 @@ import {
   GetChampionsTeamCoresQuery,
   GetChampionsTeamCoresQueryVariables,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { initializeApollo } from '~/modules/apolloClient'
-import { detectUserAgent } from '~/modules/device.module'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
+import { initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import ChampionsTierView from '~/views/champions/ChampionsTier.view'
+
 import { generateChampionsTierMetadata } from '../../_metadata/championsMetadata'
 
 export const revalidate = 86400

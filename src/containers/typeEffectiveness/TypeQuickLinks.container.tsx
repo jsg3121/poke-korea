@@ -1,13 +1,14 @@
 'use client'
 
-import Link from 'next/link'
 import { useContext } from 'react'
-import ImageComponent from '~/components/Image.component'
+import Link from 'next/link'
+
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath, buildTypeSlug } from '~/modules/typeParams.module'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import ImageComponent from '~/components/Image.component'
 
 /**
  * 타입 미선택 시 노출하는 타입 상세 바로가기.

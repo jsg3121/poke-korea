@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { getRobotsConfig } from '~/modules/metadata.module'

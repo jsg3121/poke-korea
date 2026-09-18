@@ -1,17 +1,19 @@
-import { headers } from 'next/headers'
 import { Fragment } from 'react'
+import { headers } from 'next/headers'
+
+import {
+  SILHOUETTE_QUIZ_HOWTO_JSON_LD,
+  SILHOUETTE_QUIZ_JSON_LD,
+} from '~/constants/quizJsonLd'
+import { detectUserAgent } from '~/modules/device.module'
+import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
-import { detectUserAgent } from '~/modules/device.module'
-import {
-  SILHOUETTE_QUIZ_JSON_LD,
-  SILHOUETTE_QUIZ_HOWTO_JSON_LD,
-} from '~/constants/quizJsonLd'
 import SilhouetteQuizView from '~/views/quiz/silhouette/SilhouetteQuiz.view'
+
 import { QUIZ_SILHOUETTE_META } from '../_metadata/quizMetadata'
 
 export const revalidate = 31536000

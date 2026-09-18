@@ -1,8 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import TabItem from '~/components/tab/TabItem.component'
+
 import { CHAMPIONS_DEFAULT_FORMAT_SLUG } from '~/utils/championsFormat.util'
+import TabItem from '~/components/tab/TabItem.component'
 
 /**
  * 챔피언스 상단 서브네비 (organism). TabItem(underline) 원자를 배열로 조립한다.

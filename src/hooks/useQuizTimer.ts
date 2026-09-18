@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useQuizTimer = (startTime: Date | null) => {
   const [timeElapsed, setTimeElapsed] = useState(0)

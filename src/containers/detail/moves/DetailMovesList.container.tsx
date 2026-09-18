@@ -1,13 +1,14 @@
 'use client'
 
 import { useContext } from 'react'
+
+import { getDamageTypeChipColor } from '~/utils/skill.util'
+import { DEFAULT_LEARN_METHOD } from '~/modules/movesParams.module'
+import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
+import { DetailMovesContext } from '~/context/DetailMoves.context'
 import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
-import { DetailMovesContext } from '~/context/DetailMoves.context'
-import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
-import { DEFAULT_LEARN_METHOD } from '~/modules/movesParams.module'
-import { getDamageTypeChipColor } from '~/utils/skill.util'
 
 /**
  * 습득 기술 목록 (UX-006) — 현재 학습법 한 종류만 노출한다.

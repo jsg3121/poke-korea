@@ -1,12 +1,14 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import FilterIcon from '~/assets/icons/filter.svg'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { getChangeTypeList } from '~/modules/getChangeTypeList'
 import AppliedFilterChip from '~/components/chip/AppliedFilterChip.component'
 import TypeChip from '~/components/chip/TypeChip.component'
-import { getChangeTypeList } from '~/modules/getChangeTypeList'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+
 import FilterModal from './FilterModal.organism'
 
 /**

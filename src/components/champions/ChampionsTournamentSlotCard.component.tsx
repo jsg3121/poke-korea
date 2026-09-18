@@ -1,12 +1,13 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/Tag.component'
+
 import { ChampionsTeamSlotFragment, PokemonType } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode'
+import ImageComponent from '~/components/Image.component'
+import TagComponent from '~/components/Tag.component'
 
 interface ChampionsTournamentSlotCardProps {
   slot: ChampionsTeamSlotFragment

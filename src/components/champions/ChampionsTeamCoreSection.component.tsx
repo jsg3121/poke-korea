@@ -1,10 +1,12 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
-import ChampionsTeamCoreCard from './ChampionsTeamCoreCard.component'
+
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+
+import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
+import ChampionsTeamCoreCard from './ChampionsTeamCoreCard.component'
 
 interface ChampionsTeamCoreSectionProps {
   teamCores: ChampionsTeamCoreFragment[]

@@ -1,15 +1,17 @@
 'use client'
 
+import { ReactNode, useContext } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { ReactNode, useContext } from 'react'
+
 import RegionIcon from '~/assets/icons/region.svg'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
+import { DetailContext } from '~/context/Detail.context'
 import BallComponent from '~/components/ball/Ball.component'
 import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
 import ImageComponent from '~/components/Image.component'
-import { DetailContext } from '~/context/Detail.context'
+
 import { getFormBasePath } from './modules/activeForm.module'
 
 /**

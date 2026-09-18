@@ -1,11 +1,12 @@
 'use client'
 
-import QuizResultPopup from '~/components/home/QuizResultPopup.component'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
-import ImageComponent from '~/components/Image.component'
-import QuizCardComponent from '~/components/quizCard/QuizCard.component'
 import { SilhouetteQuizQuestion } from '~/graphql/typeGenerated'
 import { imageMode } from '~/modules/buildMode'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizResultPopup from '~/components/home/QuizResultPopup.component'
+import ImageComponent from '~/components/Image.component'
+import QuizCardComponent from '~/components/quizCard/QuizCard.component'
+
 import { useCorrectQuizCheck } from './hooks/useCorrectQuizCheck'
 
 interface SilhouetteQuizCardContainerProps {

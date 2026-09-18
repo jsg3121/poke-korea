@@ -1,8 +1,8 @@
-import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
 import {
   ChampionsFormatSlug,
   getFormatIntro,
 } from '~/utils/championsFormat.util'
+import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.component'
 
 /**
  * 챔피언스 공통 포맷 인트로 (포맷 탭 + 포맷 안내 캡션).

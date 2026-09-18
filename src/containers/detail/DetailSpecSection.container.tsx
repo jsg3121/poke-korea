@@ -1,18 +1,20 @@
 'use client'
 
 import { useContext } from 'react'
-import { DetailContext } from '~/context/Detail.context'
-import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
+
 import {
   CAPTURE_RATE_MAX,
-  UNKNOWN_LABEL,
   formatGenderPercent,
   formatHeight,
   formatNumber,
   formatWeight,
   getCaptureRatePercent,
   parseGenderRate,
+  UNKNOWN_LABEL,
 } from '~/modules/pokemonSpec.module'
+import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
+import { DetailContext } from '~/context/Detail.context'
+
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import {
   CaptureRateGaugeComponent,

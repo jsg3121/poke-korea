@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
+
 import HomeQuizContainer from './HomeQuiz.container'
 
 const dailyQuiz = {

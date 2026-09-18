@@ -1,9 +1,10 @@
 'use client'
 
-import QuizResultPopup from '~/components/home/QuizResultPopup.component'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
-import QuizCardComponent from '~/components/quizCard/QuizCard.component'
 import { AbilityQuizQuestion } from '~/graphql/typeGenerated'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizResultPopup from '~/components/home/QuizResultPopup.component'
+import QuizCardComponent from '~/components/quizCard/QuizCard.component'
+
 import { useCorrectQuizCheck } from './hooks/useCorrectQuizCheck'
 
 interface AbilityQuizCardContainerProps {

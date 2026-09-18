@@ -1,7 +1,8 @@
+import { Fragment } from 'react'
 import { headers } from 'next/headers'
 import { permanentRedirect } from 'next/navigation'
-import { Fragment } from 'react'
-import { HOME_META } from './_metadata/homeMetadata'
+
+import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import {
   GetChampionsMetaSummaryByFilterDocument,
   GetDailyQuizPreviewDocument,
@@ -16,6 +17,9 @@ import {
   GetDailyRandomPokemonQuery,
   GetDailyRandomPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
+import { compareByUsageRank } from '~/utils/championsFormat.util'
+import { initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
 import DesktopHomeBottomBanner from '~/components/adSlot/DesktopHomeBottomBanner'
 import DesktopHomeTopBanner from '~/components/adSlot/DesktopHomeTopBanner'
 import MobileHomeBottomBanner from '~/components/adSlot/MobileHomeBottomBanner'
@@ -25,11 +29,9 @@ import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
-import { initializeApollo } from '~/modules/apolloClient'
-import { detectUserAgent } from '~/modules/device.module'
-import { compareByUsageRank } from '~/utils/championsFormat.util'
 import HomeView from '~/views/home/Home.view'
+
+import { HOME_META } from './_metadata/homeMetadata'
 
 export const dynamic = 'force-dynamic'
 

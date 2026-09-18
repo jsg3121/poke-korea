@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
-import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournamentTeamCard.component'
+
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsTournamentDetailFragment } from '~/graphql/typeGenerated'
 import {
@@ -8,6 +7,8 @@ import {
   formatKstDate,
   getFormatEnumShortLabel,
 } from '~/utils/championsFormat.util'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournamentTeamCard.component'
 
 /**
  * 챔피언스 대회 상세 본문 (반응형 단일, ADR-0007 / UX-011, E-3).

@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
-import LinkButtonComponent from '~/components/button/LinkButton.component'
+
 import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import {
@@ -9,6 +8,8 @@ import {
   getTypeLabel,
   parseTypeLabel,
 } from '~/modules/typeParams.module'
+import LinkButtonComponent from '~/components/button/LinkButton.component'
+import ImageComponent from '~/components/Image.component'
 
 /**
  * 하단 이동 영역 — 계산기 복귀 CTA + 다른 타입 18개 링크.

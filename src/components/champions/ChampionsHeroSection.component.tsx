@@ -1,8 +1,9 @@
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
-import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
+import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
+
+import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
 
 interface ChampionsHeroSectionProps {
   sTierPokemons: ChampionsMetaSummaryFragment[]

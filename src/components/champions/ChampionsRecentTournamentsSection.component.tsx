@@ -1,4 +1,5 @@
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
+
 import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
 import ChampionsTournamentCard from './ChampionsTournamentCard.component'
 

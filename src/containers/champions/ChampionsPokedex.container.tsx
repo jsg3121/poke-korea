@@ -1,19 +1,19 @@
 'use client'
 
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
+import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
+import {
+  ChampionsFormatSlug,
+  getFormatShortLabel,
+} from '~/utils/championsFormat.util'
+import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
+import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
 import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
 import ChampionsPokedexSortSelect from '~/components/champions/ChampionsPokedexSortSelect.component'
 import ChampionsPokemonCard from '~/components/champions/ChampionsPokemonCard.component'
 import ChampionsTypeFilter from '~/components/champions/filter/ChampionsTypeFilter.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import { CHAMPIONS_SLOTS } from '~/constants/adSense'
-import { useChampionsPokedex } from '~/context/ChampionsPokedex.context'
-import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
-import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
-import {
-  ChampionsFormatSlug,
-  getFormatShortLabel,
-} from '~/utils/championsFormat.util'
 
 /**
  * 챔피언스 도감 본문 (반응형 단일, ADR-0007).

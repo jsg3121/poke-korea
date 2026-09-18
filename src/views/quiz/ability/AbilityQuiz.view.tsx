@@ -1,7 +1,9 @@
 'use client'
 
 import { Fragment } from 'react'
+
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
+
 import AbilityQuizBefore from './AbilityQuizBefore'
 import AbilityQuizPlay from './AbilityQuizPlay'
 import AbilityQuizResult from './AbilityQuizResult'

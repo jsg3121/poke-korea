@@ -1,9 +1,9 @@
-import TypeAttackMatchupComponent from '~/components/typeMatchup/TypeAttackMatchup.component'
-import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/modules/calculateRelationType'
-import { getTypeLabel } from '~/modules/typeParams.module'
 import { calculateAttackEffectiveness } from '~/modules/typeAttackEffectiveness'
+import { getTypeLabel } from '~/modules/typeParams.module'
+import TypeAttackMatchupComponent from '~/components/typeMatchup/TypeAttackMatchup.component'
+import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component'
 
 /**
  * 방어·공격 상성 전체.

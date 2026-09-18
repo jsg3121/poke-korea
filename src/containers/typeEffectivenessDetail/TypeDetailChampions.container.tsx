@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import ChampionsTierBadge from '~/components/champions/ChampionsTierBadge.component'
-import TagComponent from '~/components/tag/Tag.component'
+
 import { PokemonType } from '~/graphql/typeGenerated'
+import { buildChampionsDetailHref } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode'
 import { getTypeLabel } from '~/modules/typeParams.module'
-import { buildChampionsDetailHref } from '~/utils/championsFormat.util'
+import ChampionsTierBadge from '~/components/champions/ChampionsTierBadge.component'
+import TagComponent from '~/components/tag/Tag.component'
 import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 
 /**

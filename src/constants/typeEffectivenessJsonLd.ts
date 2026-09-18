@@ -1,5 +1,6 @@
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeSlug, getTypeLabel } from '~/modules/typeParams.module'
+
 import { TYPE_DETAIL_CONTENT } from './typeDetailContent'
 
 const description =

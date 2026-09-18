@@ -1,6 +1,7 @@
+import { DailyQuizPreview } from '~/graphql/typeGenerated'
 import LinkButtonComponent from '~/components/button/LinkButton.component'
 import SectionHeadingComponent from '~/components/SectionHeading.component'
-import { DailyQuizPreview } from '~/graphql/typeGenerated'
+
 import AbilityQuizCardContainer from './quiz/AbilityQuizCard.container'
 import PokemonTypeQuizCardContainer from './quiz/PokemonTypeQuizCard.container'
 import SilhouetteQuizCardContainer from './quiz/SilhouetteQuizCard.container'

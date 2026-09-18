@@ -1,9 +1,11 @@
 'use client'
+
 import Link from 'next/link'
+
 import FeedbackIcon from '~/assets/icons/feedback.svg'
+import { useSearchPokemon } from '~/hooks/useSearchPokemon'
 import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 import ImageComponent from '~/components/Image.component'
-import { useSearchPokemon } from '~/hooks/useSearchPokemon'
 
 const HeaderSearchContainer = () => {
   const {

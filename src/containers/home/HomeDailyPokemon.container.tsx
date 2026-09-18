@@ -1,7 +1,7 @@
+import { PokemonCardFragment } from '~/graphql/typeGenerated'
 import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component'
 import SectionHeadingComponent from '~/components/SectionHeading.component'
-import { PokemonCardFragment } from '~/graphql/typeGenerated'
 
 /**
  * 홈 "오늘의 포켓몬" 섹션 (반응형 단일, DS 조립 — UX-003 §3 섹션 4).

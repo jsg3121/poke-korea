@@ -1,16 +1,18 @@
-import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import MobileTabBar from '~/components/MobileTabBar'
+import { headers } from 'next/headers'
+
 import {
   TYPE_EFFECTIVENESS_ITEMLIST_JSON_LD,
   TYPE_EFFECTIVENESS_WEBPAGE_JSON_LD,
 } from '~/constants/typeEffectivenessJsonLd'
+import { detectUserAgent } from '~/modules/device.module'
+import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { detectUserAgent } from '~/modules/device.module'
 import TypeEffectivenessView from '~/views/typeEffectiveness/TypeEffectiveness.view'
+
 import { TYPE_EFFECTIVENESS_META } from './_metadata/typeEffectivenessMetadata'
 
 // 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)가 매 요청 평가된다.

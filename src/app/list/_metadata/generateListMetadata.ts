@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
-import { changeTypeArrayToString } from '~/modules/filter.module'
+
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { changeTypeArrayToString } from '~/modules/filter.module'
 
 interface ListMetadataParams {
   type?: string

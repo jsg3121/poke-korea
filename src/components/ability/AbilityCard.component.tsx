@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { AbilityInfoFragment } from '~/graphql/typeGenerated'
 
 /**

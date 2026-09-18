@@ -1,7 +1,8 @@
 'use client'
+
 import { ADSENSE_CLIENT } from '~/constants/adSense'
-import { useDevice } from '~/context/Device.context'
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
+import { useDevice } from '~/context/Device.context'
 
 /**
  * 특성별 포켓몬 상세(/ability/[id]) 상단 광고 — RES-004 재도입. 특성 설명 헤더

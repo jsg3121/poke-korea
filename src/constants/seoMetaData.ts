@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+
 import { getRobotsConfig } from '~/modules/metadata.module'
 
 const SITE_NAME = '포케 코리아'

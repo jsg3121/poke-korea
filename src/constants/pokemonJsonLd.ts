@@ -1,3 +1,5 @@
+import { TActiveType } from '~/types/detailContext.type'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -18,8 +20,6 @@ import {
   formatGenderPercent,
   parseGenderRate,
 } from '~/modules/pokemonSpec.module'
-import { TActiveType } from '~/types/detailContext.type'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 interface PokemonJsonLdProps {
   pokemonDetail: PokemonDetail

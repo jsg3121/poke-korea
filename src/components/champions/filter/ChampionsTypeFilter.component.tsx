@@ -1,10 +1,11 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent } from 'react'
-import TypeChip from '~/components/chip/TypeChip.component'
-import { getChangeTypeList } from '~/modules/getChangeTypeList'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { getChangeTypeList } from '~/modules/getChangeTypeList'
+import TypeChip from '~/components/chip/TypeChip.component'
 
 /**
  * 챔피언스 도감 타입 필터. 포켓몬 도감 리스트(FilterBar.organism)와 동일한 공유

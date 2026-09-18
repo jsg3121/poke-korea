@@ -1,12 +1,12 @@
-import LinkButtonComponent from '~/components/button/LinkButton.component'
-import ChampionsTopCardComponent from '~/components/champions/ChampionsTopCard.component'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import SectionHeadingComponent from '~/components/SectionHeading.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import {
   CHAMPIONS_DEFAULT_FORMAT_SLUG,
   getFormatLabel,
 } from '~/utils/championsFormat.util'
+import LinkButtonComponent from '~/components/button/LinkButton.component'
+import ChampionsTopCardComponent from '~/components/champions/ChampionsTopCard.component'
+import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import SectionHeadingComponent from '~/components/SectionHeading.component'
 
 /**
  * 홈 "이번 주 챔피언스 TOP 3" 섹션 (폴드 위, 반응형 단일 DS 조립 — UX-003 개정).

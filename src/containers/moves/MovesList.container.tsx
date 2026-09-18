@@ -1,16 +1,18 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import MovesListIcon from '~/assets/icons/movesList.svg'
+import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
+import { MovesContext } from '~/context/Moves.context'
 import MovesListTopBanner from '~/components/adSlot/MovesListTopBanner'
 import ButtonComponent from '~/components/button/Button.component'
 import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 import MoveListCardComponent from '~/components/moves/moveCard/MoveListCard.component'
 import MoveListCardSkeletonComponent from '~/components/moves/moveCard/MoveListCardSkeleton.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import { MovesContext } from '~/context/Moves.context'
-import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
+
 import MovesFilterBarContainer from './MovesFilterBar.container'
 import MovesSearchContainer from './MovesSearch.container'
 

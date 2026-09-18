@@ -1,10 +1,11 @@
 'use client'
 
 import { ChangeEvent, useContext } from 'react'
-import TypeChipComponent from '~/components/chip/TypeChip.component'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
-import { PokemonType } from '~/graphql/typeGenerated'
+
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import TypeChipComponent from '~/components/chip/TypeChip.component'
 
 /**
  * 상대 타입 선택 계산기 (반응형 단일 — UX-009). 구버전 데/모 2벌

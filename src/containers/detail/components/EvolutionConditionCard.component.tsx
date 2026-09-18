@@ -1,11 +1,12 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
-import ImageComponent from '~/components/Image.component'
+import Link from 'next/link'
+
+import { EvolutionNode, hasVersionVariants } from '~/utils/evolution.util'
 import { imageMode } from '~/modules/buildMode'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
-import { EvolutionNode, hasVersionVariants } from '~/utils/evolution.util'
+import ImageComponent from '~/components/Image.component'
 
 /**
  * 진화 루트 1개 카드(대상 + 폼 조합). 이미지·이름은 edge의 result*에서 온 값이라

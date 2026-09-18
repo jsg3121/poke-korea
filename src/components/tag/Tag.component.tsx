@@ -1,5 +1,5 @@
-import { PokemonType } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { PokemonType } from '~/graphql/typeGenerated'
 
 /**
  * 디자인 시스템 타입 태그 (신규). 기존 Tag.component / globals.css의 .type-tag를

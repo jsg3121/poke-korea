@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { QUIZ_CROSS_LINKS } from '~/constants/quiz.constants'
+
 import { QuizType } from '~/types/quiz.type'
+import { QUIZ_CROSS_LINKS } from '~/constants/quiz.constants'
 
 /**
  * 다른 퀴즈 교차 링크 (BEFORE/RESULT 하단). 현재 퀴즈를 제외한 3개 퀴즈로 이동.

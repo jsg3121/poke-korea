@@ -1,9 +1,11 @@
 'use client'
 
 import { useContext } from 'react'
-import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component'
-import { DetailContext } from '~/context/Detail.context'
+
 import { calculateRelationType } from '~/modules/calculateRelationType'
+import { DetailContext } from '~/context/Detail.context'
+import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component'
+
 import DetailQuizCtaComponent from './components/DetailQuizCta.component'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 

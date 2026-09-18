@@ -1,9 +1,9 @@
 'use client'
 
+import { VersionGroup } from '~/graphql/typeGenerated'
 import MovesVersionNavComponent, {
   MovesVersionNavItem,
 } from '~/components/moves/MovesVersionNav.component'
-import { VersionGroup } from '~/graphql/typeGenerated'
 
 /**
  * 기술 상세 버전 선택 sticky 크롬 (UX-008). A그룹(습득기술)에서 승격한

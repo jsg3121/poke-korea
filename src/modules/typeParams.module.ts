@@ -1,5 +1,5 @@
-import { PokemonType } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { PokemonType } from '~/graphql/typeGenerated'
 
 /**
  * 타입 상세 페이지(`/type-effectiveness/[type]`) URL 슬러그 ↔ `PokemonType` 매핑.

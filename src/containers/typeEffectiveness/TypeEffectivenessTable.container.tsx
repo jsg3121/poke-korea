@@ -1,16 +1,18 @@
 'use client'
 
-import Link from 'next/link'
 import { useContext, useState } from 'react'
+import Link from 'next/link'
+
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
   EffectivenessValue,
   TYPE_EFFECTIVENESS_CHART,
   TYPE_ORDER,
 } from '~/constants/typeEffectivenessChart'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+
 import TableActivePointerComponent, {
   ActivePointerType,
 } from './TableActivePointer.component'

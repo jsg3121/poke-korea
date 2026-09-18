@@ -1,12 +1,12 @@
 'use client'
 
 import MovesListIcon from '~/assets/icons/movesList.svg'
-import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
-import PokemonBySkillCardComponent from '~/components/moves/PokemonBySkillCard.component'
 import { PokemonLearnInfo } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
 import { usePokemonsBySkill } from '~/hooks/usePokemonsBySkill'
+import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
+import PokemonBySkillCardComponent from '~/components/moves/PokemonBySkillCard.component'
 
 /**
  * 기술별 포켓몬 목록 (반응형 단일 — UX-008). 구버전 데/모 2벌 MoveDetail.container의

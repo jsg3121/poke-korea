@@ -1,13 +1,3 @@
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
-import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
-import ChampionsHeroSection from '~/components/champions/ChampionsHeroSection.component'
-import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSectionHeader.component'
-import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.component'
-import ChampionsRecentTournamentsSection from '~/components/champions/ChampionsRecentTournamentsSection.component'
-import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSection.component'
-import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import {
   ChampionsMetaSummaryFragment,
@@ -20,6 +10,16 @@ import {
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
 import { groupChampionsByTier } from '~/utils/championsTier.util'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
+import ChampionsHeroSection from '~/components/champions/ChampionsHeroSection.component'
+import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSectionHeader.component'
+import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.component'
+import ChampionsRecentTournamentsSection from '~/components/champions/ChampionsRecentTournamentsSection.component'
+import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSection.component'
+import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
+import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 
 /**
  * 챔피언스 홈 본문 (반응형 단일, ADR-0007).

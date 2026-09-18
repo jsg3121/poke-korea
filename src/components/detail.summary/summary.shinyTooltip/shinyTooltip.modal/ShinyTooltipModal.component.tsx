@@ -1,6 +1,7 @@
+import { forwardRef } from 'react'
+
 import ModalDescriptionComponent from './modal.description/ModalDescription.component'
 import ModalTitleComponent from './modal.title/ModalTitle.component'
-import { forwardRef } from 'react'
 
 interface ShinyTooltipModalComponentProps {
   onClickCloseModal: () => void

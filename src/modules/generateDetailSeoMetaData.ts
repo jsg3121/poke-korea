@@ -1,3 +1,4 @@
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -7,7 +8,7 @@ import {
   PokemonStats,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+
 import { TActiveType } from '../types/detailContext.type'
 
 type GetPokemonNameByTypeParams = {

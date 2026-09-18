@@ -1,16 +1,18 @@
-import { headers } from 'next/headers'
 import { Fragment } from 'react'
+import { headers } from 'next/headers'
+
+import {
+  QUIZ_ITEMLIST_JSON_LD,
+  QUIZ_WEBPAGE_JSON_LD,
+} from '~/constants/quizJsonLd'
+import { detectUserAgent } from '~/modules/device.module'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { detectUserAgent } from '~/modules/device.module'
-import {
-  QUIZ_ITEMLIST_JSON_LD,
-  QUIZ_WEBPAGE_JSON_LD,
-} from '~/constants/quizJsonLd'
 import QuizMainView from '~/views/quiz/QuizMain.view'
+
 import { QUIZ_MAIN_META } from './_metadata/quizMetadata'
 
 export const revalidate = 31536000

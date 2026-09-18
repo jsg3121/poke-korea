@@ -1,12 +1,7 @@
-import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import MobileTabBar from '~/components/MobileTabBar'
+import { headers } from 'next/headers'
+
 import { ABILITY_WEBPAGE_JSON_LD } from '~/constants/abilityJsonLd'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import Providers from '~/app/providers'
 import { GetAbilityListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
   AbilityEdge,
@@ -15,7 +10,14 @@ import {
 } from '~/graphql/typeGenerated'
 import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
 import { detectUserAgent } from '~/modules/device.module'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import AbilityListView from '~/views/ability/AbilityList.view'
+import Providers from '~/app/providers'
+
 import { ABILITY_LIST_META } from './_metadata/abilityListMetadata'
 
 // 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)와 searchParams 검색이

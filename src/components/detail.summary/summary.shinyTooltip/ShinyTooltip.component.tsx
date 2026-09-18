@@ -1,6 +1,9 @@
 'use client'
+
 import { Fragment, useRef, useState } from 'react'
+
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
+
 import ShinyTooltipModalComponent from './shinyTooltip.modal/ShinyTooltipModal.component'
 
 const ShinyTooltipComponent = () => {

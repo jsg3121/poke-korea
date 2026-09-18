@@ -1,9 +1,11 @@
 'use client'
 
 import { useContext } from 'react'
+
+import { DetailContext } from '~/context/Detail.context'
 import SectionHeadingComponent from '~/components/SectionHeading.component'
 import StatBarComponent from '~/components/statBar/StatBar.component'
-import { DetailContext } from '~/context/Detail.context'
+
 import { getActiveFormInfo } from './modules/activeForm.module'
 
 /**

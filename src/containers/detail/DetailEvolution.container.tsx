@@ -1,13 +1,15 @@
 'use client'
 
-import Link from 'next/link'
 import { useContext } from 'react'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import ImageComponent from '~/components/Image.component'
-import { DetailContext } from '~/context/Detail.context'
+import Link from 'next/link'
+
+import { buildEvolutionGroups } from '~/utils/evolution.util'
 import { imageMode } from '~/modules/buildMode'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
-import { buildEvolutionGroups } from '~/utils/evolution.util'
+import { DetailContext } from '~/context/Detail.context'
+import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import ImageComponent from '~/components/Image.component'
+
 import EvolutionConditionCardComponent from './components/EvolutionConditionCard.component'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import { AdjacentPokemon } from './DetailSpeciesNav.container'

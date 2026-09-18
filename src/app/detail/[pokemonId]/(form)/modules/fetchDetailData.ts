@@ -1,3 +1,4 @@
+import { TActiveType } from '~/types/detailContext.type'
 import {
   GetDetailMovesPokemonInfoDocument,
   GetPokemonGigantamaxDocument,
@@ -27,7 +28,6 @@ import {
   VersionGroup,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/modules/apolloClient'
-import { TActiveType } from '~/types/detailContext.type'
 
 export interface DetailPokemonInfo {
   pokemonBaseInfo: PokemonDetail

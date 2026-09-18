@@ -1,7 +1,8 @@
 import Link from 'next/link'
+
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 /**
  * "타입별 추가 효과" 본문 안의 타입명 링크.

@@ -7,6 +7,7 @@
  */
 
 import { PokemonType } from '~/graphql/typeGenerated'
+
 import TypeNameLinkComponent from './TypeNameLink.component'
 
 const DESCRIPTION_ITEM_CLASS =

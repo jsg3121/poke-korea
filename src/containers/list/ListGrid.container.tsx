@@ -1,14 +1,15 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
+import { useRouter } from 'next/navigation'
+
 import PokeballIcon from '~/assets/icons/pokeball.svg'
+import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
+import { ListContext } from '~/context/List.context'
 import ButtonComponent from '~/components/button/Button.component'
 import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component'
 import PokemonCardSkeletonComponent from '~/components/pokemonCard/PokemonCardSkeleton.component'
-import { ListContext } from '~/context/List.context'
-import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 
 /**
  * 도감 리스트 그리드 (반응형 단일 — UX-004). 구버전 데/모 2벌 List.container를

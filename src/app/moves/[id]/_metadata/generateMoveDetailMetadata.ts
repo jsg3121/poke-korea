@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
-import { PokemonType } from '~/graphql/typeGenerated'
-import { getRobotsConfig } from '~/modules/metadata.module'
+
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { PokemonType } from '~/graphql/typeGenerated'
 import { getDamageTypeKorean } from '~/utils/skill.util'
+import { getRobotsConfig } from '~/modules/metadata.module'
 
 interface MoveDetailBaseParams {
   skillId: number

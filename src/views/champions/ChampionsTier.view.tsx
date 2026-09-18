@@ -1,11 +1,11 @@
 'use client'
 
-import ChampionsTierContainer from '~/containers/champions/ChampionsTier.container'
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,
 } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import ChampionsTierContainer from '~/containers/champions/ChampionsTier.container'
 
 interface TierGroups {
   S: ChampionsMetaSummaryFragment[]

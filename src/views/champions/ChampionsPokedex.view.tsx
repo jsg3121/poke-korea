@@ -1,7 +1,5 @@
 'use client'
 
-import ChampionsPokedexContainer from '~/containers/champions/ChampionsPokedex.container'
-import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
 import {
   ChampionsPokemonCardFragment,
   ChampionsPokemonFilterInput,
@@ -11,6 +9,8 @@ import {
   ChampionsFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
+import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
+import ChampionsPokedexContainer from '~/containers/champions/ChampionsPokedex.container'
 
 interface ChampionsPokedexViewProps {
   pokemonList: ChampionsPokemonCardFragment[]

@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import TagComponent from '~/components/tag/Tag.component'
+
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/modules/calculateRelationType'
 import { getTypeLabel } from '~/modules/typeParams.module'
+import TagComponent from '~/components/tag/Tag.component'
 
 /**
  * 폴드 영역 — Breadcrumb + H1 + 리드 + 약점 즉답 + 고유 사실.

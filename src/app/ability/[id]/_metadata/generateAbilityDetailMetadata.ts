@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+
 import { getRobotsConfig } from '~/modules/metadata.module'
 
 interface AbilityDetailMetadataParams {

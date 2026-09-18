@@ -1,19 +1,20 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import { useContext } from 'react'
-import TabItemComponent from '~/components/tab/TabItem.component'
-import { DetailMovesContext } from '~/context/DetailMoves.context'
+import { useParams } from 'next/navigation'
+
 import { LearnMethod } from '~/graphql/typeGenerated'
-import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
 import {
+  buildMovesPath,
   DEFAULT_LEARN_METHOD,
   VISIBLE_LEARN_METHODS,
-  buildMovesPath,
 } from '~/modules/movesParams.module'
+import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
+import { DetailMovesContext } from '~/context/DetailMoves.context'
 import MovesVersionNavComponent, {
   MovesVersionNavItem,
 } from '~/components/moves/MovesVersionNav.component'
+import TabItemComponent from '~/components/tab/TabItem.component'
 
 /**
  * 습득 기술 sticky 크롬 블록 (UX-006) — 학습법 탭 + 버전 선택 nav.

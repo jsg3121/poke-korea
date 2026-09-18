@@ -1,15 +1,17 @@
 'use client'
 
 import { useContext } from 'react'
-import ChipComponent from '~/components/chip/Chip.component'
-import TagComponent from '~/components/tag/Tag.component'
-import { DetailContext } from '~/context/Detail.context'
+
 import { PokemonZMove } from '~/graphql/typeGenerated'
 import {
   getDamageTypeChipColor,
   getDamageTypeKorean,
   hasDamageType,
 } from '~/utils/skill.util'
+import { DetailContext } from '~/context/Detail.context'
+import ChipComponent from '~/components/chip/Chip.component'
+import TagComponent from '~/components/tag/Tag.component'
+
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import {
   MoveConceptNote,

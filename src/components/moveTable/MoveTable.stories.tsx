@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
+
 import MoveTableComponent from './MoveTable.component'
 
 /** 리자몽 레벨업 기술 (LEGENDS Z-A 발췌) — 변화 기술의 위력 없음(-) 케이스 포함 */

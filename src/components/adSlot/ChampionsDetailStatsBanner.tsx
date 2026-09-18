@@ -1,7 +1,8 @@
 'use client'
+
 import { ADSENSE_CLIENT, CHAMPIONS_SLOTS } from '~/constants/adSense'
-import { useDevice } from '~/context/Device.context'
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
+import { useDevice } from '~/context/Device.context'
 
 /**
  * 챔피언스 상세 데스크톱 좌측(능력치 박스 아래) 전용 광고 — RES-004.

@@ -1,14 +1,16 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
-import MobileTabBar from '~/components/MobileTabBar'
+
+import { detectUserAgent } from '~/modules/device.module'
 import { DetailProvider } from '~/context/Detail.context'
+import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { detectUserAgent } from '~/modules/device.module'
 import DetailView from '~/views/detail/Detail.view'
+
 import { generatePokemonJsonLd } from '../../../../constants/pokemonJsonLd'
 import {
   fetchAdjacentPokemon,

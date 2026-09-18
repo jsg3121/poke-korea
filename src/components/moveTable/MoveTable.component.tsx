@@ -1,8 +1,9 @@
 import Link from 'next/link'
+
+import { PokemonType } from '~/graphql/typeGenerated'
 import ChipComponent from '~/components/chip/Chip.component'
 import { ChipColor } from '~/components/chip/chipStyle'
 import TagComponent from '~/components/tag/Tag.component'
-import { PokemonType } from '~/graphql/typeGenerated'
 
 /**
  * 습득 기술 목록 (DS). 기술 1건 = 습득조건·기술명·타입·분류·위력·명중·PP.

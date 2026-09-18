@@ -1,6 +1,7 @@
+import { QuizType } from '~/types/quiz.type'
 import ButtonComponent from '~/components/button/Button.component'
 import LinkButtonComponent from '~/components/button/LinkButton.component'
-import { QuizType } from '~/types/quiz.type'
+
 import OtherQuizLinkComponent from './OtherQuizLink.component'
 
 /**

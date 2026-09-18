@@ -6,6 +6,7 @@ import MovesListIcon from '~/assets/icons/movesList.svg'
 import PokeballIcon from '~/assets/icons/pokeball.svg'
 import QuizIcon from '~/assets/icons/quiz.svg'
 import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
+
 import HubLinkCardComponent from './HubLinkCard.component'
 
 /**

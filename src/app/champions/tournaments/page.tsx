@@ -1,19 +1,20 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
+
+import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import { GetChampionsTournamentsWithTopTeamDocument } from '~/graphql/gqlGenerated'
 import {
   ChampionsFormat,
   GetChampionsTournamentsWithTopTeamQuery,
   GetChampionsTournamentsWithTopTeamQueryVariables,
 } from '~/graphql/typeGenerated'
+import { initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { initializeApollo } from '~/modules/apolloClient'
-import { detectUserAgent } from '~/modules/device.module'
-import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import ChampionsTournamentsListView from '~/views/champions/ChampionsTournamentsList.view'
 
 export const revalidate = 86400

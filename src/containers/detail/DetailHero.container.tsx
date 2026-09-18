@@ -1,11 +1,9 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { useContext } from 'react'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/tag/Tag.component'
 import Link from 'next/link'
-import { DetailContext } from '~/context/Detail.context'
+import { useSearchParams } from 'next/navigation'
+
 import { changeColor } from '~/modules/changeColor'
 import {
   getAltText,
@@ -14,6 +12,10 @@ import {
   getImageSrc,
 } from '~/modules/image.module'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
+import { DetailContext } from '~/context/Detail.context'
+import ImageComponent from '~/components/Image.component'
+import TagComponent from '~/components/tag/Tag.component'
+
 import DetailSpeciesNavContainer, {
   AdjacentPokemon,
 } from './DetailSpeciesNav.container'

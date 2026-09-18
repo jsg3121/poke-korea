@@ -1,24 +1,25 @@
+import { cache } from 'react'
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-import { cache } from 'react'
+
+import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import { GetChampionsTournamentDetailDocument } from '~/graphql/gqlGenerated'
 import {
   GetChampionsTournamentDetailQuery,
   GetChampionsTournamentDetailQueryVariables,
 } from '~/graphql/typeGenerated'
+import {
+  formatKstDate,
+  getFormatEnumShortLabel,
+} from '~/utils/championsFormat.util'
+import { initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { initializeApollo } from '~/modules/apolloClient'
-import { detectUserAgent } from '~/modules/device.module'
-import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
-import {
-  formatKstDate,
-  getFormatEnumShortLabel,
-} from '~/utils/championsFormat.util'
 import ChampionsTournamentDetailView from '~/views/champions/ChampionsTournamentDetail.view'
 
 export const revalidate = 86400

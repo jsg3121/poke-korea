@@ -1,8 +1,9 @@
 import { Fragment } from 'react'
-import TagComponent from '~/components/tag/Tag.component'
+
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { getTypeLabel, parseTypeLabel } from '~/modules/typeParams.module'
+import TagComponent from '~/components/tag/Tag.component'
 
 /**
  * 복합 타입 사례 + 고유 효과.

@@ -1,9 +1,11 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
+
 import ImageComponent from '~/components/Image.component'
+
 import InputComponents from './components/Input.component'
 
 type SearchFormType = {

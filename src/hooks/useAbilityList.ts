@@ -1,6 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
+
 import { useGetAbilityListPaginatedQuery } from '~/graphql/gqlGenerated'
 import { Ability } from '~/graphql/typeGenerated'
 import { extractNodesFromEdges } from '~/modules/graphqlPagination.module'

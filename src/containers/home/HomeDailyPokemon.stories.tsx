@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
+
 import HomeDailyPokemonContainer from './HomeDailyPokemon.container'
 
 /** mock 포켓몬 카드 데이터 생성 */

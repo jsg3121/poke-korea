@@ -1,12 +1,14 @@
 'use client'
 
 import { useContext } from 'react'
+
+import { getDamageTypeChipColor } from '~/utils/skill.util'
+import { DetailContext } from '~/context/Detail.context'
 import LinkButtonComponent from '~/components/button/LinkButton.component'
 import MoveTableComponent, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
-import { DetailContext } from '~/context/Detail.context'
-import { getDamageTypeChipColor } from '~/utils/skill.util'
+
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 
 /**

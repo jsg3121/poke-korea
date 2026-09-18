@@ -1,16 +1,17 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState } from 'react'
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
-import { useGetPokemonTypeQuizQuery } from '~/graphql/gqlGenerated'
-import { useQuizTimer } from '~/hooks/useQuizTimer'
-import { quizProgress } from '~/modules/quiz.module'
+import { createContext, ReactNode, useContext, useState } from 'react'
+
 import {
   BaseQuizState,
+  PokemonTypeQuizQuestion,
   QuizResult,
   QuizViewStage,
-  PokemonTypeQuizQuestion,
 } from '~/types/quiz.type'
+import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
+import { useGetPokemonTypeQuizQuery } from '~/graphql/gqlGenerated'
+import { quizProgress } from '~/modules/quiz.module'
+import { useQuizTimer } from '~/hooks/useQuizTimer'
 
 interface PokemonTypeQuizContextType {
   questions: PokemonTypeQuizQuestion[]

@@ -1,17 +1,19 @@
-import { headers } from 'next/headers'
 import { Fragment } from 'react'
+import { headers } from 'next/headers'
+
+import {
+  ABILITY_QUIZ_HOWTO_JSON_LD,
+  ABILITY_QUIZ_JSON_LD,
+} from '~/constants/quizJsonLd'
+import { detectUserAgent } from '~/modules/device.module'
+import { AbilityQuizProvider } from '~/context/AbilityQuiz.context'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { AbilityQuizProvider } from '~/context/AbilityQuiz.context'
-import { detectUserAgent } from '~/modules/device.module'
-import {
-  ABILITY_QUIZ_JSON_LD,
-  ABILITY_QUIZ_HOWTO_JSON_LD,
-} from '~/constants/quizJsonLd'
 import AbilityQuizView from '~/views/quiz/ability/AbilityQuiz.view'
+
 import { QUIZ_ABILITY_META } from '../_metadata/quizMetadata'
 
 export const revalidate = 31536000

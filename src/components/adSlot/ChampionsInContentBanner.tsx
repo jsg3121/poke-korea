@@ -1,7 +1,8 @@
 'use client'
+
 import { ADSENSE_CLIENT } from '~/constants/adSense'
-import { useDevice } from '~/context/Device.context'
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
+import { useDevice } from '~/context/Device.context'
 
 interface ChampionsInContentBannerProps {
   /** 모바일 슬롯 ID (빈 문자열이면 렌더 안 함) */

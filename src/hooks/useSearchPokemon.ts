@@ -1,6 +1,7 @@
 'use client'
 
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hooks/useDebounce'
 import { useOutSideClick } from '~/hooks/useOutSideClick'

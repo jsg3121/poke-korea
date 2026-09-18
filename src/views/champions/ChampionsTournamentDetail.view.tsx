@@ -1,5 +1,5 @@
-import ChampionsTournamentDetailContainer from '~/containers/champions/ChampionsTournamentDetail.container'
 import { ChampionsTournamentDetailFragment } from '~/graphql/typeGenerated'
+import ChampionsTournamentDetailContainer from '~/containers/champions/ChampionsTournamentDetail.container'
 
 interface ChampionsTournamentDetailViewProps {
   detail: ChampionsTournamentDetailFragment

@@ -1,6 +1,6 @@
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TYPE_EFFECTIVENESS_CHART } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 /**
  * 공격 상성 — "이 타입으로 공격할 때" 배율별 상대 타입 목록.

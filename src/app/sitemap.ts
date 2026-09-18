@@ -1,20 +1,21 @@
 import type { MetadataRoute } from 'next'
+
 import {
-  GetPokemonListDocument,
   GetAbilityListPaginatedDocument,
   GetAllSkillIdsDocument,
-  GetPokemonGigantamaxListDocument,
   GetChampionsPokemonListDocument,
   GetChampionsTournamentsDocument,
+  GetPokemonGigantamaxListDocument,
+  GetPokemonListDocument,
 } from '~/graphql/gqlGenerated'
 import {
-  ChampionsFormat,
-  PokemonList,
-  PokemonType,
   AbilityEdge,
-  PokemonGigantamax,
+  ChampionsFormat,
   ChampionsPokemonEdge,
   ChampionsTournamentSummaryFragment,
+  PokemonGigantamax,
+  PokemonList,
+  PokemonType,
 } from '~/graphql/typeGenerated'
 import { initializeApollo } from '~/modules/apolloClient'
 import { TYPE_SLUGS } from '~/modules/typeParams.module'

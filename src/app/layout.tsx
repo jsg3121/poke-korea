@@ -1,12 +1,14 @@
-import { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 import { ReactNode } from 'react'
-import { getRobotsConfig } from '~/modules/metadata.module'
-import Providers from './providers'
+import { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
-import { detectUserAgent } from '~/modules/device.module'
-import { DeviceProvider } from '~/context/Device.context'
+import Script from 'next/script'
+
 import { getCssFiles, getFontFiles } from '~/utils/getCssFiles'
+import { detectUserAgent } from '~/modules/device.module'
+import { getRobotsConfig } from '~/modules/metadata.module'
+import { DeviceProvider } from '~/context/Device.context'
+
+import Providers from './providers'
 
 if (process.env.NODE_ENV === 'development') {
   require('~/styles/globals.css')

@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
+
+import { CardColor } from '~/types/pokemonTypes.types'
 import { PokemonWithAbilityInfoFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/modules/buildMode'
-import { CardColor } from '~/types/pokemonTypes.types'
+import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**
  * 특성별 포켓몬 카드 (반응형 단일 DS 컴포넌트).

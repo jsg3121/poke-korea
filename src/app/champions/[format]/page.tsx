@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+
+import { getChampionsHomeJsonLd } from '~/constants/championsJsonLd'
 import {
   GetBestChampionsPokemonDocument,
   GetChampionsTeamCoresDocument,
@@ -15,16 +17,6 @@ import {
   GetChampionsTournamentsWithTopTeamQuery,
   GetChampionsTournamentsWithTopTeamQueryVariables,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { initializeApollo } from '~/modules/apolloClient'
-import { detectUserAgent } from '~/modules/device.module'
-import ChampionsHomeView from '~/views/champions/ChampionsHome.view'
-import { generateChampionsHomeMetadata } from '../_metadata/championsMetadata'
-import { getChampionsHomeJsonLd } from '~/constants/championsJsonLd'
 import {
   ChampionsFormatSlug,
   getFormatDescription,
@@ -32,6 +24,16 @@ import {
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
+import { initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
+import ChampionsHomeView from '~/views/champions/ChampionsHome.view'
+
+import { generateChampionsHomeMetadata } from '../_metadata/championsMetadata'
 
 export const revalidate = 86400
 

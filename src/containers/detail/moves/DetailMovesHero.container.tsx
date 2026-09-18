@@ -1,12 +1,13 @@
 'use client'
 
+import { useContext } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useContext } from 'react'
+
+import { imageMode } from '~/modules/buildMode'
+import { DetailMovesContext } from '~/context/DetailMoves.context'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/tag/Tag.component'
-import { DetailMovesContext } from '~/context/DetailMoves.context'
-import { imageMode } from '~/modules/buildMode'
 
 /**
  * 습득 기술 요약 히어로 (UX-006) — 상세로 돌아가기 링크 + 식별 정보(이미지·번호·

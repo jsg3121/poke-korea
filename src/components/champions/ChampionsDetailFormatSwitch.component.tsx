@@ -1,8 +1,9 @@
 import Link from 'next/link'
+
 import {
   buildChampionsDetailHref,
-  ChampionsFormatSlug,
   CHAMPIONS_FORMAT_SLUGS,
+  ChampionsFormatSlug,
   getFormatLabel,
 } from '~/utils/championsFormat.util'
 

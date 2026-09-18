@@ -1,19 +1,21 @@
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
+
 import { getChampionsDetailJsonLd } from '~/constants/championsJsonLd'
-import { detectUserAgent } from '~/modules/device.module'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
+import { detectUserAgent } from '~/modules/device.module'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import ChampionsDetailView from '~/views/champions/ChampionsDetail.view'
+
 import { fetchChampionsDetail } from './fetchChampionsDetail'
 
 interface RenderArgs {

@@ -1,8 +1,9 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import SearchInputComponent from '~/components/input/SearchInput.component'
+
 import { useDebouncedCallback } from '~/hooks/useDebounce'
+import SearchInputComponent from '~/components/input/SearchInput.component'
 
 /**
  * 기술 검색 영역 (반응형 단일, UX-008). SearchInput DS 원자 + 결과 카운트.

@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import {
   ChampionsFormatSlug,
   compareByUsageRank,
 } from '~/utils/championsFormat.util'
+
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 import ChampionsTierPokemonItem from './ChampionsTierPokemonItem.component'
 

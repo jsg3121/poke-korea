@@ -1,24 +1,25 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
-import ChampionsDetailStatsBanner from '~/components/adSlot/ChampionsDetailStatsBanner'
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
-import StatBarComponent, {
-  StatBarItem,
-} from '~/components/statBar/StatBar.component'
-import TagComponent from '~/components/tag/Tag.component'
-import ChampionsDetailFormatSwitch from '~/components/champions/ChampionsDetailFormatSwitch.component'
-import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetailMetaSummaryBar.component'
-import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
-import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
-import ChampionsPartnerList from '~/components/champions/ChampionsPartnerList.component'
+
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
+import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode'
 import {
   getBackgroundColor,
   pokemonNumberFormat,
 } from '~/modules/pokemonCard.module'
-import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import ChampionsDetailStatsBanner from '~/components/adSlot/ChampionsDetailStatsBanner'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsDetailFormatSwitch from '~/components/champions/ChampionsDetailFormatSwitch.component'
+import ChampionsDetailMetaSummaryBar from '~/components/champions/ChampionsDetailMetaSummaryBar.component'
+import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
+import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
+import ChampionsPartnerList from '~/components/champions/ChampionsPartnerList.component'
+import ImageComponent from '~/components/Image.component'
+import StatBarComponent, {
+  StatBarItem,
+} from '~/components/statBar/StatBar.component'
+import TagComponent from '~/components/tag/Tag.component'
 
 interface ChampionsDetailContainerProps {
   detail: ChampionsPokemonDetailFragment

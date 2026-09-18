@@ -1,13 +1,14 @@
 'use client'
 
 import Link from 'next/link'
+
 import AbilityIcon from '~/assets/icons/ability.svg'
-import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner'
-import PokemonByAbilityCardComponent from '~/components/ability/PokemonByAbilityCard.component'
-import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { usePokemonByAbility } from '~/hooks/usePokemonByAbility'
+import PokemonByAbilityCardComponent from '~/components/ability/PokemonByAbilityCard.component'
+import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner'
+import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 
 /**
  * 특성별 포켓몬 (반응형 단일 — UX-007). 구버전 데/모 2벌 PokemonByAbility.container를

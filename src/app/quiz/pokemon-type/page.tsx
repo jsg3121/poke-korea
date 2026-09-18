@@ -1,17 +1,19 @@
-import { headers } from 'next/headers'
 import { Fragment } from 'react'
+import { headers } from 'next/headers'
+
+import {
+  POKEMON_TYPE_QUIZ_HOWTO_JSON_LD,
+  POKEMON_TYPE_QUIZ_JSON_LD,
+} from '~/constants/quizJsonLd'
+import { detectUserAgent } from '~/modules/device.module'
+import { PokemonTypeQuizProvider } from '~/context/PokemonTypeQuiz.context'
 import MobileTabBar from '~/components/MobileTabBar'
 import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
 import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
 import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
 import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import { PokemonTypeQuizProvider } from '~/context/PokemonTypeQuiz.context'
-import { detectUserAgent } from '~/modules/device.module'
-import {
-  POKEMON_TYPE_QUIZ_JSON_LD,
-  POKEMON_TYPE_QUIZ_HOWTO_JSON_LD,
-} from '~/constants/quizJsonLd'
 import PokemonTypeQuizView from '~/views/quiz/pokemonType/PokemonTypeQuiz.view'
+
 import { QUIZ_POKEMON_TYPE_META } from '../_metadata/quizMetadata'
 
 export const revalidate = 31536000

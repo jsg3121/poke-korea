@@ -1,7 +1,8 @@
 'use client'
 
-import { ApolloProvider, NormalizedCacheObject } from '@apollo/client'
 import { ReactNode } from 'react'
+import { ApolloProvider, NormalizedCacheObject } from '@apollo/client'
+
 import { useApollo } from '~/modules/apolloClient'
 
 interface ProvidersProps {

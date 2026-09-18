@@ -1,11 +1,11 @@
 'use client'
 
-import TabItem from '~/components/tab/TabItem.component'
 import {
-  ChampionsFormatSlug,
   CHAMPIONS_FORMAT_SLUGS,
+  ChampionsFormatSlug,
   getFormatLabel,
 } from '~/utils/championsFormat.util'
+import TabItem from '~/components/tab/TabItem.component'
 
 /**
  * 챔피언스 포맷 선택 탭 (organism). TabItem(fill) 원자를 배열로 조립한다.

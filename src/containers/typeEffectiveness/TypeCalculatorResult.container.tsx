@@ -1,12 +1,14 @@
 'use client'
 
-import Link from 'next/link'
 import { useContext } from 'react'
-import TagComponent from '~/components/tag/Tag.component'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import Link from 'next/link'
+
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/modules/calculateRelationType'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import TagComponent from '~/components/tag/Tag.component'
+
 import TypeEffectivenessCtaContainer from './TypeEffectivenessCta.container'
 
 /**

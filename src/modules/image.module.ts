@@ -1,5 +1,7 @@
 // Path 기반 URL 생성
 
+import { TActiveType } from '~/types/detailContext.type'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
   PokemonGigantamax,
   PokemonMegaEvolution,
@@ -7,8 +9,6 @@ import {
   PokemonType,
 } from '~/graphql/typeGenerated'
 import { imageMode } from '~/modules/buildMode'
-import { TActiveType } from '~/types/detailContext.type'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 export type PokemonImageData = {
   imageCode?: string

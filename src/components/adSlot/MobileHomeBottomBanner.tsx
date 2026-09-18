@@ -1,4 +1,5 @@
 'use client'
+
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 
 const MobileHomeBottomBanner = () => {

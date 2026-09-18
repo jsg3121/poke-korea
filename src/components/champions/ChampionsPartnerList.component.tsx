@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
-import { imageMode } from '~/modules/buildMode'
+
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode'
+import ImageComponent from '~/components/Image.component'
 
 interface ChampionsPartnerListProps {
   title: string

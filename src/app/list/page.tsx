@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
+
 import { GetPokemonListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
   GetPokemonListPaginatedQuery,
@@ -7,11 +8,6 @@ import {
   PokemonEdge,
   PokemonFilterInput,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
 import { detectUserAgent } from '~/modules/device.module'
 import {
@@ -20,8 +16,14 @@ import {
   toBooleanOrUndefined,
 } from '~/modules/filter.module'
 import { getDailyRandomPokemon } from '~/modules/list.module'
-import Providers from '~/app/providers'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import ListView from '~/views/list/List.view'
+import Providers from '~/app/providers'
+
 import { generateListMetadata } from './_metadata/generateListMetadata'
 
 // 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)와 searchParams 필터가

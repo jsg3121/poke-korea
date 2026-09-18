@@ -1,10 +1,11 @@
 'use client'
 
-import QuizResultPopup from '~/components/home/QuizResultPopup.component'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
-import TagComponent from '~/components/tag/Tag.component'
-import QuizCardComponent from '~/components/quizCard/QuizCard.component'
 import { PokemonTypeQuizQuestion } from '~/graphql/typeGenerated'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizResultPopup from '~/components/home/QuizResultPopup.component'
+import QuizCardComponent from '~/components/quizCard/QuizCard.component'
+import TagComponent from '~/components/tag/Tag.component'
+
 import { useCorrectQuizCheck } from './hooks/useCorrectQuizCheck'
 
 interface PokemonTypeQuizCardContainerProps {

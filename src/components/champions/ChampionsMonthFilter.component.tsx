@@ -1,7 +1,7 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface ChampionsMonthFilterProps {
   /** 응답 데이터에서 추출한 사용 가능한 월 목록 (예: ['2026-05','2026-04','2026-03']) */

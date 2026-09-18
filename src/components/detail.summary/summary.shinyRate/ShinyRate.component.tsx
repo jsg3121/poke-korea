@@ -1,7 +1,9 @@
 'use client'
 
 import { Fragment, useRef, useState } from 'react'
+
 import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
+
 import ShinyRateModalComponent from './shinyRate.modal/ShinyRateModal.component'
 
 const ShinyRateComponent = () => {

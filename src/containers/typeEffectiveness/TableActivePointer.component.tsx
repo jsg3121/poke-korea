@@ -1,6 +1,7 @@
 'use client'
 
 import { MouseEvent } from 'react'
+
 import ResetIcon from '~/assets/icons/button-reset.svg'
 
 /**

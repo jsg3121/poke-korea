@@ -1,10 +1,12 @@
 'use client'
+
+import { ChangeEvent, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ChangeEvent, useEffect } from 'react'
+
 import FeedbackIcon from '~/assets/icons/feedback.svg'
-import ImageComponent from '~/components/Image.component'
 import { useDebounce } from '~/hooks/useDebounce'
+import ImageComponent from '~/components/Image.component'
 
 /**
  * /list 전용 헤더 검색 (모바일). 셸(인풋 h-8·12px 폰트·피드백 버튼)은

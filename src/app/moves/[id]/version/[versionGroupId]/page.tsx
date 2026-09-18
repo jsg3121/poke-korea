@@ -1,9 +1,11 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+
 import { getMoveDetailVersionJsonLd } from '~/constants/movesJsonLd'
 import { PokemonLearnInfoEdge } from '~/graphql/typeGenerated'
 import { detectUserAgent } from '~/modules/device.module'
+
 import MoveDetailPageShell from '../../_components/MoveDetailPageShell'
 import { fetchMoveDetailQueries } from '../../_fetch/moveDetail.fetch'
 import { fetchMoveDetailMetadata } from '../../_fetch/moveDetailMetadata.fetch'

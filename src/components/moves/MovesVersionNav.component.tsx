@@ -1,7 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useLayoutEffect, useRef } from 'react'
+import Link from 'next/link'
 
 /**
  * 버전(등장 버전) 선택 가로 스크롤 nav.

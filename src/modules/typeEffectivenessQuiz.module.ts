@@ -1,6 +1,6 @@
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TypeEffectivenessQuizQuestion } from '~/types/quiz.type'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { relationList } from '~/modules/calculateRelationType'
 
 // 타입을 한글명으로 변환

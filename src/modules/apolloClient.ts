@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import {
   ApolloClient,
   FieldPolicy,
@@ -5,7 +6,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client'
-import { useMemo } from 'react'
+
 import { GqlMode } from './buildMode'
 import { paginatedFieldPolicy } from './graphqlPagination.module'
 

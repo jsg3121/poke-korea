@@ -1,6 +1,8 @@
 'use client'
 
-import { ReactNode, createContext } from 'react'
+import { createContext, ReactNode } from 'react'
+
+import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.type'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -9,7 +11,6 @@ import {
   PokemonRegionForm,
   VersionGroup,
 } from '~/graphql/typeGenerated'
-import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.type'
 
 interface IFDetailProviderProps {
   pokemonBaseInfo: PokemonDetail

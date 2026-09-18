@@ -1,8 +1,9 @@
-import ModalTitleComponent from './modal.title/ModalTitle.component'
-import ModalTableComponent from './modal.table/ModalTable.component'
 import { forwardRef } from 'react'
+
 import ModalDefinitionComponent from './modal.definition/ModalDefinition.component'
 import ModalFooter from './modal.footer/ModalFooter'
+import ModalTableComponent from './modal.table/ModalTable.component'
+import ModalTitleComponent from './modal.title/ModalTitle.component'
 
 interface ShinyRateModalComponentProps {
   onClickCloseModal: () => void

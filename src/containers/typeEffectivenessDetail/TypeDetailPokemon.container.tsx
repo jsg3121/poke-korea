@@ -1,8 +1,8 @@
+import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
+import { getTypeLabel } from '~/modules/typeParams.module'
 import LinkButtonComponent from '~/components/button/LinkButton.component'
 import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component'
-import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
-import { getTypeLabel } from '~/modules/typeParams.module'
 
 /**
  * 타입별 포켓몬 6종.

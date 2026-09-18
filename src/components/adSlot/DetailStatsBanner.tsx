@@ -1,11 +1,12 @@
 'use client'
+
 import {
   ADSENSE_CLIENT,
   DETAIL_INCONTENT_INARTICLE_SLOTS,
   DETAIL_INCONTENT_SLOTS,
 } from '~/constants/adSense'
-import { useDevice } from '~/context/Device.context'
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
+import { useDevice } from '~/context/Device.context'
 
 /**
  * 상세 지점 1(능력치↔기본정보 사이) 광고 — RES-004 배치안.

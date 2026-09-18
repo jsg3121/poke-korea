@@ -1,9 +1,9 @@
 'use client'
 
+import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
+import { ListProvider } from '~/context/List.context'
 import ListTopBanner from '~/components/adSlot/ListTopBanner'
 import FilterBarOrganism from '~/components/filter/FilterBar.organism'
-import { ListProvider } from '~/context/List.context'
-import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
 import ListGridContainer from '~/containers/list/ListGrid.container'
 
 /**

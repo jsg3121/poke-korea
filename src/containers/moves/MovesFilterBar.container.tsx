@@ -1,13 +1,14 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import FilterIcon from '~/assets/icons/filter.svg'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import AppliedFilterChip from '~/components/chip/AppliedFilterChip.component'
 import ChipComponent from '~/components/chip/Chip.component'
 import { ChipColor } from '~/components/chip/chipStyle'
 import TypeChip from '~/components/chip/TypeChip.component'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 /**
  * 기술 필터 바 (organism 조립, UX-008). 타입(18종)·데미지분류(3종)·첫 등장

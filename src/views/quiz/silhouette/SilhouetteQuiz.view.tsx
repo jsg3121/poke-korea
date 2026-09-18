@@ -1,7 +1,9 @@
 'use client'
 
 import { Fragment } from 'react'
+
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
+
 import SilhouetteQuizBefore from './SilhouetteQuizBefore'
 import SilhouetteQuizPlay from './SilhouetteQuizPlay'
 import SilhouetteQuizResult from './SilhouetteQuizResult'

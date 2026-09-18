@@ -1,10 +1,12 @@
 'use client'
 
-import Link from 'next/link'
 import { useContext } from 'react'
-import TagComponent from '~/components/tag/Tag.component'
-import { DetailContext } from '~/context/Detail.context'
+import Link from 'next/link'
+
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { DetailContext } from '~/context/Detail.context'
+import TagComponent from '~/components/tag/Tag.component'
+
 import DetailQuizCtaComponent from './components/DetailQuizCta.component'
 import InfoCardTitleComponent from './components/InfoCardTitle.component'
 import {

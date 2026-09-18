@@ -1,10 +1,11 @@
 import { Metadata } from 'next'
+
+import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/modules/apolloClient'
 import {
   CHAMPIONS_DEFAULT_FORMAT_SLUG,
   ChampionsFormatSlug,
@@ -12,8 +13,7 @@ import {
   getFormatShortLabel,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-
-import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
+import { initializeApollo } from '~/modules/apolloClient'
 
 const fetchChampionsTotalCount = async (
   formatSlug: ChampionsFormatSlug = CHAMPIONS_DEFAULT_FORMAT_SLUG,

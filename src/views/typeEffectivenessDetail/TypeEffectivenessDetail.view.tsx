@@ -1,4 +1,3 @@
-import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
 import TypeDetailBanner from '~/components/adSlot/TypeDetailBanner'
 import TypeDetailChampionsContainer from '~/containers/typeEffectivenessDetail/TypeDetailChampions.container'
@@ -8,6 +7,7 @@ import TypeDetailMatchupContainer from '~/containers/typeEffectivenessDetail/Typ
 import TypeDetailNavContainer from '~/containers/typeEffectivenessDetail/TypeDetailNav.container'
 import TypeDetailPokemonContainer from '~/containers/typeEffectivenessDetail/TypeDetailPokemon.container'
 import TypeDetailSummaryContainer from '~/containers/typeEffectivenessDetail/TypeDetailSummary.container'
+import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 
 /**
  * 타입별 상성 상세 뷰 — 반응형 단일(ADR-0007).

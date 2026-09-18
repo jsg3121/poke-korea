@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { ReactNode } from 'react'
+import Link from 'next/link'
 
 /**
  * 허브 링크 카드 (DS). 아이콘 + 제목 + 한 줄 설명을 담아 콘텐츠 허브(도감·타입상성·

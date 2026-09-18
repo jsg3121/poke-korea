@@ -1,5 +1,5 @@
-import { PokemonType } from '~/graphql/typeGenerated'
 import { CardColor } from '~/types/pokemonTypes.types'
+import { PokemonType } from '~/graphql/typeGenerated'
 
 /**
  * 포켓몬 도감 번호를 3자리 형식으로 포맷팅

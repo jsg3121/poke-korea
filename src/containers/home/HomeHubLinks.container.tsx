@@ -5,15 +5,16 @@
 // MobileTabBar와 동일하게 클라이언트 경계로 둔다(클라이언트 컴포넌트도 SSR되므로
 // 허브 링크는 초기 HTML에 포함 — SEO 영향 없음).
 import { ReactNode } from 'react'
+
 import AbilityIcon from '~/assets/icons/ability.svg'
 import ChampionsIcon from '~/assets/icons/champions.svg'
 import MovesListIcon from '~/assets/icons/movesList.svg'
 import PokeballIcon from '~/assets/icons/pokeball.svg'
 import QuizIcon from '~/assets/icons/quiz.svg'
 import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
+import { CHAMPIONS_DEFAULT_FORMAT_SLUG } from '~/utils/championsFormat.util'
 import HubLinkCardComponent from '~/components/hubLinkCard/HubLinkCard.component'
 import SectionHeadingComponent from '~/components/SectionHeading.component'
-import { CHAMPIONS_DEFAULT_FORMAT_SLUG } from '~/utils/championsFormat.util'
 
 /**
  * 홈 허브 링크 섹션 — 콘텐츠 축 6개(도감·타입상성·기술·특성·챔피언스·퀴즈) 진입 타일

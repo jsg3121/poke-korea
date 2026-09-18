@@ -1,10 +1,10 @@
+import { CHAMPIONS_SLOTS } from '~/constants/adSense'
+import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
 import ChampionsBssNotice from '~/components/champions/ChampionsBssNotice.component'
 import ChampionsMonthFilter from '~/components/champions/ChampionsMonthFilter.component'
 import ChampionsTournamentCard from '~/components/champions/ChampionsTournamentCard.component'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import { CHAMPIONS_SLOTS } from '~/constants/adSense'
-import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 
 /**
  * 챔피언스 대회 목록 본문 (반응형 단일, ADR-0007 / UX-011, E-3).

@@ -1,22 +1,23 @@
 'use client'
 
 import {
-  ReactNode,
   createContext,
+  ReactNode,
   useContext,
-  useState,
   useEffect,
+  useState,
 } from 'react'
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
-import { useQuizTimer } from '~/hooks/useQuizTimer'
-import { quizProgress } from '~/modules/quiz.module'
+
 import {
   BaseQuizState,
   QuizResult,
   QuizViewStage,
   TypeEffectivenessQuizQuestion,
 } from '~/types/quiz.type'
+import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
+import { quizProgress } from '~/modules/quiz.module'
 import { generateTypeEffectivenessQuestions } from '~/modules/typeEffectivenessQuiz.module'
+import { useQuizTimer } from '~/hooks/useQuizTimer'
 
 interface TypeEffectivenessQuizContextType {
   questions: TypeEffectivenessQuizQuestion[]

@@ -1,10 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { useContext } from 'react'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
-import { buildTypeDetailPath } from '~/modules/typeParams.module'
+import Link from 'next/link'
+
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { buildTypeDetailPath } from '~/modules/typeParams.module'
+import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 
 /**
  * 계산 결과 후속 CTA (반응형 단일 — UX-009). 구버전 데/모 2벌

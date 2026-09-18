@@ -1,6 +1,7 @@
-import ChampionsTierTeamCoreCard from './ChampionsTierTeamCoreCard.component'
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+
+import ChampionsTierTeamCoreCard from './ChampionsTierTeamCoreCard.component'
 
 interface ChampionsTierTeamCoreSectionProps {
   teamCores: ChampionsTeamCoreFragment[]

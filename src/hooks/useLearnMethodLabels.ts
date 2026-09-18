@@ -1,9 +1,10 @@
 'use client'
 
 import { useCallback, useContext, useMemo } from 'react'
-import { DetailMovesContext } from '~/context/DetailMoves.context'
+
 import { useGetLearnMethodsQuery } from '~/graphql/gqlGenerated'
 import { LearnMethod } from '~/graphql/typeGenerated'
+import { DetailMovesContext } from '~/context/DetailMoves.context'
 
 /**
  * 습득법 한글 라벨 조회.

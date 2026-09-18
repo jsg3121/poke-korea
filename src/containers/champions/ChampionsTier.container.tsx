@@ -1,9 +1,3 @@
-import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
-import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
-import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
-import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'
-import ChampionsTierTeamCoreSection from '~/components/champions/ChampionsTierTeamCoreSection.component'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import {
   ChampionsMetaSummaryFragment,
@@ -14,6 +8,12 @@ import {
   formatKstDate,
   getFormatShortLabel,
 } from '~/utils/championsFormat.util'
+import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner'
+import ChampionsFormatIntro from '~/components/champions/ChampionsFormatIntro.component'
+import ChampionsScrollToTop from '~/components/champions/ChampionsScrollToTop.component'
+import ChampionsTierGroup from '~/components/champions/ChampionsTierGroup.component'
+import ChampionsTierTeamCoreSection from '~/components/champions/ChampionsTierTeamCoreSection.component'
+import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
 
 interface TierGroups {
   S: ChampionsMetaSummaryFragment[]

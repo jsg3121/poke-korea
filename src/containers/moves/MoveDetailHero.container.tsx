@@ -1,12 +1,13 @@
 import Link from 'next/link'
-import ChipComponent from '~/components/chip/Chip.component'
-import TagComponent from '~/components/tag/Tag.component'
+
 import { PokemonSkillDetail, VersionGroup } from '~/graphql/typeGenerated'
 import {
   getDamageTypeChipColor,
   getDamageTypeKorean,
   hasDamageType,
 } from '~/utils/skill.util'
+import ChipComponent from '~/components/chip/Chip.component'
+import TagComponent from '~/components/tag/Tag.component'
 
 /**
  * 기술 상세 미니 히어로 (반응형 단일 — UX-008). 구버전 MoveDetail.component

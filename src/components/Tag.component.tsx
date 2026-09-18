@@ -1,5 +1,5 @@
-import { PokemonType } from '~/graphql/typeGenerated'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { PokemonType } from '~/graphql/typeGenerated'
 
 interface TagComponentProps {
   type: PokemonType
