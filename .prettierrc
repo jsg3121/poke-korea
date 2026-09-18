@@ -34,5 +34,11 @@
     "^~/app/(.*)$",
     "",
     "^[./]"
+  ],
+  "overrides": [
+    {
+      "files": "changelog/**/*.md",
+      "options": { "embeddedLanguageFormatting": "off" }
+    }
   ]
 }
