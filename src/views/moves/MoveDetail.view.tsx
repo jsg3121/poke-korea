@@ -2,9 +2,9 @@
 
 import MovesDetailBottomBanner from '~/components/adSlot/MovesDetailBottomBanner'
 import MovesDetailTopBanner from '~/components/adSlot/MovesDetailTopBanner'
-import MoveDetailHeroContainer from '~/container/moves/MoveDetailHero.container'
-import MoveDetailVersionNavContainer from '~/container/moves/MoveDetailVersionNav.container'
-import PokemonBySkillListContainer from '~/container/moves/PokemonBySkillList.container'
+import MoveDetailHeroContainer from '~/containers/moves/MoveDetailHero.container'
+import MoveDetailVersionNavContainer from '~/containers/moves/MoveDetailVersionNav.container'
+import PokemonBySkillListContainer from '~/containers/moves/PokemonBySkillList.container'
 import {
   PokemonLearnInfo,
   PokemonSkillDetail,

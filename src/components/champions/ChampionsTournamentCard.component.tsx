@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode'
 import { formatKstDate } from '~/utils/championsFormat.util'
 
 type TournamentWithTopTeam =

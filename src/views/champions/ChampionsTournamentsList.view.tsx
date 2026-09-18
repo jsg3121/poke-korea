@@ -1,4 +1,4 @@
-import ChampionsTournamentsListContainer from '~/container/champions/ChampionsTournamentsList.container'
+import ChampionsTournamentsListContainer from '~/containers/champions/ChampionsTournamentsList.container'
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 
 interface ChampionsTournamentsListViewProps {

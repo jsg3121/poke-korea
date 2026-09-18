@@ -8,7 +8,7 @@ import QuizSkipButtonComponent from '~/components/quiz/QuizSkipButton.component'
 import TagComponent from '~/components/tag/Tag.component'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
+import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 
 /**
  * 타입 상성 퀴즈 QUIZ 단계 (반응형 단일). 문제 + "공격 → 방어" 타입칩 +

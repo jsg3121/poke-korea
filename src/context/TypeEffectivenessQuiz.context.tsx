@@ -8,15 +8,15 @@ import {
   useEffect,
 } from 'react'
 import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
-import { useQuizTimer } from '~/hook/useQuizTimer'
-import { quizProgress } from '~/module/quiz.module'
+import { useQuizTimer } from '~/hooks/useQuizTimer'
+import { quizProgress } from '~/modules/quiz.module'
 import {
   BaseQuizState,
   QuizResult,
   QuizViewStage,
   TypeEffectivenessQuizQuestion,
 } from '~/types/quiz.type'
-import { generateTypeEffectivenessQuestions } from '~/module/typeEffectivenessQuiz.module'
+import { generateTypeEffectivenessQuestions } from '~/modules/typeEffectivenessQuiz.module'
 
 interface TypeEffectivenessQuizContextType {
   questions: TypeEffectivenessQuizQuestion[]

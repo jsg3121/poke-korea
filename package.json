@@ -50,9 +50,14 @@
     "@graphql-codegen/typescript": "^4.1.1",
     "@graphql-codegen/typescript-operations": "^4.3.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@next/bundle-analyzer": "^16.2.9",
     "@next/eslint-plugin-next": "^15.5.18",
     "@playwright/test": "^1.59.1",
+    "@storybook/addon-a11y": "^10.4.6",
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/addon-onboarding": "^10.4.6",
+    "@storybook/nextjs": "^10.4.6",
     "@types/node": "^22.10.2",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
@@ -70,14 +75,11 @@
     "eslint-plugin-promise": "^7.1.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
     "playwright": "^1.59.1",
     "postcss": "^8.5.4",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2",
     "storybook": "^10.4.6",
-    "@storybook/nextjs": "^10.4.6",
-    "@storybook/addon-a11y": "^10.4.6",
-    "@storybook/addon-docs": "^10.4.6",
-    "@storybook/addon-onboarding": "^10.4.6"
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
   }
 }

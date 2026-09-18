@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent } from 'react'
 import TypeChip from '~/components/chip/TypeChip.component'
-import { getChangeTypeList } from '~/module/getChangeTypeList'
+import { getChangeTypeList } from '~/modules/getChangeTypeList'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 /**

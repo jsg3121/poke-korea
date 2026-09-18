@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { createMetadata } from '~/constants/seoMetaData'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { getRobotsConfig } from '~/module/metadata.module'
+import { getRobotsConfig } from '~/modules/metadata.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
 const MOVES_MAIN_META = createMetadata(

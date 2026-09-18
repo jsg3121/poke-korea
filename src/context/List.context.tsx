@@ -5,7 +5,7 @@ import {
   PokemonInfoFragment,
   PokemonList,
 } from '~/graphql/typeGenerated'
-import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/modules/graphqlPagination.module'
 
 interface ListProviderProps {
   initialList: Array<PokemonList>

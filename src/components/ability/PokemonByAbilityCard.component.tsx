@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 import { PokemonWithAbilityInfoFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode'
 import { CardColor } from '~/types/pokemonTypes.types'
 
 /**

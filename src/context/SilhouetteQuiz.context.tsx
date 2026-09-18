@@ -3,8 +3,8 @@
 import { ReactNode, createContext, useContext, useState } from 'react'
 import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
 import { useGetSilhouetteQuizQuery } from '~/graphql/gqlGenerated'
-import { useQuizTimer } from '~/hook/useQuizTimer'
-import { quizProgress } from '~/module/quiz.module'
+import { useQuizTimer } from '~/hooks/useQuizTimer'
+import { quizProgress } from '~/modules/quiz.module'
 import {
   BaseQuizContextType,
   BaseQuizState,

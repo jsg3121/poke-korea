@@ -1,6 +1,6 @@
 'use client'
 
-import PokemonByAbilityContainer from '~/container/ability/PokemonByAbility.container'
+import PokemonByAbilityContainer from '~/containers/ability/PokemonByAbility.container'
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
 
 /**

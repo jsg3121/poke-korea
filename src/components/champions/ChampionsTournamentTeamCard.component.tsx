@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import ImageComponent from '~/components/Image.component'
 import { ChampionsTournamentTeamFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 import ChampionsTournamentSlotCard from './ChampionsTournamentSlotCard.component'
 

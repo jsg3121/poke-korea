@@ -1,7 +1,7 @@
 'use client'
 import { ADSENSE_CLIENT } from '~/constants/adSense'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 
 /**
  * 특성 도감 목록(/ability) 상단 광고 — RES-004 재도입. 페이지 헤더 바로 아래

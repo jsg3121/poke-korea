@@ -8,7 +8,7 @@ import CloseIconButton from '~/components/button/CloseIconButton.component'
 import Checkbox from '~/components/checkbox/Checkbox.component'
 import Portal from '~/components/Portal.component'
 import RadioGroup from '~/components/RadioGroup.component'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
+import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 
 /**
  * 추가 필터 검색 모달 (organism). CloseIconButton·Checkbox·RadioGroup·Button 원자를

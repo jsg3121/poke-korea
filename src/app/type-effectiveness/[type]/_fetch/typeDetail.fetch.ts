@@ -12,7 +12,7 @@ import {
   PokemonInfoFragment,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient'
 import { TYPE_SHOWCASE_POKEMON } from '~/constants/typeShowcasePokemon'
 
 /**

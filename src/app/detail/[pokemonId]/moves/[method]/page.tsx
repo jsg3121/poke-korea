@@ -3,17 +3,17 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import MobileTabBar from '~/components/MobileTabBar'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import { LearnMethod } from '~/graphql/typeGenerated'
-import { detectUserAgent } from '~/module/device.module'
+import { detectUserAgent } from '~/modules/device.module'
 import {
   DEFAULT_LEARN_METHOD,
   VISIBLE_LEARN_METHODS,
   parseLearnMethodSlug,
-} from '~/module/movesParams.module'
+} from '~/modules/movesParams.module'
 import DetailMovesView from '~/views/detail/DetailMoves.view'
 import { fetchLearnsetQueries } from '../_fetch/learnset.fetch'
 import { generateMovesMetadata } from '../_metadata/generateMovesMetadata'

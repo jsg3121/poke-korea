@@ -6,7 +6,7 @@ import BallComponent from '~/components/ball/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/tag/Tag.component'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { useLazyImage } from '~/hook/useLazyImage'
+import { useLazyImage } from '~/hooks/useLazyImage'
 
 /**
  * 포켓몬 카드 계열의 공통 레이아웃 셸 (Link + article + 포켓볼 + 헤더 + 이미지 +

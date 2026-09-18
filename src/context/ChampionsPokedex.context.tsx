@@ -6,7 +6,7 @@ import {
   ChampionsPokemonFilterInput,
   ChampionsPokemonSort,
 } from '~/graphql/typeGenerated'
-import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/modules/graphqlPagination.module'
 
 interface ChampionsPokedexProviderProps {
   initialList: ChampionsPokemonCardFragment[]

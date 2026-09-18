@@ -4,11 +4,11 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 const MobileHeader = dynamic(
-  () => import('~/container/mobile/header/Header.container'),
+  () => import('~/containers/mobile/header/Header.container'),
   { ssr: false },
 )
 const DesktopHeader = dynamic(
-  () => import('~/container/desktop/header/Header.container'),
+  () => import('~/containers/desktop/header/Header.container'),
   { ssr: false },
 )
 const MobileTabBar = dynamic(() => import('~/components/MobileTabBar'), {

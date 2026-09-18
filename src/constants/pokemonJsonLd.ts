@@ -5,19 +5,19 @@ import {
   PokemonNormalForm,
   PokemonRegionForm,
 } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode'
 import {
   getPokemonNameByType,
   getPokemonSize,
   getPokemonStats,
   getPokemonTypes,
   getSeoCanonicalUrl,
-} from '~/module/generateDetailSeoMetaData'
+} from '~/modules/generateDetailSeoMetaData'
 import {
   CAPTURE_RATE_MAX,
   formatGenderPercent,
   parseGenderRate,
-} from '~/module/pokemonSpec.module'
+} from '~/modules/pokemonSpec.module'
 import { TActiveType } from '~/types/detailContext.type'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 

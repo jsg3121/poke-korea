@@ -1,7 +1,7 @@
 'use client'
 import { ADSENSE_CLIENT } from '~/constants/adSense'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 
 /**
  * 도감 리스트(/list) 상단 광고 — RES-004 재도입. 필터바 아래·카드 그리드 앞.

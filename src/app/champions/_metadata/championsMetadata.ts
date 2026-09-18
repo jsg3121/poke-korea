@@ -4,7 +4,7 @@ import {
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient'
 import {
   CHAMPIONS_DEFAULT_FORMAT_SLUG,
   ChampionsFormatSlug,

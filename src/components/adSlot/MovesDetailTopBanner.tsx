@@ -1,7 +1,7 @@
 'use client'
 import { ADSENSE_CLIENT, MOVES_DETAIL_TOP_SLOTS } from '~/constants/adSense'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 
 /**
  * 기술도감 상세(/moves/[id]) 상단 광고 — RES-004. 기술 설명(히어로) 아래·버전

@@ -7,8 +7,8 @@ import QuizHeaderComponent from '~/components/quiz/QuizHeader.component'
 import QuizOptionButtonComponent from '~/components/quiz/QuizOptionButton.component'
 import QuizSkipButtonComponent from '~/components/quiz/QuizSkipButton.component'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import { imageMode } from '~/module/buildMode'
+import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
+import { imageMode } from '~/modules/buildMode'
 
 /**
  * 실루엣 퀴즈 QUIZ 단계 (반응형 단일). 실루엣 이미지 + "이 포켓몬의 이름은?" +

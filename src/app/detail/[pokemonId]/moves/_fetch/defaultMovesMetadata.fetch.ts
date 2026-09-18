@@ -11,7 +11,7 @@ import {
   type GetVersionGroupsQuery,
   type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient'
 
 interface FetchDefaultMovesMetadataParams {
   pokemonId: string

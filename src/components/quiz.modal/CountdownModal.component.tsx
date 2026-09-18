@@ -1,6 +1,6 @@
 'use client'
 
-import { useCountdown } from '../../hook/useCountdown'
+import { useCountdown } from '~/hooks/useCountdown'
 
 interface CountdownModalComponentsProps {
   onComplete: () => void

@@ -1,7 +1,7 @@
 'use client'
 import { ADSENSE_CLIENT, TYPE_DETAIL_SLOTS } from '~/constants/adSense'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 
 /**
  * 타입 상성 상세(/type-effectiveness/[type]) 인콘텐츠 광고 — 18개 타입 라우트 공용.

@@ -6,7 +6,7 @@ import QuizHeaderComponent from '~/components/quiz/QuizHeader.component'
 import QuizOptionButtonComponent from '~/components/quiz/QuizOptionButton.component'
 import QuizSkipButtonComponent from '~/components/quiz/QuizSkipButton.component'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
+import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
 
 /**
  * 특성 퀴즈 QUIZ 단계 (반응형 단일). 특성 설명 카드 + 4개 텍스트 옵션(특성명).

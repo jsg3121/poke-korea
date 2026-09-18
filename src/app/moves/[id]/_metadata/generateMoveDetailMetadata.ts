@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { getRobotsConfig } from '~/module/metadata.module'
+import { getRobotsConfig } from '~/modules/metadata.module'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { getDamageTypeKorean } from '~/utils/skill.util'
 

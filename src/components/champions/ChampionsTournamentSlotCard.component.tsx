@@ -2,7 +2,7 @@ import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import { ChampionsTeamSlotFragment, PokemonType } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,

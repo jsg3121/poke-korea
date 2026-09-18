@@ -4,7 +4,7 @@ import {
   DETAIL_INCONTENT_INARTICLE_SLOTS,
 } from '~/constants/adSense'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 
 /**
  * 상세 지점 3(진화 체인 아래, 콘텐츠 최하단) 광고 — RES-004 배치안.

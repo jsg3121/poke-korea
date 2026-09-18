@@ -9,8 +9,8 @@ import QuizSkipButtonComponent from '~/components/quiz/QuizSkipButton.component'
 import TagComponent from '~/components/tag/Tag.component'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import { imageMode } from '~/module/buildMode'
+import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
+import { imageMode } from '~/modules/buildMode'
 
 /**
  * 포켓몬 타입 퀴즈 QUIZ 단계 (반응형 단일). "다음 중 [타입칩] 타입을 가진 포켓몬은?" +

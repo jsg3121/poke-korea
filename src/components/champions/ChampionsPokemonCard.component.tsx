@@ -1,11 +1,11 @@
 import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 import { ChampionsPokemonCardFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode'
 import {
   getBackgroundColor,
   getNameHeaderClass,
   pokemonNumberFormat,
-} from '~/module/pokemonCard.module'
+} from '~/modules/pokemonCard.module'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,

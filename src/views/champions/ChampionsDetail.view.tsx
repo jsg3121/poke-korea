@@ -1,6 +1,6 @@
 'use client'
 
-import ChampionsDetailContainer from '~/container/champions/ChampionsDetail.container'
+import ChampionsDetailContainer from '~/containers/champions/ChampionsDetail.container'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 

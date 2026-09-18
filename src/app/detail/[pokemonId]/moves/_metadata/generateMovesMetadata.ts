@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { LearnMethod, PokemonFormType } from '~/graphql/typeGenerated'
-import { getRobotsConfig } from '~/module/metadata.module'
+import { getRobotsConfig } from '~/modules/metadata.module'
 import { fetchDefaultMovesMetadata } from '../_fetch/defaultMovesMetadata.fetch'
 import { fetchLearnMethodCounts } from './fetchLearnMethodCounts'
 

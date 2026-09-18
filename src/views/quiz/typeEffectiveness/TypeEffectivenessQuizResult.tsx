@@ -9,7 +9,7 @@ import TagComponent from '~/components/tag/Tag.component'
 import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { getQuizResultCopy } from '~/module/quiz.module'
+import { getQuizResultCopy } from '~/modules/quiz.module'
 
 /**
  * 타입 상성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.

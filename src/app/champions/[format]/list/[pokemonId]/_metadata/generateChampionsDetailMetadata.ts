@@ -6,7 +6,7 @@ import {
   PokemonType,
 } from '~/graphql/typeGenerated'
 import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
   buildChampionsDetailHref,

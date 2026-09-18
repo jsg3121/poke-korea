@@ -1,6 +1,6 @@
 'use client'
 
-import ChampionsHomeContainer from '~/container/champions/ChampionsHome.container'
+import ChampionsHomeContainer from '~/containers/champions/ChampionsHome.container'
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,

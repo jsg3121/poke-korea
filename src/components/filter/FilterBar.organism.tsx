@@ -5,7 +5,7 @@ import { ChangeEvent, useState } from 'react'
 import FilterIcon from '~/assets/icons/filter.svg'
 import AppliedFilterChip from '~/components/chip/AppliedFilterChip.component'
 import TypeChip from '~/components/chip/TypeChip.component'
-import { getChangeTypeList } from '~/module/getChangeTypeList'
+import { getChangeTypeList } from '~/modules/getChangeTypeList'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import FilterModal from './FilterModal.organism'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import ChampionsPokedexContainer from '~/container/champions/ChampionsPokedex.container'
+import ChampionsPokedexContainer from '~/containers/champions/ChampionsPokedex.container'
 import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
 import {
   ChampionsPokemonCardFragment,

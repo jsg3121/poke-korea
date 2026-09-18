@@ -3,7 +3,7 @@
 import { createContext, ReactNode } from 'react'
 import { useGetPokemonSkillListQuery } from '~/graphql/gqlGenerated'
 import { PokemonSkill, PokemonSkillFilterInput } from '~/graphql/typeGenerated'
-import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/modules/graphqlPagination.module'
 
 interface MovesProviderProps {
   initialSkills: Array<PokemonSkill>

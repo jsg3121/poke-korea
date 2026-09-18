@@ -6,10 +6,10 @@ import {
   MOVES_TYPE_ITEMLIST_JSON_LD,
   MOVES_WEBPAGE_JSON_LD,
 } from '~/constants/movesJsonLd'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import Providers from '~/app/providers'
 import { MovesProvider } from '~/context/Moves.context'
 import { GetPokemonSkillListDocument } from '~/graphql/gqlGenerated'
@@ -18,8 +18,8 @@ import {
   PokemonSkillFilterInput,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
+import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
 import { getDamageTypeEnglish } from '~/utils/skill.util'
 import MovesListView from '~/views/moves/MovesList.view'
 import { generateMovesListMetadata } from './_metadata/generateMovesListMetadata'

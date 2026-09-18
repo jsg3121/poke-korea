@@ -14,7 +14,7 @@ import {
   type GetVersionGroupsBySkillQuery,
   type GetVersionGroupsBySkillQueryVariables,
 } from '~/graphql/typeGenerated'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
+import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
 
 interface FetchMoveDetailParams {
   skillId: number

@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
-import { useLazyImage } from '~/hook/useLazyImage'
-import { imageMode } from '~/module/buildMode'
+import { useLazyImage } from '~/hooks/useLazyImage'
+import { imageMode } from '~/modules/buildMode'
 
 interface ResultListDataProps {
   name: string

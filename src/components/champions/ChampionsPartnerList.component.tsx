@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,

@@ -26,7 +26,7 @@ import {
   PokemonRegionForm,
   VersionGroup,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient'
 import { TActiveType } from '~/types/detailContext.type'
 
 export interface DetailPokemonInfo {

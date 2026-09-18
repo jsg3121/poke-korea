@@ -1,6 +1,6 @@
 'use client'
 
-import { useEnterViewProgress } from '~/hook/useEnterViewProgress'
+import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
 
 /**
  * 종족값 가로 막대 (DS). 스탯명 + 수치 + 막대 + 최고/최저 마커를 한 행으로 표시한다.

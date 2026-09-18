@@ -1,6 +1,6 @@
 'use client'
 
-import AbilityListContainer from '~/container/ability/AbilityList.container'
+import AbilityListContainer from '~/containers/ability/AbilityList.container'
 import { Ability } from '~/graphql/typeGenerated'
 
 /**

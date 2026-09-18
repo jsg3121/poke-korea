@@ -1,5 +1,5 @@
 'use client'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 
 const DesktopHomeBottomBanner = () => {
   const { slotRef } = useAdSlotEffect()

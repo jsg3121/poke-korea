@@ -8,8 +8,8 @@ import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
 import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
-import { imageMode } from '~/module/buildMode'
-import { getQuizResultCopy } from '~/module/quiz.module'
+import { imageMode } from '~/modules/buildMode'
+import { getQuizResultCopy } from '~/modules/quiz.module'
 
 /**
  * 실루엣 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을 폐기하고

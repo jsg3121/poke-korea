@@ -1,12 +1,12 @@
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import { getChampionsDetailJsonLd } from '~/constants/championsJsonLd'
-import { detectUserAgent } from '~/module/device.module'
+import { detectUserAgent } from '~/modules/device.module'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,

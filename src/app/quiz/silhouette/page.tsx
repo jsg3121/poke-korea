@@ -1,12 +1,12 @@
 import { headers } from 'next/headers'
 import { Fragment } from 'react'
 import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
-import { detectUserAgent } from '~/module/device.module'
+import { detectUserAgent } from '~/modules/device.module'
 import {
   SILHOUETTE_QUIZ_JSON_LD,
   SILHOUETTE_QUIZ_HOWTO_JSON_LD,

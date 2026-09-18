@@ -13,8 +13,8 @@ import {
   getSeoCanonicalUrl,
   getSeoDescription,
   getSeoTitle,
-} from '~/module/generateDetailSeoMetaData'
-import { getRobotsConfig } from '~/module/metadata.module'
+} from '~/modules/generateDetailSeoMetaData'
+import { getRobotsConfig } from '~/modules/metadata.module'
 import { TActiveType } from '~/types/detailContext.type'
 
 const OG_IMAGE_BASE = 'https://image.poke-korea.com/og-images'

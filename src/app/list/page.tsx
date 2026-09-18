@@ -8,18 +8,18 @@ import {
   PokemonFilterInput,
 } from '~/graphql/typeGenerated'
 import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
+import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
 import {
   changeTypeArrayToString,
   getGenerationParams,
   toBooleanOrUndefined,
-} from '~/module/filter.module'
-import { getDailyRandomPokemon } from '~/module/list.module'
+} from '~/modules/filter.module'
+import { getDailyRandomPokemon } from '~/modules/list.module'
 import Providers from '~/app/providers'
 import ListView from '~/views/list/List.view'
 import { generateListMetadata } from './_metadata/generateListMetadata'

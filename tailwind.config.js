@@ -7,7 +7,7 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
-    './src/container/**/*.{js,ts,jsx,tsx}',
+    './src/containers/**/*.{js,ts,jsx,tsx}',
     './src/views/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {

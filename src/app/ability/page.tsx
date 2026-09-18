@@ -2,10 +2,10 @@ import { headers } from 'next/headers'
 import { Fragment } from 'react'
 import MobileTabBar from '~/components/MobileTabBar'
 import { ABILITY_WEBPAGE_JSON_LD } from '~/constants/abilityJsonLd'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import Providers from '~/app/providers'
 import { GetAbilityListPaginatedDocument } from '~/graphql/gqlGenerated'
 import {
@@ -13,8 +13,8 @@ import {
   GetAbilityListPaginatedQuery,
   GetAbilityListPaginatedQueryVariables,
 } from '~/graphql/typeGenerated'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
+import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
 import AbilityListView from '~/views/ability/AbilityList.view'
 import { ABILITY_LIST_META } from './_metadata/abilityListMetadata'
 

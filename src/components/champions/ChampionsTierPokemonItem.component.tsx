@@ -4,8 +4,8 @@ import Link from 'next/link'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/Tag.component'
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { useLazyImage } from '~/hook/useLazyImage'
-import { imageMode } from '~/module/buildMode'
+import { useLazyImage } from '~/hooks/useLazyImage'
+import { imageMode } from '~/modules/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,

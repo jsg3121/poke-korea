@@ -1,10 +1,10 @@
 import { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { ReactNode } from 'react'
-import { getRobotsConfig } from '~/module/metadata.module'
+import { getRobotsConfig } from '~/modules/metadata.module'
 import Providers from './providers'
 import { headers } from 'next/headers'
-import { detectUserAgent } from '~/module/device.module'
+import { detectUserAgent } from '~/modules/device.module'
 import { DeviceProvider } from '~/context/Device.context'
 import { getCssFiles, getFontFiles } from '~/utils/getCssFiles'
 

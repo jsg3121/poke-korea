@@ -10,8 +10,8 @@ import TagComponent from '~/components/tag/Tag.component'
 import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
-import { getQuizResultCopy } from '~/module/quiz.module'
+import { imageMode } from '~/modules/buildMode'
+import { getQuizResultCopy } from '~/modules/quiz.module'
 
 /**
  * 포켓몬 타입 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을

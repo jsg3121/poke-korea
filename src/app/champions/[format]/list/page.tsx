@@ -9,13 +9,13 @@ import {
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
 import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
-import { changeTypeArrayToString } from '~/module/filter.module'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
+import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
+import { changeTypeArrayToString } from '~/modules/filter.module'
 import {
   parseFormatSlug,
   resolveFormatEnum,

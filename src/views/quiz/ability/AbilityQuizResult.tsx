@@ -7,7 +7,7 @@ import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
 import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
-import { getQuizResultCopy } from '~/module/quiz.module'
+import { getQuizResultCopy } from '~/modules/quiz.module'
 
 /**
  * 특성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.

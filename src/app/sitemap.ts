@@ -16,8 +16,8 @@ import {
   ChampionsPokemonEdge,
   ChampionsTournamentSummaryFragment,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
-import { TYPE_SLUGS } from '~/module/typeParams.module'
+import { initializeApollo } from '~/modules/apolloClient'
+import { TYPE_SLUGS } from '~/modules/typeParams.module'
 
 export const revalidate = 21600
 
