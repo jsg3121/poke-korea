@@ -4,12 +4,12 @@ import { notFound, redirect } from 'next/navigation'
 
 import { detectUserAgent } from '~/modules/device.module'
 import { DetailProvider } from '~/context/Detail.context'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import DetailView from '~/views/detail/Detail.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import Detail from '~/views/detail/Detail.view'
 
 import { generatePokemonJsonLd } from '../../../../constants/pokemonJsonLd'
 import {
@@ -150,29 +150,29 @@ const DetailPage = async ({ params, searchParams }: DetailPageProps) => {
 
   return (
     <DetailProvider {...props}>
-      {/* 콘텐츠는 반응형 단일(DetailView, ADR-0007). UA 분기는 전역 크롬(헤더/
+      {/* 콘텐츠는 반응형 단일(Detail, ADR-0007). UA 분기는 전역 크롬(헤더/
           푸터/탭바) 선택으로만 남는다(홈·리스트 개편과 동일 패턴). */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <DetailView
+          <MobileHeader />
+          <Detail
             prevPokemon={adjacent.prev}
             nextPokemon={adjacent.next}
             evolutionPokemons={evolutionPokemons}
           />
-          <MobileFooterContainer />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
         // pt-30(120px) = 데스크톱 fixed 헤더 실높이(리스트 개편에서 실측 확정)
         <main className="w-full min-h-screen pt-30">
-          <DesktopHeaderContainer />
-          <DetailView
+          <DesktopHeader />
+          <Detail
             prevPokemon={adjacent.prev}
             nextPokemon={adjacent.next}
             evolutionPokemons={evolutionPokemons}
           />
-          <DesktopFooterContainer />
+          <DesktopFooter />
         </main>
       )}
       <script

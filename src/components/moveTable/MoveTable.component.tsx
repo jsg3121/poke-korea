@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 import { PokemonType } from '~/graphql/typeGenerated'
-import ChipComponent from '~/components/chip/Chip.component'
-import { ChipColor } from '~/components/chip/chipStyle'
-import TagComponent from '~/components/tag/Tag.component'
+import Chip from '~/components/chip/Chip.component'
+import { ChipColor } from '~/components/chip/chip.types'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 습득 기술 목록 (DS). 기술 1건 = 습득조건·기술명·타입·분류·위력·명중·PP.
@@ -87,7 +87,7 @@ const MoveStat = ({
   </span>
 )
 
-const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
+const MoveTable = ({ moves, ariaLabel }: MoveTableProps) => {
   return (
     <div className="w-full">
       <div
@@ -139,12 +139,12 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
               <span
                 className={`inline-flex shrink-0 ${COL.type} desktop:justify-center`}
               >
-                {move.type && <TagComponent type={move.type} />}
+                {move.type && <Tag type={move.type} />}
               </span>
               <span
                 className={`inline-flex shrink-0 ${COL.damage} desktop:justify-center`}
               >
-                <ChipComponent
+                <Chip
                   label={DAMAGE_LABEL[move.damageClass]}
                   color={move.damageClass}
                 />
@@ -162,4 +162,4 @@ const MoveTableComponent = ({ moves, ariaLabel }: MoveTableProps) => {
   )
 }
 
-export default MoveTableComponent
+export default MoveTable

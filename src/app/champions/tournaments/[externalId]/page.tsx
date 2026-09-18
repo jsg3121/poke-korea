@@ -13,14 +13,14 @@ import {
   formatKstDate,
   getFormatEnumShortLabel,
 } from '~/utils/championsFormat.util'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import ChampionsTournamentDetailView from '~/views/champions/ChampionsTournamentDetail.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import ChampionsTournamentDetail from '~/views/champions/ChampionsTournamentDetail.view'
 
 export const revalidate = 86400
 
@@ -169,23 +169,23 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
           }}
         />
       )}
-      {/* 콘텐츠는 반응형 단일(ChampionsTournamentDetailView, ADR-0007). UA 분기는
+      {/* 콘텐츠는 반응형 단일(ChampionsTournamentDetail, ADR-0007). UA 분기는
           전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ChampionsTournamentDetailView detail={detail} />
-          <MobileFooterContainer />
+          <MobileHeader />
+          <ChampionsTournamentDetail detail={detail} />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
         // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
         <main className="w-full min-h-screen">
           <div className="h-40">
-            <DesktopHeaderContainer />
+            <DesktopHeader />
           </div>
-          <ChampionsTournamentDetailView detail={detail} />
-          <DesktopFooterContainer />
+          <ChampionsTournamentDetail detail={detail} />
+          <DesktopFooter />
         </main>
       )}
     </>

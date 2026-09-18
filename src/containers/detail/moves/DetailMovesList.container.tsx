@@ -6,7 +6,7 @@ import { getDamageTypeChipColor } from '~/utils/skill.util'
 import { DEFAULT_LEARN_METHOD } from '~/modules/movesParams.module'
 import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
-import MoveTableComponent, {
+import MoveTable, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 
@@ -25,7 +25,7 @@ import MoveTableComponent, {
  * /moves/{id} — 구버전의 /generation/{genId}는 존재하지 않는 라우트(dead link)라 쓰지 않는다.
  */
 
-const DetailMovesListContainer = () => {
+const DetailMovesList = () => {
   const {
     skillsByMethod,
     versionGroup,
@@ -94,7 +94,7 @@ const DetailMovesListContainer = () => {
         </p>
       )}
       {moves.length > 0 ? (
-        <MoveTableComponent moves={moves} ariaLabel={ariaLabel} />
+        <MoveTable moves={moves} ariaLabel={ariaLabel} />
       ) : (
         <p className="py-8 text-center text-sm text-primary-2">
           해당 버전에서 {methodLabel}으로 배우는 기술이 없습니다.
@@ -104,4 +104,4 @@ const DetailMovesListContainer = () => {
   )
 }
 
-export default DetailMovesListContainer
+export default DetailMovesList

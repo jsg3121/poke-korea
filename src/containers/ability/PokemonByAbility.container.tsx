@@ -6,9 +6,9 @@ import AbilityIcon from '~/assets/icons/ability.svg'
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { usePokemonByAbility } from '~/hooks/usePokemonByAbility'
-import PokemonByAbilityCardComponent from '~/components/ability/PokemonByAbilityCard.component'
-import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner'
-import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
+import PokemonByAbilityCard from '~/components/ability/PokemonByAbilityCard.component'
+import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner.component'
+import EmptyState from '~/components/emptyState/EmptyState.component'
 
 /**
  * 특성별 포켓몬 (반응형 단일 — UX-007). 구버전 데/모 2벌 PokemonByAbility.container를
@@ -27,19 +27,19 @@ import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
 /** LCP 후보(첫 화면 카드)만 eager 로딩 — 모바일 2열 커버 */
 const HIGH_PRIORITY_COUNT = 8
 
-interface PokemonByAbilityContainerProps {
+interface PokemonByAbilityProps {
   abilityId: number
   initialAbility: Ability
   initialPokemon: Array<PokemonWithAbility>
   totalCount: number
 }
 
-const PokemonByAbilityContainer = ({
+const PokemonByAbility = ({
   abilityId,
   initialAbility,
   initialPokemon,
   totalCount,
-}: PokemonByAbilityContainerProps) => {
+}: PokemonByAbilityProps) => {
   const { ability, pokemonList, loadMore, hasNextPage, loading } =
     usePokemonByAbility({ abilityId, initialPokemon })
 
@@ -78,7 +78,7 @@ const PokemonByAbilityContainer = ({
       <AbilityDetailTopBanner />
 
       {isEmpty ? (
-        <EmptyStateComponent
+        <EmptyState
           title="이 특성을 가진 포켓몬이 없어요"
           description="다른 특성을 둘러보거나 도감으로 돌아가 보세요"
           icon={<AbilityIcon />}
@@ -98,7 +98,7 @@ const PokemonByAbilityContainer = ({
                 key={`pokemon-ability-${pokemon.id}-${pokemon.formType}`}
                 className="w-full"
               >
-                <PokemonByAbilityCardComponent
+                <PokemonByAbilityCard
                   pokemonData={pokemon}
                   isHighPriority={index < HIGH_PRIORITY_COUNT}
                 />
@@ -119,4 +119,4 @@ const PokemonByAbilityContainer = ({
   )
 }
 
-export default PokemonByAbilityContainer
+export default PokemonByAbility

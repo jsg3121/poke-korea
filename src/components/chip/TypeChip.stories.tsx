@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import TypeChipComponent from './TypeChip.component'
+import TypeChip from './TypeChip.component'
 
 const noop = () => undefined
 
@@ -10,7 +10,7 @@ const noop = () => undefined
  */
 const meta = {
   title: 'Components/TypeChip',
-  component: TypeChipComponent,
+  component: TypeChip,
   parameters: {
     layout: 'centered',
     docs: {
@@ -33,7 +33,7 @@ const meta = {
     disabled: { control: 'boolean' },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof TypeChipComponent>
+} satisfies Meta<typeof TypeChip>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -51,16 +51,16 @@ export const Disabled: Story = { args: { active: false, disabled: true } }
 export const Group: Story = {
   render: () => (
     <div className="flex items-start gap-2">
-      <TypeChipComponent value="FIRE" label="불꽃" active onChange={noop} />
-      <TypeChipComponent value="WATER" label="물" active onChange={noop} />
-      <TypeChipComponent
+      <TypeChip value="FIRE" label="불꽃" active onChange={noop} />
+      <TypeChip value="WATER" label="물" active onChange={noop} />
+      <TypeChip
         value="GRASS"
         label="풀"
         active={false}
         disabled
         onChange={noop}
       />
-      <TypeChipComponent
+      <TypeChip
         value="ELECTRIC"
         label="전기"
         active={false}
@@ -72,7 +72,7 @@ export const Group: Story = {
 }
 
 /** 모바일 뷰 (라벨 항상 표시) */
-export const MobileView: Story = {
+export const Mobile: Story = {
   parameters: { viewport: { defaultViewport: 'mobile' } },
   args: { active: true },
 }
@@ -85,7 +85,7 @@ export const SingleSelectGroup: Story = {
       aria-label="기술 타입 필터"
       className="flex items-start gap-2"
     >
-      <TypeChipComponent
+      <TypeChip
         value="FIRE"
         label="불꽃"
         active
@@ -93,7 +93,7 @@ export const SingleSelectGroup: Story = {
         name="story-moves-type"
         onChange={noop}
       />
-      <TypeChipComponent
+      <TypeChip
         value="WATER"
         label="물"
         active={false}
@@ -101,7 +101,7 @@ export const SingleSelectGroup: Story = {
         name="story-moves-type"
         onChange={noop}
       />
-      <TypeChipComponent
+      <TypeChip
         value="GRASS"
         label="풀"
         active={false}

@@ -1,7 +1,7 @@
 'use client'
 
 import { VersionGroup } from '~/graphql/typeGenerated'
-import MovesVersionNavComponent, {
+import MovesVersionNav, {
   MovesVersionNavItem,
 } from '~/components/moves/MovesVersionNav.component'
 
@@ -27,17 +27,17 @@ import MovesVersionNavComponent, {
  */
 const LATEST_SENTINEL_ID = 0
 
-interface MoveDetailVersionNavContainerProps {
+interface MoveDetailVersionNavProps {
   skillId: number
   versionGroups?: Array<VersionGroup> | null
   selectedVersionGroupId?: number
 }
 
-const MoveDetailVersionNavContainer = ({
+const MoveDetailVersionNav = ({
   skillId,
   versionGroups,
   selectedVersionGroupId,
-}: MoveDetailVersionNavContainerProps) => {
+}: MoveDetailVersionNavProps) => {
   if (!versionGroups || versionGroups.length === 0) {
     return null
   }
@@ -66,13 +66,10 @@ const MoveDetailVersionNavContainer = ({
         {/* storageKey: 버전 이동 시 재마운트돼 사라지는 가로 스크롤 위치를
             이어주는 sessionStorage 키. 기술별로 버전 목록이 달라 skillId까지 넣어야
             다른 기술의 위치를 물려받지 않는다(ADR-0015) */}
-        <MovesVersionNavComponent
-          items={versionItems}
-          storageKey={`move:${skillId}`}
-        />
+        <MovesVersionNav items={versionItems} storageKey={`move:${skillId}`} />
       </div>
     </div>
   )
 }
 
-export default MoveDetailVersionNavContainer
+export default MoveDetailVersionNav

@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { getTypeLabel, parseTypeLabel } from '~/modules/typeParams.module'
-import TagComponent from '~/components/tag/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 복합 타입 사례 + 고유 효과.
@@ -18,13 +18,11 @@ import TagComponent from '~/components/tag/Tag.component'
  * 18개 페이지의 구성이 같아 보이지만 내용이 없는 상태가 된다.
  */
 
-interface TypeDetailComboContainerProps {
+interface TypeDetailComboProps {
   pokemonType: PokemonType
 }
 
-const TypeDetailComboContainer = ({
-  pokemonType,
-}: TypeDetailComboContainerProps) => {
+const TypeDetailCombo = ({ pokemonType }: TypeDetailComboProps) => {
   const label = getTypeLabel(pokemonType)
   const content = TYPE_DETAIL_CONTENT[pokemonType]
 
@@ -67,11 +65,7 @@ const TypeDetailComboContainer = ({
                           /
                         </span>
                       )}
-                      {type ? (
-                        <TagComponent type={type} />
-                      ) : (
-                        <span>{part}</span>
-                      )}
+                      {type ? <Tag type={type} /> : <span>{part}</span>}
                     </Fragment>
                   )
                 })}
@@ -107,4 +101,4 @@ const TypeDetailComboContainer = ({
   )
 }
 
-export default TypeDetailComboContainer
+export default TypeDetailCombo

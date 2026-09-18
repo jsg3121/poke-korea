@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { useDebouncedCallback } from '~/hooks/useDebounce'
-import SearchInputComponent from '~/components/input/SearchInput.component'
+import SearchInput from '~/components/input/SearchInput.component'
 
 /**
  * 특성 검색 영역 (반응형 단일). SearchInput DS 원자 + 결과 카운트.
@@ -17,13 +17,11 @@ import SearchInputComponent from '~/components/input/SearchInput.component'
  * 라우팅을 막는다. 인풋 마크업은 SearchInput DS로 교체(구버전 gray/blue 비토큰 색 제거).
  */
 
-interface AbilitySearchContainerProps {
+interface AbilitySearchProps {
   totalCount: number
 }
 
-const AbilitySearchContainer = ({
-  totalCount,
-}: AbilitySearchContainerProps) => {
+const AbilitySearch = ({ totalCount }: AbilitySearchProps) => {
   const params = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -49,7 +47,7 @@ const AbilitySearchContainer = ({
 
   return (
     <div className="sticky top-12 z-30 -mx-4 flex flex-col gap-2 bg-primary-1 px-4 pb-3 pt-4 desktop:top-30">
-      <SearchInputComponent
+      <SearchInput
         label="특성 이름으로 검색"
         placeholder="특성 이름으로 검색하세요"
         defaultValue={params.get('search') || ''}
@@ -66,4 +64,4 @@ const AbilitySearchContainer = ({
   )
 }
 
-export default AbilitySearchContainer
+export default AbilitySearch

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import ButtonComponent from './Button.component'
+import Button from './Button.component'
 
 const meta = {
   title: 'Components/Button',
-  component: ButtonComponent,
+  component: Button,
   parameters: {
     layout: 'centered',
     docs: {
@@ -26,7 +26,7 @@ const meta = {
     showArrow: { control: 'boolean' },
     disabled: { control: 'boolean' },
   },
-} satisfies Meta<typeof ButtonComponent>
+} satisfies Meta<typeof Button>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -55,15 +55,15 @@ export const Disabled: Story = {
 export const Sizes: Story = {
   render: (args) => (
     <div className="flex items-center gap-4">
-      <ButtonComponent {...args} size="sm">
+      <Button {...args} size="sm">
         Small
-      </ButtonComponent>
-      <ButtonComponent {...args} size="md">
+      </Button>
+      <Button {...args} size="md">
         Medium
-      </ButtonComponent>
-      <ButtonComponent {...args} size="lg">
+      </Button>
+      <Button {...args} size="lg">
         Large
-      </ButtonComponent>
+      </Button>
     </div>
   ),
 }
@@ -72,15 +72,15 @@ export const Sizes: Story = {
 export const AllVariants: Story = {
   render: (args) => (
     <div className="flex items-center gap-4">
-      <ButtonComponent {...args} variant="primary">
+      <Button {...args} variant="primary">
         Primary
-      </ButtonComponent>
-      <ButtonComponent {...args} variant="secondary">
+      </Button>
+      <Button {...args} variant="secondary">
         Secondary
-      </ButtonComponent>
-      <ButtonComponent {...args} variant="ghost">
+      </Button>
+      <Button {...args} variant="ghost">
         Ghost
-      </ButtonComponent>
+      </Button>
     </div>
   ),
 }

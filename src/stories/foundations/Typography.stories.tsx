@@ -25,7 +25,7 @@ const remToPx = (rem: string) => {
   return `${Math.round(n * 16)}px`
 }
 
-const TypographyView = () => (
+const Typography = () => (
   <div className="p-8 bg-white-3 min-h-screen">
     <h1 className="text-2xl font-bold text-primary-1 mb-1">Typography</h1>
     <p className="text-sm text-shadow-3 mb-7">
@@ -71,10 +71,10 @@ const TypographyView = () => (
 
 const meta = {
   title: 'Foundations/Typography',
-  component: TypographyView,
+  component: Typography,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
-} satisfies Meta<typeof TypographyView>
+} satisfies Meta<typeof Typography>
 
 export default meta
 export const All: StoryObj<typeof meta> = {}

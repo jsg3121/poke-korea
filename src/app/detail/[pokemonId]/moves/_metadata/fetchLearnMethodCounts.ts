@@ -5,7 +5,7 @@ import {
   type GetLearnsetCountsQuery,
   type GetLearnsetCountsQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 /** 백엔드 methodLabel을 못 받는 경우(기술 0건)의 최소 폴백 */
 const FALLBACK_LABEL: Record<string, string> = {

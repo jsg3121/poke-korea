@@ -4,9 +4,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { EvolutionNode, hasVersionVariants } from '~/utils/evolution.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 /**
  * 진화 루트 1개 카드(대상 + 폼 조합). 이미지·이름은 edge의 result*에서 온 값이라
@@ -26,7 +26,7 @@ interface EvolutionConditionCardProps {
   baseName: string
 }
 
-const EvolutionConditionCardComponent = ({
+const EvolutionConditionCard = ({
   node,
   baseName,
 }: EvolutionConditionCardProps) => {
@@ -61,7 +61,7 @@ const EvolutionConditionCardComponent = ({
         className="group -m-1 flex items-center gap-3 rounded-2xl p-1 transition-colors hover:bg-primary-1/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
       >
         <div className="block shrink-0 rounded-2xl transition-transform group-hover:scale-105">
-          <ImageComponent
+          <Image
             src={`${imageMode}/${node.imagePath}`}
             width="5rem"
             height="5rem"
@@ -140,4 +140,4 @@ const EvolutionConditionCardComponent = ({
   )
 }
 
-export default EvolutionConditionCardComponent
+export default EvolutionConditionCard

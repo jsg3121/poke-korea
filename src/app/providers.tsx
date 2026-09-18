@@ -3,7 +3,7 @@
 import { ReactNode } from 'react'
 import { ApolloProvider, NormalizedCacheObject } from '@apollo/client'
 
-import { useApollo } from '~/modules/apolloClient'
+import { useApollo } from '~/modules/apolloClient.module'
 
 interface ProvidersProps {
   children: ReactNode

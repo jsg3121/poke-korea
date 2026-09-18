@@ -5,8 +5,8 @@ import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
-import ImageComponent from '~/components/Image.component'
+import { imageMode } from '~/modules/buildMode.module'
+import Image from '~/components/Image.component'
 
 interface ChampionsTierTeamCoreCardProps {
   core: ChampionsTeamCoreFragment
@@ -130,7 +130,7 @@ const ChampionsTierTeamCoreCard = ({
             member.formCode,
           )
           const imageContent = member.imagePath ? (
-            <ImageComponent
+            <Image
               width={IMAGE_DIM.rem}
               height={IMAGE_DIM.rem}
               imageSize={{ width: IMAGE_DIM.px, height: IMAGE_DIM.px }}

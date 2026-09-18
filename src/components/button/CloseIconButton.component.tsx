@@ -30,7 +30,7 @@ const ICON_FILL: Record<CloseIconColor, string> = {
 const BUTTON_CLASS =
   'inline-flex items-center justify-center min-h-touch min-w-touch desktop:min-h-9 desktop:min-w-9 rounded-md transition-colors hover:bg-primary-2/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1'
 
-const CloseIconButtonComponent = ({
+const CloseIconButton = ({
   onClick,
   'aria-label': ariaLabel,
   color = 'dark',
@@ -52,4 +52,4 @@ const CloseIconButtonComponent = ({
   )
 }
 
-export default CloseIconButtonComponent
+export default CloseIconButton

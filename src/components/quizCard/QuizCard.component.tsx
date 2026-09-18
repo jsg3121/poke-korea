@@ -32,7 +32,7 @@ interface QuizCardProps {
   answersLabel: string
 }
 
-const QuizCardComponent = ({
+const QuizCard = ({
   icon,
   title,
   description,
@@ -71,4 +71,4 @@ const QuizCardComponent = ({
   )
 }
 
-export default QuizCardComponent
+export default QuizCard

@@ -31,7 +31,7 @@ interface TableActivePointerProps {
   onClickResetEffective: () => void
 }
 
-const TableActivePointerComponent = ({
+const TableActivePointer = ({
   activeType,
   onClickPointer,
   onClickResetEffective,
@@ -79,4 +79,4 @@ const TableActivePointerComponent = ({
   )
 }
 
-export default TableActivePointerComponent
+export default TableActivePointer

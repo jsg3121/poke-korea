@@ -20,12 +20,12 @@ const SIZE_CLASS: Record<BallSize, string> = {
   lg: 'w-6 h-6 desktop:w-8 desktop:h-8',
 }
 
-interface BallComponentProps {
+interface BallProps {
   /** 크기. 없으면 부모 크기에 맞춤(w-full h-full) */
   size?: BallSize
 }
 
-const BallComponent = ({ size }: BallComponentProps) => {
+const Ball = ({ size }: BallProps) => {
   const sizeClass = size ? SIZE_CLASS[size] : 'w-full h-full'
   return (
     <span
@@ -38,4 +38,4 @@ const BallComponent = ({ size }: BallComponentProps) => {
   )
 }
 
-export default BallComponent
+export default Ball

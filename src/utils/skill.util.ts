@@ -1,5 +1,5 @@
 import { DamageType } from '~/graphql/typeGenerated'
-import { ChipColor } from '~/components/chip/chipStyle'
+import { ChipColor } from '~/components/chip/chip.types'
 
 /**
  * damageType 표기 정규화 — 전환기 대응.

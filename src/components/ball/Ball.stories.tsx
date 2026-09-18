@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import BallComponent from './Ball.component'
+import Ball from './Ball.component'
 
 const meta = {
   title: 'Components/Ball',
-  component: BallComponent,
+  component: Ball,
   parameters: {
     layout: 'centered',
     docs: {
@@ -25,7 +25,7 @@ const meta = {
   argTypes: {
     size: { control: 'radio', options: ['sm', 'md', 'lg', undefined] },
   },
-} satisfies Meta<typeof BallComponent>
+} satisfies Meta<typeof Ball>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -43,9 +43,9 @@ export const Small: Story = { args: { size: 'sm' } }
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-end gap-4">
-      <BallComponent size="sm" />
-      <BallComponent size="md" />
-      <BallComponent size="lg" />
+      <Ball size="sm" />
+      <Ball size="md" />
+      <Ball size="lg" />
     </div>
   ),
 }
@@ -59,10 +59,10 @@ export const FitParent: Story = {
   render: () => (
     <div className="flex items-end gap-4">
       <span className="block w-10 h-10">
-        <BallComponent />
+        <Ball />
       </span>
       <span className="block w-16 h-16">
-        <BallComponent />
+        <Ball />
       </span>
     </div>
   ),

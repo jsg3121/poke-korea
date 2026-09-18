@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
-import ImageComponent from '~/components/Image.component'
+import Image from '~/components/Image.component'
 
 interface ResultListDataProps {
   name: string
@@ -63,7 +63,7 @@ const ResultListData = ({
         </p>
         <div ref={imgRef} className="shrink-0">
           {isVisible && (
-            <ImageComponent
+            <Image
               height="2rem"
               width="2rem"
               alt={`pokemon_id_${number} ${name}`}

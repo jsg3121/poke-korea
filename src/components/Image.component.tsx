@@ -1,6 +1,6 @@
 import { ImgHTMLAttributes } from 'react'
 
-interface ImageComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   width: string
   height: string
   imageSize: {
@@ -11,7 +11,7 @@ interface ImageComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
   quality?: number
 }
 
-const ImageComponent = ({
+const Image = ({
   width,
   height,
   imageSize,
@@ -19,7 +19,7 @@ const ImageComponent = ({
   quality = 80,
   src,
   ...imageProps
-}: ImageComponentProps) => {
+}: ImageProps) => {
   // WebP srcSet 생성 (고밀도 디스플레이 지원)
   const generateWebpSrcSet = () => {
     if (!src || !densities || densities.length === 0) return undefined
@@ -64,4 +64,4 @@ const ImageComponent = ({
   )
 }
 
-export default ImageComponent
+export default Image

@@ -44,7 +44,7 @@ const TYPE_COLOR_CLASS: Record<PokemonType, string> = {
   FAIRY: 'type-color-fairy',
 }
 
-const TypeNameLinkComponent = ({ type, label }: TypeNameLinkProps) => {
+const TypeNameLink = ({ type, label }: TypeNameLinkProps) => {
   const text = label ?? `${PokemonTypes[type]} 타입`
 
   return (
@@ -58,4 +58,4 @@ const TypeNameLinkComponent = ({ type, label }: TypeNameLinkProps) => {
   )
 }
 
-export default TypeNameLinkComponent
+export default TypeNameLink

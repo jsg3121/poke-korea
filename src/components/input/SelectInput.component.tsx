@@ -34,7 +34,7 @@ interface SelectInputProps<T extends string> {
 const SELECT_CLASS =
   'min-h-touch desktop:min-h-9 bg-primary-4 text-primary-1 border-2 border-solid border-primary-2 rounded-md px-3 text-sm font-medium cursor-pointer transition-colors hover:bg-primary-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1 disabled:opacity-50 disabled:cursor-not-allowed'
 
-const SelectInputComponent = <T extends string>({
+const SelectInput = <T extends string>({
   label,
   visuallyHiddenLabel = false,
   value,
@@ -67,4 +67,4 @@ const SelectInputComponent = <T extends string>({
   )
 }
 
-export default SelectInputComponent
+export default SelectInput

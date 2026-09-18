@@ -17,7 +17,7 @@ interface SummaryItem {
   value: string
 }
 
-const ResultSummaryComponent = ({
+const ResultSummary = ({
   averageTime,
   correctAnswers,
   percentage,
@@ -46,4 +46,4 @@ const ResultSummaryComponent = ({
   )
 }
 
-export default ResultSummaryComponent
+export default ResultSummary

@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation'
 import PokeballIcon from '~/assets/icons/pokeball.svg'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { ListContext } from '~/context/List.context'
-import ButtonComponent from '~/components/button/Button.component'
-import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
-import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component'
-import PokemonCardSkeletonComponent from '~/components/pokemonCard/PokemonCardSkeleton.component'
+import Button from '~/components/button/Button.component'
+import EmptyState from '~/components/emptyState/EmptyState.component'
+import PokemonCard from '~/components/pokemonCard/PokemonCard.component'
+import PokemonCardSkeleton from '~/components/pokemonCard/PokemonCardSkeleton.component'
 
 /**
  * 도감 리스트 그리드 (반응형 단일 — UX-004). 구버전 데/모 2벌 List.container를
@@ -29,7 +29,7 @@ const SKELETON_COUNT = 4
 /** LCP 후보(첫 화면 카드)만 eager 로딩 — 모바일 2열×3행 / 데스크톱 5열×2행 커버 */
 const HIGH_PRIORITY_COUNT = 10
 
-const ListGridContainer = () => {
+const ListGrid = () => {
   const router = useRouter()
   const { pokemonList, loadMore, hasNextPage, isLoadingMore } =
     useContext(ListContext)
@@ -57,21 +57,21 @@ const ListGridContainer = () => {
       </h2>
 
       {isEmpty ? (
-        <EmptyStateComponent
+        <EmptyState
           title="검색 결과에 맞는 포켓몬이 없어요"
           description="필터 조건을 바꾸거나 초기화해 보세요"
           icon={<PokeballIcon />}
           action={
-            <ButtonComponent variant="secondary" onClick={handleReset}>
+            <Button variant="secondary" onClick={handleReset}>
               필터 초기화
-            </ButtonComponent>
+            </Button>
           }
         />
       ) : (
         <ul className="grid w-full grid-cols-2 gap-x-4 gap-y-6 justify-items-center desktop:grid-cols-5">
           {pokemonList.map((pokemon, index) => (
             <li key={`pokemon-id-${pokemon.id}`} className="w-full">
-              <PokemonCardComponent
+              <PokemonCard
                 variant="pokedex"
                 pokemonData={pokemon}
                 isHighPriority={index < HIGH_PRIORITY_COUNT}
@@ -81,7 +81,7 @@ const ListGridContainer = () => {
           {isLoadingMore &&
             Array.from({ length: SKELETON_COUNT }, (_, i) => (
               <li key={`skeleton-${i}`} className="w-full">
-                <PokemonCardSkeletonComponent />
+                <PokemonCardSkeleton />
               </li>
             ))}
         </ul>
@@ -100,4 +100,4 @@ const ListGridContainer = () => {
   )
 }
 
-export default ListGridContainer
+export default ListGrid

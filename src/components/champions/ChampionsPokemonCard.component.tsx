@@ -4,13 +4,13 @@ import {
   ChampionsFormatSlug,
   getChampionsFormBadge,
 } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import {
   getBackgroundColor,
   getNameHeaderClass,
   pokemonNumberFormat,
 } from '~/modules/pokemonCard.module'
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
+import PokemonCardShell from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**
  * 챔피언스 도감 포켓몬 카드 (반응형 단일 DS 컴포넌트).
@@ -64,7 +64,7 @@ const ChampionsPokemonCard = ({
   })
 
   return (
-    <PokemonCardShellComponent
+    <PokemonCardShell
       href={detailHref}
       backgroundColor={backgroundColor}
       types={pokemonData.types}
@@ -134,7 +134,7 @@ const ChampionsPokemonCard = ({
           </div>
         ))}
       </dl>
-    </PokemonCardShellComponent>
+    </PokemonCardShell>
   )
 }
 

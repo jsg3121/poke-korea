@@ -5,10 +5,10 @@ import Link from 'next/link'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { DetailContext } from '~/context/Detail.context'
-import TagComponent from '~/components/tag/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 
-import DetailQuizCtaComponent from './components/DetailQuizCta.component'
-import InfoCardTitleComponent from './components/InfoCardTitle.component'
+import DetailQuizCta from './components/DetailQuizCta.component'
+import InfoCardTitle from './components/InfoCardTitle.component'
 import {
   DetailBodySpecSection,
   DetailBreedingSpecSection,
@@ -26,7 +26,7 @@ import {
 const infoRowClass =
   'w-full min-h-9 desktop:min-h-12 border-b border-primary-3 border-solid flex flex-wrap items-center gap-2 py-1.5 desktop:py-2 last:border-b-0 last:pb-0'
 
-const DetailInfoSectionContainer = () => {
+const DetailInfoSection = () => {
   const { activeTypeInfo } = useContext(DetailContext)
   const { types, generation, name, pokemonNumber, activeType, abilities } =
     activeTypeInfo
@@ -35,7 +35,7 @@ const DetailInfoSectionContainer = () => {
     <div className="flex w-full flex-col gap-5 desktop:gap-8">
       <div className="grid w-full grid-cols-1 gap-5 desktop:grid-cols-2 desktop:items-start desktop:gap-8">
         <section aria-labelledby="pokemon-base-info" className="card-detail">
-          <InfoCardTitleComponent title="기본 정보" id="pokemon-base-info" />
+          <InfoCardTitle title="기본 정보" id="pokemon-base-info" />
           <dl className="w-full">
             <div className={infoRowClass}>
               <dt className="dl-term h-6 w-24 text-xs leading-6 desktop:h-10 desktop:w-48 desktop:text-base desktop:leading-[calc(2.5rem+2px)]">
@@ -75,7 +75,7 @@ const DetailInfoSectionContainer = () => {
                 className="dl-desc flex h-6 gap-1 text-xs leading-6 desktop:h-10 desktop:text-base desktop:leading-[calc(2.5rem+2px)]"
               >
                 {types.map((type) => (
-                  <TagComponent key={type} type={type} />
+                  <Tag key={type} type={type} />
                 ))}
               </dd>
             </div>
@@ -85,7 +85,7 @@ const DetailInfoSectionContainer = () => {
         <DetailBodySpecSection />
 
         <section className="card-detail" aria-labelledby="pokemon-abilities">
-          <InfoCardTitleComponent title="특성" id="pokemon-abilities" />
+          <InfoCardTitle title="특성" id="pokemon-abilities" />
           <dl className="flex w-full flex-col gap-2 desktop:gap-4">
             {abilities.map((ability, index) => (
               <div
@@ -116,7 +116,7 @@ const DetailInfoSectionContainer = () => {
       </div>
 
       {/* 특성 직후 맥락 배치 — 퀴즈 유입 확대(UX-005 §6-3) */}
-      <DetailQuizCtaComponent
+      <DetailQuizCta
         title="특성 퀴즈에 도전해보세요!"
         description="다양한 포켓몬의 특성을 얼마나 알고 있나요?"
         href="/quiz/ability"
@@ -125,4 +125,4 @@ const DetailInfoSectionContainer = () => {
   )
 }
 
-export default DetailInfoSectionContainer
+export default DetailInfoSection

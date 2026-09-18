@@ -3,8 +3,8 @@
 import { useContext } from 'react'
 
 import { DetailContext } from '~/context/Detail.context'
-import SectionHeadingComponent from '~/components/SectionHeading.component'
-import StatBarComponent from '~/components/statBar/StatBar.component'
+import SectionHeading from '~/components/SectionHeading.component'
+import StatBar from '~/components/statBar/StatBar.component'
 
 import { getActiveFormInfo } from './modules/activeForm.module'
 
@@ -15,7 +15,7 @@ import { getActiveFormInfo } from './modules/activeForm.module'
  * 활성 폼의 스탯(메가/리전은 폼 스탯)을 표시한다.
  */
 
-const DetailStatsContainer = () => {
+const DetailStats = () => {
   const {
     pokemonBaseInfo,
     megaEvolutions,
@@ -43,11 +43,9 @@ const DetailStatsContainer = () => {
       aria-labelledby="detail-stats-heading"
       className="w-full px-4 desktop:mx-auto desktop:max-w-7xl"
     >
-      <SectionHeadingComponent id="detail-stats-heading">
-        능력치
-      </SectionHeadingComponent>
+      <SectionHeading id="detail-stats-heading">능력치</SectionHeading>
       <div className="card-detail mt-4">
-        <StatBarComponent
+        <StatBar
           stats={[
             { label: '체력', value: stats.hp },
             { label: '공격', value: stats.attack },
@@ -62,4 +60,4 @@ const DetailStatsContainer = () => {
   )
 }
 
-export default DetailStatsContainer
+export default DetailStats

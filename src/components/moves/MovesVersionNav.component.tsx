@@ -60,7 +60,7 @@ interface MovesVersionNavProps {
 
 const SCROLL_STORAGE_PREFIX = 'moves-version-nav-scroll'
 
-const MovesVersionNavComponent = ({
+const MovesVersionNav = ({
   items,
   scroll,
   storageKey,
@@ -191,4 +191,4 @@ const MovesVersionNavComponent = ({
   )
 }
 
-export default MovesVersionNavComponent
+export default MovesVersionNav

@@ -7,12 +7,12 @@ import {
 } from '~/constants/quizJsonLd'
 import { detectUserAgent } from '~/modules/device.module'
 import { PokemonTypeQuizProvider } from '~/context/PokemonTypeQuiz.context'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import PokemonTypeQuizView from '~/views/quiz/pokemonType/PokemonTypeQuiz.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import PokemonTypeQuiz from '~/views/quiz/pokemonType/PokemonTypeQuiz.view'
 
 import { QUIZ_POKEMON_TYPE_META } from '../_metadata/quizMetadata'
 
@@ -27,20 +27,20 @@ const PokemonTypeQuizPage = async () => {
 
   return (
     <Fragment>
-      {/* 본문 반응형 단일(PokemonTypeQuizView). UA 분기는 전역 크롬 선택으로만. */}
+      {/* 본문 반응형 단일(PokemonTypeQuiz). UA 분기는 전역 크롬 선택으로만. */}
       <PokemonTypeQuizProvider>
         {isMobile ? (
           <main className="w-full min-h-screen">
-            <MobileHeaderContainer />
-            <PokemonTypeQuizView />
-            <MobileFooterContainer />
+            <MobileHeader />
+            <PokemonTypeQuiz />
+            <MobileFooter />
             <MobileTabBar />
           </main>
         ) : (
           <main className="w-full min-h-screen pt-30">
-            <DesktopHeaderContainer />
-            <PokemonTypeQuizView />
-            <DesktopFooterContainer />
+            <DesktopHeader />
+            <PokemonTypeQuiz />
+            <DesktopFooter />
           </main>
         )}
       </PokemonTypeQuizProvider>

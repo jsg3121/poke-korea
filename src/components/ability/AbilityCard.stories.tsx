@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { AbilityInfoFragment } from '~/graphql/typeGenerated'
 
-import AbilityCardComponent from './AbilityCard.component'
+import AbilityCard from './AbilityCard.component'
 
 /**
  * 특성 카드. 특성 도감 목록의 특성 항목 하나를 표시하는 "이미지 없는 텍스트 카드".
@@ -20,7 +20,7 @@ const 악취: AbilityInfoFragment = {
 
 const meta = {
   title: 'Components/AbilityCard',
-  component: AbilityCardComponent,
+  component: AbilityCard,
   parameters: {
     layout: 'padded',
     nextjs: { appDirectory: true },
@@ -41,7 +41,7 @@ const meta = {
     abilityData: 악취,
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof AbilityCardComponent>
+} satisfies Meta<typeof AbilityCard>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -113,7 +113,7 @@ export const ListGrid: Story = {
           })),
         )
         .map((ability) => (
-          <AbilityCardComponent key={ability.abilityId} abilityData={ability} />
+          <AbilityCard key={ability.abilityId} abilityData={ability} />
         ))}
     </div>
   ),

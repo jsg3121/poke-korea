@@ -24,12 +24,7 @@ interface EmptyStateProps {
   action?: ReactNode
 }
 
-const EmptyStateComponent = ({
-  title,
-  description,
-  icon,
-  action,
-}: EmptyStateProps) => {
+const EmptyState = ({ title, description, icon, action }: EmptyStateProps) => {
   return (
     <div className="flex w-full flex-col items-center gap-3 py-12 text-center desktop:py-16">
       {icon && (
@@ -53,4 +48,4 @@ const EmptyStateComponent = ({
   )
 }
 
-export default EmptyStateComponent
+export default EmptyState

@@ -6,8 +6,8 @@ import {
   getDamageTypeKorean,
   hasDamageType,
 } from '~/utils/skill.util'
-import ChipComponent from '~/components/chip/Chip.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Chip from '~/components/chip/Chip.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 기술 상세 미니 히어로 (반응형 단일 — UX-008). 구버전 MoveDetail.component
@@ -22,7 +22,7 @@ import TagComponent from '~/components/tag/Tag.component'
  * 우선 표시하고, 어떤 버전 기준인지 배지로 알린다.
  */
 
-interface MoveDetailHeroContainerProps {
+interface MoveDetailHeroProps {
   skillData: PokemonSkillDetail
   selectedVersionGroupId?: number
   /** 이 기술을 배우는 포켓몬 수 — "최신" 탭 툴팁 표시 여부 판단용(0이면 툴팁 숨김) */
@@ -30,12 +30,12 @@ interface MoveDetailHeroContainerProps {
   versionGroups?: Array<VersionGroup> | null
 }
 
-const MoveDetailHeroContainer = ({
+const MoveDetailHero = ({
   skillData,
   selectedVersionGroupId,
   learnablePokemonCount = 0,
   versionGroups,
-}: MoveDetailHeroContainerProps) => {
+}: MoveDetailHeroProps) => {
   // 선택된 버전의 세대 데이터가 있으면 우선 사용(위력·명중 등이 세대마다 다르다)
   const selectedVersionData = selectedVersionGroupId
     ? skillData.generations.find(
@@ -89,10 +89,8 @@ const MoveDetailHeroContainer = ({
         <h1 className="text-2xl desktop:text-4xl font-bold text-primary-4 leading-tight">
           {skillData.nameKo}
         </h1>
-        {versionName && <ChipComponent label={versionName} />}
-        {skillData.zMoves && skillData.isAvailable && (
-          <ChipComponent label="Z기술" />
-        )}
+        {versionName && <Chip label={versionName} />}
+        {skillData.zMoves && skillData.isAvailable && <Chip label="Z기술" />}
         {!skillData.isAvailable && (
           <strong className="inline-block h-7 rounded-lg bg-damage-physical px-3 text-sm text-aligned-md font-medium text-primary-1">
             삭제된 기술
@@ -112,9 +110,9 @@ const MoveDetailHeroContainer = ({
       )}
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        {displayData.type && <TagComponent type={displayData.type} />}
+        {displayData.type && <Tag type={displayData.type} />}
         {damageColor && (
-          <ChipComponent
+          <Chip
             label={getDamageTypeKorean(displayData.damageType)}
             color={damageColor}
           />
@@ -151,4 +149,4 @@ const MoveDetailHeroContainer = ({
   )
 }
 
-export default MoveDetailHeroContainer
+export default MoveDetailHero

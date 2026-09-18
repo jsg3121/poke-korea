@@ -45,11 +45,11 @@ const TYPE_COLOR: Record<PokemonType, string> = {
   FAIRY: 'bg-type-fairy text-black-2',
 }
 
-interface TagComponentProps {
+interface TagProps {
   type: PokemonType
 }
 
-const TagComponent = ({ type }: TagComponentProps) => {
+const Tag = ({ type }: TagProps) => {
   return (
     <span
       className={`block text-center w-12 desktop:w-14 h-5 desktop:h-6 leading-[calc(1.25rem+2px)] desktop:leading-[calc(1.5rem+2px)] px-1.5 desktop:px-2 rounded-lg text-2xs desktop:text-xs font-semibold ${TYPE_COLOR[type]}`}
@@ -59,4 +59,4 @@ const TagComponent = ({ type }: TagComponentProps) => {
   )
 }
 
-export default TagComponent
+export default Tag

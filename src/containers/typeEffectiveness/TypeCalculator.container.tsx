@@ -5,7 +5,7 @@ import { ChangeEvent, useContext } from 'react'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
-import TypeChipComponent from '~/components/chip/TypeChip.component'
+import TypeChip from '~/components/chip/TypeChip.component'
 
 /**
  * 상대 타입 선택 계산기 (반응형 단일 — UX-009). 구버전 데/모 2벌
@@ -28,7 +28,7 @@ const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
   [PokemonType, PokemonTypes]
 >
 
-const TypeCalculatorContainer = () => {
+const TypeCalculator = () => {
   const {
     isMaxSelectType,
     selectTypeList,
@@ -84,7 +84,7 @@ const TypeCalculatorContainer = () => {
           const active = selectTypeList.includes(value)
           const disabled = isMaxSelectType && !active
           return (
-            <TypeChipComponent
+            <TypeChip
               key={`calculator-type-${value}`}
               value={value}
               label={name}
@@ -99,4 +99,4 @@ const TypeCalculatorContainer = () => {
   )
 }
 
-export default TypeCalculatorContainer
+export default TypeCalculator

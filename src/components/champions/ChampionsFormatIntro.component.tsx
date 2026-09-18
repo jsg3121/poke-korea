@@ -7,7 +7,7 @@ import ChampionsFormatTab from '~/components/champions/ChampionsFormatTab.compon
 /**
  * 챔피언스 공통 포맷 인트로 (포맷 탭 + 포맷 안내 캡션).
  *
- * 챔피언스 3화면(홈/티어/도감)은 공통 제목 헤더(PageHeaderComponent)를 쓰되,
+ * 챔피언스 3화면(홈/티어/도감)은 공통 제목 헤더(PageHeader)를 쓰되,
  * champions 고유 요소인 포맷 토글(VGC/BSS)과 포맷 소개 캡션은 헤더와 분리해
  * 이 컴포넌트가 담당한다(관심사 분리, 사용자 결정 2026-07-22). 헤더 바로 아래에
  * 배치한다.

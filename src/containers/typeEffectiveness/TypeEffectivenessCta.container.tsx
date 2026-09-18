@@ -17,7 +17,7 @@ import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
  * 자연스러워 구버전 동작 유지).
  */
 
-const TypeEffectivenessCtaContainer = () => {
+const TypeEffectivenessCta = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
 
   if (selectTypeList.length === 0) return null
@@ -84,4 +84,4 @@ const TypeEffectivenessCtaContainer = () => {
   )
 }
 
-export default TypeEffectivenessCtaContainer
+export default TypeEffectivenessCta

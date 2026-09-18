@@ -1,7 +1,7 @@
 'use client'
 
 import { Ability } from '~/graphql/typeGenerated'
-import AbilityListContainer from '~/containers/ability/AbilityList.container'
+import AbilityListContent from '~/containers/ability/AbilityListContent.container'
 
 /**
  * 특성 도감 목록 뷰 (반응형 단일 — UX-007). 데/모 2벌(AbilityList.desktop/.mobile)의
@@ -10,21 +10,18 @@ import AbilityListContainer from '~/containers/ability/AbilityList.container'
  * 크롬(전역 헤더/푸터/탭바) 선택은 호출부(page.tsx) 책임 — list 뷰와 동일 패턴.
  */
 
-interface AbilityListViewProps {
+interface AbilityListProps {
   initialAbilities: Array<Ability>
   totalCount: number
 }
 
-const AbilityListView = ({
-  initialAbilities,
-  totalCount,
-}: AbilityListViewProps) => {
+const AbilityList = ({ initialAbilities, totalCount }: AbilityListProps) => {
   return (
-    <AbilityListContainer
+    <AbilityListContent
       initialAbilities={initialAbilities}
       totalCount={totalCount}
     />
   )
 }
 
-export default AbilityListView
+export default AbilityList

@@ -1,10 +1,10 @@
 import { DailyQuizPreview } from '~/graphql/typeGenerated'
-import LinkButtonComponent from '~/components/button/LinkButton.component'
-import SectionHeadingComponent from '~/components/SectionHeading.component'
+import LinkButton from '~/components/button/LinkButton.component'
+import SectionHeading from '~/components/SectionHeading.component'
 
-import AbilityQuizCardContainer from './quiz/AbilityQuizCard.container'
-import PokemonTypeQuizCardContainer from './quiz/PokemonTypeQuizCard.container'
-import SilhouetteQuizCardContainer from './quiz/SilhouetteQuizCard.container'
+import AbilityQuizCard from './quiz/AbilityQuizCard.container'
+import PokemonTypeQuizCard from './quiz/PokemonTypeQuizCard.container'
+import SilhouetteQuizCard from './quiz/SilhouetteQuizCard.container'
 
 /**
  * 홈 "오늘의 퀴즈" 섹션 (반응형 단일, DS 컴포넌트 조립).
@@ -16,36 +16,32 @@ import SilhouetteQuizCardContainer from './quiz/SilhouetteQuizCard.container'
  * - 각 퀴즈 카드는 QuizCard DS 셸 + useCorrectQuizCheck 로직.
  */
 
-interface HomeQuizContainerProps {
+interface HomeQuizProps {
   dailyQuiz: DailyQuizPreview
 }
 
-const HomeQuizContainer = ({ dailyQuiz }: HomeQuizContainerProps) => {
+const HomeQuiz = ({ dailyQuiz }: HomeQuizProps) => {
   return (
     <section
       className="w-full px-4 desktop:px-8"
       aria-labelledby="daily-quiz-heading"
     >
-      <SectionHeadingComponent id="daily-quiz-heading">
-        오늘의 퀴즈
-      </SectionHeadingComponent>
+      <SectionHeading id="daily-quiz-heading">오늘의 퀴즈</SectionHeading>
 
       <div className="mt-4 grid grid-cols-1 desktop:grid-cols-3 gap-6">
-        <SilhouetteQuizCardContainer
-          silhouetteQuiz={dailyQuiz.silhouetteQuiz}
-        />
-        <AbilityQuizCardContainer abilityQuiz={dailyQuiz.abilityQuiz} />
-        <PokemonTypeQuizCardContainer pokemonTypeQuiz={dailyQuiz.typeQuiz} />
+        <SilhouetteQuizCard silhouetteQuiz={dailyQuiz.silhouetteQuiz} />
+        <AbilityQuizCard abilityQuiz={dailyQuiz.abilityQuiz} />
+        <PokemonTypeQuizCard pokemonTypeQuiz={dailyQuiz.typeQuiz} />
       </div>
 
       {/* 재방문 훅 승격(UX-003) — 오늘 푼 퀴즈 외에 더 있다는 동선 제공 */}
       <div className="mt-6 flex justify-center">
-        <LinkButtonComponent href="/quiz" variant="secondary" showArrow>
+        <LinkButton href="/quiz" variant="secondary" showArrow>
           퀴즈 더 풀어보기
-        </LinkButtonComponent>
+        </LinkButton>
       </div>
     </section>
   )
 }
 
-export default HomeQuizContainer
+export default HomeQuiz

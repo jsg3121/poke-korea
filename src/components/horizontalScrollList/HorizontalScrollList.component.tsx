@@ -55,7 +55,7 @@ const SCROLLBAR_HIDDEN = '[&::-webkit-scrollbar]:hidden [scrollbar-width:none]'
 const FADE_BASE =
   'pointer-events-none absolute inset-y-0 w-6 transition-opacity duration-300'
 
-const HorizontalScrollListComponent = ({
+const HorizontalScrollList = ({
   children,
   showScrollbar = true,
   'aria-label': ariaLabel,
@@ -124,4 +124,4 @@ const HorizontalScrollListComponent = ({
   )
 }
 
-export default HorizontalScrollListComponent
+export default HorizontalScrollList

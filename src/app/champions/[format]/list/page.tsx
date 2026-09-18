@@ -13,15 +13,18 @@ import {
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
+import {
+  extractApolloState,
+  initializeApollo,
+} from '~/modules/apolloClient.module'
 import { detectUserAgent } from '~/modules/device.module'
 import { changeTypeArrayToString } from '~/modules/filter.module'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import ChampionsPokedexView from '~/views/champions/ChampionsPokedex.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import ChampionsPokedex from '~/views/champions/ChampionsPokedex.view'
 import Providers from '~/app/providers'
 
 import { generateChampionsPokedexMetadata } from '../../_metadata/championsMetadata'
@@ -159,13 +162,13 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsPokedexView, ADR-0007). UA 분기는 전역
+      {/* 콘텐츠는 반응형 단일(ChampionsPokedex, ADR-0007). UA 분기는 전역
           크롬(헤더/푸터/탭바) 선택으로만 남는다(ability·list 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
         {isMobile ? (
           <main className="w-full min-h-screen">
-            <MobileHeaderContainer />
-            <ChampionsPokedexView
+            <MobileHeader />
+            <ChampionsPokedex
               pokemonList={pokemonList}
               hasNextPage={hasNextPage}
               endCursor={endCursor}
@@ -174,7 +177,7 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
               formatSlug={formatSlug}
               sort={sortEnum}
             />
-            <MobileFooterContainer />
+            <MobileFooter />
             <MobileTabBar />
           </main>
         ) : (
@@ -183,9 +186,9 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
           // sticky 필터 desktop:top-40과 정합.
           <main className="w-full min-h-screen">
             <div className="h-40">
-              <DesktopHeaderContainer />
+              <DesktopHeader />
             </div>
-            <ChampionsPokedexView
+            <ChampionsPokedex
               pokemonList={pokemonList}
               hasNextPage={hasNextPage}
               endCursor={endCursor}
@@ -194,7 +197,7 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
               formatSlug={formatSlug}
               sort={sortEnum}
             />
-            <DesktopFooterContainer />
+            <DesktopFooter />
           </main>
         )}
       </Providers>

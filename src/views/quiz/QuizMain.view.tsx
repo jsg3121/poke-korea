@@ -1,23 +1,23 @@
 import Link from 'next/link'
 
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
-import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner.component'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
 
 /**
  * 퀴즈 허브 (/quiz) 본문. desktop/mobile 2벌(QuizMain.desktop/mobile)을 반응형
  * 단일로 통합했다(ADR-0007). 크롬(헤더/푸터/탭바)은 page.tsx가 UA 분기로 렌더하고
  * 여기선 본문만 담당한다.
  *
- * PageHeader는 구버전 2벌 대신 DS PageHeaderComponent로 교체(champions/moves 선례).
+ * PageHeader는 구버전 2벌 대신 DS PageHeader로 교체(champions/moves 선례).
  * 퀴즈 카드는 CTA 강조안(안 B): 밝은 카드 유지 + 하단 "시작하기"를 텍스트 링크에서
  * primary-1 채운 full-width 버튼(시각)으로 승격. 카드 전체가 Link이므로 버튼은
  * 시각 요소(span)이고 클릭은 카드가 받는다(중첩 링크 방지).
  */
-const QuizMainView = () => {
+const QuizMain = () => {
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pb-8 desktop:px-5">
-      <PageHeaderComponent
+      <PageHeader
         title="포켓몬 퀴즈"
         description="다양한 포켓몬 퀴즈를 통해 여러분의 포켓몬 지식을 테스트해보세요!"
       />
@@ -103,4 +103,4 @@ const QuizMainView = () => {
   )
 }
 
-export default QuizMainView
+export default QuizMain

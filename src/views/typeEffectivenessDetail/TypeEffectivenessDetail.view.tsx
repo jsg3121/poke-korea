@@ -1,12 +1,12 @@
 import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
-import TypeDetailBanner from '~/components/adSlot/TypeDetailBanner'
-import TypeDetailChampionsContainer from '~/containers/typeEffectivenessDetail/TypeDetailChampions.container'
-import TypeDetailComboContainer from '~/containers/typeEffectivenessDetail/TypeDetailCombo.container'
-import TypeDetailFaqContainer from '~/containers/typeEffectivenessDetail/TypeDetailFaq.container'
-import TypeDetailMatchupContainer from '~/containers/typeEffectivenessDetail/TypeDetailMatchup.container'
-import TypeDetailNavContainer from '~/containers/typeEffectivenessDetail/TypeDetailNav.container'
-import TypeDetailPokemonContainer from '~/containers/typeEffectivenessDetail/TypeDetailPokemon.container'
-import TypeDetailSummaryContainer from '~/containers/typeEffectivenessDetail/TypeDetailSummary.container'
+import TypeDetailBanner from '~/components/adSlot/TypeDetailBanner.component'
+import TypeDetailChampions from '~/containers/typeEffectivenessDetail/TypeDetailChampions.container'
+import TypeDetailCombo from '~/containers/typeEffectivenessDetail/TypeDetailCombo.container'
+import TypeDetailFaq from '~/containers/typeEffectivenessDetail/TypeDetailFaq.container'
+import TypeDetailMatchup from '~/containers/typeEffectivenessDetail/TypeDetailMatchup.container'
+import TypeDetailNav from '~/containers/typeEffectivenessDetail/TypeDetailNav.container'
+import TypeDetailPokemon from '~/containers/typeEffectivenessDetail/TypeDetailPokemon.container'
+import TypeDetailSummary from '~/containers/typeEffectivenessDetail/TypeDetailSummary.container'
 import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 
 /**
@@ -41,42 +41,39 @@ import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeD
  * 약점 즉답부터 주는 데미지까지 모두 들어간다. 배치 근거는 컴포넌트 주석 참조.
  */
 
-interface TypeEffectivenessDetailViewProps {
+interface TypeEffectivenessDetailProps {
   pokemonType: PokemonType
   pokemons: Array<PokemonInfoFragment>
   pokemonTotalCount: number
   champions: Array<ChampionsTypeEntry>
 }
 
-const TypeEffectivenessDetailView = ({
+const TypeEffectivenessDetail = ({
   pokemonType,
   pokemons,
   pokemonTotalCount,
   champions,
-}: TypeEffectivenessDetailViewProps) => {
+}: TypeEffectivenessDetailProps) => {
   return (
     // pt-6: 전역 헤더(GNB)와 본문이 붙지 않게 하는 최소 여백. PageHeader를 쓰는
     // 다른 페이지는 그 컴포넌트가 pt-4를 갖지만, 이 페이지는 폴드 확보를 위해
     // PageHeader 대신 자체 헤더를 쓰므로 여백을 여기서 준다.
     // pb-20: 모바일 하단 고정 탭바(h-16=64px) 클리어런스.
     <section className="mx-auto w-full max-w-[1280px] px-4 pb-20 pt-6 desktop:pb-10 desktop:pt-8">
-      <TypeDetailSummaryContainer pokemonType={pokemonType} />
-      <TypeDetailMatchupContainer pokemonType={pokemonType} />
+      <TypeDetailSummary pokemonType={pokemonType} />
+      <TypeDetailMatchup pokemonType={pokemonType} />
       <TypeDetailBanner />
-      <TypeDetailComboContainer pokemonType={pokemonType} />
-      <TypeDetailPokemonContainer
+      <TypeDetailCombo pokemonType={pokemonType} />
+      <TypeDetailPokemon
         pokemonType={pokemonType}
         pokemons={pokemons}
         totalCount={pokemonTotalCount}
       />
-      <TypeDetailChampionsContainer
-        pokemonType={pokemonType}
-        entries={champions}
-      />
-      <TypeDetailFaqContainer pokemonType={pokemonType} />
-      <TypeDetailNavContainer pokemonType={pokemonType} />
+      <TypeDetailChampions pokemonType={pokemonType} entries={champions} />
+      <TypeDetailFaq pokemonType={pokemonType} />
+      <TypeDetailNav pokemonType={pokemonType} />
     </section>
   )
 }
 
-export default TypeEffectivenessDetailView
+export default TypeEffectivenessDetail

@@ -4,14 +4,14 @@ import { Fragment } from 'react'
 
 import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 
-import AbilityQuizBefore from './AbilityQuizBefore'
-import AbilityQuizPlay from './AbilityQuizPlay'
-import AbilityQuizResult from './AbilityQuizResult'
+import AbilityQuizBefore from './AbilityQuizBefore.view'
+import AbilityQuizPlay from './AbilityQuizPlay.view'
+import AbilityQuizResult from './AbilityQuizResult.view'
 
 /**
  * 특성 퀴즈 본문 (반응형 단일). quizViewStage로 BEFORE/QUIZ/RESULT를 전환하는 스위치.
  */
-const AbilityQuizView = () => {
+const AbilityQuiz = () => {
   const { quizViewStage } = useAbilityQuizContext()
 
   return (
@@ -23,4 +23,4 @@ const AbilityQuizView = () => {
   )
 }
 
-export default AbilityQuizView
+export default AbilityQuiz

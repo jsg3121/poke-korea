@@ -14,11 +14,11 @@ import { AbilityInfoFragment } from '~/graphql/typeGenerated'
  * 하단 "보러가기" 보조 텍스트는 카드 하단에 절대배치하고, min-h-40으로 자리를 예약한다.
  */
 
-interface AbilityCardComponentProps {
+interface AbilityCardProps {
   abilityData: AbilityInfoFragment
 }
 
-const AbilityCardComponent = ({ abilityData }: AbilityCardComponentProps) => {
+const AbilityCard = ({ abilityData }: AbilityCardProps) => {
   return (
     <Link
       href={`/ability/${abilityData.abilityId}`}
@@ -49,4 +49,4 @@ const AbilityCardComponent = ({ abilityData }: AbilityCardComponentProps) => {
   )
 }
 
-export default AbilityCardComponent
+export default AbilityCard

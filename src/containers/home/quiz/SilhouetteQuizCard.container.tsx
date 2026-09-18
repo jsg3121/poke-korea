@@ -1,15 +1,15 @@
 'use client'
 
 import { SilhouetteQuizQuestion } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import { imageMode } from '~/modules/buildMode.module'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton.component'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
-import ImageComponent from '~/components/Image.component'
-import QuizCardComponent from '~/components/quizCard/QuizCard.component'
+import Image from '~/components/Image.component'
+import QuizCard from '~/components/quizCard/QuizCard.component'
 
 import { useCorrectQuizCheck } from './hooks/useCorrectQuizCheck'
 
-interface SilhouetteQuizCardContainerProps {
+interface SilhouetteQuizCardProps {
   silhouetteQuiz: SilhouetteQuizQuestion
 }
 
@@ -17,22 +17,20 @@ interface SilhouetteQuizCardContainerProps {
  * 실루엣 퀴즈 카드 (QuizCard DS 셸 + 기존 퀴즈 로직 재사용).
  * 본문은 흑백(brightness-0) 포켓몬 이미지, 정답 체크는 useCorrectQuizCheck.
  */
-const SilhouetteQuizCardContainer = ({
-  silhouetteQuiz,
-}: SilhouetteQuizCardContainerProps) => {
+const SilhouetteQuizCard = ({ silhouetteQuiz }: SilhouetteQuizCardProps) => {
   const { isCorrect, isShowModal, handleSelectAnswer, handleCloseModal } =
     useCorrectQuizCheck({ correctAnswer: silhouetteQuiz.correctAnswerIndex })
 
   return (
     <>
-      <QuizCardComponent
+      <QuizCard
         icon="🔍"
         title="실루엣 퀴즈"
         description="이 실루엣은 어떤 포켓몬일까요?"
         headingId="silhouette-quiz-title"
         answersLabel="실루엣 퀴즈 답안 선택"
         body={
-          <ImageComponent
+          <Image
             width="8rem"
             height="8rem"
             src={`${imageMode}/${silhouetteQuiz.correctPokemonId}`}
@@ -66,4 +64,4 @@ const SilhouetteQuizCardContainer = ({
   )
 }
 
-export default SilhouetteQuizCardContainer
+export default SilhouetteQuizCard

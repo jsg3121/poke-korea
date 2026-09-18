@@ -30,7 +30,7 @@ interface QuizResultCardProps {
   userAnswer: ReactNode
 }
 
-const QuizResultCardComponent = ({
+const QuizResultCard = ({
   index,
   isCorrect,
   typeLabel,
@@ -83,4 +83,4 @@ const QuizResultCardComponent = ({
   )
 }
 
-export default QuizResultCardComponent
+export default QuizResultCard

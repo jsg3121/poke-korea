@@ -4,14 +4,14 @@ import { Fragment } from 'react'
 
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 
-import PokemonTypeQuizBefore from './PokemonTypeQuizBefore'
-import PokemonTypeQuizPlay from './PokemonTypeQuizPlay'
-import PokemonTypeQuizResult from './PokemonTypeQuizResult'
+import PokemonTypeQuizBefore from './PokemonTypeQuizBefore.view'
+import PokemonTypeQuizPlay from './PokemonTypeQuizPlay.view'
+import PokemonTypeQuizResult from './PokemonTypeQuizResult.view'
 
 /**
  * 포켓몬 타입 퀴즈 본문 (반응형 단일). quizViewStage로 3단계를 전환하는 스위치.
  */
-const PokemonTypeQuizView = () => {
+const PokemonTypeQuiz = () => {
   const { quizViewStage } = usePokemonTypeQuizContext()
 
   return (
@@ -23,4 +23,4 @@ const PokemonTypeQuizView = () => {
   )
 }
 
-export default PokemonTypeQuizView
+export default PokemonTypeQuiz

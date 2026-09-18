@@ -1,4 +1,4 @@
-import LinkButtonComponent from '~/components/button/LinkButton.component'
+import LinkButton from '~/components/button/LinkButton.component'
 
 /**
  * 퀴즈 유도 CTA (UX-005 §6-3 — 유입 확대 방향). 기존의 밋밋한 줄 배너 대신
@@ -13,7 +13,7 @@ interface DetailQuizCtaProps {
   ctaLabel?: string
 }
 
-const DetailQuizCtaComponent = ({
+const DetailQuizCta = ({
   title,
   description,
   href,
@@ -29,11 +29,11 @@ const DetailQuizCtaComponent = ({
           {description}
         </p>
       </div>
-      <LinkButtonComponent href={href} variant="primary" size="sm" showArrow>
+      <LinkButton href={href} variant="primary" size="sm" showArrow>
         {ctaLabel}
-      </LinkButtonComponent>
+      </LinkButton>
     </div>
   )
 }
 
-export default DetailQuizCtaComponent
+export default DetailQuizCta

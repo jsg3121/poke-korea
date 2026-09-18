@@ -1,9 +1,9 @@
 import { PokemonType } from '~/graphql/typeGenerated'
-import { calculateRelationType } from '~/modules/calculateRelationType'
-import { calculateAttackEffectiveness } from '~/modules/typeAttackEffectiveness'
+import { calculateRelationType } from '~/modules/calculateRelationType.module'
+import { calculateAttackEffectiveness } from '~/modules/typeAttackEffectiveness.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
-import TypeAttackMatchupComponent from '~/components/typeMatchup/TypeAttackMatchup.component'
-import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component'
+import TypeAttackMatchup from '~/components/typeMatchup/TypeAttackMatchup.component'
+import TypeMatchup from '~/components/typeMatchup/TypeMatchup.component'
 
 /**
  * 방어·공격 상성 전체.
@@ -17,13 +17,11 @@ import TypeMatchupComponent from '~/components/typeMatchup/TypeMatchup.component
  * 아래 복합 타입 블록이 담당한다.
  */
 
-interface TypeDetailMatchupContainerProps {
+interface TypeDetailMatchupProps {
   pokemonType: PokemonType
 }
 
-const TypeDetailMatchupContainer = ({
-  pokemonType,
-}: TypeDetailMatchupContainerProps) => {
+const TypeDetailMatchup = ({ pokemonType }: TypeDetailMatchupProps) => {
   const label = getTypeLabel(pokemonType)
   const defense = calculateRelationType([pokemonType])
   const attack = calculateAttackEffectiveness(pokemonType)
@@ -45,7 +43,7 @@ const TypeDetailMatchupContainer = ({
           두 타입의 배율이 곱해져요.
         </p>
         <div className="rounded-2xl bg-primary-4 p-5 desktop:p-8">
-          <TypeMatchupComponent
+          <TypeMatchup
             quad={defense.quad}
             double={defense.double}
             half={defense.half}
@@ -69,7 +67,7 @@ const TypeDetailMatchupContainer = ({
           {label} 타입 기술로 공격할 때의 배율이에요. 단일 타입 상대 기준이에요.
         </p>
         <div className="rounded-2xl bg-primary-4 p-5 desktop:p-8">
-          <TypeAttackMatchupComponent
+          <TypeAttackMatchup
             double={attack.double}
             half={attack.half}
             zero={attack.zero}
@@ -80,4 +78,4 @@ const TypeDetailMatchupContainer = ({
   )
 }
 
-export default TypeDetailMatchupContainer
+export default TypeDetailMatchup

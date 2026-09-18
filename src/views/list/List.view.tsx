@@ -2,9 +2,9 @@
 
 import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
 import { ListProvider } from '~/context/List.context'
-import ListTopBanner from '~/components/adSlot/ListTopBanner'
-import FilterBarOrganism from '~/components/filter/FilterBar.organism'
-import ListGridContainer from '~/containers/list/ListGrid.container'
+import ListTopBanner from '~/components/adSlot/ListTopBanner.component'
+import FilterBar from '~/components/filter/FilterBar.component'
+import ListGrid from '~/containers/list/ListGrid.container'
 
 /**
  * 도감 리스트 뷰 (반응형 단일 — UX-004). 데/모 2벌(List.desktop/List.mobile)의
@@ -20,17 +20,13 @@ import ListGridContainer from '~/containers/list/ListGrid.container'
  * 않는다. 컴포넌트가 내부 useDevice로 기기별 분기. 크롬 선택은 호출부(page) 책임.
  */
 
-interface ListViewProps {
+interface ListProps {
   pokemonList: Array<PokemonList>
   initialFilter: PokemonFilterInput
   hasNextPage: boolean
 }
 
-const ListView = ({
-  pokemonList,
-  initialFilter,
-  hasNextPage,
-}: ListViewProps) => {
+const List = ({ pokemonList, initialFilter, hasNextPage }: ListProps) => {
   return (
     <ListProvider
       initialList={pokemonList}
@@ -42,15 +38,15 @@ const ListView = ({
       {/* 필터바 — 전역 헤더 하단에 이어붙는 sticky (z-30: 헤더보다 아래, 콘텐츠보다 위).
           desktop:top-30(120px) = 데스크톱 fixed 헤더 실높이(112px 아님 — 8px 겹침 주의) */}
       <div className="sticky top-12 z-30 bg-primary-1 desktop:top-30 pt-4 mb-4">
-        <FilterBarOrganism />
+        <FilterBar />
       </div>
 
       {/* 상단 광고 — 필터바 아래·카드 그리드 앞 */}
       <ListTopBanner />
 
-      <ListGridContainer />
+      <ListGrid />
     </ListProvider>
   )
 }
 
-export default ListView
+export default List

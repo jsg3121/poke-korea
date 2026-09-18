@@ -24,14 +24,14 @@ import {
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 import { detectUserAgent } from '~/modules/device.module'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import ChampionsHomeView from '~/views/champions/ChampionsHome.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import ChampionsHome from '~/views/champions/ChampionsHome.view'
 
 import { generateChampionsHomeMetadata } from '../_metadata/championsMetadata'
 
@@ -133,33 +133,33 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsHomeView, ADR-0007). UA 분기는 전역 크롬
+      {/* 콘텐츠는 반응형 단일(ChampionsHome, ADR-0007). UA 분기는 전역 크롬
           (헤더/푸터/탭바) 선택으로만 남는다(티어·도감 개편과 동일 패턴). */}
       {isMobile ? (
         <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ChampionsHomeView
+          <MobileHeader />
+          <ChampionsHome
             topPokemons={topPokemons}
             teamCores={teamCores}
             recentTournaments={recentTournaments}
             formatSlug={formatSlug as ChampionsFormatSlug}
           />
-          <MobileFooterContainer />
+          <MobileFooter />
           <MobileTabBar />
         </main>
       ) : (
         // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
         <main className="w-full min-h-screen">
           <div className="h-40">
-            <DesktopHeaderContainer />
+            <DesktopHeader />
           </div>
-          <ChampionsHomeView
+          <ChampionsHome
             topPokemons={topPokemons}
             teamCores={teamCores}
             recentTournaments={recentTournaments}
             formatSlug={formatSlug as ChampionsFormatSlug}
           />
-          <DesktopFooterContainer />
+          <DesktopFooter />
         </main>
       )}
     </>

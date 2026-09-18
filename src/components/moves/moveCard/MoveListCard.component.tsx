@@ -6,8 +6,8 @@ import {
   getDamageTypeKorean,
   hasDamageType,
 } from '~/utils/skill.util'
-import ChipComponent from '~/components/chip/Chip.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Chip from '~/components/chip/Chip.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 기술 목록 카드 (DS). 기술 도감(/moves) 목록의 기술 항목 하나를 표시한다 (UX-008).
@@ -34,7 +34,7 @@ interface MoveListCardProps {
   moveData: PokemonSkill
 }
 
-const MoveListCardComponent = ({ moveData }: MoveListCardProps) => {
+const MoveListCard = ({ moveData }: MoveListCardProps) => {
   // 미지의 값은 Chip을 생략한다 — hasDamageType으로 보유 여부를 먼저 가른다
   const damageColor = hasDamageType(moveData.damageType)
     ? getDamageTypeChipColor(moveData.damageType)
@@ -69,10 +69,10 @@ const MoveListCardComponent = ({ moveData }: MoveListCardProps) => {
           </h3>
           {/* 배지 묶음 — shrink-0으로 배지는 유지, 제목이 길면 제목만 줄바꿈 */}
           <div className="flex shrink-0 items-center gap-1.5">
-            {moveData.zMoves && <ChipComponent label="Z기술" />}
-            {moveData.type && <TagComponent type={moveData.type} />}
+            {moveData.zMoves && <Chip label="Z기술" />}
+            {moveData.type && <Tag type={moveData.type} />}
             {damageColor && (
-              <ChipComponent
+              <Chip
                 label={getDamageTypeKorean(moveData.damageType)}
                 color={damageColor}
               />
@@ -107,4 +107,4 @@ const MoveListCardComponent = ({ moveData }: MoveListCardProps) => {
   )
 }
 
-export default MoveListCardComponent
+export default MoveListCard

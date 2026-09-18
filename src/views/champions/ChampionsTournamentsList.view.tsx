@@ -1,7 +1,7 @@
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
-import ChampionsTournamentsListContainer from '~/containers/champions/ChampionsTournamentsList.container'
+import ChampionsTournamentsListContent from '~/containers/champions/ChampionsTournamentsListContent.container'
 
-interface ChampionsTournamentsListViewProps {
+interface ChampionsTournamentsListProps {
   tournaments: GetChampionsTournamentsWithTopTeamQuery['championsTournaments']
   availableMonths: string[]
   currentMonth: string | null
@@ -14,13 +14,13 @@ interface ChampionsTournamentsListViewProps {
  * 전역 크롬(헤더/푸터/SubNav)은 page.tsx가 담당하고, 본문은 컨테이너에 위임한다
  * (champions 다른 화면과 동일 패턴). 무한스크롤 없이 전량 SSR 로드라 Provider 불필요.
  */
-const ChampionsTournamentsListView = ({
+const ChampionsTournamentsList = ({
   tournaments,
   availableMonths,
   currentMonth,
-}: ChampionsTournamentsListViewProps) => {
+}: ChampionsTournamentsListProps) => {
   return (
-    <ChampionsTournamentsListContainer
+    <ChampionsTournamentsListContent
       tournaments={tournaments}
       availableMonths={availableMonths}
       currentMonth={currentMonth}
@@ -28,4 +28,4 @@ const ChampionsTournamentsListView = ({
   )
 }
 
-export default ChampionsTournamentsListView
+export default ChampionsTournamentsList

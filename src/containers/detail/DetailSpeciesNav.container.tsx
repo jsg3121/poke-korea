@@ -29,7 +29,7 @@ interface DetailSpeciesNavProps {
 const navLinkClass =
   'flex min-h-8 items-center whitespace-nowrap rounded-2xl bg-primary-3 px-3 text-2xs font-semibold text-primary-1 transition-colors hover:bg-primary-2 hover:text-primary-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1 desktop:min-h-touch desktop:px-4 desktop:text-sm'
 
-const DetailSpeciesNavContainer = ({ prev, next }: DetailSpeciesNavProps) => {
+const DetailSpeciesNav = ({ prev, next }: DetailSpeciesNavProps) => {
   if (!prev && !next) return null
 
   return (
@@ -63,4 +63,4 @@ const DetailSpeciesNavContainer = ({ prev, next }: DetailSpeciesNavProps) => {
   )
 }
 
-export default DetailSpeciesNavContainer
+export default DetailSpeciesNav

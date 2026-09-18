@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import MoveListCardSkeletonComponent from './MoveListCardSkeleton.component'
+import MoveListCardSkeleton from './MoveListCardSkeleton.component'
 
 /**
  * 기술 목록 카드 로딩 스켈레톤. 무한스크롤 추가 로드 중 그리드 끝에 표시해
@@ -8,7 +8,7 @@ import MoveListCardSkeletonComponent from './MoveListCardSkeleton.component'
  */
 const meta = {
   title: 'Components/MoveListCardSkeleton',
-  component: MoveListCardSkeletonComponent,
+  component: MoveListCardSkeleton,
   parameters: {
     layout: 'padded',
     backgrounds: { default: 'dark' },
@@ -23,7 +23,7 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof MoveListCardSkeletonComponent>
+} satisfies Meta<typeof MoveListCardSkeleton>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -36,7 +36,7 @@ export const InGrid: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-4 desktop:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] desktop:gap-6">
       {Array.from({ length: 4 }, (_, i) => (
-        <MoveListCardSkeletonComponent key={i} />
+        <MoveListCardSkeleton key={i} />
       ))}
     </div>
   ),

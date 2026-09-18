@@ -18,7 +18,7 @@ interface QuizOptionButtonProps {
   children: ReactNode
 }
 
-const QuizOptionButtonComponent = ({
+const QuizOptionButton = ({
   onClick,
   variant = 'text',
   optionNumber,
@@ -55,4 +55,4 @@ const QuizOptionButtonComponent = ({
   )
 }
 
-export default QuizOptionButtonComponent
+export default QuizOptionButton

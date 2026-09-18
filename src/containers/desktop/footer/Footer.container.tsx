@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const FooterContainer = () => {
+const Footer = () => {
   return (
     <footer className="w-full max-w-[1280px] mx-auto pt-16 pb-4">
       <p className="w-full h-6 leading-5 text-center text-primary-3">
@@ -22,4 +22,4 @@ const FooterContainer = () => {
   )
 }
 
-export default FooterContainer
+export default Footer

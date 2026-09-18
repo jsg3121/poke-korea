@@ -3,12 +3,12 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { useDebouncedCallback } from '~/hooks/useDebounce'
-import SearchInputComponent from '~/components/input/SearchInput.component'
+import SearchInput from '~/components/input/SearchInput.component'
 
 /**
  * 기술 검색 영역 (반응형 단일, UX-008). SearchInput DS 원자 + 결과 카운트.
  *
- * ability의 AbilitySearchContainer와 동형 — 검색은 목록의 1차 과업이라 필터보다
+ * ability의 AbilitySearch와 동형 — 검색은 목록의 1차 과업이라 필터보다
  * 위(승격)에 둔다. sticky는 이 컴포넌트가 아니라 상위(MovesList.container)가
  * 검색+필터바를 한 블록으로 묶어 담당한다(기술 목록은 필터바도 sticky 크롬에
  * 포함되는 구조라 ability와 달리 sticky 책임을 위로 올린다).
@@ -18,11 +18,11 @@ import SearchInputComponent from '~/components/input/SearchInput.component'
  * (타입·분류·세대 필터)는 보존한다. 디바운스로 과도한 라우팅을 막는다.
  */
 
-interface MovesSearchContainerProps {
+interface MovesSearchProps {
   totalCount: number
 }
 
-const MovesSearchContainer = ({ totalCount }: MovesSearchContainerProps) => {
+const MovesSearch = ({ totalCount }: MovesSearchProps) => {
   const params = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -45,7 +45,7 @@ const MovesSearchContainer = ({ totalCount }: MovesSearchContainerProps) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <SearchInputComponent
+      <SearchInput
         label="기술 이름으로 검색"
         placeholder="기술 이름으로 검색하세요"
         defaultValue={params.get('search') || ''}
@@ -62,4 +62,4 @@ const MovesSearchContainer = ({ totalCount }: MovesSearchContainerProps) => {
   )
 }
 
-export default MovesSearchContainer
+export default MovesSearch

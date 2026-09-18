@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 
-import { ButtonSize, ButtonVariant, getButtonClass } from './buttonStyle'
+import { ButtonSize, ButtonVariant, getButtonClass } from './button.util'
 
 /**
  * 액션 버튼 (DS 원자). 클릭 액션용 `<button>`.
@@ -14,7 +14,7 @@ import { ButtonSize, ButtonVariant, getButtonClass } from './buttonStyle'
  * 깨지고, twMerge가 없어 토큰 충돌 시 병합되지 않는다. 레이아웃 제어는 상위 wrapper의
  * 책임으로 둔다(disabled 시각도 buttonStyle에 응집).
  */
-interface ButtonComponentProps
+interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
   children: ReactNode
   variant?: ButtonVariant
@@ -24,7 +24,7 @@ interface ButtonComponentProps
   showArrow?: boolean
 }
 
-const ButtonComponent = ({
+const Button = ({
   children,
   variant = 'primary',
   size = 'md',
@@ -32,7 +32,7 @@ const ButtonComponent = ({
   showArrow = false,
   type = 'button',
   ...buttonProps
-}: ButtonComponentProps) => {
+}: ButtonProps) => {
   return (
     <button
       type={type}
@@ -45,4 +45,4 @@ const ButtonComponent = ({
   )
 }
 
-export default ButtonComponent
+export default Button

@@ -2,10 +2,10 @@ import Link from 'next/link'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildChampionsDetailHref } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
 import ChampionsTierBadge from '~/components/champions/ChampionsTierBadge.component'
-import TagComponent from '~/components/tag/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 
 /**
@@ -31,15 +31,15 @@ import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeD
  * (§26.9.4 방어 장치 4).
  */
 
-interface TypeDetailChampionsContainerProps {
+interface TypeDetailChampionsProps {
   pokemonType: PokemonType
   entries: Array<ChampionsTypeEntry>
 }
 
-const TypeDetailChampionsContainer = ({
+const TypeDetailChampions = ({
   pokemonType,
   entries,
-}: TypeDetailChampionsContainerProps) => {
+}: TypeDetailChampionsProps) => {
   if (entries.length === 0) return null
 
   const label = getTypeLabel(pokemonType)
@@ -95,7 +95,7 @@ const TypeDetailChampionsContainer = ({
                 {pokemon.types && pokemon.types.length > 0 && (
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
                     {pokemon.types.map((type) => (
-                      <TagComponent key={type} type={type} />
+                      <Tag key={type} type={type} />
                     ))}
                   </div>
                 )}
@@ -116,4 +116,4 @@ const TypeDetailChampionsContainer = ({
   )
 }
 
-export default TypeDetailChampionsContainer
+export default TypeDetailChampions

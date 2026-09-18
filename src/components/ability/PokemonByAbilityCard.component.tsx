@@ -2,8 +2,8 @@ import { useMemo } from 'react'
 
 import { CardColor } from '~/types/pokemonTypes.types'
 import { PokemonWithAbilityInfoFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
+import { imageMode } from '~/modules/buildMode.module'
+import PokemonCardShell from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**
  * 특성별 포켓몬 카드 (반응형 단일 DS 컴포넌트).
@@ -23,7 +23,7 @@ interface PokemonByAbilityCardProps {
   isHighPriority?: boolean
 }
 
-const PokemonByAbilityCardComponent = ({
+const PokemonByAbilityCard = ({
   pokemonData,
   isHighPriority = false,
 }: PokemonByAbilityCardProps) => {
@@ -84,7 +84,7 @@ const PokemonByAbilityCardComponent = ({
   }`
 
   return (
-    <PokemonCardShellComponent
+    <PokemonCardShell
       href={pokemonHref}
       backgroundColor={backgroundColor}
       types={pokemonData.types}
@@ -120,8 +120,8 @@ const PokemonByAbilityCardComponent = ({
           </span>
         )}
       </div>
-    </PokemonCardShellComponent>
+    </PokemonCardShell>
   )
 }
 
-export default PokemonByAbilityCardComponent
+export default PokemonByAbilityCard

@@ -1,16 +1,16 @@
-import DetailBottomBanner from '~/components/adSlot/DetailBottomBanner'
-import DetailSkillsBanner from '~/components/adSlot/DetailSkillsBanner'
-import DetailStatsBanner from '~/components/adSlot/DetailStatsBanner'
-import DetailEvolutionContainer from '~/containers/detail/DetailEvolution.container'
-import DetailExclusiveMovesContainer from '~/containers/detail/DetailExclusiveMoves.container'
-import DetailFormRowContainer from '~/containers/detail/DetailFormRow.container'
-import DetailHeroContainer from '~/containers/detail/DetailHero.container'
-import DetailInfoSectionContainer from '~/containers/detail/DetailInfoSection.container'
-import DetailSignatureMovesContainer from '~/containers/detail/DetailSignatureMoves.container'
-import DetailSkillsContainer from '~/containers/detail/DetailSkills.container'
+import DetailBottomBanner from '~/components/adSlot/DetailBottomBanner.component'
+import DetailSkillsBanner from '~/components/adSlot/DetailSkillsBanner.component'
+import DetailStatsBanner from '~/components/adSlot/DetailStatsBanner.component'
+import DetailEvolution from '~/containers/detail/DetailEvolution.container'
+import DetailExclusiveMoves from '~/containers/detail/DetailExclusiveMoves.container'
+import DetailFormRow from '~/containers/detail/DetailFormRow.container'
+import DetailHero from '~/containers/detail/DetailHero.container'
+import DetailInfoSection from '~/containers/detail/DetailInfoSection.container'
+import DetailSignatureMoves from '~/containers/detail/DetailSignatureMoves.container'
+import DetailSkills from '~/containers/detail/DetailSkills.container'
 import { AdjacentPokemon } from '~/containers/detail/DetailSpeciesNav.container'
-import DetailStatsContainer from '~/containers/detail/DetailStats.container'
-import DetailTypeMatchupContainer from '~/containers/detail/DetailTypeMatchup.container'
+import DetailStats from '~/containers/detail/DetailStats.container'
+import DetailTypeMatchup from '~/containers/detail/DetailTypeMatchup.container'
 
 /**
  * 포켓몬 상세 뷰 (반응형 단일 — UX-005). 데/모 2벌(Detail.desktop/mobile)의
@@ -30,39 +30,36 @@ import DetailTypeMatchupContainer from '~/containers/detail/DetailTypeMatchup.co
  * 예측), 지점3은 검증된 반응형 슬롯 재사용. 크롬 선택은 호출부 책임.
  */
 
-interface DetailViewProps {
+interface DetailProps {
   prevPokemon: AdjacentPokemon | null
   nextPokemon: AdjacentPokemon | null
   /** 진화 체인 번호+이름 (컨텍스트엔 id뿐이라 호출부가 경량 조회해 주입) */
   evolutionPokemons: Array<AdjacentPokemon>
 }
 
-const DetailView = ({
+const Detail = ({
   prevPokemon,
   nextPokemon,
   evolutionPokemons,
-}: DetailViewProps) => {
+}: DetailProps) => {
   return (
     <>
       {/* 종 내비는 히어로 그라데이션 위 오버레이(사용자 결정) — 헤더와 히어로 사이 공백 제거 */}
-      <DetailHeroContainer
-        prevPokemon={prevPokemon}
-        nextPokemon={nextPokemon}
-      />
+      <DetailHero prevPokemon={prevPokemon} nextPokemon={nextPokemon} />
       <div className="flex w-full flex-col gap-5 desktop:gap-8">
-        <DetailFormRowContainer />
-        <DetailStatsContainer />
+        <DetailFormRow />
+        <DetailStats />
         <div className="flex w-full flex-col gap-5 px-4 desktop:mx-auto desktop:max-w-7xl desktop:gap-8">
           {/* 지점1: 능력치 소비 직후 */}
           <DetailStatsBanner />
-          <DetailInfoSectionContainer />
-          <DetailExclusiveMovesContainer />
-          <DetailSignatureMovesContainer />
-          <DetailSkillsContainer />
+          <DetailInfoSection />
+          <DetailExclusiveMoves />
+          <DetailSignatureMoves />
+          <DetailSkills />
           {/* 지점2: 습득 기술 표 소비 직후 */}
           <DetailSkillsBanner />
-          <DetailTypeMatchupContainer />
-          <DetailEvolutionContainer evolutionPokemons={evolutionPokemons} />
+          <DetailTypeMatchup />
+          <DetailEvolution evolutionPokemons={evolutionPokemons} />
           {/* 지점3: 콘텐츠 최하단(과거 수익 1위 위치). 모바일 하단 탭바와는
               페이지 크롬의 여백으로 분리된다. */}
           <DetailBottomBanner />
@@ -72,4 +69,4 @@ const DetailView = ({
   )
 }
 
-export default DetailView
+export default Detail

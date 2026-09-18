@@ -7,12 +7,12 @@ import {
 } from '~/constants/quizJsonLd'
 import { detectUserAgent } from '~/modules/device.module'
 import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.context'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import TypeEffectivenessQuizView from '~/views/quiz/typeEffectiveness/TypeEffectivenessQuiz.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import TypeEffectivenessQuiz from '~/views/quiz/typeEffectiveness/TypeEffectivenessQuiz.view'
 
 import { QUIZ_TYPE_EFFECTIVENESS_META } from '../_metadata/quizMetadata'
 
@@ -27,20 +27,20 @@ const TypeEffectivenessQuizPage = async () => {
 
   return (
     <Fragment>
-      {/* 본문 반응형 단일(TypeEffectivenessQuizView). UA 분기는 전역 크롬 선택으로만. */}
+      {/* 본문 반응형 단일(TypeEffectivenessQuiz). UA 분기는 전역 크롬 선택으로만. */}
       <TypeEffectivenessQuizProvider>
         {isMobile ? (
           <main className="w-full min-h-screen">
-            <MobileHeaderContainer />
-            <TypeEffectivenessQuizView />
-            <MobileFooterContainer />
+            <MobileHeader />
+            <TypeEffectivenessQuiz />
+            <MobileFooter />
             <MobileTabBar />
           </main>
         ) : (
           <main className="w-full min-h-screen pt-30">
-            <DesktopHeaderContainer />
-            <TypeEffectivenessQuizView />
-            <DesktopFooterContainer />
+            <DesktopHeader />
+            <TypeEffectivenessQuiz />
+            <DesktopFooter />
           </main>
         )}
       </TypeEffectivenessQuizProvider>

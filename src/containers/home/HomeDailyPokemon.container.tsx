@@ -1,7 +1,7 @@
 import { PokemonCardFragment } from '~/graphql/typeGenerated'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import PokemonCardComponent from '~/components/pokemonCard/PokemonCard.component'
-import SectionHeadingComponent from '~/components/SectionHeading.component'
+import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import PokemonCard from '~/components/pokemonCard/PokemonCard.component'
+import SectionHeading from '~/components/SectionHeading.component'
 
 /**
  * 홈 "오늘의 포켓몬" 섹션 (반응형 단일, DS 조립 — UX-003 §3 섹션 4).
@@ -15,13 +15,11 @@ import SectionHeadingComponent from '~/components/SectionHeading.component'
  * 극단 케이스 보강).
  */
 
-interface HomeDailyPokemonContainerProps {
+interface HomeDailyPokemonProps {
   dailyPokemon: Array<PokemonCardFragment>
 }
 
-const HomeDailyPokemonContainer = ({
-  dailyPokemon,
-}: HomeDailyPokemonContainerProps) => {
+const HomeDailyPokemon = ({ dailyPokemon }: HomeDailyPokemonProps) => {
   if (dailyPokemon.length === 0) return null
 
   return (
@@ -29,21 +27,19 @@ const HomeDailyPokemonContainer = ({
       className="w-full px-4 desktop:px-8"
       aria-labelledby="daily-pokemon-heading"
     >
-      <SectionHeadingComponent id="daily-pokemon-heading">
-        오늘의 포켓몬
-      </SectionHeadingComponent>
+      <SectionHeading id="daily-pokemon-heading">오늘의 포켓몬</SectionHeading>
 
-      <HorizontalScrollListComponent aria-label="오늘의 포켓몬 목록">
+      <HorizontalScrollList aria-label="오늘의 포켓몬 목록">
         {dailyPokemon.map((pokemon) => (
-          <PokemonCardComponent
+          <PokemonCard
             key={`pokemon-id-${pokemon.id}`}
             variant="pokedex"
             pokemonData={pokemon}
           />
         ))}
-      </HorizontalScrollListComponent>
+      </HorizontalScrollList>
     </section>
   )
 }
 
-export default HomeDailyPokemonContainer
+export default HomeDailyPokemon

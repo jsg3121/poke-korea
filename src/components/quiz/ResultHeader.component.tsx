@@ -9,11 +9,7 @@ interface ResultHeaderProps {
   subcopy: string
 }
 
-const ResultHeaderComponent = ({
-  medal,
-  headline,
-  subcopy,
-}: ResultHeaderProps) => {
+const ResultHeader = ({ medal, headline, subcopy }: ResultHeaderProps) => {
   return (
     <header className="w-full flex flex-col items-center text-center">
       <span
@@ -30,4 +26,4 @@ const ResultHeaderComponent = ({
   )
 }
 
-export default ResultHeaderComponent
+export default ResultHeader

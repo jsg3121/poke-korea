@@ -8,8 +8,8 @@ import {
   getTypeLabel,
   parseTypeLabel,
 } from '~/modules/typeParams.module'
-import LinkButtonComponent from '~/components/button/LinkButton.component'
-import ImageComponent from '~/components/Image.component'
+import LinkButton from '~/components/button/LinkButton.component'
+import Image from '~/components/Image.component'
 
 /**
  * 하단 이동 영역 — 계산기 복귀 CTA + 다른 타입 18개 링크.
@@ -29,7 +29,7 @@ import ImageComponent from '~/components/Image.component'
  * 3개에서 18개로 넓힌 실질적 근거였다(§26.9.4).
  */
 
-interface TypeDetailNavContainerProps {
+interface TypeDetailNavProps {
   pokemonType: PokemonType
 }
 
@@ -43,9 +43,7 @@ const TYPE_LINK_ORDER: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
   (label) => parseTypeLabel(label) as PokemonType,
 )
 
-const TypeDetailNavContainer = ({
-  pokemonType,
-}: TypeDetailNavContainerProps) => {
+const TypeDetailNav = ({ pokemonType }: TypeDetailNavProps) => {
   const label = getTypeLabel(pokemonType)
 
   return (
@@ -67,17 +65,17 @@ const TypeDetailNavContainer = ({
         {/* 모바일 1열, 데스크톱 2열 균등. fullWidth로 각 칼럼을 채워 두 CTA의
             폭이 같아지게 한다(문구 길이에 따라 버튼 크기가 달라지지 않도록). */}
         <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
-          <LinkButtonComponent href="/type-effectiveness" fullWidth showArrow>
+          <LinkButton href="/type-effectiveness" fullWidth showArrow>
             타입 상성 계산기로 이동
-          </LinkButtonComponent>
-          <LinkButtonComponent
+          </LinkButton>
+          <LinkButton
             href="/quiz/type-effectiveness"
             variant="secondary"
             fullWidth
             showArrow
           >
             타입 상성 퀴즈 풀어보기
-          </LinkButtonComponent>
+          </LinkButton>
         </div>
       </section>
 
@@ -97,7 +95,7 @@ const TypeDetailNavContainer = ({
             갖춘 링크 카드로 만들어 이동 가능함을 형태로 드러낸다.
             아이콘은 계산기의 TypeChip과 같은 `public/assets/type/*.svg`를 쓴다 —
             svgr 컴포넌트 import는 `src/assets/` 하위만 대상이라 여기서는
-            ImageComponent로 불러온다(TypeChip과 동일한 방식). */}
+            Image로 불러온다(TypeChip과 동일한 방식). */}
         <ul className="grid grid-cols-2 gap-2 desktop:grid-cols-6 desktop:gap-3">
           {TYPE_LINK_ORDER.filter((type) => type !== pokemonType).map(
             (type) => (
@@ -109,7 +107,7 @@ const TypeDetailNavContainer = ({
                 >
                   <span className="flex items-center gap-2">
                     <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
-                      <ImageComponent
+                      <Image
                         alt=""
                         aria-hidden="true"
                         src={`/assets/type/${buildTypeSlug(type)}.svg`}
@@ -133,4 +131,4 @@ const TypeDetailNavContainer = ({
   )
 }
 
-export default TypeDetailNavContainer
+export default TypeDetailNav

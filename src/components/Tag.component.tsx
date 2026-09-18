@@ -1,11 +1,11 @@
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 
-interface TagComponentProps {
+interface TagProps {
   type: PokemonType
 }
 
-const TagComponent = ({ type }: TagComponentProps) => {
+const Tag = ({ type }: TagProps) => {
   return (
     <span className={`type-tag chip-type-${type.toLowerCase()}`}>
       {PokemonTypes[type]}
@@ -13,4 +13,4 @@ const TagComponent = ({ type }: TagComponentProps) => {
   )
 }
 
-export default TagComponent
+export default Tag

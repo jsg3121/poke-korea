@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 import { formatKstDate } from '~/utils/championsFormat.util'
-import { imageMode } from '~/modules/buildMode'
-import ImageComponent from '~/components/Image.component'
+import { imageMode } from '~/modules/buildMode.module'
+import Image from '~/components/Image.component'
 
 type TournamentWithTopTeam =
   GetChampionsTournamentsWithTopTeamQuery['championsTournaments'][number]
@@ -97,7 +97,7 @@ const ChampionsTournamentCard = ({
                   className="w-8 h-8 shrink-0"
                 >
                   {slot.imagePath ? (
-                    <ImageComponent
+                    <Image
                       src={`${imageMode}/${slot.imagePath}`}
                       alt={`${name} 포켓몬 이미지`}
                       width="2rem"

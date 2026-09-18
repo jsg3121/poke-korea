@@ -1,7 +1,7 @@
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TypeEffectivenessQuizQuestion } from '~/types/quiz.type'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { relationList } from '~/modules/calculateRelationType'
+import { relationList } from '~/modules/calculateRelationType.module'
 
 // 타입을 한글명으로 변환
 export const getKoreanTypeName = (type: PokemonType): string => {

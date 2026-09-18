@@ -13,7 +13,7 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 
-import TableActivePointerComponent, {
+import TableActivePointer, {
   ActivePointerType,
 } from './TableActivePointer.component'
 
@@ -61,7 +61,7 @@ const VALUE_STYLE: Record<
   0: { label: '0배', color: 'text-gray-500', active: 'zero' },
 }
 
-const TypeEffectivenessTableContainer = () => {
+const TypeEffectivenessTable = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
   const [activeType, setActiveType] = useState<ActivePointerType>(undefined)
 
@@ -113,7 +113,7 @@ const TypeEffectivenessTableContainer = () => {
         >
           타입별 상성 표
         </h2>
-        <TableActivePointerComponent
+        <TableActivePointer
           activeType={activeType}
           onClickPointer={handleClickActiveEffective}
           onClickResetEffective={() => setActiveType(undefined)}
@@ -199,4 +199,4 @@ const TypeEffectivenessTableContainer = () => {
   )
 }
 
-export default TypeEffectivenessTableContainer
+export default TypeEffectivenessTable

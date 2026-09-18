@@ -7,12 +7,12 @@ import {
 } from '~/constants/quizJsonLd'
 import { detectUserAgent } from '~/modules/device.module'
 import { AbilityQuizProvider } from '~/context/AbilityQuiz.context'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import AbilityQuizView from '~/views/quiz/ability/AbilityQuiz.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import AbilityQuiz from '~/views/quiz/ability/AbilityQuiz.view'
 
 import { QUIZ_ABILITY_META } from '../_metadata/quizMetadata'
 
@@ -27,20 +27,20 @@ const AbilityQuizPage = async () => {
 
   return (
     <Fragment>
-      {/* 본문 반응형 단일(AbilityQuizView). UA 분기는 전역 크롬 선택으로만 남는다. */}
+      {/* 본문 반응형 단일(AbilityQuiz). UA 분기는 전역 크롬 선택으로만 남는다. */}
       <AbilityQuizProvider>
         {isMobile ? (
           <main className="w-full min-h-screen">
-            <MobileHeaderContainer />
-            <AbilityQuizView />
-            <MobileFooterContainer />
+            <MobileHeader />
+            <AbilityQuiz />
+            <MobileFooter />
             <MobileTabBar />
           </main>
         ) : (
           <main className="w-full min-h-screen pt-30">
-            <DesktopHeaderContainer />
-            <AbilityQuizView />
-            <DesktopFooterContainer />
+            <DesktopHeader />
+            <AbilityQuiz />
+            <DesktopFooter />
           </main>
         )}
       </AbilityQuizProvider>

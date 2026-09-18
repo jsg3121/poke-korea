@@ -5,13 +5,13 @@ import { PokemonLearnInfo } from '~/graphql/typeGenerated'
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll'
 import { useLearnMethodLabels } from '~/hooks/useLearnMethodLabels'
 import { usePokemonsBySkill } from '~/hooks/usePokemonsBySkill'
-import EmptyStateComponent from '~/components/emptyState/EmptyState.component'
-import PokemonBySkillCardComponent from '~/components/moves/PokemonBySkillCard.component'
+import EmptyState from '~/components/emptyState/EmptyState.component'
+import PokemonBySkillCard from '~/components/moves/PokemonBySkillCard.component'
 
 /**
  * 기술별 포켓몬 목록 (반응형 단일 — UX-008). 구버전 데/모 2벌 MoveDetail.container의
  * "이 기술을 배우는 포켓몬" 영역을 대체한다. UA 분기·display:none 없이
- * CSS(desktop:)만으로 반응(ADR-0007) — ability의 PokemonByAbilityContainer 동형.
+ * CSS(desktop:)만으로 반응(ADR-0007) — ability의 PokemonByAbility 동형.
  *
  * 카운트 문구는 시각적으로 섹션 제목 역할을 하므로 h2로 승격(스크린리더 구조 탐색).
  * 포켓몬 카드는 도감 카드와 셸을 공유(PokemonBySkillCard). 버전 전환은 URL 세그먼트
@@ -21,19 +21,19 @@ import PokemonBySkillCardComponent from '~/components/moves/PokemonBySkillCard.c
 /** LCP 후보(첫 화면 카드)만 eager 로딩 — 모바일 2열 커버 */
 const HIGH_PRIORITY_COUNT = 8
 
-interface PokemonBySkillListContainerProps {
+interface PokemonBySkillListProps {
   skillId: number
   initialPokemonList: Array<PokemonLearnInfo>
   totalCount: number
   selectedVersionGroupId?: number
 }
 
-const PokemonBySkillListContainer = ({
+const PokemonBySkillList = ({
   skillId,
   initialPokemonList,
   totalCount,
   selectedVersionGroupId,
-}: PokemonBySkillListContainerProps) => {
+}: PokemonBySkillListProps) => {
   const {
     pokemonList,
     loadMore,
@@ -63,7 +63,7 @@ const PokemonBySkillListContainer = ({
   return (
     <section className="w-full">
       {isEmpty ? (
-        <EmptyStateComponent
+        <EmptyState
           title="이 기술을 배울 수 있는 포켓몬이 없어요"
           description="다른 버전을 선택하거나 기술 도감으로 돌아가 보세요"
           icon={<MovesListIcon />}
@@ -83,7 +83,7 @@ const PokemonBySkillListContainer = ({
                 key={`pokemon-skill-${pokemon.id}-${pokemon.formType}`}
                 className="w-full"
               >
-                <PokemonBySkillCardComponent
+                <PokemonBySkillCard
                   pokemonData={pokemon}
                   isHighPriority={index < HIGH_PRIORITY_COUNT}
                   getMethodLabel={getLabel}
@@ -105,4 +105,4 @@ const PokemonBySkillListContainer = ({
   )
 }
 
-export default PokemonBySkillListContainer
+export default PokemonBySkillList

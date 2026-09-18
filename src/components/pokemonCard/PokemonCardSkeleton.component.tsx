@@ -13,7 +13,7 @@ import { POKEMON_CARD_SIZE } from './PokemonCardShell.component'
  * 책임이다(스켈레톤 개수만큼 중복 낭독 방지).
  */
 
-const PokemonCardSkeletonComponent = () => {
+const PokemonCardSkeleton = () => {
   return (
     <div className={POKEMON_CARD_SIZE.width} aria-hidden="true">
       <div
@@ -42,4 +42,4 @@ const PokemonCardSkeletonComponent = () => {
   )
 }
 
-export default PokemonCardSkeletonComponent
+export default PokemonCardSkeleton

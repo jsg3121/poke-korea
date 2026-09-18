@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import LogoIcon from '~/assets/logo.svg'
-import ChampionsSubNavOrganism from '~/components/champions/ChampionsSubNav.organism'
+import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
 
-import HeaderSearchContainer from './header.search/HeaderSearchContainer'
-import ListSearchContainer from './header.search/ListSearchContainer'
+import HeaderSearch from './header.search/HeaderSearch.container'
+import ListSearch from './header.search/ListSearch.container'
 
-const HeaderContainer = () => {
+const Header = () => {
   const pathname = usePathname()
 
   return (
@@ -30,14 +30,14 @@ const HeaderContainer = () => {
         {/* 검색 동작 분기(셸은 동일): /list는 리스트 필터(?name=), 그 외는
             드롭다운→상세 이동 — 데스크톱 MainSearch/DetailSearch 패턴과 일치 */}
         {pathname === '/list' ? (
-          <ListSearchContainer />
+          <ListSearch />
         ) : (
-          <HeaderSearchContainer key={`search-key-${pathname}`} />
+          <HeaderSearch key={`search-key-${pathname}`} />
         )}
       </header>
-      {pathname.includes('/champions') && <ChampionsSubNavOrganism />}
+      {pathname.includes('/champions') && <ChampionsSubNav />}
     </>
   )
 }
 
-export default HeaderContainer
+export default Header

@@ -14,7 +14,7 @@ import {
   ChampionsFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-import { initializeApollo } from '~/modules/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 // fragment 기반 타입 (응답에 실제 포함되는 필드만 사용)
 type DetailPokemon = ChampionsPokemonDetailFragment['pokemon']

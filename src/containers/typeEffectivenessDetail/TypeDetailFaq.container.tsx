@@ -16,13 +16,11 @@ import { getTypeLabel } from '~/modules/typeParams.module'
  * 제한한다(시안 결정) — 질문 한 줄짜리 목록이 좁은 폭에 갇히면 어색하다.
  */
 
-interface TypeDetailFaqContainerProps {
+interface TypeDetailFaqProps {
   pokemonType: PokemonType
 }
 
-const TypeDetailFaqContainer = ({
-  pokemonType,
-}: TypeDetailFaqContainerProps) => {
+const TypeDetailFaq = ({ pokemonType }: TypeDetailFaqProps) => {
   const label = getTypeLabel(pokemonType)
   const content = TYPE_DETAIL_CONTENT[pokemonType]
 
@@ -66,4 +64,4 @@ const TypeDetailFaqContainer = ({
   )
 }
 
-export default TypeDetailFaqContainer
+export default TypeDetailFaq

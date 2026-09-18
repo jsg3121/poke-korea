@@ -9,7 +9,7 @@
  * 반응형은 모바일 퍼스트 base + desktop: 2단만(md:/lg: 제거). 색은 토큰만 사용한다.
  */
 
-const AbilityDescriptionBodyComponent = () => {
+const AbilityDescriptionBody = () => {
   return (
     <div className="space-y-4 px-6 pb-4 text-sm text-primary-1">
       <p>
@@ -55,4 +55,4 @@ const AbilityDescriptionBodyComponent = () => {
   )
 }
 
-export default AbilityDescriptionBodyComponent
+export default AbilityDescriptionBody

@@ -2,9 +2,9 @@ import Link from 'next/link'
 
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { calculateRelationType } from '~/modules/calculateRelationType'
+import { calculateRelationType } from '~/modules/calculateRelationType.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
-import TagComponent from '~/components/tag/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 
 /**
  * 폴드 영역 — Breadcrumb + H1 + 리드 + 약점 즉답 + 고유 사실.
@@ -21,13 +21,11 @@ import TagComponent from '~/components/tag/Tag.component'
  * 중복은 "요약 먼저, 상세는 아래" 패턴으로 의도된 것이다.
  */
 
-interface TypeDetailSummaryContainerProps {
+interface TypeDetailSummaryProps {
   pokemonType: PokemonType
 }
 
-const TypeDetailSummaryContainer = ({
-  pokemonType,
-}: TypeDetailSummaryContainerProps) => {
+const TypeDetailSummary = ({ pokemonType }: TypeDetailSummaryProps) => {
   const label = getTypeLabel(pokemonType)
   const content = TYPE_DETAIL_CONTENT[pokemonType]
   const relation = calculateRelationType([pokemonType])
@@ -77,9 +75,7 @@ const TypeDetailSummaryContainer = ({
             </dt>
             <dd className="m-0 mt-1.5 flex flex-wrap gap-1.5">
               {relation.double.length > 0 ? (
-                relation.double.map((type) => (
-                  <TagComponent key={type} type={type} />
-                ))
+                relation.double.map((type) => <Tag key={type} type={type} />)
               ) : (
                 <span className="text-sm text-primary-2">없어요</span>
               )}
@@ -91,9 +87,7 @@ const TypeDetailSummaryContainer = ({
             </dt>
             <dd className="m-0 mt-1.5 flex flex-wrap gap-1.5">
               {relation.half.length > 0 ? (
-                relation.half.map((type) => (
-                  <TagComponent key={type} type={type} />
-                ))
+                relation.half.map((type) => <Tag key={type} type={type} />)
               ) : (
                 <span className="text-sm text-primary-2">없어요</span>
               )}
@@ -106,7 +100,7 @@ const TypeDetailSummaryContainer = ({
               </dt>
               <dd className="m-0 mt-1.5 flex flex-wrap gap-1.5">
                 {relation.zero.map((type) => (
-                  <TagComponent key={type} type={type} />
+                  <Tag key={type} type={type} />
                 ))}
               </dd>
             </div>
@@ -124,4 +118,4 @@ const TypeDetailSummaryContainer = ({
   )
 }
 
-export default TypeDetailSummaryContainer
+export default TypeDetailSummary

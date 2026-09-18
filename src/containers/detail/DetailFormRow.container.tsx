@@ -7,10 +7,10 @@ import { useSearchParams } from 'next/navigation'
 import RegionIcon from '~/assets/icons/region.svg'
 import ShinyIcon from '~/assets/icons/sparkle.svg'
 import { DetailContext } from '~/context/Detail.context'
-import BallComponent from '~/components/ball/Ball.component'
-import ShinyRateComponent from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
-import ShinyTooltipComponent from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
-import ImageComponent from '~/components/Image.component'
+import Ball from '~/components/ball/Ball.component'
+import ShinyRate from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
+import ShinyTooltip from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
+import Image from '~/components/Image.component'
 
 import { getFormBasePath } from './modules/activeForm.module'
 
@@ -45,7 +45,7 @@ const WebpFormIcon = ({
   <i
     className={`block h-5 w-5 shrink-0 will-change-[filter] ${active ? 'grayscale-0' : 'grayscale'}`}
   >
-    <ImageComponent
+    <Image
       alt={alt}
       width="1.25rem"
       height="1.25rem"
@@ -55,7 +55,7 @@ const WebpFormIcon = ({
   </i>
 )
 
-const DetailFormRowContainer = () => {
+const DetailFormRow = () => {
   const { pokemonBaseInfo, activeType, activeIndex } = useContext(DetailContext)
   const routerQuery = useSearchParams()
   const isShiny = routerQuery.get('shinyMode') === 'shiny'
@@ -80,7 +80,7 @@ const DetailFormRowContainer = () => {
       show: activeType !== 'normal',
       icon: (
         <i className="block h-5 w-5 shrink-0">
-          <BallComponent />
+          <Ball />
         </i>
       ),
     },
@@ -178,8 +178,8 @@ const DetailFormRowContainer = () => {
             <br /> 확인되는 대로 업데이트될 예정입니다.
           </p>
           <div className="mt-2 flex items-center gap-2">
-            <ShinyTooltipComponent />
-            <ShinyRateComponent />
+            <ShinyTooltip />
+            <ShinyRate />
           </div>
         </div>
       )}
@@ -187,4 +187,4 @@ const DetailFormRowContainer = () => {
   )
 }
 
-export default DetailFormRowContainer
+export default DetailFormRow

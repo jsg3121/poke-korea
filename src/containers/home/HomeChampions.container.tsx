@@ -3,10 +3,10 @@ import {
   CHAMPIONS_DEFAULT_FORMAT_SLUG,
   getFormatLabel,
 } from '~/utils/championsFormat.util'
-import LinkButtonComponent from '~/components/button/LinkButton.component'
-import ChampionsTopCardComponent from '~/components/champions/ChampionsTopCard.component'
-import HorizontalScrollListComponent from '~/components/horizontalScrollList/HorizontalScrollList.component'
-import SectionHeadingComponent from '~/components/SectionHeading.component'
+import LinkButton from '~/components/button/LinkButton.component'
+import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
+import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
+import SectionHeading from '~/components/SectionHeading.component'
 
 /**
  * 홈 "이번 주 챔피언스 TOP 3" 섹션 (폴드 위, 반응형 단일 DS 조립 — UX-003 개정).
@@ -24,13 +24,11 @@ import SectionHeadingComponent from '~/components/SectionHeading.component'
  * 첫 섹션이 되므로 폴드가 광고로 시작하지 않는다(광고는 허브 뒤, UX-003 §5).
  */
 
-interface HomeChampionsContainerProps {
+interface HomeChampionsProps {
   topPokemons: Array<ChampionsMetaSummaryFragment>
 }
 
-const HomeChampionsContainer = ({
-  topPokemons,
-}: HomeChampionsContainerProps) => {
+const HomeChampions = ({ topPokemons }: HomeChampionsProps) => {
   if (topPokemons.length === 0) return null
 
   return (
@@ -38,37 +36,37 @@ const HomeChampionsContainer = ({
       className="w-full px-4 desktop:px-8"
       aria-labelledby="home-champions-heading"
     >
-      <SectionHeadingComponent id="home-champions-heading">
+      <SectionHeading id="home-champions-heading">
         이번 주 챔피언스 TOP 3
-      </SectionHeadingComponent>
+      </SectionHeading>
       <p className="mt-1 text-center text-sm desktop:text-base text-primary-3">
         {getFormatLabel(CHAMPIONS_DEFAULT_FORMAT_SLUG)} 채택 순위 기준
       </p>
 
       <div className="desktop:max-w-fit desktop:mx-auto">
-        <HorizontalScrollListComponent aria-label="이번 주 챔피언스 TOP 3 목록">
+        <HorizontalScrollList aria-label="이번 주 챔피언스 TOP 3 목록">
           {topPokemons.map((pokemon) => (
-            <ChampionsTopCardComponent
+            <ChampionsTopCard
               key={`${pokemon.pokemonId}-${pokemon.formCode ?? 'base'}`}
               pokemonData={pokemon}
               formatSlug={CHAMPIONS_DEFAULT_FORMAT_SLUG}
               isHighPriority
             />
           ))}
-        </HorizontalScrollListComponent>
+        </HorizontalScrollList>
       </div>
 
       <div className="mt-2 flex justify-center">
-        <LinkButtonComponent
+        <LinkButton
           href={`/champions/${CHAMPIONS_DEFAULT_FORMAT_SLUG}/list`}
           variant="primary"
           showArrow
         >
           챔피언스 전체 도감 보기
-        </LinkButtonComponent>
+        </LinkButton>
       </div>
     </section>
   )
 }
 
-export default HomeChampionsContainer
+export default HomeChampions

@@ -4,8 +4,8 @@ import LevelUpIcon from '~/assets/icons/levelUp.svg'
 import MachineMoveIcon from '~/assets/icons/machineMove.svg'
 import { CardColor } from '~/types/pokemonTypes.types'
 import { LearnMethod, PokemonLearnInfo } from '~/graphql/typeGenerated'
-import { imageMode } from '~/modules/buildMode'
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
+import { imageMode } from '~/modules/buildMode.module'
+import PokemonCardShell from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**
  * 기술별 포켓몬 카드 (반응형 단일 DS 컴포넌트, UX-008).
@@ -30,7 +30,7 @@ interface PokemonBySkillCardProps {
   getMethodLabel?: (method: LearnMethod) => string
 }
 
-const PokemonBySkillCardComponent = ({
+const PokemonBySkillCard = ({
   pokemonData,
   isHighPriority = false,
   getMethodLabel = (method) => method,
@@ -89,7 +89,7 @@ const PokemonBySkillCardComponent = ({
   }`
 
   return (
-    <PokemonCardShellComponent
+    <PokemonCardShell
       href={pokemonHref}
       backgroundColor={backgroundColor}
       types={pokemonData.types}
@@ -139,8 +139,8 @@ const PokemonBySkillCardComponent = ({
           </span>
         )}
       </div>
-    </PokemonCardShellComponent>
+    </PokemonCardShell>
   )
 }
 
-export default PokemonBySkillCardComponent
+export default PokemonBySkillCard

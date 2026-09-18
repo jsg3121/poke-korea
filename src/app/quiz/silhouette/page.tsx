@@ -7,12 +7,12 @@ import {
 } from '~/constants/quizJsonLd'
 import { detectUserAgent } from '~/modules/device.module'
 import { SilhouetteQuizProvider } from '~/context/SilhouetteQuiz.context'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
-import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
-import SilhouetteQuizView from '~/views/quiz/silhouette/SilhouetteQuiz.view'
+import MobileTabBar from '~/components/MobileTabBar.component'
+import DesktopFooter from '~/containers/desktop/footer/Footer.container'
+import DesktopHeader from '~/containers/desktop/header/Header.container'
+import MobileFooter from '~/containers/mobile/footer/Footer.container'
+import MobileHeader from '~/containers/mobile/header/Header.container'
+import SilhouetteQuiz from '~/views/quiz/silhouette/SilhouetteQuiz.view'
 
 import { QUIZ_SILHOUETTE_META } from '../_metadata/quizMetadata'
 
@@ -27,21 +27,21 @@ const SilhouetteQuizPage = async () => {
 
   return (
     <Fragment>
-      {/* 본문은 반응형 단일(SilhouetteQuizView, ADR-0007). Provider는 device 분기
+      {/* 본문은 반응형 단일(SilhouetteQuiz, ADR-0007). Provider는 device 분기
           위에서 감싸 상태를 공유한다. UA 분기는 전역 크롬 선택으로만 남는다. */}
       <SilhouetteQuizProvider>
         {isMobile ? (
           <main className="w-full min-h-screen">
-            <MobileHeaderContainer />
-            <SilhouetteQuizView />
-            <MobileFooterContainer />
+            <MobileHeader />
+            <SilhouetteQuiz />
+            <MobileFooter />
             <MobileTabBar />
           </main>
         ) : (
           <main className="w-full min-h-screen pt-30">
-            <DesktopHeaderContainer />
-            <SilhouetteQuizView />
-            <DesktopFooterContainer />
+            <DesktopHeader />
+            <SilhouetteQuiz />
+            <DesktopFooter />
           </main>
         )}
       </SilhouetteQuizProvider>

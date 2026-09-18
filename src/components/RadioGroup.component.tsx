@@ -2,12 +2,12 @@ import { forwardRef, InputHTMLAttributes } from 'react'
 
 import Radio from '~/components/radio/Radio.component'
 
-interface RadioComponentProps extends InputHTMLAttributes<HTMLInputElement> {
+interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   title?: string
   options: Array<{ label: string; value: string }>
 }
 
-const RadioGroupComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
+const RadioGroup = forwardRef<HTMLInputElement, RadioProps>(
   ({ title, name, options, defaultValue, ...restProps }, radioRef) => {
     return (
       <div className="w-full">
@@ -36,4 +36,4 @@ const RadioGroupComponent = forwardRef<HTMLInputElement, RadioComponentProps>(
     )
   },
 )
-export default RadioGroupComponent
+export default RadioGroup

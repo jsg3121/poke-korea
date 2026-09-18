@@ -1,14 +1,14 @@
 'use client'
 
 import { PokemonTypeQuizQuestion } from '~/graphql/typeGenerated'
-import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton.component'
 import QuizResultPopup from '~/components/home/QuizResultPopup.component'
-import QuizCardComponent from '~/components/quizCard/QuizCard.component'
-import TagComponent from '~/components/tag/Tag.component'
+import QuizCard from '~/components/quizCard/QuizCard.component'
+import Tag from '~/components/tag/Tag.component'
 
 import { useCorrectQuizCheck } from './hooks/useCorrectQuizCheck'
 
-interface PokemonTypeQuizCardContainerProps {
+interface PokemonTypeQuizCardProps {
   pokemonTypeQuiz: PokemonTypeQuizQuestion
 }
 
@@ -16,15 +16,13 @@ interface PokemonTypeQuizCardContainerProps {
  * 타입 퀴즈 카드 (QuizCard DS 셸 + 기존 퀴즈 로직 재사용).
  * 본문은 타입 태그 + 안내 문구, 답안은 포켓몬 한글명.
  */
-const PokemonTypeQuizCardContainer = ({
-  pokemonTypeQuiz,
-}: PokemonTypeQuizCardContainerProps) => {
+const PokemonTypeQuizCard = ({ pokemonTypeQuiz }: PokemonTypeQuizCardProps) => {
   const { isCorrect, isShowModal, handleSelectAnswer, handleCloseModal } =
     useCorrectQuizCheck({ correctAnswer: pokemonTypeQuiz.correctAnswerIndex })
 
   return (
     <>
-      <QuizCardComponent
+      <QuizCard
         icon="🎯"
         title="타입 퀴즈"
         description="주어진 타입의 포켓몬을 골라주세요!"
@@ -32,7 +30,7 @@ const PokemonTypeQuizCardContainer = ({
         answersLabel="타입 퀴즈 답안 선택"
         body={
           <div className="flex flex-col flex-wrap items-center justify-center gap-2">
-            <TagComponent type={pokemonTypeQuiz.targetType} />
+            <Tag type={pokemonTypeQuiz.targetType} />
             <p className="text-sm desktop:text-base text-primary-1">
               타입을 가진 포켓몬은 누굴까요?
             </p>
@@ -63,4 +61,4 @@ const PokemonTypeQuizCardContainer = ({
   )
 }
 
-export default PokemonTypeQuizCardContainer
+export default PokemonTypeQuizCard

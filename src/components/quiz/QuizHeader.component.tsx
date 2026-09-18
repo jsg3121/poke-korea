@@ -16,7 +16,7 @@ interface QuizHeaderProps {
   progress: number
 }
 
-const QuizHeaderComponent = ({
+const QuizHeader = ({
   quizName,
   currentQuestionIndex,
   progress,
@@ -52,4 +52,4 @@ const QuizHeaderComponent = ({
   )
 }
 
-export default QuizHeaderComponent
+export default QuizHeader
