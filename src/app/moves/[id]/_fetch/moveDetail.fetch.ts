@@ -1,20 +1,20 @@
 import {
   GetLearnMethodsDocument,
-  GetPokemonSkillDetailDocument,
   GetPokemonsBySkillDocument,
+  GetPokemonSkillDetailDocument,
   GetVersionGroupsBySkillDocument,
 } from '~/graphql/gqlGenerated'
 import {
   type GetLearnMethodsQuery,
   type GetLearnMethodsQueryVariables,
-  type GetPokemonSkillDetailQuery,
-  type GetPokemonSkillDetailQueryVariables,
   type GetPokemonsBySkillQuery,
   type GetPokemonsBySkillQueryVariables,
+  type GetPokemonSkillDetailQuery,
+  type GetPokemonSkillDetailQueryVariables,
   type GetVersionGroupsBySkillQuery,
   type GetVersionGroupsBySkillQueryVariables,
 } from '~/graphql/typeGenerated'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
+import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
 
 interface FetchMoveDetailParams {
   skillId: number

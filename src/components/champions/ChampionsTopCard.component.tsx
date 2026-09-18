@@ -1,20 +1,20 @@
-import ChampionsTierBadge, {
-  getTierColors,
-} from '~/components/champions/ChampionsTierBadge.component'
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 import {
   ChampionsMetaSummaryFragment,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
-import {
-  getBackgroundColor,
-  getNameHeaderClass,
-} from '~/module/pokemonCard.module'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode'
+import {
+  getBackgroundColor,
+  getNameHeaderClass,
+} from '~/modules/pokemonCard.module'
+import ChampionsTierBadge, {
+  getTierColors,
+} from '~/components/champions/ChampionsTierBadge.component'
+import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**
  * 챔피언스 홈/티어 슬라이드용 포켓몬 카드 (반응형 단일 DS 컴포넌트, UX-E1).

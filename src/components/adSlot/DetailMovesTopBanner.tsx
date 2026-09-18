@@ -1,7 +1,8 @@
 'use client'
+
 import { ADSENSE_CLIENT, DETAIL_MOVES_SLOTS } from '~/constants/adSense'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 /**
  * 포켓몬 상세 습득 기술 탭(/detail/[id]/moves) 상단 광고 — RES-004 재도입.

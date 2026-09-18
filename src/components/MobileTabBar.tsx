@@ -1,14 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import TabHomeIcon from '~/assets/icons/tabHome.svg'
-import QuizIcon from '~/assets/icons/quiz.svg'
-import MovesListIcon from '~/assets/icons/movesList.svg'
-import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
-import AbilityIcon from '~/assets/icons/ability.svg'
-import PokeballIcon from '~/assets/icons/pokeball.svg'
-import ChampionsIcon from '~/assets/icons/champions.svg'
 import { usePathname } from 'next/navigation'
+
+import AbilityIcon from '~/assets/icons/ability.svg'
+import ChampionsIcon from '~/assets/icons/champions.svg'
+import MovesListIcon from '~/assets/icons/movesList.svg'
+import PokeballIcon from '~/assets/icons/pokeball.svg'
+import QuizIcon from '~/assets/icons/quiz.svg'
+import TabHomeIcon from '~/assets/icons/tabHome.svg'
+import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
 
 const MobileTabBar = () => {
   const pathname = usePathname()

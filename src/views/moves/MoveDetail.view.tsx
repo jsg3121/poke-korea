@@ -1,15 +1,15 @@
 'use client'
 
-import MovesDetailBottomBanner from '~/components/adSlot/MovesDetailBottomBanner'
-import MovesDetailTopBanner from '~/components/adSlot/MovesDetailTopBanner'
-import MoveDetailHeroContainer from '~/container/moves/MoveDetailHero.container'
-import MoveDetailVersionNavContainer from '~/container/moves/MoveDetailVersionNav.container'
-import PokemonBySkillListContainer from '~/container/moves/PokemonBySkillList.container'
 import {
   PokemonLearnInfo,
   PokemonSkillDetail,
   VersionGroup,
 } from '~/graphql/typeGenerated'
+import MovesDetailBottomBanner from '~/components/adSlot/MovesDetailBottomBanner'
+import MovesDetailTopBanner from '~/components/adSlot/MovesDetailTopBanner'
+import MoveDetailHeroContainer from '~/containers/moves/MoveDetailHero.container'
+import MoveDetailVersionNavContainer from '~/containers/moves/MoveDetailVersionNav.container'
+import PokemonBySkillListContainer from '~/containers/moves/PokemonBySkillList.container'
 
 /**
  * 기술 상세 뷰 (반응형 단일 — UX-008). 데/모 2벌(MoveDetail.desktop/.mobile)의

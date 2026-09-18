@@ -1,5 +1,7 @@
 import { Fragment } from 'react'
+
 import { PokemonFormInfo } from '~/graphql/typeGenerated'
+
 import SearchResultData from './resultList/ResultListData.component'
 import ResultListLoading from './resultList/ResultListLoading.component'
 import ResultListNoData from './resultList/ResultListNoData.component'

@@ -1,5 +1,6 @@
-import Link from 'next/link'
 import { ReactNode } from 'react'
+import Link from 'next/link'
+
 import { ButtonSize, ButtonVariant, getButtonClass } from './buttonStyle'
 
 /**

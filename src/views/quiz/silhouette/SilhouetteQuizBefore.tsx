@@ -1,14 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import GuideStartButtonComponent from '~/components/quiz/GuideStartButton.component'
-import OtherQuizLinkComponent from '~/components/quiz/OtherQuizLink.component'
+
 import {
   QUIZ_CONFIG,
   QUIZ_DESCRIPTION_LIST_DATA,
 } from '~/constants/quiz.constants'
 import { useSilhouetteQuizContext } from '~/context/SilhouetteQuiz.context'
+import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import GuideStartButtonComponent from '~/components/quiz/GuideStartButton.component'
+import OtherQuizLinkComponent from '~/components/quiz/OtherQuizLink.component'
 
 /**
  * 실루엣 퀴즈 BEFORE 단계 (반응형 단일). 설명 3섹션 + 시작 버튼 + 관련 링크 +

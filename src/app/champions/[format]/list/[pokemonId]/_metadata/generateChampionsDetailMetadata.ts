@@ -1,20 +1,20 @@
 import { Metadata } from 'next'
+
+import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { OG_IMAGE_BASE, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
+import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
 import {
   ChampionsPokemonDetailFragment,
   GetChampionsPokemonDetailQuery,
   GetChampionsPokemonDetailQueryVariables,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { GetChampionsPokemonDetailDocument } from '~/graphql/gqlGenerated'
-import { initializeApollo } from '~/module/apolloClient'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-
-import { OG_IMAGE_BASE, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
+import { initializeApollo } from '~/modules/apolloClient'
 
 // fragment 기반 타입 (응답에 실제 포함되는 필드만 사용)
 type DetailPokemon = ChampionsPokemonDetailFragment['pokemon']

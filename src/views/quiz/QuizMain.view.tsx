@@ -1,7 +1,8 @@
 import Link from 'next/link'
+
+import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 
 /**
  * 퀴즈 허브 (/quiz) 본문. desktop/mobile 2벌(QuizMain.desktop/mobile)을 반응형

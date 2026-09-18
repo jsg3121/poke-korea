@@ -1,7 +1,7 @@
 import DetailMovesTopBanner from '~/components/adSlot/DetailMovesTopBanner'
-import DetailMovesHeroContainer from '~/container/detail/moves/DetailMovesHero.container'
-import DetailMovesListContainer from '~/container/detail/moves/DetailMovesList.container'
-import DetailMovesStickyNavContainer from '~/container/detail/moves/DetailMovesStickyNav.container'
+import DetailMovesHeroContainer from '~/containers/detail/moves/DetailMovesHero.container'
+import DetailMovesListContainer from '~/containers/detail/moves/DetailMovesList.container'
+import DetailMovesStickyNavContainer from '~/containers/detail/moves/DetailMovesStickyNav.container'
 
 /**
  * 습득 기술 페이지 뷰 (반응형 단일 — UX-006). 데/모 2벌(DetailMoves.desktop/mobile)의

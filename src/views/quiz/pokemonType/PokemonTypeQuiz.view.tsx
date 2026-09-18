@@ -1,7 +1,9 @@
 'use client'
 
 import { Fragment } from 'react'
+
 import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
+
 import PokemonTypeQuizBefore from './PokemonTypeQuizBefore'
 import PokemonTypeQuizPlay from './PokemonTypeQuizPlay'
 import PokemonTypeQuizResult from './PokemonTypeQuizResult'

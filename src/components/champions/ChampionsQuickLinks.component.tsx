@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsQuickLinksProps {

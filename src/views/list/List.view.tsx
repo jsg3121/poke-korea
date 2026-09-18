@@ -1,10 +1,10 @@
 'use client'
 
+import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
+import { ListProvider } from '~/context/List.context'
 import ListTopBanner from '~/components/adSlot/ListTopBanner'
 import FilterBarOrganism from '~/components/filter/FilterBar.organism'
-import { ListProvider } from '~/context/List.context'
-import { PokemonFilterInput, PokemonList } from '~/graphql/typeGenerated'
-import ListGridContainer from '~/container/list/ListGrid.container'
+import ListGridContainer from '~/containers/list/ListGrid.container'
 
 /**
  * 도감 리스트 뷰 (반응형 단일 — UX-004). 데/모 2벌(List.desktop/List.mobile)의

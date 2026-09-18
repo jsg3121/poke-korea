@@ -1,7 +1,8 @@
 'use client'
+
 import { ADSENSE_CLIENT } from '~/constants/adSense'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 /**
  * 퀴즈 허브(/quiz) 상단 광고 — RES-004 재도입. 페이지 헤더 바로 아래.

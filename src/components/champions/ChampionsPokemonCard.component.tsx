@@ -1,16 +1,16 @@
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 import { ChampionsPokemonCardFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
-import {
-  getBackgroundColor,
-  getNameHeaderClass,
-  pokemonNumberFormat,
-} from '~/module/pokemonCard.module'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
   getChampionsFormBadge,
 } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode'
+import {
+  getBackgroundColor,
+  getNameHeaderClass,
+  pokemonNumberFormat,
+} from '~/modules/pokemonCard.module'
+import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**
  * 챔피언스 도감 포켓몬 카드 (반응형 단일 DS 컴포넌트).

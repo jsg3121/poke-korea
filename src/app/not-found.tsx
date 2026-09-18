@@ -1,12 +1,13 @@
+import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import Link from 'next/link'
-import { Metadata } from 'next'
-import MobileTabBar from '~/components/MobileTabBar'
-import HeaderContainerDesktop from '~/container/desktop/header/Header.container'
-import HeaderContainerMobile from '~/container/mobile/header/Header.container'
-import { detectUserAgent } from '~/module/device.module'
+
+import { imageMode } from '~/modules/buildMode'
+import { detectUserAgent } from '~/modules/device.module'
 import ImageComponent from '~/components/Image.component'
-import { imageMode } from '~/module/buildMode'
+import MobileTabBar from '~/components/MobileTabBar'
+import HeaderContainerDesktop from '~/containers/desktop/header/Header.container'
+import HeaderContainerMobile from '~/containers/mobile/header/Header.container'
 
 export const metadata: Metadata = {
   title: '404 - 페이지를 찾을 수 없습니다',

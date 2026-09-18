@@ -1,7 +1,8 @@
 'use client'
+
 import { ADSENSE_CLIENT } from '~/constants/adSense'
+import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 import { useDevice } from '~/context/Device.context'
-import { useAdSlotEffect } from '~/hook/useAdSlotEffect'
 
 /**
  * 상성계산기 상단 광고(타입 선택↔결과 사이) — RES-004 재도입.

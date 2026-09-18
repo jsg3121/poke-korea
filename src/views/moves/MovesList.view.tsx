@@ -1,6 +1,6 @@
 'use client'
 
-import MovesListContainer from '~/container/moves/MovesList.container'
+import MovesListContainer from '~/containers/moves/MovesList.container'
 
 /**
  * 기술 도감 목록 뷰 (반응형 단일 — UX-008). 데/모 2벌(Moves.desktop/.mobile)의

@@ -1,7 +1,9 @@
 'use client'
 
 import { Fragment } from 'react'
+
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
+
 import TypeEffectivenessQuizBefore from './TypeEffectivenessQuizBefore'
 import TypeEffectivenessQuizPlay from './TypeEffectivenessQuizPlay'
 import TypeEffectivenessQuizResult from './TypeEffectivenessQuizResult'

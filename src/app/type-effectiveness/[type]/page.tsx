@@ -1,19 +1,21 @@
+import { Fragment } from 'react'
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-import { Fragment } from 'react'
-import MobileTabBar from '~/components/MobileTabBar'
+
 import {
   getTypeDetailFaqJsonLd,
   getTypeDetailWebPageJsonLd,
 } from '~/constants/typeEffectivenessJsonLd'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { detectUserAgent } from '~/module/device.module'
-import { parseTypeSlug } from '~/module/typeParams.module'
+import { detectUserAgent } from '~/modules/device.module'
+import { parseTypeSlug } from '~/modules/typeParams.module'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import TypeEffectivenessDetailView from '~/views/typeEffectivenessDetail/TypeEffectivenessDetail.view'
+
 import { fetchTypeDetailData } from './_fetch/typeDetail.fetch'
 import { generateTypeDetailMetadata } from './_metadata/generateTypeDetailMetadata'
 

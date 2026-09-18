@@ -1,14 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import GuideStartButtonComponent from '~/components/quiz/GuideStartButton.component'
-import OtherQuizLinkComponent from '~/components/quiz/OtherQuizLink.component'
+
 import {
   QUIZ_CONFIG,
   QUIZ_DESCRIPTION_LIST_DATA,
 } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
+import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
+import GuideStartButtonComponent from '~/components/quiz/GuideStartButton.component'
+import OtherQuizLinkComponent from '~/components/quiz/OtherQuizLink.component'
 
 /**
  * 타입 상성 퀴즈 BEFORE 단계 (반응형 단일). 실루엣과 동일 구조, 콘텐츠만 다르다.

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
-import { getRobotsConfig } from '~/module/metadata.module'
+
+import { getRobotsConfig } from '~/modules/metadata.module'
 
 const SITE_NAME = '포케 코리아'
 const SITE_URL = 'https://poke-korea.com'

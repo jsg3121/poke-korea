@@ -1,13 +1,13 @@
 'use client'
 
+import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
+import { getQuizResultCopy } from '~/modules/quiz.module'
+import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
 import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
 import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
-import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
-import { useAbilityQuizContext } from '~/context/AbilityQuiz.context'
-import { getQuizResultCopy } from '~/module/quiz.module'
 
 /**
  * 특성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.

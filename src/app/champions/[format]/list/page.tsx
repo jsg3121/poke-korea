@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
   ChampionsPokemonFilterInput,
@@ -8,20 +9,21 @@ import {
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
-import { changeTypeArrayToString } from '~/module/filter.module'
 import {
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-import Providers from '~/app/providers'
+import { extractApolloState, initializeApollo } from '~/modules/apolloClient'
+import { detectUserAgent } from '~/modules/device.module'
+import { changeTypeArrayToString } from '~/modules/filter.module'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import ChampionsPokedexView from '~/views/champions/ChampionsPokedex.view'
+import Providers from '~/app/providers'
+
 import { generateChampionsPokedexMetadata } from '../../_metadata/championsMetadata'
 
 export const revalidate = 86400

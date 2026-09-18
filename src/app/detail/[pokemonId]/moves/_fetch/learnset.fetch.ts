@@ -15,16 +15,16 @@ import {
   type GetLearnMethodsQueryVariables,
   type GetPokemonLearnsetQuery,
   type GetPokemonLearnsetQueryVariables,
-  type GetPokemonNormalFormQuery,
-  type GetPokemonNormalFormQueryVariables,
   type GetPokemonNormalFormImageListQuery,
   type GetPokemonNormalFormImageListQueryVariables,
+  type GetPokemonNormalFormQuery,
+  type GetPokemonNormalFormQueryVariables,
   type GetPokemonRegionFormQuery,
   type GetPokemonRegionFormQueryVariables,
   type GetVersionGroupsByPokemonQuery,
   type GetVersionGroupsByPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient'
 
 interface FetchLearnsetParams {
   pokemonId: string

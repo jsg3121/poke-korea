@@ -1,12 +1,13 @@
 import Link from 'next/link'
-import ChipComponent from '~/components/chip/Chip.component'
-import TagComponent from '~/components/tag/Tag.component'
+
 import { PokemonSkill } from '~/graphql/typeGenerated'
 import {
   getDamageTypeChipColor,
   getDamageTypeKorean,
   hasDamageType,
 } from '~/utils/skill.util'
+import ChipComponent from '~/components/chip/Chip.component'
+import TagComponent from '~/components/tag/Tag.component'
 
 /**
  * 기술 목록 카드 (DS). 기술 도감(/moves) 목록의 기술 항목 하나를 표시한다 (UX-008).

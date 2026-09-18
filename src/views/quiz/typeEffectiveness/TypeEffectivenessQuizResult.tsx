@@ -1,15 +1,15 @@
 'use client'
 
+import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { getQuizResultCopy } from '~/modules/quiz.module'
+import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
 import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
 import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
 import TagComponent from '~/components/tag/Tag.component'
-import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
-import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
-import { PokemonType } from '~/graphql/typeGenerated'
-import { getQuizResultCopy } from '~/module/quiz.module'
 
 /**
  * 타입 상성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.

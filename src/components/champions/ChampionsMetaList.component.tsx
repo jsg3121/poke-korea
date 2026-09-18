@@ -1,6 +1,6 @@
 'use client'
 
-import { useEnterViewProgress } from '~/hook/useEnterViewProgress'
+import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
 
 /**
  * 챔피언스 메타 순위 막대 (인기 기술/도구/특성). 이름 + 채택률(%) 막대를 순위대로

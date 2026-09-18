@@ -1,17 +1,17 @@
 'use client'
 
-import ImageComponent from '~/components/Image.component'
+import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
+import { PokemonType } from '~/graphql/typeGenerated'
+import { imageMode } from '~/modules/buildMode'
+import { getQuizResultCopy } from '~/modules/quiz.module'
+import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
 import QuizResultTopBanner from '~/components/adSlot/QuizResultTopBanner'
+import ImageComponent from '~/components/Image.component'
 import QuizResultCardComponent from '~/components/quiz/QuizResultCard.component'
 import ResultFooterComponent from '~/components/quiz/ResultFooter.component'
 import ResultHeaderComponent from '~/components/quiz/ResultHeader.component'
 import ResultSummaryComponent from '~/components/quiz/ResultSummary.component'
 import TagComponent from '~/components/tag/Tag.component'
-import { QUIZ_RESULT_SLOTS } from '~/constants/adSense'
-import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
-import { PokemonType } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
-import { getQuizResultCopy } from '~/module/quiz.module'
 
 /**
  * 포켓몬 타입 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을

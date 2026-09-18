@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
+
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { getRobotsConfig } from '~/module/metadata.module'
-import { buildTypeSlug, getTypeLabel } from '~/module/typeParams.module'
+import { getRobotsConfig } from '~/modules/metadata.module'
+import { buildTypeSlug, getTypeLabel } from '~/modules/typeParams.module'
 
 /**
  * 타입 상세 페이지 메타데이터.

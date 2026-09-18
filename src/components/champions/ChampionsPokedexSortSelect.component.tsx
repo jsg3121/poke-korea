@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
 
 type SortQueryValue = 'usage' | 'dex'

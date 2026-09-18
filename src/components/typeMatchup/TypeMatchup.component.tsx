@@ -1,5 +1,5 @@
-import TagComponent from '~/components/tag/Tag.component'
 import { PokemonType } from '~/graphql/typeGenerated'
+import TagComponent from '~/components/tag/Tag.component'
 
 /**
  * 타입 상성 (DS). 방어 상성 배율별 타입 그룹을 약점/강점 두 섹션으로 **동시 노출**한다.

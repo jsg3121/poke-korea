@@ -1,11 +1,13 @@
 'use client'
 
 import Link from 'next/link'
+
 import { ChampionsFormSiblingFragment } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
+
 import ChampionsTierBadge from './ChampionsTierBadge.component'
 
 interface ChampionsFormTabProps {

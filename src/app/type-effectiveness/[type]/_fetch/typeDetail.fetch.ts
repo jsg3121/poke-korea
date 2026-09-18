@@ -1,3 +1,4 @@
+import { TYPE_SHOWCASE_POKEMON } from '~/constants/typeShowcasePokemon'
 import {
   GetChampionsMetaSummaryByFilterDocument,
   GetPokemonListDocument,
@@ -12,8 +13,7 @@ import {
   PokemonInfoFragment,
   PokemonType,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
-import { TYPE_SHOWCASE_POKEMON } from '~/constants/typeShowcasePokemon'
+import { initializeApollo } from '~/modules/apolloClient'
 
 /**
  * 타입 상세 페이지의 GraphQL 데이터 조회.

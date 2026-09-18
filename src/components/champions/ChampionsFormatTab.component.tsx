@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+
 import {
-  ChampionsFormatSlug,
   CHAMPIONS_FORMAT_SLUGS,
+  ChampionsFormatSlug,
   getFormatLabel,
 } from '~/utils/championsFormat.util'
 

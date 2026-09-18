@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { AbilityInfoFragment } from '~/graphql/typeGenerated'
+
 import AbilityCardComponent from './AbilityCard.component'
 
 /**

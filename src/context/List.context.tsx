@@ -1,11 +1,12 @@
 import { createContext, ReactNode } from 'react'
+
 import { useGetPokemonListPaginatedQuery } from '~/graphql/gqlGenerated'
 import {
   PokemonFilterInput,
   PokemonInfoFragment,
   PokemonList,
 } from '~/graphql/typeGenerated'
-import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/modules/graphqlPagination.module'
 
 interface ListProviderProps {
   initialList: Array<PokemonList>

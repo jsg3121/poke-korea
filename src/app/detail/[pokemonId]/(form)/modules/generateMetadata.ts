@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+
+import { TActiveType } from '~/types/detailContext.type'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -13,9 +15,8 @@ import {
   getSeoCanonicalUrl,
   getSeoDescription,
   getSeoTitle,
-} from '~/module/generateDetailSeoMetaData'
-import { getRobotsConfig } from '~/module/metadata.module'
-import { TActiveType } from '~/types/detailContext.type'
+} from '~/modules/generateDetailSeoMetaData'
+import { getRobotsConfig } from '~/modules/metadata.module'
 
 const OG_IMAGE_BASE = 'https://image.poke-korea.com/og-images'
 

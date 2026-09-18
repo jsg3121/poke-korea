@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import ImageComponent from '~/components/Image.component'
+
 import { ChampionsTournamentTeamFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode'
+import ImageComponent from '~/components/Image.component'
+
 import ChampionsTournamentSlotCard from './ChampionsTournamentSlotCard.component'
 
 interface ChampionsTournamentTeamCardProps {

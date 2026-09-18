@@ -1,17 +1,18 @@
-import { NormalizedCacheObject } from '@apollo/client'
 import { Fragment } from 'react'
-import Providers from '~/app/providers'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
+import { NormalizedCacheObject } from '@apollo/client'
+
 import {
   PokemonLearnInfo,
   PokemonSkillDetail,
   VersionGroup,
 } from '~/graphql/typeGenerated'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import MoveDetailView from '~/views/moves/MoveDetail.view'
+import Providers from '~/app/providers'
 
 /**
  * 기술 상세 페이지 셸 — `/moves/[id]`와 `/moves/[id]/version/[versionGroupId]`가 공유한다.

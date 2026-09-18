@@ -1,12 +1,12 @@
 'use client'
 
-import ChampionsHomeContainer from '~/container/champions/ChampionsHome.container'
 import {
   ChampionsMetaSummaryFragment,
   ChampionsTeamCoreFragment,
   GetChampionsTournamentsWithTopTeamQuery,
 } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import ChampionsHomeContainer from '~/containers/champions/ChampionsHome.container'
 
 interface ChampionsHomeViewProps {
   topPokemons: ChampionsMetaSummaryFragment[]

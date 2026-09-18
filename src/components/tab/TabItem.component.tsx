@@ -1,5 +1,6 @@
-import Link from 'next/link'
 import { ButtonHTMLAttributes, ReactNode } from 'react'
+import Link from 'next/link'
+
 import { getTabItemClass, TabItemVariant } from './tabItemStyle'
 
 /**

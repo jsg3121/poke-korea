@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import PokeballIcon from '~/assets/icons/pokeball.svg'
 import ButtonComponent from '~/components/button/Button.component'
+
 import EmptyStateComponent from './EmptyState.component'
 
 const noop = () => undefined

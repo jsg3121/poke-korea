@@ -4,7 +4,7 @@ import {
   GetChampionsPokemonDetailQuery,
   GetChampionsPokemonDetailQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient'
 
 interface FetchArgs {
   pokemonId: number

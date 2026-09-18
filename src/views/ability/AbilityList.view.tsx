@@ -1,7 +1,7 @@
 'use client'
 
-import AbilityListContainer from '~/container/ability/AbilityList.container'
 import { Ability } from '~/graphql/typeGenerated'
+import AbilityListContainer from '~/containers/ability/AbilityList.container'
 
 /**
  * 특성 도감 목록 뷰 (반응형 단일 — UX-007). 데/모 2벌(AbilityList.desktop/.mobile)의

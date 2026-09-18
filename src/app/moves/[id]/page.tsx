@@ -1,11 +1,13 @@
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-import { getMoveDetailJsonLd } from '~/constants/movesJsonLd'
+
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import { getDamageTypeKorean } from '~/utils/skill.util'
+import { getMoveDetailJsonLd } from '~/constants/movesJsonLd'
 import { PokemonLearnInfoEdge } from '~/graphql/typeGenerated'
-import { detectUserAgent } from '~/module/device.module'
+import { getDamageTypeKorean } from '~/utils/skill.util'
+import { detectUserAgent } from '~/modules/device.module'
+
 import MoveDetailPageShell from './_components/MoveDetailPageShell'
 import { fetchMoveDetailQueries } from './_fetch/moveDetail.fetch'
 import { fetchMoveDetailMetadata } from './_fetch/moveDetailMetadata.fetch'

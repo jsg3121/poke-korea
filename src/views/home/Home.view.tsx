@@ -1,13 +1,14 @@
 import { ReactNode } from 'react'
+
 import {
   ChampionsMetaSummaryFragment,
   DailyQuizPreview,
   PokemonCardFragment,
 } from '~/graphql/typeGenerated'
-import HomeChampionsContainer from '~/container/home/HomeChampions.container'
-import HomeDailyPokemonContainer from '~/container/home/HomeDailyPokemon.container'
-import HomeHubLinksContainer from '~/container/home/HomeHubLinks.container'
-import HomeQuizContainer from '~/container/home/HomeQuiz.container'
+import HomeChampionsContainer from '~/containers/home/HomeChampions.container'
+import HomeDailyPokemonContainer from '~/containers/home/HomeDailyPokemon.container'
+import HomeHubLinksContainer from '~/containers/home/HomeHubLinks.container'
+import HomeQuizContainer from '~/containers/home/HomeQuiz.container'
 
 /**
  * 홈 뷰 (반응형 단일 — UX-003). 데/모 2벌(Home.desktop/Home.mobile)의 콘텐츠를

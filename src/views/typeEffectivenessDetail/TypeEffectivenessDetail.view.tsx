@@ -1,13 +1,13 @@
-import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 import { PokemonInfoFragment, PokemonType } from '~/graphql/typeGenerated'
 import TypeDetailBanner from '~/components/adSlot/TypeDetailBanner'
-import TypeDetailChampionsContainer from '~/container/typeEffectivenessDetail/TypeDetailChampions.container'
-import TypeDetailComboContainer from '~/container/typeEffectivenessDetail/TypeDetailCombo.container'
-import TypeDetailFaqContainer from '~/container/typeEffectivenessDetail/TypeDetailFaq.container'
-import TypeDetailMatchupContainer from '~/container/typeEffectivenessDetail/TypeDetailMatchup.container'
-import TypeDetailNavContainer from '~/container/typeEffectivenessDetail/TypeDetailNav.container'
-import TypeDetailPokemonContainer from '~/container/typeEffectivenessDetail/TypeDetailPokemon.container'
-import TypeDetailSummaryContainer from '~/container/typeEffectivenessDetail/TypeDetailSummary.container'
+import TypeDetailChampionsContainer from '~/containers/typeEffectivenessDetail/TypeDetailChampions.container'
+import TypeDetailComboContainer from '~/containers/typeEffectivenessDetail/TypeDetailCombo.container'
+import TypeDetailFaqContainer from '~/containers/typeEffectivenessDetail/TypeDetailFaq.container'
+import TypeDetailMatchupContainer from '~/containers/typeEffectivenessDetail/TypeDetailMatchup.container'
+import TypeDetailNavContainer from '~/containers/typeEffectivenessDetail/TypeDetailNav.container'
+import TypeDetailPokemonContainer from '~/containers/typeEffectivenessDetail/TypeDetailPokemon.container'
+import TypeDetailSummaryContainer from '~/containers/typeEffectivenessDetail/TypeDetailSummary.container'
+import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 
 /**
  * 타입별 상성 상세 뷰 — 반응형 단일(ADR-0007).

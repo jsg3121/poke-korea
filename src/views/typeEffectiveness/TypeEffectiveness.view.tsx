@@ -1,13 +1,13 @@
 'use client'
 
+import { TypeEffectivenessProvider } from '~/context/TypeEffectiveness.context'
 import TypeEffectivenessTopBanner from '~/components/adSlot/TypeEffectivenessTopBanner'
 import PageHeaderComponent from '~/components/pageHeader/PageHeader.component'
-import { TypeEffectivenessProvider } from '~/context/TypeEffectiveness.context'
-import TypeCalculatorContainer from '~/container/typeEffectiveness/TypeCalculator.container'
-import TypeCalculatorResultContainer from '~/container/typeEffectiveness/TypeCalculatorResult.container'
-import TypeEffectivenessDescriptionContainer from '~/container/typeEffectiveness/TypeEffectivenessDescription.container'
-import TypeEffectivenessTableContainer from '~/container/typeEffectiveness/TypeEffectivenessTable.container'
-import TypeQuickLinksContainer from '~/container/typeEffectiveness/TypeQuickLinks.container'
+import TypeCalculatorContainer from '~/containers/typeEffectiveness/TypeCalculator.container'
+import TypeCalculatorResultContainer from '~/containers/typeEffectiveness/TypeCalculatorResult.container'
+import TypeEffectivenessDescriptionContainer from '~/containers/typeEffectiveness/TypeEffectivenessDescription.container'
+import TypeEffectivenessTableContainer from '~/containers/typeEffectiveness/TypeEffectivenessTable.container'
+import TypeQuickLinksContainer from '~/containers/typeEffectiveness/TypeQuickLinks.container'
 
 /**
  * 타입 상성 계산기 뷰 (반응형 단일 — UX-009). 데/모 2벌

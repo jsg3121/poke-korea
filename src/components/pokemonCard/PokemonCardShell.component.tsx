@@ -1,12 +1,13 @@
 'use client'
 
-import Link from 'next/link'
 import { ReactNode } from 'react'
+import Link from 'next/link'
+
+import { PokemonType } from '~/graphql/typeGenerated'
+import { useLazyImage } from '~/hooks/useLazyImage'
 import BallComponent from '~/components/ball/Ball.component'
 import ImageComponent from '~/components/Image.component'
 import TagComponent from '~/components/tag/Tag.component'
-import { PokemonType } from '~/graphql/typeGenerated'
-import { useLazyImage } from '~/hook/useLazyImage'
 
 /**
  * 포켓몬 카드 계열의 공통 레이아웃 셸 (Link + article + 포켓볼 + 헤더 + 이미지 +

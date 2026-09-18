@@ -1,16 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
-import TagComponent from '~/components/Tag.component'
+
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
-import { useLazyImage } from '~/hook/useLazyImage'
-import { imageMode } from '~/module/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
   getChampionsFormBadge,
 } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode'
+import { useLazyImage } from '~/hooks/useLazyImage'
+import ImageComponent from '~/components/Image.component'
+import TagComponent from '~/components/Tag.component'
 
 interface ChampionsTierPokemonItemProps {
   pokemon: ChampionsMetaSummaryFragment

@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext } from 'react'
+
 import { useGetChampionsPokemonListQuery } from '~/graphql/gqlGenerated'
 import {
   ChampionsFormat,
@@ -6,7 +7,7 @@ import {
   ChampionsPokemonFilterInput,
   ChampionsPokemonSort,
 } from '~/graphql/typeGenerated'
-import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/modules/graphqlPagination.module'
 
 interface ChampionsPokedexProviderProps {
   initialList: ChampionsPokemonCardFragment[]

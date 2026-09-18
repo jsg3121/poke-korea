@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonSkill, PokemonType } from '~/graphql/typeGenerated'
+
 import MoveListCardComponent from './MoveListCard.component'
 
 /**

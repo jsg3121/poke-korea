@@ -1,7 +1,7 @@
 'use client'
 
-import PokemonByAbilityContainer from '~/container/ability/PokemonByAbility.container'
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
+import PokemonByAbilityContainer from '~/containers/ability/PokemonByAbility.container'
 
 /**
  * 특성별 포켓몬 뷰 (반응형 단일 — UX-007). 데/모 2벌(AbilityDetail.desktop/.mobile)의

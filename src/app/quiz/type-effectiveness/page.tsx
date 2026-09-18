@@ -1,17 +1,19 @@
-import { headers } from 'next/headers'
 import { Fragment } from 'react'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.context'
-import { detectUserAgent } from '~/module/device.module'
+import { headers } from 'next/headers'
+
 import {
-  TYPE_EFFECTIVENESS_QUIZ_JSON_LD,
   TYPE_EFFECTIVENESS_QUIZ_HOWTO_JSON_LD,
+  TYPE_EFFECTIVENESS_QUIZ_JSON_LD,
 } from '~/constants/quizJsonLd'
+import { detectUserAgent } from '~/modules/device.module'
+import { TypeEffectivenessQuizProvider } from '~/context/TypeEffectivenessQuiz.context'
+import MobileTabBar from '~/components/MobileTabBar'
+import DesktopFooterContainer from '~/containers/desktop/footer/Footer.container'
+import DesktopHeaderContainer from '~/containers/desktop/header/Header.container'
+import MobileFooterContainer from '~/containers/mobile/footer/Footer.container'
+import MobileHeaderContainer from '~/containers/mobile/header/Header.container'
 import TypeEffectivenessQuizView from '~/views/quiz/typeEffectiveness/TypeEffectivenessQuiz.view'
+
 import { QUIZ_TYPE_EFFECTIVENESS_META } from '../_metadata/quizMetadata'
 
 export const revalidate = 31536000

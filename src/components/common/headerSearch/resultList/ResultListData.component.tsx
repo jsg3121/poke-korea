@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+
+import { imageMode } from '~/modules/buildMode'
+import { useLazyImage } from '~/hooks/useLazyImage'
 import ImageComponent from '~/components/Image.component'
-import { useLazyImage } from '~/hook/useLazyImage'
-import { imageMode } from '~/module/buildMode'
 
 interface ResultListDataProps {
   name: string

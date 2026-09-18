@@ -1,5 +1,5 @@
-import TagComponent from '~/components/tag/Tag.component'
 import { PokemonType } from '~/graphql/typeGenerated'
+import TagComponent from '~/components/tag/Tag.component'
 
 /**
  * 공격 상성 (타입 상세 전용) — "이 타입으로 공격할 때" 배율별 상대 타입.
