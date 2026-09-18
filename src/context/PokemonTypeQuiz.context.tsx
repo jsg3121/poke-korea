@@ -8,7 +8,6 @@ import {
   QuizResult,
   QuizViewStage,
 } from '~/types/quiz.type'
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
 import { useGetPokemonTypeQuizQuery } from '~/graphql/gqlGenerated'
 import { quizProgress } from '~/modules/quiz.module'
 import { useQuizTimer } from '~/hooks/useQuizTimer'
@@ -72,7 +71,7 @@ export const PokemonTypeQuizProvider = ({
   const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
-    QUIZ_CONSTANTS.TOTAL_QUESTIONS,
+    questions.length,
   )
 
   const onChangeStage = (stage: QuizViewStage) => {
@@ -109,7 +108,7 @@ export const PokemonTypeQuizProvider = ({
 
     const newAnswers = [...quizState.userAnswers, answerIndex]
     const isLastQuestion =
-      quizState.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
+      quizState.currentQuestionIndex === questions.length - 1
 
     setQuizState((prev) => ({
       ...prev,

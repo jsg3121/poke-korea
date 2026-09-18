@@ -9,7 +9,6 @@ import {
   QuizViewStage,
   SilhouetteQuizQuestion,
 } from '~/types/quiz.type'
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
 import { useGetSilhouetteQuizQuery } from '~/graphql/gqlGenerated'
 import { generateQuizResult } from '~/utils/quiz.util'
 import { quizProgress } from '~/modules/quiz.module'
@@ -54,7 +53,7 @@ export const SilhouetteQuizProvider = ({
   const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
-    QUIZ_CONSTANTS.TOTAL_QUESTIONS,
+    questions.length,
   )
 
   const onChangeStage = (stage: QuizViewStage) => {
@@ -91,7 +90,7 @@ export const SilhouetteQuizProvider = ({
 
     const newAnswers = [...quizState.userAnswers, answerIndex]
     const isLastQuestion =
-      quizState.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
+      quizState.currentQuestionIndex === questions.length - 1
 
     setQuizState((prev) => ({
       ...prev,

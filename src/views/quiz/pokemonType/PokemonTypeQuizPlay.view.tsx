@@ -25,6 +25,7 @@ const PokemonTypeQuizPlay = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
   const {
     currentQuestionIndex,
+    questions,
     timeElapsed,
     progress,
     currentQuestion,
@@ -50,6 +51,7 @@ const PokemonTypeQuizPlay = () => {
         <QuizHeader
           quizName="포켓몬 타입 퀴즈"
           currentQuestionIndex={currentQuestionIndex}
+          totalQuestions={questions.length}
           progress={progress}
           timeElapsed={timeElapsed}
         />

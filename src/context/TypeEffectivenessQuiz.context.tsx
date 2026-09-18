@@ -89,7 +89,7 @@ export const TypeEffectivenessQuizProvider = ({
   const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
-    QUIZ_CONSTANTS.TOTAL_QUESTIONS,
+    questions.length,
   )
 
   const onChangeStage = (stage: QuizViewStage) => {
@@ -126,7 +126,7 @@ export const TypeEffectivenessQuizProvider = ({
 
     const newAnswers = [...quizState.userAnswers, answerIndex]
     const isLastQuestion =
-      quizState.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
+      quizState.currentQuestionIndex === questions.length - 1
 
     setQuizState((prev) => ({
       ...prev,
