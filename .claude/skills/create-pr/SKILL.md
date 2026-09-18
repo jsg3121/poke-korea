@@ -229,7 +229,7 @@ git log {대상 브랜치}...HEAD --oneline
 | ✨ 새 기능          | `feature`         |
 | 🐛 버그 수정        | `bug`             |
 | 🚨 핫픽스           | `hotfix`          |
-| 🔧 리팩토링         | `refactoring`     |
+| 🔧 리팩토링         | `refactor`        |
 | 🚀 성능 개선        | `performance`     |
 | 🔍 SEO 개선         | `seo`             |
 | 🎨 디자인 변경      | `design`          |
