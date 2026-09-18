@@ -60,6 +60,25 @@ const MovesFilterBarContainer = () => {
     typeFilter || damageTypeFilter || firstGenerationId,
   )
 
+  const appliedFilters = [
+    {
+      key: 'typeFilter',
+      value: typeFilter,
+      label:
+        PokemonTypes[typeFilter as keyof typeof PokemonTypes] ?? typeFilter,
+    },
+    {
+      key: 'damageTypeFilter',
+      value: damageTypeFilter,
+      label: damageTypeFilter,
+    },
+    {
+      key: 'firstGenerationId',
+      value: firstGenerationId,
+      label: `${firstGenerationId}세대`,
+    },
+  ].filter(({ value }) => value)
+
   // 단일 선택 토글 공통 — 같은 값을 다시 고르면 해제(파라미터 삭제)
   const toggleParam = (key: string, current: string, next: string) => {
     const params = new URLSearchParams(searchParams)
@@ -69,6 +88,13 @@ const MovesFilterBarContainer = () => {
       params.set(key, next)
     }
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }
+
+  const removeParam = (key: string) => {
+    const params = new URLSearchParams(searchParams)
+    params.delete(key)
+    const query = params.toString()
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
   }
 
   const handleToggleType = (e: ChangeEvent<HTMLInputElement>) => {
@@ -199,47 +225,14 @@ const MovesFilterBarContainer = () => {
           aria-label="적용된 필터"
           className="flex items-center gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {typeFilter && (
-            <li className="shrink-0">
+          {appliedFilters.map(({ key, label }) => (
+            <li key={`applied-filter-${key}`} className="shrink-0">
               <AppliedFilterChip
-                label={
-                  PokemonTypes[typeFilter as keyof typeof PokemonTypes] ??
-                  typeFilter
-                }
-                onRemove={() =>
-                  toggleParam('typeFilter', typeFilter, typeFilter)
-                }
+                label={label}
+                onRemove={() => removeParam(key)}
               />
             </li>
-          )}
-          {damageTypeFilter && (
-            <li className="shrink-0">
-              <AppliedFilterChip
-                label={damageTypeFilter}
-                onRemove={() =>
-                  toggleParam(
-                    'damageTypeFilter',
-                    damageTypeFilter,
-                    damageTypeFilter,
-                  )
-                }
-              />
-            </li>
-          )}
-          {firstGenerationId && (
-            <li className="shrink-0">
-              <AppliedFilterChip
-                label={`${firstGenerationId}세대`}
-                onRemove={() =>
-                  toggleParam(
-                    'firstGenerationId',
-                    firstGenerationId,
-                    firstGenerationId,
-                  )
-                }
-              />
-            </li>
-          )}
+          ))}
         </ul>
       )}
     </div>

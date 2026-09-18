@@ -1,63 +1,18 @@
 'use client'
 import Link from 'next/link'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import FeedbackIcon from '~/assets/icons/feedback.svg'
+import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 import ImageComponent from '~/components/Image.component'
-import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
-import { useDebounce } from '~/hook/useDebounce'
-import { useOutSideClickMobile } from '~/hook/useOutSideClickMobile'
-import SearchResultList from './search.result/SearchResultList'
+import { useSearchPokemon } from '~/hook/useSearchPokemon'
 
 const HeaderSearchContainer = () => {
-  const searchRef = useRef<HTMLDivElement>(null)
-  const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)
-  const [searchKeyword, debounce] = useDebounce()
-
-  const [searchPokemonWithAllForms, { data, loading }] =
-    useSearchPokemonWithAllFormsLazyQuery({
-      fetchPolicy: 'cache-and-network',
-    })
-
-  const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    const keyword = e.target.value.trim()
-    debounce(keyword)
-  }
-
-  const searchPokemon = async () => {
-    await searchPokemonWithAllForms({
-      variables: {
-        input: {
-          name: searchKeyword,
-        },
-      },
-      onCompleted: (data) => {
-        setIsShowSearchResult(() => true)
-        return data
-      },
-    })
-  }
-
-  const handleHideSearchResult = () => {
-    setIsShowSearchResult(() => false)
-  }
-
-  const pokemonList = (data && data.searchPokemonWithAllForms) || []
-
-  useEffect(() => {
-    if (searchKeyword !== '') {
-      searchPokemon()
-    }
-
-    if (searchKeyword === '') {
-      setIsShowSearchResult(false)
-    }
-  }, [searchKeyword])
-
-  useOutSideClickMobile({
-    ref: searchRef,
-    isActive: isShowSearchResult,
-    onOutsideClick: handleHideSearchResult,
-  })
+  const {
+    searchRef,
+    isShowSearchResult,
+    pokemonList,
+    loading,
+    handleChangeKeyword,
+  } = useSearchPokemon()
 
   return (
     <div

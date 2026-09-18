@@ -38,14 +38,11 @@ const MainSearch = () => {
 
   const name = watch('name') || ''
   const hasValue = name.length > 0
+  const nameParam = routerQuery.get('name')
 
   useEffect(() => {
-    if (routerQuery.get('name')) {
-      setValue('name', routerQuery.get('name'))
-    } else {
-      setValue('name', null)
-    }
-  }, [routerQuery.get('name')])
+    setValue('name', nameParam || null)
+  }, [nameParam, setValue])
 
   return (
     <div className="w-[30rem] h-12 absolute right-1/2 translate-x-1/2 top-0 rounded-[2rem] bg-white">

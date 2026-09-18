@@ -67,6 +67,8 @@ export const useInfiniteScroll = ({
     return () => {
       observer.disconnect()
     }
+    // dependencies는 호출부가 넘기는 가변 배열이라 정적 검증이 불가능하다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [observerCallback, rootMargin, enabled, ...dependencies])
 
   return listRef

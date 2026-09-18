@@ -43,36 +43,40 @@ const DetailMovesHeroContainer = () => {
       ? `2${pokemonId.padStart(3, '0')}${activeIndex.toString().padStart(2, '0')}`
       : (normalFormInfo?.imagePath ?? pokemonId)
 
+  const isRegion = activeType === 'region'
+
+  /**
+   * 폼 인덱스를 경로로 만든다.
+   *
+   * @remarks
+   * - 0번 폼은 인덱스 세그먼트를 붙이지 않는다 — 일반폼은 기준 경로 자체가
+   *   0번이라 `/form/0`이라는 경로가 존재하지 않는다.
+   */
+  const buildFormPath = (base: string, index: number) => {
+    const safeIndex = Math.max(index, 0)
+    if (isRegion) {
+      return safeIndex > 0 ? `${base}/region/${safeIndex}` : `${base}/region`
+    }
+    return safeIndex > 0 ? `${base}/form/${safeIndex}` : base
+  }
+
+  const detailBase = `/detail/${pokemonId}`
+  const movesBase = `${detailBase}/moves`
+
   // 상세로 돌아가기 경로 (현재 폼 유지)
-  const backHref =
-    activeType === 'region'
-      ? activeIndex > 0
-        ? `/detail/${pokemonId}/region/${activeIndex}`
-        : `/detail/${pokemonId}/region`
-      : activeIndex > 0
-        ? `/detail/${pokemonId}/form/${activeIndex}`
-        : `/detail/${pokemonId}`
+  const backHref = buildFormPath(detailBase, activeIndex)
 
   // 폼 인덱스 슬라이드 노출 조건 (리전폼 다중 or 폼 체인지)
   const showFormSlide =
     (formDataLength > 1 && activeType === 'region') || pokemonInfo?.isFormChange
 
-  const prevFormHref =
-    activeType === 'region'
-      ? Math.max(activeIndex - 1, 0) > 0
-        ? `/detail/${pokemonId}/moves/region/${Math.max(activeIndex - 1, 0)}`
-        : `/detail/${pokemonId}/moves/region`
-      : Math.max(activeIndex - 1, 0) > 0
-        ? `/detail/${pokemonId}/moves/form/${Math.max(activeIndex - 1, 0)}`
-        : `/detail/${pokemonId}/moves`
+  const prevFormHref = buildFormPath(movesBase, activeIndex - 1)
+  const nextFormHref = buildFormPath(
+    movesBase,
+    Math.min(activeIndex + 1, formDataLength - 1),
+  )
 
-  const nextFormHref =
-    activeType === 'region'
-      ? `/detail/${pokemonId}/moves/region/${Math.min(activeIndex + 1, formDataLength - 1)}`
-      : `/detail/${pokemonId}/moves/form/${Math.min(activeIndex + 1, formDataLength - 1)}`
-
-  // 경계 방어: formDataLength가 0/1이면(폼 데이터 없음) 양쪽 모두 비활성 —
-  // 그대로 두면 nextFormHref가 .../form/-1 같은 잘못된 경로를 만든다(Gemini)
+  // 경계 방어: formDataLength가 0/1이면(폼 데이터 없음) 양쪽 모두 비활성
   const isFirstForm = activeIndex <= 0
   const isLastForm = formDataLength <= 1 || activeIndex >= formDataLength - 1
 
