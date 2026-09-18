@@ -106,8 +106,7 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
             <MobileTabBar />
           </main>
         ) : (
-          // pt-30(120px) = 데스크톱 fixed 헤더 실높이
-          <main className="w-full min-h-screen pt-30">
+          <main className="w-full min-h-screen">
             <DesktopHeader />
             <AbilityDetail
               abilityId={abilityId}

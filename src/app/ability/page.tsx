@@ -87,8 +87,7 @@ const AbilityPage = async ({ searchParams }: PageProps) => {
             <MobileTabBar />
           </main>
         ) : (
-          // pt-30(120px) = 데스크톱 fixed 헤더 실높이. 검색바 sticky(desktop:top-30)와 맞춤
-          <main className="w-full min-h-screen pt-30">
+          <main className="w-full min-h-screen">
             <DesktopHeader />
             <AbilityList
               initialAbilities={abilityList}

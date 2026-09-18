@@ -216,8 +216,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
           <MobileTabBar />
         </main>
       ) : (
-        // pt-30(120px) = 데스크톱 fixed 헤더 실높이(리스트 개편에서 실측 확정)
-        <main className="min-h-screen w-full pt-30">
+        <main className="min-h-screen w-full">
           <DesktopHeader />
           <DetailMoves pokemonName={pokemonName} />
           <DesktopFooter />

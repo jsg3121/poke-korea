@@ -129,7 +129,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
           <MobileTabBar />
         </main>
       ) : (
-        <main className="w-full max-w-[1280px] min-h-screen mx-auto pt-40">
+        <main className="w-full max-w-[1280px] min-h-screen mx-auto">
           <DesktopHeader />
           <Home
             dailyPokemon={dailyPokemon}

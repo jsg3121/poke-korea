@@ -156,12 +156,9 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
           <MobileTabBar />
         </main>
       ) : (
-        // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
         // sticky 필터 desktop:top-40과 정합(E-1 도감과 동일).
         <main className="w-full min-h-screen">
-          <div className="h-40">
-            <DesktopHeader />
-          </div>
+          <DesktopHeader />
           <ChampionsTournamentsList
             tournaments={tournaments}
             availableMonths={availableMonths}

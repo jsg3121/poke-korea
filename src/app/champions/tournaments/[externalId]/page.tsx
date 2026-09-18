@@ -179,11 +179,8 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
           <MobileTabBar />
         </main>
       ) : (
-        // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
         <main className="w-full min-h-screen">
-          <div className="h-40">
-            <DesktopHeader />
-          </div>
+          <DesktopHeader />
           <ChampionsTournamentDetail detail={detail} />
           <DesktopFooter />
         </main>

@@ -179,7 +179,7 @@ const NormalFormPage = async ({
           <MobileTabBar />
         </main>
       ) : (
-        <main className="w-full min-h-screen pt-30">
+        <main className="w-full min-h-screen">
           <DesktopHeader />
           <Detail
             prevPokemon={adjacent.prev}

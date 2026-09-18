@@ -186,12 +186,8 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
           <MobileTabBar />
         </main>
       ) : (
-        // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
-        // champions는 헤더 안에 SubNav가 붙어 ability/list의 pt-30(120px)보다 40px 크다.
         <main className="w-full min-h-screen">
-          <div className="h-40">
-            <DesktopHeader />
-          </div>
+          <DesktopHeader />
           <ChampionsTier
             tierGroups={tierGroups}
             teamCores={teamCores}
