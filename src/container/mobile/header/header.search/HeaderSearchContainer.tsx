@@ -5,11 +5,13 @@ import FeedbackIcon from '~/assets/icons/feedback.svg'
 import ImageComponent from '~/components/Image.component'
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hook/useDebounce'
+import { useFeedbackFormUrl } from '~/hook/useFeedbackFormUrl'
 import { useOutSideClickMobile } from '~/hook/useOutSideClickMobile'
 import SearchResultList from './search.result/SearchResultList'
 
 const HeaderSearchContainer = () => {
   const searchRef = useRef<HTMLDivElement>(null)
+  const feedbackFormUrl = useFeedbackFormUrl()
   const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)
   const [searchKeyword, debounce] = useDebounce()
 
@@ -88,8 +90,9 @@ const HeaderSearchContainer = () => {
         />
       </div>
       <Link
-        href="https://forms.gle/BP9QVkj42xTJ5beQ8"
+        href={feedbackFormUrl}
         target="_blank"
+        rel="noopener noreferrer"
         className="h-8 text-primary-4 absolute right-0 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex-items-gap-2"
       >
         <FeedbackIcon width={16} height={16} />

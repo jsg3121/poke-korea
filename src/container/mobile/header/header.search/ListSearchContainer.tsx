@@ -5,6 +5,7 @@ import { ChangeEvent, useEffect } from 'react'
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import ImageComponent from '~/components/Image.component'
 import { useDebounce } from '~/hook/useDebounce'
+import { useFeedbackFormUrl } from '~/hook/useFeedbackFormUrl'
 
 /**
  * /list 전용 헤더 검색 (모바일). 셸(인풋 h-8·12px 폰트·피드백 버튼)은
@@ -20,6 +21,7 @@ const ListSearchContainer = () => {
   // 초기값을 URL의 name과 동기화 — ''로 시작하면 ?name= 직접 진입 시 마운트
   // 이펙트에서 keyword('')≠currentName이 되어 name이 삭제된다(Gemini 리뷰 확인)
   const [searchKeyword, debounce] = useDebounce(searchParams.get('name') ?? '')
+  const feedbackFormUrl = useFeedbackFormUrl()
 
   const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
     debounce(e.target.value.trim())
@@ -66,7 +68,7 @@ const ListSearchContainer = () => {
         />
       </div>
       <Link
-        href="https://forms.gle/BP9QVkj42xTJ5beQ8"
+        href={feedbackFormUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="h-8 text-primary-4 absolute right-0 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex-items-gap-2"

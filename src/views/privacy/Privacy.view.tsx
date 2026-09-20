@@ -1,7 +1,13 @@
 import Link from 'next/link'
+import { buildFeedbackFormUrl } from '~/constants/feedbackForm'
 
-/** 헤더의 '기능/오류 신고'와 동일한 폼. 문의 창구를 한 곳으로 유지한다. */
-const FEEDBACK_FORM_URL = 'https://forms.gle/BP9QVkj42xTJ5beQ8'
+/**
+ * 헤더의 '기능/오류 신고'와 동일한 폼. 문의 창구를 한 곳으로 유지한다.
+ *
+ * 서버 컴포넌트라 진입 페이지를 사전 입력할 수 없다. 방침 문서에서 여는 문의는
+ * 특정 페이지의 오류 제보가 아니므로 위치 정보도 필요 없다.
+ */
+const FEEDBACK_FORM_URL = buildFeedbackFormUrl()
 
 /**
  * 방침에 명시하는 제3자 서비스.
@@ -55,7 +61,7 @@ const PrivacyView = () => {
         <h1 className="text-2xl font-bold text-primary-4 mb-2">
           개인정보처리방침
         </h1>
-        <p className="text-xs text-primary-3">최종 수정일: 2026년 8월 31일</p>
+        <p className="text-xs text-primary-3">최종 수정일: 2026년 9월 20일</p>
       </header>
 
       <p className={`${TEXT_CLASS} mb-8`}>
@@ -93,8 +99,8 @@ const PrivacyView = () => {
         <p className={`${TEXT_CLASS} mt-3`}>
           또한 이용자가 문의 폼을 통해 자발적으로 입력한 내용은 해당 폼에
           저장됩니다. 본 사이트는 문의 폼에서 이메일 주소 등 응답자 정보를
-          별도로 수집하지 않으며, 이용자가 문의 내용에 직접 기재한 정보만 확인할
-          수 있습니다.
+          별도로 수집하지 않으며, 오류 확인을 위해 신고 진입 시점의 페이지
+          주소가 함께 전달됩니다.
         </p>
       </section>
 
