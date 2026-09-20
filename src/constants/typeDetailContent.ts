@@ -120,7 +120,7 @@ export const TYPE_DETAIL_CONTENT: Partial<
       {
         label: '악/고스트',
         description:
-          '노말·격투·에스퍼를 전부 무효화해요. 무효가 3개인 유일한 조합이고, 약점은 페어리 하나뿐이에요.',
+          '노말·격투·에스퍼를 전부 무효화해요. 무효가 3개이고, 약점은 페어리 하나뿐이에요.',
         examples: '깜까미, 화강돌',
       },
       {
@@ -132,7 +132,7 @@ export const TYPE_DETAIL_CONTENT: Partial<
       {
         label: '악/드래곤',
         description:
-          '페어리에 4배를 받아요. 악과 드래곤이 둘 다 페어리에 약한 유일한 조합이에요.',
+          '페어리에 4배를 받아요. 악과 드래곤이 둘 다 페어리에 약하기 때문이에요.',
         examples: '삼삼드래, 악식킹',
       },
     ],
