@@ -17,7 +17,7 @@ import ChampionsHomeSectionHeader from '~/components/champions/ChampionsHomeSect
 import ChampionsQuickLinks from '~/components/champions/ChampionsQuickLinks.component'
 import ChampionsRecentTournamentsSection from '~/components/champions/ChampionsRecentTournamentsSection.component'
 import ChampionsTeamCoreSection from '~/components/champions/ChampionsTeamCoreSection.component'
-import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
+import ChampionsTopCard from '~/components/common/ChampionsTopCard.component'
 import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import PageHeader from '~/components/pageHeader/PageHeader.component'
 

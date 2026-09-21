@@ -11,7 +11,7 @@ import {
 import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
 import Image from '~/components/Image.component'
-import Tag from '~/components/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 
 interface ChampionsTierPokemonItemProps {
   pokemon: ChampionsMetaSummaryFragment

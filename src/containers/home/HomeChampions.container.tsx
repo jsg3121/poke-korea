@@ -4,7 +4,7 @@ import {
   getFormatLabel,
 } from '~/utils/championsFormat.util'
 import LinkButton from '~/components/button/LinkButton.component'
-import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
+import ChampionsTopCard from '~/components/common/ChampionsTopCard.component'
 import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import SectionHeading from '~/components/SectionHeading.component'
 

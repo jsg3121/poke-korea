@@ -33,6 +33,25 @@ feature/{version}
   - **Patch (1.26.X)**: 버그 수정, 소규모 개선
 - 브랜치는 사용자가 직접 생성하므로, 새로운 작업 시작 시 브랜치 생성 여부 확인 필요
 
+### 통합 브랜치와 서브 브랜치
+
+`feature/{version}`은 **통합 브랜치**다. 실제 작업은 주제별 서브 브랜치에서 하고 PR로 합친다.
+
+```text
+feature/{version}-{주제}
+예: feature/1.61.0-naming, feature/1.61.0-strict-types
+```
+
+```bash
+git checkout -b feature/{version}-{주제} feature/{version}
+```
+
+- `{주제}`는 변경 내용을 나타내는 kebab-case
+- **통합 브랜치에 허용되는 것은 머지 커밋뿐이다** — 파일을 직접 편집하지 않는다
+- 서브 브랜치 → 통합 브랜치 PR → (버전 완료 후) 통합 브랜치 → main PR
+
+> **Why:** 통합 브랜치에 직접 커밋하면 주제별 PR 단위가 사라져 리뷰와 되돌리기가 불가능해진다. 1.61.0이 `-import-order`(#229)·`-naming`(#230)·`-strict-types`(#231)·`-layout-chrome`(#232)으로 나뉜 것이 이 패턴이다. 실제로 이 규칙이 문서에 없던 시기에 `feature/1.61.0`에 직접 커밋한 사고가 있었다 — 머지 이력에 패턴이 뚜렷했는데도 근거가 문서에 없어 판단이 갈렸다. `.claude/hooks/block-version-root-edit.sh`가 편집 시점에 차단한다.
+
 ### 버전 확인: main에 머지된 마지막 PR 기준
 
 **IMPORTANT**: 다음 버전을 정할 때는 반드시 `origin/main`에 **머지된 마지막 PR의 버전**을 확인한다. 추측하거나 로컬 폴더 목록을 눈대중으로 훑고 정하지 않는다.

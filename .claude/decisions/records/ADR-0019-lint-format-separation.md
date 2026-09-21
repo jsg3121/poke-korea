@@ -93,9 +93,24 @@ VSCode 내장 정리 기능은 자체 방식으로 정렬해 계층 순서를 �
   - `package.json`의 `lint` 스크립트에 `--fix` 변형 추가 검토
   - 전체 파일 재포맷 — import 순서가 바뀌므로 diff가 크다. 파일 재배치(ADR-0016·0017 후속)와 함께 진행한다
 
+### 적용 현황 (1.61.0)
+
+후속 작업 중 `.prettierignore`·`.vscode/`·`eqeqeq`·스크립트를 적용했다. 두 항목은 결정 당시 정하지 않았던 세부를 확정했다.
+
+**`eqeqeq`는 `{ "null": "ignore" }`를 붙여 켰다.** 코드의 느슨한 비교 16건이 전부 `== null`·`!= null`이었고, 이는 `null`과 `undefined`를 한 번에 거르는 의도적 관용구다. 기본값으로 켜면 16건이 모두 에러가 되고 `!== null && !== undefined`로 바꿔야 해 장황해진다. ESLint가 이 경우를 위해 제공하는 옵션이 있어 그대로 쓴다. `"smart"`도 통과시키지만 리터럴·`typeof` 비교까지 허용해 범위가 넓으므로 택하지 않았다.
+
+**`.vscode/`는 `settings.json`과 `extensions.json`을 함께 뒀다.** `settings.json`만 커밋하면 Prettier 확장이 없는 환경에서 저장 시 포맷이 **에러 없이 조용히 실패**한다 — 설정을 공유해 통일하려던 것이 오히려 환경별 불일치를 만든다. 권장 확장 목록을 함께 둬 선행 조건을 알린다. `typescript.tsdk`는 `npm install` 전에 경로가 없어 경고를 띄우므로 넣지 않았다.
+
+그리고 포맷의 최종 보장은 에디터가 아니라 `format`·`format:check` 스크립트다. 에디터 설정은 편의이고, 어떤 환경에서 작업하든 결과가 같으려면 스크립트가 기준이어야 한다.
+
+**전체 재포맷은 하지 않았다.** import 순서 변경은 Phase 2-1에서 이미 끝났고, 현재 미준수 117건은 전부 문서(changelog 113·`.claude/` 3·README 1)로 `src/` 코드는 0건이다. 성격이 다르고 과거 릴리즈 노트 전체가 diff에 섞이므로 분리한다.
+
 ## 참고 자료
 
 - [@ianvs/prettier-plugin-sort-imports](https://github.com/IanVS/prettier-plugin-sort-imports) — 빈 줄 구분자와 설정 문법
 - [eslint-plugin-unused-imports](https://github.com/sweepline/eslint-plugin-unused-imports) — `--fix` 지원 근거
+- [ESLint — eqeqeq `null` 옵션](https://eslint.org/docs/latest/rules/eqeqeq#options) — `"null": "ignore"`로 null 비교를 예외 처리하는 근거
+- [TypeScript Handbook — Null and Undefined](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) — `== null`이 둘을 함께 검사한다는 근거
+- [VS Code — Workspace recommended extensions](https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions) — `extensions.json`을 팀과 공유하는 용법
 - [Prettier — Option Philosophy](https://prettier.io/docs/en/option-philosophy) — 옵션을 적게 두는 이유
 - [ADR-0016](./ADR-0016-folder-structure-by-domain-usage.md) — 계층 참조 규칙, import 순서의 근거

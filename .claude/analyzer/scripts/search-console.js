@@ -54,7 +54,9 @@ const query = async (body) => {
   })
   const json = await res.json()
   if (!res.ok) {
-    throw new Error(`Search Console 오류(${res.status}): ${JSON.stringify(json)}`)
+    throw new Error(
+      `Search Console 오류(${res.status}): ${JSON.stringify(json)}`,
+    )
   }
   return json.rows || []
 }
@@ -94,7 +96,9 @@ const main = async () => {
   const clicks = rows.reduce((s, r) => s + r.clicks, 0)
   const impressions = rows.reduce((s, r) => s + r.impressions, 0)
 
-  console.log(`기간 ${body.startDate} ~ ${body.endDate} / 차원 ${dimensions.join(',')}`)
+  console.log(
+    `기간 ${body.startDate} ~ ${body.endDate} / 차원 ${dimensions.join(',')}`,
+  )
   if (contains) console.log(`필터 page contains "${contains}"`)
   console.log(
     `행 ${rows.length} / 클릭 ${clicks.toLocaleString()} / 노출 ${impressions.toLocaleString()} / CTR ${

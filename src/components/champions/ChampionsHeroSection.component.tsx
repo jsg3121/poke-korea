@@ -1,6 +1,6 @@
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
-import ChampionsTopCard from '~/components/champions/ChampionsTopCard.component'
+import ChampionsTopCard from '~/components/common/ChampionsTopCard.component'
 import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
 
 import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'

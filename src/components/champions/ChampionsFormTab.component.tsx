@@ -7,8 +7,7 @@ import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
-
-import ChampionsTierBadge from './ChampionsTierBadge.component'
+import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
 
 interface ChampionsFormTabProps {
   formSiblings: ChampionsFormSiblingFragment[]

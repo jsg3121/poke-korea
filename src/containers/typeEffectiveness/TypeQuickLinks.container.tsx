@@ -72,12 +72,9 @@ const TypeQuickLinks = () => {
         타입을 고르지 않아도 각 타입의 약점과 상성을 자세히 확인할 수 있어요.
       </p>
       {/* 모바일 3열 → 데스크톱 6열.
-          9열은 쓰지 않는다 — 970px 이하에서 칩이 좁아져 3글자 타입
-          (에스퍼·페어리·드래곤)이 칸을 넘는다. 구간을 나누려면
-          `desktop-970`(max-970px)을 써야 하는데 이 브레이크포인트는 모바일까지
-          포함해 grid-cols-3을 덮어쓰고, `desktop:desktop-970:` 중첩은 Tailwind가
-          규칙을 생성하지 않는다. 6열이면 769px에서도 글자 여유가 74px라
-          전 구간에서 안전하다. */}
+          9열은 쓰지 않는다 — 좁은 데스크톱에서 칩이 좁아져 3글자 타입
+          (에스퍼·페어리·드래곤)이 칸을 넘는다. 6열이면 769px에서도 글자
+          여유가 74px라 전 구간에서 안전하다. */}
       <ul className="mt-3 grid grid-cols-3 gap-1.5 desktop:grid-cols-6 desktop:gap-2">
         {QUICK_LINK_TYPES.map((type) => (
           <li key={type}>
