@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import LogoIcon from '~/assets/logo.svg'
+import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
 
 import DetailSearch from './header.search/DetailSearch.container'
@@ -15,6 +16,7 @@ import MainSearch from './search.main/MainSearch.container'
 const Header = () => {
   const pathname = usePathname()
   const hasSubNav = pathname.includes('/champions')
+  const feedbackFormUrl = useFeedbackFormUrl()
 
   return (
     <Fragment>
@@ -30,8 +32,9 @@ const Header = () => {
           </Link>
           {pathname === '/list' ? <MainSearch /> : <DetailSearch />}
           <Link
-            href="https://forms.gle/BP9QVkj42xTJ5beQ8"
+            href={feedbackFormUrl}
             target="_blank"
+            rel="noopener noreferrer"
             className="h-8 text-primary-4 absolute right-5 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex-items-gap-2"
           >
             <FeedbackIcon width={16} height={16} />

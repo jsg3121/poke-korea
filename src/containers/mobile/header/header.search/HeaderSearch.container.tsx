@@ -3,6 +3,7 @@
 import Link from 'next/link'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
+import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import { useSearchPokemon } from '~/hooks/useSearchPokemon'
 import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 import Image from '~/components/Image.component'
@@ -15,6 +16,7 @@ const HeaderSearch = () => {
     loading,
     handleChangeKeyword,
   } = useSearchPokemon()
+  const feedbackFormUrl = useFeedbackFormUrl()
 
   return (
     <div
@@ -45,8 +47,9 @@ const HeaderSearch = () => {
         />
       </div>
       <Link
-        href="https://forms.gle/BP9QVkj42xTJ5beQ8"
+        href={feedbackFormUrl}
         target="_blank"
+        rel="noopener noreferrer"
         className="h-8 text-primary-4 absolute right-0 top-1/2 -translate-y-1/2 bg-primary-1 px-2 rounded-md flex-items-gap-2"
       >
         <FeedbackIcon width={16} height={16} />
