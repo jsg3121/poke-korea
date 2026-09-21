@@ -43,18 +43,19 @@ layout.tsx  →  page.tsx  →  views  →  containers  →  components
 
 `tsconfig.json`은 `strict: true`에 더해 다음을 켠다.
 
-| 옵션                                    | 목적                                          |
-| --------------------------------------- | --------------------------------------------- |
-| `noUncheckedIndexedAccess`              | 배열·객체 인덱스 접근 결과에 `undefined` 포함 |
-| `noImplicitReturns`                     | 일부 경로에서만 return하는 함수 차단          |
-| `noFallthroughCasesInSwitch`            | switch fallthrough 차단                       |
-| `noUnusedLocals` · `noUnusedParameters` | 미사용 선언 차단                              |
+| 옵션                                    | 목적                                 |
+| --------------------------------------- | ------------------------------------ |
+| `noImplicitReturns`                     | 일부 경로에서만 return하는 함수 차단 |
+| `noFallthroughCasesInSwitch`            | switch fallthrough 차단              |
+| `noUnusedLocals` · `noUnusedParameters` | 미사용 선언 차단                     |
 
-> **Why `noUncheckedIndexedAccess`:** 컴파일러는 배열 길이를 알 수 없으므로 `arr[0]`이 존재한다고 보장할 수 없다. 이 옵션이 없으면 빈 배열에서 `undefined`를 꺼내 쓰는 코드가 타입 검사를 통과한다.
->
-> 이 옵션만 아직 `tsconfig.json`에 켜지 않았다. 표의 나머지는 적용돼 있다. 보류 근거와 재개 조건은 ADR-0018의 "적용 현황" 절에 있다 — 새 코드는 인덱스 접근 결과를 `undefined`일 수 있는 값으로 다룬다.
+다음 두 옵션은 **켜지 않는다.**
 
-`exactOptionalPropertyTypes`는 켜지 않는다 — `aria-current={active ? 'page' : undefined}` 같은 React 정석 패턴을 에러로 만들어, 우회 코드가 늘면 가독성이 떨어진다. TypeScript 팀도 이 옵션을 `strict`에 포함하지 않았다.
+`exactOptionalPropertyTypes` — `aria-current={active ? 'page' : undefined}` 같은 React 정석 패턴을 에러로 만들어, 우회 코드가 늘면 가독성이 떨어진다. TypeScript 팀도 이 옵션을 `strict`에 포함하지 않았다.
+
+`noUncheckedIndexedAccess` — 이 옵션이 잡아낼 수 있는 실제 결함은 1.61.0에서 전수 검토해 이미 고쳤고, 남는 것은 배열 리터럴 직후의 `[0]`처럼 값이 반드시 존재하는 접근이라 폴백이 실행되지 않는 분기만 늘린다. 근거는 ADR-0018의 "적용 현황" 절에 있다.
+
+> **다만 인덱스 접근은 여전히 주의 대상이다.** 옵션이 강제하지 않을 뿐, 길이를 보장할 수 없는 배열에서 꺼낸 값은 `undefined`일 수 있다. 옵셔널 체이닝을 중간에 끊지 않는다 — `data?.[i]?.types`이지 `data?.[i].types`가 아니다.
 
 ### `any`와 non-null 단언을 쓰지 않는다
 
