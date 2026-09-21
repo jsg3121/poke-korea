@@ -7,7 +7,7 @@ import {
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
-import Tag from '~/components/Tag.component'
+import Tag from '~/components/tag/Tag.component'
 
 interface ChampionsTournamentSlotCardProps {
   slot: ChampionsTeamSlotFragment
