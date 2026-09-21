@@ -12,7 +12,7 @@ import {
   VersionGroup,
 } from '~/graphql/typeGenerated'
 
-interface IFDetailProviderProps {
+interface DetailProviderProps {
   pokemonBaseInfo: PokemonDetail
   normalForm: Array<PokemonNormalForm>
   megaEvolutionData?: Array<PokemonMegaEvolution>
@@ -25,7 +25,7 @@ interface IFDetailProviderProps {
   children: ReactNode
 }
 
-interface IFDetailProps {
+interface DetailContextValue {
   pokemonBaseInfo?: PokemonDetail
   megaEvolutions?: Array<PokemonMegaEvolution>
   regionFormInfo?: Array<PokemonRegionForm>
@@ -37,7 +37,7 @@ interface IFDetailProps {
   normalFormImageList: Array<string>
 }
 
-const DetailContext = createContext<IFDetailProps>({
+const DetailContext = createContext<DetailContextValue>({
   activeType: 'normal',
   activeIndex: 0,
   normalFormImageList: [],
@@ -67,7 +67,7 @@ const DetailProvider = ({
   normalFormImageList,
   activeType,
   activeIndex,
-}: IFDetailProviderProps) => {
+}: DetailProviderProps) => {
   const getTypes = () => {
     switch (activeType) {
       case 'mega': {
@@ -184,7 +184,7 @@ const DetailProvider = ({
     versionGroupInfo,
   }
 
-  const initialValue: IFDetailProps = {
+  const initialValue: DetailContextValue = {
     pokemonBaseInfo,
     activeType,
     activeIndex,
