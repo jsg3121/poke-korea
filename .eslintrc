@@ -54,6 +54,8 @@
     "@typescript-eslint/no-empty-function": "warn",
     "import/export": "warn",
     "jsx-a11y/aria-role": 1,
+    // null 비교는 예외 — `== null`은 null·undefined를 함께 거르는 관용구다
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
   },
   "ignorePatterns": ["**/*.js", "**/*.jsx"],
   "settings": {
