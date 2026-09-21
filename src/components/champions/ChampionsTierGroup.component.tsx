@@ -7,8 +7,8 @@ import {
   ChampionsFormatSlug,
   compareByUsageRank,
 } from '~/utils/championsFormat.util'
+import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
 
-import ChampionsTierBadge from './ChampionsTierBadge.component'
 import ChampionsTierPokemonItem from './ChampionsTierPokemonItem.component'
 
 type Tier = 'S' | 'A' | 'B' | 'C' | 'D'

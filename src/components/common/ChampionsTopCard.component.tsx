@@ -13,7 +13,7 @@ import {
 } from '~/modules/pokemonCard.module'
 import ChampionsTierBadge, {
   getTierColors,
-} from '~/components/champions/ChampionsTierBadge.component'
+} from '~/components/common/ChampionsTierBadge.component'
 import PokemonCardShell from '~/components/pokemonCard/PokemonCardShell.component'
 
 /**

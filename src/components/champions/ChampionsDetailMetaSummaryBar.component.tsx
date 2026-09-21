@@ -1,6 +1,5 @@
 import { ChampionsMetaStatsFragment } from '~/graphql/typeGenerated'
-
-import ChampionsTierBadge from './ChampionsTierBadge.component'
+import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
 
 interface ChampionsDetailMetaSummaryBarProps {
   meta: ChampionsMetaStatsFragment | null | undefined
