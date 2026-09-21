@@ -62,7 +62,12 @@ const main = async () => {
   const contains = arg('contains')
 
   const body = {
-    dateRanges: [{ startDate: arg('start', daysAgo(90)), endDate: arg('end', 'yesterday') }],
+    dateRanges: [
+      {
+        startDate: arg('start', daysAgo(90)),
+        endDate: arg('end', 'yesterday'),
+      },
+    ],
     dimensions: dimensions.map((name) => ({ name })),
     metrics: metrics.map((name) => ({ name })),
     orderBys: [{ metric: { metricName: metrics[0] }, desc: true }],
@@ -85,13 +90,18 @@ const main = async () => {
   )
   console.log(`행 ${rows.length}\n`)
   console.log(
-    [...dimensions.map((d) => d.slice(0, 40).padEnd(40)), ...metrics.map((m) => m.slice(0, 12).padStart(13))].join(''),
+    [
+      ...dimensions.map((d) => d.slice(0, 40).padEnd(40)),
+      ...metrics.map((m) => m.slice(0, 12).padStart(13)),
+    ].join(''),
   )
 
   rows.forEach((r) => {
     // 일부 필드가 빠진 행이 섞여도 리포트 전체를 버리지 않는다
     const dims = (r.dimensionValues ?? []).map((v) =>
-      String(v.value ?? '').slice(0, 40).padEnd(40),
+      String(v.value ?? '')
+        .slice(0, 40)
+        .padEnd(40),
     )
     const mets = (r.metricValues ?? []).map((v) => {
       const n = Number(v.value)
