@@ -6,11 +6,12 @@
 
 ## 등록된 훅
 
-| 스크립트                    | 대상 도구        | 차단하는 것                                                                                                           |
-| --------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `block-main-branch-edit.sh` | `Write` · `Edit` | 현재 브랜치가 `main`·`master`일 때의 파일 편집                                                                        |
-| `guard-git-push.sh`         | `Bash`           | main을 향하는 push (명시 지정, `HEAD:main` refspec, `--all`/`--mirror`, upstream이 main인 브랜치, 현재 브랜치가 main) |
-| `block-claude-html.sh`      | `Write` · `Edit` | `.claude/` 하위 `.html` 생성 — 시안은 `public/preview/`에 둔다                                                        |
+| 스크립트                     | 대상 도구        | 차단하는 것                                                                                                           |
+| ---------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `block-main-branch-edit.sh`  | `Write` · `Edit` | 현재 브랜치가 `main`·`master`일 때의 파일 편집                                                                        |
+| `block-version-root-edit.sh` | `Write` · `Edit` | 통합 브랜치(`feature/X.Y.Z`)에서의 파일 편집 — 작업은 `feature/X.Y.Z-{주제}`에서 한다                                 |
+| `guard-git-push.sh`          | `Bash`           | main을 향하는 push (명시 지정, `HEAD:main` refspec, `--all`/`--mirror`, upstream이 main인 브랜치, 현재 브랜치가 main) |
+| `block-claude-html.sh`       | `Write` · `Edit` | `.claude/` 하위 `.html` 생성 — 시안은 `public/preview/`에 둔다                                                        |
 
 ## 왜 훅으로 강제하는가
 
