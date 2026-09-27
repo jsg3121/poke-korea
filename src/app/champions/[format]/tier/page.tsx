@@ -120,7 +120,6 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
     ],
   }
 
-  // Google ItemList 가이드상 각 항목에 탐색 가능한 url이 있어야 색인 가치가 있다.
   const tierListItems = (['S', 'A', 'B'] as const)
     .flatMap((tier) => tierGroups[tier])
     .slice(0, 20) // 상위 20개로 제한 (Google 권장 범위)

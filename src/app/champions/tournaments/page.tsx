@@ -64,7 +64,6 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
     query: GetChampionsTournamentsWithTopTeamDocument,
     variables: {
       format: ChampionsFormat.VGC_DOUBLES,
-      // 페이지네이션 인프라가 없어 충분히 큰 limit으로 한 번에 가져온다.
       limit: 1000,
       ...(month ? { month } : {}),
     },
@@ -73,7 +72,6 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
 
   const tournaments = data?.championsTournaments ?? []
 
-  // null 이 섞이면 localeCompare 호출 시 TypeError 로 SSR 크래시되므로 사전 필터링.
   const availableMonths = Array.from(
     new Set(
       tournaments.map((t) => t.month).filter((m): m is string => Boolean(m)),

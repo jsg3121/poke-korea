@@ -60,7 +60,6 @@ export const renderChampionsDetail = async ({
     entityInfo: {
       stats: detail.pokemon.stats,
       tier: meta?.tier,
-      // usageRate/winRate는 데이터 원천 변경으로 제외. 인기 상위 1개만 요약 전달.
       topMove: meta?.topMoves?.[0]?.name,
       topAbility: meta?.topAbilities?.[0]?.name,
       topItem: meta?.topItems?.[0]?.name,

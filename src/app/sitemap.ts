@@ -22,13 +22,6 @@ import { TYPE_SLUGS } from '~/modules/typeParams.module'
 
 export const revalidate = 21600
 
-/**
- * 배포 시점에 고정되는 타임스탬프.
- *
- * 매 요청마다 new Date()를 쓰면 모든 페이지가 "방금 수정됨"이 되어 구글이
- * lastmod 신호를 신뢰하지 않는다.
- * https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping
- */
 const BUILD_TIME = new Date(process.env.BUILD_TIME ?? new Date().toISOString())
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -242,9 +235,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 샤이니(?shinyMode=shiny)는 제외 — Google이 쿼리 변형을 중복 페이지로
-    // 처리해 크롤링 예산을 낭비한다.
-
     const megaPages = megaData.getPokemonList.map((pokemon: PokemonList) => ({
       url: `https://poke-korea.com/detail/${pokemon.number}/mega`,
       lastModified: BUILD_TIME,
@@ -410,8 +400,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // lastmod는 외부 데이터(battle_meta.json) 갱신 시각을 쓴다 — 챔피언스 메타는
-    // 빌드와 무관한 주기로 바뀐다.
     const vgcListResponse = championsVgcData.getChampionsPokemonList
     const bssListResponse = championsBssData.getChampionsPokemonList
     const vgcLastModified = new Date(vgcListResponse.updatedAt)
@@ -468,8 +456,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     ]
 
-    // date가 null이거나 형식이 틀리면 Invalid Date가 되어 <lastmod>가 깨진다.
-    // BUILD_TIME으로 폴백한다.
     const resolveTournamentLastModified = (date: string | null | undefined) => {
       if (!date) return BUILD_TIME
       const parsed = new Date(date)

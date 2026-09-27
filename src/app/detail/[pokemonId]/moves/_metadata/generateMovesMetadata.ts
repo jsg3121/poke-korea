@@ -47,7 +47,6 @@ export async function generateMovesMetadata({
     return {}
   }
 
-  // 폼 목록이 비면 [0].name 접근에서 metadata 생성이 통째로 실패한다.
   const pokemonName = isNormalForm
     ? (normalFormData.getPokemonNormalForm?.[0]?.name ??
       pokemonDetail.getPokemonDetail?.name)
@@ -77,7 +76,6 @@ export async function generateMovesMetadata({
   return {
     title,
     description,
-    // follow는 유지한다 — nofollow면 다른 버전·습득법 탭이 크롤링되지 않는다.
     robots: skillCount > 0 ? getRobotsConfig() : getEmptyPageRobots(),
     openGraph: {
       type: 'website',

@@ -120,8 +120,6 @@ const NormalFormPage = async ({
     fetchPokemonSummaries(pokemonDetail.evolutionId),
   ])
 
-  // 백엔드가 범위 밖 activeIndex에 빈 배열을 반환한다. 가드가 없으면 폼이
-  // 없는데도 200으로 원종 내용을 보여줘 중복 URL이 색인된다.
   if (normalFormData.length === 0) {
     notFound()
   }

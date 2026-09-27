@@ -58,7 +58,6 @@ export async function fetchLearnsetQueries({
       variables: { pokemonId },
       fetchPolicy: 'cache-first',
     }),
-    // 존재하지 않는 폼이면 서버가 에러를 던진다. notFound()로 처리하도록 null로 바꾼다.
     apolloClient
       .query<GetPokemonLearnsetQuery, GetPokemonLearnsetQueryVariables>({
         query: GetPokemonLearnsetDocument,
@@ -71,7 +70,6 @@ export async function fetchLearnsetQueries({
         fetchPolicy: 'cache-first',
       })
       .catch(() => null),
-    // 여기서 막지 않으면 Promise.all이 통째로 실패해 500이 난다.
     apolloClient
       .query<
         GetVersionGroupsByPokemonQuery,
@@ -116,8 +114,6 @@ export async function fetchLearnsetQueries({
             fetchPolicy: 'cache-first',
           })
         : Promise.resolve(null),
-    // 서버에서 미리 받는다 — 클라이언트 훅으로만 받으면 SSR HTML에 enum 원문이
-    // 들어가 쿼리가 도착할 때까지 영문이 보인다.
     apolloClient.query<GetLearnMethodsQuery, GetLearnMethodsQueryVariables>({
       query: GetLearnMethodsDocument,
       fetchPolicy: 'cache-first',

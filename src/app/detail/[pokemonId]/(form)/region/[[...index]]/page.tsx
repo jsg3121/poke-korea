@@ -106,8 +106,6 @@ const RegionPage = async ({ params, searchParams }: RegionPageProps) => {
       fetchPokemonSummaries(pokemonDetail.evolutionId),
     ])
 
-  // 존재하지 않는 폼 인덱스는 404. 가드가 없으면 하위 컴포넌트가 undefined
-  // 폼을 참조해 500이 난다(예: 리전폼 2개인 나옹의 /region/2).
   if (!regionFormData[activeIndex]) {
     notFound()
   }

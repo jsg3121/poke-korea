@@ -48,8 +48,6 @@ const createMovesMetadata = (
   return {
     title,
     description,
-    // 배울 기술이 없는 조합은 색인하지 않되, 다른 버전·습득법 링크는 따라가게
-    // follow는 유지한다.
     robots: skillCount > 0 ? getRobotsConfig() : { index: false, follow: true },
     openGraph: {
       type: 'website',

@@ -145,8 +145,6 @@ export const generateChampionsTierMetadata = async (
   const totalCount = await fetchChampionsTotalCount(formatSlug)
   const formatShort = getFormatShortLabel(formatSlug)
 
-  // 301 권위가 모이는 VGC에서만 포괄 키워드를 앞세운다. BSS는 long-tail을
-  // 유지해 카니발라이제이션을 피한다.
   const isDefaultFormat = formatSlug === CHAMPIONS_DEFAULT_FORMAT_SLUG
 
   const title = isDefaultFormat

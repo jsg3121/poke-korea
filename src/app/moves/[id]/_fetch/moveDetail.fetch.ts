@@ -84,7 +84,6 @@ export async function fetchMoveDetailQueries({
       variables: { skillId },
       fetchPolicy: 'cache-first',
     }),
-    // 캐시에 심어둔다 — 클라이언트 쿼리로만 받으면 SSR HTML에 enum 원문이 남는다.
     apolloClient.query<GetLearnMethodsQuery, GetLearnMethodsQueryVariables>({
       query: GetLearnMethodsDocument,
       fetchPolicy: 'cache-first',

@@ -108,7 +108,6 @@ const GigantamaxPage = async ({
     fetchPokemonSummaries(pokemonDetail.evolutionId),
   ])
 
-  // 존재하지 않는 폼 인덱스는 404.
   if (!gigantamaxData[activeIndex]) {
     notFound()
   }

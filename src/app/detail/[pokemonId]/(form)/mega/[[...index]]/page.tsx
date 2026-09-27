@@ -106,7 +106,6 @@ const MegaPage = async ({ params, searchParams }: MegaPageProps) => {
       fetchPokemonSummaries(pokemonDetail.evolutionId),
     ])
 
-  // 존재하지 않는 폼 인덱스는 404(예: 메가진화 1종인데 /mega/1 요청).
   if (!megaEvolutionData[activeIndex]) {
     notFound()
   }
