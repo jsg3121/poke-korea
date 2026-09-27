@@ -80,12 +80,10 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 데스크톱 — max-w-1280 안에서 가로 스크롤 + CTA */
 export const Desktop: Story = {
   globals: { viewport: { value: 'desktop' } },
 }
 
-/** 모바일 — gutter px-5, 카드 축소로 peek */
 export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
 }

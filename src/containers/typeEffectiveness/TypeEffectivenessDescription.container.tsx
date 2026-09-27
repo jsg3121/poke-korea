@@ -1,11 +1,3 @@
-/**
- * 타입별 추가 효과 설명 (반응형 단일 — UX-009). 구버전 데/모 2벌
- * typeEffectiveness.description을 대체한다 — 콘텐츠는 그대로, 임의값
- * (text-[1.75rem]·text-xl 고정)만 토큰 정합(text-base, ADR-0012)하고 제목을
- * h3→h2로 승격한다(페이지 h1 아래 섹션 위계 통일 — 계산기·결과·표와 동급).
- * 타입 색 강조(type-color-*)는 기존 전역 유틸 그대로 사용한다.
- */
-
 import { PokemonType } from '~/graphql/typeGenerated'
 
 import TypeNameLink from './TypeNameLink.component'

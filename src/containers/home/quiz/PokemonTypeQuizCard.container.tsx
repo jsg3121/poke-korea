@@ -12,10 +12,6 @@ interface PokemonTypeQuizCardProps {
   pokemonTypeQuiz: PokemonTypeQuizQuestion
 }
 
-/**
- * 타입 퀴즈 카드 (QuizCard DS 셸 + 기존 퀴즈 로직 재사용).
- * 본문은 타입 태그 + 안내 문구, 답안은 포켓몬 한글명.
- */
 const PokemonTypeQuizCard = ({ pokemonTypeQuiz }: PokemonTypeQuizCardProps) => {
   const { isCorrect, isShowModal, handleSelectAnswer, handleCloseModal } =
     useCorrectQuizCheck({ correctAnswer: pokemonTypeQuiz.correctAnswerIndex })

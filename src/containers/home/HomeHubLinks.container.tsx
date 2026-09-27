@@ -1,9 +1,5 @@
 'use client'
 
-// 'use client'인 이유: SVGR 웹팩 룰(issuer 조건)이 App Router 서버 컴포넌트
-// 그래프에서 동작하지 않아 SVG import가 빌드 실패한다. 같은 아이콘을 쓰는
-// MobileTabBar와 동일하게 클라이언트 경계로 둔다(클라이언트 컴포넌트도 SSR되므로
-// 허브 링크는 초기 HTML에 포함 — SEO 영향 없음).
 import { ReactNode } from 'react'
 
 import AbilityIcon from '~/assets/icons/ability.svg'
@@ -15,19 +11,6 @@ import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
 import { CHAMPIONS_DEFAULT_FORMAT_SLUG } from '~/utils/championsFormat.util'
 import HubLinkCard from '~/components/hubLinkCard/HubLinkCard.component'
 import SectionHeading from '~/components/SectionHeading.component'
-
-/**
- * 홈 허브 링크 섹션 — 콘텐츠 축 6개(도감·타입상성·기술·특성·챔피언스·퀴즈) 진입 타일
- * (신설, UX-003 §3 섹션 2).
- *
- * 홈 본문에 서술형 앵커의 내부 링크 허브 블록을 만든다: ①모바일 사용자 70%가 홈
- * 전체를 훑으며 서비스 범위를 판단하므로 카테고리를 접힌 메뉴 뒤에 숨기지 않고 시각
- * 노출하고(RES-001 ②), ②홈의 링크 권위를 각 허브 페이지로 분배한다(시사점 2).
- *
- * 정적 콘텐츠라 항상 렌더 — 동적 첫 섹션(챔피언스)이 비어도 이 섹션이 폴드 콘텐츠를
- * 보장한다(광고를 이 섹션 뒤에 두는 근거, UX-003 §5). 아이콘은 MobileTabBar와 같은
- * SVGR 자산 재사용.
- */
 
 interface HubLink {
   href: string

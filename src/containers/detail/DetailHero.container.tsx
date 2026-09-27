@@ -19,18 +19,6 @@ import Tag from '~/components/tag/Tag.component'
 import DetailSpeciesNav, { AdjacentPokemon } from './DetailSpeciesNav.container'
 import { getActiveFormInfo } from './modules/activeForm.module'
 
-/**
- * 상세 히어로 (반응형 단일 — UX-005). 타입색 그라데이션 위에 일러스트와
- * **식별 정보(이름·도감번호·타입)를 첫 화면으로 승격**한다(RES-003 — 벤치마크
- * 5/5의 첫 화면 공식). 기존엔 번호·타입이 기본정보 카드까지 스크롤해야 보였다.
- *
- * 폼 전환·이미지 슬라이드는 DetailFormRow 책임 — 기존 absolute 슬라이드 버튼이
- * 스탯 카드를 침범하던 C1 결함을 배치 분리로 원천 차단한다.
- *
- * 종 내비(이전/다음)는 히어로 그라데이션 위 상단 오버레이 — 전역 헤더와 히어로
- * 배경 사이에 페이지색 공백 띠가 생기는 어색함을 없앤다(사용자 결정, QA 라운드 1).
- */
-
 interface DetailHeroProps {
   prevPokemon: AdjacentPokemon | null
   nextPokemon: AdjacentPokemon | null
@@ -76,7 +64,6 @@ const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
   const hasPrev = activeIndex > 0
   const hasNext = activeIndex < totalForms - 1
 
-  // 밝은 그라데이션 배경 위 슬라이드 버튼 (다크용 FormRow 스타일과 색만 다름)
   const slideLinkClass =
     'flex min-h-touch min-w-touch items-center justify-center rounded-2xl text-lg text-primary-1 hover:bg-white-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-1'
 
@@ -98,8 +85,6 @@ const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
       />
       <div className="relative desktop:mx-auto desktop:max-w-7xl">
         <DetailSpeciesNav prev={prevPokemon} next={nextPokemon} />
-        {/* 데스크톱: 이미지 컬럼 고정폭(shrink-0) + 정보 컬럼 flex-1 —
-            이름 길이와 무관하게 이미지가 항상 같은 위치(QA 라운드 2) */}
         <div className="flex flex-col items-center gap-4 px-4 pb-4 pt-2 desktop:flex-row desktop:gap-16 desktop:pb-6 desktop:pl-16">
           {currentItem && (
             <div className="h-48 w-48 shrink-0 [filter:drop-shadow(0px_5px_5px_#000000)] desktop:h-72 desktop:w-72">
@@ -138,12 +123,6 @@ const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
           </div>
         </div>
 
-        {/* 폼 이미지 순회 — 히어로 하단 중앙(이미지와 같은 맥락에 붙여 기능을
-            드러낸다, QA 라운드 2). 래퍼는 폼 유무와 무관하게 항상 렌더해 높이를
-            예약한다 — 조건부 렌더면 폼 있는 개체로 이동할 때 히어로 높이가 변해
-            CLS가 발생한다(QA 라운드 4). */}
-        {/* h-11 고정 + mb-4 — min-h+pb 조합은 빈 상태에서 패딩이 min-height에
-            흡수돼(border-box) 16px 차이가 났다(QA 라운드 5) */}
         <div
           className="mb-4 flex h-11 items-center justify-center gap-1"
           aria-label={totalForms > 1 ? '폼 이미지 순회' : undefined}

@@ -4,7 +4,6 @@ import { PokemonType } from '~/graphql/typeGenerated'
 
 import HomeDailyPokemon from './HomeDailyPokemon.container'
 
-/** mock 포켓몬 카드 데이터 생성 */
 const makePokemon = (
   id: number,
   name: string,
@@ -87,12 +86,10 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 데스크톱 — 가로 스크롤 (w-56 카드) */
 export const Desktop: Story = {
   globals: { viewport: { value: 'desktop' } },
 }
 
-/** 모바일 — gutter px-5, 카드 축소(w-36)로 peek 노출 */
 export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
 }

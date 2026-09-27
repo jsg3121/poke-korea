@@ -24,10 +24,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 (데스크톱 3열) */
 export const Default: Story = {}
 
-/** 모바일 (2열 그리드) */
 export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
 }

@@ -10,16 +10,6 @@ import {
 import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournamentTeamCard.component'
 
-/**
- * 챔피언스 대회 상세 본문 (반응형 단일, ADR-0007 / UX-011, E-3).
- *
- * 구버전 desktop/mobile 2벌 컨테이너를 CSS 반응형 단일로 통합한다.
- * - 상세는 엔티티 페이지라 공용 PageHeader 대신 진한 배경 정보 카드를 자체 헤더로 유지
- *   (champions 포켓몬 상세와 동일 패턴).
- * - "원본 보기"는 아웃라인 버튼으로 승격(데스크톱 우상단 / 모바일 하단 별도 행).
- * - Top1~3 강조(항상 펼침) / Top4~8 컴팩트(접이식 개별). 두 그리드 모두 items-start 로
- *   같은 행에서 한 카드를 펼쳐도 옆 카드 높이가 끌려 늘어나지 않게 한다(UX-011 피드백).
- */
 interface ChampionsTournamentDetailContentProps {
   detail: ChampionsTournamentDetailFragment
 }
@@ -29,7 +19,6 @@ const ChampionsTournamentDetailContent = ({
 }: ChampionsTournamentDetailContentProps) => {
   const formatLabel = getFormatEnumShortLabel(detail.format)
   const dateLabel = formatKstDate(detail.date)
-  // 응답이 rank 오름차순이 아닐 수 있으니 안전하게 정렬 + Top 8 만 추출
   const sortedTeams = [...detail.teams].sort((a, b) => a.rank - b.rank)
   const top8 = sortedTeams.filter((t) => t.rank <= 8)
   const top3 = top8.filter((t) => t.rank <= 3)
@@ -85,8 +74,6 @@ const ChampionsTournamentDetailContent = ({
           )}
         </dl>
 
-        {/* 원본 보기 — 아웃라인 버튼. 데스크톱은 카드 우상단 절대배치,
-            모바일은 카드 하단 full-width 별도 행(가로 공간 부족 회피, UX-011). */}
         {detail.sourceUrl && (
           <a
             href={detail.sourceUrl}
@@ -100,13 +87,11 @@ const ChampionsTournamentDetailContent = ({
         )}
       </header>
 
-      {/* 광고 — 대회 정보(헤더) 아래·TOP3 앞(champions 통일) */}
       <ChampionsInContentBanner
         mobileSlot={CHAMPIONS_SLOTS.tournamentsDetailMobile}
         desktopSlot={CHAMPIONS_SLOTS.tournamentsDetailDesktop}
       />
 
-      {/* Top 1~3 강조 */}
       {top3.length > 0 && (
         <section aria-labelledby="top3-heading" className="mb-8">
           <h2
@@ -115,8 +100,6 @@ const ChampionsTournamentDetailContent = ({
           >
             입상자 (Top 3)
           </h2>
-          {/* items-start: 같은 행에서 한 카드의 슬롯을 접거나 펼쳐도 옆 카드 높이가
-              함께 변하지 않도록 각 카드가 자기 콘텐츠 높이만 갖게 한다(UX-011 피드백). */}
           <ul
             className="grid grid-cols-1 items-start gap-6 desktop:grid-cols-3"
             aria-label="Top 3 입상자"
@@ -134,7 +117,6 @@ const ChampionsTournamentDetailContent = ({
         </section>
       )}
 
-      {/* Top 4~8 컴팩트 */}
       {top4to8.length > 0 && (
         <section aria-labelledby="top4to8-heading">
           <h2
@@ -143,8 +125,6 @@ const ChampionsTournamentDetailContent = ({
           >
             상위 입상자 (4~8위)
           </h2>
-          {/* items-start: 각 카드가 펼침/접힘 독립이라 행 높이를 균일화하면 한 카드를
-              펼칠 때 같은 행의 다른 카드까지 높이가 끌려 늘어난다. 자연 높이로 둔다. */}
           <ul
             className="grid grid-cols-1 items-start gap-4 desktop:grid-cols-2"
             aria-label="4~8위 입상자"

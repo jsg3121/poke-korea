@@ -5,18 +5,6 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useDebouncedCallback } from '~/hooks/useDebounce'
 import SearchInput from '~/components/input/SearchInput.component'
 
-/**
- * 특성 검색 영역 (반응형 단일). SearchInput DS 원자 + 결과 카운트.
- *
- * 검색 영역을 "특성이란?" 설명 블록보다 위로 승격하고(UX-007), 전역 헤더 아래에
- * 이어붙는 sticky(모바일 top-12=헤더 48px / 데스크톱 top-30=fixed 헤더)로 둔다 —
- * list의 FilterBar sticky 좌표 규칙과 동일. 스크롤해도 검색이 항상 손 닿는 곳에 있다.
- *
- * 입력은 URL query(?search=)만 갱신한다 — 목록 데이터 페칭(useAbilityList)이 이
- * query를 구독하므로 상태를 중복 보관하지 않는다(단일 진실원). 디바운스로 과도한
- * 라우팅을 막는다. 인풋 마크업은 SearchInput DS로 교체(구버전 gray/blue 비토큰 색 제거).
- */
-
 interface AbilitySearchProps {
   totalCount: number
 }
@@ -27,9 +15,6 @@ const AbilitySearch = ({ totalCount }: AbilitySearchProps) => {
   const router = useRouter()
 
   const updateSearchParams = useDebouncedCallback((value: string) => {
-    // ReadonlyURLSearchParams(params)를 직접 넘기면 타입 호환 경고가 날 수 있어
-    // toString()으로 복사한다. search만 갱신하고 나머지 쿼리(필터·페이지 등)는
-    // 보존해야 하므로, 갱신한 queryString을 분기 상관없이 그대로 URL에 반영한다.
     const queryString = new URLSearchParams(params.toString())
     const trimmedValue = value.trim()
 

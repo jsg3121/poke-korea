@@ -7,16 +7,6 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
 import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
 
-/**
- * 계산 결과 후속 CTA (반응형 단일 — UX-009). 구버전 데/모 2벌
- * TypeEffectivenessCta를 대체한다 — 구조·링크는 유지하고 임의값(text-[1.75rem])
- * 폰트만 토큰 정합, 그리드는 모바일 1열로 반응형 단일화한다.
- *
- * 단일 타입 선택 시에만 "해당 타입 도감 보기"가 추가된다(2개 조합은 도감
- * 리스트가 타입 2개 필터 URL을 지원하지만 조합 결과보다 개별 타입 탐색이
- * 자연스러워 구버전 동작 유지).
- */
-
 const TypeEffectivenessCta = () => {
   const { selectTypeList } = useContext(TypeEffectivenessContext)
 
@@ -42,11 +32,6 @@ const TypeEffectivenessCta = () => {
         다음에는 어떤 걸 해볼까요?
       </h3>
       <ul className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
-        {/* 타입 상세 링크를 1순위로 둔다 — 이 시점의 사용자는 이미 그 타입에
-            관심을 표명했고 결과를 다 읽은 뒤라 다음 행동을 찾는 상태다.
-            계산기 조작을 방해하지 않으면서 전환율이 가장 높은 지점이다(§15).
-            2개를 골랐으면 복합 타입 페이지는 만들지 않으므로(§13) 개별 타입
-            2개로 나눠 노출한다. */}
         {selectTypeList.map((type) => (
           <li key={`type-detail-${type}`}>
             <Link href={buildTypeDetailPath(type)} className={CTA_LINK_CLASS}>

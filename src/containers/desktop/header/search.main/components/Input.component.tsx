@@ -1,17 +1,7 @@
 import { forwardRef } from 'react'
 
 interface InputComponentsProps {
-  /**
-   * input data 정보를 명시하는 텍스트
-   * @example
-   * <label>
-   *   <input id={dataLabel} {...otherProps} />
-   * </label>
-   */
   dataLabel: string
-  /**
-   * 해당 input의 title, name등의 텍스트를 입력
-   */
   label: string
   hasValue: boolean
 }

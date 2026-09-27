@@ -8,17 +8,6 @@ import { usePokemonsBySkill } from '~/hooks/usePokemonsBySkill'
 import EmptyState from '~/components/emptyState/EmptyState.component'
 import PokemonBySkillCard from '~/components/moves/PokemonBySkillCard.component'
 
-/**
- * 기술별 포켓몬 목록 (반응형 단일 — UX-008). 구버전 데/모 2벌 MoveDetail.container의
- * "이 기술을 배우는 포켓몬" 영역을 대체한다. UA 분기·display:none 없이
- * CSS(desktop:)만으로 반응(ADR-0007) — ability의 PokemonByAbility 동형.
- *
- * 카운트 문구는 시각적으로 섹션 제목 역할을 하므로 h2로 승격(스크린리더 구조 탐색).
- * 포켓몬 카드는 도감 카드와 셸을 공유(PokemonBySkillCard). 버전 전환은 URL 세그먼트
- * (page.tsx가 selectedVersionGroupId를 내려줌)라 훅 variables가 바뀌며 재조회된다.
- */
-
-/** LCP 후보(첫 화면 카드)만 eager 로딩 — 모바일 2열 커버 */
 const HIGH_PRIORITY_COUNT = 8
 
 interface PokemonBySkillListProps {
@@ -46,8 +35,6 @@ const PokemonBySkillList = ({
     initialPokemonList,
   })
 
-  // 습득법 라벨은 마스터 쿼리에서 받아 카드에 주입한다 — 습득법이 9종으로 늘었고
-  // 앞으로도 추가될 수 있어, 하드코딩 매핑은 신규 값을 enum 원문으로 노출시킨다.
   const { getLabel } = useLearnMethodLabels()
 
   const sentinelRef = useInfiniteScroll({

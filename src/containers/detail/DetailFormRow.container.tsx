@@ -14,17 +14,6 @@ import Image from '~/components/Image.component'
 
 import { getFormBasePath } from './modules/activeForm.module'
 
-/**
- * 폼 전환 로우 (반응형 단일 — UX-005 §7-5). 히어로 **외부의 독립 로우**로,
- * 데/모가 동일한 "아이콘+상시 라벨 알약" 버튼이다 — 기존 데스크톱의 hover
- * 슬라이드(C1 결함)와 데/모 UI 불일치(M1)를 함께 해소하면서, 기존 스위치의
- * 시각 문법(밝은 알약 + 폼별 아이콘 + 비활성 grayscale/opacity)을 계승한다
- * (QA 라운드 3 — 텍스트 칩만으로는 가시성·식별성이 부족).
- *
- * 폼 인덱스 슬라이드(◀ n/N ▶)는 DetailHero 하단 중앙 책임. 버튼 높이 h-8
- * (32px, WCAG 2.5.8 AA 충족)이라 간격은 gap-3(12px)로 컴팩트하게 둔다.
- */
-
 const formLinkClass = (active: boolean) =>
   `flex h-8 items-center gap-1 rounded-2xl bg-primary-4 px-3 text-xs font-semibold text-black-2 transition-opacity desktop:text-sm ${
     active
@@ -32,7 +21,6 @@ const formLinkClass = (active: boolean) =>
       : 'opacity-65 hover:opacity-100 focus-visible:opacity-100'
   } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4`
 
-/** webp 아이콘(메가·거다이) — 비활성은 grayscale로 톤 다운(기존 스위치 문법) */
 const WebpFormIcon = ({
   src,
   alt,
@@ -129,7 +117,6 @@ const DetailFormRow = () => {
     },
   ].filter((chip) => chip.show)
 
-  // 이로치는 폼이 아니라 현재 폼 위 토글 — 활성 상태만 공유하고 경로는 유지한다
   const shinyHref = isShiny ? basePath : `${basePath}?shinyMode=shiny`
 
   return (

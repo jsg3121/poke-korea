@@ -14,15 +14,8 @@ import {
   DetailBreedingSpecSection,
 } from './DetailSpecSection.container'
 
-/**
- * 기본 정보 + 특성 카드 (반응형 단일 — 기존 데/모 Description·AbilitiesInfo 이관).
- * 모바일 세로 스택 → 데스크톱 2컬럼(기존 데스크톱 배치 유지).
- *
- * 기본정보 행은 고정 h-12 대신 **min-h-12** — 애드센스 자동 광고가 본문에 링크
- * 유닛을 주입해도(UX-005 §6-2에서 확인) 행이 겹치지 않고 세로로 늘어난다.
- */
-
-// 모바일은 폰트 축소에 맞춰 행 높이도 줄인다(min-h-9, QA 라운드 3 — 여백 과대)
+// 고정 높이가 아닌 min-h — 애드센스 자동 광고가 본문에 링크 유닛을 주입해도
+// 행이 겹치지 않고 세로로 늘어난다.
 const infoRowClass =
   'w-full min-h-9 desktop:min-h-12 border-b border-primary-3 border-solid flex flex-wrap items-center gap-2 py-1.5 desktop:py-2 last:border-b-0 last:pb-0'
 
@@ -115,7 +108,6 @@ const DetailInfoSection = () => {
         <DetailBreedingSpecSection />
       </div>
 
-      {/* 특성 직후 맥락 배치 — 퀴즈 유입 확대(UX-005 §6-3) */}
       <DetailQuizCta
         title="특성 퀴즈에 도전해보세요!"
         description="다양한 포켓몬의 특성을 얼마나 알고 있나요?"
