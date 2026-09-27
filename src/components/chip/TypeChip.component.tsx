@@ -33,10 +33,6 @@ const TypeChip = ({
 }: TypeChipProps) => {
   const id = `type-chip-${name ? `${name}-` : ''}${value.toLowerCase()}`
 
-  // radio는 이미 checked인 항목을 다시 클릭해도 change 이벤트가 발생하지 않는다
-  // (HTML 명세 — 상태가 안 바뀌므로). 선택 해제 토글을 지원하려면 click에서 직접
-  // onChange를 불러줘야 한다. MouseEvent도 currentTarget/target이 같은 input이라
-  // 호출부(value 읽기)엔 동일하게 동작한다 — 타입만 좁혀서 전달한다.
   const handleActiveReclick = (e: MouseEvent<HTMLInputElement>) => {
     if (mode === 'single' && active) {
       onChange(e as unknown as ChangeEvent<HTMLInputElement>)

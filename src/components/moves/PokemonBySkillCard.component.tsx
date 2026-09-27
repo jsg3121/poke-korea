@@ -25,7 +25,6 @@ const PokemonBySkillCard = ({
     [pokemonData.types],
   )
 
-  // formType은 'BASE' | 'NORMAL' | 'REGION' — PokemonWithAbility의 *_FORM과 다르다.
   const formLabel = useMemo(() => {
     switch (pokemonData.formType) {
       case 'REGION':

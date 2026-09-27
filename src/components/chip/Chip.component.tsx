@@ -1,7 +1,5 @@
 import { ChipColor } from './chip.types'
 
-// h-7(28px)은 WCAG 2.2 SC 2.5.8(24px)을 넘되 44px엔 못 미친다 — clickable 칩을
-// 그룹으로 배치하는 상위에서 항목 간 간격을 24px 이상 둬야 한다.
 const BASE_CLASS =
   'inline-block px-3 h-7 rounded-lg text-sm text-aligned-md font-medium whitespace-nowrap transition-all'
 

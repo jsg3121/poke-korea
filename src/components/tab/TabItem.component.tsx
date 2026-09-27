@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 export type TabItemVariant = 'underline' | 'fill'
 
-// min-h는 WCAG 2.2 SC 2.5.8(24px)을 충족하는 값이다.
 const BASE_CLASS =
   'inline-flex items-center justify-center min-h-9 desktop:min-h-touch whitespace-nowrap font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4'
 

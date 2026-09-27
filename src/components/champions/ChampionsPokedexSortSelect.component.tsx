@@ -6,7 +6,6 @@ import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
 
 type SortQueryValue = 'usage' | 'dex'
 
-// 쿼리값 'usage'는 백엔드 정렬 인자 하위호환을 위해 유지한다.
 const SORT_OPTIONS: Array<{ value: SortQueryValue; label: string }> = [
   { value: 'usage', label: '순위순' },
   { value: 'dex', label: '도감번호순' },

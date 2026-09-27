@@ -1,7 +1,5 @@
 import CloseIcon from '~/assets/close.svg'
 
-// shrink-0 필수: 가로 스크롤 로우에서 shrink를 막지 않으면 공간 부족 시
-// 스크롤 대신 칩이 압축되어 라벨이 잘린다.
 interface AppliedFilterChipProps {
   label: string
   onRemove: () => void

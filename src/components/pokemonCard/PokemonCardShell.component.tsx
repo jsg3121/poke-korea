@@ -9,7 +9,6 @@ import Ball from '~/components/ball/Ball.component'
 import Image from '~/components/Image.component'
 import Tag from '~/components/tag/Tag.component'
 
-// Shell과 PokemonCardSkeleton이 공유한다 — 어긋나면 CLS가 발생한다.
 export const POKEMON_CARD_SIZE = {
   width: 'min-w-36 max-w-48 desktop:max-w-none desktop:w-56',
   height: 'h-[15.5rem] desktop:h-80',

@@ -3,8 +3,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import Link from 'next/link'
 
-// useLayoutEffect는 SSR에서 경고를 낸다. 서버에선 아무것도 하지 않는 useEffect로
-// 대체한다 — CSR 전용으로 돌리면 초기 HTML에서 내부 링크가 빠진다.
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
@@ -49,8 +47,6 @@ const MovesVersionNav = ({
     const isVisible =
       left >= list.scrollLeft && right <= list.scrollLeft + list.clientWidth
 
-    // 동작 줄이기 설정을 켠 사용자에겐 'auto'로 낮춘다 — 옆으로 미끄러지는 움직임은
-    // 전정 장애 사용자에게 어지럼증을 유발할 수 있다(WCAG 2.1 SC 2.3.3).
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches
@@ -78,8 +74,6 @@ const MovesVersionNav = ({
       <div className="relative">
         <div
           ref={scrollRef}
-          // overflow-y-hidden 필수: overflow-x만 auto면 CSS 명세상 overflow-y도
-          // auto로 강제 계산돼 미세한 세로 오버플로에도 Y축 스크롤이 잡힌다.
           className="flex gap-3 scroll-pl-4 overflow-x-auto overflow-y-hidden px-4 py-0.5 desktop:scroll-pl-0 desktop:px-0 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-track]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3/40"
         >
           {items.map((item) => (
