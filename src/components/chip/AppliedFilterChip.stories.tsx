@@ -26,10 +26,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 단일 */
 export const Default: Story = {}
 
-/** 적용 필터 로우 — 타입+모달 필터 혼합 (flex-wrap, 상위가 간격 확보) */
 export const FilterRow: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-2">

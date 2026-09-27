@@ -29,7 +29,6 @@ const ChampionsTeamCoreSection = ({
 }: ChampionsTeamCoreSectionProps) => {
   const [selectedSize, setSelectedSize] = useState<CoreSize>(2)
 
-  // 사이즈별로 그룹화 + 각 사이즈 내에서 rank 오름차순 정렬 후 TOP N
   const coresBySize = useMemo(() => {
     const map = new Map<CoreSize, ChampionsTeamCoreFragment[]>()
     for (const size of [2, 3, 4] as const) {
@@ -53,9 +52,6 @@ const ChampionsTeamCoreSection = ({
       aria-labelledby="teamcore-heading"
       className="w-full mb-8 desktop:mb-12"
     >
-      {/* 모바일: 헤더와 select를 세로로 분리해 select가 타이틀 폭을 좁혀
-          줄바꿈시키지 않게 한다(다른 섹션 헤더와 동일한 반응형 정책).
-          데스크톱: 헤더와 select를 한 행에 양끝 배치. */}
       <div className="mb-4 px-1 desktop:flex desktop:items-end desktop:justify-between desktop:gap-3">
         <div id="teamcore-heading" className="desktop:flex-1">
           <ChampionsHomeSectionHeader

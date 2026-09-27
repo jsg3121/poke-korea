@@ -51,7 +51,6 @@ export const Disabled: Story = {
   args: { variant: 'primary', children: '비활성', disabled: true },
 }
 
-/** size 3종 비교 */
 export const Sizes: Story = {
   render: (args) => (
     <div className="flex items-center gap-4">
@@ -68,7 +67,6 @@ export const Sizes: Story = {
   ),
 }
 
-/** variant 3종 비교 */
 export const AllVariants: Story = {
   render: (args) => (
     <div className="flex items-center gap-4">
@@ -85,7 +83,6 @@ export const AllVariants: Story = {
   ),
 }
 
-/** 전체 폭 */
 export const FullWidth: Story = {
   args: { variant: 'primary', children: '퀴즈 시작', fullWidth: true },
   decorators: [

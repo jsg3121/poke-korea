@@ -7,14 +7,6 @@ import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { getChangeTypeList } from '~/modules/getChangeTypeList.module'
 import TypeChip from '~/components/chip/TypeChip.component'
 
-/**
- * 챔피언스 도감 타입 필터. 포켓몬 도감 리스트(FilterBar.organism)와 동일한 공유
- * TypeChip 원자를 사용해 타입 필터 디자인을 통일한다(아이콘 하단 타입명 상시 노출,
- * 미선택은 원본색 연하게·선택 시 컬러). 도메인 로직(URL 쿼리 동기화, 최대 2개
- * 선택 제약)은 이 컴포넌트가 담당하고, 개별 토글 표현은 TypeChip에 위임한다.
- */
-
-/** 타입 동시 선택 최대 수 */
 const MAX_TYPE_SELECTION = 2
 
 const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
@@ -26,7 +18,6 @@ const ChampionsTypeFilter = () => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // filter(Boolean)으로 빈 문자열 방어 — `type=`(빈값)이면 split이 ['']을 반환하므로
   const typeList = searchParams.get('type')?.split(',').filter(Boolean) ?? []
 
   const handleClickTypeFilter = (e: ChangeEvent<HTMLInputElement>) => {

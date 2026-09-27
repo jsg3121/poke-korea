@@ -28,7 +28,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** dark — 진한 아이콘 (밝은 배경 모달용) */
 export const Dark: Story = {
   args: { color: 'dark' },
   decorators: [
@@ -40,7 +39,6 @@ export const Dark: Story = {
   ],
 }
 
-/** light — 밝은 아이콘 (진한 배경 모달용) */
 export const Light: Story = {
   args: { color: 'light' },
   decorators: [

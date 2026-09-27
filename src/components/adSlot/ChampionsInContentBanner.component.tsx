@@ -5,24 +5,12 @@ import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 import { useDevice } from '~/context/Device.context'
 
 interface ChampionsInContentBannerProps {
-  /** 모바일 슬롯 ID (빈 문자열이면 렌더 안 함) */
   mobileSlot: string
-  /** 데스크톱 슬롯 ID (빈 문자열이면 렌더 안 함) */
   desktopSlot: string
 }
 
-/**
- * 챔피언스 인콘텐츠 광고 (RES-004 재배치). 4라우트(홈·도감·티어·상세)가 슬롯만
- * 바꿔 공유하는 공통 컴포넌트 — 형식이 모두 동일하기 때문(개별 컴포넌트 4벌 대신
- * 슬롯 prop 주입). 기기별 성과 분리를 위해 useDevice(서버 주입 isMobile)로
- * PC·모바일 슬롯을 나눠 조건부 렌더한다(숨김 렌더는 AdSense 정책 위반).
- *
- * 형식(위치 확인 후 확정 예정, 현재 기본안):
- * - 데스크톱: 인아티클(fluid, in-article) — 기존 champions PC 형식.
- * - 모바일: 디스플레이 320×100 — 기존 champions 모바일 형식(높이 예측 가능).
- *
- * 슬롯 미발급('') 시 렌더하지 않는다(빈 광고 요청 방지).
- */
+// 숨김 렌더는 AdSense 정책 위반이라 조건부 렌더로 한쪽만 DOM에 넣는다.
+// 슬롯 미발급('')이면 렌더하지 않는다 — 빈 광고 요청 방지.
 const ChampionsInContentBanner = ({
   mobileSlot,
   desktopSlot,

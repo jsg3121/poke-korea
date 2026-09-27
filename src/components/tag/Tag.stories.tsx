@@ -57,10 +57,6 @@ export const Default: Story = {
   args: { type: 'GRASS' as PokemonType },
 }
 
-/**
- * 18개 타입 전체. 흰색 글자(WCAG 대비) 6종: 격투·독·고스트·드래곤·악·바위.
- * 나머지 12종은 검정 글자.
- */
 export const AllTypes: Story = {
   args: { type: 'GRASS' as PokemonType },
   render: () => (

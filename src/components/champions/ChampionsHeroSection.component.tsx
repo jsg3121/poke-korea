@@ -31,9 +31,6 @@ const ChampionsHeroSection = ({
         moreLabel="티어 전체 보기"
       />
 
-      {/* 일반 홈과 동일한 DS 가로 스크롤(HorizontalScrollList) 사용 — 카드 폭·간격·
-          엣지 페이드 규격을 공유해 메인 홈 카드와 통일한다. 자체 마크업을 쓰면 DS
-          카드 폭 변경이 반영되지 않아 홈과 어긋난다(사용자 피드백 2026-07-27). */}
       <HorizontalScrollList aria-label="S 티어 포켓몬 슬라이드">
         {top3.map((pokemon) => (
           <ChampionsTopCard

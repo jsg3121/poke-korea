@@ -43,7 +43,6 @@ const singleTypePokemon = {
   },
 }
 
-/** 챔피언스 등에서 나타나는 긴 이름 (리전폼/메가 표기 포함) */
 const longNamePokemon = {
   ...mockPokemon,
   id: '964',
@@ -52,7 +51,6 @@ const longNamePokemon = {
   types: ['WATER'] as PokemonType[],
 }
 
-/** 가장 긴 이름 케이스 — 폰트 단계 축소 검증용 */
 const veryLongNamePokemon = {
   ...mockPokemon,
   id: '128',
@@ -86,30 +84,22 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 듀얼 타입 (풀+독) — 그라데이션 배경. 데스크톱 폭(w-56=224px). */
 export const Pokedex: Story = {
   args: { pokemonData: mockPokemon },
 }
 
-/** 싱글 타입 (불꽃) — 단색 배경. */
 export const SingleType: Story = {
   args: { pokemonData: singleTypePokemon },
 }
 
-/**
- * 긴 이름 (챔피언스 등) — No.xxx 아랫줄에 한 줄로 통째 노출. whitespace-nowrap으로
- * 쪼개지지 않고, 길이에 따라 폰트가 단계 축소(getNameFontClass)돼 잘리지 않는지 확인.
- */
 export const LongName: Story = {
   args: { pokemonData: longNamePokemon },
 }
 
-/** 가장 긴 이름 — 폰트가 한 단계 더 작아져 카드 폭 안에 들어가는지 확인 */
 export const VeryLongName: Story = {
   args: { pokemonData: veryLongNamePokemon },
 }
 
-/** 긴 이름 — 모바일 2열에서 헤더 줄바꿈 확인 */
 export const LongNameMobileGrid: Story = {
   globals: { viewport: { value: 'mobile' } },
   parameters: { layout: 'fullscreen' },
@@ -122,10 +112,6 @@ export const LongNameMobileGrid: Story = {
   ),
 }
 
-/**
- * 모바일 2열 그리드 — 390px 화면(gutter px-5 + gap-4) 기준. 카드가 base 폭(w-36)으로
- * 축소돼 2열에 들어가고, 데스크톱 비율을 유지하는지 확인용.
- */
 export const MobileGrid: Story = {
   globals: { viewport: { value: 'mobile' } },
   parameters: { layout: 'fullscreen' },

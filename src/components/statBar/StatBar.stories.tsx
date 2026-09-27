@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import StatBar from './StatBar.component'
 
-/** 리자몽 종족값 — 최고(특수공격 109) 1건, 최저(체력·방어 78) 동률 2건 */
 const CHARIZARD_STATS = [
   { label: '체력', value: 78 },
   { label: '공격', value: 84 },
@@ -43,15 +42,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 리자몽 — 최저 동률(체력·방어 78) 전부 마킹 + 뷰포트 진입 카운트업 */
 export const Default: Story = {}
 
-/** 모션 없음 — SSR/reduced-motion과 동일한 최종 상태 */
 export const NoMotion: Story = {
   args: { animated: false },
 }
 
-/** 총합 행 없이 막대만 */
 export const WithoutTotal: Story = {
   args: { animated: false, showTotal: false },
 }

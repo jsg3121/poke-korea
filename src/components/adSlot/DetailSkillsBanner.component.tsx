@@ -4,12 +4,6 @@ import { ADSENSE_CLIENT, DETAIL_INCONTENT_SLOTS } from '~/constants/adSense'
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 import { useDevice } from '~/context/Device.context'
 
-/**
- * 상세 지점 2(습득 기술 표↔타입 상성 사이) 광고 — RES-004 배치안.
- *
- * 기기별 성과 분리 추적을 위해 모바일(320×100)·데스크톱(728×90) 슬롯을 나눈다.
- * 분기·정책 근거는 DetailStatsBanner와 동일. 슬롯 미발급 시('') 렌더하지 않는다.
- */
 const DetailSkillsBanner = () => {
   const { slotRef } = useAdSlotEffect()
   const { isMobile } = useDevice()

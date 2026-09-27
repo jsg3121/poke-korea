@@ -25,10 +25,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 단일 */
 export const Default: Story = {}
 
-/** 리스트 로딩 상황 — 그리드 끝에 스켈레톤 이어붙기 (모바일 2열 → 데스크톱 5열) */
 export const InGrid: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center desktop:grid-cols-5">
@@ -40,7 +38,6 @@ export const InGrid: Story = {
   ),
 }
 
-/** 모바일 뷰 (2열, 340px대에서도 max-w-full로 클립 방지) */
 export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
   render: () => (

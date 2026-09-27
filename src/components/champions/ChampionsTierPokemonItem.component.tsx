@@ -117,11 +117,6 @@ const ChampionsTierPokemonItem = ({
         </div>
       )}
 
-      {/* 인기 기술/도구 top1 (한글명). 데이터 원천 변경으로 사용률·승률(%)이 항상
-          null이 되어 막대 그래프를 제거하고 실제 채택 top1로 교체했다. 인기도 서열은
-          우상단 #순위 배지가 담당한다. 정보 제공이 목적이라 값은 말줄임 없이 줄바꿈으로
-          전부 노출한다(break-keep=한글 단어 단위 줄바꿈). 라벨을 값 위에 두어 값이 카드
-          가로폭 전체를 쓰게 해 줄바꿈을 최소화한다. */}
       <dl className="w-full mt-2 flex flex-col gap-1.5 text-center">
         <div className="text-[11px] text-primary-3 group-hover:text-primary-1">
           <dt className="font-bold text-primary-3/70 group-hover:text-primary-1/70">

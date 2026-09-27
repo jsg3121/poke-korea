@@ -2,11 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import FilterModal from './FilterModal.component'
 
-/**
- * useRouter/useSearchParams/usePathname를 nextjs navigation 목킹으로 주입한다
- * (Storybook 10 + @storybook/nextjs App Router 지원). query에 값을 넣으면 해당 필터가
- * 초기 선택된 상태로 렌더된다.
- */
 const noop = () => undefined
 
 const meta = {
@@ -40,10 +35,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 — 선택 없음 (데스크톱 중앙 카드) */
 export const Default: Story = {}
 
-/** 일부 필터가 선택된 초기 상태 (query 주입) */
 export const WithSelection: Story = {
   parameters: {
     nextjs: {
@@ -55,7 +48,6 @@ export const WithSelection: Story = {
   },
 }
 
-/** 모바일 뷰 (풀스크린 시트) */
 export const Mobile: Story = {
   parameters: {
     viewport: { defaultViewport: 'mobile' },

@@ -11,12 +11,6 @@ interface SearchResultListProps {
   loading: boolean
 }
 
-/**
- * 헤더 검색 결과 드롭다운.
- *
- * @remarks
- * - `left-0`은 생략할 수 없다 — 미지정 시 정적 위치에 의존해 검색 인풋과 좌측이 어긋난다.
- */
 const SearchResultList = ({ pokemonList, loading }: SearchResultListProps) => {
   return (
     <div className="w-full min-h-10 bg-white p-4 px-2 rounded-[1.125rem] absolute left-0 mobile:top-10 mobile:z-[600] desktop:top-14 desktop:z-[100]">

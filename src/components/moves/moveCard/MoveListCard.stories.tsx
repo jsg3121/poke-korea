@@ -4,10 +4,6 @@ import { PokemonSkill, PokemonType } from '~/graphql/typeGenerated'
 
 import MoveListCard from './MoveListCard.component'
 
-/**
- * 기술 목록 카드. 기술 도감(/moves) 목록의 기술 항목 하나를 표시하는
- * "이미지 없는 텍스트 카드"(AbilityCard·HubLinkCard와 같은 밝은 카드 문법).
- */
 const 몸통박치기: PokemonSkill = {
   __typename: 'PokemonSkill',
   id: '33',
@@ -51,10 +47,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 (물리 기술) */
 export const Default: Story = {}
 
-/** 특수 기술 (100만볼트) */
 export const Special: Story = {
   args: {
     moveData: {
@@ -71,7 +65,6 @@ export const Special: Story = {
   },
 }
 
-/** 변화 기술 — 위력 없음(-) */
 export const Status: Story = {
   args: {
     moveData: {
@@ -88,7 +81,6 @@ export const Status: Story = {
   },
 }
 
-/** Z기술 배지 */
 export const ZMove: Story = {
   args: {
     moveData: {
@@ -106,7 +98,6 @@ export const ZMove: Story = {
   },
 }
 
-/** 긴 이름 — 제목이 줄바꿈돼도 배지는 유지, 하단 링크와 겹치지 않는다 */
 export const LongName: Story = {
   args: {
     moveData: {
@@ -123,7 +114,6 @@ export const LongName: Story = {
   },
 }
 
-/** 목록 그리드 — 모바일 1열 → 데스크톱 auto-fill 다열 (부모 그리드 책임) */
 export const ListGrid: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-4 desktop:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] desktop:gap-6">

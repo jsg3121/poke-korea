@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import PageHeader from './PageHeader.component'
 
-/** 페이지 헤더는 진한 네이비 배경(primary-1) 위, 페이지 상단에 놓인다. */
 const PageBg = (Story: React.ComponentType) => (
   <div className="bg-primary-1 px-5 pt-4 w-[420px] desktop:w-[800px]">
     <Story />
@@ -37,10 +36,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 */
 export const Default: Story = {}
 
-/** 긴 설명 (줄바꿈) */
 export const LongDescription: Story = {
   args: {
     title: '타입 상성',

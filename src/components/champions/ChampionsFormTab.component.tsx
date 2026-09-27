@@ -18,7 +18,6 @@ const ChampionsFormTab = ({
   formSiblings,
   formatSlug,
 }: ChampionsFormTabProps) => {
-  // 형제 폼이 1개뿐이면(자기 자신만) 탭 노출 안 함
   if (formSiblings.length <= 1) {
     return null
   }

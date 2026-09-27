@@ -17,10 +17,6 @@ interface ChampionsTierGroupProps {
   tier: Tier
   pokemons: ChampionsMetaSummaryFragment[]
   formatSlug: ChampionsFormatSlug
-  /**
-   * 초기 접힘 여부. C/D 티어처럼 항목이 많은 그룹은 기본 접힘으로 처리하여
-   * 이미지 다수 동시 로드를 방지한다.
-   */
   defaultCollapsed?: boolean
 }
 

@@ -4,17 +4,6 @@ import { ADSENSE_CLIENT } from '~/constants/adSense'
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 import { useDevice } from '~/context/Device.context'
 
-/**
- * 기술 도감 목록(/moves) 상단 광고 — RES-004 재도입.
- *
- * sticky 크롬(검색+필터) 뒤, 카드 그리드 앞. 검증된 기존 슬롯을 기기별로
- * 재사용한다(성과 분리):
- * - 데스크톱: 디스플레이 970×250 슬롯 9663884985.
- * - 모바일: 디스플레이 320×100 슬롯 1972830328.
- *
- * 목록은 인피드(카드 사이) 대신 상단 배너를 쓴다 — 구버전 인피드는 커버리지
- * 0.02~0.03, CTR 0.02%로 사실상 실패했다(RES-004 진단).
- */
 const MovesListTopBanner = () => {
   const { slotRef } = useAdSlotEffect()
   const { isMobile } = useDevice()

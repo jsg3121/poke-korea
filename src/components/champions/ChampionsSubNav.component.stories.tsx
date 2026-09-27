@@ -2,10 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import ChampionsSubNav from './ChampionsSubNav.component'
 
-/**
- * usePathname을 nextjs navigation 목킹으로 주입해 active 상태를 story별로 렌더한다
- * (Storybook 10 + @storybook/nextjs App Router 지원).
- */
 const meta = {
   title: 'Organisms/ChampionsSubNav',
   component: ChampionsSubNav,
@@ -30,33 +26,28 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 홈 active (/champions/double) */
 export const HomeActive: Story = {
   parameters: { nextjs: { navigation: { pathname: '/champions/double' } } },
 }
 
-/** 도감 active (/champions/double/list) */
 export const ListActive: Story = {
   parameters: {
     nextjs: { navigation: { pathname: '/champions/double/list' } },
   },
 }
 
-/** 티어 active (/champions/double/tier) */
 export const TierActive: Story = {
   parameters: {
     nextjs: { navigation: { pathname: '/champions/double/tier' } },
   },
 }
 
-/** 대회 active (/champions/tournaments) */
 export const TournamentsActive: Story = {
   parameters: {
     nextjs: { navigation: { pathname: '/champions/tournaments' } },
   },
 }
 
-/** 모바일 뷰 (flex-1 균등 배분, 12px — 스크롤 없이 꽉) */
 export const Mobile: Story = {
   parameters: {
     nextjs: { navigation: { pathname: '/champions/double/list' } },

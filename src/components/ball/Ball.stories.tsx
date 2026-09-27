@@ -30,16 +30,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** lg — 24→32px (카드 현행) */
 export const Large: Story = { args: { size: 'lg' } }
 
-/** md — 20→24px */
 export const Medium: Story = { args: { size: 'md' } }
 
-/** sm — 16px (체크박스·토글 등) */
 export const Small: Story = { args: { size: 'sm' } }
 
-/** size별 비교 */
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-end gap-4">
@@ -50,7 +46,6 @@ export const AllSizes: Story = {
   ),
 }
 
-/** 부모 크기에 맞춤 (size 없음) — 카드 등에서 부모가 크기를 정할 때 */
 export const FitParent: Story = {
   args: {
     size: 'md',

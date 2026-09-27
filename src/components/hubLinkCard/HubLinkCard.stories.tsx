@@ -9,10 +9,6 @@ import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
 
 import HubLinkCard from './HubLinkCard.component'
 
-/**
- * 허브 링크 카드. 홈의 내부 링크 허브 블록(콘텐츠 축 6개 진입 타일)을 구성한다.
- * 아이콘은 MobileTabBar와 같은 SVGR 자산을 슬롯으로 주입한다.
- */
 const meta = {
   title: 'Components/HubLinkCard',
   component: HubLinkCard,
@@ -43,10 +39,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 (도감 타일) */
 export const Default: Story = {}
 
-/** 홈 허브 블록 — 6개 타일, 모바일 2열 → 데스크톱 3열 (부모 그리드 책임) */
 export const HomeHubGrid: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4 desktop:grid-cols-3">
@@ -90,7 +84,6 @@ export const HomeHubGrid: Story = {
   ),
 }
 
-/** 모바일 뷰 (2열 그리드) */
 export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
   render: () => (

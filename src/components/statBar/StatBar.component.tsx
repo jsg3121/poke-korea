@@ -2,37 +2,19 @@
 
 import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
 
-/**
- * 종족값 가로 막대 (DS). 스탯명 + 수치 + 막대 + 최고/최저 마커를 한 행으로 표시한다.
- *
- * 레이더(canvas) 차트를 대체하는 DOM 기반 시각화(UX-005 §6-1) — 수치가 실제 DOM
- * 텍스트라 스크린리더가 개별 값을 읽을 수 있고(WCAG 1.1.1), 막대는 장식(aria-hidden)이다.
- *
- * - 막대 최댓값은 고정이 아니라 "최고 능력치 + 20"(사용자 결정, 기존 레이더의
- *   maxPoint+10과 같은 동적 방식) — 개체마다 최고 스탯이 화면을 크게 쓰도록.
- * - 최고/최저는 색 차등 + "최고"/"최저" 텍스트 마커 병기(색 단독 의존 금지,
- *   WCAG 1.4.1). 동률이면 전부 마킹한다(사용자 결정).
- * - 뷰포트 진입 시 수치 카운트업 + 막대 채움 모션(1회). 진행도 계산은
- *   useEnterViewProgress가 담당한다(SSR 최종값 유지·reduced-motion 대응 포함).
- */
-
 const STAT_MAX_PADDING = 20
 
 export interface StatBarItem {
-  /** 스탯명 (예: '체력') */
   label: string
   value: number
 }
 
 interface StatBarProps {
   stats: StatBarItem[]
-  /** 종족값 총합 행 표시 (기본 true) */
   showTotal?: boolean
-  /** 뷰포트 진입 카운트업 모션 (기본 true — reduced-motion 시 자동 비활성) */
   animated?: boolean
 }
 
-/** 수치를 aria-hidden 카운터 + sr-only 최종값 쌍으로 표시 — 모션 중에도 SR은 항상 최종값만 읽는다 */
 const AnimatedValue = ({
   value,
   progress,
@@ -90,7 +72,6 @@ const StatBar = ({
                 {stat.label}
               </dt>
               <dd className="m-0 w-11 shrink-0 text-right">
-                {/* 최고/최저는 수치 폰트도 함께 강조(사용자 요청, QA 라운드 1) */}
                 <AnimatedValue
                   value={stat.value}
                   progress={progress}

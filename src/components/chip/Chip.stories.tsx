@@ -36,15 +36,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 데미지 유형 색 칩 (표시 전용) */
 export const Physical: Story = { args: { label: '물리', color: 'physical' } }
 export const Special: Story = { args: { label: '특수', color: 'special' } }
 export const Status: Story = { args: { label: '변화', color: 'status' } }
 
-/** 기본(무색) 칩 — color 없음. 세대 칩 등 */
 export const Default: Story = { args: { label: '1세대', color: undefined } }
 
-/** 색 4종 한눈 비교 (표시 전용) */
 export const AllColors: Story = {
   render: () => (
     <div className="flex items-center gap-6">
@@ -56,7 +53,6 @@ export const AllColors: Story = {
   ),
 }
 
-/** 클릭형 칩 — 선택/미선택 (필터 용도). 그룹 간격 24px(gap-6) 확보 */
 export const Clickable: Story = {
   args: {
     clickable: true,
@@ -72,7 +68,6 @@ export const Clickable: Story = {
   ),
 }
 
-/** 클릭형 무색 칩 (세대 필터) */
 export const ClickableDefault: Story = {
   render: () => (
     <div className="flex items-center gap-6">

@@ -2,11 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import FilterBar from './FilterBar.component'
 
-/**
- * useRouter/useSearchParams/usePathname를 nextjs navigation 목킹으로 주입한다
- * (Storybook 10 + @storybook/nextjs App Router 지원). query.type에 값을 넣으면 해당
- * 타입 칩이 선택된 상태로 렌더된다.
- */
 const meta = {
   title: 'Organisms/FilterBar',
   component: FilterBar,
@@ -34,10 +29,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 — 선택 없음 (초기화 비활성) */
 export const Default: Story = {}
 
-/** 타입 2개 선택 (나머지 잠금, 초기화 활성) */
 export const TwoTypesSelected: Story = {
   parameters: {
     nextjs: {
@@ -49,7 +42,6 @@ export const TwoTypesSelected: Story = {
   },
 }
 
-/** 모바일 뷰 (칩 스크롤 줄 + 하단 액션 바) */
 export const Mobile: Story = {
   parameters: {
     nextjs: {
