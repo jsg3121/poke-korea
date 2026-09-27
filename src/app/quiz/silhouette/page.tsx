@@ -16,8 +16,6 @@ export const metadata = QUIZ_SILHOUETTE_META
 const SilhouetteQuizPage = async () => {
   return (
     <Fragment>
-      {/* 본문은 반응형 단일(SilhouetteQuiz, ADR-0007). Provider는 device 분기
-          위에서 감싸 상태를 공유한다. UA 분기는 전역 크롬 선택으로만 남는다. */}
       <SilhouetteQuizProvider>
         <SilhouetteQuiz />
       </SilhouetteQuizProvider>

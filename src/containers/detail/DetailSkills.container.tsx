@@ -11,18 +11,6 @@ import MoveTable, {
 
 import InfoCardTitle from './components/InfoCardTitle.component'
 
-/**
- * 습득 기술 카드 2종 — 레벨업/머신 (반응형 단일, MoveTable 조립 — UX-005 §7-4).
- * 기존 데/모 LevelLearnableSkill·MachineLearnableSkill의 "고정 높이 + 내부
- * overflow-y 스크롤"을 폐기한다 — 페이지 스크롤 안 내부 스크롤 중첩은 기술 표
- * 가로 스크롤을 기각한 것과 같은 이유(사용자 결정)로, 상위 N개만 보여주고
- * 전체는 기존 moves 하위 페이지 링크로 유도한다.
- *
- * 미리보기 개수는 뷰포트 무관 5개다. 데스크톱은 10개였으나 1.58.0에서 기본 제원
- * 카드 2장이 추가되며 페이지가 길어져 모바일과 같은 5개로 맞췄다. 전체 목록은
- * moves 하위 페이지가 담당하므로 카드는 맛보기 역할만 한다.
- */
-
 const SKILL_PREVIEW_COUNT = 5
 
 const DetailSkills = () => {
@@ -110,8 +98,6 @@ const DetailSkills = () => {
             </p>
           )}
           <MoveTable moves={block.moves} ariaLabel={block.ariaLabel} />
-          {/* 더보기는 개수와 무관하게 상시 노출 + 카드 하단 고정(mt-auto) —
-              2컬럼에서 카드 높이가 달라도 버튼 라인이 맞는다(사용자 요청) */}
           <div className="mt-auto flex justify-center pt-4">
             <LinkButton
               href={block.href}

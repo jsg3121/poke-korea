@@ -32,7 +32,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 도감 리스트 빈 결과 — 아이콘 + CTA (권장 구성) */
 export const Default: Story = {
   args: {
     icon: <PokeballIcon />,
@@ -44,5 +43,4 @@ export const Default: Story = {
   },
 }
 
-/** 텍스트만 (아이콘·CTA 없음) */
 export const TextOnly: Story = {}

@@ -48,8 +48,6 @@ export const generateMetadata = async ({
 
   const { gigantamaxData } = await fetchGigantamaxData(parsedPokemonId)
 
-  // 존재하지 않는 폼 인덱스는 페이지가 notFound()로 처리한다. 여기서 메타를
-  // 만들면 404 응답에 정상 title이 붙으므로 빈 객체를 반환한다.
   if (!gigantamaxData[activeIndex]) {
     return {}
   }
@@ -70,7 +68,6 @@ const GigantamaxPage = async ({
   const { pokemonId, index } = await params
   const query = await searchParams
 
-  // activeType 또는 activeIndex 쿼리 파라미터가 남아있으면 제거하고 리다이렉트
   if (query.activeType || query.activeIndex) {
     const { activeIndex: parsedIndex } = parseIndexParam(index)
     const queryParams = query.shinyMode ? `?shinyMode=${query.shinyMode}` : ''
@@ -101,7 +98,6 @@ const GigantamaxPage = async ({
     notFound()
   }
 
-  // 거다이맥스 불가능한 포켓몬인 경우 기본 상세 페이지로 리다이렉트
   if (!pokemonDetail.isGigantamax) {
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
@@ -112,7 +108,6 @@ const GigantamaxPage = async ({
     fetchPokemonSummaries(pokemonDetail.evolutionId),
   ])
 
-  // 존재하지 않는 폼 인덱스는 404.
   if (!gigantamaxData[activeIndex]) {
     notFound()
   }
@@ -143,7 +138,6 @@ const GigantamaxPage = async ({
 
   return (
     <DetailProvider {...props}>
-      {/* 콘텐츠는 반응형 단일(Detail) — UA 분기는 크롬 선택만(ADR-0007) */}
       <Detail
         prevPokemon={adjacent.prev}
         nextPokemon={adjacent.next}

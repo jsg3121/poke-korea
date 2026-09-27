@@ -9,19 +9,9 @@ import { useDebounce } from '~/hooks/useDebounce'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import Image from '~/components/Image.component'
 
-/**
- * /list 전용 헤더 검색 (모바일). 셸(인풋 h-8·12px 폰트·피드백 버튼)은
- * HeaderSearch(전역 검색)와 동일하되, 동작만 다르다:
- * 드롭다운(→상세 이동) 대신 **리스트 필터**(`?name=` 디바운스 반영).
- *
- * 데스크톱이 이미 쓰는 MainSearch/DetailSearch 분기 패턴을 모바일에 맞춘 것
- * (UX-004 검색 동작 확정 — 셸은 전 페이지 동일, /list만 필터 동작).
- */
 const ListSearch = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  // 초기값을 URL의 name과 동기화 — ''로 시작하면 ?name= 직접 진입 시 마운트
-  // 이펙트에서 keyword('')≠currentName이 되어 name이 삭제된다(Gemini 리뷰 확인)
   const [searchKeyword, debounce] = useDebounce(searchParams.get('name') ?? '')
   const feedbackFormUrl = useFeedbackFormUrl()
 
@@ -31,7 +21,6 @@ const ListSearch = () => {
 
   useEffect(() => {
     const currentName = searchParams.get('name') ?? ''
-    // 마운트 직후(keyword='')나 이미 반영된 값이면 URL을 건드리지 않는다
     if (searchKeyword === currentName) return
 
     const params = new URLSearchParams(searchParams)

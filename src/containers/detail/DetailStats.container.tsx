@@ -8,13 +8,6 @@ import StatBar from '~/components/statBar/StatBar.component'
 
 import { getActiveFormInfo } from './modules/activeForm.module'
 
-/**
- * 능력치 섹션 (반응형 단일 — UX-005 §6-1·§7). 레이더(canvas) 차트를 StatBar
- * 가로 막대로 대체 — 수치가 DOM 텍스트라 접근성 차단(C3)이 근본 해소되고,
- * 히어로와 분리된 별도 flow 영역이라 C1(폼 버튼과 카드 겹침) 재발 여지가 없다.
- * 활성 폼의 스탯(메가/리전은 폼 스탯)을 표시한다.
- */
-
 const DetailStats = () => {
   const {
     pokemonBaseInfo,

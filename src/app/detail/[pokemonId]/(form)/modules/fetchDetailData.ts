@@ -46,7 +46,6 @@ export interface AdjacentPokemonInfo {
   name: string
 }
 
-/** 포켓몬 번호 1건의 이름 경량 조회(GetDetailMovesPokemonInfo 재사용). 범위 밖·실패는 null */
 const fetchPokemonSummary = async (
   id: number,
 ): Promise<AdjacentPokemonInfo | null> => {
@@ -65,10 +64,6 @@ const fetchPokemonSummary = async (
   }
 }
 
-/**
- * 여러 포켓몬 번호의 이름 일괄 조회 — 진화 체인 이름 표시용(QA 라운드 2).
- * 입력 순서를 유지하고 조회 실패분은 제외한다.
- */
 export const fetchPokemonSummaries = async (
   ids: Array<number>,
 ): Promise<Array<AdjacentPokemonInfo>> => {
@@ -76,11 +71,6 @@ export const fetchPokemonSummaries = async (
   return results.filter((item): item is AdjacentPokemonInfo => item !== null)
 }
 
-/**
- * 이전/다음 포켓몬(도감번호 ±1) 이름 조회 — 종 단위 내비게이션용(UX-005 M2).
- * 경량 쿼리(GetDetailMovesPokemonInfo: id·name·types만)를 재사용한다.
- * 도감 범위 밖(0번, 마지막 번호 다음)은 조회 실패 → null로 해당 방향 비활성.
- */
 export const fetchAdjacentPokemon = async (
   pokemonId: number,
 ): Promise<{
@@ -97,9 +87,6 @@ export const fetchAdjacentPokemon = async (
   return { prev, next }
 }
 
-/**
- * 기본 포켓몬 상세 정보 조회
- */
 export const fetchPokemonDetail = async (
   pokemonId: number,
 ): Promise<PokemonDetail | null> => {
@@ -114,9 +101,6 @@ export const fetchPokemonDetail = async (
   return data.getPokemonDetail ?? null
 }
 
-/**
- * 기본폼 데이터 페칭
- */
 export const fetchNormalFormData = async (
   pokemonId: number,
   activeIndex: number,
@@ -163,9 +147,6 @@ export const fetchNormalFormData = async (
   }
 }
 
-/**
- * 메가진화 데이터 페칭
- */
 export const fetchMegaEvolutionData = async (
   pokemonId: number,
 ): Promise<{
@@ -192,9 +173,6 @@ export const fetchMegaEvolutionData = async (
   }
 }
 
-/**
- * 리전폼 데이터 페칭
- */
 export const fetchRegionFormData = async (
   pokemonId: number,
 ): Promise<{
@@ -221,9 +199,6 @@ export const fetchRegionFormData = async (
   }
 }
 
-/**
- * 거다이맥스 데이터 페칭
- */
 export const fetchGigantamaxData = async (
   pokemonId: number,
 ): Promise<{

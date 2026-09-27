@@ -30,7 +30,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 섹션 CTA (화살표 동반) — 실제 사용 예 */
 export const Primary: Story = {
   args: {
     href: '/champions/double/list',
@@ -43,7 +42,6 @@ export const Secondary: Story = {
   args: { variant: 'secondary', children: '더 알아보기', showArrow: true },
 }
 
-/** variant 3종 비교 */
 export const AllVariants: Story = {
   render: (args) => (
     <div className="flex items-center gap-4">
@@ -60,7 +58,6 @@ export const AllVariants: Story = {
   ),
 }
 
-/** 전체 폭 */
 export const FullWidth: Story = {
   args: { children: '전체 도감 보기', fullWidth: true, showArrow: true },
   decorators: [

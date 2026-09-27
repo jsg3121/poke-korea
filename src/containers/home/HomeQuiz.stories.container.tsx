@@ -101,12 +101,10 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 데스크톱 — 3열 그리드 */
 export const Desktop: Story = {
   globals: { viewport: { value: 'desktop' } },
 }
 
-/** 모바일 — 1열 세로 스택, gutter px-5 */
 export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
 }

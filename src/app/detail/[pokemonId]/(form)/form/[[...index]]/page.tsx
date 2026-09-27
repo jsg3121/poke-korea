@@ -56,8 +56,6 @@ export const generateMetadata = async ({
     activeIndex,
   )
 
-  // 존재하지 않는 폼 인덱스는 페이지가 notFound()로 처리한다. 여기서 메타를
-  // 만들면 404 응답에 정상 title이 붙으므로 빈 객체를 반환한다.
   if (normalFormData.length === 0) {
     return {}
   }
@@ -78,7 +76,6 @@ const NormalFormPage = async ({
   const { pokemonId, index } = await params
   const query = await searchParams
 
-  // activeType 또는 activeIndex 쿼리 파라미터가 남아있으면 제거하고 리다이렉트
   if (query.activeType || query.activeIndex) {
     const { activeIndex: parsedIndex } = parseIndexParam(index)
     const queryParams = query.shinyMode ? `?shinyMode=${query.shinyMode}` : ''
@@ -109,7 +106,6 @@ const NormalFormPage = async ({
     notFound()
   }
 
-  // 폼 변경이 불가능한 포켓몬인 경우 기본 상세 페이지로 리다이렉트
   if (!pokemonDetail.isFormChange) {
     permanentRedirect(`/detail/${pokemonId}`, RedirectType.replace)
   }
@@ -124,9 +120,6 @@ const NormalFormPage = async ({
     fetchPokemonSummaries(pokemonDetail.evolutionId),
   ])
 
-  // 존재하지 않는 폼 인덱스는 404. 백엔드가 범위 밖 activeIndex에 빈 배열을
-  // 반환하므로(2026-09-08 수정) 여기서 판별할 수 있다. 가드가 없으면 폼이
-  // 없는데도 200으로 원종 내용을 보여줘 중복 URL이 색인된다.
   if (normalFormData.length === 0) {
     notFound()
   }
@@ -155,7 +148,6 @@ const NormalFormPage = async ({
 
   return (
     <DetailProvider {...props}>
-      {/* 콘텐츠는 반응형 단일(Detail) — UA 분기는 크롬 선택만(ADR-0007) */}
       <Detail
         prevPokemon={adjacent.prev}
         nextPokemon={adjacent.next}

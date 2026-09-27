@@ -20,7 +20,6 @@ const Image = ({
   src,
   ...imageProps
 }: ImageProps) => {
-  // WebP srcSet 생성 (고밀도 디스플레이 지원)
   const generateWebpSrcSet = () => {
     if (!src || !densities || densities.length === 0) return undefined
 
@@ -34,7 +33,6 @@ const Image = ({
       .join(', ')
   }
 
-  // 기본 src에 1x 밀도 이미지 URL 생성 (fallback)
   const generateDefaultSrc = () => {
     if (!src) return src
 
@@ -43,10 +41,6 @@ const Image = ({
   }
 
   return (
-    // wrapper(figure)는 props 크기를 유지하되 자식을 중앙 정렬한다. img가 className으로
-    // figure보다 작은 고정 크기를 받아도(예: 반응형 w-24) 좌상단에 붙지 않고 중앙에 온다.
-    // picture는 크기를 강제(w-full h-full)하지 않고 max로 제한 — img가 figure를 꽉 채우는
-    // 정석 패턴(className="w-full h-full")도, 작은 고정 크기 패턴도 모두 안전하다.
     <figure
       className="relative flex items-center justify-center"
       style={{ width, height }}

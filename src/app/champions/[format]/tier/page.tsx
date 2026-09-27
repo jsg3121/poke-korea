@@ -72,8 +72,6 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
       GetChampionsTeamCoresQueryVariables
     >({
       query: GetChampionsTeamCoresDocument,
-      // size 미지정 → 2/3/4 모두. limit 30 → 사이즈별 약 10개씩 가정.
-      // 클라이언트(ChampionsTierTeamCoreSection)에서 사이즈별 TOP 3 추출.
       variables: { format: formatEnum, limit: 30 },
       fetchPolicy: 'network-only',
       errorPolicy: 'all',
@@ -91,7 +89,6 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
     D: metaSummary.filter((p) => p.tier === 'D'),
   }
 
-  // 갱신 시각: 응답 중 가장 최신 updatedAt 사용
   const latestUpdatedAt = metaSummary
     .map((p) => p.updatedAt)
     .filter((s): s is string => Boolean(s))
@@ -123,9 +120,6 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
     ],
   }
 
-  // ItemList JSON-LD: 상위 티어(S/A/B) 의 실제 포켓몬을 URL 과 함께 노출.
-  // Google ItemList 가이드에 따라 각 항목에 탐색 가능한 url 을 포함해야 색인 가치가 있다.
-  // Why: 기존엔 S~D 티어 그룹 5개만 나열 → 탐색 가능한 URL 없어 색인 효과 없음.
   const tierListItems = (['S', 'A', 'B'] as const)
     .flatMap((tier) => tierGroups[tier])
     .slice(0, 20) // 상위 20개로 제한 (Google 권장 범위)
@@ -160,8 +154,6 @@ const ChampionsFormatTierPage = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(tierListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsTier, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(ability·list 개편과 동일 패턴). */}
       <ChampionsTier
         tierGroups={tierGroups}
         teamCores={teamCores}

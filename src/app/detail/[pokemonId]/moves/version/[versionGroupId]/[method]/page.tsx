@@ -15,14 +15,6 @@ import { generateMovesMetadata } from '../../../_metadata/generateMovesMetadata'
 
 export const revalidate = 31536000
 
-/**
- * 버전 + 습득법 지정 습득 기술 페이지
- * — /detail/{id}/moves/version/{vgId}/{machine|egg|tutor}
- *
- * 습득법 슬러그를 동적 세그먼트로 받는다(같은 층의 [method] 라우트와 동일 패턴).
- * 레벨업은 슬러그 없는 /moves/version/{vgId}가 담당하므로 여기서 제외한다.
- */
-
 interface VersionMethodMovesPageProps {
   params: Promise<{
     pokemonId: string
@@ -31,7 +23,6 @@ interface VersionMethodMovesPageProps {
   }>
 }
 
-/** 슬러그를 노출 대상 습득법으로 해석. 노출 대상이 아니면 undefined */
 const resolveVisibleMethod = (slug: string): LearnMethod | undefined => {
   const method = parseLearnMethodSlug(slug)
 
@@ -87,7 +78,6 @@ const VersionMethodMovesPage = async ({
 
   const pokemonDetail = pokemonInfoData.getPokemonDetail
 
-  // 폼체인지 포켓몬은 폼 전환 UI가 폼 개수를 알아야 한다
   const formDataLength = pokemonDetail.isFormChange
     ? (formImageList.getPokemonNormalFormImageList?.length ?? 0)
     : 0
@@ -114,8 +104,6 @@ const VersionMethodMovesPage = async ({
 
   return (
     <DetailMovesProvider {...initialValue}>
-      {/* 콘텐츠는 반응형 단일(DetailMoves, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(홈·리스트·상세 개편과 동일 패턴). */}
       <DetailMoves pokemonName={pokemonDetail.name} />
     </DetailMovesProvider>
   )

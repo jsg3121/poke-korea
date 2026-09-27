@@ -1,5 +1,3 @@
-// Path 기반 URL 생성
-
 import { TActiveType } from '~/types/detailContext.type'
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {

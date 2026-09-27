@@ -7,13 +7,6 @@ interface ChampionsRecentTournamentsSectionProps {
   tournaments: GetChampionsTournamentsWithTopTeamQuery['championsTournaments']
 }
 
-/**
- * Phase 1 홈에 추가되는 "최근 대회 결과" 섹션.
- * 데스크탑/모바일 모두 가로 스크롤 3개 카드 (A 티어 슬라이드 패턴 응용).
- *
- * Why: 사용자 결정 — 빠른 진입 카드 위에 배치, 인기 조합 아래.
- *      "실전 검증된 빌드" 가치를 홈에서 미리 알리는 진입 훅 역할.
- */
 const ChampionsRecentTournamentsSection = ({
   tournaments,
 }: ChampionsRecentTournamentsSectionProps) => {

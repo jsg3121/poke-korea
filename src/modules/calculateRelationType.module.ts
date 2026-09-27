@@ -19,16 +19,6 @@ type TypesListType = {
   [key in PokemonType]: number
 }
 
-/**
- *
- * type : 타입 명
- *
- * double  : 맞았을 때 두배로 효과
- *
- * half : 맞았을 때 0.5배로 맞는 타입
- *
- * invalidity : 맞았을 때 효과가 없는 타입
- */
 export const relationList: LelationListType = [
   {
     type: PokemonType.NORMAL,

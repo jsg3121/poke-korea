@@ -26,7 +26,6 @@ const Portal = ({ children, containerId = 'portal-root' }: PortalProps) => {
     setPortalElement(element)
 
     return () => {
-      // Portal 요소가 비어있으면 제거
       if (element && element.childNodes.length === 0) {
         element.remove()
       }

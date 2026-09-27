@@ -18,13 +18,6 @@ import {
   MoveEffectDescription,
 } from './components/MoveDescription.component'
 
-/**
- * 전용 기술 카드 — Z기술·거다이맥스 기술 (기존 데/모 ZMoveInfo·GmaxMoveInfo 통합
- * 이관, 반응형 단일). 열 구성(기반 기술 등)이 습득 기술과 달라 MoveTable 대신
- * 기존 소형 표 구조를 유지한다(행 1~2개라 모바일 폭에서도 무리 없음).
- * 활성 폼에 해당 데이터가 없으면 렌더하지 않는다.
- */
-
 const DetailExclusiveMoves = () => {
   const {
     pokemonBaseInfo,
@@ -47,10 +40,6 @@ const DetailExclusiveMoves = () => {
         return regionFormInfo?.[activeIndex]?.exclusiveZMoves ?? []
       }
       default: {
-        // 폼체인지 포켓몬(루가루암 등)은 폼 테이블(normalForm)에 전용 Z기술이 없고
-        // 기본 정보(pokemonBaseInfo)에만 있는 경우가 있다. normalForm[0]가 빈
-        // 배열이면 nullish(??)로는 폴백되지 않으므로, "비어 있으면 base로 폴백"을
-        // 명시한다(빈 배열도 폴백 대상).
         const formZMoves = normalForm?.[0]?.exclusiveZMoves
         return formZMoves && formZMoves.length > 0
           ? formZMoves
@@ -97,10 +86,6 @@ const DetailExclusiveMoves = () => {
                   {gmaxMove.type && <Tag type={gmaxMove.type} />}
                 </td>
                 <td className="text-center">{gmaxMove.power || '-'}</td>
-                {/* 거다이맥스 기술은 고정 분류가 없고 기반 기술(다이맥스 전 기술)의
-                    분류를 그대로 따른다(Bulbapedia 전 거다이맥스 기술 damagecategory=Varies).
-                    기존엔 '물리 / 특수'를 문자열로 지어냈으나 애초에 표현 불가능한
-                    값이었다 — 백엔드 dependsOnBaseMove를 근거로 그 사실을 그대로 쓴다. */}
                 <td className="text-center text-sm">
                   {gmaxMove.dependsOnBaseMove ? '기반 기술에 따름' : '-'}
                 </td>
@@ -121,10 +106,6 @@ const DetailExclusiveMoves = () => {
           className="card-detail w-full"
         >
           <InfoCardTitle title="전용 Z기술" id="pokemon-z-move" />
-          {/* 타입 Tag·유형 Chip은 고정/최소폭 요소라, 셀 폭이 좁으면 넘친다. col width(px)는
-              반응형이 안 되고(Tag가 모바일 48→데스크톱 56px으로 커짐) 데스크톱에서 되레
-              좁아지므로, 해당 열 셀에 반응형 min-w를 준다: 타입 50→60px, 유형 53→64px,
-              위력 36→44px. 텍스트 열(기술명·기반)은 남는 폭을 나눠 갖고 break-all로 줄바꿈. */}
           <table className="w-full">
             <thead className="bg-primary-2">
               <tr>
@@ -151,9 +132,6 @@ const DetailExclusiveMoves = () => {
                   key={zMove.id}
                   className="min-h-10 border-b border-solid border-primary-3 text-2xs last:border-b-0 desktop:text-base [&>td]:align-middle [&>td]:py-2"
                 >
-                  {/* 긴 Z기술명(예: 모크나이퍼 "섀도애로우즈스트라이크")은 좁은 모바일
-                      셀에서 break-keep(단어 유지)이면 셀 밖으로 넘쳐 이웃 열과 겹친다.
-                      break-all로 셀 안에서 줄바꿈시키고, 폰트도 모바일 2xs로 낮춘다. */}
                   <td className="break-all px-1 text-center text-2xs font-semibold desktop:text-sm">
                     {zMove.zSkill.nameKo}
                   </td>

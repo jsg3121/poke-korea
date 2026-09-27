@@ -1,11 +1,6 @@
 interface ChampionsTierBadgeProps {
   tier: string | null | undefined
   variant?: 'default' | 'ribbon'
-  /**
-   * default 뱃지 크기.
-   * - `md`(기본): 32px 고정
-   * - `sm`: 모바일 24px → 데스크톱 32px (티어 그룹 헤더 밀도 축소용)
-   */
   size?: 'sm' | 'md'
 }
 
@@ -79,7 +74,6 @@ const ChampionsTierBadge = ({
     )
   }
 
-  // sm: 모바일 24px→데스크톱 32px(그룹 헤더 밀도 축소), md: 32px 고정
   const sizeClass =
     size === 'sm' ? 'w-6 h-6 desktop:w-8 desktop:h-8' : 'w-8 h-8'
 

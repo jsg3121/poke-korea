@@ -21,12 +21,6 @@ interface PageProps {
   params: Promise<{ externalId: string }>
 }
 
-/**
- * generateMetadata + 페이지 본체가 같은 렌더 사이클에서 같은 externalId 로 호출하므로
- * react.cache 로 메모이즈해 중복 네트워크 호출(fetchPolicy: network-only) 방지.
- *
- * 근거: React 공식 — https://react.dev/reference/react/cache
- */
 const fetchDetail = cache(async (externalId: string) => {
   const apolloClient = initializeApollo()
   const { data } = await apolloClient.query<
@@ -159,8 +153,6 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
           }}
         />
       )}
-      {/* 콘텐츠는 반응형 단일(ChampionsTournamentDetail, ADR-0007). UA 분기는
-          전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
       <ChampionsTournamentDetail detail={detail} />
     </>
   )

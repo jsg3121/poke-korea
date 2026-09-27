@@ -1,4 +1,3 @@
-// ItemList Schema for SEO - 매일 랜덤 10개 (날짜 기반 시드)
 export const getDailyRandomPokemon = () => {
   const today = new Date().toISOString().split('T')[0]
   const seed = today.split('-').reduce((acc, val) => acc + parseInt(val), 0)

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import TabItem from './TabItem.component'
 
-/** 탭은 진한 네이비 배경(primary-1) 위에서 쓰이므로 그 맥락으로 렌더한다. */
 const NavyBg = (Story: React.ComponentType) => (
   <div className="bg-primary-1 p-6">
     <Story />
@@ -41,27 +40,22 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 밑줄형 · 선택됨 (네비게이션 현재 위치) */
 export const UnderlineActive: Story = {
   args: { variant: 'underline', active: true },
 }
 
-/** 밑줄형 · 미선택 */
 export const UnderlineInactive: Story = {
   args: { variant: 'underline', active: false },
 }
 
-/** 채움형 · 선택됨 (컨텐츠 전환) */
 export const FillActive: Story = {
   args: { variant: 'fill', active: true, children: 'VGC 더블' },
 }
 
-/** 채움형 · 미선택 */
 export const FillInactive: Story = {
   args: { variant: 'fill', active: false, children: 'BSS 싱글' },
 }
 
-/** variant × active 4종 한눈 비교 */
 export const AllStates: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
@@ -97,7 +91,6 @@ export const AllStates: Story = {
   ),
 }
 
-/** 상태 전환 모드 (href 없음 → button, role="tab") */
 export const ButtonMode: Story = {
   render: () => (
     <div className="flex items-center gap-6" role="tablist">

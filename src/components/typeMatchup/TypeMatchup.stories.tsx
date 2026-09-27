@@ -32,7 +32,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 리자몽(불꽃/비행) — 전 배율 행이 존재하는 케이스 */
 export const Default: Story = {
   args: {
     quad: [PokemonType.ROCK],
@@ -48,7 +47,6 @@ export const Default: Story = {
   },
 }
 
-/** 피카츄(전기) — ×4·×0.25·×0 없음(빈 행 생략 확인) */
 export const SingleType: Story = {
   args: {
     quad: [],

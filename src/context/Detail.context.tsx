@@ -140,10 +140,6 @@ const DetailProvider = ({
         }
       }
       default: {
-        // 폼(normalForm)에 러닝셋 버전이 있으면 그것을, 없으면 기본 폼 값을 쓴다.
-        // 두 필드 모두 nullish 병합(??)으로 통일한다 — machine 쪽만 ||를 쓰고 있었는데,
-        // versionGroupId는 0이 유효한 값은 아니나 두 필드의 폴백 규칙이 달라야 할
-        // 이유가 없어 혼선만 준다.
         return {
           levelUpSkillVersion: versionGroup?.find((version) => {
             return (

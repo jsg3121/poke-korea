@@ -56,7 +56,6 @@ const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
   const pokemonDetail = pokemonInfoData.getPokemonDetail
   const isFormChange = !!pokemonDetail.isFormChange
 
-  // 폼체인지 포켓몬은 폼 전환 UI가 폼 개수를 알아야 한다
   const formDataLength = isFormChange
     ? (formImageList.getPokemonNormalFormImageList?.length ?? 0)
     : 0
@@ -83,8 +82,6 @@ const VersionMovesPage = async ({ params }: VersionMovesPageProps) => {
 
   return (
     <DetailMovesProvider {...initialValue}>
-      {/* 콘텐츠는 반응형 단일(DetailMoves, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(홈·리스트·상세 개편과 동일 패턴). */}
       <DetailMoves pokemonName={pokemonDetail.name} />
     </DetailMovesProvider>
   )

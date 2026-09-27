@@ -27,7 +27,6 @@ const ChampionsPartnerList = ({
   formatSlug,
 }: ChampionsPartnerListProps) => {
   return (
-    // 통합 패널 안 섹션 배경 블록(메타 리스트와 동일 톤). 카드 테두리는 상위 패널이 담당.
     <div className="p-3 bg-primary-3/25 rounded-lg">
       <h3 className="font-bold text-sm mb-3 text-primary-1">{title}</h3>
       <ul className="space-y-2">
@@ -59,7 +58,6 @@ const ChampionsPartnerList = ({
                   {item.usageRate}%
                 </span>
                 {isLink && (
-                  // 링크 어포던스: hover 시 화살표 노출(텍스트 화살표, 프로젝트 관행)
                   <span
                     aria-hidden="true"
                     className="text-primary-2 opacity-0 transition-opacity group-hover:opacity-100"

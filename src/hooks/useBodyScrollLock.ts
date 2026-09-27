@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 type UseBodyScrollLockFn = (isLock: boolean) => void
 
 /**
- * @desc 팝업 등이 열리는 경우 백그라운드의 스크롤을 막도록 합니다
+ * 팝업이 열린 동안 배경 스크롤을 막는다.
  * @param isLock 스크롤 잠김 여부
  */
 export const useBodyScrollLock: UseBodyScrollLockFn = (isLock) => {

@@ -13,12 +13,6 @@ import ResultHeader from '~/components/quiz/ResultHeader.component'
 import ResultSummary from '~/components/quiz/ResultSummary.component'
 import Tag from '~/components/tag/Tag.component'
 
-/**
- * 포켓몬 타입 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을
- * 폐기하고 4종 공통 QuizResultCard(세로 카드)로 통일. desktop 2열 그리드.
- * 본문 슬롯 = 문제 타입칩 + 정답 포켓몬 이미지. 정답/나의 답에 포켓몬 이름을 병기한다
- * (기존 desktop 테이블은 오답 포켓몬을 이미지로만 보여줘 식별이 어려웠음 — UX-012).
- */
 const PokemonTypeQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = usePokemonTypeQuizContext()
 
@@ -28,7 +22,6 @@ const PokemonTypeQuizResult = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pt-4 pb-8 desktop:px-5">
-      {/* 광고 — 결과 최상단(헤더 앞) */}
       <QuizResultTopBanner
         mobileSlot={QUIZ_RESULT_SLOTS.pokemonType.mobile}
         desktopSlot={QUIZ_RESULT_SLOTS.pokemonType.desktop}

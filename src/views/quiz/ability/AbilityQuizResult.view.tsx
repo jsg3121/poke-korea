@@ -9,10 +9,6 @@ import ResultFooter from '~/components/quiz/ResultFooter.component'
 import ResultHeader from '~/components/quiz/ResultHeader.component'
 import ResultSummary from '~/components/quiz/ResultSummary.component'
 
-/**
- * 특성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.
- * 본문 슬롯 = 특성 설명 문장. desktop 2열 그리드.
- */
 const AbilityQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = useAbilityQuizContext()
 
@@ -22,7 +18,6 @@ const AbilityQuizResult = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pt-4 pb-8 desktop:px-5">
-      {/* 광고 — 결과 최상단(헤더 앞) */}
       <QuizResultTopBanner
         mobileSlot={QUIZ_RESULT_SLOTS.ability.mobile}
         desktopSlot={QUIZ_RESULT_SLOTS.ability.desktop}

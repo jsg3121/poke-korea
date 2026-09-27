@@ -61,7 +61,6 @@ export const TypeEffectivenessQuizProvider = ({
     isCompleted: false,
   })
 
-  // 퀴즈 문제 생성
   const generateQuestions = () => {
     setIsGenerating(true)
     try {
@@ -76,7 +75,6 @@ export const TypeEffectivenessQuizProvider = ({
     }
   }
 
-  // 컴포넌트 마운트 시 문제 생성
   useEffect(() => {
     if (questions.length === 0) {
       generateQuestions()

@@ -10,9 +10,6 @@ import Providers from '~/app/providers'
 import { fetchAbilityDetailQueries } from './_fetch/abilityDetail.fetch'
 import { generateAbilityDetailMetadata } from './_metadata/generateAbilityDetailMetadata'
 
-// 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)가 매 요청 평가된다.
-// 기존 revalidate=1년 선언은 headers() 때문에 실효가 없던 거짓 신호라 제거(UX-007).
-
 type PageProps = {
   params: Promise<{
     id: string
@@ -79,8 +76,6 @@ const AbilityDetailPage = async ({ params }: PageProps) => {
 
   return (
     <Fragment>
-      {/* 콘텐츠는 반응형 단일(AbilityDetail, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(list·홈 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
         <AbilityDetail
           abilityId={abilityId}

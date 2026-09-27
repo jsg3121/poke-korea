@@ -9,10 +9,6 @@ import QuizHeader from '~/components/quiz/QuizHeader.component'
 import QuizOptionButton from '~/components/quiz/QuizOptionButton.component'
 import QuizSkipButton from '~/components/quiz/QuizSkipButton.component'
 
-/**
- * 특성 퀴즈 QUIZ 단계 (반응형 단일). 특성 설명 카드 + 4개 텍스트 옵션(특성명).
- * 옵션 그리드는 모바일 1열, desktop 2×2.
- */
 const AbilityQuizPlay = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
   const {

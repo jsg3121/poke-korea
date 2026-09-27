@@ -12,10 +12,6 @@ interface FetchArgs {
   formCode?: string | null
 }
 
-/**
- * 챔피언스 포켓몬 상세 페치 (BASE / 폼 라우트 공통).
- * 폼 라우트에서 formCode 를 전달하면 해당 폼 데이터를 받는다.
- */
 export const fetchChampionsDetail = async ({
   pokemonId,
   format,

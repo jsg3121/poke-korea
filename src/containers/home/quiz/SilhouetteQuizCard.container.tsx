@@ -13,10 +13,6 @@ interface SilhouetteQuizCardProps {
   silhouetteQuiz: SilhouetteQuizQuestion
 }
 
-/**
- * 실루엣 퀴즈 카드 (QuizCard DS 셸 + 기존 퀴즈 로직 재사용).
- * 본문은 흑백(brightness-0) 포켓몬 이미지, 정답 체크는 useCorrectQuizCheck.
- */
 const SilhouetteQuizCard = ({ silhouetteQuiz }: SilhouetteQuizCardProps) => {
   const { isCorrect, isShowModal, handleSelectAnswer, handleCloseModal } =
     useCorrectQuizCheck({ correctAnswer: silhouetteQuiz.correctAnswerIndex })

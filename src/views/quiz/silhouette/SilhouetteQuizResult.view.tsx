@@ -11,10 +11,6 @@ import ResultFooter from '~/components/quiz/ResultFooter.component'
 import ResultHeader from '~/components/quiz/ResultHeader.component'
 import ResultSummary from '~/components/quiz/ResultSummary.component'
 
-/**
- * 실루엣 퀴즈 RESULT 단계 (반응형 단일). 기존 desktop 가로 스크롤 테이블을 폐기하고
- * 4종 공통 QuizResultCard(세로 카드)로 통일했다. desktop은 2열 그리드로 배치.
- */
 const SilhouetteQuizResult = () => {
   const { result, questions, onClickRetryQuiz } = useSilhouetteQuizContext()
 
@@ -26,7 +22,6 @@ const SilhouetteQuizResult = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pt-4 pb-8 desktop:px-5">
-      {/* 광고 — 결과 최상단(헤더 앞) */}
       <QuizResultTopBanner
         mobileSlot={QUIZ_RESULT_SLOTS.silhouette.mobile}
         desktopSlot={QUIZ_RESULT_SLOTS.silhouette.desktop}

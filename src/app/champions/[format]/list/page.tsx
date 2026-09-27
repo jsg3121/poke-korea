@@ -98,8 +98,6 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
   const endCursor = data?.getChampionsPokemonList?.pageInfo.endCursor || null
   const totalCount = data?.getChampionsPokemonList?.totalCount || 0
 
-  // SSR로 실행한 GetChampionsPokemonList 결과를 클라이언트 캐시로 하이드레이트해
-  // ChampionsPokedexProvider의 useQuery가 초기 재요청 없이 캐시를 읽도록 한다.
   const initialApolloState = extractApolloState(apolloClient)
 
   const breadcrumbJsonLd = {
@@ -151,8 +149,6 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsPokedex, ADR-0007). UA 분기는 전역
-          크롬(헤더/푸터/탭바) 선택으로만 남는다(ability·list 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
         <ChampionsPokedex
           pokemonList={pokemonList}

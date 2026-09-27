@@ -64,7 +64,6 @@ export const generateMetadata = async ({
     : versionGroups?.[0]
 
   const activeRegionForm = regionForms?.[activeIndex]
-  // 백엔드 name이 그 자체로 완전한 표시명이다(2026-09-08 폼 표시명 변경).
   const pokemonName =
     activeRegionForm?.name || pokemonInfoData.getPokemonDetail?.name || ''
 
@@ -94,7 +93,6 @@ const RegionMovesPage = async ({
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
-  // 레거시 쿼리파라미터가 있으면 Path 기반으로 리다이렉트
   if (legacyMovesType || legacySelectVersion) {
     const firstSegment = segments?.[0]
     const legacyIndex =
@@ -143,7 +141,6 @@ const RegionMovesPage = async ({
   }
 
   const activeRegionForm = regionForms?.[activeIndex]
-  // 백엔드 name이 그 자체로 완전한 표시명이다(2026-09-08 폼 표시명 변경).
   const pokemonName =
     activeRegionForm?.name || pokemonInfoData.getPokemonDetail.name
 
@@ -175,8 +172,6 @@ const RegionMovesPage = async ({
 
   return (
     <DetailMovesProvider {...initialValue}>
-      {/* 콘텐츠는 반응형 단일(DetailMoves, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(홈·리스트·상세 개편과 동일 패턴). */}
       <DetailMoves pokemonName={pokemonName} />
     </DetailMovesProvider>
   )

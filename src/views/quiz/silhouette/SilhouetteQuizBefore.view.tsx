@@ -11,10 +11,6 @@ import PageHeader from '~/components/pageHeader/PageHeader.component'
 import GuideStartButton from '~/components/quiz/GuideStartButton.component'
 import OtherQuizLink from '~/components/quiz/OtherQuizLink.component'
 
-/**
- * 실루엣 퀴즈 BEFORE 단계 (반응형 단일). 설명 3섹션 + 시작 버튼 + 관련 링크 +
- * 다른 퀴즈 링크. 기존 desktop/mobile 2벌을 통합했다. 구조는 유지하고 여백만 정리.
- */
 const SilhouetteQuizBefore = () => {
   const { onChangeStage } = useSilhouetteQuizContext()
   const seoContent = QUIZ_DESCRIPTION_LIST_DATA.silhouette

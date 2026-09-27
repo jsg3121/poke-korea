@@ -11,26 +11,12 @@ import TypeChip from '~/components/chip/TypeChip.component'
 
 import FilterModal from './FilterModal.component'
 
-/**
- * 도감 타입 필터 바 (organism). TypeChip(18종) 가로 스크롤 + 필터 버튼 + 초기화 버튼 +
- * FilterModal(organism)을 조립하고, 타입 필터 URL 쿼리 동기화를 담당한다.
- *
- * 데/모 2벌(components/filter·container/desktop/header/filter, 레이아웃이 크게 다름)을
- * CSS 반응형 단일로 통합한다(UA 분기·display:none 없음, ADR-0007). 모바일 퍼스트 —
- * 구조는 [타입 칩 스크롤 줄]→[액션 바(필터·초기화)]→[적용 필터 칩 로우(조건부)].
- *
- * 타입은 최대 2개까지 선택 가능(그 이상은 미선택 항목 잠금). 도메인 로직(쿼리 파싱/갱신,
- * 최대 선택 제약)은 organism이 담당하고, 개별 토글 표현은 TypeChip 원자에 위임한다.
- */
-
-/** 타입 동시 선택 최대 수 */
 const MAX_TYPE_SELECTION = 2
 
 const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
   [string, PokemonTypes]
 >
 
-/** 불리언 필터(FilterModal 적용분)의 칩 라벨 */
 const BOOLEAN_FILTER_LABELS: Record<string, string> = {
   isMega: '메가진화',
   isRegion: '리전폼',
@@ -38,10 +24,8 @@ const BOOLEAN_FILTER_LABELS: Record<string, string> = {
   isEvolution: '진화 가능',
 }
 
-/** 적용된 필터 하나 (칩 표시·개별 해제 단위) */
 interface AppliedFilter {
   key: string
-  /** 다중 값 파라미터(type·generation)의 개별 값 */
   value?: string
   label: string
 }
@@ -53,13 +37,10 @@ const FilterBar = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // filter(Boolean)으로 빈 문자열 방어 — `type=`(빈값)이면 split이 ['']을 반환하는데
-  // 이를 걸러 실제 타입이 없을 때 빈 배열이 되게 한다
   const typeList = searchParams.get('type')?.split(',').filter(Boolean) ?? []
   const isEmptyQuery = searchParams.size === 0
 
   const handleToggleType = (e: ChangeEvent<HTMLInputElement>) => {
-    // getChangeTypeList는 쉼표로 조인한 문자열을 반환한다(빈 문자열이면 선택 없음)
     const nextValue = getChangeTypeList(typeList, e.target.value)
     const params = new URLSearchParams(searchParams)
 
@@ -69,7 +50,6 @@ const FilterBar = () => {
       params.delete('type')
     }
 
-    // 칩 토글은 페이지 상단 이동이 불필요하므로 스크롤 유지
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
@@ -77,9 +57,6 @@ const FilterBar = () => {
     router.replace(pathname, { scroll: false })
   }
 
-  // 적용된 필터를 칩으로 상시 노출 — 특히 FilterModal에서 적용한 필터(세대·메가 등)는
-  // 적용 후 보이지 않아 사용자가 결과를 오해한다(Baymard, RES-002). name(검색어)은
-  // 검색 인풋에 이미 보이므로 제외.
   const appliedFilters: AppliedFilter[] = [
     ...typeList.map((t) => ({
       key: 'type',
@@ -124,7 +101,6 @@ const FilterBar = () => {
       aria-label="타입별 포켓몬 필터 검색"
       className="w-full max-w-[1280px] mx-auto px-4"
     >
-      {/* 타입 칩 — 가로 스크롤(칩이 뷰포트보다 많을 때). 데스크톱은 넉넉히 펼침 */}
       <ul className="flex items-start gap-2 overflow-x-auto py-1 desktop:justify-between desktop:overflow-visible">
         {TYPE_ENTRIES.map(([value, name]) => {
           const active = typeList.includes(value)
@@ -143,8 +119,6 @@ const FilterBar = () => {
         })}
       </ul>
 
-      {/* 액션 바 — 필터 열기 + 초기화. 버튼 높이 모바일 32px(min-h-8)/데스크톱
-          36px(min-h-9): WCAG 2.5.8 AA(24px) 충족, ADR-0011 슬림 컨트롤 계열 */}
       <div className="flex items-center gap-2 border-t border-solid border-primary-2 py-1.5 desktop:border-t-0 desktop:py-2">
         <button
           type="button"
@@ -167,9 +141,6 @@ const FilterBar = () => {
         </button>
       </div>
 
-      {/* 적용 필터 칩 로우 — 액션바 아래 별도 줄(시안 원안). 액션바 한 줄 통합은
-          타입 2개+세대+불리언까지 겹치면 좁은 공간에 밀집돼 폐기(사용자 결정
-          2026-07-07). 조건부 렌더라 필터 미적용 시 sticky 높이는 늘지 않는다 */}
       {appliedFilters.length > 0 && (
         <ul
           aria-label="적용된 필터"

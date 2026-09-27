@@ -51,8 +51,6 @@ const ResultListData = ({
   }
 
   return (
-    // 높이 고정(h-11)+leading 44px는 긴 이름(팔데아 폼 등)이 2줄로 감기면 항목끼리
-    // 겹친다(모바일과 동일 버그) → 최소 높이+자동 확장으로 변경
     <li className="w-full">
       <Link
         href={getPokemonHref()}

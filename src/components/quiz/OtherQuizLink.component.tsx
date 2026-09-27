@@ -3,11 +3,6 @@ import Link from 'next/link'
 import { QuizType } from '~/types/quiz.type'
 import { QUIZ_CROSS_LINKS } from '~/constants/quiz.constants'
 
-/**
- * 다른 퀴즈 교차 링크 (BEFORE/RESULT 하단). 현재 퀴즈를 제외한 3개 퀴즈로 이동.
- * 기존 desktop("다른 퀴즈도 도전해보세요") / mobile("다른 퀴즈 하러 가기") 문구가
- * 달랐던 것을 desktop 카피로 통일한다. className은 반응형 단일로 병합.
- */
 interface OtherQuizLinkProps {
   currentQuiz: QuizType
 }

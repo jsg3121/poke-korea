@@ -16,7 +16,6 @@ export const metadata = QUIZ_ABILITY_META
 const AbilityQuizPage = async () => {
   return (
     <Fragment>
-      {/* 본문 반응형 단일(AbilityQuiz). UA 분기는 전역 크롬 선택으로만 남는다. */}
       <AbilityQuizProvider>
         <AbilityQuiz />
       </AbilityQuizProvider>

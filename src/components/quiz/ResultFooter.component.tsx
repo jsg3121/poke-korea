@@ -4,11 +4,6 @@ import LinkButton from '~/components/button/LinkButton.component'
 
 import OtherQuizLink from './OtherQuizLink.component'
 
-/**
- * 퀴즈 결과 푸터 (RESULT 단계 하단). 다른 퀴즈 링크 + "다시 도전하기"(액션) +
- * 관련 페이지 이동 링크. 기존 커스텀 버튼(bg-primary-2/-3)을 DS Button/LinkButton으로
- * 교체한다("다시 도전하기"=secondary 액션, 관련 페이지=ghost 이동 링크).
- */
 interface ResultFooterProps {
   onClickRetryButton: () => void
   quizType: QuizType

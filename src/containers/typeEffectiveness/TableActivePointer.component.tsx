@@ -4,16 +4,6 @@ import { MouseEvent } from 'react'
 
 import ResetIcon from '~/assets/icons/button-reset.svg'
 
-/**
- * 상성표 배율 필터 토글 (반응형 단일 — UX-009). 구버전 데/모 2벌
- * table.activePointer를 대체한다.
- *
- * 구버전은 순수 텍스트 색 변화만으로 토글을 표현해 버튼 어포던스가 없었다
- * (UX-009 m4) — 테두리+active 채움의 알약 토글로 보강한다. 높이는 슬림
- * 인터랙티브 계열(min-h-8/desktop:min-h-9, ADR-0011·FilterBar 액션바와 동일).
- * 페이지 전용 컴포넌트라 컨테이너 로컬로 둔다(ADR-0010).
- */
-
 export type ActivePointerType = 'double' | 'half' | 'zero' | undefined
 
 const POINTER_OPTIONS: Array<{

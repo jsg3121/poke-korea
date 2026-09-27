@@ -10,21 +10,6 @@ import PokemonByAbilityCard from '~/components/ability/PokemonByAbilityCard.comp
 import AbilityDetailTopBanner from '~/components/adSlot/AbilityDetailTopBanner.component'
 import EmptyState from '~/components/emptyState/EmptyState.component'
 
-/**
- * 특성별 포켓몬 (반응형 단일 — UX-007). 구버전 데/모 2벌 PokemonByAbility.container를
- * 대체한다. UA 분기·display:none 없이 CSS(desktop:)만으로 반응(ADR-0007).
- *
- * 섹션 순서(UX-007): Hero(좌측 정렬 + "← 특성 도감으로 돌아가기") → 카운트 h2(숫자
- * 강조) → 포켓몬 카드 그리드. Hero는 구버전 AbilityDetail(임의값 text-[2.5rem]·모바일
- * 전용 gutter)을 대체해 moves 상세 Hero의 "뒤로가기 + 좌측 제목" 톤으로 통일한다.
- *
- * 카운트 문구는 시각적으로 섹션 제목 역할을 하므로 h2로 승격(스크린리더 구조 탐색).
- * 광고(RES-004 재도입): 특성 설명 헤더 아래·카운트/그리드 앞(기존 슬롯 재사용
- * PC 970×250/모바일 320×100). 포켓몬 카드는 도감 카드와 셸을 공유
- * (PokemonByAbilityCard).
- */
-
-/** LCP 후보(첫 화면 카드)만 eager 로딩 — 모바일 2열 커버 */
 const HIGH_PRIORITY_COUNT = 8
 
 interface PokemonByAbilityProps {
@@ -55,7 +40,6 @@ const PokemonByAbility = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 py-6">
-      {/* Hero — 좌측 정렬, 뒤로가기 링크 */}
       <Link
         href="/ability"
         className="inline-flex h-9 items-center gap-1 rounded-full bg-primary-3 px-4 text-sm font-medium text-primary-1 transition-colors hover:bg-primary-2 hover:text-primary-4"
@@ -74,7 +58,6 @@ const PokemonByAbility = ({
         </header>
       )}
 
-      {/* 광고 — 특성 설명 헤더 아래·카운트/그리드 앞 */}
       <AbilityDetailTopBanner />
 
       {isEmpty ? (

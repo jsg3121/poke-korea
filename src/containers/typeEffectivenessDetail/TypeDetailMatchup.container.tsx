@@ -5,18 +5,6 @@ import { getTypeLabel } from '~/modules/typeParams.module'
 import TypeAttackMatchup from '~/components/typeMatchup/TypeAttackMatchup.component'
 import TypeMatchup from '~/components/typeMatchup/TypeMatchup.component'
 
-/**
- * 방어·공격 상성 전체.
- *
- * 방어는 기존 DS(`TypeMatchup`)를 그대로 쓰고, 공격은 전용 컴포넌트
- * (`TypeAttackMatchup`)를 쓴다 — 전자는 라벨이 "받는 데미지"로 고정돼 있어
- * 공격 관점에 맞지 않는다.
- *
- * 단일 타입 입력이라 방어 쪽 `quad`·`quarter`는 항상 비고, `TypeMatchup`이
- * 빈 행을 자동 생략하므로 2배·0.5배·0배 3행만 렌더된다. 복합 타입의 4배는
- * 아래 복합 타입 블록이 담당한다.
- */
-
 interface TypeDetailMatchupProps {
   pokemonType: PokemonType
 }

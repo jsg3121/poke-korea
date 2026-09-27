@@ -2,21 +2,8 @@ import Link from 'next/link'
 
 import { buildFeedbackFormUrl } from '~/constants/feedbackForm'
 
-/**
- * 헤더의 '기능/오류 신고'와 동일한 폼. 문의 창구를 한 곳으로 유지한다.
- *
- * 서버 컴포넌트라 진입 페이지를 사전 입력할 수 없다. 방침 문서에서 여는 문의는
- * 특정 페이지의 오류 제보가 아니므로 위치 정보도 필요 없다.
- */
 const FEEDBACK_FORM_URL = buildFeedbackFormUrl()
 
-/**
- * 방침에 명시하는 제3자 서비스.
- *
- * layout.tsx 에서 실제로 로드하는 스크립트와 1:1로 대응해야 한다.
- * 추적 도구를 추가·제거하면 이 목록도 함께 갱신할 것 — 방침과 구현이
- * 어긋나면 고지 의무를 형식적으로만 채우는 셈이 된다.
- */
 const THIRD_PARTY_SERVICES = [
   {
     name: 'Google Analytics 4',
@@ -35,7 +22,6 @@ const THIRD_PARTY_SERVICES = [
   },
 ] as const
 
-/** 개인정보 침해 구제 기관. 국내 개인정보처리방침의 표준 안내 항목이다. */
 const RELIEF_AGENCIES = [
   { name: '개인정보침해신고센터', info: 'privacy.kisa.or.kr / 국번없이 118' },
   { name: '개인정보분쟁조정위원회', info: 'www.kopico.go.kr / 1833-6972' },
@@ -43,11 +29,6 @@ const RELIEF_AGENCIES = [
   { name: '경찰청 사이버수사국', info: 'ecrm.police.go.kr / 국번없이 182' },
 ] as const
 
-/**
- * body 배경이 primary-1(#27374D)이라 텍스트는 밝은 쪽을 쓴다.
- * primary-1·primary-2는 배경 대비가 각각 1:1, 1.8:1 수준이라 본문에 쓸 수 없다.
- * 본문 primary-3은 6.5:1, 제목·강조 primary-4는 11.4:1로 WCAG AA(4.5:1)를 만족한다.
- */
 const SECTION_CLASS = 'mb-8 last:mb-0'
 const HEADING_CLASS = 'text-lg font-bold text-primary-4 mb-3'
 const TEXT_CLASS = 'text-sm leading-7 text-primary-3'

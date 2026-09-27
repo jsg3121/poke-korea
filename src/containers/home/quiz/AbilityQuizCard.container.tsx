@@ -11,10 +11,6 @@ interface AbilityQuizCardProps {
   abilityQuiz: AbilityQuizQuestion
 }
 
-/**
- * 특성 퀴즈 카드 (QuizCard DS 셸 + 기존 퀴즈 로직 재사용).
- * 본문은 특성 설명 텍스트, 답안은 특성 한글명.
- */
 const AbilityQuizCard = ({ abilityQuiz }: AbilityQuizCardProps) => {
   const { isCorrect, isShowModal, handleSelectAnswer, handleCloseModal } =
     useCorrectQuizCheck({ correctAnswer: abilityQuiz.correctAnswerIndex })

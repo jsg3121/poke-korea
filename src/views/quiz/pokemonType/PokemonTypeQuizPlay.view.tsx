@@ -13,14 +13,6 @@ import QuizOptionButton from '~/components/quiz/QuizOptionButton.component'
 import QuizSkipButton from '~/components/quiz/QuizSkipButton.component'
 import Tag from '~/components/tag/Tag.component'
 
-/**
- * 포켓몬 타입 퀴즈 QUIZ 단계 (반응형 단일). "다음 중 [타입칩] 타입을 가진 포켓몬은?" +
- * 4개 포켓몬 이미지 옵션 카드. 옵션 그리드 모바일 1열/desktop 2×2.
- *
- * 기존 모바일 옵션 카드는 배경(bg-primary-3)이 누락돼 클릭 영역이 안 보이는
- * 버그가 있었으나, QuizOptionButton(variant="image")이 배경을 항상 부여한다.
- * 타입칩은 신규 DS Tag로 교체.
- */
 const PokemonTypeQuizPlay = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
   const {
@@ -74,9 +66,6 @@ const PokemonTypeQuizPlay = () => {
                 variant="image"
                 onClick={() => submitAnswer(index)}
               >
-                {/* wrapper가 크기·그림자를 잡고, figure는 100%, img는
-                    h-full w-full object-contain으로 채운다(상세 Hero 정석 패턴).
-                    figure(width/height)와 img(imageSize)를 일치시켜 좌상단 쏠림 방지. */}
                 <div className="h-24 w-24 desktop:h-32 desktop:w-32 shrink-0 drop-shadow-[1px_1px_2px_#333333]">
                   <Image
                     width="100%"

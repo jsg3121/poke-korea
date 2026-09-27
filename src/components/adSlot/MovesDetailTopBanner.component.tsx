@@ -4,15 +4,6 @@ import { ADSENSE_CLIENT, MOVES_DETAIL_TOP_SLOTS } from '~/constants/adSense'
 import { useAdSlotEffect } from '~/hooks/useAdSlotEffect'
 import { useDevice } from '~/context/Device.context'
 
-/**
- * 기술도감 상세(/moves/[id]) 상단 광고 — RES-004. 기술 설명(히어로) 아래·버전
- * 탭바 위. 상단은 인아티클이 콘텐츠처럼 보여 어색하므로 디스플레이(배너)를 쓴다
- * (하단 인아티클은 MovesDetailBottomBanner로 별도 유지).
- *
- * 기기별 성과 분리를 위해 PC·모바일 슬롯을 나눈다:
- * - 데스크톱: 970×250. 모바일: 320×100(높이 예측 가능).
- * 슬롯 미발급('') 시 렌더하지 않는다.
- */
 const MovesDetailTopBanner = () => {
   const { slotRef } = useAdSlotEffect()
   const { isMobile } = useDevice()

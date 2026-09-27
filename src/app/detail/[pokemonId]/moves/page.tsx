@@ -32,7 +32,6 @@ export const generateMetadata = async ({
     selectVersion,
   } = await searchParams
 
-  // 쿼리 파라미터가 있으면 메타데이터 생성 스킵 (리다이렉트됨)
   if (
     activeType === 'region' ||
     activeIndex !== '0' ||
@@ -61,7 +60,6 @@ const DetailMovesPage = async ({
     selectVersion,
   } = await searchParams
 
-  // region 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
   if (activeType === 'region') {
     const basePath =
       activeIndex !== '0'
@@ -72,7 +70,6 @@ const DetailMovesPage = async ({
     redirect(`${basePath}${versionPath}${machinePath}`)
   }
 
-  // activeIndex 쿼리 파라미터가 있으면 Path 기반 URL로 리다이렉트
   if (activeIndex !== '0') {
     const basePath = `/detail/${pokemonId}/moves/form/${activeIndex}`
     const versionPath = selectVersion ? `/version/${selectVersion}` : ''
@@ -80,7 +77,6 @@ const DetailMovesPage = async ({
     redirect(`${basePath}${versionPath}${machinePath}`)
   }
 
-  // selectVersion 또는 movesType 쿼리파라미터가 있으면 Path 기반으로 리다이렉트
   if (selectVersion || movesType !== 'LEVELUP') {
     const basePath = `/detail/${pokemonId}/moves`
     const versionPath = selectVersion ? `/version/${selectVersion}` : ''
@@ -101,7 +97,6 @@ const DetailMovesPage = async ({
   const pokemonDetail = pokemonInfoData.getPokemonDetail
   const isFormChange = !!pokemonDetail.isFormChange
 
-  // 폼체인지 포켓몬은 폼 전환 UI가 폼 개수를 알아야 한다
   const formDataLength = isFormChange
     ? (formImageList.getPokemonNormalFormImageList?.length ?? 0)
     : 0
@@ -128,8 +123,6 @@ const DetailMovesPage = async ({
 
   return (
     <DetailMovesProvider {...initialValue}>
-      {/* 콘텐츠는 반응형 단일(DetailMoves, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(홈·리스트·상세 개편과 동일 패턴). */}
       <DetailMoves pokemonName={pokemonDetail.name} />
     </DetailMovesProvider>
   )

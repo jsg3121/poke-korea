@@ -129,12 +129,10 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본(스크롤바 표시) — 좁은 폭에서 다음 카드 peek 노출, 호버해도 Y축 스크롤 없음 */
 export const Default: Story = {
   args: { showScrollbar: true },
 }
 
-/** 스크롤바 숨김 — 스크롤은 가능하나 바 비표시 */
 export const NoScrollbar: Story = {
   args: { showScrollbar: false },
 }
