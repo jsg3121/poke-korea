@@ -80,14 +80,10 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
       GetChampionsTeamCoresQueryVariables
     >({
       query: GetChampionsTeamCoresDocument,
-      // size 미지정 → 2/3/4 모두 반환. limit 30 → 사이즈별 약 10개씩 가정.
-      // 클라이언트(ChampionsTeamCoreSection)에서 선택된 size로 필터링 후 TOP 5 표시.
       variables: { format: formatEnum, limit: 30 },
       fetchPolicy: 'network-only',
       errorPolicy: 'all',
     }),
-    // Phase 5: 최근 대회 섹션용 - 더블(VGC)만 데이터 있고 싱글 홈에선 섹션 자체 미노출.
-    // formatSlug === 'double' 일 때만 네트워크 호출, 싱글은 빈 응답으로 단락.
     formatSlug === 'double'
       ? apolloClient.query<
           GetChampionsTournamentsWithTopTeamQuery,
@@ -122,8 +118,6 @@ const ChampionsFormatHomePage = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsHome, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(티어·도감 개편과 동일 패턴). */}
       <ChampionsHome
         topPokemons={topPokemons}
         teamCores={teamCores}

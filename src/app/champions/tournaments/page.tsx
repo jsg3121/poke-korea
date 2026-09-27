@@ -64,8 +64,7 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
     query: GetChampionsTournamentsWithTopTeamDocument,
     variables: {
       format: ChampionsFormat.VGC_DOUBLES,
-      // 대회 데이터는 소량이라 무한스크롤 없이 전량 로드(사용자 결정, E-3).
-      // 페이지네이션 인프라(offset/cursor)가 없어 충분히 큰 limit으로 한 번에 가져온다.
+      // 페이지네이션 인프라가 없어 충분히 큰 limit으로 한 번에 가져온다.
       limit: 1000,
       ...(month ? { month } : {}),
     },
@@ -74,7 +73,6 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
 
   const tournaments = data?.championsTournaments ?? []
 
-  // 사용 가능한 월 목록 (응답에서 추출 — null/빈값 제거 + 중복 제거 + 내림차순)
   // null 이 섞이면 localeCompare 호출 시 TypeError 로 SSR 크래시되므로 사전 필터링.
   const availableMonths = Array.from(
     new Set(
@@ -132,8 +130,6 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsTournamentsList, ADR-0007). UA 분기는
-          전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
       <ChampionsTournamentsList
         tournaments={tournaments}
         availableMonths={availableMonths}

@@ -34,7 +34,6 @@ export const generateMetadata = async ({
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
-  // 레거시 쿼리파라미터가 있으면 메타데이터 생성 스킵 (리다이렉트됨)
   if (legacyMovesType || legacySelectVersion) {
     return {}
   }
@@ -71,7 +70,6 @@ export const generateMetadata = async ({
       )
     : versionInfo.getVersionGroups?.[0]
 
-  // 언더바 구분자는 백엔드에서 제거됐다(2026-09-08 폼 표시명 변경).
   const pokemonName =
     normalFormData.getPokemonNormalForm?.[0]?.name ??
     pokemonDetail.getPokemonDetail?.name
@@ -98,9 +96,7 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
   const { movesType: legacyMovesType, selectVersion: legacySelectVersion } =
     await searchParams
 
-  // 레거시 쿼리파라미터가 있으면 Path 기반으로 리다이렉트
   if (legacyMovesType || legacySelectVersion) {
-    // 기존 segments에서 activeIndex만 추출
     const firstSegment = segments?.[0]
     const legacyIndex =
       firstSegment && firstSegment !== 'version' && firstSegment !== 'machine'
@@ -135,7 +131,6 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
 
   const { pokemonInfoData } = fetchResult
 
-  // isFormChange가 없으면 기본 moves 페이지로 리다이렉트
   if (
     !pokemonInfoData.getPokemonDetail ||
     !pokemonInfoData.getPokemonDetail.isFormChange
@@ -158,8 +153,6 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
     learnMethodLabels,
   } = fetchResult
 
-  // 폼별 이름·타입은 러닝셋에 없어 폼 조회 결과를 쓴다(히트로토무 등 폼마다
-  // 이름·타입이 다른 경우). 기본 폼(index 0)은 포켓몬 기본 정보를 그대로 쓴다.
   const normalFormName = formInfo?.name ?? pokemonInfoData.getPokemonDetail.name
   const pokemonName =
     activeIndex > 0 ? normalFormName : pokemonInfoData.getPokemonDetail.name
@@ -195,8 +188,6 @@ const FormMovesPage = async ({ params, searchParams }: FormMovesPageProps) => {
 
   return (
     <DetailMovesProvider {...initialValue}>
-      {/* 콘텐츠는 반응형 단일(DetailMoves, ADR-0007). UA 분기는 전역 크롬
-          (헤더/푸터/탭바) 선택으로만 남는다(홈·리스트·상세 개편과 동일 패턴). */}
       <DetailMoves pokemonName={pokemonName} />
     </DetailMovesProvider>
   )

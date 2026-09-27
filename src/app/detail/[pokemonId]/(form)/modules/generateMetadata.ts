@@ -54,9 +54,6 @@ interface GenerateDetailMetadataParams {
   gigantamaxData?: PokemonGigantamax[]
 }
 
-/**
- * 포켓몬 상세 페이지 메타데이터 생성
- */
 export const generateDetailMetadata = ({
   pokemonDetail,
   activeType,
@@ -102,7 +99,6 @@ export const generateDetailMetadata = ({
     isShiny,
   })
 
-  // 키·몸무게는 폼마다 다르므로 활성 폼 기준으로 뽑는다
   const { height, weight } = getPokemonSize({
     ...commonParams,
     gigantamaxData,

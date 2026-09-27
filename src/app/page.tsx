@@ -48,16 +48,11 @@ const HomePage = async ({ searchParams }: PageProps) => {
   const params = await searchParams
   const hasFilters = Object.keys(params).length > 0
 
-  // 필터 쿼리 파라미터가 있으면 /list로 308 영구 리다이렉트 (SEO)
-  // ⚠️ 중요: 이 리다이렉트는 최소 1년 이상 유지해야 합니다!
-  // 배포일: 2025-XX-XX
-  // 제거 예정일: 2026-XX-XX 이후
   if (hasFilters) {
     const queryString = new URLSearchParams(params).toString()
     permanentRedirect(`/list?${queryString}`)
   }
 
-  // 매일 변경되는 랜덤 포켓몬 10마리 가져오기
   const { data: pokemonData } = await apolloClient.query<
     GetDailyRandomPokemonQuery,
     GetDailyRandomPokemonQueryVariables
@@ -66,7 +61,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
-  // 매일 변경되는 퀴즈 3개 (타입, 특성, 실루엣) 가져오기
   const { data: quizData } = await apolloClient.query<
     GetDailyQuizPreviewQuery,
     GetDailyQuizPreviewQueryVariables
@@ -75,7 +69,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
-  // 챔피언스 S 티어 인기 포켓몬 상위 3개 가져오기 (채택 순위 기준)
   const { data: championsTopData } = await apolloClient.query<
     GetChampionsMetaSummaryByFilterQuery,
     GetChampionsMetaSummaryByFilterQueryVariables

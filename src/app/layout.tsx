@@ -27,10 +27,6 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://poke-korea.com'),
   title: {
-    // 브랜드 접미사를 한 곳에서 강제한다(SSOT). 각 페이지 title은 접미사 없이
-    // 페이지명만 반환하면 Next.js가 자동으로 " - 포케 코리아"를 붙인다.
-    // 구분자는 OG/Twitter/JSON-LD 개별 엔티티와 동일하게 하이픈으로 통일한다.
-    // 접미사를 붙이면 안 되는 title(홈·404 등)은 title.absolute를 사용한다.
     default: '포케 코리아 - 포켓몬의 모든 정보',
     template: '%s - 포케 코리아',
   },
@@ -52,15 +48,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  // 빌드된 CSS 파일 가져오기
   const cssFiles = getCssFiles()
-  // 폰트 파일 가져오기
   const fontFiles = getFontFiles()
 
   return (
     <html lang="ko">
       <head>
-        {/* Font preload - 최우선 */}
         {fontFiles.map((font) => (
           <link
             key={`preload-font-${font.href}`}
@@ -71,7 +64,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             crossOrigin="anonymous"
           />
         ))}
-        {/* CSS preload - 최우선 */}
         {cssFiles.map((cssFile) => (
           <link
             key={`preload-${cssFile}`}
@@ -81,7 +73,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             fetchPriority="high"
           />
         ))}
-        {/* CSS stylesheet - 실제 적용 */}
         {cssFiles.map((cssFile) => (
           <link key={`style-${cssFile}`} rel="stylesheet" href={cssFile} />
         ))}
@@ -95,16 +86,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               name="google-adsense-account"
               content="ca-pub-6481622724376761"
             />
-            {/* 이미지 CDN - 최우선 (실제 사용됨) */}
             <link
               rel="preconnect"
               href="https://image-cdn.poke-korea.com"
               crossOrigin=""
             />
             <link rel="dns-prefetch" href="https://image-cdn.poke-korea.com" />
-            {/* og 이미지 CDN - SSR에서만 사용 */}
             <link rel="dns-prefetch" href="https://image.poke-korea.com" />
-            {/* GraphQL API - SSR에서 사용 */}
             <link rel="dns-prefetch" href="https://api.poke-korea.com" />
           </>
         )}
@@ -120,14 +108,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         </Providers>
         {isProduction && (
           <>
-            {/* Google AdSense */}
             <Script
               id="adsbygoogle-init"
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6481622724376761"
               crossOrigin="anonymous"
               strategy="afterInteractive"
             />
-            {/* Google Analytics */}
             <Script
               id="gtag-base"
               src="https://www.googletagmanager.com/gtag/js?id=G-28P8TKSR5M"
@@ -145,7 +131,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 `,
               }}
             />
-            {/* Naver Analytics */}
             <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
             <Script
               id="naver-analytics-init"

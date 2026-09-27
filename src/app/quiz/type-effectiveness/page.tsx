@@ -16,7 +16,6 @@ export const metadata = QUIZ_TYPE_EFFECTIVENESS_META
 const TypeEffectivenessQuizPage = async () => {
   return (
     <Fragment>
-      {/* 본문 반응형 단일(TypeEffectivenessQuiz). UA 분기는 전역 크롬 선택으로만. */}
       <TypeEffectivenessQuizProvider>
         <TypeEffectivenessQuiz />
       </TypeEffectivenessQuizProvider>

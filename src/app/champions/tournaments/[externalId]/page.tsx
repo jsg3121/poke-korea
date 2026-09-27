@@ -159,8 +159,6 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
           }}
         />
       )}
-      {/* 콘텐츠는 반응형 단일(ChampionsTournamentDetail, ADR-0007). UA 분기는
-          전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
       <ChampionsTournamentDetail detail={detail} />
     </>
   )

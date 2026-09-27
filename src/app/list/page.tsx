@@ -22,10 +22,6 @@ import Providers from '~/app/providers'
 
 import { generateListMetadata } from './_metadata/generateListMetadata'
 
-// 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)와 searchParams 필터가
-// 매 요청 평가된다. 기존의 revalidate=1년 선언은 headers() 때문에 실효가 없던
-// 거짓 신호라 제거(UX-004 M1). ISR 재도입은 크롬 통합(UA 제거) 이후 검토.
-
 export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
@@ -106,11 +102,8 @@ const ListPage = async ({ searchParams }: PageProps) => {
     }) || []
   const hasNextPage = !!data?.getPokemonList.pageInfo.hasNextPage
 
-  // SSR로 실행한 GetPokemonListPaginated 결과를 클라이언트 캐시로 하이드레이트해
-  // ListProvider의 useQuery가 초기 재요청 없이 캐시를 읽도록 한다.
   const initialApolloState = extractApolloState(apolloClient)
 
-  // Breadcrumb JSON-LD for SEO
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -161,8 +154,6 @@ const ListPage = async ({ searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      {/* 콘텐츠는 반응형 단일(List, ADR-0007). UA 분기는 전역 크롬(헤더/푸터/
-          탭바)과 디바이스별 AdSense 유닛 선택으로만 남는다(홈 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
         <List
           pokemonList={pokemonList}

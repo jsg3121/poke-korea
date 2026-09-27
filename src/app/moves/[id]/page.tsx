@@ -11,9 +11,6 @@ import { fetchMoveDetailQueries } from './_fetch/moveDetail.fetch'
 import { fetchMoveDetailMetadata } from './_fetch/moveDetailMetadata.fetch'
 import { generateMoveDetailMetadata } from './_metadata/generateMoveDetailMetadata'
 
-// 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)가 매 요청 평가된다.
-// 기존 revalidate=1년 선언은 headers() 때문에 실효가 없던 거짓 신호라 제거(UX-008).
-
 type PageProps = {
   params: Promise<{
     id: string
@@ -79,7 +76,6 @@ const MoveDetailPage = async ({ params }: PageProps) => {
   const damageTypeKorean = getDamageTypeKorean(skill.damageType)
   const jsonLd = getMoveDetailJsonLd(skillId, skill.nameKo, {
     typeLabel: skill.type ? PokemonTypes[skill.type] : null,
-    // getDamageTypeKorean은 미보유 시 '-'를 반환 — JSON-LD에선 제외
     damageTypeLabel: damageTypeKorean === '-' ? null : damageTypeKorean,
     power: skill.power,
     accuracy: skill.accuracy,

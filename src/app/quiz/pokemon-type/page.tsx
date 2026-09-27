@@ -16,7 +16,6 @@ export const metadata = QUIZ_POKEMON_TYPE_META
 const PokemonTypeQuizPage = async () => {
   return (
     <Fragment>
-      {/* 본문 반응형 단일(PokemonTypeQuiz). UA 분기는 전역 크롬 선택으로만. */}
       <PokemonTypeQuizProvider>
         <PokemonTypeQuiz />
       </PokemonTypeQuizProvider>
