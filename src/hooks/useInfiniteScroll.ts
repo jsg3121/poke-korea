@@ -9,26 +9,13 @@ interface UseInfiniteScrollProps {
 }
 
 /**
- * 무한 스크롤을 위한 IntersectionObserver 훅
- *
- * @param hasNextPage - 다음 페이지 존재 여부
- * @param loadMore - 다음 페이지 로드 함수
- * @param rootMargin - IntersectionObserver rootMargin (기본값: '0px 0px 100px 0px')
- * @param dependencies - useEffect 의존성 배열 (기본값: [])
- * @param enabled - 옵저버 활성화 여부 (기본값: true)
- * @returns listRef - 관찰할 요소에 연결할 ref
- *
- * @example
- * ```tsx
- * const listRef = useInfiniteScroll({
- *   hasNextPage,
- *   loadMore,
- *   rootMargin: '0px 0px 380px 0px', // 모바일
- *   dependencies: [pokemonList],
- * })
- *
- * return <div ref={listRef}>...</div>
- * ```
+ * 무한 스크롤용 IntersectionObserver 훅.
+ * @param hasNextPage 다음 페이지 존재 여부
+ * @param loadMore 다음 페이지 로드 함수
+ * @param rootMargin IntersectionObserver rootMargin(기본 '0px 0px 100px 0px')
+ * @param dependencies useEffect 의존성 배열(기본 [])
+ * @param enabled 옵저버 활성화 여부(기본 true)
+ * @returns 관찰할 요소에 연결할 ref
  */
 export const useInfiniteScroll = ({
   hasNextPage,

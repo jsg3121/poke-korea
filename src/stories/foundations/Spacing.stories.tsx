@@ -6,7 +6,6 @@ const spacing = (
   tailwindConfig as { theme: { extend: { spacing: Record<string, string> } } }
 ).theme.extend.spacing
 
-// Tailwind 기본 간격 스케일 (자주 쓰는 단계) — 시각 참고용
 const BASE_SCALE: { token: string; rem: string }[] = [
   { token: '1', rem: '0.25rem' },
   { token: '2', rem: '0.5rem' },

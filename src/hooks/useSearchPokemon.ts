@@ -6,12 +6,6 @@ import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hooks/useDebounce'
 import { useOutSideClick } from '~/hooks/useOutSideClick'
 
-/**
- * 헤더 검색창의 키워드 입력·조회·결과 노출을 담당한다.
- *
- * @remarks
- * - 반환된 `searchRef`를 검색 영역 루트에 연결해야 바깥 클릭 감지가 동작한다.
- */
 export const useSearchPokemon = () => {
   const searchRef = useRef<HTMLDivElement>(null)
   const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)

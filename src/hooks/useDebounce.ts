@@ -5,12 +5,9 @@ type DebounceType = (str: string) => void
 type UseDebounce = (initialValue?: string) => [string, DebounceType]
 
 /**
- * info : text 입력값 debounce
- * @author 장선규 jsg3121
- * @param initialValue 초기 키워드 — URL 등 외부 상태와 동기화된 값으로 시작해야
- *   할 때 사용(기본 ''). value·keyword 둘 다 초기화해야 마운트 500ms 후
- *   keyword가 ''로 덮이지 않는다
- * @returns [마지막 문자열, debounce 함수 ]
+ * text 입력값 debounce.
+ * @param initialValue 초기 키워드 — URL 등 외부 상태와 맞춰 시작할 때 쓴다(기본 '')
+ * @returns [마지막 문자열, debounce 함수]
  */
 export const useDebounce: UseDebounce = (initialValue = '') => {
   const [value, setValue] = useState<string>(initialValue)
@@ -33,11 +30,10 @@ export const useDebounce: UseDebounce = (initialValue = '') => {
 type DebouncedCallback<T extends unknown[]> = (...args: T) => void
 
 /**
- * info : 콜백 함수를 debounce하여 실행
- * @author 장선규 jsg3121
- * @param callback debounce할 콜백 함수
- * @param delay debounce 지연 시간 (기본값: 500ms)
- * @returns debounce된 콜백 함수
+ * 콜백을 debounce해 실행한다.
+ * @param callback debounce할 콜백
+ * @param delay 지연 시간(기본 500ms)
+ * @returns debounce된 콜백
  */
 export const useDebouncedCallback = <T extends unknown[]>(
   callback: (...args: T) => void,

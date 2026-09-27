@@ -6,7 +6,6 @@ const fontSize = (
   tailwindConfig as { theme: { extend: { fontSize: Record<string, string> } } }
 ).theme.extend.fontSize
 
-// 본문에서 자주 쓰는 스케일만 노출 (6xl 이상 대형은 생략)
 const SHOWN = [
   '2xs',
   'xs',

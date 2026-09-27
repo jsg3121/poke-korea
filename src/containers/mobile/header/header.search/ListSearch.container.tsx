@@ -30,6 +30,7 @@ const ListSearch = () => {
       params.set('name', searchKeyword)
     }
     router.replace(`/list?${params.toString()}`, { scroll: false })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKeyword])
 
   return (

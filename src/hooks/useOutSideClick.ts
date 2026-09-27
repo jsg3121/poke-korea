@@ -6,14 +6,6 @@ type UseOutSideClickOptions = {
   isActive: boolean
 }
 
-/**
- * 활성 상태인 요소 바깥에서 포인터 입력이 발생하거나 Esc·Tab 키를 누르면 닫는다.
- *
- * @remarks
- * - `touchstart`와 `mousedown`을 함께 구독한다 — 터치 기기는 탭 한 번에 두 이벤트가
- *   순차 발생하지만, 첫 호출로 `isActive`가 내려가면 뒤따르는 합성 이벤트는 걸러진다.
- *   `mousedown`만 구독하면 터치 기기에서 닫힘이 지연되거나 누락된다.
- */
 export const useOutSideClick = ({
   ref,
   onOutsideClick,

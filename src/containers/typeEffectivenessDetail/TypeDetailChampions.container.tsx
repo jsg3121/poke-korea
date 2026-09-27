@@ -50,6 +50,7 @@ const TypeDetailChampions = ({
               className="flex items-center gap-4 rounded-2xl bg-primary-4 p-4 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 desktop:p-5"
             >
               {pokemon.imagePath && (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={`${imageMode}/${pokemon.imagePath}`}
                   alt=""

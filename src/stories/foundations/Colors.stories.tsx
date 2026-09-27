@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-// 실제 tailwind.config의 토큰을 직접 읽어 렌더한다(손으로 베끼지 않음).
-// 토큰이 바뀌면 이 story도 자동 반영된다.
 import tailwindConfig from '../../../tailwind.config.js'
 
 const colors = (
