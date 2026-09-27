@@ -11,10 +11,6 @@ import PageHeader from '~/components/pageHeader/PageHeader.component'
 import GuideStartButton from '~/components/quiz/GuideStartButton.component'
 import OtherQuizLink from '~/components/quiz/OtherQuizLink.component'
 
-/**
- * 특성 퀴즈 BEFORE 단계 (반응형 단일). 실루엣과 동일 구조(설명 3섹션 + 시작 버튼 +
- * 관련 링크 + 다른 퀴즈), 콘텐츠만 특성용으로 다르다.
- */
 const AbilityQuizBefore = () => {
   const { onChangeStage } = useAbilityQuizContext()
   const seoContent = QUIZ_DESCRIPTION_LIST_DATA.ability

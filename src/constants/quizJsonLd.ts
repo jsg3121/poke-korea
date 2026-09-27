@@ -1,4 +1,3 @@
-// 포켓몬 타입 퀴즈 JSON-LD
 export const POKEMON_TYPE_QUIZ_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -43,7 +42,6 @@ export const POKEMON_TYPE_QUIZ_JSON_LD = {
   },
 }
 
-// 포켓몬 특성 퀴즈 JSON-LD
 export const ABILITY_QUIZ_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -88,7 +86,6 @@ export const ABILITY_QUIZ_JSON_LD = {
   },
 }
 
-// 포켓몬 실루엣 퀴즈 JSON-LD
 export const SILHOUETTE_QUIZ_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -133,7 +130,6 @@ export const SILHOUETTE_QUIZ_JSON_LD = {
   },
 }
 
-// 포켓몬 타입 상성 퀴즈 JSON-LD
 export const TYPE_EFFECTIVENESS_QUIZ_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -178,7 +174,6 @@ export const TYPE_EFFECTIVENESS_QUIZ_JSON_LD = {
   },
 }
 
-// 실루엣 퀴즈 HowTo JSON-LD
 export const SILHOUETTE_QUIZ_HOWTO_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -208,7 +203,6 @@ export const SILHOUETTE_QUIZ_HOWTO_JSON_LD = {
   ],
 }
 
-// 특성 퀴즈 HowTo JSON-LD
 export const ABILITY_QUIZ_HOWTO_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -238,7 +232,6 @@ export const ABILITY_QUIZ_HOWTO_JSON_LD = {
   ],
 }
 
-// 포켓몬 타입 퀴즈 HowTo JSON-LD
 export const POKEMON_TYPE_QUIZ_HOWTO_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -268,7 +261,6 @@ export const POKEMON_TYPE_QUIZ_HOWTO_JSON_LD = {
   ],
 }
 
-// 타입 상성 퀴즈 HowTo JSON-LD
 export const TYPE_EFFECTIVENESS_QUIZ_HOWTO_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -298,7 +290,6 @@ export const TYPE_EFFECTIVENESS_QUIZ_HOWTO_JSON_LD = {
   ],
 }
 
-// 퀴즈 목록 ItemList JSON-LD
 export const QUIZ_ITEMLIST_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',

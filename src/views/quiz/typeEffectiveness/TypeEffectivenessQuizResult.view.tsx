@@ -11,10 +11,6 @@ import ResultHeader from '~/components/quiz/ResultHeader.component'
 import ResultSummary from '~/components/quiz/ResultSummary.component'
 import Tag from '~/components/tag/Tag.component'
 
-/**
- * 타입 상성 퀴즈 RESULT 단계 (반응형 단일). 4종 공통 QuizResultCard(세로 카드)로 통일.
- * 본문 슬롯 = 공격 → 방어 타입칩(신규 DS Tag). desktop 2열 그리드.
- */
 const TypeEffectivenessQuizResult = () => {
   const { result, questions, onClickRetryQuiz } =
     useTypeEffectivenessQuizContext()
@@ -25,7 +21,6 @@ const TypeEffectivenessQuizResult = () => {
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 pt-4 pb-8 desktop:px-5">
-      {/* 광고 — 결과 최상단(헤더 앞) */}
       <QuizResultTopBanner
         mobileSlot={QUIZ_RESULT_SLOTS.typeEffectiveness.mobile}
         desktopSlot={QUIZ_RESULT_SLOTS.typeEffectiveness.desktop}

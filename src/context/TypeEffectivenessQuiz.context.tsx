@@ -61,7 +61,6 @@ export const TypeEffectivenessQuizProvider = ({
     isCompleted: false,
   })
 
-  // 퀴즈 문제 생성
   const generateQuestions = () => {
     setIsGenerating(true)
     try {
@@ -76,13 +75,10 @@ export const TypeEffectivenessQuizProvider = ({
     }
   }
 
-  // 컴포넌트 마운트 시 문제 생성
   useEffect(() => {
     if (questions.length === 0) {
       generateQuestions()
     }
-    // questions.length를 넣으면 생성 직후 값이 바뀌어 문제가 다시 생성된다
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const currentQuestion = questions[quizState.currentQuestionIndex] || null

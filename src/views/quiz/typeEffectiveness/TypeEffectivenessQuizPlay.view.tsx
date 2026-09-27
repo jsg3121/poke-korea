@@ -11,10 +11,6 @@ import QuizOptionButton from '~/components/quiz/QuizOptionButton.component'
 import QuizSkipButton from '~/components/quiz/QuizSkipButton.component'
 import Tag from '~/components/tag/Tag.component'
 
-/**
- * 타입 상성 퀴즈 QUIZ 단계 (반응형 단일). 문제 + "공격 → 방어" 타입칩 +
- * 4개 텍스트 옵션(배율). 타입칩은 신규 DS Tag로 교체. 옵션 그리드 모바일 1열/desktop 2×2.
- */
 const TypeEffectivenessQuizPlay = () => {
   const [isShowCounter, setIsShowCounter] = useState<boolean>(true)
   const {

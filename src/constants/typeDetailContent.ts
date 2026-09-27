@@ -1,66 +1,21 @@
 import { PokemonType } from '~/graphql/typeGenerated'
 
-/**
- * 타입 상세 페이지(`/type-effectiveness/[type]`)의 타입별 고유 콘텐츠.
- *
- * ## 이 상수가 존재하는 이유
- *
- * 배율·포켓몬 목록은 데이터에서 나오지만, 그것만으로는 18개 페이지의 **본문 구조가
- * 전부 같아진다.** spec §12가 경고한 "타입명과 배율만 바뀐 얇은 페이지"가 정확히
- * 그 상태다. 페이지마다 다른 문장이 실제로 존재해야 하고, 그 문장을 여기 둔다.
- *
- * ## 자동 생성하지 않는 이유
- *
- * "○○에 2배를 넣는 유일한 타입" 같은 문장은 상성 상수에서 계산할 수 있다. 그러나
- * 템플릿으로 찍으면 **18개 문장의 구조가 동일**해져 원래 문제로 돌아간다. 수작성이
- * 분량은 크지만 §26.9.4가 요구하는 자가검증(h2·배율 제거 후 80% 이상 차이)을
- * 넘기는 유일한 방법이다.
- *
- * ## 작성 규칙
- *
- * - 문체는 `TypeEffectivenessDescription.container.tsx`의 기존 설명과 맞춘다("~해요").
- * - **`uniqueFacts`는 그 타입에만 성립하는 사실**을 쓴다. 다른 타입 문서에 그대로
- *   옮겨도 말이 되는 문장이면 실패다.
- * - `faq`의 **질문 자체가 타입마다 달라야** 한다. 타입명만 치환한 공통 질문 3종을
- *   18번 반복하면 FAQPage 구조화 데이터가 아무 가치도 주지 못한다.
- * - `combos`는 **실제 게임에 존재하는 복합 타입만** 넣는다(§26.9.4 장치 3). 상성표로
- *   계산 가능한 조합을 무제한 나열하면 그게 얇은 페이지다.
- * - `specialEffect`는 메인 페이지 "타입별 추가 효과"에서 해당 타입 항목을 가져온다.
- *   고유 효과가 없는 타입은 `undefined`로 두고 섹션을 렌더하지 않는다.
- */
-
-/** 복합 타입 사례 — 4배 약점 또는 무효가 생기는 실존 조합. */
 export interface TypeComboCase {
-  /** 조합 표기(`독/땅`) */
   label: string
-  /** 이 조합에서 생기는 특징 */
   description: string
-  /** 실존 포켓몬 예시 — 조합이 실재함을 보이는 근거 */
   examples: string
 }
 
-/** 타입별 FAQ 1문항. */
 export interface TypeFaqItem {
   question: string
   answer: string
 }
 
 export interface TypeDetailContent {
-  /**
-   * 페이지 상단 리드 1문장. H1 바로 아래 폴드에 들어간다.
-   * 약점·강점을 요약하되 배율 나열이 아니라 문장으로 쓴다.
-   */
   lead: string
-  /**
-   * 이 타입에만 성립하는 사실 1~2문장. 폴드 안에 배치되며 검색 스니펫으로도 뽑힌다.
-   * **복제 회피의 핵심 슬롯이다.**
-   */
   uniqueFacts: string
-  /** 고유 효과(면역·특수 규칙). 없는 타입은 undefined. */
   specialEffect?: string
-  /** 실존 복합 타입 사례. 없으면 빈 배열 — 그 사실도 정보라 섹션은 렌더한다. */
   combos: ReadonlyArray<TypeComboCase>
-  /** FAQ 3문항. 질문이 타입마다 달라야 한다. */
   faq: ReadonlyArray<TypeFaqItem>
 }
 

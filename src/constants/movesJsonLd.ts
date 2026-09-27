@@ -57,22 +57,14 @@ export const MOVES_WEBPAGE_JSON_LD = {
   },
 }
 
-/** 기술 상세 mainEntity(Thing) 구성용 스탯 — page.tsx가 fetch한 skill에서 전달 */
 interface MoveEntityInfo {
-  /** 타입 한글명 (예: '불꽃') */
   typeLabel?: string | null
-  /** 분류 한글명 (물리/특수/변화) */
   damageTypeLabel?: string | null
   power?: number | null
   accuracy?: number | null
   description?: string | null
 }
 
-/**
- * 기술 상세 mainEntity(Thing) — 표준 엔티티 타입이 없는 도메인이라 포켓몬 상세와
- * 동일하게 Thing + additionalProperty(PropertyValue) 패턴을 쓴다. null/미보유
- * 값은 제외해 스키마-콘텐츠 불일치를 막는다.
- */
 const buildMoveMainEntity = (
   skillId: number,
   skillName: string,

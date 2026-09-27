@@ -11,9 +11,6 @@ import PageHeader from '~/components/pageHeader/PageHeader.component'
 import GuideStartButton from '~/components/quiz/GuideStartButton.component'
 import OtherQuizLink from '~/components/quiz/OtherQuizLink.component'
 
-/**
- * 타입 상성 퀴즈 BEFORE 단계 (반응형 단일). 실루엣과 동일 구조, 콘텐츠만 다르다.
- */
 const TypeEffectivenessQuizBefore = () => {
   const { onChangeStage } = useTypeEffectivenessQuizContext()
   const seoContent = QUIZ_DESCRIPTION_LIST_DATA.typeEffectiveness
