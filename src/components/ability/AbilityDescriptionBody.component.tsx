@@ -1,15 +1,4 @@
-/**
- * 특성 설명 본문 (DS). "특성이란?" 접이식(details) 안에 들어가는 순수 본문이다.
- *
- * 구버전 AbilityDescription은 자체 외곽 껍데기(bg-primary-4·rounded·padding)와
- * 제목(<h2>특성이란?</h2>)을 포함해 details 껍데기와 배경·제목이 이중으로 겹친다.
- * 그래서 본문만 렌더하는 이 컴포넌트를 분리한다 — 배경·제목·padding은 details
- * summary가 담당한다(UX-007). 구버전 컴포넌트는 보존 원칙에 따라 손대지 않는다.
- *
- * 반응형은 모바일 퍼스트 base + desktop: 2단만(md:/lg: 제거). 색은 토큰만 사용한다.
- */
-
-const AbilityDescriptionBodyComponent = () => {
+const AbilityDescriptionBody = () => {
   return (
     <div className="space-y-4 px-6 pb-4 text-sm text-primary-1">
       <p>
@@ -55,4 +44,4 @@ const AbilityDescriptionBodyComponent = () => {
   )
 }
 
-export default AbilityDescriptionBodyComponent
+export default AbilityDescriptionBody

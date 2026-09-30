@@ -1,20 +1,22 @@
 # ADR-0004: Next.js 14 → 15 메이저 업그레이드 (보안 패치 대응)
 
-- **상태**: 제안
+- **상태**: 승인
 - **날짜**: 2026-05-09
 - **담당**: Claude + 사용자
+
+> **완료 확인(2026-09-17):** 마이그레이션이 적용됐다. `next@^15.5.18`이 설치돼 있고, Next 15의 async `params`/`searchParams` 시그니처를 27개 라우트가 사용 중이다. 아래 계획은 실행된 내용의 기록으로 보존한다.
 
 ## 맥락
 
 본 프로젝트는 현재 **Next.js 14.2.35**, **React 18.3.1**을 사용 중이다. 2025년 12월~2026년 5월 사이 React Server Components(RSC)와 Next.js 본체에 다수의 보안 취약점이 공개되었으며, `npm audit` 결과 본 프로젝트는 다음 5개의 Next.js 본체 high-severity 취약점에 노출되어 있다.
 
-| GHSA | 종류 | 본 프로젝트 영향 |
-| --- | --- | --- |
-| GHSA-9g9p-9gw9-jx7f | Image Optimizer DoS | self-host(`next start` + PM2) 운영으로 직접 영향 |
-| GHSA-h25m-26qc-wcjf | RSC HTTP request 역직렬화 DoS | App Router 사용으로 영향 범위 |
-| GHSA-ggv3-7p47-pfv8 | rewrites HTTP request smuggling | `next.config.js` rewrites 설정 시 영향 |
-| GHSA-3x4c-7xq6-9pq8 | next/image 디스크 캐시 무제한 증가 | self-host 환경 영향 |
-| GHSA-q4gf-8mx6-v5v3 | Server Components DoS | App Router 사용으로 영향 범위 |
+| GHSA                | 종류                               | 본 프로젝트 영향                                 |
+| ------------------- | ---------------------------------- | ------------------------------------------------ |
+| GHSA-9g9p-9gw9-jx7f | Image Optimizer DoS                | self-host(`next start` + PM2) 운영으로 직접 영향 |
+| GHSA-h25m-26qc-wcjf | RSC HTTP request 역직렬화 DoS      | App Router 사용으로 영향 범위                    |
+| GHSA-ggv3-7p47-pfv8 | rewrites HTTP request smuggling    | `next.config.js` rewrites 설정 시 영향           |
+| GHSA-3x4c-7xq6-9pq8 | next/image 디스크 캐시 무제한 증가 | self-host 환경 영향                              |
+| GHSA-q4gf-8mx6-v5v3 | Server Components DoS              | App Router 사용으로 영향 범위                    |
 
 추가로 2026-04~05 공개된 CVE-2026-23864/23869/23870(RSC DoS), CVE-2026-44578(SSRF, Critical) 등도 14.x 라인을 영향 범위에 포함시킨다.
 
@@ -28,10 +30,10 @@
 
 업그레이드 대상 패키지는 다음 3개로 제한한다.
 
-| 패키지 | 현재 → 목표 |
-| --- | --- |
-| `next` | 14.2.35 → 15.5.18 |
-| `eslint-config-next` | 14.2.15 → 15.5.18 |
+| 패키지                     | 현재 → 목표       |
+| -------------------------- | ----------------- |
+| `next`                     | 14.2.35 → 15.5.18 |
+| `eslint-config-next`       | 14.2.15 → 15.5.18 |
 | `@next/eslint-plugin-next` | 14.2.15 → 15.5.18 |
 
 `react`, `react-dom`, `@apollo/client`, `react-hook-form`, `chart.js`, `react-chartjs-2`, `graphql`, `immer`, `@svgr/webpack`, `tailwindcss`, `typescript` 등 다른 의존성은 변경하지 않는다.
@@ -46,12 +48,12 @@ dev 의존성에 대한 `npm audit fix`(breaking change 없음)는 본 ADR과 �
 
 ### 2. 15.x를 선택한 이유 (16.x 대비)
 
-| 항목 | 15.5.18 | 16.2.6 |
-| --- | --- | --- |
-| React 버전 요구 | React 18 호환 | **React 19 강제** |
-| 본 프로젝트 의존성 영향 | 없음 (React 18 유지) | `@apollo/client`, `react-hook-form`, `@types/react` 호환성 재검증 필요 |
-| 보안 패치 반영도 | 2026-05 시점 모든 CVE 패치 포함 | 동일 |
-| 마이그레이션 단계 | 1단계(14→15) | 2단계 점프(14→16) |
+| 항목                    | 15.5.18                         | 16.2.6                                                                 |
+| ----------------------- | ------------------------------- | ---------------------------------------------------------------------- |
+| React 버전 요구         | React 18 호환                   | **React 19 강제**                                                      |
+| 본 프로젝트 의존성 영향 | 없음 (React 18 유지)            | `@apollo/client`, `react-hook-form`, `@types/react` 호환성 재검증 필요 |
+| 보안 패치 반영도        | 2026-05 시점 모든 CVE 패치 포함 | 동일                                                                   |
+| 마이그레이션 단계       | 1단계(14→15)                    | 2단계 점프(14→16)                                                      |
 
 본 프로젝트는 [package.json](../../../package.json)의 `react@18.3.1`을 중심으로 13개 의존성이 React 18 생태계에 묶여 있다. 16.x 직행은 React 19로의 동시 마이그레이션을 강제하여 호환성 검증 부담이 큰 반면, 보안 부채 해소라는 1차 목표에 추가 가치를 거의 주지 않는다.
 
@@ -74,11 +76,11 @@ dev 의존성에 대한 `npm audit fix`(breaking change 없음)는 본 ADR과 �
 
 ## 대안
 
-| 대안 | 장점 | 단점 | 불채택 사유 |
-| --- | --- | --- | --- |
-| 14.x 유지 + WAF/리버스 프록시 방어 | 코드 변경 없음, 즉시 적용 | Image Optimizer DoS, Server Components DoS는 인프라 단에서 차단 어려움. 보안 부채 영구 누적. 14.x EOL로 향후 CVE는 더 늘어날 전망 | 근본 해결 불가 |
-| Next.js 16.2.6으로 직접 업그레이드 | 1회 작업으로 종결, 최신 기능 사용 가능 | React 19 강제 → Apollo Client/RHF/Chart.js 등 13개 의존성 호환성 재검증 필요. 디버깅 난이도 상승 | 보안 1차 목표 대비 비용 과다 |
-| Next.js 15.x + React 19 동시 업그레이드 | 향후 React 19 도입 부담 감소 | React 19는 2026-05 시점 본 프로젝트 의존성과의 호환성 미검증. 두 메이저 변경 동시 진행 시 디버깅 난이도 상승 | 1차 보안 목표와 무관한 변경 묶음 |
+| 대안                                    | 장점                                   | 단점                                                                                                                              | 불채택 사유                      |
+| --------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| 14.x 유지 + WAF/리버스 프록시 방어      | 코드 변경 없음, 즉시 적용              | Image Optimizer DoS, Server Components DoS는 인프라 단에서 차단 어려움. 보안 부채 영구 누적. 14.x EOL로 향후 CVE는 더 늘어날 전망 | 근본 해결 불가                   |
+| Next.js 16.2.6으로 직접 업그레이드      | 1회 작업으로 종결, 최신 기능 사용 가능 | React 19 강제 → Apollo Client/RHF/Chart.js 등 13개 의존성 호환성 재검증 필요. 디버깅 난이도 상승                                  | 보안 1차 목표 대비 비용 과다     |
+| Next.js 15.x + React 19 동시 업그레이드 | 향후 React 19 도입 부담 감소           | React 19는 2026-05 시점 본 프로젝트 의존성과의 호환성 미검증. 두 메이저 변경 동시 진행 시 디버깅 난이도 상승                      | 1차 보안 목표와 무관한 변경 묶음 |
 
 ## 결과
 

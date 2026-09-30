@@ -5,9 +5,8 @@ import {
   type GetLearnsetCountsQuery,
   type GetLearnsetCountsQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
-/** 백엔드 methodLabel을 못 받는 경우(기술 0건)의 최소 폴백 */
 const FALLBACK_LABEL: Record<string, string> = {
   [LearnMethod.LEVEL_UP]: '레벨업',
   [LearnMethod.MACHINE]: '기술머신',
@@ -23,16 +22,6 @@ interface FetchLearnMethodCountsParams {
   formIndex?: number
 }
 
-/**
- * 메타데이터용 습득법 정보 조회 — 라벨과 기술 수만 받는다.
- *
- * `skills` 배열을 요청하지 않아 기술 수백 건을 받지 않고도 다음 두 가지를 얻는다.
- * - `methodLabel`: description·title에 쓸 한글 라벨
- * - `skillCount`: 0이면 빈 페이지라 noindex 대상
- *
- * 조회 실패(존재하지 않는 폼 등)는 0건으로 처리한다 — 메타데이터 생성이 페이지
- * 렌더를 막아서는 안 되고, 어차피 페이지 쪽에서 notFound()로 걸러진다.
- */
 export async function fetchLearnMethodCounts({
   pokemonId,
   learnMethod,

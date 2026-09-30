@@ -1,21 +1,22 @@
 'use client'
-import { ReactNode, createContext, useContext } from 'react'
 
-export interface IFDeviceProviderProps {
+import { createContext, ReactNode, useContext } from 'react'
+
+export interface DeviceProviderProps {
   children: ReactNode
   isMobile: boolean
 }
 
-interface IFDeviceProps {
+interface DeviceContextValue {
   isMobile: boolean
 }
 
-const DeviceContext = createContext<IFDeviceProps>({
+const DeviceContext = createContext<DeviceContextValue>({
   isMobile: true,
 })
 
-const DeviceProvider = ({ children, isMobile }: IFDeviceProviderProps) => {
-  const initialValue: IFDeviceProps = {
+const DeviceProvider = ({ children, isMobile }: DeviceProviderProps) => {
+  const initialValue: DeviceContextValue = {
     isMobile,
   }
 
@@ -26,7 +27,7 @@ const DeviceProvider = ({ children, isMobile }: IFDeviceProviderProps) => {
   )
 }
 
-const useDevice = (): IFDeviceProps => {
+const useDevice = (): DeviceContextValue => {
   const context = useContext(DeviceContext)
 
   return context

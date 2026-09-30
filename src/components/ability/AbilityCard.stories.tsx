@@ -1,12 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { AbilityInfoFragment } from '~/graphql/typeGenerated'
-import AbilityCardComponent from './AbilityCard.component'
 
-/**
- * 특성 카드. 특성 도감 목록의 특성 항목 하나를 표시하는 "이미지 없는 텍스트 카드".
- * 기술 카드·HubLinkCard와 같은 밝은 카드(primary-4) 문법을 공유한다.
- */
+import AbilityCard from './AbilityCard.component'
+
 const 악취: AbilityInfoFragment = {
   __typename: 'Ability',
   id: 1,
@@ -19,7 +16,7 @@ const 악취: AbilityInfoFragment = {
 
 const meta = {
   title: 'Components/AbilityCard',
-  component: AbilityCardComponent,
+  component: AbilityCard,
   parameters: {
     layout: 'padded',
     nextjs: { appDirectory: true },
@@ -40,15 +37,13 @@ const meta = {
     abilityData: 악취,
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof AbilityCardComponent>
+} satisfies Meta<typeof AbilityCard>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 (악취) */
 export const Default: Story = {}
 
-/** 긴 설명 (심록) — 본문이 여러 줄로 늘어나도 하단 링크가 겹치지 않는다 */
 export const LongDescription: Story = {
   args: {
     abilityData: {
@@ -63,7 +58,6 @@ export const LongDescription: Story = {
   },
 }
 
-/** pokemonCount 없음 — 하단 "보러가기" 문구가 표시되지 않는다 */
 export const WithoutCount: Story = {
   args: {
     abilityData: {
@@ -78,7 +72,6 @@ export const WithoutCount: Story = {
   },
 }
 
-/** 목록 그리드 — 모바일 1열 → 데스크톱 auto-fill 다열 (부모 그리드 책임) */
 export const ListGrid: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-4 desktop:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] desktop:gap-6">
@@ -112,7 +105,7 @@ export const ListGrid: Story = {
           })),
         )
         .map((ability) => (
-          <AbilityCardComponent key={ability.abilityId} abilityData={ability} />
+          <AbilityCard key={ability.abilityId} abilityData={ability} />
         ))}
     </div>
   ),

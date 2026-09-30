@@ -1,14 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import PokeballIcon from '~/assets/icons/pokeball.svg'
-import ButtonComponent from '~/components/button/Button.component'
-import EmptyStateComponent from './EmptyState.component'
+import Button from '~/components/button/Button.component'
+
+import EmptyState from './EmptyState.component'
 
 const noop = () => undefined
 
 const meta = {
   title: 'Components/EmptyState',
-  component: EmptyStateComponent,
+  component: EmptyState,
   parameters: {
     layout: 'centered',
     docs: {
@@ -26,22 +27,20 @@ const meta = {
     description: '필터 조건을 바꾸거나 초기화해 보세요',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof EmptyStateComponent>
+} satisfies Meta<typeof EmptyState>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 도감 리스트 빈 결과 — 아이콘 + CTA (권장 구성) */
 export const Default: Story = {
   args: {
     icon: <PokeballIcon />,
     action: (
-      <ButtonComponent variant="secondary" onClick={noop}>
+      <Button variant="secondary" onClick={noop}>
         필터 초기화
-      </ButtonComponent>
+      </Button>
     ),
   },
 }
 
-/** 텍스트만 (아이콘·CTA 없음) */
 export const TextOnly: Story = {}

@@ -1,24 +1,13 @@
 import { ReactNode } from 'react'
 
-/**
- * 퀴즈 선택지 버튼 (QUIZ 단계, 신규 DS). 4지선다 옵션 1개.
- * 두 형태를 지원한다:
- *  - variant="text": 번호 + 텍스트(실루엣/특성/타입상성). pill 형태.
- *  - variant="image": 포켓몬 이미지 + 이름(포켓몬 타입). 카드 형태.
- *
- * 기존 pokemon-type 모바일 옵션은 배경(bg-primary-3)이 누락돼 클릭 영역이
- * 보이지 않는 버그가 있었다 → 두 variant 모두 배경을 항상 부여하고,
- * 접근성 위해 focus-visible 링을 추가한다(기존 .btn-quiz-answer엔 focus 없음).
- */
 interface QuizOptionButtonProps {
   onClick: () => void
   variant?: 'text' | 'image'
-  /** variant="text" 시 앞 번호 (1-based) */
   optionNumber?: number
   children: ReactNode
 }
 
-const QuizOptionButtonComponent = ({
+const QuizOptionButton = ({
   onClick,
   variant = 'text',
   optionNumber,
@@ -55,4 +44,4 @@ const QuizOptionButtonComponent = ({
   )
 }
 
-export default QuizOptionButtonComponent
+export default QuizOptionButton

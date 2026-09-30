@@ -1,0 +1,20 @@
+# codegen 생성물 — 재생성 시 포맷 diff가 튄다
+src/graphql/gqlGenerated.ts
+src/graphql/typeGenerated.ts
+src/graphql/schema.graphql
+
+# 사람이 쓰는 문서 — 지침과 릴리즈 노트는 포맷 대상이 아니다.
+# Prettier가 blockquote 연속 줄을 한 줄로 접어 내용이 훼손된다
+# (`> **루트 브랜치**: ...` + `> **포함 PR**: ...` → 한 줄).
+# 테이블 정렬만 바뀌는 나머지도 기록물이라 통일의 실익이 없다.
+.claude/**/*.md
+changelog/**/*.md
+
+# 빌드 산출물
+.next/
+out/
+changelog/build/
+changelog/.docusaurus/
+
+# 의존성
+node_modules/

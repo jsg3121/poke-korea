@@ -1,10 +1,11 @@
 import { Metadata } from 'next'
+
+import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
 import {
   CHAMPIONS_DEFAULT_FORMAT_SLUG,
   ChampionsFormatSlug,
@@ -12,8 +13,7 @@ import {
   getFormatShortLabel,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
-
-import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from '~/constants/seo.constant'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 const fetchChampionsTotalCount = async (
   formatSlug: ChampionsFormatSlug = CHAMPIONS_DEFAULT_FORMAT_SLUG,
@@ -145,12 +145,6 @@ export const generateChampionsTierMetadata = async (
   const totalCount = await fetchChampionsTotalCount(formatSlug)
   const formatShort = getFormatShortLabel(formatSlug)
 
-  // 포괄 키워드("포켓몬 챔피언스 티어 리스트") 회수:
-  // 포맷 분리(1.45.0) 이후 구 URL(/champions/tier)이 301로 VGC 페이지에 흡수되었으나,
-  // title 앞부분에 포맷 수식어(VGC)가 박혀 포괄 검색어와의 관련성이 떨어지면서 노출수가 급락했다.
-  // 301 권위가 모이는 VGC 페이지에서만 포괄 키워드를 앞세워 거점을 회복한다.
-  // 근거: https://developers.google.com/search/docs/appearance/title-link (핵심 키워드 전방 배치)
-  // BSS 는 'BSS 티어 리스트' long-tail 을 그대로 유지해 카니발라이제이션을 피한다.
   const isDefaultFormat = formatSlug === CHAMPIONS_DEFAULT_FORMAT_SLUG
 
   const title = isDefaultFormat

@@ -10,7 +10,7 @@
 
 poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크톱을 판별해 `isMobile ? <XxxMobile/> : <XxxDesktop/>` 로 분기하는 **적응형(Adaptive)** 구조를 쓴다(38개 라우트 전부). 그러나 그 하위의 공용 컴포넌트(`src/components/`의 moves·ability·champions·chart 등)는 CSS 미디어쿼리(`md:`, `sm:`, `lg:`, `xl:`) 기반의 **반응형(Responsive)** 으로 작성되어 있다.
 
-즉 **적응형과 반응형이 한 코드베이스에 혼재**한다. 모바일 사용성 전면 개편([mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md))을 진행하면서, 향후 한 방향으로 일관되게 관리할 필요가 생겼다. `md:` 사용처 조사 결과 27건이 발견되었고, 일부는 모바일 전용 파일에 있어 발동조차 안 되는 죽은 코드였다.
+즉 **적응형과 반응형이 한 코드베이스에 혼재**한다. 모바일 사용성 전면 개편([mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md))을 진행하면서, 향후 한 방향으로 일관되게 관리할 필요가 생겼다. `md:` 사용처 조사 결과 27건이 발견되었고, 일부는 모바일 전용 파일에 있어 발동조차 안 되는 죽은 코드였다.
 
 ## 결정
 
@@ -40,10 +40,10 @@ poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크�
 
 ### isMobile 전달 규칙 (CLS 0 + RSC 최대화)
 
-| 컴포넌트 종류 | isMobile 획득 | 이유 |
-| --- | --- | --- |
-| **서버 컴포넌트** | `getIsMobile()` (`headers()` 기반, `src/module`) | prop drilling·context 불필요, RSC 유지, 서버에서 스타일 확정 → CLS 0 |
-| **클라이언트 컴포넌트** | 기존 `useDevice()` context | 클라에선 `headers()` 불가. context는 서버가 주입한 값이라 CLS 없음 |
+| 컴포넌트 종류           | isMobile 획득                                    | 이유                                                                 |
+| ----------------------- | ------------------------------------------------ | -------------------------------------------------------------------- |
+| **서버 컴포넌트**       | `getIsMobile()` (`headers()` 기반, `src/module`) | prop drilling·context 불필요, RSC 유지, 서버에서 스타일 확정 → CLS 0 |
+| **클라이언트 컴포넌트** | 기존 `useDevice()` context                       | 클라에선 `headers()` 불가. context는 서버가 주입한 값이라 CLS 없음   |
 
 - `getIsMobile()`은 `headers()`에 의존하므로 **서버 전용**이다. 클라이언트에서 호출 불가.
 - `useDevice()`는 `useContext` 훅이므로 **호출하는 컴포넌트는 무조건 client**가 된다. RSC가 필요한 곳에서는 쓰지 않는다.
@@ -59,14 +59,14 @@ poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크�
 
 ## 대안
 
-| 대안 | 장점 | 단점 | 불채택 사유 |
-|------|------|------|-------------|
-| 순수 적응형 + min-width (채택) | 현 구조 활용, 성능, DS 정합, 창 줄이기를 스크롤로 명확 처리 | 데스크톱 창 줄이기 시 리플로우 없음(스크롤) | — |
-| 적응형 + 다단그리드만 반응형 예외 | 와이드 모니터에서 그리드가 폭에 비례 | 한 컴포넌트 안에 두 방식 혼재 잔존 | 혼재를 완전히 없애려는 본 결정 취지와 어긋남 |
-| 반응형으로 전환 | 모든 폭에서 자연스러움, 업계 표준 | 38개 page UA 분기 제거 + 모든 view 병합 = 전면 재작성, 개편 범위 초과 | 리스크 대비 이득 불일치, 이번 개편 범위 초과 |
-| 모든 공용 컴포넌트 무조건 mobile/desktop 분리 | 모드별 명확 | 표현 차이만 있는 다수 컴포넌트가 거의 동일 코드 두 벌로 중복 | 137개 전수 조사 결과 표현 차이가 다수 → 결정 트리로 선택 분리하는 것이 유지보수상 우월 |
-| useDevice context 전면 제거 | RSC 극대화 | 변경 범위 큼, context는 이미 CLS 없음(서버 주입값) | 제거 이득 < 비용. 서버 컴포넌트만 getIsMobile로 전환하면 RSC 이득 대부분 확보 |
-| 디바이스 상태관리 라이브러리 도입 | 전역 접근 편의 | 디바이스 정보 1개에 라이브러리 = 오버엔지니어링 | getIsMobile(cache+headers)로 라이브러리 없이 서버 전역 공유 가능 |
+| 대안                                          | 장점                                                        | 단점                                                                  | 불채택 사유                                                                            |
+| --------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| 순수 적응형 + min-width (채택)                | 현 구조 활용, 성능, DS 정합, 창 줄이기를 스크롤로 명확 처리 | 데스크톱 창 줄이기 시 리플로우 없음(스크롤)                           | —                                                                                      |
+| 적응형 + 다단그리드만 반응형 예외             | 와이드 모니터에서 그리드가 폭에 비례                        | 한 컴포넌트 안에 두 방식 혼재 잔존                                    | 혼재를 완전히 없애려는 본 결정 취지와 어긋남                                           |
+| 반응형으로 전환                               | 모든 폭에서 자연스러움, 업계 표준                           | 38개 page UA 분기 제거 + 모든 view 병합 = 전면 재작성, 개편 범위 초과 | 리스크 대비 이득 불일치, 이번 개편 범위 초과                                           |
+| 모든 공용 컴포넌트 무조건 mobile/desktop 분리 | 모드별 명확                                                 | 표현 차이만 있는 다수 컴포넌트가 거의 동일 코드 두 벌로 중복          | 137개 전수 조사 결과 표현 차이가 다수 → 결정 트리로 선택 분리하는 것이 유지보수상 우월 |
+| useDevice context 전면 제거                   | RSC 극대화                                                  | 변경 범위 큼, context는 이미 CLS 없음(서버 주입값)                    | 제거 이득 < 비용. 서버 컴포넌트만 getIsMobile로 전환하면 RSC 이득 대부분 확보          |
+| 디바이스 상태관리 라이브러리 도입             | 전역 접근 편의                                              | 디바이스 정보 1개에 라이브러리 = 오버엔지니어링                       | getIsMobile(cache+headers)로 라이브러리 없이 서버 전역 공유 가능                       |
 
 ## 결과
 
@@ -78,11 +78,11 @@ poke-korea는 page.tsx 레벨에서 `detectUserAgent()`로 모바일/데스크�
 - 서버 컴포넌트의 디바이스 분기는 `getIsMobile()`(`headers()` 기반)로 전환해 RSC를 보존한다. `headers()`는 이미 요청 단위로 메모이제이션되며, UA 파싱 비용이 무시할 수준이라 `cache()` 래핑은 불필요하다. 컴포넌트 로직은 순수 함수 모듈로 추출한다.
 - `useDevice()` context는 유지하되, **클라이언트 컴포넌트 전용**으로 사용한다(서버 컴포넌트는 `getIsMobile()`).
 - [styling.md](../../conventions/guides/styling.md)에 적응형 컴포넌트 아키텍처 지침을 명문화한다.
-- [mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md)의 Phase 0 "브레이크포인트 일원화" 완료 기준을 본 ADR에 맞춰 갱신한다.
+- [mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md)의 Phase 0 "브레이크포인트 일원화" 완료 기준을 본 ADR에 맞춰 갱신한다.
 
 ## 참고 자료
 
-- [mobile-redesign-plan.md](../../specs/mobile-redesign-plan.md) — 모바일 개편 기획서
+- [mobile-redesign-plan.md](../../specs/plans/mobile-redesign-plan.md) — 모바일 개편 기획서
 - [디자인 분기 전략: Adaptive vs Responsive (MDN — Responsive design)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 - [React `'use client'` — 훅은 클라이언트 전용](https://react.dev/reference/rsc/use-client)
 - [Next.js `headers()` — 서버 전용 동적 함수 (요청 단위 메모이제이션)](https://nextjs.org/docs/app/api-reference/functions/headers)

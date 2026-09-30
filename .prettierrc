@@ -14,5 +14,25 @@
   "insertPragma": false,
   "bracketSpacing": true,
   "jsxSingleQuote": false,
-  "importOrder": ["^react", "<THIRD_PARTY_MODULES>", "^[./]"]
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^react$",
+    "^next(/.*)?$",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^~/assets/(.*)$",
+    "^~/types/(.*)$",
+    "^~/constants/(.*)$",
+    "^~/graphql/(.*)$",
+    "^~/utils/(.*)$",
+    "^~/modules?/(.*)$",
+    "^~/hooks?/(.*)$",
+    "^~/context/(.*)$",
+    "^~/components/(.*)$",
+    "^~/containers?/(.*)$",
+    "^~/views/(.*)$",
+    "^~/app/(.*)$",
+    "",
+    "^[./]"
+  ]
 }

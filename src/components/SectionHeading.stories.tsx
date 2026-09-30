@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import SectionHeadingComponent from './SectionHeading.component'
+import SectionHeading from './SectionHeading.component'
 
 const meta = {
   title: 'Components/SectionHeading',
-  component: SectionHeadingComponent,
+  component: SectionHeading,
   parameters: {
     layout: 'centered',
     docs: {
@@ -19,7 +19,7 @@ const meta = {
     children: { control: 'text', description: '제목 텍스트' },
     id: { control: 'text', description: 'aria-labelledby 연결용 id' },
   },
-} satisfies Meta<typeof SectionHeadingComponent>
+} satisfies Meta<typeof SectionHeading>
 
 export default meta
 type Story = StoryObj<typeof meta>

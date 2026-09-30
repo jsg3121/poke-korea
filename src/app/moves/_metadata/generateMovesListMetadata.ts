@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
+
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { createMetadata } from '~/constants/seoMetaData'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { getRobotsConfig } from '~/module/metadata.module'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+import { getRobotsConfig } from '~/modules/metadata.module'
 
 const MOVES_MAIN_META = createMetadata(
   '포켓몬 기술 도감 (1~9세대 전체)',

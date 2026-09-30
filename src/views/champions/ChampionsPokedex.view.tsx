@@ -1,7 +1,5 @@
 'use client'
 
-import ChampionsPokedexContainer from '~/container/champions/ChampionsPokedex.container'
-import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
 import {
   ChampionsPokemonCardFragment,
   ChampionsPokemonFilterInput,
@@ -11,8 +9,10 @@ import {
   ChampionsFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
+import { ChampionsPokedexProvider } from '~/context/ChampionsPokedex.context'
+import ChampionsPokedexContent from '~/containers/champions/ChampionsPokedexContent.container'
 
-interface ChampionsPokedexViewProps {
+interface ChampionsPokedexProps {
   pokemonList: ChampionsPokemonCardFragment[]
   hasNextPage: boolean
   endCursor: string | null
@@ -22,14 +22,7 @@ interface ChampionsPokedexViewProps {
   sort: ChampionsPokemonSort
 }
 
-/**
- * 챔피언스 도감 뷰 (반응형 단일, ADR-0007).
- *
- * 구버전 desktop/mobile 2벌 뷰(ChampionsPokedex.desktop/mobile)를 통합한다(UX-E1).
- * 무한스크롤·필터·정렬 상태는 ChampionsPokedexProvider가 관리하고, 전역 크롬
- * (헤더/푸터/탭바)은 page.tsx가 UA로 선택한다(ability·list 개편과 동일 패턴).
- */
-const ChampionsPokedexView = ({
+const ChampionsPokedex = ({
   pokemonList,
   hasNextPage,
   endCursor,
@@ -37,7 +30,7 @@ const ChampionsPokedexView = ({
   initialFilter,
   formatSlug,
   sort,
-}: ChampionsPokedexViewProps) => {
+}: ChampionsPokedexProps) => {
   return (
     <ChampionsPokedexProvider
       initialList={pokemonList}
@@ -48,9 +41,9 @@ const ChampionsPokedexView = ({
       format={resolveFormatEnum(formatSlug)}
       sort={sort}
     >
-      <ChampionsPokedexContainer formatSlug={formatSlug} sort={sort} />
+      <ChampionsPokedexContent formatSlug={formatSlug} sort={sort} />
     </ChampionsPokedexProvider>
   )
 }
 
-export default ChampionsPokedexView
+export default ChampionsPokedex

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import CloseIconButtonComponent from './CloseIconButton.component'
+import CloseIconButton from './CloseIconButton.component'
 
 const noop = () => undefined
 
 const meta = {
   title: 'Components/CloseIconButton',
-  component: CloseIconButtonComponent,
+  component: CloseIconButton,
   parameters: {
     layout: 'centered',
     docs: {
@@ -23,12 +23,11 @@ const meta = {
   },
   tags: ['autodocs'],
   args: { onClick: noop, 'aria-label': '팝업 닫기' },
-} satisfies Meta<typeof CloseIconButtonComponent>
+} satisfies Meta<typeof CloseIconButton>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** dark — 진한 아이콘 (밝은 배경 모달용) */
 export const Dark: Story = {
   args: { color: 'dark' },
   decorators: [
@@ -40,7 +39,6 @@ export const Dark: Story = {
   ],
 }
 
-/** light — 밝은 아이콘 (진한 배경 모달용) */
 export const Light: Story = {
   args: { color: 'light' },
   decorators: [

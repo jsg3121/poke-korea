@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+
 import { GetChampionsPokemonListDocument } from '~/graphql/gqlGenerated'
 import {
   ChampionsPokemonFilterInput,
@@ -8,20 +8,18 @@ import {
   GetChampionsPokemonListQuery,
   GetChampionsPokemonListQueryVariables,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { extractApolloState, initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
-import { changeTypeArrayToString } from '~/module/filter.module'
 import {
   parseFormatSlug,
   resolveFormatEnum,
 } from '~/utils/championsFormat.util'
+import {
+  extractApolloState,
+  initializeApollo,
+} from '~/modules/apolloClient.module'
+import { changeTypeArrayToString } from '~/modules/filter.module'
+import ChampionsPokedex from '~/views/champions/ChampionsPokedex.view'
 import Providers from '~/app/providers'
-import ChampionsPokedexView from '~/views/champions/ChampionsPokedex.view'
+
 import { generateChampionsPokedexMetadata } from '../../_metadata/championsMetadata'
 
 export const revalidate = 86400
@@ -66,10 +64,6 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
 
   const formatEnum = resolveFormatEnum(formatSlug)
 
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const { type, search, sort } = await searchParams
   const sortEnum = parseSort(sort)
 
@@ -104,8 +98,6 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
   const endCursor = data?.getChampionsPokemonList?.pageInfo.endCursor || null
   const totalCount = data?.getChampionsPokemonList?.totalCount || 0
 
-  // SSR로 실행한 GetChampionsPokemonList 결과를 클라이언트 캐시로 하이드레이트해
-  // ChampionsPokedexProvider의 useQuery가 초기 재요청 없이 캐시를 읽도록 한다.
   const initialApolloState = extractApolloState(apolloClient)
 
   const breadcrumbJsonLd = {
@@ -157,44 +149,16 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsPokedexView, ADR-0007). UA 분기는 전역
-          크롬(헤더/푸터/탭바) 선택으로만 남는다(ability·list 개편과 동일 패턴). */}
       <Providers initialApolloState={initialApolloState}>
-        {isMobile ? (
-          <main className="w-full min-h-screen">
-            <MobileHeaderContainer />
-            <ChampionsPokedexView
-              pokemonList={pokemonList}
-              hasNextPage={hasNextPage}
-              endCursor={endCursor}
-              totalCount={totalCount}
-              initialFilter={filterInput}
-              formatSlug={formatSlug}
-              sort={sortEnum}
-            />
-            <MobileFooterContainer />
-            <MobileTabBar />
-          </main>
-        ) : (
-          // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
-          // champions는 헤더 안에 SubNav가 붙어 ability/list의 pt-30(120px)보다 40px 크다.
-          // sticky 필터 desktop:top-40과 정합.
-          <main className="w-full min-h-screen">
-            <div className="h-40">
-              <DesktopHeaderContainer />
-            </div>
-            <ChampionsPokedexView
-              pokemonList={pokemonList}
-              hasNextPage={hasNextPage}
-              endCursor={endCursor}
-              totalCount={totalCount}
-              initialFilter={filterInput}
-              formatSlug={formatSlug}
-              sort={sortEnum}
-            />
-            <DesktopFooterContainer />
-          </main>
-        )}
+        <ChampionsPokedex
+          pokemonList={pokemonList}
+          hasNextPage={hasNextPage}
+          endCursor={endCursor}
+          totalCount={totalCount}
+          initialFilter={filterInput}
+          formatSlug={formatSlug}
+          sort={sortEnum}
+        />
       </Providers>
     </>
   )

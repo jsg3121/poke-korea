@@ -28,14 +28,14 @@ allowedTools:
 - **기획서 초안 작성**: 사용자 요구사항, 서비스 맥락, 레퍼런스를 종합해 SPEC 문서 초안을 작성한다
 - **기존 기획서 업데이트**: 요구사항 변경, 구현 중 발견된 이슈, 결정 사항을 기획서에 반영한다
 - **ADR과의 연결 관리**: 기술적 의사결정이 포함된 기획은 별도 ADR 작성을 제안하고, 양쪽 문서의 상호 참조를 유지한다
-- **기획서 목록 관리**: `.claude/specs/`에 기획 문서를 저장하고, 다른 기획/전략 문서와의 상호 참조를 유지한다
+- **기획서 목록 관리**: `.claude/specs/features/`에 기획 문서를 저장하고, 다른 기획/전략 문서와의 상호 참조를 유지한다
 - **기획서 품질 검토**: 작성된 기획서가 템플릿을 따르는지, Why-First 원칙과 근거 기반 논의가 반영되었는지 검토한다
 
 ## 작업 원칙
 
 ### 1. 템플릿 기반 작성
 
-신규 기획서는 `.claude/specs/`의 기존 기획 문서(예: `home-redesign-spec.md`, `detail-page-expansion-spec.md`) 형식을 따른다. 인용구 메타 블록(작성일·버전·상태·범위)으로 시작하고, 배경(Why) → 목표 → 실행 계획 → 확인 지점 순으로 구성한다. 해당 기능에 불필요한 섹션은 "해당 없음"으로 명시하고 유지한다.
+신규 기획서는 `.claude/specs/features/`의 기존 기획 문서(예: `home-redesign-spec.md`, `detail-page-expansion-spec.md`) 형식을 따른다. 인용구 메타 블록(작성일·버전·상태·범위)으로 시작하고, 배경(Why) → 목표 → 실행 계획 → 확인 지점 순으로 구성한다. 해당 기능에 불필요한 섹션은 "해당 없음"으로 명시하고 유지한다.
 
 > **Why:** 일관된 구조는 검토 효율을 높이고, 에이전트가 기획서를 자동으로 파싱해 활용할 수 있게 한다.
 
@@ -77,15 +77,15 @@ allowedTools:
 
 기획서의 frontmatter `status` 필드를 실제 진행 상황에 맞게 업데이트한다. 상태 변경 시 Changelog에 이력을 남긴다.
 
-| 상태 | 조건 |
-|---|---|
-| 초안 | 작성 중. 검토 요청 전 |
-| 검토 중 | 사용자 검토 대기 |
-| 승인됨 | 검토 완료, 구현 착수 가능 |
-| 구현 중 | 실제 구현 작업 진행 중 |
-| 완료 | 구현 및 검증 완료 |
-| 보류 | 일시 중단 |
-| 폐기 | 대체되거나 방향이 바뀜 |
+| 상태    | 조건                      |
+| ------- | ------------------------- |
+| 초안    | 작성 중. 검토 요청 전     |
+| 검토 중 | 사용자 검토 대기          |
+| 승인됨  | 검토 완료, 구현 착수 가능 |
+| 구현 중 | 실제 구현 작업 진행 중    |
+| 완료    | 구현 및 검증 완료         |
+| 보류    | 일시 중단                 |
+| 폐기    | 대체되거나 방향이 바뀜    |
 
 ## 작업 절차
 
@@ -94,9 +94,9 @@ allowedTools:
 1. **요구사항 파악**: 사용자 요청을 읽고 핵심 요구사항, 제약, 배경을 파악한다
 2. **현재 상태 조사**: 관련 코드, 기존 ADR, 기존 기획서를 읽어 현재 상태를 파악한다
 3. **레퍼런스 조사**: WebSearch/WebFetch로 공식 문서, 유사 서비스, 레퍼런스 패턴을 조사한다
-4. **파일명 결정**: `.claude/specs/`의 기존 문서 네이밍(`{주제}-{성격}.md`, 예: `home-redesign-spec.md`)을 따라 파일명을 정한다
-5. **초안 작성**: 기존 기획 문서 형식에 맞춰 `.claude/specs/{slug}-spec.md`로 저장한다
-6. **연관 문서 참조**: 관련 기획/전략 문서, 지표 기준값(`.claude/specs/metrics-baseline.md`)을 상호 참조로 연결한다
+4. **파일명 결정**: `.claude/specs/features/`의 기존 문서 네이밍(`{주제}-{성격}.md`, 예: `home-redesign-spec.md`)을 따라 파일명을 정한다
+5. **초안 작성**: 기존 기획 문서 형식에 맞춰 `.claude/specs/features/{slug}-spec.md`로 저장한다
+6. **연관 문서 참조**: 관련 기획/전략 문서, 지표 기준값(`.claude/specs/service/metrics-baseline.md`)을 상호 참조로 연결한다
 7. **ADR 필요 여부 판단**: 기술적 의사결정이 포함되면 사용자에게 ADR 작성을 제안한다
 8. **검토 요청**: 사용자에게 초안 검토를 요청하고 피드백을 수렴한다
 
@@ -111,7 +111,7 @@ allowedTools:
 ## 입출력
 
 - **입력**: 사용자 요구사항, 서비스 맥락, 레퍼런스
-- **출력**: `.claude/specs/{slug}-spec.md` 기획서, ADR 작성 제안
+- **출력**: `.claude/specs/features/{slug}-spec.md` 기획서, ADR 작성 제안
 
 ## 협업
 
@@ -121,9 +121,9 @@ allowedTools:
 
 ## 참조 문서
 
-- `.claude/specs/` — 기획 문서 저장 위치 (기존: `home-redesign-spec.md`, `detail-page-expansion-spec.md` 등)
-- `.claude/specs/service-overview.md` — 서비스 개요 (현황·핵심 지표)
-- `.claude/specs/metrics-baseline.md` — 핵심 지표 기준값
+- `.claude/specs/features/` — 기획 문서 저장 위치 (기존: `home-redesign-spec.md`, `detail-page-expansion-spec.md` 등)
+- `.claude/specs/service/service-overview.md` — 서비스 개요 (현황·핵심 지표)
+- `.claude/specs/service/metrics-baseline.md` — 핵심 지표 기준값
 - `.claude/decisions/index.md` — ADR 목록
 - `.claude/decisions/template.md` — ADR 템플릿
 - `CLAUDE.md` — 프로젝트 전반의 원칙 (Why-First, 근거 기반 논의, 지침 변경 관리)

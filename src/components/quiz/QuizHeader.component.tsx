@@ -1,24 +1,17 @@
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
 import { formatTimeShort } from '~/utils/quiz.util'
 
-/**
- * 퀴즈 진행 헤더 (DS 컴포넌트). 퀴즈명 + 진행도(문제 N/총) + 경과 시간 + 진행바.
- * 진행 단계(QUIZ) 4종 퀴즈 공통. desktop/mobile 2벌을 반응형 단일로 통합했다.
- *
- * 기존 2벌은 진행바·시간·제목에 gray/purple 임의색을 썼으나(bg-purple-600 등),
- * 사이트 색 체계와 무관한 임의색이라 primary-1~4 토큰으로 정규화한다.
- * 진행바 트랙=primary-3, 채움=primary-1.
- */
 interface QuizHeaderProps {
   quizName: string
   currentQuestionIndex: number
+  totalQuestions: number
   timeElapsed: number
   progress: number
 }
 
-const QuizHeaderComponent = ({
+const QuizHeader = ({
   quizName,
   currentQuestionIndex,
+  totalQuestions,
   progress,
   timeElapsed,
 }: QuizHeaderProps) => {
@@ -30,7 +23,7 @@ const QuizHeaderComponent = ({
             {quizName}
           </h1>
           <p className="text-sm desktop:text-base text-primary-2">
-            문제 {currentQuestionIndex + 1} / {QUIZ_CONSTANTS.TOTAL_QUESTIONS}
+            문제 {currentQuestionIndex + 1} / {totalQuestions}
           </p>
         </div>
         <div className="text-right">
@@ -52,4 +45,4 @@ const QuizHeaderComponent = ({
   )
 }
 
-export default QuizHeaderComponent
+export default QuizHeader

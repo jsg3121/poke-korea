@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
+
 import { parseFormatSlug } from '~/utils/championsFormat.util'
-import { generateChampionsDetailMetadata } from '../../_metadata/generateChampionsDetailMetadata'
+
 import { renderChampionsDetail } from '../../_fetch/renderChampionsDetail'
+import { generateChampionsDetailMetadata } from '../../_metadata/generateChampionsDetailMetadata'
 
 export const revalidate = 86400
 
@@ -22,7 +24,6 @@ export const generateMetadata = async ({
     }
   }
 
-  // formCode 미지정 → 백엔드가 기본 메가 폼 선택
   return generateChampionsDetailMetadata({
     pokemonId: parseInt(pokemonId, 10),
     formatSlug,
@@ -31,7 +32,6 @@ export const generateMetadata = async ({
 
 const ChampionsDetailMegaPage = async ({ params }: PageProps) => {
   const { format, pokemonId } = await params
-  // formCode 없이 호출 → 백엔드가 기본 메가 폼 반환
   return renderChampionsDetail({ format, pokemonId })
 }
 

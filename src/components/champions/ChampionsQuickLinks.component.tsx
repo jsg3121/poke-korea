@@ -1,12 +1,8 @@
 import Link from 'next/link'
+
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
 
 interface ChampionsQuickLinksProps {
-  /**
-   * 현재 포맷 슬러그. 각 진입 카드 href 에서 포맷별 라우트 분기에 사용된다.
-   * Phase 2: /champions/[format]/list 적용 완료.
-   * Phase 3: /champions/[format]/tier 확정 시 적용 예정.
-   */
   formatSlug: ChampionsFormatSlug
 }
 

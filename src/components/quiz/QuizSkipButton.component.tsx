@@ -1,15 +1,8 @@
-/**
- * 퀴즈 건너뛰기 버튼 (QUIZ 단계). 현재 문제를 스킵(답 99 제출)한다.
- * 기존 mobile은 gray 임의색·hover 없음이었으나 desktop 규격(primary 토큰 + hover)으로
- * 통일한다. 텍스트 링크형이라 min-h-touch로 터치 타겟(44px)을 보장한다.
- */
 interface QuizSkipButtonProps {
   onClickSkipButton: () => void
 }
 
-const QuizSkipButtonComponent = ({
-  onClickSkipButton,
-}: QuizSkipButtonProps) => {
+const QuizSkipButton = ({ onClickSkipButton }: QuizSkipButtonProps) => {
   return (
     <button
       type="button"
@@ -21,4 +14,4 @@ const QuizSkipButtonComponent = ({
   )
 }
 
-export default QuizSkipButtonComponent
+export default QuizSkipButton

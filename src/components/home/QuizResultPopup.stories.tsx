@@ -1,16 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/nextjs'
 import { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import QuizResultPopup from './QuizResultPopup.component'
 
-/**
- * QuizResultPopup은 Portal(containerId=id)로 body 밖에 렌더되고 next/link를 쓴다.
- * appDirectory 목킹으로 링크를 렌더한다.
- *
- * 딤 오버레이(fixed inset-0)라 열려 있으면 화면 전체를 덮는다 → story는 열림 상태를
- * 토글로 관리해 닫기 버튼/오버레이 클릭으로 닫을 수 있게 하고(닫으면 "다시 열기" 버튼
- * 노출), Docs에서도 팝업이 화면을 계속 가리지 않게 한다.
- */
 const meta = {
   title: 'Components/QuizResultPopup',
   component: QuizResultPopup,
@@ -42,10 +34,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/**
- * 열림 상태를 story 안에서 관리해 Docs에서도 닫을 수 있게 하는 래퍼.
- * 닫으면 팝업이 사라지고 "결과 팝업 열기" 버튼이 남는다.
- */
 const ToggleablePopup = (
   args: React.ComponentProps<typeof QuizResultPopup>,
 ) => {
@@ -64,7 +52,6 @@ const ToggleablePopup = (
   )
 }
 
-/** 정답 — 초록 체크, 정답 노출 없음 */
 export const Correct: Story = {
   render: (args) => <ToggleablePopup {...args} />,
   args: {
@@ -76,7 +63,6 @@ export const Correct: Story = {
   },
 }
 
-/** 오답 — 빨강 X, 정답 노출 */
 export const Incorrect: Story = {
   render: (args) => <ToggleablePopup {...args} />,
   args: {
@@ -88,7 +74,6 @@ export const Incorrect: Story = {
   },
 }
 
-/** 특성 퀴즈 오답 (이동 링크 라벨 변화) */
 export const AbilityIncorrect: Story = {
   render: (args) => <ToggleablePopup {...args} />,
   args: {
@@ -100,7 +85,6 @@ export const AbilityIncorrect: Story = {
   },
 }
 
-/** 타입 퀴즈 정답 */
 export const PokemonTypeCorrect: Story = {
   render: (args) => <ToggleablePopup {...args} />,
   args: {

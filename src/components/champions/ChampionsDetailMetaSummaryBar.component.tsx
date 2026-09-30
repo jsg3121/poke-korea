@@ -1,5 +1,5 @@
 import { ChampionsMetaStatsFragment } from '~/graphql/typeGenerated'
-import ChampionsTierBadge from './ChampionsTierBadge.component'
+import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
 
 interface ChampionsDetailMetaSummaryBarProps {
   meta: ChampionsMetaStatsFragment | null | undefined
@@ -15,10 +15,6 @@ const ChampionsDetailMetaSummaryBar = ({
   const hasTier = Boolean(meta.tier)
   const hasUsageRank = meta.usageRank != null
 
-  // 데이터 원천이 실게임 데이터로 바뀌며 사용률·승률(%)이 항상 null이 되어, 요약바는
-  // 티어·순위(채택 순위)만 노출한다. 인기 기술/도구/특성 top 정보는 바로 아래 본문의
-  // 순위 막대(ChampionsMetaList)에 전부 있으므로 요약바에 중복 배치하지 않는다.
-  // 표시할 항목이 하나도 없으면 영역 자체 미노출.
   if (!hasTier && !hasUsageRank) {
     return null
   }

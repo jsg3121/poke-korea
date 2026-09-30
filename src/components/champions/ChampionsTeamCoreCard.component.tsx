@@ -1,18 +1,15 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
+
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode.module'
+import Image from '~/components/Image.component'
 
 interface ChampionsTeamCoreCardProps {
   core: ChampionsTeamCoreFragment
-  /**
-   * 현재 포맷 슬러그. Phase 4에서 폼별 라우트(/champions/[format]/list/[pokemonId])
-   * 가 확정되면 멤버 포켓몬 링크 생성에 사용된다. Phase 1 시점엔 미사용.
-   */
   formatSlug: ChampionsFormatSlug
 }
 
@@ -23,7 +20,6 @@ const ChampionsTeamCoreCard = ({
   const usageRate = core.usageRate
   const teamsCountLabel = core.teamsCount.toLocaleString()
 
-  // 멤버 이름 폴백: displayName ?? rawName
   const members = core.pokemons.map((m) => ({
     pokemonId: m.pokemonId,
     formType: m.formType,
@@ -47,13 +43,12 @@ const ChampionsTeamCoreCard = ({
   }
 
   const renderImage = (member: (typeof members)[number], keySuffix: string) => (
-    // 조합 크기 무관 이미지 48px(3rem) 통일 (사용자 결정 2026-07-27)
     <div
       key={`${member.pokemonId ?? member.name}-img-${keySuffix}`}
       className="w-12 h-12"
     >
       {member.imagePath ? (
-        <ImageComponent
+        <Image
           width="3rem"
           height="3rem"
           imageSize={{ width: 48, height: 48 }}
@@ -105,14 +100,11 @@ const ChampionsTeamCoreCard = ({
       className="w-full bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-3 relative desktop:h-32 desktop:p-4 desktop:flex desktop:items-center desktop:gap-4"
       aria-label={`팀 코어 ${core.rank}위: ${members.map((m) => m.name).join(' + ')}`}
     >
-      {/* === 모바일 레이아웃: 세로 스택 (컴팩트) === */}
       <div className="desktop:hidden">
-        {/* 순위 뱃지 — 좌측 세로 라벨. 높이는 콘텐츠(이미지+이름)에 맞춰 자동. */}
         <p className="absolute left-3 top-3 bottom-[3.75rem] w-9 flex items-center justify-center bg-primary-1 text-white rounded-md text-sm font-bold">
           #{core.rank}
         </p>
 
-        {/* 상단: 이미지 (뱃지 폭만큼 들여쓰기로 좌측 정렬 통일) */}
         <div
           className="flex items-center gap-1.5 mb-2 pl-11"
           aria-hidden="true"
@@ -120,12 +112,10 @@ const ChampionsTeamCoreCard = ({
           {members.map((member) => renderImage(member, 'mobile'))}
         </div>
 
-        {/* 조합명 — 동일한 들여쓰기로 이미지와 정렬 */}
         <h3 className="flex items-center gap-1 flex-wrap text-sm font-bold text-primary-1 mb-2 pl-11">
           {members.map((member, index) => renderMemberName(member, index))}
         </h3>
 
-        {/* 하단: 통계 (가로 분할) */}
         <dl className="grid grid-cols-2 border-t border-primary-3 pt-2">
           <div className="flex flex-col items-center text-center relative after:absolute after:right-0 after:top-0 after:h-full after:w-px after:bg-primary-3">
             <dt className="text-2xs text-primary-2">사용률</dt>
@@ -140,7 +130,6 @@ const ChampionsTeamCoreCard = ({
         </dl>
       </div>
 
-      {/* === 데스크탑 레이아웃: 가로 한 줄 === */}
       <p className="hidden desktop:flex w-16 h-24 shrink-0 items-center justify-center bg-primary-1 text-white rounded-md text-base font-bold">
         #{core.rank}
       </p>

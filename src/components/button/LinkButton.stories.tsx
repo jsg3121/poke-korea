@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import LinkButtonComponent from './LinkButton.component'
+import LinkButton from './LinkButton.component'
 
 const meta = {
   title: 'Components/LinkButton',
-  component: LinkButtonComponent,
+  component: LinkButton,
   parameters: {
     layout: 'centered',
     docs: {
@@ -25,12 +25,11 @@ const meta = {
     fullWidth: { control: 'boolean' },
     showArrow: { control: 'boolean' },
   },
-} satisfies Meta<typeof LinkButtonComponent>
+} satisfies Meta<typeof LinkButton>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 섹션 CTA (화살표 동반) — 실제 사용 예 */
 export const Primary: Story = {
   args: {
     href: '/champions/double/list',
@@ -43,24 +42,22 @@ export const Secondary: Story = {
   args: { variant: 'secondary', children: '더 알아보기', showArrow: true },
 }
 
-/** variant 3종 비교 */
 export const AllVariants: Story = {
   render: (args) => (
     <div className="flex items-center gap-4">
-      <LinkButtonComponent {...args} variant="primary">
+      <LinkButton {...args} variant="primary">
         Primary
-      </LinkButtonComponent>
-      <LinkButtonComponent {...args} variant="secondary">
+      </LinkButton>
+      <LinkButton {...args} variant="secondary">
         Secondary
-      </LinkButtonComponent>
-      <LinkButtonComponent {...args} variant="ghost">
+      </LinkButton>
+      <LinkButton {...args} variant="ghost">
         Ghost
-      </LinkButtonComponent>
+      </LinkButton>
     </div>
   ),
 }
 
-/** 전체 폭 */
 export const FullWidth: Story = {
   args: { children: '전체 도감 보기', fullWidth: true, showArrow: true },
   decorators: [

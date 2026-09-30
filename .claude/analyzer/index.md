@@ -205,4 +205,4 @@ node .claude/analyzer/scripts/adsense.js --start=2026-08-30 --end=2026-08-30 --d
 - 수익 관련 데이터는 민감 정보이므로 `.gitignore`에 추가
 - 데이터 갱신 시 파일명에 날짜 포함 또는 기존 파일 덮어쓰기
 - API 조회 결과(JSON)는 스크래치패드나 `/tmp`에 저장한다. 이 폴더에 두면 `.gitignore`에 걸려 어차피 추적되지 않는다
-- 분석 결과는 `.claude/research/reports/`에 보고서로 정리
+- 분석 결과는 `.claude/research/`에 보고서로 정리

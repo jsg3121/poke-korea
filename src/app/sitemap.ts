@@ -1,44 +1,32 @@
 import type { MetadataRoute } from 'next'
+
 import {
-  GetPokemonListDocument,
   GetAbilityListPaginatedDocument,
   GetAllSkillIdsDocument,
-  GetPokemonGigantamaxListDocument,
   GetChampionsPokemonListDocument,
   GetChampionsTournamentsDocument,
+  GetPokemonGigantamaxListDocument,
+  GetPokemonListDocument,
 } from '~/graphql/gqlGenerated'
 import {
-  ChampionsFormat,
-  PokemonList,
-  PokemonType,
   AbilityEdge,
-  PokemonGigantamax,
+  ChampionsFormat,
   ChampionsPokemonEdge,
   ChampionsTournamentSummaryFragment,
+  PokemonGigantamax,
+  PokemonList,
+  PokemonType,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
-import { TYPE_SLUGS } from '~/module/typeParams.module'
+import { initializeApollo } from '~/modules/apolloClient.module'
+import { TYPE_SLUGS } from '~/modules/typeParams.module'
 
 export const revalidate = 21600
 
-/**
- * 빌드 시점 타임스탬프 (배포 시에만 갱신)
- *
- * Why: 매 요청마다 new Date()를 사용하면 모든 페이지가 "방금 수정됨"으로 표시되어
- * 구글이 lastmod 신호를 신뢰하지 않게 됨. 배포 시점에 고정된 값을 사용하여
- * 실제 변경이 있을 때(=재배포)에만 lastmod가 갱신되도록 함.
- *
- * 챔피언스 페이지는 외부 데이터 갱신이 별도 주기로 일어나므로
- * GraphQL 응답의 updatedAt을 별도로 사용한다.
- *
- * 근거: https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping
- */
 const BUILD_TIME = new Date(process.env.BUILD_TIME ?? new Date().toISOString())
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const apolloClient = initializeApollo()
 
-  // 기본 정적 페이지들
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: 'https://poke-korea.com',
@@ -58,14 +46,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.8,
     },
-    // 타입별 상세 18개 — 슬러그 목록에서 생성한다. 하드코딩하면 타입이 늘거나
-    // 슬러그가 바뀔 때 사이트맵만 조용히 뒤처진다.
     ...TYPE_SLUGS.map((slug) => ({
       url: `https://poke-korea.com/type-effectiveness/${slug}`,
       lastModified: BUILD_TIME,
       changeFrequency: 'weekly' as const,
-      // 메인 계산기(0.8)보다 낮게 둔다 — 허브가 상위, 하위 페이지가 그 아래라는
-      // 구조를 사이트맵에도 반영한다.
       priority: 0.7,
     })),
     {
@@ -152,8 +136,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.8,
     },
-    // 정책 문서는 검색 유입 대상이 아니라 색인만 되면 충분하다.
-    // 색인 자체는 필요하다 — 애드센스는 이용자가 방침에 접근할 수 있어야 한다.
     {
       url: 'https://poke-korea.com/privacy',
       lastModified: BUILD_TIME,
@@ -209,8 +191,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           },
         },
       }),
-      // 사이트맵은 기술 ID만 필요하다. GetPokemonSkillList(first:1000)는 기술당
-      // 12개 필드(description 포함)를 받아놓고 id 하나만 쓰고 있었다.
       apolloClient.query({
         query: GetAllSkillIdsDocument,
       }),
@@ -236,7 +216,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           },
         },
       }),
-      // Phase 5: 대회 상세 페이지 색인. VGC 만 데이터 존재.
       apolloClient.query({
         query: GetChampionsTournamentsDocument,
         variables: {
@@ -247,7 +226,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     ])
 
-    // 기본 포켓몬 상세 페이지들
     const basicDetailPages = data.getPokemonList.map(
       (pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}`,
@@ -256,10 +234,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
       }),
     )
-
-    // NOTE: 샤이니 모드 페이지(?shinyMode=shiny) 는 sitemap 에서 제외.
-    // Why: canonical URL 이 아닌 query parameter 변형은 Google 이 중복 페이지로
-    //      처리하여 크롤링 예산을 낭비한다. 사용자 인터랙션으로만 접근 가능.
 
     const megaPages = megaData.getPokemonList.map((pokemon: PokemonList) => ({
       url: `https://poke-korea.com/detail/${pokemon.number}/mega`,
@@ -277,7 +251,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 거다이맥스 페이지들 (pokemonId 기준 중복 제거)
     const uniqueGigantamaxPokemonIds = [
       ...new Set(
         gigantamaxData.getPokemonGigantamaxList?.map(
@@ -292,7 +265,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }))
 
-    // 기본폼 변환 가능 포켓몬 상세 페이지들 (isFormChange가 true인 포켓몬)
     const formChangePages = data.getPokemonList
       .filter((pokemon: PokemonList) => pokemon.isFormChange)
       .map((pokemon: PokemonList) => ({
@@ -302,7 +274,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
       }))
 
-    // 기본폼 변환 가능 포켓몬 기술 페이지들
     const formChangeMovesPages = data.getPokemonList
       .filter((pokemon: PokemonList) => pokemon.isFormChange)
       .map((pokemon: PokemonList) => ({
@@ -312,7 +283,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
       }))
 
-    // 리전폼 포켓몬 기술 페이지들
     const regionMovesPages = regionData.getPokemonList.map(
       (pokemon: PokemonList) => ({
         url: `https://poke-korea.com/detail/${pokemon.number}/moves/region`,
@@ -331,7 +301,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     })
 
-    // 포켓몬 리스트 타입별 필터 페이지들
     const typeFilterListPages = Object.values(PokemonType).map((type) => {
       return {
         url: `https://poke-korea.com/list?type=${type}`,
@@ -341,7 +310,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     })
 
-    // 포켓몬 리스트 세대별 필터 페이지들
     const generationFilterListPages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(
       (gen) => ({
         url: `https://poke-korea.com/list?generation=${gen}`,
@@ -351,7 +319,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 포켓몬 리스트 Boolean 필터 페이지들
     const booleanFilterListPages = [
       {
         url: 'https://poke-korea.com/list?isMega=true',
@@ -415,7 +382,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 특성 상세 페이지들
     const abilityDetailPages = abilityData.getAbilityListPaginated.edges.map(
       (edge: AbilityEdge) => ({
         url: `https://poke-korea.com/ability/${edge.node.abilityId}`,
@@ -425,7 +391,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 기술 상세 페이지들
     const moveDetailPages = skillsData.getAllSkillIds.map(
       (skillId: number) => ({
         url: `https://poke-korea.com/moves/${skillId}`,
@@ -435,21 +400,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     )
 
-    // 챔피언스 포켓몬 상세 페이지들 (모바일 출시 대비 크롤링 우선순위 상향)
-    // lastmod는 외부 데이터(battle_meta.json) 기준 갱신 시각을 사용
-    // Why: 챔피언스 메타는 외부 소스에서 주기적으로 갱신되므로, 빌드 시점이 아닌
-    // 실제 콘텐츠 변경 시점이 lastmod에 반영되어야 한다.
-    // Phase 4: VGC/BSS 는 별개 메타이며 등장 포켓몬도 다르다.
-    //          또한 각 포켓몬의 폼(메가/리전/거다이맥스/일반) 라우트도 별도 색인 대상.
     const vgcListResponse = championsVgcData.getChampionsPokemonList
     const bssListResponse = championsBssData.getChampionsPokemonList
     const vgcLastModified = new Date(vgcListResponse.updatedAt)
     const bssLastModified = new Date(bssListResponse.updatedAt)
 
-    /**
-     * 챔피언스 포켓몬의 formType + formCode 를 라우트 경로로 변환.
-     * buildChampionsDetailHref 와 동일 매핑 (utils 의존성 회피 위해 sitemap 내부 인라인).
-     */
     const buildFormPath = (
       formatSlug: 'double' | 'single',
       pokemonId: number,
@@ -501,9 +456,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     ]
 
-    // Phase 5: 챔피언스 대회 상세 페이지들 (VGC만, BSS는 데이터 없음)
-    // lastmod 는 각 대회의 date 사용 — 대회 종료 후 결과가 확정되므로 의미 있는 변경 시점.
-    // date 가 null/형식 오류면 new Date 가 Invalid Date 반환 → sitemap XML 의 <lastmod> 가 깨지므로 BUILD_TIME 으로 폴백.
     const resolveTournamentLastModified = (date: string | null | undefined) => {
       if (!date) return BUILD_TIME
       const parsed = new Date(date)
@@ -520,7 +472,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }),
       ) ?? []
 
-    // 모든 페이지들을 합쳐서 반환
     return [
       ...staticPages,
       ...basicDetailPages,
@@ -543,7 +494,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)
-    // 에러 발생 시 기본 정적 페이지들만 반환
     return staticPages
   }
 }

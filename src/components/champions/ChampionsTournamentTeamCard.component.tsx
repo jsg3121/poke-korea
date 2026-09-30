@@ -1,23 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import ImageComponent from '~/components/Image.component'
+
 import { ChampionsTournamentTeamFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode.module'
+import Image from '~/components/Image.component'
+
 import ChampionsTournamentSlotCard from './ChampionsTournamentSlotCard.component'
 
 interface ChampionsTournamentTeamCardProps {
   team: ChampionsTournamentTeamFragment
   formatSlug: ChampionsFormatSlug
-  /** Top 1~3 강조 카드인지 (펼침 고정), 또는 Top 4~8 컴팩트 카드(기본 접힘) */
   variant: 'highlight' | 'compact'
 }
 
-/**
- * 순위별 메달 컬러 (1=골드, 2=실버, 3=브론즈, 그 외 = 기본).
- * Phase 3 의 ChampionsTierTeamCoreCard.RANK_BADGE_COLORS 와 일관.
- */
 const RANK_BADGE_COLORS: Record<number, string> = {
   1: 'bg-gradient-to-br from-amber-400 to-amber-600',
   2: 'bg-gradient-to-br from-slate-300 to-slate-500',
@@ -61,7 +58,6 @@ const ChampionsTournamentTeamCard = ({
       aria-label={`${team.rank}위 ${team.playerName} 팀`}
     >
       <header className="flex items-center gap-3 mb-3">
-        {/* 메달 / 순위 뱃지 */}
         {isHighlight ? (
           <span
             className={`flex items-center justify-center w-12 h-12 rounded-full ${getRankBadgeColor(team.rank)} text-white text-xl font-bold shrink-0`}
@@ -79,8 +75,6 @@ const ChampionsTournamentTeamCard = ({
         )}
 
         <div className="flex-1 min-w-0">
-          {/* 선수명은 말줄임 없이 전체 표시(사용자 요구). 영문 닉네임은 공백 없이
-              길 수 있어 break-all 로 어느 지점에서든 줄바꿈해 카드 밖 넘침을 막는다. */}
           <p className="text-base font-bold text-primary-1 break-all">
             {team.playerName}
           </p>
@@ -90,10 +84,6 @@ const ChampionsTournamentTeamCard = ({
         </div>
       </header>
 
-      {/* 펼침 상태: 풀빌드 6슬롯 그리드.
-          items-start: 같은 행의 두 슬롯이 서로 높이를 끌어당기지 않도록(auto-rows-fr
-          제거) 각 슬롯이 자기 콘텐츠 높이만 갖게 한다. 슬롯 카드는 자체 min-h로 기본
-          높이를 맞추므로 시각적 정렬은 유지된다(UX-011 피드백). */}
       {isExpanded && (
         <ul
           className="grid grid-cols-2 items-start gap-3"
@@ -110,7 +100,6 @@ const ChampionsTournamentTeamCard = ({
         </ul>
       )}
 
-      {/* 접힘 상태: 포켓몬 이미지 가로 줄 + 펼치기 버튼 */}
       {!isExpanded && (
         <>
           <ul
@@ -123,7 +112,7 @@ const ChampionsTournamentTeamCard = ({
                 className="w-8 h-8 shrink-0"
               >
                 {slot.imagePath ? (
-                  <ImageComponent
+                  <Image
                     src={`${imageMode}/${slot.imagePath}`}
                     alt={`${slot.displayName || slot.rawName} 포켓몬 이미지`}
                     width="2rem"
@@ -150,7 +139,6 @@ const ChampionsTournamentTeamCard = ({
         </>
       )}
 
-      {/* 펼침 상태에서 컴팩트 카드일 때만 접기 버튼 */}
       {isExpanded && !isHighlight && (
         <button
           type="button"

@@ -1,4 +1,4 @@
-const ModalDefinitionComponent = () => {
+const ModalDefinition = () => {
   return (
     <section aria-label="이로치 확률표 용어 설명" className="w-full">
       <dl className="w-full flex flex-col">
@@ -26,4 +26,4 @@ const ModalDefinitionComponent = () => {
   )
 }
 
-export default ModalDefinitionComponent
+export default ModalDefinition

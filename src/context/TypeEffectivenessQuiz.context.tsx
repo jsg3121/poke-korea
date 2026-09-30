@@ -1,22 +1,23 @@
 'use client'
 
 import {
-  ReactNode,
   createContext,
+  ReactNode,
   useContext,
-  useState,
   useEffect,
+  useState,
 } from 'react'
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
-import { useQuizTimer } from '~/hook/useQuizTimer'
-import { quizProgress } from '~/module/quiz.module'
+
 import {
   BaseQuizState,
   QuizResult,
   QuizViewStage,
   TypeEffectivenessQuizQuestion,
 } from '~/types/quiz.type'
-import { generateTypeEffectivenessQuestions } from '~/module/typeEffectivenessQuiz.module'
+import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
+import { quizProgress } from '~/modules/quiz.module'
+import { generateTypeEffectivenessQuestions } from '~/modules/typeEffectivenessQuiz.module'
+import { useQuizTimer } from '~/hooks/useQuizTimer'
 
 interface TypeEffectivenessQuizContextType {
   questions: TypeEffectivenessQuizQuestion[]
@@ -60,7 +61,6 @@ export const TypeEffectivenessQuizProvider = ({
     isCompleted: false,
   })
 
-  // 퀴즈 문제 생성
   const generateQuestions = () => {
     setIsGenerating(true)
     try {
@@ -75,18 +75,19 @@ export const TypeEffectivenessQuizProvider = ({
     }
   }
 
-  // 컴포넌트 마운트 시 문제 생성
   useEffect(() => {
     if (questions.length === 0) {
       generateQuestions()
     }
+    // questions.length를 넣으면 생성 직후 값이 바뀌어 문제가 다시 생성된다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const currentQuestion = questions[quizState.currentQuestionIndex] || null
   const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
-    QUIZ_CONSTANTS.TOTAL_QUESTIONS,
+    questions.length,
   )
 
   const onChangeStage = (stage: QuizViewStage) => {
@@ -123,7 +124,7 @@ export const TypeEffectivenessQuizProvider = ({
 
     const newAnswers = [...quizState.userAnswers, answerIndex]
     const isLastQuestion =
-      quizState.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
+      quizState.currentQuestionIndex === questions.length - 1
 
     setQuizState((prev) => ({
       ...prev,

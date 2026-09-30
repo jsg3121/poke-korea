@@ -11,7 +11,7 @@ import {
   type GetVersionGroupsQuery,
   type GetVersionGroupsQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 interface FetchDefaultMovesMetadataParams {
   pokemonId: string
@@ -19,11 +19,6 @@ interface FetchDefaultMovesMetadataParams {
   activeType?: 'NORMAL'
 }
 
-/**
- * detail/moves 메타데이터 공통 쿼리 실행
- * - 그룹 1 (기본 4개 페이지): activeIndex=0, activeType 미전달
- * - 그룹 2 (form 페이지): activeIndex 동적, activeType='NORMAL'
- */
 export async function fetchDefaultMovesMetadata({
   pokemonId,
   activeIndex = 0,

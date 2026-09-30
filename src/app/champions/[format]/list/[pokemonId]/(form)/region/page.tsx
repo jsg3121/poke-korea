@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
+
 import { parseFormatSlug } from '~/utils/championsFormat.util'
-import { generateChampionsDetailMetadata } from '../../_metadata/generateChampionsDetailMetadata'
+
 import { renderChampionsDetail } from '../../_fetch/renderChampionsDetail'
+import { generateChampionsDetailMetadata } from '../../_metadata/generateChampionsDetailMetadata'
 
 export const revalidate = 86400
 

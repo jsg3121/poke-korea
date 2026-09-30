@@ -1,6 +1,7 @@
-import ChampionsTierTeamCoreCard from './ChampionsTierTeamCoreCard.component'
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+
+import ChampionsTierTeamCoreCard from './ChampionsTierTeamCoreCard.component'
 
 interface ChampionsTierTeamCoreSectionProps {
   teamCores: ChampionsTeamCoreFragment[]
@@ -17,9 +18,6 @@ const SIZE_LABELS: Record<CoreSize, string> = {
 
 const TOP_N = 3
 
-/**
- * 사이즈별 그룹화 + rank 오름차순 정렬 후 TOP N 추출
- */
 const groupBySize = (
   cores: ChampionsTeamCoreFragment[],
 ): Map<CoreSize, ChampionsTeamCoreFragment[]> => {

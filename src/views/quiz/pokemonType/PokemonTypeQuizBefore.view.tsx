@@ -1,0 +1,59 @@
+'use client'
+
+import Link from 'next/link'
+
+import {
+  QUIZ_CONFIG,
+  QUIZ_DESCRIPTION_LIST_DATA,
+} from '~/constants/quiz.constants'
+import { usePokemonTypeQuizContext } from '~/context/PokemonTypeQuiz.context'
+import PageHeader from '~/components/pageHeader/PageHeader.component'
+import GuideStartButton from '~/components/quiz/GuideStartButton.component'
+import OtherQuizLink from '~/components/quiz/OtherQuizLink.component'
+
+const PokemonTypeQuizBefore = () => {
+  const { onChangeStage } = usePokemonTypeQuizContext()
+  const seoContent = QUIZ_DESCRIPTION_LIST_DATA.pokemonType
+
+  return (
+    <section className="w-full max-w-[1280px] mx-auto px-4 pb-8 desktop:px-5">
+      <PageHeader
+        title={QUIZ_CONFIG[2].title}
+        description={QUIZ_CONFIG[2].description}
+      />
+      <article className="w-full mt-6 p-5 desktop:p-6 rounded-[1rem] bg-primary-4">
+        {seoContent.sections.map((section) => (
+          <div key={section.content} className="mb-4 last:mb-0">
+            {section.title !== '' && (
+              <h3 className="text-lg desktop:text-xl font-bold text-primary-1 mb-2">
+                {section.title}
+              </h3>
+            )}
+            <p className="text-sm desktop:text-base text-primary-1 leading-relaxed">
+              {section.content}
+            </p>
+          </div>
+        ))}
+        <div className="mt-6">
+          <GuideStartButton onClickStartButton={() => onChangeStage('QUIZ')} />
+        </div>
+        <div className="mt-4 pt-4 border-t border-solid border-primary-3">
+          {seoContent.relatedLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="inline-flex min-h-touch items-center text-sm text-primary-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-2"
+            >
+              {link.text}
+            </Link>
+          ))}
+        </div>
+      </article>
+      <div className="mt-4">
+        <OtherQuizLink currentQuiz="pokemon-type" />
+      </div>
+    </section>
+  )
+}
+
+export default PokemonTypeQuizBefore

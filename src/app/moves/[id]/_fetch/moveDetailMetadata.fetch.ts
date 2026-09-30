@@ -8,16 +8,13 @@ import {
   type GetVersionGroupsBySkillQuery,
   type GetVersionGroupsBySkillQueryVariables,
 } from '~/graphql/typeGenerated'
-import { initializeApollo } from '~/module/apolloClient'
+import { initializeApollo } from '~/modules/apolloClient.module'
 
 interface FetchMoveDetailMetadataParams {
   skillId: number
   versionGroupId?: number
 }
 
-/**
- * 기술 상세 메타데이터 쿼리 실행 (스킬 정보만)
- */
 export async function fetchMoveDetailMetadata({
   skillId,
   versionGroupId,

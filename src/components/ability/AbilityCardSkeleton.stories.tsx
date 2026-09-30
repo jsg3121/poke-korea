@@ -1,14 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import AbilityCardSkeletonComponent from './AbilityCardSkeleton.component'
+import AbilityCardSkeleton from './AbilityCardSkeleton.component'
 
-/**
- * 특성 카드 스켈레톤. 무한스크롤 추가 로드 중 그리드 끝에 표시해 카드 자리를 예약한다.
- * AbilityCard와 크기·셸을 맞춰 로드 완료 시 CLS를 방지한다.
- */
 const meta = {
   title: 'Components/AbilityCardSkeleton',
-  component: AbilityCardSkeletonComponent,
+  component: AbilityCardSkeleton,
   parameters: {
     layout: 'padded',
     backgrounds: { default: 'dark' },
@@ -23,20 +19,18 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof AbilityCardSkeletonComponent>
+} satisfies Meta<typeof AbilityCardSkeleton>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 */
 export const Default: Story = {}
 
-/** 그리드 로딩 — 실제 무한스크롤에서 여러 개가 동시에 나타나는 모습 */
 export const LoadingGrid: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-4 desktop:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] desktop:gap-6">
       {Array.from({ length: 4 }).map((_, i) => (
-        <AbilityCardSkeletonComponent key={i} />
+        <AbilityCardSkeleton key={i} />
       ))}
     </div>
   ),

@@ -40,6 +40,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/block-main-branch-edit.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-version-root-edit.sh"
           }
         ]
       },
@@ -49,6 +53,35 @@
           {
             "type": "command",
             "command": ".claude/hooks/guard-git-push.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(src/**)",
+            "command": ".claude/hooks/detect-new-comment.sh"
+          },
+          {
+            "type": "command",
+            "if": "Write(src/**)",
+            "command": ".claude/hooks/detect-new-comment.sh"
+          },
+          {
+            "type": "prompt",
+            "if": "Edit(src/**)",
+            "prompt": "당신은 코드 주석 검사기다. 입력에 COMMENT_CHECK_TARGET이 없으면 즉시 {\"ok\": true}를 반환한다.\n\n있으면 나열된 주석 줄을 이 프로젝트 규칙으로 판정한다.\n\n허용되는 주석은 두 가지뿐이다.\n1. 외부 서비스의 운영 제약 — 위반 시 즉각적 손해가 생기는 것(예: AdSense 정책상 숨김 렌더 금지, 빈 슬롯 요청 금지)\n2. 공용 함수(modules/utils/hooks)의 JSDoc — 요약 한 줄 + @param/@returns\n\n그 외는 전부 위반이다. 특히 다음은 반드시 위반으로 판정한다.\n- 코드가 이미 말하는 내용(What)의 반복\n- 설계 배경·대안 비교·기각 사유 서술 (ADR/SPEC/changelog가 담당한다)\n- 문서 번호 참조(ADR-0007, UX-008, spec §14 등)\n- 날짜, 커밋 해시, 리뷰 도구명(Gemini 등), '사용자 결정/확정/요청', 'QA 라운드', '핫픽스', '선례'\n- 측정값·실적 수치(채움률 88%, CTR 1.81% 등)\n- 변경 이력('~로 바꿨다', '기존엔 ~였다')\n- WCAG·HTML/CSS 명세 근거 서술 (문서에 기록한다)\n- JSX 주석 {/* */} — 전부 위반\n\nok일 때: {\"ok\": true}\n위반일 때: {\"ok\": false, \"reason\": \"<어느 줄이 왜 위반인지 한 문장. 삭제 또는 ADR/changelog 이관을 제안한다>\"}",
+            "continueOnBlock": true
+          },
+          {
+            "type": "prompt",
+            "if": "Write(src/**)",
+            "prompt": "당신은 코드 주석 검사기다. 입력에 COMMENT_CHECK_TARGET이 없으면 즉시 {\"ok\": true}를 반환한다.\n\n있으면 나열된 주석 줄을 이 프로젝트 규칙으로 판정한다.\n\n허용되는 주석은 두 가지뿐이다.\n1. 외부 서비스의 운영 제약 — 위반 시 즉각적 손해가 생기는 것(예: AdSense 정책상 숨김 렌더 금지, 빈 슬롯 요청 금지)\n2. 공용 함수(modules/utils/hooks)의 JSDoc — 요약 한 줄 + @param/@returns\n\n그 외는 전부 위반이다. 특히 다음은 반드시 위반으로 판정한다.\n- 코드가 이미 말하는 내용(What)의 반복\n- 설계 배경·대안 비교·기각 사유 서술 (ADR/SPEC/changelog가 담당한다)\n- 문서 번호 참조(ADR-0007, UX-008, spec §14 등)\n- 날짜, 커밋 해시, 리뷰 도구명(Gemini 등), '사용자 결정/확정/요청', 'QA 라운드', '핫픽스', '선례'\n- 측정값·실적 수치(채움률 88%, CTR 1.81% 등)\n- 변경 이력('~로 바꿨다', '기존엔 ~였다')\n- WCAG·HTML/CSS 명세 근거 서술 (문서에 기록한다)\n- JSX 주석 {/* */} — 전부 위반\n\nok일 때: {\"ok\": true}\n위반일 때: {\"ok\": false, \"reason\": \"<어느 줄이 왜 위반인지 한 문장. 삭제 또는 ADR/changelog 이관을 제안한다>\"}",
+            "continueOnBlock": true
           }
         ]
       }

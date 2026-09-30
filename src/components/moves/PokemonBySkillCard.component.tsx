@@ -1,27 +1,11 @@
 import { useMemo } from 'react'
+
 import LevelUpIcon from '~/assets/icons/levelUp.svg'
 import MachineMoveIcon from '~/assets/icons/machineMove.svg'
-import PokemonCardShellComponent from '~/components/pokemonCard/PokemonCardShell.component'
-import { LearnMethod, PokemonLearnInfo } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 import { CardColor } from '~/types/pokemonTypes.types'
-
-/**
- * 기술별 포켓몬 카드 (반응형 단일 DS 컴포넌트, UX-008).
- * 기술 상세(/moves/[id])에서 "이 기술을 배우는 포켓몬"을 표시한다.
- *
- * 레이아웃 셸(Link+article+포켓볼+이미지+타입 태그+그라데이션)은 PokemonCardShell에
- * 위임하고, 이 컴포넌트는 헤더(No.+이름)와 본문(습득 방법 배지·폼 라벨)만 책임진다 —
- * PokemonByAbilityCard(B그룹)와 동일한 "셸 공유 + 전용 카드" 구조. 데이터 도메인
- * (PokemonLearnInfo: methods·폼·imagePath)이 도감 카드와 달라 카드는 분리한다.
- *
- * 구버전의 useDevice(UA 분기) 이미지 크기 분기를 제거했다 — 셸이 CSS sizes 속성으로
- * 반응형을 처리하므로 JS 뷰포트 분기가 불필요하고, SSR/CSR 불일치로 인한 CLS도 없앤다.
- * 습득 방법 배지 색은 비토큰(green-600·slate-500)을 토큰(damage-status·card-accent)으로
- * 정규화한다. 습득법 라벨은 백엔드 마스터 쿼리에서 오므로(useLearnMethodLabels) 상위
- * 컨테이너가 getMethodLabel로 주입한다 — 프레젠테이션 컴포넌트는 데이터를 직접 페칭하지
- * 않는다. 미주입 시 enum 원문을 그대로 쓴다(Storybook 등 단독 렌더 대비).
- */
+import { LearnMethod, PokemonLearnInfo } from '~/graphql/typeGenerated'
+import { imageMode } from '~/modules/buildMode.module'
+import PokemonCardShell from '~/components/pokemonCard/PokemonCardShell.component'
 
 interface PokemonBySkillCardProps {
   pokemonData: PokemonLearnInfo
@@ -29,26 +13,18 @@ interface PokemonBySkillCardProps {
   getMethodLabel?: (method: LearnMethod) => string
 }
 
-const PokemonBySkillCardComponent = ({
+const PokemonBySkillCard = ({
   pokemonData,
   isHighPriority = false,
   getMethodLabel = (method) => method,
 }: PokemonBySkillCardProps) => {
   const pokemonNumber = String(pokemonData.number).padStart(3, '0')
 
-  // 타입별 배경색 계산 (셸은 계산된 색 배열을 받는다)
   const backgroundColor = useMemo(
     () => pokemonData.types.map((item) => CardColor[item]),
     [pokemonData.types],
   )
 
-  // 폼 타입에 따른 표시 텍스트 — PokemonLearnInfo.formType은
-  // 'BASE' | 'NORMAL' | 'REGION' (PokemonWithAbility의 *_FORM 표기와 다름)
-  //
-  // MEGA 분기는 제거했다 — 백엔드 통합 테이블 전환으로 메가진화가 이 목록에서
-  // 빠졌기 때문이다. 메가는 기술을 새로 배우지 않고 원본 종의 러닝셋을 그대로
-  // 쓰므로(실측상 메가 폼 러닝셋 전량이 원본과 중복), 노출하면 같은 종이 두 번
-  // 나온다. 향후 메가 전용 기술이 생기면 백엔드가 다시 내려주므로 그때 되살린다.
   const formLabel = useMemo(() => {
     switch (pokemonData.formType) {
       case 'REGION':
@@ -60,7 +36,6 @@ const PokemonBySkillCardComponent = ({
     }
   }, [pokemonData.formType, pokemonData.region, pokemonData.formName])
 
-  // Path 기반 URL 생성 (폼 분기)
   const pokemonHref = useMemo(() => {
     const baseUrl = `/detail/${pokemonData.number}`
 
@@ -88,7 +63,7 @@ const PokemonBySkillCardComponent = ({
   }`
 
   return (
-    <PokemonCardShellComponent
+    <PokemonCardShell
       href={pokemonHref}
       backgroundColor={backgroundColor}
       types={pokemonData.types}
@@ -108,9 +83,6 @@ const PokemonBySkillCardComponent = ({
         </div>
       }
     >
-      {/* 배지 영역: 배지(습득 방법·폼) 유무와 무관하게 min-h-6으로 높이를 고정해
-          카드마다 이미지 아래 여백이 들쭉날쭉하지 않게 한다. 타입 태그(셸이 좌측
-          정렬로 렌더)와 정렬을 맞춰 배지도 좌측 정렬 — PokemonByAbilityCard와 동일. */}
       <div className="w-full flex flex-wrap items-center justify-start gap-2 px-2 mt-2 min-h-6">
         {pokemonData.methods.map((method, index) => (
           <span
@@ -138,8 +110,8 @@ const PokemonBySkillCardComponent = ({
           </span>
         )}
       </div>
-    </PokemonCardShellComponent>
+    </PokemonCardShell>
   )
 }
 
-export default PokemonBySkillCardComponent
+export default PokemonBySkillCard

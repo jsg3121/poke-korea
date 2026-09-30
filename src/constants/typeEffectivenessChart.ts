@@ -1,23 +1,7 @@
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 
-/**
- * 타입 상성 배율.
- * - 0   : 효과 없음 (0배)
- * - 0.5 : 효과가 별로 (0.5배)
- * - 1   : 보통 (1배, 표에서는 빈 칸)
- * - 2   : 효과가 굉장 (2배)
- */
 export type EffectivenessValue = 0 | 0.5 | 1 | 2
 
-/**
- * 공격 타입 → 방어 타입별 상성 배율 매트릭스 (18×18).
- *
- * `TYPE_EFFECTIVENESS_CHART[공격타입][방어타입]` 형태로 조회한다.
- * 기존 `TypeEffectivenessTable.component.tsx`에 하드코딩돼 있던 18×18 표를
- * 데이터로 추출한 것이며, desktop/mobile이 동일 데이터를 공유한다.
- *
- * @see src/container/{desktop,mobile}/typeEffectiveness/typeEffectiveness.table
- */
 export const TYPE_EFFECTIVENESS_CHART: Record<
   PokemonTypes,
   Record<PokemonTypes, EffectivenessValue>
@@ -384,5 +368,4 @@ export const TYPE_EFFECTIVENESS_CHART: Record<
   },
 }
 
-/** 공격 타입 순서 (표의 행/열 순서 = enum 정의 순서) */
 export const TYPE_ORDER: PokemonTypes[] = Object.values(PokemonTypes)

@@ -1,20 +1,14 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
+
+import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import { GetChampionsTournamentsWithTopTeamDocument } from '~/graphql/gqlGenerated'
 import {
   ChampionsFormat,
   GetChampionsTournamentsWithTopTeamQuery,
   GetChampionsTournamentsWithTopTeamQueryVariables,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
-import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
-import ChampionsTournamentsListView from '~/views/champions/ChampionsTournamentsList.view'
+import { initializeApollo } from '~/modules/apolloClient.module'
+import ChampionsTournamentsList from '~/views/champions/ChampionsTournamentsList.view'
 
 export const revalidate = 86400
 
@@ -62,9 +56,6 @@ interface PageProps {
 const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
   const { month } = await searchParams
 
-  const headersList = await headers()
-  const isMobile = detectUserAgent(headersList.get('user-agent') || '')
-
   const apolloClient = initializeApollo()
   const { data } = await apolloClient.query<
     GetChampionsTournamentsWithTopTeamQuery,
@@ -73,8 +64,6 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
     query: GetChampionsTournamentsWithTopTeamDocument,
     variables: {
       format: ChampionsFormat.VGC_DOUBLES,
-      // 대회 데이터는 소량이라 무한스크롤 없이 전량 로드(사용자 결정, E-3).
-      // 페이지네이션 인프라(offset/cursor)가 없어 충분히 큰 limit으로 한 번에 가져온다.
       limit: 1000,
       ...(month ? { month } : {}),
     },
@@ -83,8 +72,6 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
 
   const tournaments = data?.championsTournaments ?? []
 
-  // 사용 가능한 월 목록 (응답에서 추출 — null/빈값 제거 + 중복 제거 + 내림차순)
-  // null 이 섞이면 localeCompare 호출 시 TypeError 로 SSR 크래시되므로 사전 필터링.
   const availableMonths = Array.from(
     new Set(
       tournaments.map((t) => t.month).filter((m): m is string => Boolean(m)),
@@ -141,34 +128,11 @@ const ChampionsTournamentsListPage = async ({ searchParams }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      {/* 콘텐츠는 반응형 단일(ChampionsTournamentsListView, ADR-0007). UA 분기는
-          전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ChampionsTournamentsListView
-            tournaments={tournaments}
-            availableMonths={availableMonths}
-            currentMonth={month ?? null}
-          />
-          <MobileFooterContainer />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
-        // sticky 필터 desktop:top-40과 정합(E-1 도감과 동일).
-        <main className="w-full min-h-screen">
-          <div className="h-40">
-            <DesktopHeaderContainer />
-          </div>
-          <ChampionsTournamentsListView
-            tournaments={tournaments}
-            availableMonths={availableMonths}
-            currentMonth={month ?? null}
-          />
-          <DesktopFooterContainer />
-        </main>
-      )}
+      <ChampionsTournamentsList
+        tournaments={tournaments}
+        availableMonths={availableMonths}
+        currentMonth={month ?? null}
+      />
     </>
   )
 }

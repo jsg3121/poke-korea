@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import BallComponent from './Ball.component'
+import Ball from './Ball.component'
 
 const meta = {
   title: 'Components/Ball',
-  component: BallComponent,
+  component: Ball,
   parameters: {
     layout: 'centered',
     docs: {
@@ -25,32 +25,27 @@ const meta = {
   argTypes: {
     size: { control: 'radio', options: ['sm', 'md', 'lg', undefined] },
   },
-} satisfies Meta<typeof BallComponent>
+} satisfies Meta<typeof Ball>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** lg — 24→32px (카드 현행) */
 export const Large: Story = { args: { size: 'lg' } }
 
-/** md — 20→24px */
 export const Medium: Story = { args: { size: 'md' } }
 
-/** sm — 16px (체크박스·토글 등) */
 export const Small: Story = { args: { size: 'sm' } }
 
-/** size별 비교 */
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-end gap-4">
-      <BallComponent size="sm" />
-      <BallComponent size="md" />
-      <BallComponent size="lg" />
+      <Ball size="sm" />
+      <Ball size="md" />
+      <Ball size="lg" />
     </div>
   ),
 }
 
-/** 부모 크기에 맞춤 (size 없음) — 카드 등에서 부모가 크기를 정할 때 */
 export const FitParent: Story = {
   args: {
     size: 'md',
@@ -59,10 +54,10 @@ export const FitParent: Story = {
   render: () => (
     <div className="flex items-end gap-4">
       <span className="block w-10 h-10">
-        <BallComponent />
+        <Ball />
       </span>
       <span className="block w-16 h-16">
-        <BallComponent />
+        <Ball />
       </span>
     </div>
   ),

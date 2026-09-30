@@ -1,3 +1,5 @@
+import { TActiveType } from '~/types/detailContext.type'
+import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -5,21 +7,19 @@ import {
   PokemonNormalForm,
   PokemonRegionForm,
 } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
+import { imageMode } from '~/modules/buildMode.module'
 import {
   getPokemonNameByType,
   getPokemonSize,
   getPokemonStats,
   getPokemonTypes,
   getSeoCanonicalUrl,
-} from '~/module/generateDetailSeoMetaData'
+} from '~/modules/generateDetailSeoMetaData.module'
 import {
   CAPTURE_RATE_MAX,
   formatGenderPercent,
   parseGenderRate,
-} from '~/module/pokemonSpec.module'
-import { TActiveType } from '~/types/detailContext.type'
-import { PokemonTypes } from '~/types/pokemonTypes.types'
+} from '~/modules/pokemonSpec.module'
 
 interface PokemonJsonLdProps {
   pokemonDetail: PokemonDetail
@@ -42,7 +42,6 @@ export const generatePokemonJsonLd = ({
   regionFormData,
   gigantamaxData,
 }: PokemonJsonLdProps) => {
-  // 공통 함수들 사용
   const commonParams = {
     pokemonDetail,
     activeType,
@@ -108,7 +107,6 @@ export const generatePokemonJsonLd = ({
 
   const pokemonTypes = getPokemonTypes(commonParams)
   const stats = getPokemonStats(commonParams)
-  // 키·몸무게는 폼마다 다르므로 활성 폼 기준(메타 description과 동일 소스)
   const { height, weight } = getPokemonSize({ ...commonParams, gigantamaxData })
   const genderRatio = parseGenderRate(pokemonDetail.genderRate)
 
@@ -117,7 +115,6 @@ export const generatePokemonJsonLd = ({
     pokemonBaseInfoName: pokemonDetail.name,
     megaEvolutionName: megaEvolutionData?.[activeIndex]?.name || '',
     regionFormName: regionFormData?.[activeIndex]?.name || '',
-    // normalForm은 해당 인덱스 하나만 담겨 오므로 [0]으로 읽는다
     normalFormName: normalForm?.[0]?.name || '',
     gigantamaxName: gigantamaxData?.[activeIndex]?.name || '',
     isShiny,
@@ -139,7 +136,6 @@ export const generatePokemonJsonLd = ({
         return regionFormData?.[activeIndex].regionFormAbilityList ?? []
       }
       case 'gigantamax': {
-        // 거다이맥스는 별도 특성이 없으므로 기본 포켓몬 특성 사용
         return pokemonDetail.pokemonAbilityList
       }
       default: {
@@ -284,10 +280,6 @@ export const generatePokemonJsonLd = ({
           name: '능력치 총합',
           value: stats?.total ?? 0,
         },
-        // 기본 제원(1.58.0). 값이 없는 항목은 배열에서 아예 뺀다 —
-        // 0이나 빈 문자열을 신고하면 잘못된 사실을 구조화 데이터로 주장하게 된다.
-        // 포켓몬은 Google 리치결과 지원 타입이 없어 표시 효과는 없으나,
-        // 검색엔진의 엔티티 이해와 AI 개요 인용 가능성에 기여한다.
         ...(pokemonDetail.genus
           ? [
               {

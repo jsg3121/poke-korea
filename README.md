@@ -112,56 +112,56 @@ src/
 
 #### 개발 에이전트
 
-| 에이전트 | 역할 |
-| -------- | ---- |
-| `seo-specialist` | 메타태그, JSON-LD, OG 이미지, sitemap |
-| `ui-publisher` | 컴포넌트 구현, desktop/mobile 분리 패턴 |
-| `graphql-specialist` | 쿼리/스키마 변경, codegen 관리 |
-| `tool-designer` | 도구/계산기 비즈니스 로직 설계 |
+| 에이전트             | 역할                                    |
+| -------------------- | --------------------------------------- |
+| `seo-specialist`     | 메타태그, JSON-LD, OG 이미지, sitemap   |
+| `ui-publisher`       | 컴포넌트 구현, desktop/mobile 분리 패턴 |
+| `graphql-specialist` | 쿼리/스키마 변경, codegen 관리          |
+| `tool-designer`      | 도구/계산기 비즈니스 로직 설계          |
 
 #### 성장 분석 에이전트
 
-| 에이전트 | 역할 |
-| -------- | ---- |
-| `growth-analyst` | 유입/퍼널/리텐션 데이터 분석 |
-| `competitive-watcher` | 경쟁사 동향 모니터링 |
-| `user-insight-analyst` | 사용자 행동/VOC 분석 |
-| `growth-strategist` | 성장 전략 종합 → 실행 액션 도출 |
+| 에이전트               | 역할                            |
+| ---------------------- | ------------------------------- |
+| `growth-analyst`       | 유입/퍼널/리텐션 데이터 분석    |
+| `competitive-watcher`  | 경쟁사 동향 모니터링            |
+| `user-insight-analyst` | 사용자 행동/VOC 분석            |
+| `growth-strategist`    | 성장 전략 종합 → 실행 액션 도출 |
 
 ### 스킬
 
 #### 개발 스킬
 
-| 명령어 | 설명 |
-| ------ | ---- |
-| `/create-branch` | 신규 버전 브랜치 생성 |
-| `/create-pr` | Pull Request 생성 |
-| `/review-pr` | PR 리뷰 코멘트 분석 |
-| `/reply-review` | PR 리뷰 답글 작성 |
-| `/lint-check` | Prettier + ESLint 전체 검사 |
-| `/seo-audit` | SEO 감사 |
-| `/code-review` | 서브에이전트 기반 코드 리뷰 |
+| 명령어               | 설명                             |
+| -------------------- | -------------------------------- |
+| `/create-branch`     | 신규 버전 브랜치 생성            |
+| `/create-pr`         | Pull Request 생성                |
+| `/review-pr`         | PR 리뷰 코멘트 분석              |
+| `/reply-review`      | PR 리뷰 답글 작성                |
+| `/lint-check`        | Prettier + ESLint 전체 검사      |
+| `/seo-audit`         | SEO 감사                         |
+| `/code-review`       | 서브에이전트 기반 코드 리뷰      |
 | `/component-builder` | desktop/mobile 컴포넌트 스캐폴딩 |
-| `/feature-plan` | 신규 기능 기획서 작성 |
-| `/page-scaffold` | 페이지 풀 세트 스캐폴딩 |
-| `/competitive-audit` | 경쟁 사이트 기능 분석 |
-| `/research` | 외부 정보 조사 |
+| `/feature-plan`      | 신규 기능 기획서 작성            |
+| `/page-scaffold`     | 페이지 풀 세트 스캐폴딩          |
+| `/competitive-audit` | 경쟁 사이트 기능 분석            |
+| `/research`          | 외부 정보 조사                   |
 
 #### 성장 분석 스킬
 
-| 명령어 | 설명 |
-| ------ | ---- |
-| `/weekly-growth-review` | 주간 성장 리뷰 및 핵심 지표 점검 |
-| `/growth-sprint` | 성장 실험 설계 및 Sprint 계획 수립 |
+| 명령어                  | 설명                               |
+| ----------------------- | ---------------------------------- |
+| `/weekly-growth-review` | 주간 성장 리뷰 및 핵심 지표 점검   |
+| `/growth-sprint`        | 성장 실험 설계 및 Sprint 계획 수립 |
 
 ### Hooks
 
-| Hook | 시점 | 동작 |
-| ---- | ---- | ---- |
-| `post-edit-format.sh` | 파일 수정 후 | 자동 prettier 포맷팅 |
-| `pre-bash-guard.sh` | 명령어 실행 전 | 위험 명령어 차단 (`rm -rf`, `git push --force` 등) |
-| `stop-changelog-check.sh` | 작업 완료 시 | changelog 파일 존재 여부 검증 |
-| `notify.sh` | 입력 대기 시 | macOS 데스크톱 알림 |
+| Hook                      | 시점           | 동작                                               |
+| ------------------------- | -------------- | -------------------------------------------------- |
+| `post-edit-format.sh`     | 파일 수정 후   | 자동 prettier 포맷팅                               |
+| `pre-bash-guard.sh`       | 명령어 실행 전 | 위험 명령어 차단 (`rm -rf`, `git push --force` 등) |
+| `stop-changelog-check.sh` | 작업 완료 시   | changelog 파일 존재 여부 검증                      |
+| `notify.sh`               | 입력 대기 시   | macOS 데스크톱 알림                                |
 
 ## Changelog
 

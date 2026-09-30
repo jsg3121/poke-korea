@@ -1,19 +1,21 @@
 'use client'
-import { ReactNode, createContext, useState } from 'react'
+
+import { createContext, ReactNode, useState } from 'react'
+
 import { PokemonType } from '~/graphql/typeGenerated'
 
-export interface IFTypeEffectivenessProviderProps {
+export interface TypeEffectivenessProviderProps {
   children: ReactNode
 }
 
-interface IFTypeEffectivenessProps {
+interface TypeEffectivenessContextValue {
   selectTypeList: Array<PokemonType>
   isMaxSelectType: boolean
   handleChangeTypes: (selectType: PokemonType) => void
   handleResetSelectTypes: () => void
 }
 
-const TypeEffectivenessContext = createContext<IFTypeEffectivenessProps>({
+const TypeEffectivenessContext = createContext<TypeEffectivenessContextValue>({
   selectTypeList: [],
   isMaxSelectType: false,
   handleChangeTypes: () => null,
@@ -22,7 +24,7 @@ const TypeEffectivenessContext = createContext<IFTypeEffectivenessProps>({
 
 const TypeEffectivenessProvider = ({
   children,
-}: IFTypeEffectivenessProviderProps) => {
+}: TypeEffectivenessProviderProps) => {
   const [selectTypeList, setSelectTypeList] = useState<Array<PokemonType>>([])
 
   const handleChangeTypes = (selectType: PokemonType) => {
@@ -41,7 +43,7 @@ const TypeEffectivenessProvider = ({
 
   const isMaxSelectType = selectTypeList.length === 2
 
-  const initialValue: IFTypeEffectivenessProps = {
+  const initialValue: TypeEffectivenessContextValue = {
     isMaxSelectType,
     selectTypeList,
     handleChangeTypes,

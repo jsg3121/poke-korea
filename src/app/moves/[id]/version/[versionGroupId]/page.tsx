@@ -1,16 +1,13 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
+
 import { getMoveDetailVersionJsonLd } from '~/constants/movesJsonLd'
 import { PokemonLearnInfoEdge } from '~/graphql/typeGenerated'
-import { detectUserAgent } from '~/module/device.module'
+
 import MoveDetailPageShell from '../../_components/MoveDetailPageShell'
 import { fetchMoveDetailQueries } from '../../_fetch/moveDetail.fetch'
 import { fetchMoveDetailMetadata } from '../../_fetch/moveDetailMetadata.fetch'
 import { generateMoveDetailVersionMetadata } from '../../_metadata/generateMoveDetailMetadata'
-
-// 이 페이지는 동적 렌더다: headers() UA 감지(크롬 선택)가 매 요청 평가된다.
-// 기존 revalidate=1년 선언은 headers() 때문에 실효가 없던 거짓 신호라 제거(UX-008).
 
 type PageProps = {
   params: Promise<{
@@ -71,10 +68,6 @@ export async function generateMetadata({
 }
 
 const MoveDetailVersionPage = async ({ params }: PageProps) => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
-
   const { id, versionGroupId: versionGroupIdParam } = await params
   const skillId = parseInt(id, 10)
   const versionGroupId = parseInt(versionGroupIdParam, 10)
@@ -120,7 +113,6 @@ const MoveDetailVersionPage = async ({ params }: PageProps) => {
 
   return (
     <MoveDetailPageShell
-      isMobile={isMobile}
       initialApolloState={initialApolloState}
       skillId={skillId}
       skill={skill}

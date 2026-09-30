@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext } from 'react'
+
 import { useGetChampionsPokemonListQuery } from '~/graphql/gqlGenerated'
 import {
   ChampionsFormat,
@@ -6,7 +7,7 @@ import {
   ChampionsPokemonFilterInput,
   ChampionsPokemonSort,
 } from '~/graphql/typeGenerated'
-import { extractNodesFromEdges } from '~/module/graphqlPagination.module'
+import { extractNodesFromEdges } from '~/modules/graphqlPagination.module'
 
 interface ChampionsPokedexProviderProps {
   initialList: ChampionsPokemonCardFragment[]
@@ -71,8 +72,6 @@ export const ChampionsPokedexProvider = ({
       return
     }
 
-    // edges 병합은 InMemoryCache의 typePolicies(getChampionsPokemonList.merge)가
-    // 담당하므로 updateQuery는 지정하지 않는다(이중 병합 시 항목 중복 방지).
     await fetchMore({
       variables: {
         input: {

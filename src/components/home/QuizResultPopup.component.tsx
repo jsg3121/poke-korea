@@ -1,7 +1,9 @@
+import Link from 'next/link'
+
 import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import InCorrectIcon from '~/assets/icons/wrong-correct.svg'
+
 import Portal from '../Portal.component'
-import Link from 'next/link'
 
 type QuizType = 'ability' | 'silhouette' | 'pokemon-type'
 

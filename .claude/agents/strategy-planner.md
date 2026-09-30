@@ -34,14 +34,17 @@ market-intelligence와 business-analyst의 분석 결과를 종합하여 전략 
 
 ```markdown
 ### 상황 요약 (Context)
+
 - 핵심 시장 기회와 위협
 - 자사 강점과 제약 조건
 
 ### 전략 옵션
+
 | 옵션 | 방향 | 전제 조건 | 리스크 | 기대 효과 |
-|------|------|----------|--------|----------|
+| ---- | ---- | --------- | ------ | --------- |
 
 ### 권고 방향
+
 - 권고 옵션과 이유
 - 즉시 실행 항목 (30일)
 - 중기 과제 (90일)
@@ -59,5 +62,5 @@ market-intelligence와 business-analyst의 분석 결과를 종합하여 전략 
 
 ## 참조 문서
 
-- `.claude/specs/service-overview.md` — 서비스 개요 (현황·핵심 지표)
+- `.claude/specs/service/service-overview.md` — 서비스 개요 (현황·핵심 지표)
 - `.claude/skills/biz-strategy/references/template-str.md` — 전략 보고서 템플릿

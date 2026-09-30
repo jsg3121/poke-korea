@@ -6,15 +6,12 @@ import MovesListIcon from '~/assets/icons/movesList.svg'
 import PokeballIcon from '~/assets/icons/pokeball.svg'
 import QuizIcon from '~/assets/icons/quiz.svg'
 import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
-import HubLinkCardComponent from './HubLinkCard.component'
 
-/**
- * 허브 링크 카드. 홈의 내부 링크 허브 블록(콘텐츠 축 6개 진입 타일)을 구성한다.
- * 아이콘은 MobileTabBar와 같은 SVGR 자산을 슬롯으로 주입한다.
- */
+import HubLinkCard from './HubLinkCard.component'
+
 const meta = {
   title: 'Components/HubLinkCard',
-  component: HubLinkCardComponent,
+  component: HubLinkCard,
   parameters: {
     layout: 'padded',
     nextjs: { appDirectory: true },
@@ -37,49 +34,47 @@ const meta = {
     icon: <PokeballIcon />,
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof HubLinkCardComponent>
+} satisfies Meta<typeof HubLinkCard>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 (도감 타일) */
 export const Default: Story = {}
 
-/** 홈 허브 블록 — 6개 타일, 모바일 2열 → 데스크톱 3열 (부모 그리드 책임) */
 export const HomeHubGrid: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4 desktop:grid-cols-3">
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/list"
         title="포켓몬 도감"
         description="1025마리 포켓몬 정보 보기"
         icon={<PokeballIcon />}
       />
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/type-effectiveness"
         title="타입 상성"
         description="타입 상성표·배틀 계산기"
         icon={<TypeEffectivenessIcon />}
       />
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/moves"
         title="기술 도감"
         description="기술 위력·명중률 찾아보기"
         icon={<MovesListIcon />}
       />
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/ability"
         title="특성 도감"
         description="특성 효과 한눈에 보기"
         icon={<AbilityIcon />}
       />
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/champions/double"
         title="챔피언스"
         description="대회 메타·티어 리스트"
         icon={<ChampionsIcon />}
       />
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/quiz"
         title="포켓몬 퀴즈"
         description="매일 새로운 퀴즈 풀기"
@@ -89,18 +84,17 @@ export const HomeHubGrid: Story = {
   ),
 }
 
-/** 모바일 뷰 (2열 그리드) */
-export const MobileView: Story = {
+export const Mobile: Story = {
   globals: { viewport: { value: 'mobile' } },
   render: () => (
     <div className="grid grid-cols-2 gap-4">
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/list"
         title="포켓몬 도감"
         description="1025마리 포켓몬 정보 보기"
         icon={<PokeballIcon />}
       />
-      <HubLinkCardComponent
+      <HubLinkCard
         href="/quiz"
         title="포켓몬 퀴즈"
         description="매일 새로운 퀴즈 풀기"

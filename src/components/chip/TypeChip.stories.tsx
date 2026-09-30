@@ -1,16 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import TypeChipComponent from './TypeChip.component'
+import TypeChip from './TypeChip.component'
 
 const noop = () => undefined
 
-/**
- * 타입 필터 칩 (아이콘 토글). 텍스트 Chip과 별개 — 타입 아이콘을 grayscale↔컬러로 토글하는
- * 선택 컨트롤이다. 라벨은 모바일 항상 표시, 데스크톱 hover/focus 시에만(viewport로 확인).
- */
 const meta = {
   title: 'Components/TypeChip',
-  component: TypeChipComponent,
+  component: TypeChip,
   parameters: {
     layout: 'centered',
     docs: {
@@ -33,34 +29,30 @@ const meta = {
     disabled: { control: 'boolean' },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof TypeChipComponent>
+} satisfies Meta<typeof TypeChip>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 미선택 (흐린 흑백) */
 export const Inactive: Story = { args: { active: false } }
 
-/** 선택됨 (컬러 + 볼드 라벨) */
 export const Active: Story = { args: { active: true } }
 
-/** 잠금 (최대 선택 도달 시 미선택 항목) */
 export const Disabled: Story = { args: { active: false, disabled: true } }
 
-/** 그룹 배치 (필터 바 예시) — 일부 선택 */
 export const Group: Story = {
   render: () => (
     <div className="flex items-start gap-2">
-      <TypeChipComponent value="FIRE" label="불꽃" active onChange={noop} />
-      <TypeChipComponent value="WATER" label="물" active onChange={noop} />
-      <TypeChipComponent
+      <TypeChip value="FIRE" label="불꽃" active onChange={noop} />
+      <TypeChip value="WATER" label="물" active onChange={noop} />
+      <TypeChip
         value="GRASS"
         label="풀"
         active={false}
         disabled
         onChange={noop}
       />
-      <TypeChipComponent
+      <TypeChip
         value="ELECTRIC"
         label="전기"
         active={false}
@@ -71,13 +63,11 @@ export const Group: Story = {
   ),
 }
 
-/** 모바일 뷰 (라벨 항상 표시) */
-export const MobileView: Story = {
+export const Mobile: Story = {
   parameters: { viewport: { defaultViewport: 'mobile' } },
   args: { active: true },
 }
 
-/** 단일 선택 그룹 (mode='single', radio 시맨틱) — 기술 목록 필터 용법 */
 export const SingleSelectGroup: Story = {
   render: () => (
     <div
@@ -85,7 +75,7 @@ export const SingleSelectGroup: Story = {
       aria-label="기술 타입 필터"
       className="flex items-start gap-2"
     >
-      <TypeChipComponent
+      <TypeChip
         value="FIRE"
         label="불꽃"
         active
@@ -93,7 +83,7 @@ export const SingleSelectGroup: Story = {
         name="story-moves-type"
         onChange={noop}
       />
-      <TypeChipComponent
+      <TypeChip
         value="WATER"
         label="물"
         active={false}
@@ -101,7 +91,7 @@ export const SingleSelectGroup: Story = {
         name="story-moves-type"
         onChange={noop}
       />
-      <TypeChipComponent
+      <TypeChip
         value="GRASS"
         label="풀"
         active={false}

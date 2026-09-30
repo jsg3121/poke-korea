@@ -6,37 +6,37 @@ market-intelligence 에이전트가 시장 조사 시 참조하는 데이터 소
 
 ## 게임 / 포켓몬 시장 데이터
 
-| 소스 | URL | 설명 |
-|------|-----|------|
-| Google Trends | trends.google.com | 포켓몬 관련 검색어 트렌드, 지역별·시기별 관심도 |
-| 네이버 데이터랩 | datalab.naver.com | 한국 검색 트렌드 (포켓몬 키워드, 연령/성별 분포) |
-| Newzoo | newzoo.com | 글로벌 게임 시장 규모·이용자 통계 |
-| Statista - Gaming | statista.com | 게임·콘텐츠 시장 규모, 지역별 이용자 수 |
-| 위키(나무위키/포켓몬 위키) | namu.wiki, pokemon.fandom.com | 경쟁 정보 사이트의 콘텐츠 범위·구조 파악 |
+| 소스                             | URL                           | 설명                                             |
+| -------------------------------- | ----------------------------- | ------------------------------------------------ |
+| Google Trends                    | trends.google.com             | 포켓몬 관련 검색어 트렌드, 지역별·시기별 관심도  |
+| 네이버 데이터랩                  | datalab.naver.com             | 한국 검색 트렌드 (포켓몬 키워드, 연령/성별 분포) |
+| Newzoo                           | newzoo.com                    | 글로벌 게임 시장 규모·이용자 통계                |
+| Statista - Gaming                | statista.com                  | 게임·콘텐츠 시장 규모, 지역별 이용자 수          |
+| 위키(나무위키/포켓몬 위키)       | namu.wiki, pokemon.fandom.com | 경쟁 정보 사이트의 콘텐츠 범위·구조 파악         |
 | Bulbapedia / Serebii / PokemonDB | bulbapedia.bulbagarden.net 등 | 해외 레퍼런스 사이트의 데이터 깊이·기능 벤치마크 |
 
 ## 웹 트래픽 / 경쟁사 분석
 
-| 소스 | URL | 설명 |
-|------|-----|------|
+| 소스       | URL            | 설명                                    |
+| ---------- | -------------- | --------------------------------------- |
 | SimilarWeb | similarweb.com | 웹사이트 트래픽, 유입 경로, 경쟁사 비교 |
-| BuiltWith | builtwith.com | 웹사이트가 사용하는 기술 스택 탐지 |
-| Wappalyzer | wappalyzer.com | 기술 스택 탐지 |
+| BuiltWith  | builtwith.com  | 웹사이트가 사용하는 기술 스택 탐지      |
+| Wappalyzer | wappalyzer.com | 기술 스택 탐지                          |
 
 ## SEO / 검색 트렌드
 
-| 소스 | URL | 설명 |
-|------|-----|------|
-| Google Trends | trends.google.com | 검색어 트렌드, 지역별 관심도 |
+| 소스             | URL                     | 설명                          |
+| ---------------- | ----------------------- | ----------------------------- |
+| Google Trends    | trends.google.com       | 검색어 트렌드, 지역별 관심도  |
 | Ahrefs / SEMrush | ahrefs.com, semrush.com | 키워드 볼륨, 경쟁 강도 (유료) |
 
 ## 광고 / 수익 시장
 
-| 소스 | URL | 설명 |
-|------|-----|------|
-| Google AdSense 대시보드 | adsense.google.com | 자사 광고 노출·클릭·RPM 실측 (내부 데이터) |
-| IAB / 온라인 광고 시장 리포트 | iab.com | 디스플레이 광고 단가·시장 트렌드 |
-| 한국 온라인광고협회(KOA) | onlinead.or.kr | 국내 온라인 광고 시장 규모·동향 |
+| 소스                          | URL                | 설명                                       |
+| ----------------------------- | ------------------ | ------------------------------------------ |
+| Google AdSense 대시보드       | adsense.google.com | 자사 광고 노출·클릭·RPM 실측 (내부 데이터) |
+| IAB / 온라인 광고 시장 리포트 | iab.com            | 디스플레이 광고 단가·시장 트렌드           |
+| 한국 온라인광고협회(KOA)      | onlinead.or.kr     | 국내 온라인 광고 시장 규모·동향            |
 
 ## 데이터 사용 원칙
 

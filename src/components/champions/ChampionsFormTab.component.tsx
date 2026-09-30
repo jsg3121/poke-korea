@@ -1,12 +1,13 @@
 'use client'
 
 import Link from 'next/link'
+
 import { ChampionsFormSiblingFragment } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
-import ChampionsTierBadge from './ChampionsTierBadge.component'
+import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
 
 interface ChampionsFormTabProps {
   formSiblings: ChampionsFormSiblingFragment[]
@@ -17,7 +18,6 @@ const ChampionsFormTab = ({
   formSiblings,
   formatSlug,
 }: ChampionsFormTabProps) => {
-  // 형제 폼이 1개뿐이면(자기 자신만) 탭 노출 안 함
   if (formSiblings.length <= 1) {
     return null
   }

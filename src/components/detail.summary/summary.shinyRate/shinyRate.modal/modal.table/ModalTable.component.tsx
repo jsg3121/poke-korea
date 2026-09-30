@@ -1,4 +1,4 @@
-const ModalTableComponent = () => {
+const ModalTable = () => {
   return (
     <table aria-label="이로치 포획률" className="w-full">
       <caption className="w-full text-xs text-right text-primary-2 caption-bottom mt-1">
@@ -184,4 +184,4 @@ const ModalTableComponent = () => {
   )
 }
 
-export default ModalTableComponent
+export default ModalTable

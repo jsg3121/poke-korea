@@ -6,7 +6,6 @@ const fontSize = (
   tailwindConfig as { theme: { extend: { fontSize: Record<string, string> } } }
 ).theme.extend.fontSize
 
-// 본문에서 자주 쓰는 스케일만 노출 (6xl 이상 대형은 생략)
 const SHOWN = [
   '2xs',
   'xs',
@@ -25,7 +24,7 @@ const remToPx = (rem: string) => {
   return `${Math.round(n * 16)}px`
 }
 
-const TypographyView = () => (
+const Typography = () => (
   <div className="p-8 bg-white-3 min-h-screen">
     <h1 className="text-2xl font-bold text-primary-1 mb-1">Typography</h1>
     <p className="text-sm text-shadow-3 mb-7">
@@ -71,10 +70,10 @@ const TypographyView = () => (
 
 const meta = {
   title: 'Foundations/Typography',
-  component: TypographyView,
+  component: Typography,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
-} satisfies Meta<typeof TypographyView>
+} satisfies Meta<typeof Typography>
 
 export default meta
 export const All: StoryObj<typeof meta> = {}

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import PageHeaderComponent from './PageHeader.component'
+import PageHeader from './PageHeader.component'
 
-/** 페이지 헤더는 진한 네이비 배경(primary-1) 위, 페이지 상단에 놓인다. */
 const PageBg = (Story: React.ComponentType) => (
   <div className="bg-primary-1 px-5 pt-4 w-[420px] desktop:w-[800px]">
     <Story />
@@ -11,7 +10,7 @@ const PageBg = (Story: React.ComponentType) => (
 
 const meta = {
   title: 'Components/PageHeader',
-  component: PageHeaderComponent,
+  component: PageHeader,
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -32,15 +31,13 @@ const meta = {
     title: '포켓몬 도감',
     description: '모든 포켓몬의 정보를 한눈에 확인하세요',
   },
-} satisfies Meta<typeof PageHeaderComponent>
+} satisfies Meta<typeof PageHeader>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 */
 export const Default: Story = {}
 
-/** 긴 설명 (줄바꿈) */
 export const LongDescription: Story = {
   args: {
     title: '타입 상성',

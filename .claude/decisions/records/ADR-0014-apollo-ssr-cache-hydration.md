@@ -26,14 +26,14 @@ Next.js App Router에서 **서버의 Apollo 캐시와 브라우저의 Apollo 캐
 
 영향받는 6개 쿼리:
 
-| 쿼리 | SSR fetch 위치 | 클라이언트 재요청 위치 |
-|------|----------------|------------------------|
-| `GetPokemonsBySkill` | `moves/[id]/_fetch/moveDetail.fetch.ts` | `usePokemonsBySkill` |
-| `GetPokemonByAbility` | `ability/[id]/_fetch/abilityDetail.fetch.ts` | `usePokemonByAbility` |
-| `GetAbilityListPaginated` | `ability/page.tsx` | `useAbilityList` |
-| `GetPokemonSkillList` | `moves/page.tsx` | `Moves.context` |
-| `GetPokemonListPaginated` | `list/page.tsx` | `List.context` |
-| `GetChampionsPokemonList` | `champions/[format]/list/page.tsx` | `ChampionsPokedex.context` |
+| 쿼리                      | SSR fetch 위치                               | 클라이언트 재요청 위치     |
+| ------------------------- | -------------------------------------------- | -------------------------- |
+| `GetPokemonsBySkill`      | `moves/[id]/_fetch/moveDetail.fetch.ts`      | `usePokemonsBySkill`       |
+| `GetPokemonByAbility`     | `ability/[id]/_fetch/abilityDetail.fetch.ts` | `usePokemonByAbility`      |
+| `GetAbilityListPaginated` | `ability/page.tsx`                           | `useAbilityList`           |
+| `GetPokemonSkillList`     | `moves/page.tsx`                             | `Moves.context`            |
+| `GetPokemonListPaginated` | `list/page.tsx`                              | `List.context`             |
+| `GetChampionsPokemonList` | `champions/[format]/list/page.tsx`           | `ChampionsPokedex.context` |
 
 ## 결정
 
@@ -67,13 +67,13 @@ Next.js App Router에서 **서버의 Apollo 캐시와 브라우저의 Apollo 캐
 
 ## 대안
 
-| 대안 | 장점 | 단점 | 불채택 사유 |
-|------|------|------|-------------|
-| 공식 통합 패키지 도입(A) | 공식 지원, 유지보수 유리 | AC 3.13+ 필요, `0.12.0` 버전 고정, React19/AC4 압박 | 현재 스택과 peer 충돌, 버전 함정 |
-| AC4 + React19 전면 업그레이드(C) | 최신·장수명 | 대규모 마이그레이션, 리스크 최대 | 이번 작업 범위 초과 |
-| `cache-first` 명시만 | 변경 최소 | 이미 기본값, 캐시 비어 있어 무효 | 근본 원인 미해결 |
-| `writeQuery`(컨테이너) | 페이지별 국소 | 타이밍 문제, 렌더 순수성 위반 | 안전성 미확보 |
-| **자체 restore 하이드레이션(B, 채택)** | 의존성 0, 기존 스캐폴드 정합, 타이밍 문제 없음 | 배선을 자체 관리 | — |
+| 대안                                   | 장점                                           | 단점                                                | 불채택 사유                      |
+| -------------------------------------- | ---------------------------------------------- | --------------------------------------------------- | -------------------------------- |
+| 공식 통합 패키지 도입(A)               | 공식 지원, 유지보수 유리                       | AC 3.13+ 필요, `0.12.0` 버전 고정, React19/AC4 압박 | 현재 스택과 peer 충돌, 버전 함정 |
+| AC4 + React19 전면 업그레이드(C)       | 최신·장수명                                    | 대규모 마이그레이션, 리스크 최대                    | 이번 작업 범위 초과              |
+| `cache-first` 명시만                   | 변경 최소                                      | 이미 기본값, 캐시 비어 있어 무효                    | 근본 원인 미해결                 |
+| `writeQuery`(컨테이너)                 | 페이지별 국소                                  | 타이밍 문제, 렌더 순수성 위반                       | 안전성 미확보                    |
+| **자체 restore 하이드레이션(B, 채택)** | 의존성 0, 기존 스캐폴드 정합, 타이밍 문제 없음 | 배선을 자체 관리                                    | —                                |
 
 ## 결과
 

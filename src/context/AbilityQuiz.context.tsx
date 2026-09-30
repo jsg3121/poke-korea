@@ -1,16 +1,16 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState } from 'react'
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
-import { useGetAbilityQuizQuery } from '~/graphql/gqlGenerated'
-import { useQuizTimer } from '~/hook/useQuizTimer'
-import { quizProgress } from '~/module/quiz.module'
+import { createContext, ReactNode, useContext, useState } from 'react'
+
 import {
+  AbilityQuizQuestion,
   BaseQuizState,
   QuizResult,
   QuizViewStage,
-  AbilityQuizQuestion,
 } from '~/types/quiz.type'
+import { useGetAbilityQuizQuery } from '~/graphql/gqlGenerated'
+import { quizProgress } from '~/modules/quiz.module'
+import { useQuizTimer } from '~/hooks/useQuizTimer'
 
 interface AbilityQuizContextType {
   questions: AbilityQuizQuestion[]
@@ -56,7 +56,7 @@ export const AbilityQuizProvider = ({ children }: AbilityQuizProviderProps) => {
   const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
-    QUIZ_CONSTANTS.TOTAL_QUESTIONS,
+    questions.length,
   )
 
   const onChangeStage = (stage: QuizViewStage) => {
@@ -93,7 +93,7 @@ export const AbilityQuizProvider = ({ children }: AbilityQuizProviderProps) => {
 
     const newAnswers = [...quizState.userAnswers, answerIndex]
     const isLastQuestion =
-      quizState.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
+      quizState.currentQuestionIndex === questions.length - 1
 
     setQuizState((prev) => ({
       ...prev,

@@ -1,6 +1,8 @@
 'use client'
 
-import { ReactNode, createContext } from 'react'
+import { createContext, ReactNode } from 'react'
+
+import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.type'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -9,9 +11,8 @@ import {
   PokemonRegionForm,
   VersionGroup,
 } from '~/graphql/typeGenerated'
-import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.type'
 
-interface IFDetailProviderProps {
+interface DetailProviderProps {
   pokemonBaseInfo: PokemonDetail
   normalForm: Array<PokemonNormalForm>
   megaEvolutionData?: Array<PokemonMegaEvolution>
@@ -24,7 +25,7 @@ interface IFDetailProviderProps {
   children: ReactNode
 }
 
-interface IFDetailProps {
+interface DetailContextValue {
   pokemonBaseInfo?: PokemonDetail
   megaEvolutions?: Array<PokemonMegaEvolution>
   regionFormInfo?: Array<PokemonRegionForm>
@@ -36,7 +37,7 @@ interface IFDetailProps {
   normalFormImageList: Array<string>
 }
 
-const DetailContext = createContext<IFDetailProps>({
+const DetailContext = createContext<DetailContextValue>({
   activeType: 'normal',
   activeIndex: 0,
   normalFormImageList: [],
@@ -66,14 +67,14 @@ const DetailProvider = ({
   normalFormImageList,
   activeType,
   activeIndex,
-}: IFDetailProviderProps) => {
+}: DetailProviderProps) => {
   const getTypes = () => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutionData?.[activeIndex].types ?? []
+        return megaEvolutionData?.[activeIndex]?.types ?? []
       }
       case 'region': {
-        return regionFormData?.[activeIndex].types ?? []
+        return regionFormData?.[activeIndex]?.types ?? []
       }
       default: {
         return (
@@ -91,10 +92,10 @@ const DetailProvider = ({
   const getAbilities = () => {
     switch (activeType) {
       case 'mega': {
-        return megaEvolutionData?.[activeIndex].megaEvolutionAbilityList ?? []
+        return megaEvolutionData?.[activeIndex]?.megaEvolutionAbilityList ?? []
       }
       case 'region': {
-        return regionFormData?.[activeIndex].regionFormAbilityList ?? []
+        return regionFormData?.[activeIndex]?.regionFormAbilityList ?? []
       }
       default: {
         return (
@@ -125,24 +126,20 @@ const DetailProvider = ({
           levelUpSkillVersion: versionGroup?.find((version) => {
             return (
               version.versionGroupId ===
-              regionFormData?.[activeIndex].learnableSkills
+              regionFormData?.[activeIndex]?.learnableSkills
                 ?.levelUpVersionGroupId
             )
           }),
           machineSkillVersion: versionGroup?.find((version) => {
             return (
               version.versionGroupId ===
-              regionFormData?.[activeIndex].learnableSkills
+              regionFormData?.[activeIndex]?.learnableSkills
                 ?.machineVersionGroupId
             )
           }),
         }
       }
       default: {
-        // 폼(normalForm)에 러닝셋 버전이 있으면 그것을, 없으면 기본 폼 값을 쓴다.
-        // 두 필드 모두 nullish 병합(??)으로 통일한다 — machine 쪽만 ||를 쓰고 있었는데,
-        // versionGroupId는 0이 유효한 값은 아니나 두 필드의 폴백 규칙이 달라야 할
-        // 이유가 없어 혼선만 준다.
         return {
           levelUpSkillVersion: versionGroup?.find((version) => {
             return (
@@ -183,7 +180,7 @@ const DetailProvider = ({
     versionGroupInfo,
   }
 
-  const initialValue: IFDetailProps = {
+  const initialValue: DetailContextValue = {
     pokemonBaseInfo,
     activeType,
     activeIndex,

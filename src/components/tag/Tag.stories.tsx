@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
-import TagComponent from './Tag.component'
+
+import Tag from './Tag.component'
 
 const ALL_TYPES: PokemonType[] = [
   'NORMAL',
@@ -26,7 +27,7 @@ const ALL_TYPES: PokemonType[] = [
 
 const meta = {
   title: 'Components/Tag',
-  component: TagComponent,
+  component: Tag,
   parameters: {
     layout: 'centered',
     docs: {
@@ -47,7 +48,7 @@ const meta = {
   argTypes: {
     type: { control: 'select', options: ALL_TYPES },
   },
-} satisfies Meta<typeof TagComponent>
+} satisfies Meta<typeof Tag>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -56,16 +57,12 @@ export const Default: Story = {
   args: { type: 'GRASS' as PokemonType },
 }
 
-/**
- * 18개 타입 전체. 흰색 글자(WCAG 대비) 6종: 격투·독·고스트·드래곤·악·바위.
- * 나머지 12종은 검정 글자.
- */
 export const AllTypes: Story = {
   args: { type: 'GRASS' as PokemonType },
   render: () => (
     <div className="flex flex-wrap gap-2 max-w-md">
       {ALL_TYPES.map((type) => (
-        <TagComponent key={type} type={type} />
+        <Tag key={type} type={type} />
       ))}
     </div>
   ),

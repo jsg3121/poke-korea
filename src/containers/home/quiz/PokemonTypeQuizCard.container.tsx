@@ -1,0 +1,60 @@
+'use client'
+
+import { PokemonTypeQuizQuestion } from '~/graphql/typeGenerated'
+import QuizAnswerButton from '~/components/home/quiz/QuizAnswerButton.component'
+import QuizResultPopup from '~/components/home/QuizResultPopup.component'
+import QuizCard from '~/components/quizCard/QuizCard.component'
+import Tag from '~/components/tag/Tag.component'
+
+import { useCorrectQuizCheck } from './hooks/useCorrectQuizCheck'
+
+interface PokemonTypeQuizCardProps {
+  pokemonTypeQuiz: PokemonTypeQuizQuestion
+}
+
+const PokemonTypeQuizCard = ({ pokemonTypeQuiz }: PokemonTypeQuizCardProps) => {
+  const { isCorrect, isShowModal, handleSelectAnswer, handleCloseModal } =
+    useCorrectQuizCheck({ correctAnswer: pokemonTypeQuiz.correctAnswerIndex })
+
+  return (
+    <>
+      <QuizCard
+        icon="🎯"
+        title="타입 퀴즈"
+        description="주어진 타입의 포켓몬을 골라주세요!"
+        headingId="type-quiz-title"
+        answersLabel="타입 퀴즈 답안 선택"
+        body={
+          <div className="flex flex-col flex-wrap items-center justify-center gap-2">
+            <Tag type={pokemonTypeQuiz.targetType} />
+            <p className="text-sm desktop:text-base text-primary-1">
+              타입을 가진 포켓몬은 누굴까요?
+            </p>
+          </div>
+        }
+        answers={pokemonTypeQuiz.options.map((option, index) => (
+          <QuizAnswerButton
+            key={`pokemon-type-quiz-id-${pokemonTypeQuiz.id}-${index}`}
+            onClickAnswer={handleSelectAnswer}
+            answerIndex={index}
+            label={option.koreanName}
+          />
+        ))}
+      />
+      {isShowModal && (
+        <QuizResultPopup
+          id="pokemon-type-quiz-portal"
+          isCorrect={isCorrect}
+          answer={
+            pokemonTypeQuiz.options[pokemonTypeQuiz.correctAnswerIndex]
+              .koreanName
+          }
+          quizType="pokemon-type"
+          onClose={handleCloseModal}
+        />
+      )}
+    </>
+  )
+}
+
+export default PokemonTypeQuizCard

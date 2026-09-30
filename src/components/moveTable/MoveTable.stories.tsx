@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
-import MoveTableComponent from './MoveTable.component'
 
-/** 리자몽 레벨업 기술 (LEGENDS Z-A 발췌) — 변화 기술의 위력 없음(-) 케이스 포함 */
+import MoveTable from './MoveTable.component'
+
 const LEVEL_UP_MOVES = [
   {
     condition: '진화',
@@ -54,7 +54,7 @@ const LEVEL_UP_MOVES = [
 
 const meta = {
   title: 'Components/MoveTable',
-  component: MoveTableComponent,
+  component: MoveTable,
   parameters: {
     layout: 'padded',
     docs: {
@@ -79,18 +79,13 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-} satisfies Meta<typeof MoveTableComponent>
+} satisfies Meta<typeof MoveTable>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 레벨업 습득 기술 — 뷰포트 폭을 줄이면 2줄 행, 늘리면 정렬 표 */
 export const Default: Story = {}
 
-/**
- * 행 클릭 가능 — `href`를 넘기면 행 전체가 그 URL로 가는 stretched-link가
- * 된다(상세 습득 기술 페이지 용). 경로 규칙은 호출부 책임. 미지정 행은 순수 표시(하위 호환).
- */
 export const Linkable: Story = {
   args: {
     moves: LEVEL_UP_MOVES.map((move, index) => ({
@@ -101,7 +96,6 @@ export const Linkable: Story = {
   },
 }
 
-/** 머신 습득 기술 — 조건 라벨에 기술머신 번호(TM24)가 들어가는 케이스 */
 export const Machine: Story = {
   args: {
     moves: [
@@ -137,12 +131,6 @@ export const Machine: Story = {
   },
 }
 
-/**
- * 기술 가르침 습득 기술 — 조건 라벨이 가장 긴 케이스.
- *
- * 습득 열 폭 회귀 확인용. '기술 가르침'은 공백 포함 6자이고 한글은 글자 폭이 넓어,
- * 열이 좁으면 줄바꿈이 나 행 높이가 들쭉날쭉해진다(데스크톱에서 확인).
- */
 export const Tutor: Story = {
   args: {
     moves: [
@@ -169,7 +157,6 @@ export const Tutor: Story = {
   },
 }
 
-/** 알 기술 습득 — 조건 라벨 '알 기술'(4자) 케이스 */
 export const Egg: Story = {
   args: {
     moves: [

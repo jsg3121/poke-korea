@@ -1,10 +1,5 @@
 import { formatTime } from '~/utils/quiz.util'
 
-/**
- * 퀴즈 결과 요약 (RESULT 단계). 4지표(맞은 문제/정답률/소요 시간/평균 시간).
- * 기존 desktop=flex 한 줄 / mobile=grid 2×4로 레이아웃 엔진이 이원화돼 있던 것을,
- * 단일 grid로 통일한다 — 모바일 2열(2×2), desktop 4열(1×4). 열 수만 반응형 분기.
- */
 interface ResultSummaryProps {
   correctAnswers: number
   percentage: number
@@ -17,7 +12,7 @@ interface SummaryItem {
   value: string
 }
 
-const ResultSummaryComponent = ({
+const ResultSummary = ({
   averageTime,
   correctAnswers,
   percentage,
@@ -46,4 +41,4 @@ const ResultSummaryComponent = ({
   )
 }
 
-export default ResultSummaryComponent
+export default ResultSummary

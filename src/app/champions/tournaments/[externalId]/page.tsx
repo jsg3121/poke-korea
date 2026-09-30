@@ -1,25 +1,19 @@
-import { Metadata } from 'next'
-import { headers } from 'next/headers'
-import { notFound } from 'next/navigation'
 import { cache } from 'react'
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
+import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import { GetChampionsTournamentDetailDocument } from '~/graphql/gqlGenerated'
 import {
   GetChampionsTournamentDetailQuery,
   GetChampionsTournamentDetailQueryVariables,
 } from '~/graphql/typeGenerated'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
-import { SITE_NAME, SITE_URL } from '~/constants/seo.constant'
 import {
   formatKstDate,
   getFormatEnumShortLabel,
 } from '~/utils/championsFormat.util'
-import ChampionsTournamentDetailView from '~/views/champions/ChampionsTournamentDetail.view'
+import { initializeApollo } from '~/modules/apolloClient.module'
+import ChampionsTournamentDetail from '~/views/champions/ChampionsTournamentDetail.view'
 
 export const revalidate = 86400
 
@@ -27,12 +21,6 @@ interface PageProps {
   params: Promise<{ externalId: string }>
 }
 
-/**
- * generateMetadata + 페이지 본체가 같은 렌더 사이클에서 같은 externalId 로 호출하므로
- * react.cache 로 메모이즈해 중복 네트워크 호출(fetchPolicy: network-only) 방지.
- *
- * 근거: React 공식 — https://react.dev/reference/react/cache
- */
 const fetchDetail = cache(async (externalId: string) => {
   const apolloClient = initializeApollo()
   const { data } = await apolloClient.query<
@@ -104,9 +92,6 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const headersList = await headers()
-  const isMobile = detectUserAgent(headersList.get('user-agent') || '')
-
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -168,25 +153,7 @@ const ChampionsTournamentDetailPage = async ({ params }: PageProps) => {
           }}
         />
       )}
-      {/* 콘텐츠는 반응형 단일(ChampionsTournamentDetailView, ADR-0007). UA 분기는
-          전역 크롬(헤더/푸터/탭바) 선택으로만 남는다(E-1 도감·티어와 동일 패턴). */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <ChampionsTournamentDetailView detail={detail} />
-          <MobileFooterContainer />
-          <MobileTabBar />
-        </main>
-      ) : (
-        // h-40 스페이서 = 데스크톱 fixed 헤더(120px) + 챔피언스 SubNav(40px) 실높이.
-        <main className="w-full min-h-screen">
-          <div className="h-40">
-            <DesktopHeaderContainer />
-          </div>
-          <ChampionsTournamentDetailView detail={detail} />
-          <DesktopFooterContainer />
-        </main>
-      )}
+      <ChampionsTournamentDetail detail={detail} />
     </>
   )
 }

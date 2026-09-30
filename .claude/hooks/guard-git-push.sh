@@ -20,6 +20,20 @@ command=$(printf '%s' "$input" | jq -r '.tool_input.command // empty')
 # git push가 없으면 검사 대상이 아니다.
 printf '%s' "$command" | grep -qE '(^|[;&|[:space:]])git[[:space:]]+([^;&|]*[[:space:]])?push([[:space:]]|$)' || exit 0
 
+# 로컬 전용 서브커맨드의 push는 원격을 건드리지 않으므로 통과시킨다.
+#
+# 위 게이트는 `git <무엇이든> push` 형태를 넓게 잡는데, git에는 원격과 무관하게
+# "push"를 쓰는 서브커맨드가 있다 — `git stash push`(변경 보관, `save`의 후속 문법),
+# `git worktree ... push`류. 이들을 막으면 정상 작업이 차단되고, 차단 메시지가
+# "작업 브랜치로 push하세요"라 원인을 오해하게 된다. 실제로 main에서 분기하며
+# `git stash push -u`가 막혀 `save`로 우회한 사례가 있다.
+#
+# 원격 push는 항상 `git push ...`(서브커맨드가 곧 push)이므로, 다른 서브커맨드가
+# 앞에 오는 경우만 제외하면 가드의 실효는 그대로다.
+if printf '%s' "$command" | grep -qE '(^|[;&|[:space:]])git[[:space:]]+(-[^[:space:]]+[[:space:]]+)*(stash|worktree|notes)[[:space:]]'; then
+  printf '%s' "$command" | grep -qE '(^|[;&|[:space:]])git[[:space:]]+(-[^[:space:]]+[[:space:]]+)*push([[:space:]]|$)' || exit 0
+fi
+
 deny() {
   # 인자를 JSON 문자열로 안전하게 인코딩한다(개행·따옴표 이스케이프).
   jq -n --arg reason "$1" '{

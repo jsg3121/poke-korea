@@ -1,7 +1,7 @@
-import { headers } from 'next/headers'
-import { permanentRedirect } from 'next/navigation'
 import { Fragment } from 'react'
-import { HOME_META } from './_metadata/homeMetadata'
+import { permanentRedirect } from 'next/navigation'
+
+import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
 import {
   GetChampionsMetaSummaryByFilterDocument,
   GetDailyQuizPreviewDocument,
@@ -16,20 +16,13 @@ import {
   GetDailyRandomPokemonQuery,
   GetDailyRandomPokemonQueryVariables,
 } from '~/graphql/typeGenerated'
-import DesktopHomeBottomBanner from '~/components/adSlot/DesktopHomeBottomBanner'
-import DesktopHomeTopBanner from '~/components/adSlot/DesktopHomeTopBanner'
-import MobileHomeBottomBanner from '~/components/adSlot/MobileHomeBottomBanner'
-import MobileHomeTopBanner from '~/components/adSlot/MobileHomeTopBanner'
-import MobileTabBar from '~/components/MobileTabBar'
-import DesktopFooterContainer from '~/container/desktop/footer/Footer.container'
-import DesktopHeaderContainer from '~/container/desktop/header/Header.container'
-import MobileFooterContainer from '~/container/mobile/footer/Footer.container'
-import MobileHeaderContainer from '~/container/mobile/header/Header.container'
-import { WEBSITE_JSON_LD } from '~/constants/websiteJsonLd'
-import { initializeApollo } from '~/module/apolloClient'
-import { detectUserAgent } from '~/module/device.module'
 import { compareByUsageRank } from '~/utils/championsFormat.util'
-import HomeView from '~/views/home/Home.view'
+import { initializeApollo } from '~/modules/apolloClient.module'
+import HomeBottomBanner from '~/components/adSlot/HomeBottomBanner.component'
+import HomeTopBanner from '~/components/adSlot/HomeTopBanner.component'
+import Home from '~/views/home/Home.view'
+
+import { HOME_META } from './_metadata/homeMetadata'
 
 export const dynamic = 'force-dynamic'
 
@@ -50,24 +43,16 @@ type PageProps = {
 }
 
 const HomePage = async ({ searchParams }: PageProps) => {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent') || ''
-  const isMobile = detectUserAgent(userAgent)
   const apolloClient = initializeApollo()
 
   const params = await searchParams
   const hasFilters = Object.keys(params).length > 0
 
-  // 필터 쿼리 파라미터가 있으면 /list로 308 영구 리다이렉트 (SEO)
-  // ⚠️ 중요: 이 리다이렉트는 최소 1년 이상 유지해야 합니다!
-  // 배포일: 2025-XX-XX
-  // 제거 예정일: 2026-XX-XX 이후
   if (hasFilters) {
     const queryString = new URLSearchParams(params).toString()
     permanentRedirect(`/list?${queryString}`)
   }
 
-  // 매일 변경되는 랜덤 포켓몬 10마리 가져오기
   const { data: pokemonData } = await apolloClient.query<
     GetDailyRandomPokemonQuery,
     GetDailyRandomPokemonQueryVariables
@@ -76,7 +61,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
-  // 매일 변경되는 퀴즈 3개 (타입, 특성, 실루엣) 가져오기
   const { data: quizData } = await apolloClient.query<
     GetDailyQuizPreviewQuery,
     GetDailyQuizPreviewQueryVariables
@@ -85,7 +69,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     fetchPolicy: 'network-only',
   })
 
-  // 챔피언스 S 티어 인기 포켓몬 상위 3개 가져오기 (채택 순위 기준)
   const { data: championsTopData } = await apolloClient.query<
     GetChampionsMetaSummaryByFilterQuery,
     GetChampionsMetaSummaryByFilterQueryVariables
@@ -93,7 +76,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     query: GetChampionsMetaSummaryByFilterDocument,
     variables: {
       filter: {
-        // TODO(Phase 1): format을 라우트 파라미터에서 가져오기
         format: ChampionsFormat.VGC_DOUBLES,
         tier: 'S',
         limit: 3,
@@ -110,35 +92,15 @@ const HomePage = async ({ searchParams }: PageProps) => {
 
   return (
     <Fragment>
-      {/* 홈 콘텐츠는 반응형 단일(HomeView, ADR-0007). UA 분기는 아직 데/모 2벌인
-          전역 크롬(헤더/푸터/탭바)과 디바이스별 AdSense 유닛 선택으로만 남는다 —
-          크롬 통합은 전 페이지 공용이라 별도 트랙에서 진행. */}
-      {isMobile ? (
-        <main className="w-full min-h-screen">
-          <MobileHeaderContainer />
-          <HomeView
-            dailyPokemon={dailyPokemon}
-            dailyQuiz={dailyQuiz}
-            topChampionsPokemons={topChampionsPokemons}
-            topBanner={<MobileHomeTopBanner />}
-            bottomBanner={<MobileHomeBottomBanner />}
-          />
-          <MobileFooterContainer />
-          <MobileTabBar />
-        </main>
-      ) : (
-        <main className="w-full max-w-[1280px] min-h-screen mx-auto pt-40">
-          <DesktopHeaderContainer />
-          <HomeView
-            dailyPokemon={dailyPokemon}
-            dailyQuiz={dailyQuiz}
-            topChampionsPokemons={topChampionsPokemons}
-            topBanner={<DesktopHomeTopBanner />}
-            bottomBanner={<DesktopHomeBottomBanner />}
-          />
-          <DesktopFooterContainer />
-        </main>
-      )}
+      <div className="w-full max-w-[1280px] mx-auto">
+        <Home
+          dailyPokemon={dailyPokemon}
+          dailyQuiz={dailyQuiz}
+          topChampionsPokemons={topChampionsPokemons}
+          topBanner={<HomeTopBanner />}
+          bottomBanner={<HomeBottomBanner />}
+        />
+      </div>
       <script
         id="website-jsonLd"
         type="application/ld+json"

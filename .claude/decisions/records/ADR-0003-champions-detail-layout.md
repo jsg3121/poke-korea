@@ -92,6 +92,6 @@ Nielsen Norman Group 연구에 따르면:
 
 ## 참고 자료
 
-- [UX-001: 챔피언스 상세 페이지 UI/UX 개선 분석](/.claude/research/reports/UX-001-champions-detail.md)
+- [UX-001: 챔피언스 상세 페이지 UI/UX 개선 분석](/.claude/research/ux/UX-001-champions-detail.md)
 - [Nielsen Norman Group - Scrolling and Attention](https://www.nngroup.com/articles/scrolling-and-attention/)
 - [OP.GG 챔피언 통계 페이지](https://op.gg) - 좌측 고정 + 우측 스크롤 레퍼런스

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import RadioComponent from './Radio.component'
+import Radio from './Radio.component'
 
-/** 라디오는 진한 네이비 배경(primary-1) 위에서 쓰이므로 그 맥락으로 렌더한다. */
 const NavyBg = (Story: React.ComponentType) => (
   <div className="bg-primary-1 p-6">
     <Story />
@@ -11,7 +10,7 @@ const NavyBg = (Story: React.ComponentType) => (
 
 const meta = {
   title: 'Components/Radio',
-  component: RadioComponent,
+  component: Radio,
   parameters: {
     layout: 'centered',
     docs: {
@@ -29,37 +28,28 @@ const meta = {
   tags: ['autodocs'],
   decorators: [NavyBg],
   args: { name: 'demo', label: '옵션', value: 'a' },
-} satisfies Meta<typeof RadioComponent>
+} satisfies Meta<typeof Radio>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 미선택 */
 export const Unchecked: Story = {}
 
-/** 선택됨 */
 export const Checked: Story = {
   args: { defaultChecked: true, label: '선택된 옵션' },
 }
 
-/** 비활성 */
 export const Disabled: Story = {
   args: { disabled: true, label: '비활성 옵션' },
 }
 
-/** 그룹 (같은 name 공유) */
 export const Group: Story = {
   render: () => (
     <fieldset className="flex flex-col gap-3 border-0 p-0">
       <legend className="sr-only">포맷 선택</legend>
-      <RadioComponent
-        name="format"
-        value="double"
-        label="더블 배틀"
-        defaultChecked
-      />
-      <RadioComponent name="format" value="single" label="싱글 배틀" />
-      <RadioComponent name="format" value="etc" label="기타" />
+      <Radio name="format" value="double" label="더블 배틀" defaultChecked />
+      <Radio name="format" value="single" label="싱글 배틀" />
+      <Radio name="format" value="etc" label="기타" />
     </fieldset>
   ),
 }

@@ -1,9 +1,12 @@
 'use client'
-import { Fragment, useRef, useState } from 'react'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import ShinyTooltipModalComponent from './shinyTooltip.modal/ShinyTooltipModal.component'
 
-const ShinyTooltipComponent = () => {
+import { Fragment, useRef, useState } from 'react'
+
+import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
+
+import ShinyTooltipModal from './shinyTooltip.modal/ShinyTooltipModal.component'
+
+const ShinyTooltip = () => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false)
 
@@ -32,7 +35,7 @@ const ShinyTooltipComponent = () => {
       >
         이로치란?
       </button>
-      <ShinyTooltipModalComponent
+      <ShinyTooltipModal
         ref={dialogRef}
         onClickCloseModal={handleClickCloseModal}
       />
@@ -40,4 +43,4 @@ const ShinyTooltipComponent = () => {
   )
 }
 
-export default ShinyTooltipComponent
+export default ShinyTooltip

@@ -5,13 +5,6 @@ interface ParseFormParamsResult {
   activeIndex: number
 }
 
-/**
- * Path 파라미터에서 activeIndex를 추출
- * /detail/6/mega -> { activeIndex: 0 }
- * /detail/6/mega/1 -> { activeIndex: 1 }
- * /detail/6/region -> { activeIndex: 0 }
- * /detail/6/region/2 -> { activeIndex: 2 }
- */
 export const parseIndexParam = (
   index?: string[],
 ): { activeIndex: number; isValid: boolean } => {
@@ -33,9 +26,6 @@ export const parseIndexParam = (
   return { activeIndex, isValid: true }
 }
 
-/**
- * 기본폼 Path 파라미터 파싱
- */
 export const parseNormalFormParams = (searchParams: {
   activeIndex?: string
 }): ParseFormParamsResult => {

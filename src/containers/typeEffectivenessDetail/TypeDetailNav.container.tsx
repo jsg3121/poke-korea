@@ -1,0 +1,101 @@
+import Link from 'next/link'
+
+import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
+import { PokemonType } from '~/graphql/typeGenerated'
+import {
+  buildTypeDetailPath,
+  buildTypeSlug,
+  getTypeLabel,
+  parseTypeLabel,
+} from '~/modules/typeParams.module'
+import LinkButton from '~/components/button/LinkButton.component'
+import Image from '~/components/Image.component'
+
+interface TypeDetailNavProps {
+  pokemonType: PokemonType
+}
+
+const TYPE_LINK_ORDER: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
+  (label) => parseTypeLabel(label) as PokemonType,
+)
+
+const TypeDetailNav = ({ pokemonType }: TypeDetailNavProps) => {
+  const label = getTypeLabel(pokemonType)
+
+  return (
+    <>
+      <section
+        aria-labelledby="type-detail-cta"
+        className="w-full pt-10 desktop:pt-14"
+      >
+        <h2
+          id="type-detail-cta"
+          className="mb-2 text-xl font-semibold leading-tight text-primary-4 desktop:text-3xl"
+        >
+          복합 타입 조합이 궁금하다면
+        </h2>
+        <p className="mb-4 text-base leading-relaxed text-primary-3">
+          이 페이지는 {label} 타입 단독 기준이에요. 상대가 두 가지 타입을 가지고
+          있다면 계산기에서 조합 배율을 바로 확인할 수 있어요.
+        </p>
+        <div className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
+          <LinkButton href="/type-effectiveness" fullWidth showArrow>
+            타입 상성 계산기로 이동
+          </LinkButton>
+          <LinkButton
+            href="/quiz/type-effectiveness"
+            variant="secondary"
+            fullWidth
+            showArrow
+          >
+            타입 상성 퀴즈 풀어보기
+          </LinkButton>
+        </div>
+      </section>
+
+      <nav
+        aria-labelledby="type-detail-others"
+        className="w-full pt-10 desktop:pt-14"
+      >
+        <h2
+          id="type-detail-others"
+          className="mb-4 text-xl font-semibold leading-tight text-primary-4 desktop:text-3xl"
+        >
+          다른 타입 상성 보기
+        </h2>
+        <ul className="grid grid-cols-2 gap-2 desktop:grid-cols-6 desktop:gap-3">
+          {TYPE_LINK_ORDER.filter((type) => type !== pokemonType).map(
+            (type) => (
+              <li key={type}>
+                <Link
+                  href={buildTypeDetailPath(type)}
+                  aria-label={`${getTypeLabel(type)} 타입 약점과 상성 보기`}
+                  className="flex min-h-touch w-full min-w-0 items-center justify-between gap-2 whitespace-nowrap rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="block h-5 w-5 shrink-0 drop-shadow-[1px_2px_0px_var(--color-black-1)] desktop:h-6 desktop:w-6">
+                      <Image
+                        alt=""
+                        aria-hidden="true"
+                        src={`/assets/type/${buildTypeSlug(type)}.svg`}
+                        width="100%"
+                        height="100%"
+                        imageSize={{ width: 24, height: 24 }}
+                      />
+                    </span>
+                    {getTypeLabel(type)}
+                  </span>
+                  <span aria-hidden="true" className="text-primary-3">
+                    ›
+                  </span>
+                </Link>
+              </li>
+            ),
+          )}
+        </ul>
+      </nav>
+    </>
+  )
+}
+
+export default TypeDetailNav

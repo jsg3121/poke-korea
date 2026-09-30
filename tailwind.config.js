@@ -7,7 +7,7 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
-    './src/container/**/*.{js,ts,jsx,tsx}',
+    './src/containers/**/*.{js,ts,jsx,tsx}',
     './src/views/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
@@ -85,8 +85,6 @@ module.exports = {
       screens: {
         mobile: { max: '768px' },
         desktop: { min: '769px' },
-        'desktop-970': { max: '970px' },
-        'desktop-639': { max: '639px' },
       },
       keyframes: {
         'slide-in': {
@@ -142,11 +140,5 @@ module.exports = {
       },
     },
   },
-  safelist: [
-    {
-      pattern:
-        /chip-type-(normal|fire|water|grass|electric|ice|fighting|poison|ground|flying|psychic|bug|rock|ghost|dragon|dark|steel|fairy)/,
-    },
-  ],
   plugins: [],
 }

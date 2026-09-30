@@ -1,35 +1,24 @@
 import Link from 'next/link'
-import ImageComponent from '~/components/Image.component'
+
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
-import { imageMode } from '~/module/buildMode'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
+import { imageMode } from '~/modules/buildMode.module'
+import Image from '~/components/Image.component'
 
 interface ChampionsTierTeamCoreCardProps {
   core: ChampionsTeamCoreFragment
-  /**
-   * 현재 포맷 슬러그. Phase 4 에서 폼별 라우트 확정 시 멤버 링크에 사용 예정.
-   */
   formatSlug: ChampionsFormatSlug
 }
 
-/**
- * 모든 조합 크기(2/3/4) 동일한 이미지 크기로 통일.
- * 4마리 조합이 좁은 카드 폭을 넘치지 않도록 56px 고정(gap 포함 4장이 내부 폭에 수용).
- */
 const IMAGE_DIM = {
   className: 'w-14 h-14',
   rem: '3.5rem',
   px: 56,
 } as const
 
-/**
- * 순위별 뱃지 색상 — ChampionsTierBadge 의 메달 컬러 체계와 일관성 유지.
- * 1위 = S 티어(amber, 골드), 2위 = A 티어(slate, 실버), 3위 = B 티어(amber-dark, 브론즈).
- * 4위 이하는 기본 primary-1 사용.
- */
 const RANK_BADGE_COLORS: Record<number, string> = {
   1: 'bg-gradient-to-br from-amber-400 to-amber-600',
   2: 'bg-gradient-to-br from-slate-300 to-slate-500',
@@ -46,7 +35,6 @@ const ChampionsTierTeamCoreCard = ({
   const usageRate = core.usageRate
   const teamsCountLabel = core.teamsCount.toLocaleString()
 
-  // 멤버 이름 폴백: displayName ?? rawName
   const members = core.pokemons.map((m) => ({
     pokemonId: m.pokemonId,
     formType: m.formType,
@@ -107,7 +95,6 @@ const ChampionsTierTeamCoreCard = ({
       className="w-full bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4"
       aria-label={`팀 코어 ${core.rank}위: ${members.map((m) => m.name).join(' + ')}`}
     >
-      {/* 헤더: 인라인 순위 뱃지 + 조합명 */}
       <h3 className="flex items-center gap-2 flex-wrap text-xs font-bold text-primary-1 mb-3 desktop:text-sm">
         <span
           className={`inline-flex items-center justify-center ${getRankBadgeColor(core.rank)} text-white rounded text-xs font-bold px-1.5 py-0.5 shrink-0`}
@@ -120,7 +107,6 @@ const ChampionsTierTeamCoreCard = ({
         </span>
       </h3>
 
-      {/* 이미지들 — 각 포켓몬 이미지 클릭 시 상세 페이지 진입 */}
       <div className="flex items-center gap-2 border-t-2 border-primary-3">
         {members.map((member) => {
           const href = buildPokemonHref(
@@ -129,7 +115,7 @@ const ChampionsTierTeamCoreCard = ({
             member.formCode,
           )
           const imageContent = member.imagePath ? (
-            <ImageComponent
+            <Image
               width={IMAGE_DIM.rem}
               height={IMAGE_DIM.rem}
               imageSize={{ width: IMAGE_DIM.px, height: IMAGE_DIM.px }}
@@ -162,7 +148,6 @@ const ChampionsTierTeamCoreCard = ({
         })}
       </div>
 
-      {/* 통계: 사용률 + 채용팀 */}
       <dl className="grid grid-cols-2 border-t-2 border-primary-3 pt-3">
         <div className="flex flex-col items-center text-center relative after:absolute after:right-0 after:top-0 after:h-full after:w-[2px] after:bg-primary-3">
           <dt className="text-xs text-gray-600 mb-1">사용률</dt>

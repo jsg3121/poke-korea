@@ -6,7 +6,6 @@ const spacing = (
   tailwindConfig as { theme: { extend: { spacing: Record<string, string> } } }
 ).theme.extend.spacing
 
-// Tailwind 기본 간격 스케일 (자주 쓰는 단계) — 시각 참고용
 const BASE_SCALE: { token: string; rem: string }[] = [
   { token: '1', rem: '0.25rem' },
   { token: '2', rem: '0.5rem' },
@@ -20,7 +19,7 @@ const BASE_SCALE: { token: string; rem: string }[] = [
 
 const remToPx = (rem: string) => `${Math.round(parseFloat(rem) * 16)}px`
 
-const SpacingView = () => (
+const Spacing = () => (
   <div className="p-8 bg-white-3 min-h-screen">
     <h1 className="text-2xl font-bold text-primary-1 mb-1">
       Spacing &amp; Touch
@@ -77,10 +76,10 @@ const SpacingView = () => (
 
 const meta = {
   title: 'Foundations/Spacing',
-  component: SpacingView,
+  component: Spacing,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
-} satisfies Meta<typeof SpacingView>
+} satisfies Meta<typeof Spacing>
 
 export default meta
 export const All: StoryObj<typeof meta> = {}

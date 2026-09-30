@@ -144,7 +144,12 @@
 
   html,
   body {
-    @apply w-full h-full;
+    @apply w-full;
+    /* 높이는 고정하지 않는다. `h-full`(height:100%)은 body를 뷰포트 높이에
+       묶어, body 직속 `sticky` 요소(전역 header)가 첫 화면을 넘어가면 고정을
+       멈추게 한다 — sticky는 컨테이닝 블록 안에서만 유효하기 때문이다.
+       화면 채우기는 main의 `min-h-screen`이 담당한다. */
+
     /* root font-size 16px 고정 (ADR-0009): 1rem=16px이 모든 화면에서 동일.
        화면별 폰트 스케일링은 폐기, 크기 차이는 모바일 퍼스트 토큰으로 표현. */
     font-size: 16px;
@@ -156,7 +161,7 @@
   }
 
   body {
-    @apply relative w-full h-full;
+    @apply relative w-full;
   }
 
   :focus {
@@ -249,10 +254,7 @@
     box-shadow: 0 0 0px 3px var(--color-primary-4);
   }
 
-  /* 4. 타입 태그 & 배지 (37회 사용) */
-  .type-tag {
-    @apply w-[3.6rem] h-6 text-aligned-sm block px-2 rounded-[0.625rem] text-center font-semibold text-[0.85rem];
-  }
+  /* 4. 배지 */
   .badge-damage {
     @apply w-14 h-7 text-sm text-aligned-md rounded-lg text-center;
   }
@@ -323,64 +325,6 @@
 
 /* 포켓몬 타입 색상 유틸리티 클래스 */
 @layer utilities {
-  .chip-type-normal {
-    @apply bg-type-normal text-black-2;
-  }
-  .chip-type-fire {
-    @apply bg-type-fire text-black-2;
-  }
-  .chip-type-water {
-    @apply bg-type-water text-white-1;
-  }
-  .chip-type-grass {
-    @apply bg-type-grass text-black-2;
-  }
-  .chip-type-electric {
-    @apply bg-type-electric text-black-2;
-  }
-  .chip-type-ice {
-    @apply bg-type-ice text-black-2;
-  }
-  .chip-type-fighting {
-    @apply bg-type-fighting text-white-1;
-  }
-  .chip-type-poison {
-    @apply bg-type-poison text-white-1;
-  }
-  .chip-type-ground {
-    @apply bg-type-ground text-black-2;
-  }
-  .chip-type-flying {
-    @apply bg-type-flying text-black-2;
-  }
-  .chip-type-psychic {
-    @apply bg-type-psychic;
-    color: #222222;
-  }
-  .chip-type-bug {
-    @apply bg-type-bug text-black-2;
-  }
-  .chip-type-rock {
-    @apply bg-type-rock;
-    color: #141414;
-  }
-  .chip-type-ghost {
-    @apply bg-type-ghost text-white-1;
-  }
-  .chip-type-dragon {
-    @apply bg-type-dragon text-white-1;
-  }
-  .chip-type-dark {
-    @apply bg-type-dark text-white-1;
-  }
-  .chip-type-steel {
-    @apply bg-type-steel text-black-2;
-  }
-  .chip-type-fairy {
-    @apply bg-type-fairy text-black-2;
-  }
-
-  /* 포켓몬 타입 색상 유틸리티 클래스 */
   .type-color-normal {
     @apply text-type-normal;
   }

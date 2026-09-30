@@ -1,10 +1,12 @@
 'use client'
 
 import { Fragment, useRef, useState } from 'react'
-import { useBodyScrollLock } from '~/hook/useBodyScrollLock'
-import ShinyRateModalComponent from './shinyRate.modal/ShinyRateModal.component'
 
-const ShinyRateComponent = () => {
+import { useBodyScrollLock } from '~/hooks/useBodyScrollLock'
+
+import ShinyRateModal from './shinyRate.modal/ShinyRateModal.component'
+
+const ShinyRate = () => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false)
 
@@ -33,7 +35,7 @@ const ShinyRateComponent = () => {
       >
         이로치 포획률
       </button>
-      <ShinyRateModalComponent
+      <ShinyRateModal
         ref={dialogRef}
         onClickCloseModal={handleClickCloseModal}
       />
@@ -41,4 +43,4 @@ const ShinyRateComponent = () => {
   )
 }
 
-export default ShinyRateComponent
+export default ShinyRate

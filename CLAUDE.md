@@ -7,59 +7,79 @@
 
 ## 응답 규칙
 
-- 답변은 항상 한국어를 최우선으로 사용
-- 무게, 거리, 통화 기준도 한국을 기준으로 우선하여 적용
-- 모든 답변엔 먼저 코드를 어떻게 수정하면 좋을지에 대한 제안
-- 두 번째 질문을 통해 코드를 작성해달라는 요청이 있을 때만 코드를 직접 수정
-- 코드 작성시엔 프로젝트 폴더 내에 있는 `.eslintrc`, `.prettierrc`에 맞춰서 작성해줘
-- 코드를 작성할 때 해당 기능이 동작될 수 있는 최소한의 구현을 실행
-- 모든 코드에 대해선 반드시 이슈가 발생할 가능성이 있는지 테스트를 진행하고, 어떤 부분을 개선해야할 지는 답변으로만 명시
-- **CRITICAL**: `main` 브랜치에서는 **어떠한 파일 수정·생성·삭제 작업도 절대 수행하지 않는다**. 문서·코드·changelog·설정 모두 예외 없음. 작업 요청을 받으면 가장 먼저 `git branch --show-current`로 현재 브랜치를 확인하고, `main`이라면 **반드시 사용자에게 새 브랜치 생성을 제안한 뒤 분기 완료 후에만 작업을 시작**한다. 사용자의 "진행해줘" 같은 일반 승인은 main에서의 직접 작업 승인이 아니다 — 별도의 명시적 지시("main에서 그대로 작업")가 없는 한 분기를 우선한다.
-- **IMPORTANT**: 모든 작업을 진행하기 전에 반드시 현재 브랜치를 확인하고, 적절한 브랜치에서 작업 중인지 검증할 것. 신규 작업 시작 시 `.claude/conventions/guides/workflow.md`의 브랜치 작성 규칙을 확인하여 브랜치 생성 여부를 확인할 것.
-- **CRITICAL**: 모든 코드 작업을 완료한 후에는 반드시 해당 버전의 changelog 파일을 작성할 것. changelog 작성 없이 작업을 완료했다고 보고하지 말 것.
-- **CRITICAL**: 복잡한 기능 구현 시 각 작업 단계를 나누어 진행하고, 각 단계마다 사용자에게 확인을 받을 것. 한 번에 여러 파일을 수정하지 말고, 단계별로 검토 후 진행할 것.
-- **CRITICAL**: 문서 작성은 다음 조건에서만 수행하고, 작성 전 반드시 사용자에게 확인을 받을 것:
-  - 에이전트(market-intelligence, business-analyst, strategy-planner 등)를 사용한 경우
-  - `/biz-strategy`, `/research` 등 분석 스킬을 사용한 경우
-  - 사용자가 명시적으로 문서화를 요청한 경우
-  - 단순 조사나 질문 답변은 문서로 작성하지 않음
-- **IMPORTANT**: 에이전트나 스킬을 사용하기 전에 반드시 어떤 에이전트/스킬을 사용할 것인지, 왜 사용하는지를 먼저 사용자에게 안내할 것. 예: "이 작업은 `market-intelligence` 에이전트를 사용하여 시장 조사를 진행하겠습니다."
-- **CRITICAL**: 에이전트·스킬을 호출하기 **전에**, 해당 `.claude/agents/*.md` 또는 `.claude/skills/*/SKILL.md`의 **산출물 위치·파일명 규칙·제약을 반드시 `Read`로 확인**하고 그 규칙대로 프롬프트를 작성한다. 다음을 절대 하지 않는다:
-  - "이전에 써봐서 안다"는 이유로 정의 문서 확인을 건너뛰기 — 세션이 바뀌면 그 기억은 없고, **정의 문서가 유일한 권위 원본(single source of truth)**이다. 짧은 description만으로는 산출물 규칙(저장 경로 등)을 알 수 없다.
-  - 프롬프트에 저장 경로·파일명·출력 형식을 **임의로 지정**하기 — 에이전트가 이미 가진 올바른 기본 규칙을 잘못된 값으로 덮어쓸 수 있다. 경로 지정이 꼭 필요하면 정의 문서에 규정된 위치를 그대로 인용한다.
-  > **Why:** 실제로 ui-publisher 호출 시 정의 문서(`public/preview/`에 저장 규칙)를 읽지 않고 프롬프트에 `.claude/playwright/`를 임의 지정해, 이미 여러 메모리에 기록돼 있던 동일 실수를 반복한 사례가 있다. "다음엔 잘 읽겠다"는 다짐은 이미 실패한 방법이므로, 실행 전 정의 문서 확인을 절차로 강제한다. (관련: `public/preview` 시안 저장 규칙은 `ui-publisher.md` 및 메모리 참조)
+### 작업을 시작하기 전
+
+- **브랜치 확인이 최우선.** `main`에서는 **어떠한 파일 수정·생성·삭제도 하지 않는다** — 문서·코드·changelog·설정 모두 예외 없다. 작업 요청을 받으면 가장 먼저 `git branch --show-current`를 실행하고, `main`이면 새 브랜치 생성을 제안한 뒤 분기 완료 후에만 시작한다.
+  - "진행해줘" 같은 일반 승인은 main 직접 작업 승인이 **아니다**. "main에서 그대로 작업"이라는 명시적 지시가 없는 한 분기를 우선한다.
+  - 브랜치 네이밍·버전 결정은 `.claude/conventions/guides/workflow.md`가 권위 원본이다.
+- **에이전트·스킬을 호출하기 전에 해당 정의 문서(`.claude/agents/*.md`, `.claude/skills/*/SKILL.md`)를 `Read`로 확인**하고 그 규칙대로 프롬프트를 작성한다.
+  - "이전에 써봐서 안다"는 이유로 건너뛰지 않는다 — 세션이 바뀌면 그 기억은 없고, **정의 문서가 유일한 권위 원본**이다. 짧은 description만으로는 산출물 저장 경로를 알 수 없다.
+  - 프롬프트에 저장 경로·파일명·출력 형식을 **임의로 지정하지 않는다.** 에이전트가 이미 가진 올바른 기본값을 잘못된 값으로 덮어쓸 수 있다. 경로 지정이 필요하면 정의 문서에 규정된 값을 그대로 인용한다.
+- **어떤 에이전트/스킬을 왜 사용할지 먼저 안내**한 뒤 호출한다. 예: "이 작업은 `market-intelligence` 에이전트로 시장 조사를 진행하겠습니다."
+
+### 답변 방식
+
+- 답변은 항상 **한국어**를 최우선으로 사용한다. 무게·거리·통화 기준도 한국 기준을 우선 적용한다.
+- 코드 수정 요청에는 **먼저 수정 방안을 제안**하고, 이어지는 요청에서 코드를 직접 작성해달라고 할 때만 수정한다.
+- **복잡한 기능은 단계를 나누어 진행**하고 각 단계마다 확인을 받는다. 한 번에 여러 파일을 수정하지 않는다.
+
+### 코드를 작성할 때
+
+- `.eslintrc`, `.prettierrc` 설정에 맞춰 작성한다.
+- 해당 기능이 동작하는 **최소한의 구현**을 한다.
+- 이슈 발생 가능성을 검토하되, **개선이 필요한 부분은 답변으로만 명시**하고 임의로 고치지 않는다.
+- 코드 작업 완료 후에는 **반드시 해당 버전의 changelog를 작성**한다. changelog 없이 작업 완료를 보고하지 않는다.
+
+### 문서를 작성할 때
+
+다음 경우에만 작성하고, **작성 전 사용자 확인을 받는다.**
+
+- 에이전트(market-intelligence, business-analyst 등)를 사용한 경우
+- `/biz-strategy`, `/research` 등 분석 스킬을 사용한 경우
+- 사용자가 명시적으로 문서화를 요청한 경우
+
+단순 조사나 질문 답변은 문서로 만들지 않는다.
 
 ---
 
 ## 개발 명령어
 
-| 명령어                | 설명                                                                         |
-| --------------------- | ---------------------------------------------------------------------------- |
-| `npm run dev`         | 개발 서버 실행 (`http://localhost:3000`)                                     |
-| `npm run build`       | 프로덕션 빌드                                                                |
-| `npm run start`       | 프로덕션 서버 실행                                                           |
-| `npm run start:local` | 로컬에서 빌드 후 프로덕션 서버 실행                                          |
-| `npm run lint`        | ESLint 코드 품질 검사                                                        |
-| `npm run codegen`     | GraphQL 스키마로부터 TypeScript 타입 생성 (localhost:4000/graphql 서버 필요) |
+| 명령어                 | 설명                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------- |
+| `npm run dev`          | 개발 서버 실행 (`http://localhost:3000`) — **사용자가 직접 실행한다**        |
+| `npm run build`        | 프로덕션 빌드                                                                |
+| `npm run start`        | 프로덕션 서버 실행                                                           |
+| `npm run start:local`  | 로컬에서 빌드 후 프로덕션 서버 실행                                          |
+| `npm run lint`         | ESLint 코드 품질 검사 (`lint:fix`로 자동 수정)                               |
+| `npm run format:check` | Prettier 포맷 검사 (`format`으로 자동 정리)                                  |
+| `npm run codegen`      | GraphQL 스키마로부터 TypeScript 타입 생성 (localhost:4000/graphql 서버 필요) |
+| `npm run storybook`    | Storybook 실행 (컴포넌트 카탈로그)                                           |
+| `npm run analyze`      | 번들 크기 분석 (ANALYZE=true 빌드)                                           |
+| `npm run build:docs`   | changelog(Docusaurus) 빌드                                                   |
+
+> **주의:** 개발 서버가 떠 있을 때 `npm run build`를 실행하지 않는다. `.next` 디렉터리를 공유해 실행 중인 dev 서버가 죽는다.
 
 ---
 
 ## 기술 스택
 
-| 영역          | 기술                             | 버전              |
-| ------------- | -------------------------------- | ----------------- |
-| 프레임워크    | Next.js (App Router)             | ^14.2.35          |
-| 언어          | TypeScript (strict 모드)         | ^5.7.2            |
-| UI 라이브러리 | React                            | ^18.3.1           |
-| 스타일링      | Tailwind CSS                     | ^3.4.17           |
-| 데이터 페칭   | Apollo Client + GraphQL          | ^3.11.8 / ^16.9.0 |
-| 폼 관리       | React Hook Form                  | ^7.53.2           |
-| 차트          | Chart.js + react-chartjs-2       | ^4.4.6 / ^5.2.0   |
-| 상태 관리     | React Context API + Immer        | ^10.1.1           |
-| SVG 처리      | @svgr/webpack                    | ^8.1.0            |
-| 코드 생성     | GraphQL Code Generator           | ^5.0.3            |
-| CSS 최적화    | PostCSS + Autoprefixer + cssnano | -                 |
-| 프로세스 관리 | PM2 (ecosystem.config.js)        | -                 |
+**버전은 `package.json`이 권위 원본이다.** 여기에는 무엇을 쓰는지만 적는다 — 버전을 옮겨 적으면 업그레이드 때 어긋난다.
+
+| 영역          | 기술                             |
+| ------------- | -------------------------------- |
+| 프레임워크    | Next.js (App Router)             |
+| 언어          | TypeScript (strict 모드)         |
+| UI 라이브러리 | React                            |
+| 스타일링      | Tailwind CSS                     |
+| 데이터 페칭   | Apollo Client + GraphQL          |
+| 폼 관리       | React Hook Form                  |
+| 차트          | Chart.js + react-chartjs-2       |
+| 상태 관리     | React Context API + Immer        |
+| SVG 처리      | @svgr/webpack                    |
+| 코드 생성     | GraphQL Code Generator           |
+| 디자인 시스템 | Storybook                        |
+| CSS 최적화    | PostCSS + Autoprefixer + cssnano |
+| 프로세스 관리 | PM2 (ecosystem.config.js)        |
 
 ### 브라우저 지원 범위
 
@@ -68,105 +88,37 @@
 
 ---
 
-## 프로젝트 폴더 구조 (요약)
+## 폴더 구조
+
+**`.claude/conventions/guides/structure.md`가 권위 원본이다** — `src/` 계층·도메인 배치와 `.claude/` 하네스 구조를 모두 담는다. 폴더를 새로 만들거나 파일 위치를 고민할 때 이 문서를 읽는다.
+
+핵심만 옮기면:
 
 ```text
-poke-korea/
-├── public/                 # 정적 자산 (폰트, 아이콘, 이미지, 타입 SVG)
-├── changelog/              # Docusaurus 개발 블로그 (별도 빌드)
-├── src/
-│   ├── app/                # Next.js App Router 페이지 (라우트)
-│   ├── assets/             # SVG 컴포넌트용 원본 자산
-│   ├── components/         # 공유 UI 컴포넌트
-│   ├── constants/          # 상수 정의 (JSON-LD, SEO, AdSense, 퀴즈)
-│   ├── container/          # 컨테이너 컴포넌트 (desktop/mobile 분리)
-│   ├── context/            # React Context (10개)
-│   ├── gql/                # GraphQL 원본 파일 (수정 후 codegen 필수)
-│   ├── graphql/            # GraphQL 코드 생성 결과 (자동 생성, 직접 수정 금지)
-│   ├── hook/               # 커스텀 React 훅 (14개)
-│   ├── module/             # 유틸리티 모듈 (19개)
-│   ├── styles/             # 전역 스타일
-│   ├── types/              # TypeScript 타입 정의
-│   ├── utils/              # 유틸리티 함수
-│   └── views/              # 페이지 뷰 컴포넌트 (desktop/mobile 분리)
-└── .claude/                # 하네스 중심 허브 (아래 참조)
+layout.tsx  →  page.tsx  →  views  →  container  →  components
+   크롬        라우트 계약    조립        로직          UI
 ```
 
-### 컴포넌트 계층 구조
+상위는 모든 하위를 참조할 수 있고, 하위는 상위를 참조하지 않는다.
 
-```text
-page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로직) → components (UI)
-```
-
----
-
-## .claude/ 하네스 구조
-
-`.claude/` 디렉토리가 기획, 의사결정, 컨벤션, 스킬, 에이전트의 중심 허브입니다.
-각 폴더에 `index.md`가 있어 진입 시 먼저 읽으면 됩니다.
-
-```text
-.claude/
-├── settings.json              # Claude Code 권한 설정 (프로젝트 공유용)
-├── settings.local.json        # 로컬 권한 오버라이드
-├── conventions/               # 코딩/워크플로우 규칙
-│   └── guides/
-│       ├── coding.md          #   코딩 컨벤션 (네이밍, 경로 별칭, 컴포넌트 계층)
-│       ├── styling.md         #   스타일링 (Tailwind, 색상 체계, 브레이크포인트)
-│       ├── linting.md         #   린팅 (ESLint, Prettier 설정)
-│       ├── workflow.md        #   워크플로우 (브랜치 전략, 버전 관리)
-│       ├── rendering.md       #   렌더링 (SSR/ISR, Apollo, GraphQL 연동)
-│       └── changelog.md       #   Changelog 관리 (Docusaurus 블로그)
-├── decisions/                 # ADR (의사결정 기록)
-│   ├── README.md              #   타 프로젝트 이식용 설치 안내
-│   ├── index.md               #   ADR 규칙 (권위 원본)
-│   ├── template.md            #   ADR 작성 템플릿
-│   └── records/               #   ADR 기록 (index.md = 목록)
-├── specs/                     # 서비스/비즈니스 분석 스펙
-│   ├── service-overview.md    #   서비스 현황 (현재 지표 포함)
-│   ├── metrics-baseline.md    #   핵심 지표 기준값
-│   ├── target-segment.md      #   타겟 사용자 정의
-│   └── competitor-map.md      #   경쟁사 목록 및 포지셔닝
-├── skills/                    # 커스텀 스킬 (폴더/SKILL.md 구조)
-│   ├── create-pr/             #   /create-pr (조건부 검증 포함)
-│   ├── lint-check/            #   /lint-check
-│   ├── seo-audit/             #   /seo-audit
-│   ├── a11y-check/            #   /a11y-check (WCAG 접근성 검사)
-│   ├── code-review/           #   /code-review
-│   ├── research/              #   /research (자동 트리거)
-│   └── biz-strategy/          #   /biz-strategy (비즈니스 전략 파이프라인, references/ 포함)
-├── agents/                    # 에이전트 정의
-│   ├── index.md               #   에이전트 목록 및 활용 패턴
-│   ├── product-planner.md     #   기획서(SPEC) 작성/관리
-│   ├── seo-specialist.md      #   SEO 설계/구현 (메타태그, JSON-LD, hreflang)
-│   ├── ui-publisher.md        #   페이지, UI 컴포넌트 구현
-│   ├── ux-designer.md         #   사용자 플로우, 레이아웃, 인터랙션 설계
-│   ├── market-intelligence.md #   시장/경쟁사/트렌드 조사
-│   ├── business-analyst.md    #   서비스 경쟁력/포지셔닝 분석
-│   └── strategy-planner.md    #   MI+BA 종합 후 전략 방향 도출
-├── research/                  # 리서치 보고서 저장
-│   └── reports/               #   MI-/BA-/STR- 보고서
-├── playwright/                # Playwright 스크린샷/스크립트
-│   ├── index.md               #   사용법 및 가이드
-│   ├── capture-screenshots.js #   스크린샷 캡처 스크립트
-│   └── screenshots/           #   캡처된 스크린샷 (gitignore)
-└── analyzer/                  # 분석 데이터/보고서
-    ├── index.md               #   분석 데이터 가이드 + Google API 연동 방법
-    └── scripts/               #   Search Console·GA4 조회 스크립트
-```
+`.claude/`는 기획·의사결정·컨벤션·스킬·에이전트의 중심 허브다. **각 폴더의 `index.md`가 그 폴더의 권위 원본**이므로, 폴더에 진입할 때 `index.md`를 먼저 읽는다.
 
 ### 상세 문서 참조 가이드
 
 | 작업 유형     | 참조할 문서                                                                     |
 | ------------- | ------------------------------------------------------------------------------- |
+| 폴더 배치     | `.claude/conventions/guides/structure.md`                                       |
+| 이름 짓기     | `.claude/conventions/guides/naming.md`                                          |
 | 코드 작성     | `.claude/conventions/guides/coding.md`, `.claude/conventions/guides/styling.md` |
-| 린트/포맷     | `.claude/conventions/guides/linting.md`                                         |
+| 주석 작성     | `.claude/conventions/guides/comments.md`                                        |
+| 린트          | `.claude/conventions/guides/linting.md`                                         |
+| 포맷          | `.claude/conventions/guides/formatting.md`                                      |
 | 브랜치/PR     | `.claude/conventions/guides/workflow.md`                                        |
 | Changelog     | `.claude/conventions/guides/changelog.md`                                       |
-| 렌더링/API    | `.claude/conventions/guides/rendering.md`                                       |
+| 캐시/빌드설정 | `.claude/conventions/guides/nextjs.md`                                          |
 | 의사결정      | `.claude/decisions/index.md` (규칙), `.claude/decisions/template.md` (템플릿)   |
 | 비즈니스 분석 | `.claude/specs/`, `.claude/skills/biz-strategy/`                                |
-| 경쟁사 분석   | `.claude/specs/competitor-map.md`                                               |
+| 경쟁사 분석   | `.claude/specs/service/competitor-map.md`                                       |
 | SEO 검사      | `/seo-audit` 스킬, `.claude/skills/seo-audit/`                                  |
 | 트래픽 조회   | `.claude/analyzer/index.md` (Search Console·GA4 API — 수동 CSV보다 우선)        |
 | SEO 설계/구현 | `seo-specialist` 에이전트, `.claude/agents/seo-specialist.md`                   |
@@ -176,6 +128,8 @@ page.tsx (라우트) → views (페이지 뷰) → container (비즈니스 로�
 ### 1. Why-First 원칙
 
 규칙만 나열하지 말고 "왜 그런지"를 설명한다. 이유를 이해한 에이전트는 엣지 케이스에서도 올바르게 판단할 수 있다.
+
+이 원칙은 **`.claude/` 하네스 문서에만 적용**한다. `src/` 코드 주석은 `.claude/conventions/guides/comments.md`를 따른다 — 설계 근거는 ADR·SPEC·changelog가 담당하므로 코드에 중복 기록하지 않는다.
 
 ### 2. Progressive Disclosure
 

@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+
+import { TActiveType } from '~/types/detailContext.type'
 import {
   PokemonDetail,
   PokemonGigantamax,
@@ -13,9 +15,8 @@ import {
   getSeoCanonicalUrl,
   getSeoDescription,
   getSeoTitle,
-} from '~/module/generateDetailSeoMetaData'
-import { getRobotsConfig } from '~/module/metadata.module'
-import { TActiveType } from '~/types/detailContext.type'
+} from '~/modules/generateDetailSeoMetaData.module'
+import { getRobotsConfig } from '~/modules/metadata.module'
 
 const OG_IMAGE_BASE = 'https://image.poke-korea.com/og-images'
 
@@ -53,9 +54,6 @@ interface GenerateDetailMetadataParams {
   gigantamaxData?: PokemonGigantamax[]
 }
 
-/**
- * 포켓몬 상세 페이지 메타데이터 생성
- */
 export const generateDetailMetadata = ({
   pokemonDetail,
   activeType,
@@ -81,8 +79,6 @@ export const generateDetailMetadata = ({
     activeType,
     megaEvolutionName: megaEvolutionData[activeIndex]?.name ?? '',
     regionFormName: regionFormData[activeIndex]?.name ?? '',
-    // normalFormData는 fetchNormalFormData(id, activeIndex)가 해당 인덱스 하나만
-    // 담아 오므로 [0]으로 읽는다(getPokemonTypes·getPokemonSize와 동일 기준).
     normalFormName: normalFormData[0]?.name ?? '',
     gigantamaxName: gigantamaxData[activeIndex]?.name ?? '',
     pokemonBaseInfoName: pokemonDetail.name,
@@ -101,7 +97,6 @@ export const generateDetailMetadata = ({
     isShiny,
   })
 
-  // 키·몸무게는 폼마다 다르므로 활성 폼 기준으로 뽑는다
   const { height, weight } = getPokemonSize({
     ...commonParams,
     gigantamaxData,

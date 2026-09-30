@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import SelectInputComponent from './SelectInput.component'
 
-/** 입력 컨트롤은 진한 네이비 배경(primary-1) 위에서 쓰이므로 그 맥락으로 렌더한다. */
 const NavyBg = (Story: React.ComponentType) => (
   <div className="bg-primary-1 p-6">
     <Story />
@@ -14,10 +13,8 @@ const SORT_OPTIONS = [
   { value: 'dex', label: '도감번호순' },
 ] as const
 
-/** 제네릭 컴포넌트를 구체 인스턴스(value 유니온)로 고정해 Meta 타입을 잡는다. */
 const SelectInput = SelectInputComponent<'usage' | 'dex'>
 
-/** 데모용 no-op 변경 핸들러 */
 const noopChange = () => undefined
 
 const meta = {
@@ -50,15 +47,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 기본 (라벨 노출) */
 export const Default: Story = {}
 
-/** 라벨 숨김 (sr-only) */
 export const HiddenLabel: Story = {
   args: { label: '정렬 기준 선택', visuallyHiddenLabel: true, value: 'dex' },
 }
 
-/** 비활성 */
 export const Disabled: Story = {
   args: { disabled: true },
 }

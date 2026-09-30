@@ -1,0 +1,87 @@
+'use client'
+
+import Link from 'next/link'
+
+import { imageMode } from '~/modules/buildMode.module'
+import { useLazyImage } from '~/hooks/useLazyImage'
+import Image from '~/components/Image.component'
+
+interface ResultListDataProps {
+  name: string
+  number: number
+  formType: string
+  imagePath: string
+  formIndex: number
+}
+
+const ResultListData = ({
+  name,
+  number,
+  imagePath,
+  formType,
+  formIndex,
+}: ResultListDataProps) => {
+  const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
+    useLazyImage({
+      rootMargin: '50px',
+      threshold: 0.1,
+    })
+
+  const getPokemonHref = () => {
+    switch (formType) {
+      case 'NORMAL_FORM': {
+        return formIndex > 0
+          ? `/detail/${number}/form/${formIndex}`
+          : `/detail/${number}`
+      }
+      case 'MEGA': {
+        return formIndex > 0
+          ? `/detail/${number}/mega/${formIndex}`
+          : `/detail/${number}/mega`
+      }
+      case 'REGION_FORM': {
+        return formIndex > 0
+          ? `/detail/${number}/region/${formIndex}`
+          : `/detail/${number}/region`
+      }
+      default: {
+        return `/detail/${number}`
+      }
+    }
+  }
+
+  return (
+    <li className="w-full">
+      <Link
+        href={getPokemonHref()}
+        className="w-full min-h-11 py-1 gap-2 flex-between text-black-2 visited:text-black-2 active:text-black-2"
+      >
+        <p className="mobile:text-xs mobile:leading-4 desktop:text-base desktop:leading-5 break-keep text-black-2">
+          {name}
+        </p>
+        <div ref={imgRef} className="shrink-0">
+          {isVisible && (
+            <Image
+              height="2rem"
+              width="2rem"
+              alt={`pokemon_id_${number} ${name}`}
+              src={`${imageMode}/${imagePath}`}
+              imageSize={{ width: 32, height: 32 }}
+              densities={[1, 1.5]}
+              sizes="2rem"
+              loading="lazy"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transition: 'opacity 0.3s ease-in-out',
+              }}
+            />
+          )}
+        </div>
+      </Link>
+    </li>
+  )
+}
+
+export default ResultListData

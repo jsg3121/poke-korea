@@ -38,7 +38,9 @@ const daysAgo = (n) =>
   new Date(Date.now() - n * 86400000).toISOString().slice(0, 10)
 
 const call = async (token, url) => {
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } })
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
   const json = await res.json()
   if (!res.ok) {
     throw new Error(`애드센스 오류(${res.status}): ${JSON.stringify(json)}`)
@@ -72,10 +74,7 @@ const toNumber = (cell) => {
 
 const main = async () => {
   const dimensions = arg('dim', 'DATE').split(',')
-  const metrics = arg(
-    'met',
-    'ESTIMATED_EARNINGS,IMPRESSIONS,CLICKS',
-  ).split(',')
+  const metrics = arg('met', 'ESTIMATED_EARNINGS,IMPRESSIONS,CLICKS').split(',')
   const startDate = arg('start', daysAgo(30))
   const endDate = arg('end', daysAgo(1))
   const contains = arg('contains')
@@ -140,9 +139,11 @@ const main = async () => {
 
   rows.slice(0, limit).forEach((r) => {
     const cells = r.cells ?? []
-    const dims = cells
-      .slice(0, dimensions.length)
-      .map((c) => String(c.value ?? '').slice(0, 44).padEnd(44))
+    const dims = cells.slice(0, dimensions.length).map((c) =>
+      String(c.value ?? '')
+        .slice(0, 44)
+        .padEnd(44),
+    )
     const mets = cells.slice(dimensions.length).map((c) => {
       const n = toNumber(c)
       if (!Number.isFinite(n)) return '-'.padStart(15)

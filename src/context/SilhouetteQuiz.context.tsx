@@ -1,10 +1,7 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState } from 'react'
-import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
-import { useGetSilhouetteQuizQuery } from '~/graphql/gqlGenerated'
-import { useQuizTimer } from '~/hook/useQuizTimer'
-import { quizProgress } from '~/module/quiz.module'
+import { createContext, ReactNode, useContext, useState } from 'react'
+
 import {
   BaseQuizContextType,
   BaseQuizState,
@@ -12,7 +9,10 @@ import {
   QuizViewStage,
   SilhouetteQuizQuestion,
 } from '~/types/quiz.type'
+import { useGetSilhouetteQuizQuery } from '~/graphql/gqlGenerated'
 import { generateQuizResult } from '~/utils/quiz.util'
+import { quizProgress } from '~/modules/quiz.module'
+import { useQuizTimer } from '~/hooks/useQuizTimer'
 
 interface SilhouetteQuizContextType
   extends BaseQuizContextType<SilhouetteQuizQuestion> {
@@ -53,7 +53,7 @@ export const SilhouetteQuizProvider = ({
   const { timeElapsed, onCloseTimer } = useQuizTimer(quizState.startTime)
   const progress = quizProgress(
     quizState.currentQuestionIndex,
-    QUIZ_CONSTANTS.TOTAL_QUESTIONS,
+    questions.length,
   )
 
   const onChangeStage = (stage: QuizViewStage) => {
@@ -90,7 +90,7 @@ export const SilhouetteQuizProvider = ({
 
     const newAnswers = [...quizState.userAnswers, answerIndex]
     const isLastQuestion =
-      quizState.currentQuestionIndex === QUIZ_CONSTANTS.TOTAL_QUESTIONS - 1
+      quizState.currentQuestionIndex === questions.length - 1
 
     setQuizState((prev) => ({
       ...prev,
