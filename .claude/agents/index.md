@@ -12,6 +12,7 @@
 
 - `index.md` — 이 파일. 폴더 역할 설명 및 에이전트 목록
 - `{agent-name}.md` — 에이전트 정의 파일
+- `references/{agent-name}-{주제}.md` — 정의 파일에서 분리한 상세 절차. 에이전트가 필요할 때만 읽는다(Progressive Disclosure)
 
 ## 에이전트 목록
 
@@ -37,21 +38,22 @@
 
 ## 공통 규칙
 
-### UI/UX 작업 시 실제 화면 확인 필수
+### UI/UX 분석은 실제 화면을 근거로 한다
 
-UI/UX 관련 에이전트(`ux-designer`, `ui-publisher`)가 현재 페이지 상태를 분석하거나 개선안을 제시할 때는 **반드시 Playwright를 사용하여 실제 UI를 캡처하고 확인**해야 한다. 코드만 보고 판단하지 않는다.
+UI/UX 에이전트(`ux-designer`, `ui-publisher`)가 현재 화면을 분석·비평할 때는 코드만 보고 판단하지 않는다. 정적 분석만으로는 실제 렌더 결과(겹침, 잘림, 색 대비)를 놓친다.
+
+**캡처는 메인 세션이 수행하고, 에이전트에는 이미지를 전달한다.**
 
 ```bash
-# 개발 서버 실행 확인
-curl -s -o /dev/null -w "%{http_code}" http://localhost:3000
-
-# 스크린샷 캡처
-node .claude/playwright/capture-screenshots.js
+node .claude/playwright/capture.js <device> <url>[,<url>...] [name]
 ```
 
-캡처된 스크린샷은 `.claude/playwright/screenshots/`에 저장되며, 이를 기반으로 UI 분석을 진행한다.
+- `ux-designer`는 `tools`가 Read/Glob/Grep/WebSearch/WebFetch로 제한되어 **스스로 캡처할 수 없다**. 호출 전에 메인 세션이 캡처해 경로를 넘긴다.
+- 데스크톱/모바일 모두 영향을 받는 변경이면 **두 뷰포트를 각각** 캡처해 전달한다.
+- **새 캡처 스크립트를 만들지 않는다.** 항상 `capture.js`를 인자·환경변수로 호출한다. 사용법은 `.claude/playwright/index.md`가 권위 원본이다.
+- 개발 서버는 **사용자가 직접 실행**한다. 에이전트나 메인 세션이 `npm run dev`를 띄우지 않는다.
 
-필요 시 특정 페이지만 캡처하는 임시 스크립트를 작성하여 실행할 수 있다.
+> **Why:** 캡처 로직은 2026-07-27에 `capture.js` 하나로 단일화했다. 매번 새 스크립트를 만들면 파일이 흩어져 관리가 불가능해진다. 또한 화면 확인은 원칙적으로 사용자가 브라우저에서 직접 하며, 캡처는 렌더 문제 진단이나 에이전트 전달용으로만 쓴다.
 
 ## 활용 패턴
 
