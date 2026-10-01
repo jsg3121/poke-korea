@@ -42,13 +42,17 @@ tags: [bug-fix, ux, css]
 **변경 후**:
 
 ```tsx
-<p className={`... absolute top-2 ... transition-[opacity,transform] duration-200 z-10 pointer-events-none
+<label htmlFor={dataLabel} className={`... absolute top-2 ... transition-[opacity,transform] duration-200 z-10 pointer-events-none
   ${hasValue ? 'opacity-0 -translate-y-1' : 'opacity-100'}`}>
 ```
 
 값이 생기면 라벨이 살짝 위로 움직이며 투명해진다. 입력값이 `top-[1.125rem]`에서 `top-[0.6rem]`으로 올라오는 기존 모션은 그대로다. 라벨이 검색창 안에서만 움직이므로 헤더 높이와 상관없이 잘리지 않는다.
 
 `pointer-events-none`을 추가해, 라벨이 보이는 동안 라벨 영역을 눌러도 입력창이 클릭을 받도록 했다.
+
+### 라벨을 입력창과 연결
+
+라벨이 `<p>`라서 입력창과 연결되지 않았다. 그래서 보조기술은 "포켓몬 검색"을 입력창의 이름으로 인식하지 못했고, 접근 가능한 이름은 placeholder인 "포켓몬의 이름을 입력해주세요"가 됐다. `<label htmlFor={dataLabel}>`로 바꿔 입력창의 `id`와 연결했다(WCAG 1.3.1 Info and Relationships, 2.5.3 Label in Name).
 
 ### 동작하지 않던 클래스 정리
 
@@ -66,8 +70,10 @@ tags: [bug-fix, ux, css]
 ## 🔍 검증
 
 - `eslint`, `prettier --check`, `tsc --noEmit` 통과
+- QA 종합 검증의 접근성 지적(1.3.1·2.5.3)을 반영
 - 실제 화면 동작은 확인하지 않았다.
 
 ## 📌 참고 사항
 
-- 입력 중에는 "포켓몬 검색" 라벨이 보이지 않는다. 입력창의 접근 가능한 이름은 이번 변경과 상관없이 원래부터 `<label>`로 연결돼 있지 않았다.
+- 입력 중에는 "포켓몬 검색" 라벨이 화면에 보이지 않는다. 라벨이 연결돼 있어 입력창의 접근 가능한 이름은 유지된다.
+- placeholder 색상 `#999999`는 흰 배경에서 대비가 약 2.85:1로 AA 기준(4.5:1)에 못 미친다(WCAG 1.4.3). 디자인 결정이 필요해 이번 작업에서는 고치지 않았다.

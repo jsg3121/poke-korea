@@ -33,6 +33,8 @@ tags: [bug-fix, ux]
 
 모바일은 `key`가 남아 있어 드롭다운은 닫혔지만, 다시 마운트되면서 입력한 검색어까지 지워졌다.
 
+키보드로는 검색 결과에 아예 들어갈 수 없었다. `useOutSideClick`이 Tab을 누르면 드롭다운을 닫아서, 입력창에서 Tab을 누르는 순간 결과 링크가 사라졌다(WCAG 2.1.1 Keyboard, Level A).
+
 ## ✨ 주요 변경사항
 
 ### 결과를 클릭하면 드롭다운 닫기
@@ -56,20 +58,48 @@ tags: [bug-fix, ux]
 <HeaderSearch />
 ```
 
-드롭다운은 클릭으로 닫히므로, 다시 마운트해서 초기화할 필요가 없다. 입력창은 비제어(uncontrolled) 상태라 마운트가 유지되면 검색어도 그대로 남는다.
+입력창은 비제어(uncontrolled) 상태라 마운트가 유지되면 검색어도 그대로 남는다.
+
+### 경로가 바뀌어도 드롭다운 닫기
+
+`key`를 지우면, 결과를 누르지 않고 이동할 때(뒤로 가기, 로고 클릭 등) 드롭다운이 남는다. 그래서 `useSearchPokemon`에서 `usePathname`이 바뀌면 드롭다운을 닫는다. 결과 클릭으로 닫는 처리도 그대로 둔다. 같은 경로의 결과를 눌러 경로가 바뀌지 않는 경우는 클릭 처리가 맡는다.
+
+```ts
+const pathname = usePathname()
+
+useEffect(() => {
+  setIsShowSearchResult(false)
+}, [pathname])
+```
+
+### 키보드로 검색 결과에 들어갈 수 있게
+
+`useOutSideClick`에서 Tab 키로 닫던 처리를 없앴다. 대신 포커스가 검색 영역 **밖으로** 나갈 때 닫는다(`focusin`). 이제 입력창에서 Tab을 누르면 결과 링크로 이동하고, 마지막 결과에서 Tab으로 영역을 벗어나면 닫힌다. Escape로 닫는 처리는 그대로다.
+
+```ts
+// 변경 전
+if (e.code === 'Escape' || e.code === 'Tab') onOutsideClick()
+// 변경 후
+if (e.code === 'Escape') onOutsideClick()
+document.addEventListener('focusin', handleOutsideInteraction)
+```
+
+포인터와 포커스에 같은 핸들러를 쓰게 되어, 이름을 `handlePointerDown`에서 `handleOutsideInteraction`으로 바꿨다. 이 훅은 `useSearchPokemon`에서만 쓴다.
 
 ## ⚠️ 구현 시 고려한 점
 
 | 방안 | 판단 |
 | --- | --- |
-| **결과 클릭 시 닫기 (채택)** | 지금 보고 있는 페이지의 포켓몬을 눌러 경로가 바뀌지 않아도 닫힌다. 닫는 이유가 클릭 위치에 그대로 드러난다. |
-| `usePathname` 변경 시 닫기 | 훅 한 곳만 고치면 되지만, 같은 경로를 누르면 닫히지 않고 뒤로 가기 같은 다른 이동에도 반응한다. |
+| **결과 클릭 시 닫기 + `usePathname` 변경 시 닫기 (채택)** | 클릭은 같은 경로를 누른 경우까지, 경로 변경은 뒤로 가기처럼 결과를 누르지 않은 이동까지 맡는다. |
+| `usePathname` 변경 시 닫기만 | 같은 경로를 누르면 닫히지 않는다. |
+| 결과 클릭 시 닫기만 | 처음에 이렇게 구현했으나, QA에서 모바일 `key`를 지운 뒤 뒤로 가기 등으로 이동하면 드롭다운이 남는다는 지적을 받아 경로 변경 처리를 추가했다. |
 | 데스크톱에 `key={pathname}` 복원 | 원래 방식이지만 다시 마운트되면서 검색어가 지워진다. 요구사항과 맞지 않는다. |
 
 ## 🔍 검증
 
 - `eslint`, `prettier`, `tsc --noEmit` 통과
 - 바뀐 컴포넌트를 쓰는 Storybook 스토리가 없음을 확인
+- QA 종합 검증(lint-check·code-review·a11y-check)의 지적 사항을 반영
 - 실제 화면 동작은 확인하지 않았다.
 
 ## 📌 참고 사항

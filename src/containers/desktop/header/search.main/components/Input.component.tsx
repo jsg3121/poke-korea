@@ -10,12 +10,13 @@ const InputComponents = forwardRef<HTMLInputElement, InputComponentsProps>(
   ({ hasValue = false, dataLabel, label, ...restProps }, ref) => {
     return (
       <div className="w-full h-full flex cursor-text rounded-[2.22222222rem] px-[1.38888889rem] relative">
-        <p
+        <label
+          htmlFor={dataLabel}
           className={`w-full h-4 text-[0.66666667rem] font-bold text-left leading-4 absolute top-2 left-[1.38888889rem] transition-[opacity,transform] duration-200 z-10 pointer-events-none
             ${hasValue ? 'opacity-0 -translate-y-1' : 'opacity-100'}`}
         >
           {label}
-        </p>
+        </label>
         <input
           id={dataLabel}
           ref={ref}
