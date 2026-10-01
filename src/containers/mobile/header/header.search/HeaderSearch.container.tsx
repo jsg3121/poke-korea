@@ -15,6 +15,7 @@ const HeaderSearch = () => {
     pokemonList,
     loading,
     handleChangeKeyword,
+    handleHideSearchResult,
   } = useSearchPokemon()
   const feedbackFormUrl = useFeedbackFormUrl()
 
@@ -56,7 +57,11 @@ const HeaderSearch = () => {
         <span className="sr-only">기능/오류 신고</span>
       </Link>
       {isShowSearchResult && (
-        <SearchResultList pokemonList={pokemonList} loading={loading} />
+        <SearchResultList
+          pokemonList={pokemonList}
+          loading={loading}
+          onSelectPokemon={handleHideSearchResult}
+        />
       )}
     </div>
   )

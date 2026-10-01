@@ -1,6 +1,7 @@
 'use client'
 
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 import { useSearchPokemonWithAllFormsLazyQuery } from '~/graphql/gqlGenerated'
 import { useDebounce } from '~/hooks/useDebounce'
@@ -8,6 +9,7 @@ import { useOutSideClick } from '~/hooks/useOutSideClick'
 
 export const useSearchPokemon = () => {
   const searchRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
   const [isShowSearchResult, setIsShowSearchResult] = useState<boolean>(false)
   const [searchKeyword, debounce] = useDebounce()
 
@@ -51,6 +53,10 @@ export const useSearchPokemon = () => {
     }
   }, [searchKeyword, searchPokemonWithAllForms])
 
+  useEffect(() => {
+    setIsShowSearchResult(false)
+  }, [pathname])
+
   useOutSideClick({
     ref: searchRef,
     isActive: isShowSearchResult,
@@ -63,5 +69,6 @@ export const useSearchPokemon = () => {
     pokemonList,
     loading,
     handleChangeKeyword,
+    handleHideSearchResult,
   }
 }
