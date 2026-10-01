@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { CardColor } from '~/types/pokemonTypes.types'
 import { PokemonWithAbilityInfoFragment } from '~/graphql/typeGenerated'
 import { imageMode } from '~/modules/buildMode.module'
+import { getNameHeaderClass } from '~/modules/pokemonCard.module'
 import PokemonCardShell from '~/components/pokemonCard/PokemonCardShell.component'
 
 interface PokemonByAbilityCardProps {
@@ -15,28 +16,13 @@ const PokemonByAbilityCard = ({
   isHighPriority = false,
 }: PokemonByAbilityCardProps) => {
   const pokemonNumber = String(pokemonData.number).padStart(3, '0')
-  const displayName =
-    pokemonData.formType === 'MEGA' && pokemonData.formName
-      ? pokemonData.formName
-      : pokemonData.name
+  const displayName = pokemonData.formName || pokemonData.name
+  const nameHeaderClass = getNameHeaderClass(displayName)
 
   const backgroundColor = useMemo(
     () => pokemonData.types.map((item) => CardColor[item]),
     [pokemonData.types],
   )
-
-  const formLabel = useMemo(() => {
-    switch (pokemonData.formType) {
-      case 'MEGA':
-        return '메가진화'
-      case 'REGION_FORM':
-        return pokemonData.region ? `${pokemonData.region} 폼` : '지역 폼'
-      case 'NORMAL_FORM':
-        return pokemonData.formName || '폼'
-      default:
-        return null
-    }
-  }, [pokemonData.formType, pokemonData.region, pokemonData.formName])
 
   const pokemonHref = useMemo(() => {
     const baseUrl = `/detail/${pokemonData.number}`
@@ -67,26 +53,24 @@ const PokemonByAbilityCard = ({
     return baseUrl
   }, [pokemonData.formType, pokemonData.imagePath, pokemonData.number])
 
-  const altText = `pokemon_id_${pokemonData.number} ${displayName} ${
-    formLabel ?? ''
-  }`
-
   return (
     <PokemonCardShell
       href={pokemonHref}
       backgroundColor={backgroundColor}
       types={pokemonData.types}
       imageSrc={`${imageMode}/${pokemonData.imagePath ?? pokemonData.number}`}
-      imageAlt={altText}
+      imageAlt={`pokemon_id_${pokemonData.number} ${displayName}`}
       imageSize={{ width: 160, height: 160 }}
       isHighPriority={isHighPriority}
-      ariaLabel={`포켓몬 ${displayName} 카드 ${formLabel ?? ''}`}
+      ariaLabel={`포켓몬 ${displayName} 카드`}
       header={
         <div className="w-full flex items-start content-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-x-2 gap-y-0.5">
           <p className="flex-shrink-0 text-xs desktop:text-base leading-tight font-medium text-black-2">
             No.{pokemonNumber}
           </p>
-          <h3 className="leading-tight font-semibold text-black break-keep text-right">
+          <h3
+            className={`leading-tight font-semibold text-black break-keep ${nameHeaderClass}`}
+          >
             {displayName}
           </h3>
         </div>
@@ -97,11 +81,6 @@ const PokemonByAbilityCard = ({
           <strong className="h-6 text-aligned-sm px-2 text-xs bg-type-electric text-black-2 rounded-md font-bold">
             숨겨진 특성
           </strong>
-        )}
-        {formLabel && (
-          <span className="h-6 text-aligned-sm px-2 text-xs bg-card-accent text-white rounded-md font-medium">
-            {formLabel}
-          </span>
         )}
       </div>
     </PokemonCardShell>
