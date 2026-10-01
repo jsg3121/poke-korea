@@ -11,6 +11,7 @@ const DetailSearch = () => {
     pokemonList,
     loading,
     handleChangeKeyword,
+    handleHideSearchResult,
   } = useSearchPokemon()
 
   return (
@@ -50,7 +51,11 @@ const DetailSearch = () => {
         </button>
       </div>
       {isShowSearchResult && (
-        <SearchResultList pokemonList={pokemonList} loading={loading} />
+        <SearchResultList
+          pokemonList={pokemonList}
+          loading={loading}
+          onSelectPokemon={handleHideSearchResult}
+        />
       )}
     </div>
   )

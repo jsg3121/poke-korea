@@ -63,5 +63,6 @@ export const useSearchPokemon = () => {
     pokemonList,
     loading,
     handleChangeKeyword,
+    handleHideSearchResult,
   }
 }
