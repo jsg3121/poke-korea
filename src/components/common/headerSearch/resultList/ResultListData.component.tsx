@@ -12,6 +12,7 @@ interface ResultListDataProps {
   formType: string
   imagePath: string
   formIndex: number
+  onClick: () => void
 }
 
 const ResultListData = ({
@@ -20,6 +21,7 @@ const ResultListData = ({
   imagePath,
   formType,
   formIndex,
+  onClick,
 }: ResultListDataProps) => {
   const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
     useLazyImage({
@@ -54,6 +56,7 @@ const ResultListData = ({
     <li className="w-full">
       <Link
         href={getPokemonHref()}
+        onClick={onClick}
         className="w-full min-h-11 py-1 gap-2 flex-between text-black-2 visited:text-black-2 active:text-black-2"
       >
         <p className="mobile:text-xs mobile:leading-4 desktop:text-base desktop:leading-5 break-keep text-black-2">

@@ -25,11 +25,7 @@ const Header = () => {
           </i>
           <p className="sr-only">메인 화면으로 돌아가기</p>
         </Link>
-        {pathname === '/list' ? (
-          <ListSearch />
-        ) : (
-          <HeaderSearch key={`search-key-${pathname}`} />
-        )}
+        {pathname === '/list' ? <ListSearch /> : <HeaderSearch />}
       </header>
       {pathname.includes('/champions') && <ChampionsSubNav />}
     </>

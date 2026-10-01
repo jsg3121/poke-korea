@@ -16,26 +16,28 @@ export const useOutSideClick = ({
       return
     }
 
-    const handlePointerDown = (e: Event) => {
+    const handleOutsideInteraction = (e: Event) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         onOutsideClick()
       }
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Escape' || e.code === 'Tab') {
+      if (e.code === 'Escape') {
         onOutsideClick()
       }
     }
 
-    document.addEventListener('mousedown', handlePointerDown)
-    document.addEventListener('touchstart', handlePointerDown)
+    document.addEventListener('mousedown', handleOutsideInteraction)
+    document.addEventListener('touchstart', handleOutsideInteraction)
     document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('focusin', handleOutsideInteraction)
 
     return () => {
-      document.removeEventListener('mousedown', handlePointerDown)
-      document.removeEventListener('touchstart', handlePointerDown)
+      document.removeEventListener('mousedown', handleOutsideInteraction)
+      document.removeEventListener('touchstart', handleOutsideInteraction)
       document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('focusin', handleOutsideInteraction)
     }
   }, [isActive, onOutsideClick, ref])
 }
