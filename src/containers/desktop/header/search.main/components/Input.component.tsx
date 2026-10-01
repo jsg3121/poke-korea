@@ -9,12 +9,10 @@ interface InputComponentsProps {
 const InputComponents = forwardRef<HTMLInputElement, InputComponentsProps>(
   ({ hasValue = false, dataLabel, label, ...restProps }, ref) => {
     return (
-      <div
-        className={`w-full h-full flex cursor-text rounded-[2.22222222rem] px-[1.38888889rem] relative ${hasValue ? '[&>.input__label]:text-white [&>.input__label]:-top-5 [&>.wrapper__input]:top-[0.6rem]' : ''}`}
-      >
+      <div className="w-full h-full flex cursor-text rounded-[2.22222222rem] px-[1.38888889rem] relative">
         <p
-          className={`w-full h-4 text-[0.66666667rem] font-bold text-left leading-4 absolute top-2 left-[1.38888889rem] transition-[top] duration-200 z-10
-            ${hasValue && 'text-white top-[-1.25rem]'}`}
+          className={`w-full h-4 text-[0.66666667rem] font-bold text-left leading-4 absolute top-2 left-[1.38888889rem] transition-[opacity,transform] duration-200 z-10 pointer-events-none
+            ${hasValue ? 'opacity-0 -translate-y-1' : 'opacity-100'}`}
         >
           {label}
         </p>
