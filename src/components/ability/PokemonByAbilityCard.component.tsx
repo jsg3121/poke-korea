@@ -15,6 +15,10 @@ const PokemonByAbilityCard = ({
   isHighPriority = false,
 }: PokemonByAbilityCardProps) => {
   const pokemonNumber = String(pokemonData.number).padStart(3, '0')
+  const displayName =
+    pokemonData.formType === 'MEGA' && pokemonData.formName
+      ? pokemonData.formName
+      : pokemonData.name
 
   const backgroundColor = useMemo(
     () => pokemonData.types.map((item) => CardColor[item]),
@@ -63,7 +67,7 @@ const PokemonByAbilityCard = ({
     return baseUrl
   }, [pokemonData.formType, pokemonData.imagePath, pokemonData.number])
 
-  const altText = `pokemon_id_${pokemonData.number} ${pokemonData.name} ${
+  const altText = `pokemon_id_${pokemonData.number} ${displayName} ${
     formLabel ?? ''
   }`
 
@@ -76,14 +80,14 @@ const PokemonByAbilityCard = ({
       imageAlt={altText}
       imageSize={{ width: 160, height: 160 }}
       isHighPriority={isHighPriority}
-      ariaLabel={`포켓몬 ${pokemonData.name} 카드 ${formLabel ?? ''}`}
+      ariaLabel={`포켓몬 ${displayName} 카드 ${formLabel ?? ''}`}
       header={
         <div className="w-full flex items-start content-start flex-wrap justify-between border-b border-solid border-card-accent pb-1 gap-x-2 gap-y-0.5">
           <p className="flex-shrink-0 text-xs desktop:text-base leading-tight font-medium text-black-2">
             No.{pokemonNumber}
           </p>
           <h3 className="leading-tight font-semibold text-black break-keep text-right">
-            {pokemonData.name}
+            {displayName}
           </h3>
         </div>
       }
