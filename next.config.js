@@ -18,6 +18,9 @@ const nextConfig = {
   allowedDevOrigins: ['local.poke-korea.com'],
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
+  // CDN 캐시가 봇·사람을 구분하지 않아, 스트리밍 응답(canonical이 body로 밀림)이
+  // 크롤러에게 전달된다. 모든 UA에 메타데이터를 head에 블로킹 렌더한다.
+  htmlLimitedBots: /.*/,
   async redirects() {
     return [
       // 기존 쿼리 파라미터 URL → 새 Path URL (메가진화)
