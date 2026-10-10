@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     '한국어 포켓몬 도감과 타입 상성 계산기, 기술·특성 도구를 무료로 제공하는 포켓몬 백과사전.',
   icons: {
     icon: '/favicon.ico',
+    apple: '/assets/icons/app-icon-apple-180.png',
   },
   robots: getRobotsConfig(),
 }
