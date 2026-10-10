@@ -29,3 +29,4 @@
 | [ADR-0018](ADR-0018-strict-code-conventions.md)            | 코딩 컨벤션 재정의 — 엄격한 타입·Context·핸들러 규칙 | 승인   |
 | [ADR-0019](ADR-0019-lint-format-separation.md)             | 린트·포맷 지침 분리와 import 계층 정렬 도입          | 승인   |
 | [ADR-0020](ADR-0020-breakpoint-two-only.md)                | 브레이크포인트를 2종으로 고정                        | 승인   |
+| [ADR-0021](ADR-0021-home-screen-app-icon.md)               | 홈 화면 아이콘 제공·주소창 유지                      | 승인   |
