@@ -182,6 +182,34 @@ npm run codegen   # localhost:4000/graphql 서버가 떠 있어야 한다
 
 ---
 
+## 분석 이벤트 전송
+
+GA4 커스텀 이벤트는 **공통 전송 유틸 하나로만** 보낸다. 컴포넌트에서 `window.gtag`를 직접 부르지 않는다.
+
+- **위치**: 전송 유틸은 `modules/`에 둔다. 외부 서비스 연동이고 여러 도메인이 쓰기 때문이다(`structure.md`).
+- **타입**: 이벤트 이름과 파라미터를 타입으로 정의하고, 유틸은 정의된 이벤트만 받는다. 이 타입 정의가 곧 이벤트 목록이며, GA4 콘솔의 맞춤 측정기준 등록도 이 목록과 맞춘다.
+- **이름**: 소문자 스네이크 케이스, 40자 이내. 파라미터 값은 100자 이내([GA4 이벤트 수집 한도](https://support.google.com/analytics/answer/9267744)).
+- **gtag가 없을 때는 아무것도 하지 않는다.** gtag는 운영 환경에서만, `afterInteractive`로 불러오므로 개발 환경이나 스크립트 실행 전에는 `window.gtag`가 없다. 이때 오류를 내지 않는다.
+- **개인정보를 보내지 않는다**([GA4 PII 정책](https://support.google.com/analytics/answer/6366371)). 자유 입력값을 보내야 하면 길이를 제한한다.
+- **URL 변경으로 측정하지 않는다.** `router.replace`·`router.push`로 URL을 바꾸면 GA4 향상된 측정이 page_view로 세어 페이지뷰가 부풀려진다([향상된 측정](https://support.google.com/analytics/answer/9216061)). 조작을 측정하려면 이벤트를 보낸다.
+
+```tsx
+// ❌ 호출마다 존재 확인을 반복하고, 이름·파라미터를 검사할 수 없다
+window.gtag?.('event', 'stat_tab_swich', { tab: 'real' })
+
+// ✅ 정의된 이벤트만 보낼 수 있다
+trackEvent('stats_tab_switch', { tab: 'real' })
+```
+
+> **Why 공통 유틸인가 (2026-10-15):** 검토한 후보는 네 가지였다.
+>
+> - **위치마다 `window.gtag` 직접 호출**: 존재 확인이 호출마다 반복되고, 이벤트 이름 오타·파라미터 불일치를 막을 수 없어 기각했다.
+> - **`@next/third-parties`의 `sendGAEvent`**: Next.js 문서가 experimental로 표기한다([Next.js — Third Party Libraries](https://nextjs.org/docs/app/guides/third-party-libraries)). 운영 중인 layout의 gtag 스크립트를 교체해야 해서 페이지뷰 측정이 끊기거나 중복될 위험이 있다. 파라미터 타입 검사도 없어 기각했다.
+> - **Google Tag Manager 전환**: 코드 배포 없이 태그를 바꿀 필요가 있을 때 이득이 크다. 코드를 고치는 사람과 지표를 보는 사람이 같은 지금 규모에는 과하고, 측정 로직이 코드와 콘솔로 나뉜다. 그래서 기각했다.
+> - **공통 유틸 + 타입 정의(채택)**: 기능마다 착수·유지를 이벤트 지표로 판단하기로 해서 이벤트가 계속 늘어난다. 이벤트가 늘수록 이름·파라미터 불일치와 맞춤 측정기준 등록 누락이 생기기 쉬운데, 타입 검사와 한 곳의 목록이 이를 막는다.
+
+---
+
 ## 조건 비교
 
 `==` 대신 `===`를 쓴다. 값의 존재 확인은 암묵 변환에 기대지 않고 명시한다.
@@ -214,3 +242,4 @@ const label = value ?? '알 수 없음'
 | `'use client'` | 필요한 곳에만, 트리 아래쪽으로            |
 | 외부 입력      | `as` 대신 타입 가드                       |
 | 비교           | `===`, 기본값은 `??`                      |
+| 분석 이벤트    | `modules/`의 공통 유틸 + 타입 정의로만    |

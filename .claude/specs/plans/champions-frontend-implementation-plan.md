@@ -306,7 +306,7 @@ npm run codegen
 
 | 섹션                 | 컴포넌트 신규                               |
 | -------------------- | ------------------------------------------- |
-| EV 스프레드          | `ChampionsEvSpreadSection.component.tsx`    |
+| ~~EV 스프레드~~ (제외, 2026-10-14) | ~~`ChampionsEvSpreadSection.component.tsx`~~ — 데이터 짝 오류로 후순위 제외. `champions-pikalytics-enhancement.md` 5절 |
 | 카운터/체크          | `ChampionsCounterSection.component.tsx`     |
 | 레이팅별 사용률 차트 | `ChampionsUsageByRatingChart.component.tsx` |
 
@@ -355,7 +355,7 @@ CDN 경로 컨벤션은 기존 `/detail/[id]/(form)` 페이지 패턴 확인 후
 
 - [ ] 베이스/메가/리전/거다이맥스/일반 폼 라우트 모두 정상
 - [ ] 폼별 메타데이터 차별화 확인
-- [ ] EV 스프레드 섹션 정상 노출 (또는 폴백)
+- ~~EV 스프레드 섹션 정상 노출 (또는 폴백)~~ — 제외(2026-10-14)
 - [ ] 카운터 섹션 정상 노출 (또는 폴백)
 - [ ] 레이팅별 사용률 차트 정상 (또는 폴백)
 - [ ] 영문/한글 폴백 동작 (`displayName ?? rawName` 등)
