@@ -94,6 +94,7 @@ const ListPage = async ({ searchParams }: PageProps) => {
       },
     },
     fetchPolicy: 'network-only',
+    errorPolicy: 'all',
   })
 
   const pokemonList =
