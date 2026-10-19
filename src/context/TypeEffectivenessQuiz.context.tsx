@@ -13,7 +13,7 @@ import {
   QuizResult,
   QuizViewStage,
   TypeEffectivenessQuizQuestion,
-} from '~/types/quiz.type'
+} from '~/types/quiz.types'
 import { QUIZ_CONSTANTS } from '~/constants/quiz.constants'
 import { quizProgress } from '~/modules/quiz.module'
 import { generateTypeEffectivenessQuestions } from '~/modules/typeEffectivenessQuiz.module'

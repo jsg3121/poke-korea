@@ -1,4 +1,4 @@
-import { TActiveType } from '~/types/detailContext.type'
+import { TActiveType } from '~/types/detailContext.types'
 
 interface ParseFormParamsResult {
   activeType: TActiveType

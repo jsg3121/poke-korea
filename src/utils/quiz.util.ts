@@ -1,4 +1,4 @@
-import { BaseQuizQuestion, QuizResult } from '~/types/quiz.type'
+import { BaseQuizQuestion, QuizResult } from '~/types/quiz.types'
 
 export const calculateScore = (
   userAnswers: number[],

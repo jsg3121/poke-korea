@@ -7,7 +7,7 @@ import {
   BaseQuizState,
   QuizResult,
   QuizViewStage,
-} from '~/types/quiz.type'
+} from '~/types/quiz.types'
 import { useGetAbilityQuizQuery } from '~/graphql/gqlGenerated'
 import { quizProgress } from '~/modules/quiz.module'
 import { useQuizTimer } from '~/hooks/useQuizTimer'
