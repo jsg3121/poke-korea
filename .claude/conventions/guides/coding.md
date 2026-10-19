@@ -188,17 +188,18 @@ GA4 커스텀 이벤트는 **공통 전송 유틸 하나로만** 보낸다. 컴�
 
 - **위치**: 전송 유틸은 `modules/`에 둔다. 외부 서비스 연동이고 여러 도메인이 쓰기 때문이다(`structure.md`).
 - **타입**: 이벤트 이름과 파라미터를 타입으로 정의하고, 유틸은 정의된 이벤트만 받는다. 이 타입 정의가 곧 이벤트 목록이며, GA4 콘솔의 맞춤 측정기준 등록도 이 목록과 맞춘다.
-- **이름**: 소문자 스네이크 케이스, 40자 이내. 파라미터 값은 100자 이내([GA4 이벤트 수집 한도](https://support.google.com/analytics/answer/9267744)).
+- **이름**: 이벤트 이름, 파라미터 이름, 열거형 파라미터 값(`tab: 'real'`, `form_type: 'region'` 등)을 모두 소문자 스네이크 케이스로 쓴다. 백엔드 enum(`REGION_FORM`)처럼 형식이 다른 값은 바꿔 보낸다. 이벤트 이름은 40자 이내, 파라미터 값은 100자 이내([GA4 이벤트 수집 한도](https://support.google.com/analytics/answer/9267744)). 같은 대상을 가리키는 파라미터는 이벤트가 달라도 같은 이름과 값 집합을 쓴다. 그래야 GA4 맞춤 측정기준 하나로 묶인다.
+- **이벤트 이름에 페이지를 넣지 않는다.** gtag가 모든 이벤트에 `page_location`을 자동으로 붙인다([GA4 자동 수집 이벤트](https://support.google.com/analytics/answer/9234069)). 같은 페이지 안에서 기능을 구분해야 하면 `source` 같은 파라미터를 쓴다.
 - **gtag가 없을 때는 아무것도 하지 않는다.** gtag는 운영 환경에서만, `afterInteractive`로 불러오므로 개발 환경이나 스크립트 실행 전에는 `window.gtag`가 없다. 이때 오류를 내지 않는다.
 - **개인정보를 보내지 않는다**([GA4 PII 정책](https://support.google.com/analytics/answer/6366371)). 자유 입력값을 보내야 하면 길이를 제한한다.
 - **URL 변경으로 측정하지 않는다.** `router.replace`·`router.push`로 URL을 바꾸면 GA4 향상된 측정이 page_view로 세어 페이지뷰가 부풀려진다([향상된 측정](https://support.google.com/analytics/answer/9216061)). 조작을 측정하려면 이벤트를 보낸다.
 
 ```tsx
 // ❌ 호출마다 존재 확인을 반복하고, 이름·파라미터를 검사할 수 없다
-window.gtag?.('event', 'stat_tab_swich', { tab: 'real' })
+window.gtag?.('event', 'stat_tab_staus', { tab: 'Real' })
 
 // ✅ 정의된 이벤트만 보낼 수 있다
-trackEvent('stats_tab_switch', { tab: 'real' })
+trackEvent('stats_tab_status', { tab: 'real' })
 ```
 
 > **Why 공통 유틸인가 (2026-10-15):** 검토한 후보는 네 가지였다.
