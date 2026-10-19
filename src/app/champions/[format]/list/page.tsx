@@ -90,6 +90,7 @@ const ChampionsFormatListPage = async ({ params, searchParams }: PageProps) => {
       },
     },
     fetchPolicy: 'network-only',
+    errorPolicy: 'all',
   })
 
   const pokemonList =
