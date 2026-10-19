@@ -69,6 +69,7 @@ export default async function MovesPage({ searchParams }: MovesPageProps) {
         },
       },
     },
+    errorPolicy: 'all',
   })
 
   const skillList =
