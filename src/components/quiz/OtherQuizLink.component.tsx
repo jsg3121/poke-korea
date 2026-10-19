@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { QuizType } from '~/types/quiz.type'
+import { QuizType } from '~/types/quiz.types'
 import { QUIZ_CROSS_LINKS } from '~/constants/quiz.constants'
 
 interface OtherQuizLinkProps {

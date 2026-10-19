@@ -9,7 +9,7 @@ import {
   PokemonType,
 } from '~/graphql/typeGenerated'
 
-import { TActiveType } from '../types/detailContext.type'
+import { TActiveType } from '../types/detailContext.types'
 
 type GetPokemonNameByTypeParams = {
   activeType: TActiveType

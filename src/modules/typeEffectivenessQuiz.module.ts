@@ -1,5 +1,5 @@
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import { TypeEffectivenessQuizQuestion } from '~/types/quiz.type'
+import { TypeEffectivenessQuizQuestion } from '~/types/quiz.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { relationList } from '~/modules/calculateRelationType.module'
 

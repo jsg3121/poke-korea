@@ -8,7 +8,7 @@ import {
   QuizResult,
   QuizViewStage,
   SilhouetteQuizQuestion,
-} from '~/types/quiz.type'
+} from '~/types/quiz.types'
 import { useGetSilhouetteQuizQuery } from '~/graphql/gqlGenerated'
 import { generateQuizResult } from '~/utils/quiz.util'
 import { quizProgress } from '~/modules/quiz.module'
