@@ -13,8 +13,8 @@ import Chip from '~/components/chip/Chip.component'
 import Tag from '~/components/tag/Tag.component'
 
 import InfoCardTitle from './components/InfoCardTitle.component'
-import MoveConceptNote from './components/MoveConceptNote.component'
-import MoveEffectDescription from './components/MoveEffectDescription.component'
+import DetailMoveConceptNote from './shared/DetailMoveConceptNote.component'
+import DetailMoveEffectDescription from './shared/DetailMoveEffectDescription.component'
 
 const DetailExclusiveMoves = () => {
   const {
@@ -90,8 +90,10 @@ const DetailExclusiveMoves = () => {
               </tr>
             </tbody>
           </table>
-          {gmaxMove.effect && <MoveEffectDescription text={gmaxMove.effect} />}
-          <MoveConceptNote
+          {gmaxMove.effect && (
+            <DetailMoveEffectDescription text={gmaxMove.effect} />
+          )}
+          <DetailMoveConceptNote
             title="거다이맥스 전용 기술 정보"
             text="거다이맥스 전용 기술은 특정 포켓몬이 거다이맥스했을 때만 사용할 수 있는 전용 기술이에요. 다이맥스 기술을 대체하며, 포켓몬마다 고유한 추가 효과를 발휘해요."
           />
@@ -160,7 +162,7 @@ const DetailExclusiveMoves = () => {
           </table>
           {exclusiveZMoves.map((zMove) =>
             zMove.zSkill.description ? (
-              <MoveEffectDescription
+              <DetailMoveEffectDescription
                 key={`${zMove.id}-desc`}
                 name={
                   exclusiveZMoves.length > 1 ? zMove.zSkill.nameKo : undefined
@@ -169,7 +171,7 @@ const DetailExclusiveMoves = () => {
               />
             ) : null,
           )}
-          <MoveConceptNote
+          <DetailMoveConceptNote
             title="전용 Z기술 정보"
             text="전용 Z기술은 특정 포켓몬만 사용할 수 있는 Z기술이에요. 해당 포켓몬이 전용 Z크리스탈을 지닌 상태에서 기반 기술을 사용하면 전용 Z기술로 변환돼요."
           />

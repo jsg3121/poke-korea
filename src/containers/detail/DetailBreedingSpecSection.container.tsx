@@ -13,19 +13,19 @@ import {
 import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
 import { DetailContext } from '~/context/Detail.context'
 
-import CaptureRateGauge from './components/CaptureRateGauge.component'
-import GenderBar from './components/GenderBar.component'
 import InfoCardTitle from './components/InfoCardTitle.component'
+import DetailCaptureRateGauge from './DetailCaptureRateGauge.component'
+import DetailGenderBar from './DetailGenderBar.component'
 import {
   DESC_CLASS,
   INFO_ROW_CLASS,
   TERM_CLASS,
 } from './shared/detailSpec.constants'
 
-const descAutoClass =
+const DESC_AUTO_CLASS =
   'dl-desc h-auto min-h-6 flex-col !items-start gap-1 text-xs leading-6 desktop:min-h-10 desktop:text-base desktop:leading-[calc(2.5rem+2px)]'
 
-const subValueClass = 'text-2xs font-normal text-primary-2 desktop:text-sm'
+const SUB_VALUE_CLASS = 'text-2xs font-normal text-primary-2 desktop:text-sm'
 
 const DetailBreedingSpecSection = () => {
   const { pokemonBaseInfo } = useContext(DetailContext)
@@ -54,7 +54,7 @@ const DetailBreedingSpecSection = () => {
       <dl className="w-full">
         <div className={INFO_ROW_CLASS}>
           <dt className={TERM_CLASS}>포획률</dt>
-          <dd className={descAutoClass}>
+          <dd className={DESC_AUTO_CLASS}>
             {captureRate === null || captureRate === undefined ? (
               UNKNOWN_LABEL
             ) : (
@@ -62,11 +62,11 @@ const DetailBreedingSpecSection = () => {
                 <span className="whitespace-nowrap font-semibold">
                   {captureRate}
                   <span
-                    className={subValueClass}
+                    className={SUB_VALUE_CLASS}
                   >{` / ${CAPTURE_RATE_MAX}`}</span>
                 </span>
                 <div className="w-full desktop:min-w-24 desktop:flex-1">
-                  <CaptureRateGauge
+                  <DetailCaptureRateGauge
                     percent={getCaptureRatePercent(captureRate)}
                     progress={progress}
                   />
@@ -83,7 +83,7 @@ const DetailBreedingSpecSection = () => {
 
         <div className={INFO_ROW_CLASS}>
           <dt className={TERM_CLASS}>성비</dt>
-          <dd className={descAutoClass}>
+          <dd className={DESC_AUTO_CLASS}>
             {!genderRatio ? (
               UNKNOWN_LABEL
             ) : genderRatio.isGenderless ? (
@@ -92,20 +92,23 @@ const DetailBreedingSpecSection = () => {
               <div className="flex w-full flex-col gap-1 desktop:flex-row desktop:items-center desktop:gap-3">
                 <div className="flex items-center gap-3 desktop:contents">
                   <span className="flex items-baseline gap-1 whitespace-nowrap desktop:order-1">
-                    <span className={subValueClass}>수컷</span>
+                    <span className={SUB_VALUE_CLASS}>수컷</span>
                     <span className="font-semibold">
                       {formatGenderPercent(genderRatio.male)}
                     </span>
                   </span>
                   <span className="flex items-baseline gap-1 whitespace-nowrap desktop:order-3">
-                    <span className={subValueClass}>암컷</span>
+                    <span className={SUB_VALUE_CLASS}>암컷</span>
                     <span className="font-semibold">
                       {formatGenderPercent(genderRatio.female)}
                     </span>
                   </span>
                 </div>
                 <div className="w-full desktop:order-2 desktop:min-w-24 desktop:flex-1">
-                  <GenderBar male={genderRatio.male} progress={progress} />
+                  <DetailGenderBar
+                    male={genderRatio.male}
+                    progress={progress}
+                  />
                 </div>
               </div>
             )}

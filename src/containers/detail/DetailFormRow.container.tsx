@@ -13,7 +13,7 @@ import ShinyTooltip from '~/components/detail.summary/summary.shinyTooltip/Shiny
 
 import DetailWebpFormIcon from './DetailWebpFormIcon.component'
 import { getFormBasePath } from './modules/activeForm.module'
-import { formLinkClass } from './utils/detailFormLink.util'
+import { getFormLinkClass } from './utils/detailFormLink.util'
 
 const DetailFormRow = () => {
   const { pokemonBaseInfo, activeType, activeIndex } = useContext(DetailContext)
@@ -104,7 +104,7 @@ const DetailFormRow = () => {
           <Link
             href={shinyHref}
             replace
-            className={formLinkClass(isShiny)}
+            className={getFormLinkClass(isShiny)}
             aria-pressed={isShiny}
           >
             <i
@@ -121,7 +121,7 @@ const DetailFormRow = () => {
             <Link
               href={chip.href}
               replace
-              className={formLinkClass(chip.active)}
+              className={getFormLinkClass(chip.active)}
               aria-current={chip.active ? 'page' : undefined}
             >
               {chip.icon}

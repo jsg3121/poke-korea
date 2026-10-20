@@ -3,7 +3,7 @@ interface GenderBarProps {
   progress?: number
 }
 
-const GenderBar = ({ male, progress = 1 }: GenderBarProps) => {
+const DetailGenderBar = ({ male, progress = 1 }: GenderBarProps) => {
   const hasBoundary = male > 0 && male < 100
 
   return (
@@ -21,4 +21,4 @@ const GenderBar = ({ male, progress = 1 }: GenderBarProps) => {
   )
 }
 
-export default GenderBar
+export default DetailGenderBar
