@@ -2,7 +2,7 @@ import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
 import Tag from '~/components/tag/Tag.component'
 
-import { PokemonNameOption } from './PokemonNameSuggestionList.component'
+import { PokemonNameOption } from './pokemonNameSearch.types'
 
 interface SelectedPokemonBarProps {
   pokemon: PokemonNameOption

@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 
-import PokemonNameSuggestionList, {
-  PokemonNameOption,
-} from './PokemonNameSuggestionList.component'
+import { PokemonNameOption } from './pokemonNameSearch.types'
+import PokemonNameSuggestionList from './PokemonNameSuggestionList.component'
 
 const NavyBg = (Story: React.ComponentType) => (
   <div className="bg-primary-1 p-6 w-[22rem] desktop:w-[28rem]">
