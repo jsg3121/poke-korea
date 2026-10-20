@@ -1,14 +1,8 @@
 import { RESULT_TITLE_ID } from '../shared/resultTitle.constants'
 
 /**
- * 계산 결과 제목이 화면 밖에 있으면 제목이 보이도록 스크롤한다.
+ * 계산 결과 제목이 화면 위쪽에 오도록 스크롤한다.
  */
 export const scrollToResultTitle = () => {
-  const title = document.getElementById(RESULT_TITLE_ID)
-  if (!title) return
-
-  const { top, bottom } = title.getBoundingClientRect()
-  if (top >= 0 && bottom <= window.innerHeight) return
-
-  title.scrollIntoView({ block: 'start' })
+  document.getElementById(RESULT_TITLE_ID)?.scrollIntoView({ block: 'start' })
 }

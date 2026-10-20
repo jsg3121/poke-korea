@@ -38,7 +38,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
           className={
             visuallyHiddenLabel
               ? 'sr-only'
-              : 'block mb-1 text-sm text-primary-4'
+              : 'block mb-3 text-sm text-primary-4'
           }
         >
           {label}

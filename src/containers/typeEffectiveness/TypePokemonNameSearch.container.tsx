@@ -84,7 +84,7 @@ const TypePokemonNameSearch = () => {
             </div>
           )}
         </div>
-        <p id={helpId} className="mt-1 text-xs text-primary-3 desktop:text-sm">
+        <p id={helpId} className="mt-3 text-xs text-primary-3 desktop:text-sm">
           특성·지닌 도구 효과는 반영하지 않고 타입만 계산해요.
         </p>
       </div>
