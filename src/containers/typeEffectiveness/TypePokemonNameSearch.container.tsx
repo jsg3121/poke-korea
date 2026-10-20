@@ -2,6 +2,7 @@
 
 import { MouseEvent, useEffect, useId, useRef, useState } from 'react'
 
+import { trackEvent } from '~/modules/analytics.module'
 import { useDebounce } from '~/hooks/useDebounce'
 import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import SearchInput from '~/components/input/SearchInput.component'
@@ -10,14 +11,18 @@ import PokemonNameSuggestionList from '~/components/typeEffectiveness/PokemonNam
 import SelectedPokemonBar from '~/components/typeEffectiveness/SelectedPokemonBar.component'
 
 import { usePokemonNameSearch } from './hooks/usePokemonNameSearch'
+import { toTypesParam } from './shared/typeCalcEvent.util'
+import { toFormTypeParam } from './utils/formTypeParam.util'
 import { scrollToResultTitle } from './utils/resultTitle.util'
 
 const MAX_QUERY_LENGTH = 30
+const EVENT_QUERY_MAX_LENGTH = 20
 
 const TypePokemonNameSearch = () => {
   const { selectedPokemon, handleSelectPokemon } = useTypeEffectiveness()
   const helpId = useId()
   const inputRef = useRef<HTMLInputElement>(null)
+  const hasSearchedRef = useRef(false)
   const [inputValue, setInputValue] = useState('')
   const [keyword, debounce] = useDebounce()
   const { options, status, retry } = usePokemonNameSearch(keyword)
@@ -33,6 +38,19 @@ const TypePokemonNameSearch = () => {
   }
 
   const handleSelect = (option: PokemonNameOption) => {
+    trackEvent('use_name_search', {
+      source: 'type_calc',
+      query: inputValue.trim().slice(0, EVENT_QUERY_MAX_LENGTH),
+      pokemon_number: option.number,
+      form_type: toFormTypeParam(option.formType),
+      is_first_search: hasSearchedRef.current ? 'false' : 'true',
+    })
+    trackEvent('use_type_calc', {
+      input_method: 'name',
+      types: toTypesParam(option.types),
+    })
+    hasSearchedRef.current = true
+
     inputRef.current?.blur()
     handleSelectPokemon(option)
     setInputValue(option.name)

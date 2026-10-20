@@ -7,6 +7,7 @@ import { PokemonType } from '~/graphql/typeGenerated'
 import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import TypeChip from '~/components/chip/TypeChip.component'
 
+import { useChipCalcTracking } from './hooks/useChipCalcTracking'
 import TypePokemonNameSearch from './TypePokemonNameSearch.container'
 
 const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
@@ -26,6 +27,7 @@ const TypeCalculator = () => {
     handleChangeTypes,
     handleResetSelectTypes,
   } = useTypeEffectiveness()
+  useChipCalcTracking(selectTypeList, selectedPokemon !== null)
 
   const isNameSelected = selectedPokemon !== null
   const guideText = isNameSelected
