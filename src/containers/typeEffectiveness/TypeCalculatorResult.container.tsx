@@ -9,6 +9,7 @@ import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import Tag from '~/components/tag/Tag.component'
 
 import TypeEffectivenessCta from './TypeEffectivenessCta.container'
+import { RESULT_TITLE_ID } from './utils/resultTitle.util'
 
 interface ResultRow {
   description: string
@@ -117,7 +118,10 @@ const TypeCalculatorResult = () => {
       </p>
       {hasSelection && (
         <section className="w-full pt-6 desktop:pt-8">
-          <h2 className="text-xl desktop:text-3xl font-semibold text-primary-4 leading-tight">
+          <h2
+            id={RESULT_TITLE_ID}
+            className="scroll-mt-16 text-xl desktop:scroll-mt-32 desktop:text-3xl font-semibold text-primary-4 leading-tight"
+          >
             {selectTypeListKo} 타입은 이렇게 상대하세요!
           </h2>
           <p className="mt-2 text-base text-primary-4/80">
