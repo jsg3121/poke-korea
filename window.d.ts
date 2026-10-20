@@ -1,5 +1,5 @@
 interface Window {
-  adsbygoogle?: any
+  adsbygoogle?: Array<Record<string, unknown>>
   gtag?: (
     command: 'event',
     eventName: string,

@@ -12,7 +12,7 @@ interface SearchInputProps
 }
 
 const INPUT_CLASS =
-  'w-full min-h-touch px-4 bg-primary-4 text-primary-1 border-2 border-solid border-primary-2 rounded-lg text-md placeholder:text-primary-2 transition-colors hover:border-primary-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 disabled:opacity-50 disabled:cursor-not-allowed'
+  'w-full min-h-touch px-4 bg-primary-4 text-primary-1 border-2 border-solid border-primary-2 rounded-lg text-md placeholder:text-primary-1/75 transition-colors hover:border-primary-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 disabled:opacity-50 disabled:cursor-not-allowed'
 
 const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   (
