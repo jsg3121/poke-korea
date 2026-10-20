@@ -24,6 +24,7 @@ const SelectedPokemonBar = ({ pokemon }: SelectedPokemonBarProps) => {
       </div>
       <div className="flex-1 min-w-0 flex flex-col gap-1 desktop:flex-row desktop:items-center desktop:gap-2">
         <p className="text-sm font-bold break-keep desktop:text-base">
+          <span className="sr-only">선택한 포켓몬: </span>
           {pokemon.name}
         </p>
         <p className="flex gap-1">

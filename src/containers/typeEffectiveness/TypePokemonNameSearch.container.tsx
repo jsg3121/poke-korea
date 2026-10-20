@@ -13,16 +13,19 @@ import SelectedPokemonBar from '~/components/typeEffectiveness/SelectedPokemonBa
 import { usePokemonNameSearch } from './hooks/usePokemonNameSearch'
 import { toTypesParam } from './shared/typeCalcEvent.util'
 import { toFormTypeParam } from './utils/formTypeParam.util'
-import { scrollToResultTitle } from './utils/resultTitle.util'
+import { moveToResultTitle } from './utils/resultTitle.util'
 
 const MAX_QUERY_LENGTH = 30
 const EVENT_QUERY_MAX_LENGTH = 20
+const LOADING_MESSAGE = '포켓몬을 찾는 중이에요'
+const ERROR_MESSAGE = '포켓몬을 불러오지 못했어요'
 
 const TypePokemonNameSearch = () => {
   const { selectedPokemon, handleSelectPokemon } = useTypeEffectiveness()
   const helpId = useId()
   const inputRef = useRef<HTMLInputElement>(null)
   const hasSearchedRef = useRef(false)
+  const isKeyboardSelectRef = useRef(false)
   const [inputValue, setInputValue] = useState('')
   const [keyword, debounce] = useDebounce()
   const { options, status, retry } = usePokemonNameSearch(keyword)
@@ -32,12 +35,23 @@ const TypePokemonNameSearch = () => {
     inputValue.trim() !== '' &&
     inputValue !== selectedPokemon?.name
 
-  const handleChange = (value: string) => {
+  const getStatusMessage = () => {
+    if (!isPanelVisible) return ''
+    if (status === 'loading') return LOADING_MESSAGE
+    if (status === 'error') return ERROR_MESSAGE
+    if (status === 'empty') return `'${keyword}'와 맞는 포켓몬이 없어요`
+    return `포켓몬 ${options.length}개를 찾았어요. Tab으로 이동해 고를 수 있어요`
+  }
+
+  const handleChangeQuery = (value: string) => {
     setInputValue(value)
     debounce(value.trim())
   }
 
-  const handleSelect = (option: PokemonNameOption) => {
+  const handleSelectOption = (
+    option: PokemonNameOption,
+    isKeyboard: boolean,
+  ) => {
     trackEvent('use_name_search', {
       source: 'type_calc',
       query: inputValue.trim().slice(0, EVENT_QUERY_MAX_LENGTH),
@@ -51,7 +65,10 @@ const TypePokemonNameSearch = () => {
     })
     hasSearchedRef.current = true
 
-    inputRef.current?.blur()
+    isKeyboardSelectRef.current = isKeyboard
+    if (!isKeyboard) {
+      inputRef.current?.blur()
+    }
     handleSelectPokemon(option)
     setInputValue(option.name)
   }
@@ -66,7 +83,8 @@ const TypePokemonNameSearch = () => {
       debounce('')
       return
     }
-    scrollToResultTitle()
+    moveToResultTitle(isKeyboardSelectRef.current)
+    // ↓ selectedPokemon이 바뀔 때만 실행하는 것이 의도. debounce는 렌더마다 새로 만들어지는 setter 래퍼다
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPokemon])
 
@@ -80,7 +98,7 @@ const TypePokemonNameSearch = () => {
           type="text"
           placeholder="예: 리자몽"
           value={inputValue}
-          onChange={handleChange}
+          onChange={handleChangeQuery}
           maxLength={MAX_QUERY_LENGTH}
           autoComplete="off"
           spellCheck={false}
@@ -95,8 +113,8 @@ const TypePokemonNameSearch = () => {
               status={status}
               options={options}
               query={keyword}
-              onSelect={handleSelect}
-              onRetry={retry}
+              onSelectPokemon={handleSelectOption}
+              onClickRetry={retry}
             />
           </div>
         )}
@@ -112,6 +130,9 @@ const TypePokemonNameSearch = () => {
           <SelectedPokemonBar pokemon={selectedPokemon} />
         </div>
       )}
+      <p role="status" className="sr-only">
+        {getStatusMessage()}
+      </p>
     </div>
   )
 }

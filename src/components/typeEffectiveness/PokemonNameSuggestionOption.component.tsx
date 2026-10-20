@@ -1,5 +1,7 @@
 'use client'
 
+import { MouseEvent } from 'react'
+
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
 import Tag from '~/components/tag/Tag.component'
@@ -8,15 +10,15 @@ import { PokemonNameOption } from './pokemonNameSearch.types'
 
 interface PokemonNameSuggestionOptionProps {
   option: PokemonNameOption
-  onSelect: (option: PokemonNameOption) => void
+  onSelectPokemon: (option: PokemonNameOption, isKeyboard: boolean) => void
 }
 
 const PokemonNameSuggestionOption = ({
   option,
-  onSelect,
+  onSelectPokemon,
 }: PokemonNameSuggestionOptionProps) => {
-  const handleClick = () => {
-    onSelect(option)
+  const handleClickOption = (e: MouseEvent<HTMLButtonElement>) => {
+    onSelectPokemon(option, e.detail === 0)
   }
 
   return (
@@ -33,8 +35,8 @@ const PokemonNameSuggestionOption = ({
       />
       <button
         type="button"
-        onClick={handleClick}
-        className="flex-1 min-w-0 flex items-center justify-between gap-2 text-left focus-visible:outline-none after:absolute after:inset-0"
+        onClick={handleClickOption}
+        className="flex-1 min-w-0 flex items-center justify-between gap-2 text-left focus-visible:outline-none forced-colors:focus-visible:outline forced-colors:focus-visible:outline-2 after:absolute after:inset-0"
       >
         <span className="min-w-0 text-sm desktop:text-base break-keep">
           {option.name}
