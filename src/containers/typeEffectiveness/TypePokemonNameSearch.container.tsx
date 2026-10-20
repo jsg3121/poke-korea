@@ -66,8 +66,6 @@ const TypePokemonNameSearch = () => {
             onChange={handleChange}
             maxLength={MAX_QUERY_LENGTH}
             autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
             spellCheck={false}
             aria-describedby={helpId}
           />
