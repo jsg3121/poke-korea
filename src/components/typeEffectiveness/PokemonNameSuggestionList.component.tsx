@@ -5,13 +5,11 @@ import {
   PokemonNameSuggestionStatus,
 } from './pokemonNameSearch.types'
 import PokemonNameSuggestionOption from './PokemonNameSuggestionOption.component'
-import { getOptionId, getOptionKey } from './utils/pokemonNameOption.util'
+import { getOptionKey } from './utils/pokemonNameOption.util'
 
 interface PokemonNameSuggestionListProps {
-  listboxId: string
   status: PokemonNameSuggestionStatus
   options: Array<PokemonNameOption>
-  activeIndex: number
   query: string
   onSelect: (option: PokemonNameOption) => void
   onRetry: () => void
@@ -21,10 +19,8 @@ const PANEL_CLASS =
   'w-full bg-primary-4 text-primary-1 rounded-lg border-2 border-solid border-primary-2 overflow-hidden'
 
 const PokemonNameSuggestionList = ({
-  listboxId,
   status,
   options,
-  activeIndex,
   query,
   onSelect,
   onRetry,
@@ -79,17 +75,13 @@ const PokemonNameSuggestionList = ({
   return (
     <div className={PANEL_CLASS}>
       <ul
-        id={listboxId}
-        role="listbox"
         aria-label="포켓몬 검색 결과"
         className="max-h-72 overflow-y-auto overscroll-contain desktop:max-h-80"
       >
-        {options.map((option, index) => (
+        {options.map((option) => (
           <PokemonNameSuggestionOption
             key={getOptionKey(option)}
-            id={getOptionId(listboxId, index)}
             option={option}
-            isActive={index === activeIndex}
             onSelect={onSelect}
           />
         ))}

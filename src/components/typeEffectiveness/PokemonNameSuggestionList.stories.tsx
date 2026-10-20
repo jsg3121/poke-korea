@@ -134,9 +134,7 @@ const meta = {
         component: [
           '상성 계산기 이름 입력의 자동완성 패널. props만 받아 그린다 — 검색·키보드 처리·계산기 연결은 컨테이너 책임.',
           '',
-          '결과는 개수 제한 없이 모두 담고 패널 안에서 스크롤한다. 행은 썸네일·폼 이름·타입 태그, 활성 행은 `primary-3` 배경 + 왼쪽 막대.',
-          '',
-          '입력창의 `aria-activedescendant`는 `getOptionId(listboxId, index)`로 행 id를 맞춘다.',
+          '결과는 개수 제한 없이 모두 담고 패널 안에서 스크롤한다. 행은 썸네일·폼 이름·타입 태그. 각 행은 버튼이라 Tab으로 이동하고 Enter·Space로 고른다. 호버·포커스 행은 `primary-3` 배경 + 왼쪽 막대.',
         ].join('\n'),
       },
     },
@@ -144,10 +142,8 @@ const meta = {
   tags: ['autodocs'],
   decorators: [NavyBg],
   args: {
-    listboxId: 'pokemon-name-listbox',
     status: 'success',
     options: RAICHU_OPTIONS,
-    activeIndex: -1,
     query: '라이츄',
     onSelect: noop,
     onRetry: noop,
@@ -162,10 +158,6 @@ export const Loading: Story = {
 }
 
 export const Success: Story = {}
-
-export const ActiveRow: Story = {
-  args: { activeIndex: 3 },
-}
 
 export const ManyResults: Story = {
   args: { options: MANY_OPTIONS, query: '이' },
