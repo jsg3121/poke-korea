@@ -10,7 +10,7 @@ interface SelectedPokemonBarProps {
 
 const SelectedPokemonBar = ({ pokemon }: SelectedPokemonBarProps) => {
   return (
-    <div className="flex items-center gap-2 min-h-touch px-3 py-2 bg-primary-4 text-primary-1 rounded-lg">
+    <div className="flex items-center gap-2 min-h-touch px-3 py-2 desktop:py-1.5 bg-primary-4 text-primary-1 rounded-lg">
       <div className="shrink-0 w-8 h-8">
         <Image
           height="2rem"

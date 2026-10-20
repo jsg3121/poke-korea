@@ -53,43 +53,44 @@ const TypePokemonNameSearch = () => {
   }, [selectedPokemon])
 
   return (
-    <div className="mb-4 flex flex-col gap-2 desktop:flex-row desktop:items-start desktop:gap-4">
-      <div className="w-full desktop:max-w-md">
-        <div className="group relative">
-          <SearchInput
-            ref={inputRef}
-            label="포켓몬 이름으로 찾기"
-            visuallyHiddenLabel={false}
-            type="text"
-            placeholder="예: 리자몽"
-            value={inputValue}
-            onChange={handleChange}
-            maxLength={MAX_QUERY_LENGTH}
-            autoComplete="off"
-            spellCheck={false}
-            aria-describedby={helpId}
-          />
-          {isPanelVisible && (
-            <div
-              onMouseDown={handlePanelMouseDown}
-              className="absolute inset-x-0 top-full z-50 mt-1 hidden group-focus-within:block"
-            >
-              <PokemonNameSuggestionList
-                status={status}
-                options={options}
-                query={keyword}
-                onSelect={handleSelect}
-                onRetry={retry}
-              />
-            </div>
-          )}
-        </div>
-        <p id={helpId} className="mt-3 text-xs text-primary-3 desktop:text-sm">
-          특성·지닌 도구 효과는 반영하지 않고 타입만 계산해요.
-        </p>
+    <div className="mb-4 flex flex-col gap-3 desktop:flex-row desktop:flex-wrap desktop:items-end desktop:gap-x-4">
+      <div className="group relative order-1 w-full desktop:max-w-md">
+        <SearchInput
+          ref={inputRef}
+          label="포켓몬 이름으로 찾기"
+          visuallyHiddenLabel={false}
+          type="text"
+          placeholder="예: 리자몽"
+          value={inputValue}
+          onChange={handleChange}
+          maxLength={MAX_QUERY_LENGTH}
+          autoComplete="off"
+          spellCheck={false}
+          aria-describedby={helpId}
+        />
+        {isPanelVisible && (
+          <div
+            onMouseDown={handlePanelMouseDown}
+            className="absolute inset-x-0 top-full z-50 mt-1 hidden group-focus-within:block"
+          >
+            <PokemonNameSuggestionList
+              status={status}
+              options={options}
+              query={keyword}
+              onSelect={handleSelect}
+              onRetry={retry}
+            />
+          </div>
+        )}
       </div>
+      <p
+        id={helpId}
+        className="order-2 text-xs text-primary-3 desktop:order-3 desktop:basis-full desktop:text-sm"
+      >
+        특성·지닌 도구 효과는 반영하지 않고 타입만 계산해요.
+      </p>
       {selectedPokemon !== null && (
-        <div className="w-full desktop:mt-6 desktop:flex-1">
+        <div className="order-3 w-full desktop:order-2 desktop:w-auto desktop:flex-1">
           <SelectedPokemonBar pokemon={selectedPokemon} />
         </div>
       )}
