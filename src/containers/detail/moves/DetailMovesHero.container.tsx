@@ -9,6 +9,8 @@ import { DetailMovesContext } from '~/context/DetailMoves.context'
 import Image from '~/components/Image.component'
 import Tag from '~/components/tag/Tag.component'
 
+import DetailMovesFormSlideLink from './DetailMovesFormSlideLink.component'
+
 const DetailMovesHero = () => {
   const { pokemonId } = useParams<{ pokemonId: string }>()
   const {
@@ -123,23 +125,23 @@ const DetailMovesHero = () => {
         <div className="flex flex-row flex-wrap items-center gap-2 desktop:ml-auto desktop:flex-col desktop:items-end desktop:gap-2.5">
           {showFormSlide && (
             <div className="flex items-center gap-1">
-              <FormSlideLink
+              <DetailMovesFormSlideLink
                 href={prevFormHref}
                 disabled={isFirstForm}
                 label="이전 폼"
               >
                 ◀
-              </FormSlideLink>
+              </DetailMovesFormSlideLink>
               <span className="min-w-9 text-center text-xs font-bold text-primary-1 desktop:min-w-11 desktop:text-sm">
                 {activeIndex + 1} / {Math.max(formDataLength, 1)}
               </span>
-              <FormSlideLink
+              <DetailMovesFormSlideLink
                 href={nextFormHref}
                 disabled={isLastForm}
                 label="다음 폼"
               >
                 ▶
-              </FormSlideLink>
+              </DetailMovesFormSlideLink>
             </div>
           )}
           {activeType === 'region' && (
@@ -163,40 +165,6 @@ const DetailMovesHero = () => {
         </div>
       </article>
     </section>
-  )
-}
-
-const FormSlideLink = ({
-  href,
-  disabled,
-  label,
-  children,
-}: {
-  href: string
-  disabled: boolean
-  label: string
-  children: React.ReactNode
-}) => {
-  const base =
-    'inline-flex h-7 w-7 items-center justify-center rounded-lg border border-solid text-xs transition-colors desktop:h-9 desktop:w-9 desktop:text-sm'
-  if (disabled) {
-    return (
-      <span
-        aria-hidden="true"
-        className={`${base} pointer-events-none select-none border-primary-3 bg-primary-3 text-primary-2`}
-      >
-        {children}
-      </span>
-    )
-  }
-  return (
-    <Link
-      href={href}
-      aria-label={label}
-      className={`${base} border-primary-3 bg-white-1 text-primary-1 hover:bg-primary-4`}
-    >
-      {children}
-    </Link>
   )
 }
 

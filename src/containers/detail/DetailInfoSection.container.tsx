@@ -9,10 +9,8 @@ import Tag from '~/components/tag/Tag.component'
 
 import DetailQuizCta from './components/DetailQuizCta.component'
 import InfoCardTitle from './components/InfoCardTitle.component'
-import {
-  DetailBodySpecSection,
-  DetailBreedingSpecSection,
-} from './DetailSpecSection.container'
+import DetailBodySpecSection from './DetailBodySpecSection.container'
+import DetailBreedingSpecSection from './DetailBreedingSpecSection.container'
 
 // 고정 높이가 아닌 min-h — 애드센스 자동 광고가 본문에 링크 유닛을 주입해도
 // 행이 겹치지 않고 세로로 늘어난다.

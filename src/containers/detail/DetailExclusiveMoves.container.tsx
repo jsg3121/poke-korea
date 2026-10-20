@@ -13,10 +13,8 @@ import Chip from '~/components/chip/Chip.component'
 import Tag from '~/components/tag/Tag.component'
 
 import InfoCardTitle from './components/InfoCardTitle.component'
-import {
-  MoveConceptNote,
-  MoveEffectDescription,
-} from './components/MoveDescription.component'
+import MoveConceptNote from './components/MoveConceptNote.component'
+import MoveEffectDescription from './components/MoveEffectDescription.component'
 
 const DetailExclusiveMoves = () => {
   const {
