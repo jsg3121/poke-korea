@@ -1,10 +1,10 @@
 'use client'
 
-import { ChangeEvent, useContext } from 'react'
+import { ChangeEvent } from 'react'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import TypeChip from '~/components/chip/TypeChip.component'
 
 const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
@@ -17,7 +17,7 @@ const TypeCalculator = () => {
     selectTypeList,
     handleChangeTypes,
     handleResetSelectTypes,
-  } = useContext(TypeEffectivenessContext)
+  } = useTypeEffectiveness()
 
   const handleToggleType = (e: ChangeEvent<HTMLInputElement>) => {
     handleChangeTypes(e.currentTarget.value as PokemonType)

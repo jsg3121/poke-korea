@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
 
 import {
   PokemonType,
@@ -23,14 +23,8 @@ interface TypeEffectivenessContextValue {
   handleResetSelectTypes: () => void
 }
 
-const TypeEffectivenessContext = createContext<TypeEffectivenessContextValue>({
-  selectTypeList: [],
-  selectedPokemon: null,
-  isMaxSelectType: false,
-  handleChangeTypes: () => null,
-  handleSelectPokemon: () => null,
-  handleResetSelectTypes: () => null,
-})
+const TypeEffectivenessContext =
+  createContext<TypeEffectivenessContextValue | null>(null)
 
 const TypeEffectivenessProvider = ({
   children,
@@ -84,4 +78,14 @@ const TypeEffectivenessProvider = ({
   )
 }
 
-export { TypeEffectivenessContext, TypeEffectivenessProvider }
+export const useTypeEffectiveness = () => {
+  const context = useContext(TypeEffectivenessContext)
+  if (!context) {
+    throw new Error(
+      'useTypeEffectiveness는 TypeEffectivenessProvider 안에서만 쓸 수 있습니다',
+    )
+  }
+  return context
+}
+
+export { TypeEffectivenessProvider }

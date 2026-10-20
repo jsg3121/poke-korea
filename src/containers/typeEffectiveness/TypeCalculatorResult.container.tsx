@@ -1,12 +1,11 @@
 'use client'
 
-import { useContext } from 'react'
 import Link from 'next/link'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/modules/calculateRelationType.module'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import Tag from '~/components/tag/Tag.component'
 
 import TypeEffectivenessCta from './TypeEffectivenessCta.container'
@@ -64,7 +63,7 @@ const ResultSection = ({
 }
 
 const TypeCalculatorResult = () => {
-  const { selectTypeList } = useContext(TypeEffectivenessContext)
+  const { selectTypeList } = useTypeEffectiveness()
 
   const { double, half, quad, quarter, zero } =
     calculateRelationType(selectTypeList)

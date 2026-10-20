@@ -1,13 +1,12 @@
 'use client'
 
-import { useContext } from 'react'
 import Link from 'next/link'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath, buildTypeSlug } from '~/modules/typeParams.module'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import Image from '~/components/Image.component'
 
 const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
@@ -18,7 +17,7 @@ const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
 )
 
 const TypeQuickLinks = () => {
-  const { selectTypeList } = useContext(TypeEffectivenessContext)
+  const { selectTypeList } = useTypeEffectiveness()
 
   if (selectTypeList.length > 0) return null
 
