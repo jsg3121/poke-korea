@@ -46,18 +46,18 @@ src/components/
 파일 최상단, 컴포넌트와 같은 깊이에는 **그 컴포넌트에서만 쓰는 정적 상수만** 둔다. 정적 상수는 하드코딩한 값처럼 props·상태·다른 계산 결과에 의존하지 않는 값이다(문구, 스타일 클래스 문자열, 매핑 객체, 고정 배열 등). 그 상수를 **사용해 만드는 변수와 함수는 컴포넌트 안**에 둔다.
 
 ```tsx
-const RESULT_ROWS = [
-  { description: '2배의 데미지를 줄 수 있어요', textClass: 'text-grade-warning' },
-]
+const MAX_QUERY_LENGTH = 30
 
-const TypeCalculatorResult = () => {
-  const { selectTypeList } = useTypeEffectiveness()
+const TypePokemonNameSearch = () => {
+  const [inputValue, setInputValue] = useState('')
 
-  const rows = RESULT_ROWS.map((row) => ({ ...row, types: ... }))
+  const isTooLong = inputValue.length > MAX_QUERY_LENGTH
 
-  return <section>...</section>
+  return <input maxLength={MAX_QUERY_LENGTH} value={inputValue} />
 }
 ```
+
+정적 값과 계산 결과가 한 객체에 섞여 있으면(예: 문구·색 클래스와 계산된 `types`를 함께 담은 행 목록) 정적 부분만 억지로 떼어내지 않는다. 그대로 컴포넌트 안에 두는 편이 읽기 쉬우면 그렇게 한다.
 
 함수(훅·유틸·헬퍼)는 그 컴포넌트에서만 쓰더라도 파일 최상단에 두지 않는다. **컴포넌트가 있는 위치에 `hooks/`·`utils/` 폴더를 두어** 분리한다. 두 곳 이상에서 쓰이면 위 배치 규칙 표에 따라 감싸는 도메인 또는 전역으로 올린다. 상수도 같다.
 
