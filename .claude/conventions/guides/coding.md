@@ -120,6 +120,37 @@ export const useDetail = () => {
 
 ---
 
+## 컴포넌트 본문 순서
+
+**훅 → 계산 변수 → 핸들러 → `useEffect` → `return`** 순서로 쓴다.
+
+```tsx
+const Example = () => {
+  // 1. 훅 — 상태·ref·컨텍스트·커스텀 훅 호출
+  const { selected } = useExample()
+  const [value, setValue] = useState('')
+
+  // 2. 계산 변수 — 훅 결과에서 계산하는 값
+  const isVisible = value !== '' && selected === null
+
+  // 3. 핸들러
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }
+
+  // 4. useEffect — return 바로 앞
+  useEffect(() => {
+    // ...
+  }, [selected])
+
+  return isVisible ? <input value={value} onChange={handleChange} /> : null
+}
+```
+
+> **Why:** 순서가 고정되면 파일을 열었을 때 "무엇을 들고 있고(훅) → 무엇을 계산하고 → 무엇에 반응하며 → 언제 부수 효과가 일어나는가"를 위에서 아래로 한 번에 읽을 수 있다. `useEffect`가 핸들러 사이에 섞이면 부수 효과가 어디서 일어나는지 찾기 어렵다.
+
+---
+
 ## 이벤트 핸들러
 
 **props로 받은 콜백을 JSX에 바로 넘기지 않고, 컴포넌트 안에서 핸들러를 만들어 호출한다.**
