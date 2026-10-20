@@ -7,8 +7,8 @@ import TypeResultSection, {
   TypeResultRow,
 } from '~/components/typeEffectiveness/TypeResultSection.component'
 
+import { RESULT_TITLE_ID } from './shared/resultTitle.constants'
 import TypeEffectivenessCta from './TypeEffectivenessCta.container'
-import { RESULT_TITLE_ID } from './utils/resultTitle.util'
 
 const TypeCalculatorResult = () => {
   const { selectTypeList } = useTypeEffectiveness()

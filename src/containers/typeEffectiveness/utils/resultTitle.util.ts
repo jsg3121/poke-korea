@@ -1,4 +1,4 @@
-export const RESULT_TITLE_ID = 'type-calculator-result-title'
+import { RESULT_TITLE_ID } from '../shared/resultTitle.constants'
 
 /**
  * 계산 결과 제목이 화면 밖에 있으면 제목이 보이도록 스크롤한다.
