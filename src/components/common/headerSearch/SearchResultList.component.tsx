@@ -1,13 +1,13 @@
 import { Fragment } from 'react'
 
-import { PokemonFormInfo } from '~/graphql/typeGenerated'
+import { SearchPokemonWithAllFormsQuery } from '~/graphql/typeGenerated'
 
 import SearchResultData from './resultList/ResultListData.component'
 import ResultListLoading from './resultList/ResultListLoading.component'
 import ResultListNoData from './resultList/ResultListNoData.component'
 
 interface SearchResultListProps {
-  pokemonList: Array<PokemonFormInfo>
+  pokemonList: SearchPokemonWithAllFormsQuery['searchPokemonWithAllForms']
   loading: boolean
   onSelectPokemon: () => void
 }

@@ -78,6 +78,20 @@ if (!isFormatSlug(slug)) notFound()
 
 `as const`는 예외다 — 타입을 넓히는 게 아니라 좁히므로 안전하다.
 
+### GraphQL 데이터는 쿼리 결과 타입으로 받는다
+
+타입은 **실제로 받는 범위만큼만** 잡는다. 컴포넌트·훅의 props와 반환값에 `PokemonFormInfo` 같은 스키마 전체 타입을 쓰지 않고, 실제로 요청한 필드만 담은 쿼리 결과 타입을 쓴다.
+
+```tsx
+// ❌ 쿼리가 요청하지 않은 필드까지 필수로 요구한다
+pokemonList: Array<PokemonFormInfo>
+
+// ✅ 이 쿼리가 실제로 받는 필드만 담는다
+pokemonList: SearchPokemonWithAllFormsQuery['searchPokemonWithAllForms']
+```
+
+> **Why:** 스키마 타입은 스키마의 모든 필드를 담는다. 쿼리가 일부 필드만 요청해도 타입은 전부 있다고 말하므로, 받지 않은 필드를 읽는 코드가 타입 검사를 통과한다. 또 스키마에 필드가 추가되는 순간 그 필드를 요청하지 않는 무관한 화면의 타입이 깨진다. 1.62.0에서 `PokemonFormInfo`에 `types`를 추가하자, 이를 요청하지 않는 헤더 검색이 타입 오류를 냈다. GraphQL Code Generator도 컴포넌트가 연산 결과 타입을 쓰도록 안내한다([typescript-operations](https://the-guild.dev/graphql/codegen/plugins/typescript/typescript-operations)).
+
 ### `interface`와 `type`
 
 객체 형태는 `interface`, 유니온·튜플·매핑은 `type`을 쓴다. `I`·`IF` 접두사는 붙이지 않는다.
@@ -103,6 +117,37 @@ export const useDetail = () => {
 소비처에서 `useContext`를 직접 호출하지 않는다.
 
 > **Why:** `createContext`에 기본값을 주면 Provider 밖에서 써도 에러가 나지 않고 빈 값이 반환된다. 화면은 비어 보이는데 원인을 알 수 없는 실패가 된다. 훅에서 null을 걸러내면 즉시 명확한 메시지로 터지고, 반환 타입도 non-null로 좁혀져 소비처에서 옵셔널 체이닝이 사라진다. 가짜 기본값을 만들 필요도 없다.
+
+---
+
+## 컴포넌트 본문 순서
+
+**훅 → 계산 변수 → 핸들러 → `useEffect` → `return`** 순서로 쓴다.
+
+```tsx
+const Example = () => {
+  // 1. 훅 — 상태·ref·컨텍스트·커스텀 훅 호출
+  const { selected } = useExample()
+  const [value, setValue] = useState('')
+
+  // 2. 계산 변수 — 훅 결과에서 계산하는 값
+  const isVisible = value !== '' && selected === null
+
+  // 3. 핸들러
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }
+
+  // 4. useEffect — return 바로 앞
+  useEffect(() => {
+    // ...
+  }, [selected])
+
+  return isVisible ? <input value={value} onChange={handleChange} /> : null
+}
+```
+
+> **Why:** 순서가 고정되면 파일을 열었을 때 "무엇을 들고 있고(훅) → 무엇을 계산하고 → 무엇에 반응하며 → 언제 부수 효과가 일어나는가"를 위에서 아래로 한 번에 읽을 수 있다. `useEffect`가 핸들러 사이에 섞이면 부수 효과가 어디서 일어나는지 찾기 어렵다.
 
 ---
 

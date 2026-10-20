@@ -1,14 +1,13 @@
 'use client'
 
-import { useContext } from 'react'
 import Link from 'next/link'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 
 const TypeEffectivenessCta = () => {
-  const { selectTypeList } = useContext(TypeEffectivenessContext)
+  const { selectTypeList } = useTypeEffectiveness()
 
   if (selectTypeList.length === 0) return null
 

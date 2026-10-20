@@ -9,10 +9,8 @@ import MoveTable, {
 } from '~/components/moveTable/MoveTable.component'
 
 import InfoCardTitle from './components/InfoCardTitle.component'
-import {
-  MoveConceptNote,
-  MoveEffectDescription,
-} from './components/MoveDescription.component'
+import MoveConceptNote from './components/MoveConceptNote.component'
+import MoveEffectDescription from './components/MoveEffectDescription.component'
 
 const DetailSignatureMoves = () => {
   const { activeTypeInfo } = useContext(DetailContext)

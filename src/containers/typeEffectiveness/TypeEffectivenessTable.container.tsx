@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
@@ -11,7 +11,7 @@ import {
 } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 
 import TableActivePointer, {
   ActivePointerType,
@@ -32,7 +32,7 @@ const VALUE_STYLE: Record<
 }
 
 const TypeEffectivenessTable = () => {
-  const { selectTypeList } = useContext(TypeEffectivenessContext)
+  const { selectTypeList } = useTypeEffectiveness()
   const [activeType, setActiveType] = useState<ActivePointerType>(undefined)
 
   const selectedDefenseTypes = selectTypeList.map((type) => PokemonTypes[type])

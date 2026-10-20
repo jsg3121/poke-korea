@@ -5,6 +5,9 @@ import Chip from '~/components/chip/Chip.component'
 import { ChipColor } from '~/components/chip/chip.types'
 import Tag from '~/components/tag/Tag.component'
 
+import MoveTableStat from './MoveTableStat.component'
+import { MOVE_TABLE_COL } from './shared/moveTable.constants'
+
 export interface MoveTableItem {
   condition: string
   name: string
@@ -27,30 +30,6 @@ const DAMAGE_LABEL: Record<ChipColor, string> = {
   status: '변화',
 }
 
-const COL = {
-  condition: 'desktop:w-20',
-  type: 'desktop:w-14',
-  damage: 'desktop:w-16',
-  stat: 'desktop:w-12',
-}
-
-const MoveStat = ({
-  label,
-  value,
-}: {
-  label: string
-  value?: number | null
-}) => (
-  <span
-    className={`text-2xs text-primary-2 desktop:text-xs ${COL.stat} desktop:shrink-0 desktop:text-center`}
-  >
-    <span className="desktop:sr-only">{label} </span>
-    <b className="text-xs font-bold text-primary-1 desktop:text-sm">
-      {value ?? '-'}
-    </b>
-  </span>
-)
-
 const MoveTable = ({ moves, ariaLabel }: MoveTableProps) => {
   return (
     <div className="w-full">
@@ -58,13 +37,25 @@ const MoveTable = ({ moves, ariaLabel }: MoveTableProps) => {
         aria-hidden="true"
         className="hidden items-center gap-2 rounded-lg bg-primary-1/5 px-3 py-2 text-xs font-semibold text-primary-2 desktop:flex"
       >
-        <span className={`${COL.condition} shrink-0 text-center`}>습득</span>
+        <span className={`${MOVE_TABLE_COL.condition} shrink-0 text-center`}>
+          습득
+        </span>
         <span className="flex-1">기술명</span>
-        <span className={`${COL.type} shrink-0 text-center`}>타입</span>
-        <span className={`${COL.damage} shrink-0 text-center`}>분류</span>
-        <span className={`${COL.stat} shrink-0 text-center`}>위력</span>
-        <span className={`${COL.stat} shrink-0 text-center`}>명중</span>
-        <span className={`${COL.stat} shrink-0 text-center`}>PP</span>
+        <span className={`${MOVE_TABLE_COL.type} shrink-0 text-center`}>
+          타입
+        </span>
+        <span className={`${MOVE_TABLE_COL.damage} shrink-0 text-center`}>
+          분류
+        </span>
+        <span className={`${MOVE_TABLE_COL.stat} shrink-0 text-center`}>
+          위력
+        </span>
+        <span className={`${MOVE_TABLE_COL.stat} shrink-0 text-center`}>
+          명중
+        </span>
+        <span className={`${MOVE_TABLE_COL.stat} shrink-0 text-center`}>
+          PP
+        </span>
       </div>
       <ul aria-label={ariaLabel}>
         {moves.map((move, index) => (
@@ -85,7 +76,7 @@ const MoveTable = ({ moves, ariaLabel }: MoveTableProps) => {
             )}
             <div className="flex flex-nowrap items-center gap-2 desktop:contents">
               <span
-                className={`min-w-10 shrink-0 whitespace-nowrap rounded-lg bg-primary-1/10 px-2 py-0.5 text-center text-2xs font-bold text-primary-2 ${COL.condition}`}
+                className={`min-w-10 shrink-0 whitespace-nowrap rounded-lg bg-primary-1/10 px-2 py-0.5 text-center text-2xs font-bold text-primary-2 ${MOVE_TABLE_COL.condition}`}
               >
                 {move.condition}
               </span>
@@ -93,12 +84,12 @@ const MoveTable = ({ moves, ariaLabel }: MoveTableProps) => {
                 {move.name}
               </span>
               <span
-                className={`inline-flex shrink-0 ${COL.type} desktop:justify-center`}
+                className={`inline-flex shrink-0 ${MOVE_TABLE_COL.type} desktop:justify-center`}
               >
                 {move.type && <Tag type={move.type} />}
               </span>
               <span
-                className={`inline-flex shrink-0 ${COL.damage} desktop:justify-center`}
+                className={`inline-flex shrink-0 ${MOVE_TABLE_COL.damage} desktop:justify-center`}
               >
                 <Chip
                   label={DAMAGE_LABEL[move.damageClass]}
@@ -107,9 +98,9 @@ const MoveTable = ({ moves, ariaLabel }: MoveTableProps) => {
               </span>
             </div>
             <div className="mt-1 flex items-center gap-4 desktop:contents">
-              <MoveStat label="위력" value={move.power} />
-              <MoveStat label="명중" value={move.accuracy} />
-              <MoveStat label="PP" value={move.pp} />
+              <MoveTableStat label="위력" value={move.power} />
+              <MoveTableStat label="명중" value={move.accuracy} />
+              <MoveTableStat label="PP" value={move.pp} />
             </div>
           </li>
         ))}

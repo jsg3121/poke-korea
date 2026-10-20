@@ -2,6 +2,8 @@
 
 import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
 
+import StatBarAnimatedValue from './StatBarAnimatedValue.component'
+
 const STAT_MAX_PADDING = 20
 
 export interface StatBarItem {
@@ -14,21 +16,6 @@ interface StatBarProps {
   showTotal?: boolean
   animated?: boolean
 }
-
-const AnimatedValue = ({
-  value,
-  progress,
-  className,
-}: {
-  value: number
-  progress: number
-  className: string
-}) => (
-  <span className={className}>
-    <span aria-hidden="true">{Math.round(value * progress)}</span>
-    <span className="sr-only">{value}</span>
-  </span>
-)
 
 const StatBar = ({
   stats,
@@ -52,7 +39,7 @@ const StatBar = ({
           <span className="text-xs font-semibold text-primary-2 desktop:text-sm">
             종족값 총합
           </span>
-          <AnimatedValue
+          <StatBarAnimatedValue
             value={total}
             progress={progress}
             className="text-lg font-bold text-primary-1 desktop:text-xl"
@@ -72,7 +59,7 @@ const StatBar = ({
                 {stat.label}
               </dt>
               <dd className="m-0 w-11 shrink-0 text-right">
-                <AnimatedValue
+                <StatBarAnimatedValue
                   value={stat.value}
                   progress={progress}
                   className={
