@@ -78,6 +78,20 @@ if (!isFormatSlug(slug)) notFound()
 
 `as const`는 예외다 — 타입을 넓히는 게 아니라 좁히므로 안전하다.
 
+### GraphQL 데이터는 쿼리 결과 타입으로 받는다
+
+타입은 **실제로 받는 범위만큼만** 잡는다. 컴포넌트·훅의 props와 반환값에 `PokemonFormInfo` 같은 스키마 전체 타입을 쓰지 않고, 실제로 요청한 필드만 담은 쿼리 결과 타입을 쓴다.
+
+```tsx
+// ❌ 쿼리가 요청하지 않은 필드까지 필수로 요구한다
+pokemonList: Array<PokemonFormInfo>
+
+// ✅ 이 쿼리가 실제로 받는 필드만 담는다
+pokemonList: SearchPokemonWithAllFormsQuery['searchPokemonWithAllForms']
+```
+
+> **Why:** 스키마 타입은 스키마의 모든 필드를 담는다. 쿼리가 일부 필드만 요청해도 타입은 전부 있다고 말하므로, 받지 않은 필드를 읽는 코드가 타입 검사를 통과한다. 또 스키마에 필드가 추가되는 순간 그 필드를 요청하지 않는 무관한 화면의 타입이 깨진다. 1.62.0에서 `PokemonFormInfo`에 `types`를 추가하자, 이를 요청하지 않는 헤더 검색이 타입 오류를 냈다. GraphQL Code Generator도 컴포넌트가 연산 결과 타입을 쓰도록 안내한다([typescript-operations](https://the-guild.dev/graphql/codegen/plugins/typescript/typescript-operations)).
+
 ### `interface`와 `type`
 
 객체 형태는 `interface`, 유니온·튜플·매핑은 `type`을 쓴다. `I`·`IF` 접두사는 붙이지 않는다.
