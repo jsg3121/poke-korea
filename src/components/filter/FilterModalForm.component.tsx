@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent, MouseEvent, useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 
@@ -45,14 +45,6 @@ const FilterModalForm = ({ onClose }: FilterModalFormProps) => {
 
   useBodyScrollLock(true)
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [onClose])
-
   const formMethods = useForm<FilterFormValues>({
     defaultValues: {
       generation: searchParams.getAll('generation'),
@@ -65,6 +57,8 @@ const FilterModalForm = ({ onClose }: FilterModalFormProps) => {
 
   const { watch, register, setValue, getValues, handleSubmit } = formMethods
 
+  const generation = watch('generation')
+
   const handleChangeGeneration = (e: ChangeEvent<HTMLInputElement>) => {
     const gen = e.target.value
     const prev = getValues('generation')
@@ -74,7 +68,7 @@ const FilterModalForm = ({ onClose }: FilterModalFormProps) => {
     setValue('generation', next)
   }
 
-  const onSubmit = (values: FilterFormValues) => {
+  const handleSubmitFilter = (values: FilterFormValues) => {
     const params = new URLSearchParams(searchParams)
 
     Object.entries(values).forEach(([key, value]) => {
@@ -98,7 +92,17 @@ const FilterModalForm = ({ onClose }: FilterModalFormProps) => {
     onClose()
   }
 
-  const generation = watch('generation')
+  const handleClickForm = (e: MouseEvent<HTMLFormElement>) => {
+    e.stopPropagation()
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [onClose])
 
   return (
     <Portal>
@@ -108,8 +112,8 @@ const FilterModalForm = ({ onClose }: FilterModalFormProps) => {
       >
         <FormProvider {...formMethods}>
           <form
-            onSubmit={handleSubmit(onSubmit)}
-            onClick={(e) => e.stopPropagation()}
+            onSubmit={handleSubmit(handleSubmitFilter)}
+            onClick={handleClickForm}
             role="dialog"
             aria-modal="true"
             aria-labelledby="filter-modal-title"

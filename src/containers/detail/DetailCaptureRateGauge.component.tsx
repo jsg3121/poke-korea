@@ -3,7 +3,10 @@ interface CaptureRateGaugeProps {
   progress?: number
 }
 
-const CaptureRateGauge = ({ percent, progress = 1 }: CaptureRateGaugeProps) => {
+const DetailCaptureRateGauge = ({
+  percent,
+  progress = 1,
+}: CaptureRateGaugeProps) => {
   return (
     <span
       aria-hidden="true"
@@ -17,4 +20,4 @@ const CaptureRateGauge = ({ percent, progress = 1 }: CaptureRateGaugeProps) => {
   )
 }
 
-export default CaptureRateGauge
+export default DetailCaptureRateGauge

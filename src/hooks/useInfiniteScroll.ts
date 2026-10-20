@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { DependencyList, useCallback, useEffect, useRef } from 'react'
 
 interface UseInfiniteScrollProps {
   hasNextPage: boolean | undefined
   loadMore: () => void
   rootMargin?: string
-  dependencies?: Array<any>
+  dependencies?: DependencyList
   enabled?: boolean
 }
 

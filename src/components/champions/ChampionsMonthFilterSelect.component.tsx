@@ -1,5 +1,6 @@
 'use client'
 
+import { ChangeEvent } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { formatMonthLabel } from './utils/championsMonth.util'
@@ -17,9 +18,10 @@ const ChampionsMonthFilterSelect = ({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const handleChange = (value: string) => {
+  const handleChangeMonth = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value
     const params = new URLSearchParams(searchParams.toString())
-    if (value) {
+    if (value !== '') {
       params.set('month', value)
     } else {
       params.delete('month')
@@ -33,7 +35,7 @@ const ChampionsMonthFilterSelect = ({
       <span className="sr-only">월별 필터</span>
       <select
         value={currentMonth ?? ''}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={handleChangeMonth}
         className="bg-primary-4 text-primary-1 border-[2px] border-solid border-primary-1 rounded-md px-3 py-1.5 text-sm font-bold cursor-pointer hover:bg-primary-3 transition-colors"
       >
         <option value="">전체 기간</option>

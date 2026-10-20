@@ -2,13 +2,8 @@
 
 import { createContext, ReactNode, useContext, useState } from 'react'
 
-import {
-  PokemonType,
-  SearchPokemonFormsWithTypesQuery,
-} from '~/graphql/typeGenerated'
-
-export type SelectedPokemon =
-  SearchPokemonFormsWithTypesQuery['searchPokemonWithAllForms'][number]
+import { PokemonType } from '~/graphql/typeGenerated'
+import { PokemonNameOption } from '~/components/typeEffectiveness/pokemonNameSearch.types'
 
 export interface TypeEffectivenessProviderProps {
   children: ReactNode
@@ -16,10 +11,10 @@ export interface TypeEffectivenessProviderProps {
 
 interface TypeEffectivenessContextValue {
   selectTypeList: Array<PokemonType>
-  selectedPokemon: SelectedPokemon | null
+  selectedPokemon: PokemonNameOption | null
   isMaxSelectType: boolean
   handleChangeTypes: (selectType: PokemonType) => void
-  handleSelectPokemon: (pokemon: SelectedPokemon) => void
+  handleSelectPokemon: (pokemon: PokemonNameOption) => void
   handleResetSelectTypes: () => void
 }
 
@@ -31,7 +26,7 @@ const TypeEffectivenessProvider = ({
 }: TypeEffectivenessProviderProps) => {
   const [selectTypeList, setSelectTypeList] = useState<Array<PokemonType>>([])
   const [selectedPokemon, setSelectedPokemon] =
-    useState<SelectedPokemon | null>(null)
+    useState<PokemonNameOption | null>(null)
 
   const handleResetSelectTypes = () => {
     setSelectTypeList([])
@@ -55,7 +50,7 @@ const TypeEffectivenessProvider = ({
     })
   }
 
-  const handleSelectPokemon = (pokemon: SelectedPokemon) => {
+  const handleSelectPokemon = (pokemon: PokemonNameOption) => {
     setSelectTypeList([...pokemon.types])
     setSelectedPokemon(pokemon)
   }

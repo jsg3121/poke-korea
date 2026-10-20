@@ -3,7 +3,7 @@
  * @param active 현재 선택된 폼인지
  * @returns 링크 className
  */
-export const formLinkClass = (active: boolean) =>
+export const getFormLinkClass = (active: boolean) =>
   `flex h-8 items-center gap-1 rounded-2xl bg-primary-4 px-3 text-xs font-semibold text-black-2 transition-opacity desktop:text-sm ${
     active
       ? 'opacity-100'

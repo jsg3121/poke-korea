@@ -13,7 +13,7 @@ poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)
 ## 이 프로젝트의 SEO 구조 (감사 전 파악)
 
 - **메타데이터**: Next.js Metadata API. 정적 페이지는 `export const metadata`(또는 `createMetadata` 헬퍼, `src/constants/seoMetaData.ts`), 동적 라우트는 `generateMetadata()`. 각 라우트의 `_metadata/` 폴더 또는 인접 모듈에 생성기가 있다.
-- **브랜드 접미사**: 루트 `src/app/layout.tsx`의 `title.template`(`%s | 포케 코리아`)이 자동으로 붙인다. 각 페이지 title은 **접미사 없이** 페이지명만 둔다(홈·404는 `title.absolute`로 우회). og/twitter title은 template 미적용이라 `- 포케 코리아`를 명시 부착한다.
+- **브랜드 접미사**: 루트 `src/app/layout.tsx`의 `title.template`(`%s - 포케 코리아`)이 자동으로 붙인다. 각 페이지 title은 **접미사 없이** 페이지명만 둔다(홈·404는 `title.absolute`로 우회). og/twitter title은 template 미적용이라 `- 포케 코리아`를 명시 부착한다.
 - **JSON-LD**: `src/constants/*JsonLd.ts` 상수 파일로 관리(pokemonJsonLd·movesJsonLd·championsJsonLd·quizJsonLd·typeEffectivenessJsonLd·abilityJsonLd·websiteJsonLd 등). 각 page.tsx가 `<script type="application/ld+json">`로 삽입.
 - **robots/sitemap**: `src/app/robots.ts`, `src/app/sitemap.ts`(GraphQL 동적 수집 + revalidate + 빌드 타임스탬프 lastmod).
 - **단일 언어**: hreflang·다국어 alternates는 **해당 없음**. 검사 항목에서 제외한다.
@@ -33,7 +33,7 @@ poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)
 #### 메타태그
 
 - `title` 존재 및 대략 60자 이내. 동적 라우트는 데이터 기반으로 **고유**한지.
-- ⚠️ **이중 접미사 검사**: title.template이 `| 포케 코리아`를 붙이므로, 페이지 title에 수동 접미사가 남아 있으면 `... | 포케 코리아 | 포케 코리아`가 된다. `grep`으로 페이지 title 필드의 브랜드 접미사 잔존을 확인.
+- ⚠️ **이중 접미사 검사**: title.template이 `- 포케 코리아`를 붙이므로, 페이지 title에 수동 접미사가 남아 있으면 `... - 포케 코리아 - 포케 코리아`가 된다. `grep`으로 페이지 title 필드의 브랜드 접미사 잔존을 확인.
 - `description` 존재, 고유. 길이는 **한국어 기준 80~120자**를 권장한다.
   - ⚠️ 영문 SEO 통설의 120~160자를 그대로 적용하지 않는다. Google은 [description 길이를 공식화하지 않고](https://developers.google.com/search/docs/appearance/snippet#meta-descriptions) "충분히 서술적일 것"만 요구하며, 한국어는 글자당 정보밀도가 높아 스니펫이 보통 80자 안팎에서 잘린다. 길이를 채우려고 늘리면 **핵심 답이 잘린 뒤로 밀린다.**
   - 판단 기준은 글자 수가 아니라 **"첫 문장에 사용자가 찾는 답이 있는가"**다. 검색 의도가 명확한 페이지(`○○ 타입 약점`)일수록 짧고 앞에 답을 두는 편이 낫다.

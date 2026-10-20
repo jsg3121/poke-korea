@@ -145,8 +145,8 @@ const meta = {
     status: 'success',
     options: RAICHU_OPTIONS,
     query: '라이츄',
-    onSelect: noop,
-    onRetry: noop,
+    onSelectPokemon: noop,
+    onClickRetry: noop,
   },
 } satisfies Meta<typeof PokemonNameSuggestionList>
 

@@ -67,6 +67,7 @@ const TypeCalculatorResult = () => {
         <section className="w-full pt-6 desktop:pt-8">
           <h2
             id={RESULT_TITLE_ID}
+            tabIndex={-1}
             className="scroll-mt-16 text-xl desktop:scroll-mt-32 desktop:text-3xl font-semibold text-primary-4 leading-tight"
           >
             {selectTypeListKo} 타입은 이렇게 상대하세요!
