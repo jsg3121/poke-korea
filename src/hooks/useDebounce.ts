@@ -1,32 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-type DebounceType = (str: string) => void
-
-type UseDebounce = (initialValue?: string) => [string, DebounceType]
-
-/**
- * text 입력값 debounce.
- * @param initialValue 초기 키워드 — URL 등 외부 상태와 맞춰 시작할 때 쓴다(기본 '')
- * @returns [마지막 문자열, debounce 함수]
- */
-export const useDebounce: UseDebounce = (initialValue = '') => {
-  const [value, setValue] = useState<string>(initialValue)
-  const [keyword, setKeyword] = useState<string>(initialValue)
-
-  const debounce: DebounceType = (str) => {
-    setValue(str)
-  }
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      return setKeyword(value)
-    }, 500)
-    return () => clearTimeout(timeout)
-  }, [value])
-
-  return [keyword, debounce]
-}
-
 type DebouncedCallback<T extends unknown[]> = (...args: T) => void
 
 /**
@@ -42,7 +15,9 @@ export const useDebouncedCallback = <T extends unknown[]>(
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const callbackRef = useRef(callback)
 
-  callbackRef.current = callback
+  useEffect(() => {
+    callbackRef.current = callback
+  })
 
   const debouncedCallback = useCallback(
     (...args: T) => {
@@ -66,4 +41,20 @@ export const useDebouncedCallback = <T extends unknown[]>(
   }, [])
 
   return debouncedCallback
+}
+
+type DebounceType = (str: string) => void
+
+type UseDebounce = (initialValue?: string) => [string, DebounceType]
+
+/**
+ * text 입력값 debounce.
+ * @param initialValue 초기 키워드 — URL 등 외부 상태와 맞춰 시작할 때 쓴다(기본 '')
+ * @returns [마지막 문자열, debounce 함수]
+ */
+export const useDebounce: UseDebounce = (initialValue = '') => {
+  const [keyword, setKeyword] = useState<string>(initialValue)
+  const debounce = useDebouncedCallback((str: string) => setKeyword(str))
+
+  return [keyword, debounce]
 }
