@@ -1,44 +1,19 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
-import { useDebouncedCallback } from '~/hooks/useDebounce'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
+import { useSearchParamInput } from '~/hooks/useSearchParamInput'
 import Image from '~/components/Image.component'
 
 const ListSearch = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const nameParam = searchParams.get('name') ?? ''
-  const [keyword, setKeyword] = useState(nameParam)
-  const [lastWritten, setLastWritten] = useState(nameParam)
+  const { keyword, updateKeyword } = useSearchParamInput('name')
   const feedbackFormUrl = useFeedbackFormUrl()
 
-  const updateSearchParams = useDebouncedCallback(() => {
-    const nextName = keyword.trim()
-    if (nextName === lastWritten) return
-
-    const params = new URLSearchParams(searchParams)
-    if (nextName === '') {
-      params.delete('name')
-    } else {
-      params.set('name', nextName)
-    }
-    setLastWritten(nextName)
-    router.replace(`/list?${params.toString()}`, { scroll: false })
-  })
-
-  if (nameParam === '' && lastWritten !== '') {
-    setLastWritten('')
-    setKeyword('')
-  }
-
   const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value)
-    updateSearchParams()
+    updateKeyword(e.target.value)
   }
 
   return (
