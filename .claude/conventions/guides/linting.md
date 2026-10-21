@@ -63,8 +63,8 @@ ESLint가 잡는 **코드 품질** 규칙을 규정한다. 설정은 `.eslintrc`
 `exhaustive-deps`를 억제할 때는 **반드시 이유를 주석으로 남긴다.**
 
 ```tsx
+// ↓ dependencies는 호출부가 넘기는 가변 배열이라 정적 검증이 불가능하다
 // eslint-disable-next-line react-hooks/exhaustive-deps
-// ↑ debounce된 keyword가 바뀔 때만 실행하는 것이 의도
 ```
 
 > **Why warn인가:** 이 규칙은 의도적으로 의존성을 뺀 경우를 구분하지 못해 오탐이 있다. error로 두면 `eslint-disable`이 남발되어 오히려 규칙이 무력해진다. warn으로 두고 억제할 때 이유를 적게 한다.

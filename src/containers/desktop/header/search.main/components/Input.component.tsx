@@ -1,6 +1,10 @@
-import { forwardRef } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 
-interface InputComponentsProps {
+interface InputComponentsProps
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'id' | 'className' | 'type'
+  > {
   dataLabel: string
   label: string
   hasValue: boolean

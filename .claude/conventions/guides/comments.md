@@ -117,7 +117,7 @@ const formLabel = FORM_LABELS[formType]
 
 ```tsx
 // ✅ 억제 사유 — 사유는 지시문 위에 둔다
-// ↓ debounce된 keyword 변경 시에만 실행하는 것이 의도
+// ↓ dependencies는 호출부가 넘기는 가변 배열이라 정적 검증이 불가능하다
 // eslint-disable-next-line react-hooks/exhaustive-deps
 
 // ✅ 우회책

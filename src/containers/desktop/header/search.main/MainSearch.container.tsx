@@ -1,83 +1,49 @@
 'use client'
 
-import { useEffect } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { FormProvider, useForm } from 'react-hook-form'
+import { ChangeEvent } from 'react'
 
+import { useSearchParamInput } from '~/hooks/useSearchParamInput'
 import Image from '~/components/Image.component'
 
 import InputComponents from './components/Input.component'
 
-type SearchFormType = {
-  name: string | null
-}
-
 const MainSearch = () => {
-  const router = useRouter()
-  const routerQuery = useSearchParams()
-  const pathname = usePathname()
+  const { keyword, updateKeyword } = useSearchParamInput('name')
+  const hasValue = keyword !== ''
 
-  const searchFormMethods = useForm<SearchFormType>({
-    defaultValues: {
-      name: routerQuery.get('name') ?? null,
-    },
-  })
-
-  const { handleSubmit, register, setValue, watch } = searchFormMethods
-
-  const onSubmitSearch = (form: SearchFormType) => {
-    const { name } = form
-    const params = new URLSearchParams(routerQuery)
-
-    if (name?.trim()) {
-      params.set('name', name.trim())
-    } else {
-      params.delete('name')
-    }
-
-    router.push(`${pathname}?${params.toString()}`)
+  const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
+    updateKeyword(e.target.value)
   }
-
-  const name = watch('name') || ''
-  const hasValue = name.length > 0
-  const nameParam = routerQuery.get('name')
-
-  useEffect(() => {
-    setValue('name', nameParam || null)
-  }, [nameParam, setValue])
 
   return (
     <div className="w-[30rem] h-12 absolute right-1/2 translate-x-1/2 top-0 rounded-[2rem] bg-white">
-      <FormProvider {...searchFormMethods}>
-        <form
-          onSubmit={handleSubmit(onSubmitSearch)}
-          className="w-[calc(100%-3.5rem)] h-full flex-between"
-          role="search"
+      <div className="w-[calc(100%-3.5rem)] h-full flex-between" role="search">
+        <InputComponents
+          hasValue={hasValue}
+          dataLabel="search-input-name"
+          label="포켓몬 검색"
+          name="name"
+          autoComplete="off"
+          value={keyword}
+          onChange={handleChangeKeyword}
+        />
+        <span
+          aria-hidden="true"
+          className="w-8 h-8 absolute top-1/2 right-4 -translate-y-1/2"
         >
-          <InputComponents
-            hasValue={hasValue}
-            dataLabel="search-input-name"
-            label="포켓몬 검색"
-            {...register('name')}
+          <Image
+            src="/assets/image/search.svg"
+            width="2rem"
+            height="2rem"
+            alt=""
+            fetchPriority="high"
+            imageSize={{
+              width: 32,
+              height: 32,
+            }}
           />
-          <button
-            type="submit"
-            className="w-8 h-8 absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer"
-          >
-            <Image
-              src="/assets/image/search.svg"
-              width="2rem"
-              height="2rem"
-              alt="포켓몬 검색"
-              fetchPriority="high"
-              imageSize={{
-                width: 32,
-                height: 32,
-              }}
-            />
-          </button>
-        </form>
-      </FormProvider>
+        </span>
+      </div>
     </div>
   )
 }

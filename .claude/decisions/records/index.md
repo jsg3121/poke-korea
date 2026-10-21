@@ -31,3 +31,4 @@
 | [ADR-0020](ADR-0020-breakpoint-two-only.md)                | 브레이크포인트를 2종으로 고정                        | 승인   |
 | [ADR-0021](ADR-0021-home-screen-app-icon.md)               | 홈 화면 아이콘 제공·주소창 유지                      | 승인   |
 | [ADR-0022](ADR-0022-list-search-include-forms.md)          | 도감 목록 이름 검색에 리전폼·메가진화 포함           | 제안   |
+| [ADR-0023](ADR-0023-search-input-url-sync.md)              | 검색 입력과 URL 동기화 방식 통일, RHF 제거           | 승인   |

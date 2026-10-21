@@ -16,7 +16,7 @@ const meta = {
     docs: {
       description: {
         component: [
-          '추가 필터 검색 모달 (organism). CloseIconButton·Checkbox·RadioGroup·Button 원자를 조립하고, 필터 폼(react-hook-form)과 URL 쿼리 동기화를 담당한다.',
+          '추가 필터 검색 모달 (organism). CloseIconButton·Checkbox·RadioGroup·Button 원자를 조립하고, 필터 폼(제출 시 FormData로 값 수집)과 URL 쿼리 동기화를 담당한다.',
           '',
           '데/모 2벌(크기만 다른 사실상 복붙)을 CSS 반응형 단일로 통합. 모바일 퍼스트 — base는 풀스크린 시트, 데스크톱(desktop:)은 중앙 고정 카드(28rem)다. 딤은 Portal로 body 밖 portal-root에 렌더된다.',
           '',
