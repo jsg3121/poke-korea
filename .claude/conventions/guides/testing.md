@@ -1,17 +1,26 @@
 # 테스트 가이드 (E2E)
 
-**사용자 흐름이 의도대로 동작하는지 브라우저에서 자동으로 확인하는 테스트**를 어떻게 쓰고 돌리는지 규정한다. 도구는 Playwright(`@playwright/test`)다. 검사 절차(QA에서 언제·어떻게 돌리고 어떻게 판정하는가)는 `.claude/skills/e2e-check/SKILL.md`가 담당한다.
+**사용자 흐름이 의도대로 동작하는지 브라우저에서 자동으로 확인하는 테스트**를 어떻게 쓰고 돌리는지 규정한다. 도구는 Playwright(`@playwright/test`)다. 검사 절차(QA에서 언제·어떻게 작성하고 돌리고 판정하는가)는 `.claude/skills/e2e-check/SKILL.md`가 담당한다.
+
+---
+
+## spec은 저장하지 않는다
+
+E2E spec은 **검사할 때마다 그 변경에 맞춰 작성하고, 실행한 뒤 지운다.** `e2e/` 폴더는 gitignore 대상이며 커밋하지 않는다. `e2e/` 작성·삭제는 승인 없이 허용돼 있다(`.claude/settings.json`).
+
+> **Why:** spec을 쌓아 두면 이후 검사에서 이번 변경과 무관한 이전 테스트까지 함께 돌고, 오래된 기대값이 새 작업을 막는다. 검사마다 필요한 흐름만 새로 쓰면 결과가 그 변경에 대한 판단으로만 읽힌다. 대신 회귀를 막는 고정 테스트는 없으므로, 공용 코드가 바뀌면 사용처 흐름까지 넓게 도출한다(`e2e-check` 2단계).
 
 ---
 
 ## 실행
 
 ```bash
-npm run test:e2e                              # 전체 (모바일·데스크톱 두 프로젝트)
-npx playwright test e2e/list                  # 도메인 하나
+npx playwright test                           # e2e/에 작성된 spec 전체 (모바일·데스크톱 두 프로젝트)
 npx playwright test --project=mobile          # 디바이스 하나
 npx playwright test -g "초기화"               # 테스트 이름으로 거르기
 ```
+
+`npm run test:e2e`는 `npx playwright test`와 같다. `e2e/`가 비어 있으면 실행할 테스트가 없다.
 
 **사용자가 띄운 개발 서버(`localhost:3000`)와 로컬 GraphQL 서버(`localhost:4000`)에 붙어서 돈다.** Playwright가 서버를 직접 띄우지 않고(`webServer` 미사용), 다른 주소는 `BASE` 환경변수로 바꾼다.
 
@@ -40,14 +49,13 @@ npx playwright test -g "초기화"               # 테스트 이름으로 거르
 ## 파일 위치와 이름
 
 ```text
-e2e/
-├── {도메인}/{흐름}.spec.ts     # 예: list/search.spec.ts, list/filter-modal.spec.ts
-└── utils/                      # 두 개 이상 spec이 쓰는 헬퍼
+e2e/                            # gitignore — 검사 중에만 존재
+└── {라우트}/{흐름}.spec.ts     # 예: list/search.spec.ts, list/filter-modal.spec.ts
 ```
 
-- **도메인 폴더는 라우트 이름을 따른다** — `/list` → `e2e/list/`, `/moves` → `e2e/moves/`. 변경 파일에서 관련 spec을 찾을 때 이 대응을 쓴다(`e2e-check` 선별 규칙).
-- `describe`는 기능 이름, `test`는 **"~하면 ~한다"** 형태의 사용자 관점 문장으로 쓴다.
-- spec 안에서만 쓰는 헬퍼는 그 파일 최상단에, 두 개 이상 spec이 쓰면 `e2e/utils/`로 올린다(`structure.md` 배치 규칙과 같다).
+- **폴더는 라우트 이름을 따른다** — `/list` → `e2e/list/`, `/moves` → `e2e/moves/`.
+- `describe`는 기능 이름, `test`는 **"~하면 ~한다"** 형태의 사용자 관점 문장으로 쓴다. 보고서에 테스트 이름이 그대로 실리므로, 이름만 읽어도 무엇을 검증했는지 알 수 있어야 한다.
+- 헬퍼는 spec 파일 안에 둔다. spec이 매번 지워지므로 공용 헬퍼 폴더를 두지 않는다.
 
 ---
 
@@ -113,9 +121,9 @@ const getSearchInput = (page: Page, testInfo: TestInfo) =>
 
 ## 버그를 고칠 때
 
-1. 버그를 재현하는 테스트를 먼저 쓴다.
-2. **고치기 전 코드에서 그 테스트가 실패하는지 확인한다.** 이미 통과한다면 버그를 재현하지 못한 것이다.
-3. 고친 뒤 통과를 확인한다.
+1. 버그를 재현하는 spec을 먼저 쓴다.
+2. **고치기 전 코드에서 그 spec이 실패하는지 확인한다.** 이미 통과한다면 버그를 재현하지 못한 것이다.
+3. 고친 뒤 통과를 확인하고, spec을 지운다.
 
 > **Why:** 처음부터 통과하는 테스트는 그 버그를 잡는다는 보장이 없다. 실패를 한 번 보는 것이 테스트가 제 역할을 하는지 확인하는 유일한 방법이다.
 

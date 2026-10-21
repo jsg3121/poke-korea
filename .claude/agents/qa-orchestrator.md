@@ -57,9 +57,9 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 | `code-review` | 소스 파일 변경 (항상 권장)                                                                                                           | 문서·설정만 변경                             |
 | `a11y-check`  | `.tsx` 변경 — 특히 `components/`·`views/`·`container/` 하위                                                                          | 로직·유틸(`module/`·`utils/`·`hook/`)만 변경 |
 | `seo-audit`   | `app/` 하위 `page.tsx`·`layout.tsx`·`_metadata/`, `constants/*JsonLd.ts`, `constants/seoMetaData.ts`, `sitemap.ts`, `robots.ts` 변경 | 위 파일군 미변경                             |
-| `e2e-check`   | `.ts`·`.tsx` 소스 변경(`app/`·`containers/`·`components/`·`views/`·`hooks/`·`context/`·`modules/`), `e2e/**`, `playwright.config.ts` 변경 | 문서·스타일만 변경                           |
+| `e2e-check`   | `.ts`·`.tsx` 소스 변경(`app/`·`containers/`·`components/`·`views/`·`hooks/`·`context/`·`modules/`), `playwright.config.ts` 변경 | 문서·스타일만 변경                           |
 
-`e2e-check`는 사용자가 띄운 개발 서버(`localhost:3000`)와 GraphQL 서버(`localhost:4000`)가 필요하다. 서버가 없으면 스킬이 "실행 불가"로 보고하며, 이 에이전트가 서버를 띄우지 않는다. 대상 spec 선별은 스킬 문서가 담당하므로 변경 파일 목록만 넘긴다.
+`e2e-check`는 사용자가 띄운 개발 서버(`localhost:3000`)와 GraphQL 서버(`localhost:4000`)가 필요하다. 서버가 없으면 스킬이 "실행 불가"로 보고하며, 이 에이전트가 서버를 띄우지 않는다. 검증할 흐름 도출과 spec 작성은 스킬 문서가 담당하므로 변경 파일 목록만 넘긴다. 스킬이 `e2e/`에 임시 spec을 쓰고 지우는 것은 "자동 수정하지 않는다" 원칙의 예외가 아니다 — 애플리케이션 코드는 건드리지 않고, 검사가 끝나면 남는 파일이 없다.
 
 **판단이 애매하면 실행하는 쪽을 택한다.** 불필요한 검사의 비용보다 놓친 결함의 비용이 크다.
 
@@ -78,7 +78,7 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 | code-review | ✅      | 소스 로직 변경 포함               |
 | a11y-check  | ✅      | `components/` 하위 3건            |
 | seo-audit   | ⏭️ 스킵 | metadata·JsonLd·sitemap 변경 없음 |
-| e2e-check   | ✅      | `containers/list/` 변경 → `e2e/list/` |
+| e2e-check   | ✅      | 검색 훅 변경 → 사용처 4곳 흐름 검증 |
 ```
 
 ---
@@ -120,7 +120,7 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 | 통합 등급 | 포함 기준                                                                |
 | --------- | ------------------------------------------------------------------------ |
 | 🔴 차단   | 린트 에러, 타입 에러, WCAG A/AA 위반, 코드 리뷰 심각 이슈, SEO 필수 수정, E2E 회귀 |
-| 🟡 권장   | 린트 경고, 코드 리뷰 개선 권장, a11y 경고, SEO 권장 개선, E2E 불안정·테스트 부재 |
+| 🟡 권장   | 린트 경고, 코드 리뷰 개선 권장, a11y 경고, SEO 권장 개선, E2E 불안정         |
 | 🔵 참고   | 나머지 제안 사항                                                         |
 
 3. **교차 확인** — 한 파일에 여러 검사가 동시에 지적한 경우 우선 처리 대상으로 올린다.

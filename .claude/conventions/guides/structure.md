@@ -288,4 +288,4 @@ UI 시안은 `public/preview/`에 둔다. `.claude/` 하위 `.html` 생성은 �
 | 실행 계획서                      | `specs/plans/`                       |
 | 조사 보고서                      | `research/<유형>/YYYY-MM-DD-*.md`    |
 | UI 시안 HTML                     | `public/preview/`                    |
-| E2E 테스트                       | 루트 `e2e/<라우트>/*.spec.ts` (`testing.md`) |
+| E2E 테스트                       | 루트 `e2e/<라우트>/*.spec.ts` — 검사 중에만 존재, 커밋 안 함 (`testing.md`) |

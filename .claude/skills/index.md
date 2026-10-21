@@ -11,7 +11,7 @@
 | `/code-review` | 서브에이전트 기반 코드 리뷰                | 보고만             |
 | `/a11y-check`  | WCAG 접근성 검사                           | 보고만             |
 | `/seo-audit`   | 메타태그·JSON-LD·sitemap 감사              | 보고만             |
-| `/e2e-check`   | 관련 Playwright E2E 실행·실패 분류         | 보고만             |
+| `/e2e-check`   | 변경 흐름 E2E 작성·실행·분류 후 spec 삭제  | 보고만             |
 | `/research`    | 외부 정보 조사 (공식 문서 우선)            | `research/` 보고서 |
 
 ## 비즈니스 분석 스킬

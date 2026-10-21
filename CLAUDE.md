@@ -53,7 +53,7 @@
 | `npm run lint`         | ESLint 코드 품질 검사 (`lint:fix`로 자동 수정)                               |
 | `npm run format:check` | Prettier 포맷 검사 (`format`으로 자동 정리)                                  |
 | `npm run codegen`      | GraphQL 스키마로부터 TypeScript 타입 생성 (localhost:4000/graphql 서버 필요) |
-| `npm run test:e2e`     | Playwright E2E 실행 — 개발 서버·GraphQL 서버가 떠 있어야 한다                |
+| `npm run test:e2e`     | `e2e/`의 Playwright spec 실행 — spec은 `/e2e-check`가 매번 작성 후 삭제      |
 | `npm run storybook`    | Storybook 실행 (컴포넌트 카탈로그)                                           |
 | `npm run analyze`      | 번들 크기 분석 (ANALYZE=true 빌드)                                           |
 | `npm run build:docs`   | changelog(Docusaurus) 빌드                                                   |

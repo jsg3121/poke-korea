@@ -42,7 +42,7 @@ npx tsc --noEmit
 
 ## E2E 테스트
 
-`.claude/skills/e2e-check/SKILL.md`를 읽고 그 절차(서버 확인 → spec 선별 → 실행 → 실패 분류)를 따른다. 사용자가 띄운 개발 서버(`localhost:3000`)와 GraphQL 서버(`localhost:4000`)에 붙어서 돌며, **빌드하지 않는다.**
+`.claude/skills/e2e-check/SKILL.md`를 읽고 그 절차(서버 확인 → 흐름 도출 → spec 작성 → 실행 → 실패 분류 → spec 삭제)를 따른다. 사용자가 띄운 개발 서버(`localhost:3000`)와 GraphQL 서버(`localhost:4000`)에 붙어서 돌며, **빌드하지 않는다.**
 
 > **Why 빌드하지 않는가:** 프로덕션 빌드는 운영 API를 호출하고, 개발 서버가 떠 있을 때 빌드하면 `.next`를 공유해 서버가 죽는다. 상세는 `.claude/conventions/guides/testing.md` "실행".
 
@@ -72,7 +72,7 @@ npx tsc --noEmit
 | ------------ | -------------------- | --------- | ----------------- |
 | 정적 분석만  | Bash 직접 실행       | 낮음      | ~10초             |
 | QA 종합 검증 | 에이전트 + 병렬 서브 | 높음      | ~60초 (병렬)      |
-| E2E 테스트   | Bash 직접 실행       | 중간      | ~20초 (전체 spec) |
+| E2E 테스트   | spec 작성 + 실행     | 중간~높음 | 흐름 수에 비례    |
 
 **선택 가이드:**
 
