@@ -72,7 +72,6 @@
 | UI 라이브러리 | React                            |
 | 스타일링      | Tailwind CSS                     |
 | 데이터 페칭   | Apollo Client + GraphQL          |
-| 폼 관리       | React Hook Form                  |
 | 차트          | Chart.js + react-chartjs-2       |
 | 상태 관리     | React Context API + Immer        |
 | SVG 처리      | @svgr/webpack                    |
