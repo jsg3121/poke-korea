@@ -143,7 +143,7 @@
 
 - **백엔드 선행 작업**: `PokemonFormInfo`에 `types: [PokemonType!]!` 필드 추가, 폼 4종(기본·메가·폼체인지·리전폼)을 결과에 넣을 때 각 행의 `types`를 담는다. 서비스는 이미 행 전체를 읽고 있어 추가 조회가 없다.
 - **프론트**: 이 기능 전용 쿼리를 정의해 필요한 필드(`name`, `number`, `index`, `formType`, `types`, `imagePath`)만 고른다. `imagePath`는 헤더 검색 쿼리가 이미 받는 필수 필드이며, 목록·선택 표시의 썸네일에 쓴다(6.2). 백엔드 반영 후 `npm run codegen`.
-- **디바운스**: 헤더 포켓몬 검색(`useSearchPokemon`)과 같은 `src/hooks/useDebounce.ts`의 `useDebounce`와 기본 간격(500ms)을 쓴다. 디바운스된 값을 쿼리 변수로 쓰는 경우라서다. 검색어를 URL에 쓰는 도감·기술·특성 목록 검색은 `useDebouncedCallback`을 쓴다([ADR-0023](../../decisions/records/ADR-0023-search-input-url-sync.md)).
+- **디바운스**: 헤더 포켓몬 검색(`useSearchPokemon`)과 같은 `src/hooks/useDebounce.ts`의 `useDebounce`와 기본 간격(500ms)을 쓴다. 디바운스된 값을 쿼리 변수로 쓰는 경우라서다. 검색어를 URL에 쓰는 도감·기술·특성 목록 검색은 `useSearchParamInput`을 쓴다([ADR-0023](../../decisions/records/ADR-0023-search-input-url-sync.md)).
 - **캐시**: 헤더 검색(`useSearchPokemon`, `cache-and-network`)의 방식을 따른다.
 - **`id`는 받지 않는다**(2026-10-20 사용자 결정). 백엔드 `id`는 폼을 가리키는 고정값이 아니다(3). 받으면 Apollo가 `__typename + id`로 정규화해 같은 폼이 서로 다른 객체로 저장되고, 서버 캐시가 비워질 때마다 쓰이지 않는 객체가 쌓인다. 빼도 같은 검색어 결과는 그 검색어의 응답 단위로 캐시되므로 캐싱 효과는 같다. 폼은 `number` + `formType` + `index`로 식별한다(목록 `key` 포함).
 
@@ -400,7 +400,7 @@
 | 2026-10-15 | 1.62.0 | 검토 중 | GA4 이벤트 전송 방식 확정(공통 유틸 + 타입 정의, `coding.md`) 반영 |
 | 2026-10-15 | 1.62.0 | 승인됨 | 데이터 로딩을 `searchPokemonWithAllForms` + 백엔드 `types` 추가로 변경(폼 실제 타입 지원, 배지 제거). 선택 규칙(포켓몬 선택 시 교체, 칩 클릭 시 이름 설정 칩 해제)과 계산 실행 정의 확정. 파티 점검 보류, 가이드 문구 상황별 변경(메타 불변). 미결 사항 전부 해소 |
 | 2026-10-15 | 1.62.0 | 승인됨 | 백엔드 `types` 추가 로컬 확인 완료. 상용 배포는 프론트 릴리즈와 함께 하되 백엔드를 먼저 배포하는 순서를 7단계·리스크에 명시 |
-| 2026-10-21 | 1.62.0 | 승인됨 | 디바운스 훅 사용처 설명 정정(ADR-0023 — URL에 쓰는 목록 검색은 `useDebouncedCallback`) |
+| 2026-10-21 | 1.62.0 | 승인됨 | 디바운스 훅 사용처 설명 정정(ADR-0023 — URL에 쓰는 목록 검색은 `useSearchParamInput`) |
 | 2026-10-19 | 1.62.0 | 승인됨 | 도감 목록 검색 고도화(ADR-0022)를 별도 작업으로 분리. 폼 이름 검색 확장(8)의 선행 조건을 `searchPokemonWithAllForms` 매칭 확장으로 바꾸고, 어순 처리 방식을 미결로 명시 |
 | 2026-10-19 | 1.62.0 | 승인됨 | C2 이벤트 확정: `use_name_search`(선택마다, `is_first_search`·`query` 포함)와 `use_type_calc`(칩은 1.5초 안정화 후 1회) 2종. no_result·rank 등 제외, 파라미터 값 스네이크 케이스·`form_type` 값 집합 통일 |
 | 2026-10-19 | 1.62.0 | 승인됨 | UX 설계(ux-designer) 결과 반영: 입력 위치(칩 위)와 구분 줄, 썸네일 포함, 결과 전부 표시 + 목록 스크롤, 이름 선택 시 결과로 스크롤, 포커스 시 스크롤 없음, 지우기 버튼 없이 "선택 초기화" 하나, 켜진 칩 재클릭 시 모두 해제, 이름 선택 시 칩 비활성화 해제, 입력 16px(`text-md` 토큰) |
