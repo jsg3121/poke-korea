@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 /**
- * URL 쿼리 파라미터와 연결된 검색 입력값. 입력이 멈추면 URL에 반영하고(비우면 즉시), 밖에서 파라미터가 지워지면 입력값을 비운다.
+ * URL 쿼리 파라미터와 연결된 검색 입력값. 입력이 멈추면 URL에 반영하고(비우면 즉시), 그 사이 입력이 없을 때 밖에서 바뀐 파라미터를 따라간다.
  * @param paramKey 검색어를 담는 쿼리 키
  * @returns 입력값과 입력값 변경 함수
  */
@@ -18,8 +18,8 @@ export const useSearchParamInput = (paramKey: string) => {
 
   if (paramValue !== prevParamValue) {
     setPrevParamValue(paramValue)
-    if (paramValue === '') {
-      setKeyword('')
+    if (keyword.trim() === prevParamValue) {
+      setKeyword(paramValue)
     }
   }
 
