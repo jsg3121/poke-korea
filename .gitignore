@@ -55,6 +55,10 @@ next-env.d.ts
 # playwright screenshots
 /.claude/playwright
 
+# playwright e2e results
+/test-results/
+/playwright-report/
+
 # api handoff documents (from external backend repo)
 /.claude/api-handoffs
 
