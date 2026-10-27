@@ -13,7 +13,6 @@ import {
 import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
 import { DetailContext } from '~/context/Detail.context'
 
-import InfoCardTitle from './components/InfoCardTitle.component'
 import DetailCaptureRateGauge from './DetailCaptureRateGauge.component'
 import DetailGenderBar from './DetailGenderBar.component'
 import {
@@ -21,6 +20,7 @@ import {
   INFO_ROW_CLASS,
   TERM_CLASS,
 } from './shared/detailSpec.constants'
+import InfoCardTitle from './shared/InfoCardTitle.component'
 
 const DESC_AUTO_CLASS =
   'dl-desc h-auto min-h-6 flex-col !items-start gap-1 text-xs leading-6 desktop:min-h-10 desktop:text-base desktop:leading-[calc(2.5rem+2px)]'

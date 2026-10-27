@@ -6,8 +6,8 @@ import { calculateRelationType } from '~/modules/calculateRelationType.module'
 import { DetailContext } from '~/context/Detail.context'
 import TypeMatchup from '~/components/typeMatchup/TypeMatchup.component'
 
-import DetailQuizCta from './components/DetailQuizCta.component'
-import InfoCardTitle from './components/InfoCardTitle.component'
+import DetailQuizCta from './shared/DetailQuizCta.component'
+import InfoCardTitle from './shared/InfoCardTitle.component'
 
 const DetailTypeMatchup = () => {
   const { activeTypeInfo } = useContext(DetailContext)

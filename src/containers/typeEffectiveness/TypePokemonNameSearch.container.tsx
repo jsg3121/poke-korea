@@ -84,9 +84,7 @@ const TypePokemonNameSearch = () => {
       return
     }
     moveToResultTitle(isKeyboardSelectRef.current)
-    // ↓ selectedPokemon이 바뀔 때만 실행하는 것이 의도. debounce는 렌더마다 새로 만들어지는 setter 래퍼다
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedPokemon])
+  }, [selectedPokemon, debounce])
 
   return (
     <div className="mb-4 flex flex-col gap-3 desktop:flex-row desktop:flex-wrap desktop:items-end desktop:gap-x-4">
