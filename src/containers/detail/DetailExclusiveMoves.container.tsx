@@ -12,9 +12,9 @@ import { DetailContext } from '~/context/Detail.context'
 import Chip from '~/components/chip/Chip.component'
 import Tag from '~/components/tag/Tag.component'
 
-import InfoCardTitle from './components/InfoCardTitle.component'
 import DetailMoveConceptNote from './shared/DetailMoveConceptNote.component'
 import DetailMoveEffectDescription from './shared/DetailMoveEffectDescription.component'
+import InfoCardTitle from './shared/InfoCardTitle.component'
 
 const DetailExclusiveMoves = () => {
   const {

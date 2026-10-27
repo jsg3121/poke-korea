@@ -9,13 +9,13 @@ import {
 } from '~/modules/pokemonSpec.module'
 import { DetailContext } from '~/context/Detail.context'
 
-import InfoCardTitle from './components/InfoCardTitle.component'
 import { getActiveFormInfo } from './modules/activeForm.module'
 import {
   DESC_CLASS,
   INFO_ROW_CLASS,
   TERM_CLASS,
 } from './shared/detailSpec.constants'
+import InfoCardTitle from './shared/InfoCardTitle.component'
 
 const DetailBodySpecSection = () => {
   const {
