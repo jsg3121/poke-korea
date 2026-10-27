@@ -120,9 +120,14 @@ git push -u origin "$(git branch --show-current)"
    - Base: `feature/1.28.0`
    - Compare: `feature/1.28.0-refactor`
    - PR 제목: `[1.28.0] {작업명}` (예: `[1.28.0] CSS 패턴 추출 및 최적화`)
-4. 코드 리뷰 후 루트 브랜치로 머지 (`feature/1.28.0-refactor` → `feature/1.28.0`)
+4. 코드 리뷰 후 **사용자가** 루트 브랜치로 머지 (`feature/1.28.0-refactor` → `feature/1.28.0`)
 5. 2~4번 작업이 반복되다 해당 버전의 모든 작업이 완료됐을 때 main을 향하는 릴리즈 PR 생성
 6. 릴리즈 PR을 통해 배포
+7. 머지 후 사용자가 요청하면 Claude가 루트 브랜치를 원격과 동기화한다 (`git checkout feature/{version}` → `git pull --ff-only`)
+
+**PR 머지는 사용자가 한다.** Claude는 PR 생성까지만 하고 `gh pr merge` 등으로 머지하지 않는다. 작업 브랜치 → 루트, 루트 → main 모두 같다.
+
+> **Why (2026-10-27):** 머지는 통합 브랜치나 main에 결과를 확정하는 단계라 되돌리기 어렵다. 사용자가 GitHub에서 diff를 직접 보고 머지 시점을 정하는 흐름이 계속 쓰였으므로, 이를 규칙으로 고정해 PR마다 "머지할까요"를 묻지 않게 한다.
 
 ### 다중 Phase 체이닝 워크플로우
 
