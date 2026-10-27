@@ -32,3 +32,4 @@
 | [ADR-0021](ADR-0021-home-screen-app-icon.md)               | 홈 화면 아이콘 제공·주소창 유지                      | 승인   |
 | [ADR-0022](ADR-0022-list-search-include-forms.md)          | 도감 목록 이름 검색에 리전폼·메가진화 포함           | 제안   |
 | [ADR-0023](ADR-0023-search-input-url-sync.md)              | 검색 입력과 URL 동기화 방식 통일, RHF 제거           | 승인   |
+| [ADR-0024](ADR-0024-no-unit-test-framework.md)             | 단위 테스트 도구 미도입, E2E만 유지                  | 승인   |
