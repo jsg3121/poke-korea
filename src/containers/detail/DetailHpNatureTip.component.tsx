@@ -26,7 +26,10 @@ const DetailHpNatureTip = () => {
   }
 
   return (
-    <span ref={rootRef} className="absolute right-0 top-1/2 -translate-y-1/2">
+    <span
+      ref={rootRef}
+      className="absolute right-0 top-1/2 z-10 -translate-y-1/2"
+    >
       <button
         type="button"
         aria-label="성격 보정 안내"
@@ -51,7 +54,7 @@ const DetailHpNatureTip = () => {
       <span
         id={tipId}
         hidden={!isOpen}
-        className="absolute right-0 top-full z-10 mt-1 w-max max-w-56 rounded-lg bg-primary-1 px-3 py-2 text-left text-xs font-medium text-primary-4"
+        className="absolute right-0 top-full -mt-2 w-max desktop:mt-0 max-w-56 rounded-lg bg-primary-1 px-3 py-2 text-left text-xs font-medium text-primary-4"
       >
         {TIP_TEXT}
       </span>

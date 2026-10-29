@@ -36,7 +36,7 @@ const COLUMNS: ReadonlyArray<RealStatColumn> = [
 ]
 
 const HEADER_CLASS =
-  'relative border-b border-primary-3 pb-3 text-right align-baseline text-lg font-normal leading-7 desktop:pb-0 desktop:text-left desktop:text-xl'
+  'relative border-b border-solid border-primary-3 pb-3 text-right align-baseline text-lg font-normal leading-7 desktop:pb-0 desktop:text-left desktop:text-xl'
 
 const HEADER_TEXT_CLASS = 'text-xs font-semibold text-primary-2 desktop:text-sm'
 
@@ -102,7 +102,7 @@ const DetailRealStatTable = ({
             </th>
             <th scope="col" className={`${HEADER_CLASS} mobile:pr-8`}>
               <span
-                className={`${HEADER_TEXT_CLASS} mobile:absolute mobile:bottom-full mobile:right-8`}
+                className={`${HEADER_TEXT_CLASS} mobile:absolute mobile:bottom-full mobile:right-8 mobile:leading-4`}
               >
                 최대 투자
               </span>
@@ -182,12 +182,12 @@ const DetailRealStatTable = ({
               aria-hidden="true"
               className="inline-block h-2.5 w-4 rounded-full bg-type-grass"
             />
-            열별 최고
+            최고
             <span
               aria-hidden="true"
               className="ml-2 inline-block h-2.5 w-4 rounded-full bg-damage-physical"
             />
-            열별 최저
+            최저
           </li>
         </ul>
       </div>

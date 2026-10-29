@@ -80,7 +80,7 @@ const DetailStats = () => {
     >
       <SectionHeading id="detail-stats-heading">능력치</SectionHeading>
       <div className="card-detail mt-4">
-        <div className="mb-4">
+        <div className="mb-6 desktop:mb-4">
           <SegmentedControl
             label="능력치 보기 방식"
             items={VIEW_ITEMS}
