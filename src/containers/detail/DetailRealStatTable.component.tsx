@@ -36,12 +36,10 @@ const COLUMNS: ReadonlyArray<RealStatColumn> = [
 ]
 
 const HEADER_CLASS =
-  'relative text-right align-baseline text-lg font-normal leading-7 desktop:border-b desktop:border-solid desktop:border-primary-3 desktop:text-left desktop:text-xl'
+  'pb-2 text-right align-bottom text-xs font-semibold leading-4 text-primary-2 desktop:border-b desktop:border-solid desktop:border-primary-3 desktop:text-left desktop:text-sm desktop:leading-5'
 
 const HEADER_LINE_CLASS =
-  'block border-b border-solid pb-3 desktop:border-0 desktop:pb-0'
-
-const HEADER_TEXT_CLASS = 'text-xs font-semibold text-primary-2 desktop:text-sm'
+  'relative mobile:after:absolute mobile:after:bottom-0 mobile:after:left-3 mobile:after:border-b mobile:after:border-solid mobile:after:border-primary-3'
 
 const NUMBER_CLASS = 'text-xs font-bold text-primary-1 desktop:text-sm'
 
@@ -95,32 +93,26 @@ const DetailRealStatTable = ({
         <thead>
           <tr>
             <th scope="col" className={HEADER_CLASS}>
-              <span className={`${HEADER_LINE_CLASS} border-transparent`}>
-                <span className="sr-only">능력치</span>
-              </span>
-            </th>
-            <th scope="col" className={`${HEADER_CLASS} mobile:pl-3`}>
-              <span className={`${HEADER_LINE_CLASS} border-primary-3`}>
-                <span className={HEADER_TEXT_CLASS}>무투자</span>
-              </span>
-            </th>
-            <th scope="col" className={`${HEADER_CLASS} mobile:pl-3`}>
-              <span className={`${HEADER_LINE_CLASS} border-primary-3`}>
-                <span className={HEADER_TEXT_CLASS}>최대 투자</span>
-              </span>
+              <span className="sr-only">능력치</span>
             </th>
             <th
               scope="col"
-              className={`${HEADER_CLASS} mobile:pl-3 mobile:pr-8`}
+              className={`${HEADER_CLASS} ${HEADER_LINE_CLASS} mobile:after:right-0`}
             >
-              <span
-                className={`${HEADER_TEXT_CLASS} mobile:absolute mobile:bottom-full mobile:right-8 mobile:leading-4`}
-              >
-                최대 투자
-              </span>
-              <span className={`${HEADER_LINE_CLASS} border-primary-3`}>
-                <span className={HEADER_TEXT_CLASS}> + 상승 성격</span>
-              </span>
+              무투자
+            </th>
+            <th
+              scope="col"
+              className={`${HEADER_CLASS} ${HEADER_LINE_CLASS} mobile:after:right-0`}
+            >
+              최대 투자
+            </th>
+            <th
+              scope="col"
+              className={`${HEADER_CLASS} ${HEADER_LINE_CLASS} mobile:pr-8 mobile:after:right-8`}
+            >
+              최대 투자
+              <br className="desktop:hidden" /> + 상승 성격
             </th>
           </tr>
         </thead>
@@ -148,18 +140,16 @@ const DetailRealStatTable = ({
                     } ${rowIndex === 0 ? 'pt-2' : ''}`}
                   >
                     <div className="text-right desktop:flex desktop:items-center desktop:gap-2 desktop:text-left">
-                      <span className="desktop:w-11 desktop:shrink-0">
-                        <StatBarAnimatedValue
-                          value={value}
-                          progress={progress}
-                          className={
-                            isBoosted ? BOOSTED_NUMBER_CLASS : NUMBER_CLASS
-                          }
-                        />
-                        {extremeLabel !== '' && (
-                          <span className="sr-only">{extremeLabel}</span>
-                        )}
-                      </span>
+                      <StatBarAnimatedValue
+                        value={value}
+                        progress={progress}
+                        className={`${
+                          isBoosted ? BOOSTED_NUMBER_CLASS : NUMBER_CLASS
+                        } desktop:w-11 desktop:shrink-0`}
+                      />
+                      {extremeLabel !== '' && (
+                        <span className="sr-only">{extremeLabel}</span>
+                      )}
                       <span
                         aria-hidden="true"
                         className="hidden h-2.5 flex-1 overflow-hidden rounded-full bg-primary-1/10 desktop:block"
