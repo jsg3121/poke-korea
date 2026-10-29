@@ -78,6 +78,20 @@ if (!isFormatSlug(slug)) notFound()
 
 `as const`는 예외다 — 타입을 넓히는 게 아니라 좁히므로 안전하다.
 
+### GraphQL 데이터는 쿼리 결과 타입으로 받는다
+
+타입은 **실제로 받는 범위만큼만** 잡는다. 컴포넌트·훅의 props와 반환값에 `PokemonFormInfo` 같은 스키마 전체 타입을 쓰지 않고, 실제로 요청한 필드만 담은 쿼리 결과 타입을 쓴다.
+
+```tsx
+// ❌ 쿼리가 요청하지 않은 필드까지 필수로 요구한다
+pokemonList: Array<PokemonFormInfo>
+
+// ✅ 이 쿼리가 실제로 받는 필드만 담는다
+pokemonList: SearchPokemonWithAllFormsQuery['searchPokemonWithAllForms']
+```
+
+> **Why:** 스키마 타입은 스키마의 모든 필드를 담는다. 쿼리가 일부 필드만 요청해도 타입은 전부 있다고 말하므로, 받지 않은 필드를 읽는 코드가 타입 검사를 통과한다. 또 스키마에 필드가 추가되는 순간 그 필드를 요청하지 않는 무관한 화면의 타입이 깨진다. 1.62.0에서 `PokemonFormInfo`에 `types`를 추가하자, 이를 요청하지 않는 헤더 검색이 타입 오류를 냈다. GraphQL Code Generator도 컴포넌트가 연산 결과 타입을 쓰도록 안내한다([typescript-operations](https://the-guild.dev/graphql/codegen/plugins/typescript/typescript-operations)).
+
 ### `interface`와 `type`
 
 객체 형태는 `interface`, 유니온·튜플·매핑은 `type`을 쓴다. `I`·`IF` 접두사는 붙이지 않는다.
@@ -103,6 +117,37 @@ export const useDetail = () => {
 소비처에서 `useContext`를 직접 호출하지 않는다.
 
 > **Why:** `createContext`에 기본값을 주면 Provider 밖에서 써도 에러가 나지 않고 빈 값이 반환된다. 화면은 비어 보이는데 원인을 알 수 없는 실패가 된다. 훅에서 null을 걸러내면 즉시 명확한 메시지로 터지고, 반환 타입도 non-null로 좁혀져 소비처에서 옵셔널 체이닝이 사라진다. 가짜 기본값을 만들 필요도 없다.
+
+---
+
+## 컴포넌트 본문 순서
+
+**훅 → 계산 변수 → 핸들러 → `useEffect` → `return`** 순서로 쓴다.
+
+```tsx
+const Example = () => {
+  // 1. 훅 — 상태·ref·컨텍스트·커스텀 훅 호출
+  const { selected } = useExample()
+  const [value, setValue] = useState('')
+
+  // 2. 계산 변수 — 훅 결과에서 계산하는 값
+  const isVisible = value !== '' && selected === null
+
+  // 3. 핸들러
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }
+
+  // 4. useEffect — return 바로 앞
+  useEffect(() => {
+    // ...
+  }, [selected])
+
+  return isVisible ? <input value={value} onChange={handleChange} /> : null
+}
+```
+
+> **Why:** 순서가 고정되면 파일을 열었을 때 "무엇을 들고 있고(훅) → 무엇을 계산하고 → 무엇에 반응하며 → 언제 부수 효과가 일어나는가"를 위에서 아래로 한 번에 읽을 수 있다. `useEffect`가 핸들러 사이에 섞이면 부수 효과가 어디서 일어나는지 찾기 어렵다.
 
 ---
 
@@ -182,6 +227,35 @@ npm run codegen   # localhost:4000/graphql 서버가 떠 있어야 한다
 
 ---
 
+## 분석 이벤트 전송
+
+GA4 커스텀 이벤트는 **공통 전송 유틸 하나로만** 보낸다. 컴포넌트에서 `window.gtag`를 직접 부르지 않는다.
+
+- **위치**: 전송 유틸은 `modules/`에 둔다. 외부 서비스 연동이고 여러 도메인이 쓰기 때문이다(`structure.md`).
+- **타입**: 이벤트 이름과 파라미터를 타입으로 정의하고, 유틸은 정의된 이벤트만 받는다. 이 타입 정의가 곧 이벤트 목록이며, GA4 콘솔의 맞춤 측정기준 등록도 이 목록과 맞춘다.
+- **이름**: 이벤트 이름, 파라미터 이름, 열거형 파라미터 값(`tab: 'real'`, `form_type: 'region'` 등)을 모두 소문자 스네이크 케이스로 쓴다. 백엔드 enum(`REGION_FORM`)처럼 형식이 다른 값은 바꿔 보낸다. 이벤트 이름은 40자 이내, 파라미터 값은 100자 이내([GA4 이벤트 수집 한도](https://support.google.com/analytics/answer/9267744)). 같은 대상을 가리키는 파라미터는 이벤트가 달라도 같은 이름과 값 집합을 쓴다. 그래야 GA4 맞춤 측정기준 하나로 묶인다.
+- **이벤트 이름에 페이지를 넣지 않는다.** gtag가 모든 이벤트에 `page_location`을 자동으로 붙인다([GA4 자동 수집 이벤트](https://support.google.com/analytics/answer/9234069)). 같은 페이지 안에서 기능을 구분해야 하면 `source` 같은 파라미터를 쓴다.
+- **gtag가 없을 때는 아무것도 하지 않는다.** gtag는 운영 환경에서만, `afterInteractive`로 불러오므로 개발 환경이나 스크립트 실행 전에는 `window.gtag`가 없다. 이때 오류를 내지 않는다.
+- **개인정보를 보내지 않는다**([GA4 PII 정책](https://support.google.com/analytics/answer/6366371)). 자유 입력값을 보내야 하면 길이를 제한한다.
+- **URL 변경으로 측정하지 않는다.** `router.replace`·`router.push`로 URL을 바꾸면 GA4 향상된 측정이 page_view로 세어 페이지뷰가 부풀려진다([향상된 측정](https://support.google.com/analytics/answer/9216061)). 조작을 측정하려면 이벤트를 보낸다.
+
+```tsx
+// ❌ 호출마다 존재 확인을 반복하고, 이름·파라미터를 검사할 수 없다
+window.gtag?.('event', 'stat_tab_staus', { tab: 'Real' })
+
+// ✅ 정의된 이벤트만 보낼 수 있다
+trackEvent('stats_tab_status', { tab: 'real' })
+```
+
+> **Why 공통 유틸인가 (2026-10-15):** 검토한 후보는 네 가지였다.
+>
+> - **위치마다 `window.gtag` 직접 호출**: 존재 확인이 호출마다 반복되고, 이벤트 이름 오타·파라미터 불일치를 막을 수 없어 기각했다.
+> - **`@next/third-parties`의 `sendGAEvent`**: Next.js 문서가 experimental로 표기한다([Next.js — Third Party Libraries](https://nextjs.org/docs/app/guides/third-party-libraries)). 운영 중인 layout의 gtag 스크립트를 교체해야 해서 페이지뷰 측정이 끊기거나 중복될 위험이 있다. 파라미터 타입 검사도 없어 기각했다.
+> - **Google Tag Manager 전환**: 코드 배포 없이 태그를 바꿀 필요가 있을 때 이득이 크다. 코드를 고치는 사람과 지표를 보는 사람이 같은 지금 규모에는 과하고, 측정 로직이 코드와 콘솔로 나뉜다. 그래서 기각했다.
+> - **공통 유틸 + 타입 정의(채택)**: 기능마다 착수·유지를 이벤트 지표로 판단하기로 해서 이벤트가 계속 늘어난다. 이벤트가 늘수록 이름·파라미터 불일치와 맞춤 측정기준 등록 누락이 생기기 쉬운데, 타입 검사와 한 곳의 목록이 이를 막는다.
+
+---
+
 ## 조건 비교
 
 `==` 대신 `===`를 쓴다. 값의 존재 확인은 암묵 변환에 기대지 않고 명시한다.
@@ -214,3 +288,4 @@ const label = value ?? '알 수 없음'
 | `'use client'` | 필요한 곳에만, 트리 아래쪽으로            |
 | 외부 입력      | `as` 대신 타입 가드                       |
 | 비교           | `===`, 기본값은 `??`                      |
+| 분석 이벤트    | `modules/`의 공통 유틸 + 타입 정의로만    |

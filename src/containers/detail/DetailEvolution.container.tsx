@@ -10,9 +10,9 @@ import { DetailContext } from '~/context/Detail.context'
 import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import Image from '~/components/Image.component'
 
-import EvolutionConditionCard from './components/EvolutionConditionCard.component'
-import InfoCardTitle from './components/InfoCardTitle.component'
 import { AdjacentPokemon } from './DetailSpeciesNav.container'
+import EvolutionConditionCard from './EvolutionConditionCard.component'
+import InfoCardTitle from './shared/InfoCardTitle.component'
 
 interface DetailEvolutionProps {
   evolutionPokemons: Array<AdjacentPokemon>

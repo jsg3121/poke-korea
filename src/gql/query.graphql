@@ -654,6 +654,17 @@ query SearchPokemonWithAllForms($input: SearchPokemonWithAllFormsInput!) {
   }
 }
 
+query SearchPokemonFormsWithTypes($input: SearchPokemonWithAllFormsInput!) {
+  searchPokemonWithAllForms(input: $input) {
+    name
+    number
+    index
+    formType
+    imagePath
+    types
+  }
+}
+
 query GetPokemonSkillDetail($filter: GetPokemonSkillDetailInput!) {
   getPokemonSkillDetail(filter: $filter) {
     id

@@ -53,6 +53,7 @@
 | `npm run lint`         | ESLint 코드 품질 검사 (`lint:fix`로 자동 수정)                               |
 | `npm run format:check` | Prettier 포맷 검사 (`format`으로 자동 정리)                                  |
 | `npm run codegen`      | GraphQL 스키마로부터 TypeScript 타입 생성 (localhost:4000/graphql 서버 필요) |
+| `npm run test:e2e`     | `e2e/`의 Playwright spec 실행 — spec은 `/e2e-check`가 매번 작성 후 삭제      |
 | `npm run storybook`    | Storybook 실행 (컴포넌트 카탈로그)                                           |
 | `npm run analyze`      | 번들 크기 분석 (ANALYZE=true 빌드)                                           |
 | `npm run build:docs`   | changelog(Docusaurus) 빌드                                                   |
@@ -72,7 +73,6 @@
 | UI 라이브러리 | React                            |
 | 스타일링      | Tailwind CSS                     |
 | 데이터 페칭   | Apollo Client + GraphQL          |
-| 폼 관리       | React Hook Form                  |
 | 차트          | Chart.js + react-chartjs-2       |
 | 상태 관리     | React Context API + Immer        |
 | SVG 처리      | @svgr/webpack                    |
@@ -113,6 +113,7 @@ layout.tsx  →  page.tsx  →  views  →  container  →  components
 | 주석 작성     | `.claude/conventions/guides/comments.md`                                        |
 | 린트          | `.claude/conventions/guides/linting.md`                                         |
 | 포맷          | `.claude/conventions/guides/formatting.md`                                      |
+| E2E 테스트    | `.claude/conventions/guides/testing.md`, `/e2e-check` 스킬                      |
 | 브랜치/PR     | `.claude/conventions/guides/workflow.md`                                        |
 | Changelog     | `.claude/conventions/guides/changelog.md`                                       |
 | 캐시/빌드설정 | `.claude/conventions/guides/nextjs.md`                                          |
@@ -195,7 +196,7 @@ SKILL.md와 가이드 문서는 500줄 이하로 유지한다. 상세 내용은 
 
 새로운 기술적 의사결정이 발생하면 ADR로 기록한다. 작성 규칙·트리거 신호·상태 값·지침 변경 절차는 `.claude/decisions/index.md`가 권위 있는 원본이며, 의사결정 관련 작업 시 반드시 먼저 읽는다.
 
-**IMPORTANT**: 하나의 이슈에 **해결 후보가 2개 이상** 등장하거나, **트레이드오프**를 따지거나, 어떤 방안을 **검토 후 기각**하게 되면 — 논의가 끝나기를 기다리지 말고 **그 시점에 ADR 작성을 제안**한다. 작성 여부는 사용자가 결정하며, 제안 없이 임의로 작성하지 않는다.
+**IMPORTANT**: **기술적 의사결정**(코드·서비스 구조)에서 **해결 후보가 2개 이상** 등장하거나, **트레이드오프**를 따지거나, 어떤 방안을 **검토 후 기각**하게 되면 — 논의가 끝나기를 기다리지 말고 **그 시점에 ADR 작성을 제안**한다. 작성 여부는 사용자가 결정하며, 제안 없이 임의로 작성하지 않는다.
 
 기존 지침·컨벤션과 충돌하는 결정을 내릴 때는 `.claude/decisions/index.md`의 "지침 변경 관리" 절차를 따른다.
 

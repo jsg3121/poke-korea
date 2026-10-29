@@ -1,23 +1,38 @@
 'use client'
 
-import { ChangeEvent, useContext } from 'react'
+import { ChangeEvent } from 'react'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
+import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import TypeChip from '~/components/chip/TypeChip.component'
+
+import { useChipCalcTracking } from './hooks/useChipCalcTracking'
+import TypePokemonNameSearch from './TypePokemonNameSearch.container'
 
 const TYPE_ENTRIES = Object.entries(PokemonTypes) as Array<
   [PokemonType, PokemonTypes]
 >
 
+const DEFAULT_GUIDE =
+  '포켓몬 이름을 입력하거나 타입을 직접 선택해주세요. 타입은 최대 2개까지 고를 수 있어요.'
+
+const GUIDE_ID = 'type-calculator-guide'
+
 const TypeCalculator = () => {
   const {
     isMaxSelectType,
     selectTypeList,
+    selectedPokemon,
     handleChangeTypes,
     handleResetSelectTypes,
-  } = useContext(TypeEffectivenessContext)
+  } = useTypeEffectiveness()
+  useChipCalcTracking(selectTypeList, selectedPokemon !== null)
+
+  const isNameSelected = selectedPokemon !== null
+  const guideText = isNameSelected
+    ? `${selectedPokemon.name} 기준으로 계산했어요. 다른 타입을 고르려면 선택 초기화를 눌러주세요.`
+    : DEFAULT_GUIDE
 
   const handleToggleType = (e: ChangeEvent<HTMLInputElement>) => {
     handleChangeTypes(e.currentTarget.value as PokemonType)
@@ -35,17 +50,21 @@ const TypeCalculator = () => {
         >
           상대 포켓몬 약점 찾기
         </h2>
-        <p className="mt-2 text-base font-semibold text-primary-3">
-          상대하려는 포켓몬의 타입을 선택해주세요! 타입은 최대 2개까지 선택
-          가능해요.
+        <p
+          id={GUIDE_ID}
+          className="mt-2 text-base font-semibold text-primary-3"
+        >
+          {guideText}
         </p>
       </header>
+
+      <TypePokemonNameSearch />
 
       <button
         type="button"
         onClick={handleResetSelectTypes}
         disabled={selectTypeList.length === 0}
-        className="min-h-8 mb-2 shrink-0 px-2 text-xs text-primary-4 disabled:text-primary-2 desktop:min-h-9 desktop:text-sm"
+        className="min-h-touch mb-2 shrink-0 px-2 text-xs text-primary-4 disabled:text-primary-2 desktop:text-sm"
       >
         선택 초기화
       </button>
@@ -53,11 +72,12 @@ const TypeCalculator = () => {
       <div
         role="group"
         aria-label="상대 포켓몬 타입 선택"
+        aria-describedby={GUIDE_ID}
         className="grid grid-cols-[repeat(auto-fit,minmax(3rem,1fr))] justify-items-center gap-y-2 desktop:flex desktop:flex-wrap desktop:items-start desktop:gap-3"
       >
         {TYPE_ENTRIES.map(([value, name]) => {
           const active = selectTypeList.includes(value)
-          const disabled = isMaxSelectType && !active
+          const disabled = isNameSelected ? !active : isMaxSelectType && !active
           return (
             <TypeChip
               key={`calculator-type-${value}`}

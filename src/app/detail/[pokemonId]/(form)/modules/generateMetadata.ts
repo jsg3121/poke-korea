@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { TActiveType } from '~/types/detailContext.type'
+import { TActiveType } from '~/types/detailContext.types'
 import {
   PokemonDetail,
   PokemonGigantamax,

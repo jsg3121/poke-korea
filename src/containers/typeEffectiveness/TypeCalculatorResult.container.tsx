@@ -1,70 +1,17 @@
 'use client'
 
-import { useContext } from 'react'
-import Link from 'next/link'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
-import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/modules/calculateRelationType.module'
-import { TypeEffectivenessContext } from '~/context/TypeEffectiveness.context'
-import Tag from '~/components/tag/Tag.component'
+import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
+import TypeResultSection, {
+  TypeResultRow,
+} from '~/components/typeEffectiveness/TypeResultSection.component'
 
+import { RESULT_TITLE_ID } from './shared/resultTitle.constants'
 import TypeEffectivenessCta from './TypeEffectivenessCta.container'
 
-interface ResultRow {
-  description: string
-  textClass: string
-  borderClass: string
-  types: Array<PokemonType>
-}
-
-const ResultSection = ({
-  title,
-  rows,
-}: {
-  title: string
-  rows: Array<ResultRow>
-}) => {
-  const visibleRows = rows.filter((row) => row.types.length > 0)
-  if (visibleRows.length === 0) return null
-
-  return (
-    <article className="w-full rounded-2xl bg-primary-2 p-4 desktop:p-6">
-      <h3 className="mb-4 text-lg desktop:text-xl font-bold text-primary-4">
-        {title}
-      </h3>
-      <dl className="flex flex-col gap-4">
-        {visibleRows.map((row) => (
-          <div
-            key={row.description}
-            className={`border-l-4 border-solid pl-3 ${row.borderClass}`}
-          >
-            <dt
-              className={`text-base desktop:text-lg font-bold ${row.textClass}`}
-            >
-              {row.description}
-            </dt>
-            <dd className="m-0 mt-2 flex flex-wrap items-center gap-1.5">
-              {row.types.map((type) => (
-                <Link
-                  key={type}
-                  href={`/list?type=${type}`}
-                  aria-label={`${PokemonTypes[type]} 타입 포켓몬 도감 보기`}
-                  className="inline-flex rounded-lg p-0.5 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
-                >
-                  <Tag type={type} />
-                </Link>
-              ))}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </article>
-  )
-}
-
 const TypeCalculatorResult = () => {
-  const { selectTypeList } = useContext(TypeEffectivenessContext)
+  const { selectTypeList } = useTypeEffectiveness()
 
   const { double, half, quad, quarter, zero } =
     calculateRelationType(selectTypeList)
@@ -74,7 +21,7 @@ const TypeCalculatorResult = () => {
     .map((type) => PokemonTypes[type])
     .join(' + ')
 
-  const recommendRows: Array<ResultRow> = [
+  const recommendRows: Array<TypeResultRow> = [
     {
       description: '4배의 데미지를 줄 수 있어요',
       textClass: 'text-grade-danger',
@@ -88,7 +35,7 @@ const TypeCalculatorResult = () => {
       types: double,
     },
   ]
-  const cautionRows: Array<ResultRow> = [
+  const cautionRows: Array<TypeResultRow> = [
     {
       description: '0.5배의 데미지만 줄 수 있어요',
       textClass: 'text-grade-good',
@@ -118,7 +65,11 @@ const TypeCalculatorResult = () => {
       </p>
       {hasSelection && (
         <section className="w-full pt-6 desktop:pt-8">
-          <h2 className="text-xl desktop:text-3xl font-semibold text-primary-4 leading-tight">
+          <h2
+            id={RESULT_TITLE_ID}
+            tabIndex={-1}
+            className="scroll-mt-16 text-xl desktop:scroll-mt-32 desktop:text-3xl font-semibold text-primary-4 leading-tight"
+          >
             {selectTypeListKo} 타입은 이렇게 상대하세요!
           </h2>
           <p className="mt-2 text-base text-primary-4/80">
@@ -126,11 +77,11 @@ const TypeCalculatorResult = () => {
           </p>
 
           <div className="mt-6 grid grid-cols-1 gap-4 desktop:grid-cols-2 desktop:gap-8">
-            <ResultSection
+            <TypeResultSection
               title="이런 타입을 쓰면 좋아요!"
               rows={recommendRows}
             />
-            <ResultSection
+            <TypeResultSection
               title="이런 타입은 조심해야 해요!"
               rows={cautionRows}
             />

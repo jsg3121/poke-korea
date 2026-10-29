@@ -14,7 +14,8 @@
 | `linting.md`    | ESLint — 코드 품질 규칙, 미사용 import 제거                 |
 | `formatting.md` | Prettier — 표기 형식, import 계층 정렬                      |
 | `nextjs.md`     | 캐시 정책(ISR·Cache-Control), next.config 의사결정          |
+| `testing.md`    | E2E 테스트 — 실행 조건, 검증 대상, 선택자·대기 규칙         |
 | `workflow.md`   | 브랜치 전략, 버전 관리, PR 규칙                             |
 | `changelog.md`  | Docusaurus 기반 changelog 관리 규칙 및 템플릿               |
 
-구조·코드 작성(`structure` → `naming` → `coding` → `comments` → `styling`), 도구·빌드(`linting`, `formatting`, `nextjs`), 프로세스(`workflow`, `changelog`) 순으로 배열했습니다.
+구조·코드 작성(`structure` → `naming` → `coding` → `comments` → `styling`), 도구·빌드(`linting`, `formatting`, `nextjs`, `testing`), 프로세스(`workflow`, `changelog`) 순으로 배열했습니다.

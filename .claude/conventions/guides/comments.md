@@ -112,13 +112,13 @@ const formLabel = FORM_LABELS[formType]
 
 다음 두 경우에만 허용한다.
 
-1. **도구 억제 + 사유** — `eslint-disable`, `@ts-expect-error` 등
+1. **도구 억제 + 사유** — `eslint-disable`, `@ts-expect-error` 등. 사유는 지시문 **위**에 쓴다. `-next-line` 지시문은 바로 다음 줄에만 적용되므로, 사유를 지시문 아래에 두면 억제 대상이 사유 주석 줄이 되어 경고가 다시 난다
 2. **의도적 규칙 위반·우회책** — 프로젝트 정책이나 표준을 어쩔 수 없이 따르지 못하는 경우
 
 ```tsx
-// ✅ 억제 사유
+// ✅ 억제 사유 — 사유는 지시문 위에 둔다
+// ↓ dependencies는 호출부가 넘기는 가변 배열이라 정적 검증이 불가능하다
 // eslint-disable-next-line react-hooks/exhaustive-deps
-// ↑ debounce된 keyword 변경 시에만 실행하는 것이 의도
 
 // ✅ 우회책
 // useLayoutEffect는 SSR에서 경고를 내므로 서버에선 useEffect로 대체한다

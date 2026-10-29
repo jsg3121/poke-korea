@@ -9,7 +9,7 @@ import MoveTable, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 
-import InfoCardTitle from './components/InfoCardTitle.component'
+import InfoCardTitle from './shared/InfoCardTitle.component'
 
 const SKILL_PREVIEW_COUNT = 5
 

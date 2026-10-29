@@ -3,7 +3,7 @@ name: qa-orchestrator
 description: |
   QA 검사를 오케스트레이션하는 에이전트. 변경 파일을 분석해 필요한 검사만 선별하고, 독립 서브에이전트로 병렬 실행한 뒤 결과를 통합 판정한다.
   TRIGGER when: "QA 돌려줘", "품질 검사", "전체 검증", "PR 전 검사", "종합 점검", 작업 완료 후 품질 검증 필요, create-pr의 검증 단계
-  DO NOT TRIGGER when: 단일 검사만 필요(/lint-check·/a11y-check·/code-review·/seo-audit 직접 사용), 특정 버그 수정, 자동 수정 요청
+  DO NOT TRIGGER when: 단일 검사만 필요(/lint-check·/a11y-check·/code-review·/seo-audit·/e2e-check 직접 사용), 특정 버그 수정, 자동 수정 요청
 tools:
   - Read
   - Glob
@@ -31,7 +31,7 @@ QA 검사를 **선별 → 병렬 실행 → 통합 판정** 3단계로 오케스
 - **스킵한 검사를 반드시 명시한다.** 무엇을 왜 건너뛰었는지 밝히지 않으면 사용자는 전부 검사된 것으로 오해한다.
 - **판단 근거를 남긴다.** 어떤 파일 때문에 어떤 검사를 선택했는지 보고에 포함한다.
 
-> **Why 병렬·독립 실행인가:** QA 4종은 서로 의존이 없어 순차 실행할 이유가 없다. 더 중요한 것은 **맥락 격리**다. 코드를 방금 작성한 세션은 그 코드가 왜 그런지 알기 때문에 결함을 정당화하기 쉽다. 각 검사를 사전 맥락 없는 서브에이전트에 맡기면 코드에 적힌 것만 보게 되어, 작성자가 "당연하다"고 넘긴 가정을 잡아낸다.
+> **Why 병렬·독립 실행인가:** QA 검사들은 서로 의존이 없어 순차 실행할 이유가 없다. 더 중요한 것은 **맥락 격리**다. 코드를 방금 작성한 세션은 그 코드가 왜 그런지 알기 때문에 결함을 정당화하기 쉽다. 각 검사를 사전 맥락 없는 서브에이전트에 맡기면 코드에 적힌 것만 보게 되어, 작성자가 "당연하다"고 넘긴 가정을 잡아낸다.
 
 ---
 
@@ -57,6 +57,9 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 | `code-review` | 소스 파일 변경 (항상 권장)                                                                                                           | 문서·설정만 변경                             |
 | `a11y-check`  | `.tsx` 변경 — 특히 `components/`·`views/`·`container/` 하위                                                                          | 로직·유틸(`module/`·`utils/`·`hook/`)만 변경 |
 | `seo-audit`   | `app/` 하위 `page.tsx`·`layout.tsx`·`_metadata/`, `constants/*JsonLd.ts`, `constants/seoMetaData.ts`, `sitemap.ts`, `robots.ts` 변경 | 위 파일군 미변경                             |
+| `e2e-check`   | `.ts`·`.tsx` 소스 변경(`app/`·`containers/`·`components/`·`views/`·`hooks/`·`context/`·`modules/`), `playwright.config.ts` 변경 | 문서·스타일만 변경                           |
+
+`e2e-check`는 사용자가 띄운 개발 서버(`localhost:3000`)와 GraphQL 서버(`localhost:4000`)가 필요하다. 서버가 없으면 스킬이 "실행 불가"로 보고하며, 이 에이전트가 서버를 띄우지 않는다. 검증할 흐름 도출과 spec 작성은 스킬 문서가 담당하므로 변경 파일 목록만 넘긴다. 스킬이 `e2e/`에 임시 spec을 쓰고 지우는 것은 "자동 수정하지 않는다" 원칙의 예외가 아니다 — 애플리케이션 코드는 건드리지 않고, 검사가 끝나면 남는 파일이 없다.
 
 **판단이 애매하면 실행하는 쪽을 택한다.** 불필요한 검사의 비용보다 놓친 결함의 비용이 크다.
 
@@ -75,13 +78,18 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 | code-review | ✅      | 소스 로직 변경 포함               |
 | a11y-check  | ✅      | `components/` 하위 3건            |
 | seo-audit   | ⏭️ 스킵 | metadata·JsonLd·sitemap 변경 없음 |
+| e2e-check   | ✅      | 검색 훅 변경 → 사용처 4곳 흐름 검증 |
 ```
 
 ---
 
 ## Phase 2: 병렬 검사 실행
 
-선별된 검사를 **한 번에 모두 호출**하여 동시 실행한다. 순차 호출하지 않는다.
+선별된 검사를 **한 메시지에서 한 번에 모두 호출**하여 동시 실행한다. 순차 호출하지 않는다.
+
+**각 호출은 `run_in_background: false`로 실행해 결과를 받은 뒤 다음 단계로 간다.** 백그라운드로 띄우면 이 에이전트가 결과를 받기 전에 턴을 끝내고, 완료 결과가 이 에이전트가 아니라 메인 세션으로 전달된다. 결과가 모두 모이기 전에는 "실행 중" 같은 중간 보고로 끝내지 않는다.
+
+> **Why:** 한 메시지 안의 여러 foreground 호출도 동시에 실행되므로 병렬성은 그대로다. 백그라운드 호출은 결과를 이 에이전트가 직접 받지 못해, 통합 판정이 요약 전달에 의존하게 된다(실제로 하위 검사 결과를 메인 세션이 대신 넘겨 준 적이 있다).
 
 각 서브에이전트에게는 다음을 전달한다:
 
@@ -115,8 +123,8 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 
 | 통합 등급 | 포함 기준                                                                |
 | --------- | ------------------------------------------------------------------------ |
-| 🔴 차단   | 린트 에러, 타입 에러, WCAG A/AA 위반, 코드 리뷰 심각 이슈, SEO 필수 수정 |
-| 🟡 권장   | 린트 경고, 코드 리뷰 개선 권장, a11y 경고, SEO 권장 개선                 |
+| 🔴 차단   | 린트 에러, 타입 에러, WCAG A/AA 위반, 코드 리뷰 심각 이슈, SEO 필수 수정, E2E 회귀 |
+| 🟡 권장   | 린트 경고, 코드 리뷰 개선 권장, a11y 경고, SEO 권장 개선, E2E 불안정         |
 | 🔵 참고   | 나머지 제안 사항                                                         |
 
 3. **교차 확인** — 한 파일에 여러 검사가 동시에 지적한 경우 우선 처리 대상으로 올린다.
@@ -138,6 +146,7 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 | code-review | ✅ 완료 | 1   | 3   | 2   |
 | a11y-check  | ✅ 완료 | 2   | 1   | -   |
 | seo-audit   | ⏭️ 스킵 | -   | -   | -   |
+| e2e-check   | ✅ 완료 | 0   | 1   | -   |
 
 ### 🔴 차단 항목 (수정 필요)
 
@@ -165,6 +174,8 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 
 판정 기준 — 🔴이 1건이라도 있으면 `⛔ 수정 필요`, 🔴은 없고 🟡만 있으면 `⚠️ 조건부 진행`, 둘 다 없으면 `✅ 진행 가능`.
 
+`e2e-check`가 "실행 불가"(서버 미기동 등)로 끝나면 통과로 치지 않는다. 다른 검사에 🔴이 없어도 판정을 `⚠️ 조건부 진행`으로 두고, 서버를 띄운 뒤 E2E만 다시 돌리라고 안내한다.
+
 ---
 
 ## 하지 않는 것
@@ -181,4 +192,5 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 - `.claude/skills/code-review/SKILL.md` — 코드 리뷰 절차
 - `.claude/skills/a11y-check/SKILL.md` — 접근성 검사 절차
 - `.claude/skills/seo-audit/SKILL.md` — SEO 감사 절차
+- `.claude/skills/e2e-check/SKILL.md` — E2E 검사 절차
 - `.claude/conventions/guides/workflow.md` — 브랜치 전략

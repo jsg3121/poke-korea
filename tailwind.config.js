@@ -16,6 +16,8 @@ module.exports = {
         '2xs': '0.6875rem', // 11px - 모바일 최소 폰트(접근성)
         xs: '0.75rem',
         sm: '0.875rem',
+        // 16px 고정 — 입력 요소용. iOS Safari는 16px 미만 입력에 포커스하면 화면을 확대한다.
+        md: '1rem',
         // 모바일 14px → 데스크톱 16px (CSS 변수, globals.css 정의 — ADR-0012).
         // root font-size는 여전히 16px 고정(ADR-0009)이라 rem 예측성은 유지된다.
         base: 'var(--font-size-base)',
@@ -82,6 +84,9 @@ module.exports = {
         touch: '2.75rem', // 44px - WCAG 2.5.5 최소 터치 타겟
         'touch-lg': '3rem', // 48px - 권장 터치 타겟
       },
+      borderRadius: {
+        '2.5xl': '1.25rem', // 20px
+      },
       screens: {
         mobile: { max: '768px' },
         desktop: { min: '769px' },
@@ -132,11 +137,21 @@ module.exports = {
             transform: 'translateX(10px)',
           },
         },
+        'bar-slide-in': {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.2s ease-in-out',
         scaleIn: 'scaleIn 0.3s ease-out',
         shake: 'shake 0.5s ease-in-out',
+        // easeOutCubic — useReplayProgress 카운트업과 같은 곡선
+        'bar-slide-in': 'bar-slide-in 0.6s cubic-bezier(0.33, 1, 0.68, 1)',
       },
     },
   },

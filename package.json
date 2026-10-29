@@ -33,6 +33,7 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test:e2e": "playwright test",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -46,8 +47,7 @@
     "next": "^15.5.18",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.3.1",
-    "react-hook-form": "^7.53.2"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.3",

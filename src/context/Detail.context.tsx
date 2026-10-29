@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode } from 'react'
 
-import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.type'
+import { TActiveType, TActiveTypeInfo } from '~/types/detailContext.types'
 import {
   PokemonDetail,
   PokemonGigantamax,

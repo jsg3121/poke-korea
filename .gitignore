@@ -55,6 +55,10 @@ next-env.d.ts
 # playwright screenshots
 /.claude/playwright
 
+# playwright e2e results
+/test-results/
+/playwright-report/
+
 # api handoff documents (from external backend repo)
 /.claude/api-handoffs
 
@@ -66,3 +70,6 @@ storybook-static
 
 # UI 시안 미리보기 (ui-publisher 산출물, 커밋 금지 — 임시 확인용)
 /public/preview
+
+# e2e specs (generated per run, deleted after)
+/e2e/

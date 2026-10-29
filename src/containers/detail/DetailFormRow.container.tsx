@@ -10,38 +10,10 @@ import { DetailContext } from '~/context/Detail.context'
 import Ball from '~/components/ball/Ball.component'
 import ShinyRate from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 import ShinyTooltip from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
-import Image from '~/components/Image.component'
 
+import DetailWebpFormIcon from './DetailWebpFormIcon.component'
 import { getFormBasePath } from './modules/activeForm.module'
-
-const formLinkClass = (active: boolean) =>
-  `flex h-8 items-center gap-1 rounded-2xl bg-primary-4 px-3 text-xs font-semibold text-black-2 transition-opacity desktop:text-sm ${
-    active
-      ? 'opacity-100'
-      : 'opacity-65 hover:opacity-100 focus-visible:opacity-100'
-  } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4`
-
-const WebpFormIcon = ({
-  src,
-  alt,
-  active,
-}: {
-  src: string
-  alt: string
-  active: boolean
-}) => (
-  <i
-    className={`block h-5 w-5 shrink-0 will-change-[filter] ${active ? 'grayscale-0' : 'grayscale'}`}
-  >
-    <Image
-      alt={alt}
-      width="1.25rem"
-      height="1.25rem"
-      imageSize={{ width: 20, height: 20 }}
-      src={src}
-    />
-  </i>
-)
+import { getFormLinkClass } from './utils/detailFormLink.util'
 
 const DetailFormRow = () => {
   const { pokemonBaseInfo, activeType, activeIndex } = useContext(DetailContext)
@@ -79,7 +51,7 @@ const DetailFormRow = () => {
       href: `/detail/${pokemonNumber}/mega${shinyQuery}`,
       show: !!pokemonBaseInfo?.isMegaEvolution,
       icon: (
-        <WebpFormIcon
+        <DetailWebpFormIcon
           src="/assets/icons/mega.webp"
           alt="메가진화 아이콘"
           active={activeType === 'mega'}
@@ -108,7 +80,7 @@ const DetailFormRow = () => {
       href: `/detail/${pokemonNumber}/gigantamax${shinyQuery}`,
       show: !!pokemonBaseInfo?.isGigantamax,
       icon: (
-        <WebpFormIcon
+        <DetailWebpFormIcon
           src="/assets/icons/gmax.webp"
           alt="거다이맥스 아이콘"
           active={activeType === 'gigantamax'}
@@ -132,7 +104,7 @@ const DetailFormRow = () => {
           <Link
             href={shinyHref}
             replace
-            className={formLinkClass(isShiny)}
+            className={getFormLinkClass(isShiny)}
             aria-pressed={isShiny}
           >
             <i
@@ -149,7 +121,7 @@ const DetailFormRow = () => {
             <Link
               href={chip.href}
               replace
-              className={formLinkClass(chip.active)}
+              className={getFormLinkClass(chip.active)}
               aria-current={chip.active ? 'page' : undefined}
             >
               {chip.icon}

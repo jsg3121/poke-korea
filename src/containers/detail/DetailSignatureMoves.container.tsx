@@ -8,11 +8,9 @@ import MoveTable, {
   MoveTableItem,
 } from '~/components/moveTable/MoveTable.component'
 
-import InfoCardTitle from './components/InfoCardTitle.component'
-import {
-  MoveConceptNote,
-  MoveEffectDescription,
-} from './components/MoveDescription.component'
+import DetailMoveConceptNote from './shared/DetailMoveConceptNote.component'
+import DetailMoveEffectDescription from './shared/DetailMoveEffectDescription.component'
+import InfoCardTitle from './shared/InfoCardTitle.component'
 
 const DetailSignatureMoves = () => {
   const { activeTypeInfo } = useContext(DetailContext)
@@ -66,13 +64,13 @@ const DetailSignatureMoves = () => {
       <InfoCardTitle title="전용기" id="pokemon-signature-move" />
       <MoveTable moves={signatureMoves} ariaLabel="전용기 목록" />
       {descriptions.map((desc) => (
-        <MoveEffectDescription
+        <DetailMoveEffectDescription
           key={`${desc.id}-desc`}
           name={descriptions.length > 1 ? desc.name : undefined}
           text={desc.description}
         />
       ))}
-      <MoveConceptNote
+      <DetailMoveConceptNote
         title="전용기 정보"
         text="전용기는 특정 포켓몬이나 그 진화 계열만 습득할 수 있는 고유 기술이에요. 일반적인 방법으로는 다른 포켓몬이 배울 수 없으며, 전설·환상의 포켓몬은 대부분 자신만의 전용기를 지니고 있어요."
       />

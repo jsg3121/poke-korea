@@ -1,37 +1,20 @@
 'use client'
 
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent } from 'react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
-import { useDebounce } from '~/hooks/useDebounce'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
+import { useSearchParamInput } from '~/hooks/useSearchParamInput'
 import Image from '~/components/Image.component'
 
 const ListSearch = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [searchKeyword, debounce] = useDebounce(searchParams.get('name') ?? '')
+  const { keyword, updateKeyword } = useSearchParamInput('name')
   const feedbackFormUrl = useFeedbackFormUrl()
 
   const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    debounce(e.target.value.trim())
+    updateKeyword(e.target.value)
   }
-
-  useEffect(() => {
-    const currentName = searchParams.get('name') ?? ''
-    if (searchKeyword === currentName) return
-
-    const params = new URLSearchParams(searchParams)
-    if (searchKeyword === '') {
-      params.delete('name')
-    } else {
-      params.set('name', searchKeyword)
-    }
-    router.replace(`/list?${params.toString()}`, { scroll: false })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchKeyword])
 
   return (
     <div
@@ -45,7 +28,7 @@ const ListSearch = () => {
           name="search-pokemon-list"
           placeholder="포켓몬 검색"
           autoComplete="off"
-          defaultValue={searchParams.get('name') ?? ''}
+          value={keyword}
           onChange={handleChangeKeyword}
           className="w-full h-full text-xs text-[#333333] bg-white border-0 px-[3px] py-[5px] [-webkit-appearance:textfield]"
         />

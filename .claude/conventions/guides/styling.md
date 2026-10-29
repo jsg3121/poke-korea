@@ -88,6 +88,20 @@ root `font-size`는 **모든 화면에서 16px 고정**이다. `1rem = 16px`이 
 
 **주의: 이 보정은 `flex` + `items-center`와 함께 쓰면 상쇄된다** — flex 중앙 정렬이 커진 라인박스를 통째로 되돌려 놓기 때문. 반드시 **블록 흐름**(inline-block 등, 라인박스가 상단 고정)에서 적용한다. 아이콘 등 다른 자식 때문에 flex가 필요하면, 텍스트만 고정 높이 내부 span으로 감싸 그 span에 유틸을 준다(예: `AppliedFilterChip`).
 
+### 테두리는 `border-solid`와 함께 쓴다
+
+`border`, `border-b` 같은 두께 유틸에는 **`border-solid`를 함께 붙인다.** `::after` 같은 가상 요소로 선을 그릴 때도 같다.
+
+```tsx
+// ❌ 선이 그려지지 않는다
+<div className="border-b border-primary-3" />
+
+// ✅
+<div className="border-b border-solid border-primary-3" />
+```
+
+> **Why:** `globals.css`의 리셋이 `div`·`span`·`th` 등 대부분의 요소에 `border: 0`을 준다. 이 shorthand는 두께뿐 아니라 스타일까지 `none`으로 만들어, Tailwind preflight가 깔아 둔 `border-style: solid`를 덮는다. `border-b` 같은 두께 유틸은 스타일을 다시 지정하지 않으므로 두께만 생기고 선은 보이지 않는다. tsc·lint·빌드 모두 통과하므로 화면을 보기 전에는 드러나지 않는다.
+
 ## 색상 체계
 
 ### 포켓몬 타입별 커스텀 색상
