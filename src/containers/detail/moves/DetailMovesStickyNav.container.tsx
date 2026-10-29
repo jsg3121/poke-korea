@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation'
 import { LearnMethod } from '~/graphql/typeGenerated'
 import {
   buildMovesPath,
+  CONDITIONAL_LEARN_METHODS,
   DEFAULT_LEARN_METHOD,
   VISIBLE_LEARN_METHODS,
 } from '~/modules/movesParams.module'
@@ -21,6 +22,7 @@ const DetailMovesStickyNav = () => {
   const {
     pokemonInfo,
     versionGroup,
+    skillsByMethod,
     currentActiveIndex,
     currentVersionGroupId,
     currentLearnMethod,
@@ -32,7 +34,14 @@ const DetailMovesStickyNav = () => {
 
   const { getLabel } = useLearnMethodLabels()
 
-  const methodTabs = VISIBLE_LEARN_METHODS.map((method) => ({
+  // 조건부 습득법(폼체인지)은 현재 버전에 해당 기술이 있거나 그 탭을 보고 있을 때만 노출
+  const availableMethods = new Set(skillsByMethod?.map(({ method }) => method))
+  const methodTabs = VISIBLE_LEARN_METHODS.filter(
+    (method) =>
+      !CONDITIONAL_LEARN_METHODS.has(method) ||
+      availableMethods.has(method) ||
+      method === activeMethod,
+  ).map((method) => ({
     method,
     label: getLabel(method),
   }))
