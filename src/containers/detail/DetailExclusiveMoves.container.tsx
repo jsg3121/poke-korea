@@ -38,10 +38,13 @@ const DetailExclusiveMoves = () => {
         return regionFormInfo?.[activeIndex]?.exclusiveZMoves ?? []
       }
       default: {
-        const formZMoves = normalForm?.[0]?.exclusiveZMoves
-        return formZMoves && formZMoves.length > 0
-          ? formZMoves
-          : (pokemonBaseInfo?.exclusiveZMoves ?? [])
+        // 노말폼이 있으면 폼의 Z기술만 쓴다. 비어 있으면 "Z기술 없음"이다.
+        // base로 폴백하면 Z기술을 못 쓰는 폼(옷갈아입기·파트너 피카츄 등)에도
+        // base 전용 Z기술(필살피카슛)이 표시된다.
+        if (normalForm && normalForm.length > 0) {
+          return normalForm[0]?.exclusiveZMoves ?? []
+        }
+        return pokemonBaseInfo?.exclusiveZMoves ?? []
       }
     }
   }
