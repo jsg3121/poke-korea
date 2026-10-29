@@ -28,27 +28,25 @@ const PokemonBySkillCard = ({
     [pokemonData.types],
   )
 
+  // 폼 인덱스는 백엔드가 상세 페이지와 같은 정렬로 계산해 내려준다.
+  // imagePath에서 추측하면 안 된다 — 노말폼 imagePath는 `773-fire`처럼
+  // 인덱스가 없는 이름이 섞여 있어 기본 페이지로 잘못 연결됐다.
   const pokemonHref = useMemo(() => {
     const baseUrl = `/detail/${pokemonData.number}`
+    const formIndex = pokemonData.formIndex ?? 0
 
     if (pokemonData.formType === 'REGION') {
-      const regionIndex = pokemonData.imagePath
-        ? parseInt(pokemonData.imagePath[pokemonData.imagePath.length - 1], 10)
-        : 0
-      return regionIndex > 0
-        ? `${baseUrl}/region/${regionIndex}`
+      return formIndex > 0
+        ? `${baseUrl}/region/${formIndex}`
         : `${baseUrl}/region`
     }
 
     if (pokemonData.formType === 'NORMAL') {
-      const formIndex = pokemonData.imagePath
-        ? parseInt(pokemonData.imagePath.split('_')[1], 10)
-        : 0
       return formIndex > 0 ? `${baseUrl}/form/${formIndex}` : baseUrl
     }
 
     return baseUrl
-  }, [pokemonData.formType, pokemonData.imagePath, pokemonData.number])
+  }, [pokemonData.formType, pokemonData.formIndex, pokemonData.number])
 
   return (
     <PokemonCardShell

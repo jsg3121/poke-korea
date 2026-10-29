@@ -727,6 +727,7 @@ query GetPokemonsBySkill($input: GetPokemonsBySkillInput!) {
         types
         region
         imagePath
+        formIndex
       }
     }
     pageInfo {
