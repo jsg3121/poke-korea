@@ -55,6 +55,32 @@ getRealStatTable(stats)                // 탭 표 — 능력치별 { noInvestmen
 - 성격 보정은 `floor((값 × 11) / 10)`처럼 정수 연산 후 한 번만 내린다.
 - `PokemonStats`는 `import type`으로 가져온다. 기대값 대조 스크립트를 Node로 직접 실행하기 위해서다(`testing.md`).
 
+### 시안 확정 (SPEC 4-6)
+
+ux-designer 설계와 ui-publisher 시안을 거쳐 화면을 확정했다. 주요 결정은 다음과 같다.
+
+- 탭 패턴 대신 **토글 버튼**(`aria-pressed`). WCAG 2.1.1은 버튼으로 충족되고, 화살표 키 이동은 APG 권고라 범위 대비 이득이 작다. 키보드 처리 위치 결정(C-6)도 함께 사라졌다.
+- 막대는 **`translateX` keyframe**(GPU 합성), 숫자는 **전환 시 카운트업**. `scaleX`는 둥근 끝이 눌리고, `clip-path`는 GPU 경로가 보장되지 않아 기각했다.
+- 데스크톱 실수치는 표 칸 안에 숫자와 막대를 함께 그리고, 열마다 최고/최저 색을 쓴다. 색 의미는 범례로 안내한다.
+
+### SegmentedControl — 밝은 배경용 토글 DS (`components/segmentedControl/`)
+
+카드(`bg-primary-4`) 안의 전환 버튼이다. `TabItem` fill은 남색 배경용이라 활성 채움(`bg-primary-4`)과 포커스 링이 카드 배경과 같은 색이 되어 보이지 않는다. `TabItem`은 그대로 두고 새 DS 원자를 만들었다.
+
+```tsx
+<SegmentedControl
+  label="능력치 보기 방식"
+  items={[{ key: 'base', label: '종족값' }, { key: 'real', label: 'Lv50 실수치' }]}
+  value={view}
+  onChange={setView}
+/>
+```
+
+- `role="group"` + 버튼 `aria-pressed`. 키 타입은 제네릭으로 받는다.
+- 트랙 `bg-primary-1/10 p-1`, 모서리 16px(데스크톱 24px). 버튼 모서리는 트랙 − 4px라 12px(데스크톱 20px)이다.
+- 20px 모서리가 Tailwind 기본 토큰에 없어 `tailwind.config.js`에 `borderRadius['2.5xl']`(1.25rem)을 추가했다(styling.md 임의값 금지).
+- Storybook story에 첫 항목 선택·두 번째 항목 선택·직접 전환 3종을 등록했다.
+
 ### 하네스
 
 - ADR-0024 결과 절에 Node 실행 확인 결과를 추가했다.

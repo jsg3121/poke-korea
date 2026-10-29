@@ -84,6 +84,9 @@ module.exports = {
         touch: '2.75rem', // 44px - WCAG 2.5.5 최소 터치 타겟
         'touch-lg': '3rem', // 48px - 권장 터치 타겟
       },
+      borderRadius: {
+        '2.5xl': '1.25rem', // 20px
+      },
       screens: {
         mobile: { max: '768px' },
         desktop: { min: '769px' },
