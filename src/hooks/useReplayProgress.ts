@@ -27,8 +27,9 @@ export const useReplayProgress = (replayKey: number): number => {
     }
 
     let rafId = 0
-    const start = performance.now()
+    let start: number | null = null
     const tick = (now: number) => {
+      start ??= now
       const t = Math.min((now - start) / REPLAY_DURATION_MS, 1)
       setPlayed({ key: replayKey, progress: easeOutCubic(t) })
       if (t < 1) {

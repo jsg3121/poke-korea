@@ -36,7 +36,7 @@ const COLUMNS: ReadonlyArray<RealStatColumn> = [
 ]
 
 const HEADER_CLASS =
-  'pb-2 text-right align-bottom text-xs font-semibold leading-4 text-primary-2 desktop:border-b desktop:border-solid desktop:border-primary-3 desktop:text-left desktop:text-sm desktop:leading-5'
+  'pb-2 text-right align-bottom text-xs font-semibold leading-4 text-primary-1 desktop:border-b desktop:border-solid desktop:border-primary-3 desktop:text-left desktop:text-sm desktop:leading-5'
 
 const HEADER_LINE_CLASS =
   'relative mobile:after:absolute mobile:after:bottom-0 mobile:after:left-3 mobile:after:border-b mobile:after:border-solid mobile:after:border-primary-3'
@@ -45,6 +45,11 @@ const NUMBER_CLASS = 'text-xs font-bold text-primary-1 desktop:text-sm'
 
 const BOOSTED_NUMBER_CLASS =
   'text-sm font-extrabold text-primary-1 desktop:text-base'
+
+const EXTREME_MARK = {
+  max: { symbol: '▲', label: '(최고)', barClass: 'bg-type-grass' },
+  min: { symbol: '▼', label: '(최저)', barClass: 'bg-damage-physical' },
+} as const
 
 const DetailRealStatTable = ({
   stats,
@@ -63,18 +68,11 @@ const DetailRealStatTable = ({
   const barReplayClass =
     replayKey === 0 ? '' : 'motion-safe:animate-bar-slide-in'
 
-  const getBarColorClass = (column: RealStatColumn, value: number) => {
+  const getExtremeMark = (column: RealStatColumn, value: number) => {
     const { max, min } = extremes[column]
-    if (value === max) return 'bg-type-grass'
-    if (value === min && min !== max) return 'bg-damage-physical'
-    return column === 'maxBoosted' ? 'bg-primary-1' : 'bg-primary-2'
-  }
-
-  const getExtremeLabel = (column: RealStatColumn, value: number) => {
-    const { max, min } = extremes[column]
-    if (value === max) return '(최고)'
-    if (value === min && min !== max) return '(최저)'
-    return ''
+    if (value === max) return EXTREME_MARK.max
+    if (value === min && min !== max) return EXTREME_MARK.min
+    return null
   }
 
   return (
@@ -130,7 +128,10 @@ const DetailRealStatTable = ({
               {COLUMNS.map((column) => {
                 const value = table[row.key][column]
                 const isBoosted = column === 'maxBoosted'
-                const extremeLabel = getExtremeLabel(column, value)
+                const extremeMark = getExtremeMark(column, value)
+                const defaultBarClass = isBoosted
+                  ? 'bg-primary-1'
+                  : 'bg-primary-2'
 
                 return (
                   <td
@@ -139,23 +140,33 @@ const DetailRealStatTable = ({
                       isBoosted ? 'pr-8' : ''
                     } ${rowIndex === 0 ? 'pt-2' : ''}`}
                   >
-                    <div className="text-right desktop:flex desktop:items-center desktop:gap-2 desktop:text-left">
-                      <StatBarAnimatedValue
-                        value={value}
-                        progress={progress}
-                        className={`${
-                          isBoosted ? BOOSTED_NUMBER_CLASS : NUMBER_CLASS
-                        } desktop:w-11 desktop:shrink-0`}
-                      />
-                      {extremeLabel !== '' && (
-                        <span className="sr-only">{extremeLabel}</span>
-                      )}
+                    <div className="flex items-center justify-end desktop:justify-start desktop:gap-2">
+                      <span className="flex items-center gap-0.5 desktop:w-14 desktop:shrink-0">
+                        <StatBarAnimatedValue
+                          value={value}
+                          progress={progress}
+                          className={
+                            isBoosted ? BOOSTED_NUMBER_CLASS : NUMBER_CLASS
+                          }
+                        />
+                        {extremeMark && (
+                          <>
+                            <span
+                              aria-hidden="true"
+                              className="order-first text-2xs text-primary-1 desktop:order-none"
+                            >
+                              {extremeMark.symbol}
+                            </span>
+                            <span className="sr-only">{extremeMark.label}</span>
+                          </>
+                        )}
+                      </span>
                       <span
                         aria-hidden="true"
                         className="hidden h-2.5 flex-1 overflow-hidden rounded-full bg-primary-1/10 desktop:block"
                       >
                         <span
-                          className={`block h-full rounded-full ${barReplayClass} ${getBarColorClass(column, value)}`}
+                          className={`block h-full rounded-full ${barReplayClass} ${extremeMark?.barClass ?? defaultBarClass}`}
                           style={{ width: `${(value / barMax) * 100}%` }}
                         />
                       </span>
@@ -181,17 +192,17 @@ const DetailRealStatTable = ({
             <span className="font-semibold">챔피언스</span>: 최대 투자 = 능력
             포인트 32
           </li>
-          <li className="hidden items-center gap-1 desktop:flex">
+          <li className="flex items-center gap-1">
             <span
               aria-hidden="true"
-              className="inline-block h-2.5 w-4 rounded-full bg-type-grass"
+              className="hidden h-2.5 w-4 rounded-full bg-type-grass desktop:inline-block"
             />
-            최고
+            ▲ 최고
             <span
               aria-hidden="true"
-              className="ml-2 inline-block h-2.5 w-4 rounded-full bg-damage-physical"
+              className="ml-2 hidden h-2.5 w-4 rounded-full bg-damage-physical desktop:inline-block"
             />
-            최저
+            <span className="ml-2 desktop:ml-0">▼ 최저</span>
           </li>
         </ul>
       </div>

@@ -47,7 +47,7 @@ const NATURE_RATE: Record<NatureModifier, number> = {
  * - 종족값 HP가 1(껍질몬)이면 투자와 관계없이 1이다.
  *
  * @param base 종족값
- * @param investment 투자분 — 능력 포인트 수, 노력치로는 floor(floor(노력치 / 4) / 2)
+ * @param investment 투자분 — 능력 포인트 수, 노력치로는 floor((floor(노력치 / 4) + 1) / 2)
  * @returns HP 실수치
  */
 export const getRealHp = (base: number, investment: number): number => {
@@ -62,7 +62,7 @@ export const getRealHp = (base: number, investment: number): number => {
  * - 성격 보정은 정수 연산 후 한 번만 내림한다 — 1.1·0.9 소수 곱의 부동소수점 오차를 피한다.
  *
  * @param base 종족값
- * @param investment 투자분 — 능력 포인트 수, 노력치로는 floor(floor(노력치 / 4) / 2)
+ * @param investment 투자분 — 능력 포인트 수, 노력치로는 floor((floor(노력치 / 4) + 1) / 2)
  * @param nature 성격 보정
  * @returns 실수치
  */
