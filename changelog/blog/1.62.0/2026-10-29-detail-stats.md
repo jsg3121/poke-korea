@@ -113,6 +113,19 @@ ux-designer 설계와 ui-publisher 시안을 거쳐 화면을 확정했다. 주�
 
 목록 버튼에 `onClick={() => onChange(item.key)}`로 props 콜백을 JSX 화살표 함수에 바로 넘기고 있었다(coding.md 이벤트 핸들러 규칙 위반). 버튼 `value`에 키를 담고 이름 있는 핸들러 하나에서 `items`로 찾아 호출하도록 고쳤다.
 
+### DetailStats 조립 — 전환·초기화·GA4 이벤트
+
+```tsx
+<SegmentedControl label="능력치 보기 방식" items={VIEW_ITEMS} value={current.view} onChange={handleChangeView} />
+<div hidden={current.view !== 'base'}><StatBar … replayKey={current.baseReplayKey} /></div>
+<div hidden={current.view !== 'real'}><DetailRealStatTable … replayKey={current.realReplayKey} /></div>
+```
+
+- 두 패널을 항상 렌더하고 `hidden` 속성으로만 전환한다. `hidden` 래퍼에는 display 클래스를 붙이지 않는다. URL은 바꾸지 않는다.
+- 재생 신호는 패널마다 따로 둔다. 종족값으로 전환하면 `baseReplayKey`, 실수치로 전환하면 `realReplayKey`가 1 오른다.
+- **폼 이동 시 초기화**: `/mega/0` → `/mega/1`처럼 같은 page 안의 이동은 컴포넌트가 다시 마운트되지 않는다. 상태에 폼 키(`activeType-activeIndex`)를 함께 저장하고, 현재 폼 키와 다르면 초기 상태(종족값)로 보는 파생값을 쓴다. `useEffect` 리셋이나 `key` 재마운트보다 단순하고 깜빡임이 없다.
+- **`stats_tab_status`**: 활성 패널이 실제로 바뀔 때만 보낸다(같은 버튼 재클릭·초기 렌더·폼 이동 초기화는 제외). `form_type`은 기본 경로와 폼체인지 경로가 모두 `activeType: 'normal'`이라 `usePathname()`의 `form` 세그먼트로 나눈다(`utils/statsFormType.util.ts`).
+
 ### 하네스
 
 - ADR-0024 결과 절에 Node 실행 확인 결과를 추가했다.
@@ -125,4 +138,13 @@ ux-designer 설계와 ui-publisher 시안을 거쳐 화면을 확정했다. 주�
   - 한카리아스 표 18칸: PASS
   - 메가한카리아스Z 실전 배분 6개: PASS
   - 껍질몬 HP 3열 모두 1: PASS
-- 화면 반영은 3단계(탭 UI)에서 한다. 이 단계에서는 모듈을 호출하는 곳이 없다.
+- 서버 HTML(`curl`, 개발 서버): 7개 경로 모두 200이고, 능력치 섹션에 두 패널의 최종 숫자·머리글·범례·토글팁 문구가 모두 들어 있다. 카운트업 전 값(0)이 아니라 최종값이 렌더된다.
+
+  | 경로 | 확인한 점 |
+  | --- | --- |
+  | `/detail/445` | 한카리아스 표 18칸이 기대값과 같음, 열별 최고 체력·최저 특수공격 |
+  | `/detail/445/mega`, `/mega/1` | 메가진화 종족값으로 계산. 메가한카리아스Z는 3열 최고가 스피드(223)로 다른 열과 다름 |
+  | `/detail/292` | 껍질몬 체력 세 열 모두 1 |
+  | `/detail/6/gigantamax`, `/detail/26/region`, `/detail/479/form/1` | 거다이맥스·리전폼·폼체인지 경로 모두 렌더 |
+
+- 화면(모바일·데스크톱 레이아웃, 전환 애니메이션, 토글팁 동작)은 사용자가 브라우저에서 직접 확인한다.
