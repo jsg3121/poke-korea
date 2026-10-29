@@ -81,6 +81,23 @@ ux-designer 설계와 ui-publisher 시안을 거쳐 화면을 확정했다. 주�
 - 20px 모서리가 Tailwind 기본 토큰에 없어 `tailwind.config.js`에 `borderRadius['2.5xl']`(1.25rem)을 추가했다(styling.md 임의값 금지).
 - Storybook story에 첫 항목 선택·두 번째 항목 선택·직접 전환 3종을 등록했다.
 
+### StatBar 전환 재생 — `replayKey` prop, `useReplayProgress` 훅
+
+종족값 패널로 돌아올 때 막대와 숫자를 다시 재생한다. 기존 `useEnterViewProgress`는 "화면에 처음 들어올 때 한 번" 재생하는 훅이라 고치지 않고, 재생 신호용 훅을 따로 만들었다. 3단계 실수치 표의 카운트업도 이 훅을 쓴다.
+
+```tsx
+<StatBar stats={stats} replayKey={replayKey} /> // 0(기본)이면 현행과 같음
+```
+
+- **숫자**: `replayKey`가 바뀌면 `useReplayProgress`가 진행률을 0 → 1로 600ms(`easeOutCubic`) 재생한다. 새 키를 받은 첫 렌더에서 바로 0을 돌려줘, 최종 숫자가 한 프레임 보였다가 0으로 떨어지는 깜빡임이 없다.
+- **막대**: 폭은 그대로 두고 채움 요소에 `motion-safe:animate-bar-slide-in`(`translateX(-100%) → 0`)을 붙인다. 패널이 `hidden`에서 다시 보일 때 CSS가 처음부터 재생한다. 곡선 `cubic-bezier(0.33, 1, 0.68, 1)`은 `easeOutCubic`과 같아 숫자와 속도가 맞는다.
+- **움직임 줄이기**: 훅은 즉시 1을 돌려주고, 막대 클래스는 `motion-safe:`라 붙지 않는다.
+- **챔피언스 상세**: `replayKey`를 넘기지 않아 동작이 바뀌지 않는다.
+
+### StatBar 데스크톱 총합 행 여백 제거
+
+"종족값 총합" 행 아래 여백(`pb-3`)을 데스크톱에서 없앴다(`desktop:pb-0`). 기본값 변경이라 챔피언스 상세에도 적용된다.
+
 ### 하네스
 
 - ADR-0024 결과 절에 Node 실행 확인 결과를 추가했다.

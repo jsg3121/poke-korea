@@ -137,11 +137,21 @@ module.exports = {
             transform: 'translateX(10px)',
           },
         },
+        'bar-slide-in': {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.2s ease-in-out',
         scaleIn: 'scaleIn 0.3s ease-out',
         shake: 'shake 0.5s ease-in-out',
+        // easeOutCubic — useReplayProgress 카운트업과 같은 곡선
+        'bar-slide-in': 'bar-slide-in 0.6s cubic-bezier(0.33, 1, 0.68, 1)',
       },
     },
   },

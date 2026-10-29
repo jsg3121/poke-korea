@@ -1,6 +1,7 @@
 'use client'
 
 import { useEnterViewProgress } from '~/hooks/useEnterViewProgress'
+import { useReplayProgress } from '~/hooks/useReplayProgress'
 
 import StatBarAnimatedValue from './StatBarAnimatedValue.component'
 
@@ -15,16 +16,23 @@ interface StatBarProps {
   stats: StatBarItem[]
   showTotal?: boolean
   animated?: boolean
+  replayKey?: number
 }
 
 const StatBar = ({
   stats,
   showTotal = true,
   animated = true,
+  replayKey = 0,
 }: StatBarProps) => {
   const { ref: rootRef, progress } = useEnterViewProgress<HTMLDivElement>({
     enabled: animated,
   })
+  const replayProgress = useReplayProgress(replayKey)
+
+  const valueProgress = replayKey === 0 ? progress : replayProgress
+  const barReplayClass =
+    replayKey === 0 ? '' : 'motion-safe:animate-bar-slide-in'
 
   const values = stats.map((stat) => stat.value)
   const barMax = Math.max(...values) + STAT_MAX_PADDING
@@ -35,13 +43,13 @@ const StatBar = ({
   return (
     <div ref={rootRef} className="w-full">
       {showTotal && (
-        <div className="mb-3 flex items-baseline justify-between border-b border-primary-3 pb-3">
+        <div className="mb-3 flex items-baseline justify-between border-b border-primary-3 pb-3 desktop:pb-0">
           <span className="text-xs font-semibold text-primary-2 desktop:text-sm">
             종족값 총합
           </span>
           <StatBarAnimatedValue
             value={total}
-            progress={progress}
+            progress={valueProgress}
             className="text-lg font-bold text-primary-1 desktop:text-xl"
           />
         </div>
@@ -61,7 +69,7 @@ const StatBar = ({
               <dd className="m-0 w-11 shrink-0 text-right">
                 <StatBarAnimatedValue
                   value={stat.value}
-                  progress={progress}
+                  progress={valueProgress}
                   className={
                     isMax || isMin
                       ? 'text-sm font-extrabold text-primary-1 desktop:text-base'
@@ -74,7 +82,7 @@ const StatBar = ({
                 className="m-0 h-2.5 flex-1 overflow-hidden rounded-full bg-primary-1/10"
               >
                 <span
-                  className={`block h-full rounded-full ${
+                  className={`block h-full rounded-full ${barReplayClass} ${
                     isMax
                       ? 'bg-type-grass'
                       : isMin
