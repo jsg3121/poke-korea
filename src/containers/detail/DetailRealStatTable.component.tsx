@@ -36,7 +36,10 @@ const COLUMNS: ReadonlyArray<RealStatColumn> = [
 ]
 
 const HEADER_CLASS =
-  'relative border-b border-solid border-primary-3 pb-3 text-right align-baseline text-lg font-normal leading-7 desktop:pb-0 desktop:text-left desktop:text-xl'
+  'relative text-right align-baseline text-lg font-normal leading-7 desktop:border-b desktop:border-solid desktop:border-primary-3 desktop:text-left desktop:text-xl'
+
+const HEADER_LINE_CLASS =
+  'block border-b border-solid pb-3 desktop:border-0 desktop:pb-0'
 
 const HEADER_TEXT_CLASS = 'text-xs font-semibold text-primary-2 desktop:text-sm'
 
@@ -87,26 +90,37 @@ const DetailRealStatTable = ({
           <col className="w-16" />
           <col className="mobile:w-16" />
           <col className="mobile:w-16" />
-          <col className="mobile:w-24" />
+          <col className="mobile:w-28" />
         </colgroup>
         <thead>
           <tr>
             <th scope="col" className={HEADER_CLASS}>
-              <span className="sr-only">능력치</span>
+              <span className={`${HEADER_LINE_CLASS} border-transparent`}>
+                <span className="sr-only">능력치</span>
+              </span>
             </th>
-            <th scope="col" className={HEADER_CLASS}>
-              <span className={HEADER_TEXT_CLASS}>무투자</span>
+            <th scope="col" className={`${HEADER_CLASS} mobile:pl-3`}>
+              <span className={`${HEADER_LINE_CLASS} border-primary-3`}>
+                <span className={HEADER_TEXT_CLASS}>무투자</span>
+              </span>
             </th>
-            <th scope="col" className={HEADER_CLASS}>
-              <span className={HEADER_TEXT_CLASS}>최대 투자</span>
+            <th scope="col" className={`${HEADER_CLASS} mobile:pl-3`}>
+              <span className={`${HEADER_LINE_CLASS} border-primary-3`}>
+                <span className={HEADER_TEXT_CLASS}>최대 투자</span>
+              </span>
             </th>
-            <th scope="col" className={`${HEADER_CLASS} mobile:pr-8`}>
+            <th
+              scope="col"
+              className={`${HEADER_CLASS} mobile:pl-3 mobile:pr-8`}
+            >
               <span
                 className={`${HEADER_TEXT_CLASS} mobile:absolute mobile:bottom-full mobile:right-8 mobile:leading-4`}
               >
                 최대 투자
               </span>
-              <span className={HEADER_TEXT_CLASS}> + 상승 성격</span>
+              <span className={`${HEADER_LINE_CLASS} border-primary-3`}>
+                <span className={HEADER_TEXT_CLASS}> + 상승 성격</span>
+              </span>
             </th>
           </tr>
         </thead>
