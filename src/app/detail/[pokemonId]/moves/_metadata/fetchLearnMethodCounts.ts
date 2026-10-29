@@ -12,6 +12,7 @@ const FALLBACK_LABEL: Record<string, string> = {
   [LearnMethod.MACHINE]: '기술머신',
   [LearnMethod.EGG]: '알 기술',
   [LearnMethod.TUTOR]: '기술 가르침',
+  [LearnMethod.FORM_CHANGE]: '폼체인지',
 }
 
 interface FetchLearnMethodCountsParams {

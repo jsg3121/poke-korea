@@ -4,6 +4,7 @@ const METHOD_SLUG: Partial<Record<LearnMethod, string>> = {
   [LearnMethod.MACHINE]: 'machine',
   [LearnMethod.EGG]: 'egg',
   [LearnMethod.TUTOR]: 'tutor',
+  [LearnMethod.FORM_CHANGE]: 'form-change',
 }
 
 export const DEFAULT_LEARN_METHOD = LearnMethod.LEVEL_UP
@@ -13,7 +14,16 @@ export const VISIBLE_LEARN_METHODS: ReadonlyArray<LearnMethod> = [
   LearnMethod.MACHINE,
   LearnMethod.EGG,
   LearnMethod.TUTOR,
+  LearnMethod.FORM_CHANGE,
 ]
+
+/**
+ * 해당 습득 기술이 있을 때만 탭을 노출하는 습득법.
+ * 폼체인지는 로토무·옷갈아입기 피카츄 등 일부 폼에만 있어 항상 노출하면 빈 탭이 생긴다.
+ */
+export const CONDITIONAL_LEARN_METHODS: ReadonlySet<LearnMethod> = new Set([
+  LearnMethod.FORM_CHANGE,
+])
 
 const SLUG_TO_METHOD = new Map<string, LearnMethod>(
   Object.entries(METHOD_SLUG).map(([method, slug]) => [
