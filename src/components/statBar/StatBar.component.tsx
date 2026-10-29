@@ -43,7 +43,7 @@ const StatBar = ({
   return (
     <div ref={rootRef} className="w-full">
       {showTotal && (
-        <div className="mb-3 flex items-baseline justify-between border-b border-primary-3 pb-3 desktop:pb-0">
+        <div className="mb-3 flex items-baseline justify-between border-b border-solid border-primary-3 pb-3 desktop:pb-0">
           <span className="text-xs font-semibold text-primary-2 desktop:text-sm">
             종족값 총합
           </span>
