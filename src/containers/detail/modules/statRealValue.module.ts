@@ -2,7 +2,7 @@ import type { PokemonStats } from '~/graphql/typeGenerated'
 
 type NatureModifier = 'up' | 'neutral' | 'down'
 
-type StatKey = Exclude<keyof PokemonStats, '__typename' | 'total'>
+export type StatKey = Exclude<keyof PokemonStats, '__typename' | 'total'>
 
 interface RealStatValues {
   noInvestment: number
@@ -10,12 +10,29 @@ interface RealStatValues {
   maxBoosted: number
 }
 
+export type RealStatColumn = keyof RealStatValues
+
 type RealStatTable = Record<StatKey, RealStatValues>
+
+interface ColumnExtremes {
+  max: number
+  min: number
+}
+
+const STAT_KEYS: ReadonlyArray<StatKey> = [
+  'hp',
+  'attack',
+  'defense',
+  'specialAttack',
+  'specialDefense',
+  'speed',
+]
 
 const HP_OFFSET = 75
 const STAT_OFFSET = 20
 const MAX_INVESTMENT = 32
 const FIXED_HP = 1
+const BAR_MAX_PADDING = 20
 
 const NATURE_RATE: Record<NatureModifier, number> = {
   up: 11,
@@ -89,4 +106,30 @@ export const getRealStatTable = (stats: PokemonStats): RealStatTable => {
     specialDefense: getStatValues(stats.specialDefense),
     speed: getStatValues(stats.speed),
   }
+}
+
+/**
+ * 실수치 표의 열 하나에서 최댓값과 최솟값.
+ *
+ * @param table 실수치 표
+ * @param column 열
+ * @returns 그 열의 최댓값·최솟값
+ */
+export const getRealStatColumnExtremes = (
+  table: RealStatTable,
+  column: RealStatColumn,
+): ColumnExtremes => {
+  const values = STAT_KEYS.map((key) => table[key][column])
+  return { max: Math.max(...values), min: Math.min(...values) }
+}
+
+/**
+ * 실수치 막대 길이의 기준값 — 표 전체 최댓값 + 20.
+ *
+ * @param table 실수치 표
+ * @returns 막대 100%에 해당하는 값
+ */
+export const getRealStatBarMax = (table: RealStatTable): number => {
+  const values = STAT_KEYS.map((key) => table[key].maxBoosted)
+  return Math.max(...values) + BAR_MAX_PADDING
 }

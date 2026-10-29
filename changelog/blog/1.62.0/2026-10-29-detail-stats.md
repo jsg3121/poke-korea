@@ -98,6 +98,21 @@ ux-designer 설계와 ui-publisher 시안을 거쳐 화면을 확정했다. 주�
 
 "종족값 총합" 행 아래 여백(`pb-3`)을 데스크톱에서 없앴다(`desktop:pb-0`). 기본값 변경이라 챔피언스 상세에도 적용된다.
 
+### 실수치 표 — `DetailRealStatTable`, `DetailHpNatureTip`
+
+사용처가 `DetailStats` 하나라 부모 옆(`containers/detail/`)에 뒀다.
+
+- **표**: `<table>` 하나를 모바일·데스크톱이 같이 쓴다. `caption`(sr-only), `th scope="col"`·`scope="row"`, 범례는 `aria-describedby`로 연결한다. 행 순서·라벨은 `StatBar`와 같다(체력·공격·특수공격·방어·특수방어·스피드).
+- **숫자**: `StatBarAnimatedValue` + `useReplayProgress`로 전환 시 카운트업한다. 서버 HTML에는 최종값이 들어간다.
+- **데스크톱 칸**: 숫자(왼쪽 정렬, 머리글 시작선과 맞춤) + 막대. 막대 기준은 표 안 최댓값 + 20, 색은 1·2열 `primary-2`, 3열 `primary-1`, 열별 최고 `type-grass`·최저 `damage-physical`. 색 의미는 범례에 적고(데스크톱만), 칸마다 `sr-only` "(최고)"/"(최저)"를 둔다.
+- **머리글**: "종족값 총합" 라벨과 같은 글자 스타일. 머리글 칸을 총합 숫자와 같은 글자 크기·줄높이로 두어 글자 아랫선과 첫 행 위치를 종족값 패널과 맞췄다. 모바일 3열은 "최대 투자"를 칸 위로 올려 2줄로 보여 준다.
+- **HP 토글팁**: 체력 행 3열의 ⓘ 버튼. 클릭·Enter·Space로 열고, 재클릭·Esc·바깥 클릭·포커스 이탈로 닫는다(기존 `useOutSideClick` 재사용). 문구는 `aria-describedby`로 버튼에 연결해 닫혀 있어도 스크린리더가 읽는다.
+- **모듈 추가**: `getRealStatColumnExtremes`(열별 최댓값·최솟값), `getRealStatBarMax`(막대 기준값). 기대값 대조 — 한카리아스 열별 183/100·215/132·215/145, 기준값 235: PASS.
+
+### SegmentedControl 핸들러 정리
+
+목록 버튼에 `onClick={() => onChange(item.key)}`로 props 콜백을 JSX 화살표 함수에 바로 넘기고 있었다(coding.md 이벤트 핸들러 규칙 위반). 버튼 `value`에 키를 담고 이름 있는 핸들러 하나에서 `items`로 찾아 호출하도록 고쳤다.
+
 ### 하네스
 
 - ADR-0024 결과 절에 Node 실행 확인 결과를 추가했다.

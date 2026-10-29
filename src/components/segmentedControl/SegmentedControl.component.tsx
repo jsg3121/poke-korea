@@ -1,3 +1,5 @@
+import { MouseEvent } from 'react'
+
 interface SegmentedControlItem<T extends string> {
   key: T
   label: string
@@ -23,6 +25,11 @@ const SegmentedControl = <T extends string>({
   value,
   onChange,
 }: SegmentedControlProps<T>) => {
+  const handleClickItem = (e: MouseEvent<HTMLButtonElement>) => {
+    const item = items.find((i) => i.key === e.currentTarget.value)
+    if (item) onChange(item.key)
+  }
+
   return (
     <div
       role="group"
@@ -36,8 +43,9 @@ const SegmentedControl = <T extends string>({
           <button
             key={item.key}
             type="button"
+            value={item.key}
             aria-pressed={isActive}
-            onClick={() => onChange(item.key)}
+            onClick={handleClickItem}
             className={`${BUTTON_CLASS} ${isActive ? ACTIVE_CLASS : INACTIVE_CLASS}`}
           >
             {item.label}
