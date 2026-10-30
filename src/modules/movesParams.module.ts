@@ -25,6 +25,18 @@ export const CONDITIONAL_LEARN_METHODS: ReadonlySet<LearnMethod> = new Set([
   LearnMethod.FORM_CHANGE,
 ])
 
+/**
+ * 조건부 습득법의 기술 그룹이 learnset에 없는지 판정한다.
+ * @returns skillsByMethod가 없으면(조회 실패) false
+ */
+export const isEmptyConditionalMethod = (
+  learnMethod: LearnMethod,
+  skillsByMethod?: ReadonlyArray<{ method: LearnMethod }>,
+): boolean =>
+  CONDITIONAL_LEARN_METHODS.has(learnMethod) &&
+  skillsByMethod !== undefined &&
+  !skillsByMethod.some(({ method }) => method === learnMethod)
+
 const SLUG_TO_METHOD = new Map<string, LearnMethod>(
   Object.entries(METHOD_SLUG).map(([method, slug]) => [
     slug,

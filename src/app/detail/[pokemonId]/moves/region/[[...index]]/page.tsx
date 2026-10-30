@@ -2,7 +2,12 @@ import { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
 import { LearnMethod, PokemonFormType } from '~/graphql/typeGenerated'
-import { buildMovesPath, parseFormSegments } from '~/modules/movesParams.module'
+import {
+  buildMovesPath,
+  DEFAULT_LEARN_METHOD,
+  isEmptyConditionalMethod,
+  parseFormSegments,
+} from '~/modules/movesParams.module'
 import { DetailMovesProvider } from '~/context/DetailMoves.context'
 import DetailMoves from '~/views/detail/DetailMoves.view'
 
@@ -138,6 +143,18 @@ const RegionMovesPage = async ({
     !pokemonInfoData.getPokemonDetail.isRegionForm
   ) {
     notFound()
+  }
+
+  if (isEmptyConditionalMethod(learnMethod, learnset?.skillsByMethod)) {
+    redirect(
+      buildMovesPath({
+        pokemonId,
+        activeType: 'region',
+        activeIndex,
+        versionGroupId,
+        learnMethod: DEFAULT_LEARN_METHOD,
+      }),
+    )
   }
 
   const activeRegionForm = regionForms?.[activeIndex]
