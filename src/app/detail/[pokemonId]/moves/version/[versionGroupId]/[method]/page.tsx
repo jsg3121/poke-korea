@@ -1,9 +1,11 @@
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import { LearnMethod } from '~/graphql/typeGenerated'
 import {
+  buildMovesPath,
   DEFAULT_LEARN_METHOD,
+  isEmptyConditionalMethod,
   parseLearnMethodSlug,
   VISIBLE_LEARN_METHODS,
 } from '~/modules/movesParams.module'
@@ -74,6 +76,16 @@ const VersionMethodMovesPage = async ({
 
   if (!pokemonInfoData.getPokemonDetail) {
     notFound()
+  }
+
+  if (isEmptyConditionalMethod(learnMethod, learnset?.skillsByMethod)) {
+    redirect(
+      buildMovesPath({
+        pokemonId,
+        versionGroupId: parsedVersionId,
+        learnMethod: DEFAULT_LEARN_METHOD,
+      }),
+    )
   }
 
   const pokemonDetail = pokemonInfoData.getPokemonDetail
