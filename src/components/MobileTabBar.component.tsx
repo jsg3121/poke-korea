@@ -22,6 +22,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/"
+            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/' ? 'font-bold' : ''}`}
           >
             <TabHomeIcon />
@@ -33,6 +34,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/list"
+            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/list' || pathname.includes('/detail') ? 'font-bold' : ''}`}
           >
             <PokeballIcon />
@@ -44,6 +46,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/moves"
+            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'font-bold' : ''}`}
           >
             <MovesListIcon />
@@ -55,6 +58,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/ability"
+            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname.includes('/ability') ? 'font-bold' : ''}`}
           >
             <AbilityIcon />
@@ -66,6 +70,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/type-effectiveness"
+            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/type-effectiveness' ? 'font-bold' : ''}`}
           >
             <TypeEffectivenessIcon />
@@ -77,6 +82,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/quiz"
+            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname.includes('/quiz') ? 'font-bold' : ''}`}
           >
             <QuizIcon />
@@ -88,6 +94,7 @@ const MobileTabBar = () => {
         >
           <Link
             href="/champions"
+            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname.includes('/champions') ? 'font-bold' : ''}`}
           >
             <ChampionsIcon />

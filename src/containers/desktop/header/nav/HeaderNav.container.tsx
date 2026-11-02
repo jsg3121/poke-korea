@@ -14,6 +14,7 @@ const HeaderNav = () => {
         >
           <Link
             href="/"
+            prefetch={false}
             className={`w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-4 ${pathname === '/' ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             홈
@@ -24,6 +25,7 @@ const HeaderNav = () => {
         >
           <Link
             href="/list"
+            prefetch={false}
             className={`w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-4 ${pathname === '/list' || pathname.includes('/detail') ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             포켓몬 도감
@@ -34,6 +36,7 @@ const HeaderNav = () => {
         >
           <Link
             href="/moves"
+            prefetch={false}
             className={`w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-4 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             기술 도감
@@ -44,6 +47,7 @@ const HeaderNav = () => {
         >
           <Link
             href="/ability"
+            prefetch={false}
             className={`w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-4 ${pathname.includes('/ability') ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             특성 도감
@@ -54,6 +58,7 @@ const HeaderNav = () => {
         >
           <Link
             href="/type-effectiveness"
+            prefetch={false}
             className={`w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-4 ${pathname === '/type-effectiveness' ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             상성 계산기
@@ -64,6 +69,7 @@ const HeaderNav = () => {
         >
           <Link
             href="/quiz"
+            prefetch={false}
             className={`w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-4 ${pathname.includes('/quiz') ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             포켓몬 퀴즈
@@ -74,6 +80,7 @@ const HeaderNav = () => {
         >
           <Link
             href="/champions"
+            prefetch={false}
             className={`w-full h-12 text-base leading-[calc(3rem+2px)] text-primary-4 ${pathname.includes('/champions') ? 'font-bold' : 'hover:scale-110 transition-transform duration-200'}`}
           >
             챔피언스
@@ -83,6 +90,7 @@ const HeaderNav = () => {
               <li>
                 <Link
                   href="/champions"
+                  prefetch={false}
                   className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
                 >
                   홈
@@ -91,6 +99,7 @@ const HeaderNav = () => {
               <li>
                 <Link
                   href="/champions/list"
+                  prefetch={false}
                   className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
                 >
                   포켓몬 도감
@@ -99,6 +108,7 @@ const HeaderNav = () => {
               <li>
                 <Link
                   href="/champions/tier"
+                  prefetch={false}
                   className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2"
                 >
                   티어 리스트
@@ -107,6 +117,7 @@ const HeaderNav = () => {
               <li>
                 <Link
                   href="/champions/tournaments"
+                  prefetch={false}
                   className="block px-4 py-3 text-sm text-primary-4 hover:bg-primary-2 rounded-b-lg"
                 >
                   대회
