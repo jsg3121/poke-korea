@@ -52,7 +52,9 @@ const request = async (token, url, body) => {
   })
   const json = await res.json()
   if (!res.ok) {
-    throw new Error(`BigQuery 오류(${res.status}): ${JSON.stringify(json.error ?? json)}`)
+    throw new Error(
+      `BigQuery 오류(${res.status}): ${JSON.stringify(json.error ?? json)}`,
+    )
   }
   return json
 }
@@ -134,7 +136,11 @@ const main = async () => {
   rows.slice(0, limit).forEach((row) => {
     console.log(
       fields
-        .map((f) => String(row[f] ?? '').slice(0, 24).padEnd(25))
+        .map((f) =>
+          String(row[f] ?? '')
+            .slice(0, 24)
+            .padEnd(25),
+        )
         .join(''),
     )
   })

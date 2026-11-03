@@ -1,12 +1,17 @@
 'use client'
 
-import { ComponentProps, FocusEvent, MouseEvent, TouchEvent } from 'react'
+import {
+  ComponentPropsWithoutRef,
+  FocusEvent,
+  MouseEvent,
+  TouchEvent,
+} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 type IntentLinkProps = Omit<
-  ComponentProps<typeof Link>,
-  'prefetch' | 'href'
+  ComponentPropsWithoutRef<typeof Link>,
+  'prefetch' | 'href' | 'legacyBehavior'
 > & {
   href: string
 }

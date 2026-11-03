@@ -62,6 +62,9 @@ RSC 요청은 Next.js `<Link>`의 기본 prefetch가 만든다. Next.js 15는 �
 - 모바일에서 링크 위에 손가락을 대고 스크롤을 시작해도 `touchstart`가 발생하므로, 일부 prefetch는 남는다.
 - 캐시가 없는 페이지로 이동할 때는 짧은 대기가 생길 수 있다. 체감 문제가 확인되면 `useLinkStatus`로 로딩 표시를 추가한다.
 - `IntentLink`가 `next/navigation`의 `useRouter`를 쓰므로 Storybook은 `.storybook/preview.tsx`에서 `nextjs.appDirectory: true`를 전역으로 켠다.
+- 이 결정의 핵심은 **화면에 보이기만 한 링크의 RSC prefetch를 끄는 것**이다. 의도 시점의 `router.prefetch(href)`는 kind를 지정하지 않으며, Next.js 15.5의 기존 prefetch 구현에서는 기본값 `FULL`(경로 데이터 전체)로 동작한다. `loading.tsx`가 없어 `AUTO`로는 동적 경로를 거의 받지 못하므로 `FULL`이 목적에 맞다.
+  - **Next.js 업그레이드 때 다시 확인한다.** 새 prefetch 구현(segment cache)이 켜지면 같은 호출의 기본값이 `AUTO`로 바뀐다(`next/dist/client/components/app-router-instance.js`). kind를 코드에 명시하지 않는 것은 `PrefetchKind`가 공개 API가 아니라 `next/dist` 내부 경로에만 있어서다.
+  - 현재 구현에서는 kind와 관계없이 의도 1회당 RSC 요청 1건이라 CloudFront 요청 비용은 같고, 차이는 응답 크기다. segment cache는 세그먼트 단위로 요청할 수 있으므로 업그레이드 때 요청 수도 함께 확인한다.
 - 적용 후 1~2주 동안 아래 지표로 효과를 확인한다.
   - CloudFront `Requests`(`E3TRB0VXGC6JWI`)와 Cost Explorer `AP-Requests-Tier2-HTTPS`: 요청·비용 감소
   - ALB `TargetResponseTime`(`poke-korea-group`), CloudWatch Agent `mem_used_percent`: 오리진 부하
@@ -74,6 +77,7 @@ RSC 요청은 Next.js `<Link>`의 기본 prefetch가 만든다. Next.js 15는 �
 | 2026-11-02 | 최초 작성(1.62.3). 공통 메뉴 링크 prefetch 끄기만 결정했고, "목록 카드 prefetch 끄기"와 "hover 때만 prefetch"는 불채택 대안이었다.                                                                                                                                                                                                                                   |
 | 2026-11-03 | 1차 개정(1.62.4). 목적지별 RSC 집계로 판단 근거를 바로잡았다. 최초 작성 때는 코드 구조만 보고 메뉴를 가장 큰 발생원으로 추정했지만, 실측 결과 메뉴 목적지는 전체 요청의 약 6%였고 포켓몬 카드(31%)와 타입 상세 링크(5%)가 더 컸다. 포켓몬 카드에 의도 기반 prefetch, 타입 상세 링크에 prefetch 끄기를 추가했다.                                                  |
 | 2026-11-03 | 2차 개정(1.62.5). 7일 집계에서 1차 개정 범위 밖의 RSC가 전체의 약 29%(기술 상세·상세 하위 탭·챔피언스 등 트래픽 상위 동선)로 확인됐다. 실제 진입이 많은 동선은 의도 기반 prefetch로 대응하기로 하고, 링크 방식을 `IntentLink` 하나로 통일했다. 1차 개정의 "링크 성격별 세 갈래"는 불채택 대안으로 옮겼다.                                                       |
+| 2026-11-03 | 보완(1.62.5 QA). 결정은 그대로다. 의도 시점 `router.prefetch`가 kind 미지정으로 기본값 `FULL`에 의존한다는 점, Next.js 업그레이드로 segment cache가 켜지면 기본값이 `AUTO`로 바뀌므로 다시 확인해야 한다는 점을 "결과"에 기록했다. `IntentLink` props 타입은 ref를 받지 않는 `ComponentPropsWithoutRef`로 바꾸고 `legacyBehavior`를 제외했다(동작 변화 없음). |
 
 ## 참고 자료
 

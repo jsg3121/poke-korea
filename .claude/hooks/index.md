@@ -13,6 +13,10 @@
 | `guard-git-push.sh`          | `Bash`           | main을 향하는 push (명시 지정, `HEAD:main` refspec, `--all`/`--mirror`, upstream이 main인 브랜치, 현재 브랜치가 main) |
 | `block-claude-html.sh`       | `Write` · `Edit` | `.claude/` 하위 `.html` 생성 — 시안은 `public/preview/`에 둔다                                                        |
 
+`block-version-root-edit.sh`는 테스트 산출물 폴더 `e2e/`·`test-results/`·`playwright-report/`를 예외로 통과시킨다.
+
+> **Why 예외를 두는가:** 릴리즈 PR 전 QA는 통합 브랜치에서 돌리는데, `e2e-check`가 spec을 쓰지 못해 막혔다. 우회책(다른 곳에 쓰고 `cp`로 복사)이 생기면 훅의 의미가 사라진다. 세 폴더는 `.gitignore` 대상이라 커밋에 들어가지 않으므로 "통합 브랜치에는 머지 커밋만" 원칙을 깨지 않는다. 예외는 이 세 경로로 한정하고, 이름이 비슷한 다른 경로(`e2e-other/` 등)는 그대로 막는다.
+
 ## PostToolUse — 실행 후 검사
 
 | 단계 | 구성                                                          | 역할                                                      |

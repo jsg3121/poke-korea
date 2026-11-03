@@ -37,7 +37,7 @@ const Privacy = () => {
         <h1 className="text-2xl font-bold text-primary-4 mb-2">
           개인정보처리방침
         </h1>
-        <p className="text-xs text-primary-3">최종 수정일: 2026년 9월 20일</p>
+        <p className="text-xs text-primary-3">최종 수정일: 2026년 11월 3일</p>
       </header>
 
       <p className={`${TEXT_CLASS} mb-8`}>
