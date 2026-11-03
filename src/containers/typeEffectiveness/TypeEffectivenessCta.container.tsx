@@ -33,7 +33,11 @@ const TypeEffectivenessCta = () => {
       <ul className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
         {selectTypeList.map((type) => (
           <li key={`type-detail-${type}`}>
-            <Link href={buildTypeDetailPath(type)} className={CTA_LINK_CLASS}>
+            <Link
+              href={buildTypeDetailPath(type)}
+              prefetch={false}
+              className={CTA_LINK_CLASS}
+            >
               <span>{PokemonTypes[type]} 타입 약점과 상성 자세히 보기</span>
               <span aria-hidden="true">→</span>
             </Link>
