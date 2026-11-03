@@ -14,7 +14,9 @@
 │   ├── search-console.js             #   Search Console 검색 분석
 │   ├── ga4.js                        #   GA4 리포트
 │   ├── adsense.js                    #   애드센스 리포트
-│   └── adsense-authorize.js          #   애드센스 OAuth 최초 인증 (1회용)
+│   ├── adsense-authorize.js          #   애드센스 OAuth 최초 인증 (1회용)
+│   ├── lighthouse-batch.sh           #   Lighthouse 모바일 일괄 측정 (운영 13개 페이지)
+│   └── lighthouse-summary.py         #   측정 결과 페이지별 중앙값 요약
 └── 광고이름_id.txt                    # 광고 슬롯 ID 매핑
 ```
 
