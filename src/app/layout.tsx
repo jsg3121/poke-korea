@@ -104,20 +104,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 `,
               }}
             />
-            <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
-            <Script
-              id="naver-analytics-init"
-              strategy="lazyOnload"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  if(!wcs_add) var wcs_add = {};
-                  wcs_add["wa"] = "7c0a94c9c2ab1c";
-                  if(window.wcs) {
-                    wcs_do();
-                  }
-                `,
-              }}
-            />
           </>
         )}
       </body>
