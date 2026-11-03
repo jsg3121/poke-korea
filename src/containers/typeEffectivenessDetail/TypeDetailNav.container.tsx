@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
@@ -67,9 +67,8 @@ const TypeDetailNav = ({ pokemonType }: TypeDetailNavProps) => {
           {TYPE_LINK_ORDER.filter((type) => type !== pokemonType).map(
             (type) => (
               <li key={type}>
-                <Link
+                <IntentLink
                   href={buildTypeDetailPath(type)}
-                  prefetch={false}
                   aria-label={`${getTypeLabel(type)} 타입 약점과 상성 보기`}
                   className="flex min-h-touch w-full min-w-0 items-center justify-between gap-2 whitespace-nowrap rounded-2xl border border-solid border-primary-3 px-3 py-2 text-base font-semibold text-primary-4 transition-colors hover:border-primary-4 hover:bg-primary-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
                 >
@@ -89,7 +88,7 @@ const TypeDetailNav = ({ pokemonType }: TypeDetailNavProps) => {
                   <span aria-hidden="true" className="text-primary-3">
                     ›
                   </span>
-                </Link>
+                </IntentLink>
               </li>
             ),
           )}

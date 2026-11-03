@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
@@ -20,18 +20,18 @@ const TypeDetailSummary = ({ pokemonType }: TypeDetailSummaryProps) => {
       <nav aria-label="현재 위치" className="mb-3">
         <ol className="flex flex-wrap items-center gap-1 text-xs text-primary-3 desktop:text-sm">
           <li>
-            <Link href="/" className="hover:text-primary-4 hover:underline">
+            <IntentLink href="/" className="hover:text-primary-4 hover:underline">
               홈
-            </Link>
+            </IntentLink>
           </li>
           <li aria-hidden="true">›</li>
           <li>
-            <Link
+            <IntentLink
               href="/type-effectiveness"
               className="hover:text-primary-4 hover:underline"
             >
               타입 상성 계산기
-            </Link>
+            </IntentLink>
           </li>
           <li aria-hidden="true">›</li>
           <li aria-current="page" className="font-bold text-primary-4">

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import InCorrectIcon from '~/assets/icons/wrong-correct.svg'
@@ -78,13 +78,13 @@ const QuizResultPopup = ({
             >
               닫기
             </button>
-            <Link
+            <IntentLink
               href={`/quiz/${quizType}`}
               className="w-full h-12 bg-primary-1 text-primary-4 text-center block text-aligned-xl font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
               aria-label="퀴즈 풀러 가기"
             >
               {QUIZ_TYPE[quizType]} 풀러 가기
-            </Link>
+            </IntentLink>
           </div>
         </article>
       </aside>

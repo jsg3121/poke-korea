@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { ChampionsTeamSlotFragment, PokemonType } from '~/graphql/typeGenerated'
 import {
@@ -147,12 +147,12 @@ const ChampionsTournamentSlotCard = ({
 
   if (href) {
     return (
-      <Link
+      <IntentLink
         href={href}
         className="block w-full h-full hover:scale-105 transition-transform"
       >
         {inner}
-      </Link>
+      </IntentLink>
     )
   }
   return inner

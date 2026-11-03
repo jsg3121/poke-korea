@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 import { usePathname } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
@@ -22,15 +22,15 @@ const Header = () => {
     <Fragment>
       <header className="w-full h-30 bg-primary-2 fixed left-0 top-0 z-50 pt-3">
         <div className="w-full max-w-[1280px] h-12 mx-auto px-5 relative z-[550]">
-          <Link
+          <IntentLink
             href="/"
             className="w-56 h-12 block"
             aria-label="포켓몬의 모든 정보 Poke Korea"
           >
             <LogoIcon />
-          </Link>
+          </IntentLink>
           {pathname === '/list' ? <MainSearch /> : <DetailSearch />}
-          <Link
+          <IntentLink
             href={feedbackFormUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -38,7 +38,7 @@ const Header = () => {
           >
             <FeedbackIcon width={16} height={16} />
             <span className="text-base mt-1">기능/오류 신고</span>
-          </Link>
+          </IntentLink>
         </div>
         <HeaderNav />
         {hasSubNav && <ChampionsSubNav />}

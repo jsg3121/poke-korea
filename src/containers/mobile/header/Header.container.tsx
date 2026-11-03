@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 import { usePathname } from 'next/navigation'
 
 import LogoIcon from '~/assets/logo.svg'
@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <>
       <header className="h-12 bg-primary-2 flex-between gap-3 px-4 sticky top-0 z-[500]">
-        <Link
+        <IntentLink
           href="/"
           aria-label="메인 화면으로 돌아가기"
           className="w-24 shrink-0 block"
@@ -24,7 +24,7 @@ const Header = () => {
             <LogoIcon />
           </i>
           <p className="sr-only">메인 화면으로 돌아가기</p>
-        </Link>
+        </IntentLink>
         {pathname === '/list' ? <ListSearch /> : <HeaderSearch />}
       </header>
       {pathname.includes('/champions') && <ChampionsSubNav />}

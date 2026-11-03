@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import AbilityIcon from '~/assets/icons/ability.svg'
 import { Ability, PokemonWithAbility } from '~/graphql/typeGenerated'
@@ -40,12 +40,12 @@ const PokemonByAbility = ({
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4 py-6">
-      <Link
+      <IntentLink
         href="/ability"
         className="inline-flex h-9 items-center gap-1 rounded-full bg-primary-3 px-4 text-sm font-medium text-primary-1 transition-colors hover:bg-primary-2 hover:text-primary-4"
       >
         ← 특성 도감으로 돌아가기
-      </Link>
+      </IntentLink>
 
       {displayAbility && (
         <header className="mt-4 mb-6">

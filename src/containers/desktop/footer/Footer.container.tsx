@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const Footer = () => {
   return (
@@ -11,12 +11,12 @@ const Footer = () => {
         or its licensors. All rights reserved.
       </p>
       <nav className="w-full mt-2 text-center">
-        <Link
+        <IntentLink
           href="/privacy"
           className="text-primary-3 underline underline-offset-2"
         >
           개인정보처리방침
-        </Link>
+        </IntentLink>
       </nav>
     </footer>
   )

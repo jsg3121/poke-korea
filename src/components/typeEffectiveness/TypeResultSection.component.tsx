@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
@@ -38,14 +38,14 @@ const TypeResultSection = ({ title, rows }: TypeResultSectionProps) => {
             </dt>
             <dd className="m-0 mt-2 flex flex-wrap items-center gap-1.5">
               {row.types.map((type) => (
-                <Link
+                <IntentLink
                   key={type}
                   href={`/list?type=${type}`}
                   aria-label={`${PokemonTypes[type]} 타입 포켓몬 도감 보기`}
                   className="inline-flex rounded-lg p-0.5 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4"
                 >
                   <Tag type={type} />
-                </Link>
+                </IntentLink>
               ))}
             </dd>
           </div>

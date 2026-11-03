@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { buildFeedbackFormUrl } from '~/constants/feedbackForm'
 
@@ -241,12 +241,12 @@ const Privacy = () => {
       </section>
 
       <footer className="mt-10 pt-6 border-t border-primary-2 text-center">
-        <Link
+        <IntentLink
           href="/"
           className="inline-block text-sm text-primary-3 underline underline-offset-2"
         >
           홈으로 돌아가기
-        </Link>
+        </IntentLink>
       </footer>
     </article>
   )

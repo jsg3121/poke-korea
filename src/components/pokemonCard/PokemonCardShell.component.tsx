@@ -1,8 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hooks/useLazyImage'
@@ -46,11 +45,8 @@ const PokemonCardShell = ({
   isHighPriority = false,
   ariaLabel,
 }: PokemonCardShellProps) => {
-  const router = useRouter()
   const { imgRef, isVisible, isLoaded, handleImageLoad, handleImageError } =
     useLazyImage({ rootMargin: '200px', threshold: 0.1 })
-
-  const prefetchOnIntent = () => router.prefetch(href)
 
   const gradientStyle =
     backgroundColor.length === 1
@@ -60,12 +56,8 @@ const PokemonCardShell = ({
         }
 
   return (
-    <Link
+    <IntentLink
       href={href}
-      prefetch={false}
-      onMouseEnter={prefetchOnIntent}
-      onTouchStart={prefetchOnIntent}
-      onFocus={prefetchOnIntent}
       className={`block mx-auto ${POKEMON_CARD_SIZE.width}`}
     >
       <article
@@ -134,7 +126,7 @@ const PokemonCardShell = ({
 
         {children}
       </article>
-    </Link>
+    </IntentLink>
   )
 }
 

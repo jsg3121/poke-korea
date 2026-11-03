@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const Error = () => {
   return (
@@ -16,12 +16,12 @@ const Error = () => {
           <strong className="block">일시적인 오류가 발생했습니다.</strong>
           잠시 후 다시 시도해주세요.
         </p>
-        <Link
+        <IntentLink
           href="/"
           className="w-1/2 desktop:w-[15rem] mx-auto text-xl text-aligned-xl text-white h-12 border-solid border-primary-4 border block"
         >
           홈으로 돌아가기
-        </Link>
+        </IntentLink>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildChampionsDetailHref } from '~/utils/championsFormat.util'
@@ -39,7 +39,7 @@ const TypeDetailChampions = ({
       <ul className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
         {entries.map(({ formatLabel, formatSlug, pokemon }) => (
           <li key={`${formatSlug}-${pokemon.pokemonId}`}>
-            <Link
+            <IntentLink
               href={buildChampionsDetailHref({
                 formatSlug,
                 pokemonId: pokemon.pokemonId,
@@ -83,7 +83,7 @@ const TypeDetailChampions = ({
                   </span>
                 )}
               </div>
-            </Link>
+            </IntentLink>
           </li>
         ))}
       </ul>

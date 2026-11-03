@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
@@ -54,7 +54,7 @@ const ResultListData = ({
 
   return (
     <li className="w-full">
-      <Link
+      <IntentLink
         href={getPokemonHref()}
         onClick={onClick}
         className="w-full min-h-11 py-1 gap-2 flex-between text-black-2 visited:text-black-2 active:text-black-2"
@@ -82,7 +82,7 @@ const ResultListData = ({
             />
           )}
         </div>
-      </Link>
+      </IntentLink>
     </li>
   )
 }

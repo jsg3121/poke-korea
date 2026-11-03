@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface DetailMovesFormSlideLinkProps {
   href: string
@@ -28,13 +28,13 @@ const DetailMovesFormSlideLink = ({
     )
   }
   return (
-    <Link
+    <IntentLink
       href={href}
       aria-label={label}
       className={`${SLIDE_LINK_BASE_CLASS} border-primary-3 bg-white-1 text-primary-1 hover:bg-primary-4`}
     >
       {children}
-    </Link>
+    </IntentLink>
   )
 }
 

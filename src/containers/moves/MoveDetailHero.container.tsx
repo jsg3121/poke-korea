@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonSkillDetail, VersionGroup } from '~/graphql/typeGenerated'
 import {
@@ -57,12 +57,12 @@ const MoveDetailHero = ({
 
   return (
     <section className="w-full">
-      <Link
+      <IntentLink
         href="/moves"
         className="inline-flex h-9 items-center gap-1 rounded-full bg-primary-3 px-4 text-sm font-medium text-primary-1 transition-colors hover:bg-primary-2 hover:text-primary-4"
       >
         ← 기술 도감으로 돌아가기
-      </Link>
+      </IntentLink>
 
       <header className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
         <h1 className="text-2xl desktop:text-4xl font-bold text-primary-4 leading-tight">

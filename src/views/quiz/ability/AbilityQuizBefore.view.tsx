@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import {
   QUIZ_CONFIG,
@@ -39,13 +39,13 @@ const AbilityQuizBefore = () => {
         </div>
         <div className="mt-4 pt-4 border-t border-solid border-primary-3">
           {seoContent.relatedLinks.map((link) => (
-            <Link
+            <IntentLink
               key={link.href}
               href={link.href}
               className="inline-flex min-h-touch items-center text-sm text-primary-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-2"
             >
               {link.text}
-            </Link>
+            </IntentLink>
           ))}
         </div>
       </article>

@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 import { usePathname } from 'next/navigation'
 
 import AbilityIcon from '~/assets/icons/ability.svg'
@@ -20,86 +20,79 @@ const MobileTabBar = () => {
         <li
           className={`w-full h-full ${pathname === '/' ? 'border-t-2 border-solid border-primary-4' : ''}`}
         >
-          <Link
+          <IntentLink
             href="/"
-            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/' ? 'font-bold' : ''}`}
           >
             <TabHomeIcon />
             <span>홈</span>
-          </Link>
+          </IntentLink>
         </li>
         <li
           className={`w-full h-full ${pathname === '/list' || pathname.includes('/detail') ? 'border-t-2 border-solid border-primary-4' : ''}`}
         >
-          <Link
+          <IntentLink
             href="/list"
-            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/list' || pathname.includes('/detail') ? 'font-bold' : ''}`}
           >
             <PokeballIcon />
             <span>도감</span>
-          </Link>
+          </IntentLink>
         </li>
         <li
           className={`w-full h-full ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'border-t-2 border-solid border-primary-4' : ''}`}
         >
-          <Link
+          <IntentLink
             href="/moves"
-            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/moves' || pathname.match(/\/moves\/[0-9]/) ? 'font-bold' : ''}`}
           >
             <MovesListIcon />
             <span>기술</span>
-          </Link>
+          </IntentLink>
         </li>
         <li
           className={`w-full h-full ${pathname.includes('/ability') ? 'border-t-2 border-solid border-primary-4' : ''}`}
         >
-          <Link
+          <IntentLink
             href="/ability"
-            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname.includes('/ability') ? 'font-bold' : ''}`}
           >
             <AbilityIcon />
             <span>특성</span>
-          </Link>
+          </IntentLink>
         </li>
         <li
           className={`w-full h-full ${pathname === '/type-effectiveness' ? 'border-t-2 border-solid border-primary-4' : ''}`}
         >
-          <Link
+          <IntentLink
             href="/type-effectiveness"
-            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname === '/type-effectiveness' ? 'font-bold' : ''}`}
           >
             <TypeEffectivenessIcon />
             <span>상성</span>
-          </Link>
+          </IntentLink>
         </li>
         <li
           className={`w-full h-full ${pathname.includes('/quiz') ? 'border-t-2 border-solid border-primary-4' : ''}`}
         >
-          <Link
+          <IntentLink
             href="/quiz"
-            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname.includes('/quiz') ? 'font-bold' : ''}`}
           >
             <QuizIcon />
             <span>퀴즈</span>
-          </Link>
+          </IntentLink>
         </li>
         <li
           className={`w-full h-full ${pathname.includes('/champions') ? 'border-t-2 border-solid border-primary-4' : ''}`}
         >
-          <Link
+          <IntentLink
             href="/champions"
-            prefetch={false}
             className={`w-full h-full flex flex-col justify-center gap-1 items-center text-[9px] text-primary-4 [&>svg]:h-5 [&>svg]:w-5 ${pathname.includes('/champions') ? 'font-bold' : ''}`}
           >
             <ChampionsIcon />
             <span>챔피언스</span>
-          </Link>
+          </IntentLink>
         </li>
       </ul>
     </nav>

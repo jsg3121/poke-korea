@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 import { useParams } from 'next/navigation'
 
 import { imageMode } from '~/modules/buildMode.module'
@@ -67,12 +67,12 @@ const DetailMovesHero = () => {
 
   return (
     <section className="w-full px-4 desktop:mx-auto desktop:max-w-7xl">
-      <Link
+      <IntentLink
         href={backHref}
         className="inline-flex h-8 items-center gap-1 rounded-xl bg-primary-3 px-3 text-xs font-medium text-primary-1 transition-colors hover:bg-primary-2 hover:text-primary-4 desktop:h-9 desktop:text-sm"
       >
         ← {displayName}의 상세 정보 보러가기
-      </Link>
+      </IntentLink>
 
       <article className="card-detail mt-4 flex flex-col gap-4 desktop:flex-row desktop:items-center desktop:gap-6">
         <div className="flex items-center gap-4">
@@ -145,22 +145,22 @@ const DetailMovesHero = () => {
             </div>
           )}
           {activeType === 'region' && (
-            <Link
+            <IntentLink
               href={`/detail/${pokemonId}/moves`}
               replace
               className="flex h-7 items-center rounded-lg border border-solid border-primary-3 bg-white-1 px-3 text-xs font-medium text-primary-2 transition-colors hover:bg-primary-4 hover:text-primary-1 desktop:text-sm"
             >
               일반폼 보기
-            </Link>
+            </IntentLink>
           )}
           {pokemonInfo?.isRegionForm && activeType !== 'region' && (
-            <Link
+            <IntentLink
               href={`/detail/${pokemonId}/moves/region`}
               replace
               className="flex h-7 items-center rounded-lg border border-solid border-primary-3 bg-white-1 px-3 text-xs font-medium text-primary-2 transition-colors hover:bg-primary-4 hover:text-primary-1 desktop:text-sm"
             >
               리전폼 보기
-            </Link>
+            </IntentLink>
           )}
         </div>
       </article>

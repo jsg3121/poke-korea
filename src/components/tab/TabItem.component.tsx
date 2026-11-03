@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 export type TabItemVariant = 'underline' | 'fill'
 
@@ -79,7 +79,7 @@ const TabItem = (props: TabItemProps) => {
 
   if (props.href !== undefined) {
     return (
-      <Link
+      <IntentLink
         href={props.href}
         className={className}
         aria-current={active ? 'page' : undefined}
@@ -88,7 +88,7 @@ const TabItem = (props: TabItemProps) => {
         scroll={props.scroll}
       >
         {children}
-      </Link>
+      </IntentLink>
     )
   }
 

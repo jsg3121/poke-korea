@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { DetailContext } from '~/context/Detail.context'
@@ -88,12 +88,12 @@ const DetailInfoSection = () => {
                   {ability.isHidden && (
                     <span className="text-xs font-normal">(숨겨진 특성)</span>
                   )}
-                  <Link
+                  <IntentLink
                     href={`/ability/${ability.abilityId}`}
                     className="absolute right-0 text-xs text-primary-1 underline underline-offset-4"
                   >
                     특성 정보 보러가기
-                  </Link>
+                  </IntentLink>
                 </dt>
                 <dd className="min-h-6 w-full text-xs leading-6 desktop:text-base">
                   {ability.description}

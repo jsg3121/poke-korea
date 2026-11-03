@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import {
@@ -77,12 +77,12 @@ const ChampionsTeamCoreCard = ({
         className="flex items-center gap-1"
       >
         {href ? (
-          <Link
+          <IntentLink
             href={href}
             className="hover:text-primary-2 underline-offset-2 hover:underline"
           >
             {member.name}
-          </Link>
+          </IntentLink>
         ) : (
           <span>{member.name}</span>
         )}

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { QuizType } from '~/types/quiz.types'
 import { QUIZ_CROSS_LINKS } from '~/constants/quiz.constants'
@@ -17,12 +17,12 @@ const OtherQuizLink = ({ currentQuiz }: OtherQuizLinkProps) => {
         {QUIZ_CROSS_LINKS.filter((link) => link.type !== currentQuiz).map(
           (link) => (
             <li key={link.type}>
-              <Link
+              <IntentLink
                 href={link.route}
                 className="inline-flex min-h-touch items-center text-base text-primary-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-2"
               >
                 {link.title}
-              </Link>
+              </IntentLink>
             </li>
           ),
         )}

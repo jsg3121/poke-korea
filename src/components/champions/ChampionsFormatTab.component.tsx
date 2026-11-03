@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import {
   CHAMPIONS_FORMAT_SLUGS,
@@ -31,7 +31,7 @@ const ChampionsFormatTab = ({
 
           return (
             <li key={slug}>
-              <Link
+              <IntentLink
                 href={href}
                 aria-current={isActive ? 'page' : undefined}
                 title={label}
@@ -42,7 +42,7 @@ const ChampionsFormatTab = ({
                 }`}
               >
                 {label}
-              </Link>
+              </IntentLink>
             </li>
           )
         })}

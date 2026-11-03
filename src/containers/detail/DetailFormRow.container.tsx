@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode, useContext } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 import { useSearchParams } from 'next/navigation'
 
 import RegionIcon from '~/assets/icons/region.svg'
@@ -101,7 +101,7 @@ const DetailFormRow = () => {
         aria-label="모습 전환 목록"
       >
         <li>
-          <Link
+          <IntentLink
             href={shinyHref}
             replace
             className={getFormLinkClass(isShiny)}
@@ -114,11 +114,11 @@ const DetailFormRow = () => {
               <ShinyIcon />
             </i>
             이로치
-          </Link>
+          </IntentLink>
         </li>
         {formChips.map((chip) => (
           <li key={chip.key}>
-            <Link
+            <IntentLink
               href={chip.href}
               replace
               className={getFormLinkClass(chip.active)}
@@ -126,7 +126,7 @@ const DetailFormRow = () => {
             >
               {chip.icon}
               {chip.label}
-            </Link>
+            </IntentLink>
           </li>
         ))}
       </ul>

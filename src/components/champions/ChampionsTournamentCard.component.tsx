@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 import { formatKstDate } from '~/utils/championsFormat.util'
@@ -21,7 +21,7 @@ const ChampionsTournamentCard = ({
     tournament.teams.find((t) => t.rank === 1) ?? tournament.teams[0]
 
   return (
-    <Link
+    <IntentLink
       href={`/champions/tournaments/${tournament.externalId}`}
       className="block w-full h-full hover:scale-[1.02] transition-transform"
     >
@@ -108,7 +108,7 @@ const ChampionsTournamentCard = ({
           </ul>
         )}
       </article>
-    </Link>
+    </IntentLink>
   )
 }
 

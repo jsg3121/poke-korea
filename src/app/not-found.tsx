@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
@@ -32,12 +32,12 @@ const NotFound = () => {
         >
           요청하신 페이지가 존재하지 않거나 잘못되었습니다.
         </strong>
-        <Link
+        <IntentLink
           href="/"
           className={`w-1/2 desktop:w-[15rem] mx-auto text-xl text-aligned-xl text-white h-12 border-solid border-primary-4 border block mb-12`}
         >
           홈으로 돌아가기
-        </Link>
+        </IntentLink>
         <div className="px-4 desktop:px-0">
           <p
             className={`text-base desktop:text-lg text-primary-3 mb-4 font-medium`}
@@ -47,7 +47,7 @@ const NotFound = () => {
           <div
             className={`flex flex-wrap justify-center gap-3 desktop:flex-nowrap`}
           >
-            <Link href="/detail/25">
+            <IntentLink href="/detail/25">
               <Image
                 height="10rem"
                 width="10rem"
@@ -61,8 +61,8 @@ const NotFound = () => {
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 피카츄
               </p>
-            </Link>
-            <Link href="/detail/6">
+            </IntentLink>
+            <IntentLink href="/detail/6">
               <Image
                 height="10rem"
                 width="10rem"
@@ -76,8 +76,8 @@ const NotFound = () => {
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 리자몽
               </p>
-            </Link>
-            <Link href="/detail/133">
+            </IntentLink>
+            <IntentLink href="/detail/133">
               <Image
                 height="10rem"
                 width="10rem"
@@ -91,8 +91,8 @@ const NotFound = () => {
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 이브이
               </p>
-            </Link>
-            <Link href="/detail/150">
+            </IntentLink>
+            <IntentLink href="/detail/150">
               <Image
                 height="10rem"
                 width="10rem"
@@ -106,7 +106,7 @@ const NotFound = () => {
               <p className="px-4 h-10 bg-primary-2 text-primary-4 rounded-lg hover:bg-primary-3 hover:text-primary-1 text-aligned-lg transition-colors">
                 뮤츠
               </p>
-            </Link>
+            </IntentLink>
           </div>
         </div>
       </div>

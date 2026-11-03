@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import {
   buildChampionsDetailHref,
@@ -37,7 +37,7 @@ const ChampionsDetailFormatSwitch = ({
 
           return (
             <li key={slug}>
-              <Link
+              <IntentLink
                 href={href}
                 aria-current={isActive ? 'page' : undefined}
                 title={label}
@@ -48,7 +48,7 @@ const ChampionsDetailFormatSwitch = ({
                 }`}
               >
                 {label}
-              </Link>
+              </IntentLink>
             </li>
           )
         })}

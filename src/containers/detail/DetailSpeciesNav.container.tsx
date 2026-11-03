@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 
@@ -24,24 +24,24 @@ const DetailSpeciesNav = ({ prev, next }: DetailSpeciesNavProps) => {
       className="flex w-full items-center justify-between gap-2 px-4 py-3"
     >
       {prev ? (
-        <Link
+        <IntentLink
           href={`/detail/${prev.number}`}
           className={navLinkClass}
           aria-label={`이전 포켓몬: No.${pokemonNumberFormat(prev.number)} ${prev.name}`}
         >
           ← No.{pokemonNumberFormat(prev.number)} {prev.name}
-        </Link>
+        </IntentLink>
       ) : (
         <span aria-hidden="true" />
       )}
       {next ? (
-        <Link
+        <IntentLink
           href={`/detail/${next.number}`}
           className={navLinkClass}
           aria-label={`다음 포켓몬: No.${pokemonNumberFormat(next.number)} ${next.name}`}
         >
           No.{pokemonNumberFormat(next.number)} {next.name} →
-        </Link>
+        </IntentLink>
       ) : (
         <span aria-hidden="true" />
       )}

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner.component'
@@ -62,7 +62,7 @@ const QuizMain = () => {
 
       <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4 desktop:gap-5 mt-6">
         {QUIZ_CONFIG.map((quiz) => (
-          <Link
+          <IntentLink
             key={quiz.type}
             href={quiz.route}
             aria-label={`${quiz.title} 시작하기`}
@@ -85,7 +85,7 @@ const QuizMain = () => {
                 {quiz.title} 시작하기 <span aria-hidden="true">→</span>
               </span>
             </div>
-          </Link>
+          </IntentLink>
         ))}
       </div>
     </section>

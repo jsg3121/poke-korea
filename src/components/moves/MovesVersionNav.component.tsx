@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useLayoutEffect, useRef } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect
@@ -77,7 +77,7 @@ const MovesVersionNav = ({
           className="flex gap-3 scroll-pl-4 overflow-x-auto overflow-y-hidden px-4 py-0.5 desktop:scroll-pl-0 desktop:px-0 [&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-thumb]:bg-primary-2 [&::-webkit-scrollbar-track]:rounded-xl [&::-webkit-scrollbar-track]:bg-primary-3/40"
         >
           {items.map((item) => (
-            <Link
+            <IntentLink
               key={item.versionGroupId}
               href={item.href}
               scroll={scroll}
@@ -90,7 +90,7 @@ const MovesVersionNav = ({
               }`}
             >
               {item.label}
-            </Link>
+            </IntentLink>
           ))}
         </div>
         <span

@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import {
@@ -33,7 +33,7 @@ const ChampionsTierPokemonItem = ({
   const formBadge = getChampionsFormBadge(pokemon.formType, pokemon.region)
 
   return (
-    <Link
+    <IntentLink
       href={buildChampionsDetailHref({
         formatSlug,
         pokemonId: pokemon.pokemonId,
@@ -135,7 +135,7 @@ const ChampionsTierPokemonItem = ({
           </dd>
         </div>
       </dl>
-    </Link>
+    </IntentLink>
   )
 }
 

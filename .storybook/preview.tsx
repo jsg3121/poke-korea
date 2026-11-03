@@ -6,6 +6,8 @@ import '../src/styles/globals.css'
 
 const preview: Preview = {
   parameters: {
+    // App Router만 쓰는 프로젝트라 next/navigation 모킹을 전역으로 켠다 (IntentLink가 useRouter 사용)
+    nextjs: { appDirectory: true },
     controls: {
       matchers: {
         color: /(background|color)$/i,

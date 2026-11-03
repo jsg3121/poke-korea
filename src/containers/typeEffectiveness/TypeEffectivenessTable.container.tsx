@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
@@ -128,14 +128,13 @@ const TypeEffectivenessTable = () => {
                   scope="row"
                   className="sticky left-0 z-10 h-10 min-w-14 border-b border-r border-solid border-primary-3 bg-primary-2 p-0 text-center align-middle text-xs text-white desktop:h-12 desktop:min-w-16 desktop:text-sm"
                 >
-                  <Link
+                  <IntentLink
                     href={buildTypeDetailPath(toPokemonType(attackType))}
-                    prefetch={false}
                     aria-label={`${attackType} 타입 약점과 상성 보기`}
                     className="flex h-full w-full items-center justify-center px-1 py-2 hover:underline focus-visible:underline"
                   >
                     {attackType}
-                  </Link>
+                  </IntentLink>
                 </th>
                 {TYPE_ORDER.map((defenseType) =>
                   renderCell(attackType, defenseType),

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { EvolutionNode, hasVersionVariants } from '~/utils/evolution.util'
 import { imageMode } from '~/modules/buildMode.module'
@@ -32,7 +32,7 @@ const EvolutionConditionCard = ({
 
   return (
     <div className="flex w-full flex-col gap-3 rounded-2xl border border-solid border-primary-3 p-3 desktop:p-4">
-      <Link
+      <IntentLink
         href={node.targetHref}
         aria-label={`${baseName}의 진화 관련 포켓몬 ${node.displayName} 상세 보기`}
         className="group -m-1 flex items-center gap-3 rounded-2xl p-1 transition-colors hover:bg-primary-1/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
@@ -68,7 +68,7 @@ const EvolutionConditionCard = ({
         >
           ›
         </span>
-      </Link>
+      </IntentLink>
 
       {showVersionTabs ? (
         <>
