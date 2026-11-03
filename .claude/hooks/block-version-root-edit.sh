@@ -30,6 +30,13 @@ target_dir=$(dirname "$file_path")
 
 repo_root=$(git -C "$target_dir" rev-parse --show-toplevel 2>/dev/null) || exit 0
 
+# 테스트 산출물 폴더는 예외로 통과시킨다. 셋 다 .gitignore 대상이라 커밋에
+# 들어가지 않으므로 통합 브랜치의 "머지 커밋만" 원칙을 깨지 않는다.
+# 통합 브랜치에서 릴리즈 전 QA(e2e-check)를 돌리려면 spec을 쓸 수 있어야 한다.
+case "${file_path#"$repo_root"/}" in
+  e2e/* | test-results/* | playwright-report/*) exit 0 ;;
+esac
+
 branch=$(git -C "$repo_root" branch --show-current 2>/dev/null)
 
 # `feature/X.Y.Z` 정확히 일치할 때만 차단한다.
