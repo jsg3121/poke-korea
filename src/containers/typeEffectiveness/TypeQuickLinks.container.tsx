@@ -40,6 +40,7 @@ const TypeQuickLinks = () => {
           <li key={type}>
             <Link
               href={buildTypeDetailPath(type)}
+              prefetch={false}
               aria-label={`${PokemonTypes[type]} 타입 약점과 상성 보기`}
               className="flex min-h-touch w-full min-w-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-solid border-primary-2 px-1.5 py-1.5 text-sm font-semibold text-primary-3 transition-colors hover:border-primary-4 hover:bg-primary-2 hover:text-primary-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 desktop:gap-1.5 desktop:px-2"
             >

@@ -36,6 +36,7 @@ const TypeNameLink = ({ type, label }: TypeNameLinkProps) => {
   return (
     <Link
       href={buildTypeDetailPath(type)}
+      prefetch={false}
       aria-label={`${PokemonTypes[type]} 타입 약점과 상성 보기`}
       className="hover:underline focus-visible:underline"
     >

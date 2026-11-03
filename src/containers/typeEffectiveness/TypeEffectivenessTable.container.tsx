@@ -130,6 +130,7 @@ const TypeEffectivenessTable = () => {
                 >
                   <Link
                     href={buildTypeDetailPath(toPokemonType(attackType))}
+                    prefetch={false}
                     aria-label={`${attackType} 타입 약점과 상성 보기`}
                     className="flex h-full w-full items-center justify-center px-1 py-2 hover:underline focus-visible:underline"
                   >

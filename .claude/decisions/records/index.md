@@ -33,4 +33,4 @@
 | [ADR-0022](ADR-0022-list-search-include-forms.md)          | 도감 목록 이름 검색에 리전폼·메가진화 포함           | 제안   |
 | [ADR-0023](ADR-0023-search-input-url-sync.md)              | 검색 입력과 URL 동기화 방식 통일, RHF 제거           | 승인   |
 | [ADR-0024](ADR-0024-no-unit-test-framework.md)             | 단위 테스트 도구 미도입, E2E만 유지                  | 승인   |
-| [ADR-0025](ADR-0025-layout-link-prefetch-off.md)            | 공통 레이아웃 메뉴 링크의 prefetch 비활성화          | 승인   |
+| [ADR-0025](ADR-0025-layout-link-prefetch-off.md)            | 링크 prefetch 범위 조정 (메뉴·타입 끔, 카드는 의도 기반)          | 승인   |
