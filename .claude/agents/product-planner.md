@@ -96,7 +96,7 @@ allowedTools:
 3. **레퍼런스 조사**: WebSearch/WebFetch로 공식 문서, 유사 서비스, 레퍼런스 패턴을 조사한다
 4. **파일명 결정**: `.claude/specs/features/`의 기존 문서 네이밍(`{주제}-{성격}.md`, 예: `home-redesign-spec.md`)을 따라 파일명을 정한다
 5. **초안 작성**: 기존 기획 문서 형식에 맞춰 `.claude/specs/features/{slug}-spec.md`로 저장한다
-6. **연관 문서 참조**: 관련 기획/전략 문서, 지표 기준값(`.claude/specs/service/metrics-baseline.md`)을 상호 참조로 연결한다
+6. **연관 문서 참조**: 관련 기획/전략 문서를 상호 참조로 연결한다. 기획서에 넣는 지표는 메인 세션이 `/metrics-analysis`로 조회해 프롬프트로 전달한 값만 쓰고, **조회일을 함께 적는다**(시점 기록임을 밝히기 위해). 전달받지 못했으면 "지표 미제공"으로 표시한다
 7. **ADR 필요 여부 판단**: 기술적 의사결정이 포함되면 사용자에게 ADR 작성을 제안한다
 8. **검토 요청**: 사용자에게 초안 검토를 요청하고 피드백을 수렴한다
 
@@ -122,8 +122,7 @@ allowedTools:
 ## 참조 문서
 
 - `.claude/specs/features/` — 기획 문서 저장 위치 (기존: `home-redesign-spec.md`, `detail-page-expansion-spec.md` 등)
-- `.claude/specs/service/service-overview.md` — 서비스 개요 (현황·핵심 지표)
-- `.claude/specs/service/metrics-baseline.md` — 핵심 지표 기준값
+- `.claude/specs/service/target-segment.md` — 타겟 사용자
 - `.claude/decisions/index.md` — ADR 목록
 - `.claude/decisions/template.md` — ADR 템플릿
 - `CLAUDE.md` — 프로젝트 전반의 원칙 (Why-First, 근거 기반 논의, 지침 변경 관리)

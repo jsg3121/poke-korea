@@ -2,7 +2,7 @@
 
 이 폴더는 서비스 분석에 필요한 외부 데이터(애드센스, GA 등)를 관리합니다.
 
-**Search Console·GA4·애드센스는 모두 API로 직접 조회할 수 있습니다.** 수동 다운로드보다 이쪽을 우선하세요 — 아래 "Google API 연동" 절을 참고하면 항상 최신 데이터를 얻을 수 있습니다.
+**Search Console·GA4·애드센스·BigQuery(GA4 Export)는 모두 API로 직접 조회할 수 있습니다.** 수동 다운로드보다 이쪽을 우선하세요 — 아래 "Google API 연동" 절을 참고하면 항상 최신 데이터를 얻을 수 있습니다.
 
 ## 폴더 구조
 
@@ -13,8 +13,11 @@
 │   ├── google-auth.js                #   토큰 발급 (서비스 계정 / OAuth 양쪽)
 │   ├── search-console.js             #   Search Console 검색 분석
 │   ├── ga4.js                        #   GA4 리포트
+│   ├── bigquery.js                   #   BigQuery SQL 조회 (GA4 Export 원본 이벤트)
 │   ├── adsense.js                    #   애드센스 리포트
-│   └── adsense-authorize.js          #   애드센스 OAuth 최초 인증 (1회용)
+│   ├── adsense-authorize.js          #   애드센스 OAuth 최초 인증 (1회용)
+│   ├── lighthouse-batch.sh           #   Lighthouse 모바일 일괄 측정 (운영 13개 페이지)
+│   └── lighthouse-summary.py         #   측정 결과 페이지별 중앙값 요약
 └── 광고이름_id.txt                    # 광고 슬롯 ID 매핑
 ```
 
@@ -36,13 +39,20 @@
 - **갱신 주기**: 조회 시점 기준 최신
 - **주요 지표**: 페이지 조회수, 사용자 수, 평균 체류 시간
 
-### 네이버 애널리틱스
+### GA4 BigQuery Export
 
-- **출처**: 네이버 애널리틱스 대시보드
-- **갱신 주기**: 필요 시 수동 다운로드 (공개 API 없음)
-- **주요 지표**: 방문 현황, 인기 페이지
+- **출처**: BigQuery `poke-korea.analytics_453267557` (`bigquery.js`)
+- **수집 시작**: 2026-10-14. 그 이전 기간은 GA4 Data API(`ga4.js`)로만 조회한다
+- **테이블**: 일자별 `events_YYYYMMDD`. 당일 스트리밍 테이블(`events_intraday_*`)은 없으므로 **어제까지만** 조회된다
+- **용도**: Data API가 못 하는 분석 — 이벤트 매개변수(`event_params`)별 집계, 사용자 단위 퍼널·리텐션, 세션 내 이동 경로
 
-> 국내 유입 교차 확인이 필요할 때만 받아 쓰고, 확인 후에는 지웁니다. 시점이 고정된 파일을 폴더에 쌓아두지 않습니다.
+> **Why Data API와 나눠 쓰는가:** 표준 지표(사용자·세션·PV·채널)는 Data API가 GA4 화면과 같은 기준으로 계산해 준다. BigQuery로 같은 값을 직접 세면 세션·사용자 정의 차이로 화면 수치와 어긋날 수 있다. 원본 이벤트가 필요한 분석에만 BigQuery를 쓴다.
+
+### 네이버 애널리틱스 (2026-11-03 수집 중단)
+
+1.62.5에서 사이트의 네이버 애널리틱스 스크립트를 제거했다. **사용자·유입 지표는 GA4를 유일한 기준으로 삼는다.** 2026-11-03 이전 기간의 국내 유입을 교차 확인할 때만 네이버 애널리틱스 대시보드의 과거 데이터를 참고한다.
+
+> **Why:** 두 도구의 집계 방식이 달라 같은 기간에도 수치가 어긋났고, 어느 쪽을 기준으로 판단할지 매번 헷갈렸다. GA4가 이벤트·사용자 지표를 더 넓게 제공하고 API로 조회할 수 있어 기준을 하나로 정했다. 스크립트 요청(`wcslog.js` 등 약 28KB)도 함께 줄어든다. 네이버 서치어드바이저(`naver-site-verification` 메타)는 검색 등록 인증이라 별개로 유지한다.
 
 ### 광고 슬롯 ID 매핑
 
@@ -76,6 +86,16 @@ chmod 600 ~/.config/poke-korea/gcp-service-account.json
 
 > **키 파일을 저장소 안에 두지 마세요.** 서비스 계정 비밀키는 유출되면 분석 데이터 접근 권한이 통째로 넘어갑니다. `~/.config/` 같은 홈 디렉토리에 두고 경로만 참조합니다. 스크립트는 이 경로를 기본값으로 쓰며, `GOOGLE_APPLICATION_CREDENTIALS` 환경변수로 덮어쓸 수 있습니다.
 
+### BigQuery 사전 준비 (최초 1회, 사람이 직접)
+
+같은 서비스 계정을 쓴다. 키 파일의 `project_id`가 쿼리 실행 프로젝트가 된다.
+
+1. **GA4 → BigQuery 링크** — GA4 관리 → 제품 링크 → BigQuery 링크(일일 내보내기)
+2. **BigQuery API 활성화** — 같은 GCP 프로젝트에서
+3. **서비스 계정에 IAM 역할 부여** — `BigQuery 작업 사용자`(쿼리 실행) + `BigQuery 데이터 뷰어`(데이터셋 읽기)
+
+dry run이 403이면 2·3번 중 하나가 빠진 것이다.
+
 ### 애드센스만 인증 방식이 다르다
 
 **애드센스는 서비스 계정을 쓸 수 없습니다.** 공식 문서가 명시합니다.
@@ -89,7 +109,7 @@ GA4·Search Console은 속성에 서비스 계정 이메일을 사용자로 추�
 
 ```text
 google-auth.js
-├── getAccessToken()                  → search-console.js, ga4.js
+├── getAccessToken()                  → search-console.js, ga4.js, bigquery.js
 └── getAccessTokenFromRefreshToken()  → adsense.js
 ```
 
@@ -161,6 +181,18 @@ node .claude/analyzer/scripts/adsense.js \
 
 # 특정 하루만
 node .claude/analyzer/scripts/adsense.js --start=2026-08-30 --end=2026-08-30 --dim=DATE
+
+# BigQuery — 스캔량만 먼저 확인
+node .claude/analyzer/scripts/bigquery.js --dry --sql="SELECT ..."
+
+# BigQuery — 커스텀 이벤트 매개변수별 집계 ({{dataset}}은 자동 치환)
+node .claude/analyzer/scripts/bigquery.js --sql="
+  SELECT (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'tab') AS tab,
+         COUNT(*) AS n
+  FROM \`{{dataset}}.events_*\`
+  WHERE _TABLE_SUFFIX BETWEEN '20261014' AND '20261102'
+    AND event_name = 'stats_tab_status'
+  GROUP BY 1 ORDER BY 2 DESC"
 ```
 
 옵션 전체는 각 스크립트 상단 주석에 있습니다.
@@ -180,6 +212,8 @@ node .claude/analyzer/scripts/adsense.js --start=2026-08-30 --end=2026-08-30 --d
 | --- | --- | --- |
 | Search Console 속성 | `sc-domain:poke-korea.com` | `SC_SITE` |
 | GA4 속성 ID | `453267557` | `GA4_PROPERTY_ID` |
+| BigQuery 프로젝트 | 서비스 계정 키의 `project_id` | `BQ_PROJECT` |
+| BigQuery 데이터셋 | `analytics_453267557` | `BQ_DATASET` |
 | 서비스 계정 키 | `~/.config/poke-korea/gcp-service-account.json` | `GOOGLE_APPLICATION_CREDENTIALS` |
 | 애드센스 OAuth 토큰 | `~/.config/poke-korea/adsense-oauth.json` | `ADSENSE_OAUTH_PATH` |
 | 애드센스 계정 | 첫 번째 계정 자동 선택 | `--account=pub-...` |
@@ -192,6 +226,8 @@ node .claude/analyzer/scripts/adsense.js --start=2026-08-30 --end=2026-08-30 --d
 - **애드센스 수익은 어제까지만 정확합니다.** 공식 문서상 `ESTIMATED_EARNINGS`는 "earnings up to yesterday are accurate"이며, `adsense.js`의 종료일 기본값도 어제입니다. 당일을 포함해 조회하면 과소 집계된 값을 보게 됩니다.
 - **애드센스 `PAGE_URL`은 쿼리 파라미터를 포함한 전체 URL입니다.** GA4의 `landingPagePlusQueryString`과 조인하려면 양쪽 다 파라미터를 제거해 키를 맞춰야 합니다.
 - **애드센스 통화는 계정 설정을 따릅니다.** 응답 헤더의 `currencyCode`로 확인하세요(현재 USD). 대시보드 표시 통화와 다르면 환율 차이로 숫자가 어긋나 보입니다.
+- **BigQuery는 스캔량에 과금됩니다.** 매월 1TiB까지 무료이고, 쿼리마다 테이블당 최소 10MB가 청구됩니다([BigQuery 가격](https://cloud.google.com/bigquery/pricing#on_demand_pricing)). `events_*`는 반드시 `_TABLE_SUFFIX`로 기간을 좁히고, 큰 쿼리는 `--dry`로 먼저 확인합니다. `bigquery.js`는 기본 1GB를 넘으면 실행 자체를 거부합니다(`--max-gb`로 조정).
+- **BigQuery로 표준 지표를 다시 세지 마세요.** 사용자·세션 수는 GA4 화면(Data API)과 계산 방식이 달라 어긋날 수 있습니다. 표준 지표는 `ga4.js`, 원본 이벤트 분석만 `bigquery.js`로 합니다.
 
 ## 활용 사례
 

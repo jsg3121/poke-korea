@@ -29,6 +29,7 @@ market-intelligence와 business-analyst의 분석 결과를 종합하여 전략 
 - 전략 옵션은 항상 **복수 제시** (단일 답 금지)
 - 각 옵션의 전제 조건과 리스크를 함께 명시한다
 - 불확실한 내용은 가정(Assumption)으로 명시한다
+- **KPI 현재값은 프롬프트로 전달받은 수치만 쓴다.** 메인 세션이 `/metrics-analysis`로 조회해 조회일과 함께 넘긴다. MI·BA 보고서의 수치도 그 보고서의 조회일 기준이다. 전달받지 못했으면 "지표 미제공"으로 표시한다
 
 ## 출력 형식
 
@@ -62,5 +63,5 @@ market-intelligence와 business-analyst의 분석 결과를 종합하여 전략 
 
 ## 참조 문서
 
-- `.claude/specs/service/service-overview.md` — 서비스 개요 (현황·핵심 지표)
+- `.claude/specs/service/target-segment.md` — 타겟 사용자
 - `.claude/skills/biz-strategy/references/template-str.md` — 전략 보고서 템플릿

@@ -1,12 +1,11 @@
 'use client'
 
-import Link from 'next/link'
-
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import { useSearchPokemon } from '~/hooks/useSearchPokemon'
 import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const HeaderSearch = () => {
   const {
@@ -47,7 +46,7 @@ const HeaderSearch = () => {
           className="icon-search"
         />
       </div>
-      <Link
+      <IntentLink
         href={feedbackFormUrl}
         target="_blank"
         rel="noopener noreferrer"
@@ -55,7 +54,7 @@ const HeaderSearch = () => {
       >
         <FeedbackIcon width={16} height={16} />
         <span className="sr-only">기능/오류 신고</span>
-      </Link>
+      </IntentLink>
       {isShowSearchResult && (
         <SearchResultList
           pokemonList={pokemonList}

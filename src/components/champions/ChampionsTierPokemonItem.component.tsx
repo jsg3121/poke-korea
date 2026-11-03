@@ -1,7 +1,5 @@
 'use client'
 
-import Link from 'next/link'
-
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
@@ -11,6 +9,7 @@ import {
 import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 interface ChampionsTierPokemonItemProps {
@@ -33,7 +32,7 @@ const ChampionsTierPokemonItem = ({
   const formBadge = getChampionsFormBadge(pokemon.formType, pokemon.region)
 
   return (
-    <Link
+    <IntentLink
       href={buildChampionsDetailHref({
         formatSlug,
         pokemonId: pokemon.pokemonId,
@@ -135,7 +134,7 @@ const ChampionsTierPokemonItem = ({
           </dd>
         </div>
       </dl>
-    </Link>
+    </IntentLink>
   )
 }
 

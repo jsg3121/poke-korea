@@ -93,7 +93,6 @@ poke-korea(포케코리아)의 사용자 경험을 설계하고, 기존 화면�
 
 ## 참조 문서
 
-- `.claude/specs/service/service-overview.md` — 서비스 현황
 - `.claude/specs/service/target-segment.md` — 타겟 사용자 정의
 - `.claude/conventions/guides/styling.md` — Tailwind·색상 체계·브레이크포인트
 - `.claude/playwright/index.md` — 실제 화면 캡처 가이드

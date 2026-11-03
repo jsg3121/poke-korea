@@ -1,7 +1,6 @@
 'use client'
 
 import { useContext } from 'react'
-import Link from 'next/link'
 
 import { buildEvolutionGroups } from '~/utils/evolution.util'
 import { imageMode } from '~/modules/buildMode.module'
@@ -9,6 +8,7 @@ import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import { DetailContext } from '~/context/Detail.context'
 import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { AdjacentPokemon } from './DetailSpeciesNav.container'
 import EvolutionConditionCard from './EvolutionConditionCard.component'
@@ -76,7 +76,7 @@ const DetailEvolution = ({ evolutionPokemons }: DetailEvolutionProps) => {
       <InfoCardTitle title="진화 체인" id="pokemon-evolution-chain" />
       <HorizontalScrollList aria-label="진화 체인 포켓몬 목록">
         {chain.map((pokemon) => (
-          <Link
+          <IntentLink
             key={`relation-pokemon-id-${pokemon.number}`}
             href={`/detail/${pokemon.number}`}
             aria-label={`${name}와(과) 연관된 포켓몬 ${pokemon.name || `No.${pokemon.number}`} 상세 보기`}
@@ -100,7 +100,7 @@ const DetailEvolution = ({ evolutionPokemons }: DetailEvolutionProps) => {
                 {pokemon.name}
               </p>
             )}
-          </Link>
+          </IntentLink>
         ))}
       </HorizontalScrollList>
     </section>

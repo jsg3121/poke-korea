@@ -3,7 +3,6 @@ import { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
 import Script from 'next/script'
 
-import { getCssFiles, getFontFiles } from '~/utils/getCssFiles'
 import { detectUserAgent } from '~/modules/device.module'
 import { getRobotsConfig } from '~/modules/metadata.module'
 import { DeviceProvider } from '~/context/Device.context'
@@ -15,9 +14,7 @@ import MobileHeader from '~/containers/mobile/header/Header.container'
 
 import Providers from './providers'
 
-if (process.env.NODE_ENV === 'development') {
-  require('~/styles/globals.css')
-}
+import '~/styles/globals.css'
 
 export const viewport: Viewport = {
   themeColor: '#27374D',
@@ -49,34 +46,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const userAgent = headersList.get('user-agent') || ''
   const isMobile = detectUserAgent(userAgent)
 
-  const cssFiles = getCssFiles()
-  const fontFiles = getFontFiles()
-
   return (
     <html lang="ko">
       <head>
-        {fontFiles.map((font) => (
-          <link
-            key={`preload-font-${font.href}`}
-            rel="preload"
-            href={font.href}
-            as="font"
-            type={font.type}
-            crossOrigin="anonymous"
-          />
-        ))}
-        {cssFiles.map((cssFile) => (
-          <link
-            key={`preload-${cssFile}`}
-            rel="preload"
-            href={cssFile}
-            as="style"
-            fetchPriority="high"
-          />
-        ))}
-        {cssFiles.map((cssFile) => (
-          <link key={`style-${cssFile}`} rel="stylesheet" href={cssFile} />
-        ))}
         {isProduction && (
           <>
             <meta
@@ -129,20 +101,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
                   gtag('config', 'G-28P8TKSR5M');
-                `,
-              }}
-            />
-            <Script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
-            <Script
-              id="naver-analytics-init"
-              strategy="lazyOnload"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  if(!wcs_add) var wcs_add = {};
-                  wcs_add["wa"] = "7c0a94c9c2ab1c";
-                  if(window.wcs) {
-                    wcs_do();
-                  }
                 `,
               }}
             />

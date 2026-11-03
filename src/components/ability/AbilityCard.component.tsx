@@ -1,6 +1,5 @@
-import Link from 'next/link'
-
 import { AbilityInfoFragment } from '~/graphql/typeGenerated'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface AbilityCardProps {
   abilityData: AbilityInfoFragment
@@ -8,7 +7,7 @@ interface AbilityCardProps {
 
 const AbilityCard = ({ abilityData }: AbilityCardProps) => {
   return (
-    <Link
+    <IntentLink
       href={`/ability/${abilityData.abilityId}`}
       className="block w-full"
       aria-label={`${abilityData.name} 특성 상세보기`}
@@ -33,7 +32,7 @@ const AbilityCard = ({ abilityData }: AbilityCardProps) => {
             </p>
           )}
       </article>
-    </Link>
+    </IntentLink>
   )
 }
 

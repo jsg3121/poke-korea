@@ -1,10 +1,9 @@
 'use client'
 
-import Link from 'next/link'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
 import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const TypeEffectivenessCta = () => {
   const { selectTypeList } = useTypeEffectiveness()
@@ -33,38 +32,40 @@ const TypeEffectivenessCta = () => {
       <ul className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
         {selectTypeList.map((type) => (
           <li key={`type-detail-${type}`}>
-            <Link
+            <IntentLink
               href={buildTypeDetailPath(type)}
-              prefetch={false}
               className={CTA_LINK_CLASS}
             >
               <span>{PokemonTypes[type]} 타입 약점과 상성 자세히 보기</span>
               <span aria-hidden="true">→</span>
-            </Link>
+            </IntentLink>
           </li>
         ))}
         {isSingleTypeSelected && (
           <li>
-            <Link
+            <IntentLink
               href={`/list?type=${singleTypeValue}`}
               className={CTA_LINK_CLASS}
             >
               <span>{singleTypeLabel} 타입 포켓몬 도감 보기</span>
               <span aria-hidden="true">→</span>
-            </Link>
+            </IntentLink>
           </li>
         )}
         <li>
-          <Link href="/champions/list" className={CTA_LINK_CLASS}>
+          <IntentLink href="/champions/list" className={CTA_LINK_CLASS}>
             <span>포켓몬 챔피언스 도감 보기</span>
             <span aria-hidden="true">→</span>
-          </Link>
+          </IntentLink>
         </li>
         <li>
-          <Link href="/quiz/type-effectiveness" className={CTA_LINK_CLASS}>
+          <IntentLink
+            href="/quiz/type-effectiveness"
+            className={CTA_LINK_CLASS}
+          >
             <span>타입 상성 퀴즈 도전</span>
             <span aria-hidden="true">→</span>
-          </Link>
+          </IntentLink>
         </li>
       </ul>
     </section>

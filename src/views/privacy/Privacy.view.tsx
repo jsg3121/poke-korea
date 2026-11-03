@@ -1,6 +1,5 @@
-import Link from 'next/link'
-
 import { buildFeedbackFormUrl } from '~/constants/feedbackForm'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const FEEDBACK_FORM_URL = buildFeedbackFormUrl()
 
@@ -14,11 +13,6 @@ const THIRD_PARTY_SERVICES = [
     name: 'Google AdSense',
     purpose: '광고 게재',
     href: 'https://policies.google.com/technologies/ads',
-  },
-  {
-    name: '네이버 애널리틱스',
-    purpose: '방문 통계 분석',
-    href: 'https://policies.naver.com/policies/privacy.html',
   },
 ] as const
 
@@ -43,7 +37,7 @@ const Privacy = () => {
         <h1 className="text-2xl font-bold text-primary-4 mb-2">
           개인정보처리방침
         </h1>
-        <p className="text-xs text-primary-3">최종 수정일: 2026년 9월 20일</p>
+        <p className="text-xs text-primary-3">최종 수정일: 2026년 11월 3일</p>
       </header>
 
       <p className={`${TEXT_CLASS} mb-8`}>
@@ -73,10 +67,6 @@ const Privacy = () => {
             <b className={STRONG_CLASS}>Google AdSense</b>: 광고 게재 및 성과
             측정을 위한 데이터
           </li>
-          <li>
-            <b className={STRONG_CLASS}>네이버 애널리틱스</b>: 방문 통계 및 유입
-            경로 분석 데이터
-          </li>
         </ul>
         <p className={`${TEXT_CLASS} mt-3`}>
           또한 이용자가 문의 폼을 통해 자발적으로 입력한 내용은 해당 폼에
@@ -95,8 +85,7 @@ const Privacy = () => {
         </p>
         <ul className={`${TEXT_CLASS} ${LIST_CLASS}`}>
           <li>
-            <b className={STRONG_CLASS}>분석 쿠키</b>: Google Analytics 4,
-            네이버 애널리틱스
+            <b className={STRONG_CLASS}>분석 쿠키</b>: Google Analytics 4
           </li>
           <li>
             <b className={STRONG_CLASS}>광고 쿠키</b>: Google AdSense
@@ -241,12 +230,12 @@ const Privacy = () => {
       </section>
 
       <footer className="mt-10 pt-6 border-t border-primary-2 text-center">
-        <Link
+        <IntentLink
           href="/"
           className="inline-block text-sm text-primary-3 underline underline-offset-2"
         >
           홈으로 돌아가기
-        </Link>
+        </IntentLink>
       </footer>
     </article>
   )

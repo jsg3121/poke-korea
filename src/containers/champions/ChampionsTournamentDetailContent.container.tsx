@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsTournamentDetailFragment } from '~/graphql/typeGenerated'
 import {
@@ -9,6 +7,7 @@ import {
 } from '~/utils/championsFormat.util'
 import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournamentTeamCard.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsTournamentDetailContentProps {
   detail: ChampionsTournamentDetailFragment
@@ -26,13 +25,13 @@ const ChampionsTournamentDetailContent = ({
 
   return (
     <section className="w-full max-w-[1280px] min-h-dvh mx-auto px-4 pb-12 desktop:px-5">
-      <Link
+      <IntentLink
         href="/champions/tournaments"
         aria-label="대회 목록으로 돌아가기"
         className="inline-flex items-center gap-1 mt-4 mb-3 text-sm text-primary-3 hover:text-primary-4"
       >
         ← 대회 목록
-      </Link>
+      </IntentLink>
 
       <header className="relative mb-6 bg-primary-4 rounded-xl p-5 desktop:mb-8 desktop:p-6">
         <div className="flex items-center gap-2 mb-3 text-xs">

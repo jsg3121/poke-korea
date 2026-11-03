@@ -96,7 +96,6 @@ const meta = {
   title: 'Components/HorizontalScrollList',
   component: HorizontalScrollList,
   parameters: {
-    nextjs: { appDirectory: true },
     docs: {
       description: {
         component: [

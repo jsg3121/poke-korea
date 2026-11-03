@@ -1,7 +1,6 @@
 'use client'
 
 import { useContext } from 'react'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
 import { changeColor } from '~/modules/changeColor.module'
@@ -14,6 +13,7 @@ import {
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import { DetailContext } from '~/context/Detail.context'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 import DetailSpeciesNav, { AdjacentPokemon } from './DetailSpeciesNav.container'
@@ -130,7 +130,7 @@ const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
           {totalForms > 1 && (
             <>
               {hasPrev ? (
-                <Link
+                <IntentLink
                   href={getFormUrl({
                     activeIndex: activeIndex - 1,
                     pokemonNumber: pokemonBaseInfo?.number ?? 0,
@@ -142,7 +142,7 @@ const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
                   aria-label={`이전 폼: ${imageList?.[activeIndex - 1]?.name ?? ''}`}
                 >
                   <span aria-hidden="true">◀</span>
-                </Link>
+                </IntentLink>
               ) : (
                 <span
                   className={`${slideLinkClass} opacity-30`}
@@ -155,7 +155,7 @@ const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
                 {activeIndex + 1}/{totalForms}
               </span>
               {hasNext ? (
-                <Link
+                <IntentLink
                   href={getFormUrl({
                     activeIndex: activeIndex + 1,
                     pokemonNumber: pokemonBaseInfo?.number ?? 0,
@@ -167,7 +167,7 @@ const DetailHero = ({ prevPokemon, nextPokemon }: DetailHeroProps) => {
                   aria-label={`다음 폼: ${imageList?.[activeIndex + 1]?.name ?? ''}`}
                 >
                   <span aria-hidden="true">▶</span>
-                </Link>
+                </IntentLink>
               ) : (
                 <span
                   className={`${slideLinkClass} opacity-30`}

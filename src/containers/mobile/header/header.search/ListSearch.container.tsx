@@ -1,12 +1,12 @@
 'use client'
 
 import { ChangeEvent } from 'react'
-import Link from 'next/link'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import { useSearchParamInput } from '~/hooks/useSearchParamInput'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const ListSearch = () => {
   const { keyword, updateKeyword } = useSearchParamInput('name')
@@ -41,7 +41,7 @@ const ListSearch = () => {
           className="icon-search"
         />
       </div>
-      <Link
+      <IntentLink
         href={feedbackFormUrl}
         target="_blank"
         rel="noopener noreferrer"
@@ -49,7 +49,7 @@ const ListSearch = () => {
       >
         <FeedbackIcon width={16} height={16} />
         <span className="sr-only">기능/오류 신고</span>
-      </Link>
+      </IntentLink>
     </div>
   )
 }

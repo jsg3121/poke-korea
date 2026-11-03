@@ -1,10 +1,9 @@
-import Link from 'next/link'
-
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildChampionsDetailHref } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
 import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 
@@ -39,7 +38,7 @@ const TypeDetailChampions = ({
       <ul className="grid grid-cols-1 gap-3 desktop:grid-cols-2 desktop:gap-4">
         {entries.map(({ formatLabel, formatSlug, pokemon }) => (
           <li key={`${formatSlug}-${pokemon.pokemonId}`}>
-            <Link
+            <IntentLink
               href={buildChampionsDetailHref({
                 formatSlug,
                 pokemonId: pokemon.pokemonId,
@@ -83,7 +82,7 @@ const TypeDetailChampions = ({
                   </span>
                 )}
               </div>
-            </Link>
+            </IntentLink>
           </li>
         ))}
       </ul>

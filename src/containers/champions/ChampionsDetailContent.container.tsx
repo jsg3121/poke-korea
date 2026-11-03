@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
@@ -16,6 +14,7 @@ import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
 import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
 import ChampionsPartnerList from '~/components/champions/ChampionsPartnerList.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import StatBar, { StatBarItem } from '~/components/statBar/StatBar.component'
 import Tag from '~/components/tag/Tag.component'
 
@@ -96,31 +95,31 @@ const ChampionsDetailContent = ({
         <nav className="mb-2 desktop:mb-3 flex items-start justify-between gap-2">
           <ol className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs desktop:text-sm text-black-2/70">
             <li>
-              <Link
+              <IntentLink
                 href={`/champions/${formatSlug}`}
                 className="hover:text-black-2 transition-colors break-keep"
               >
                 챔피언스
-              </Link>
+              </IntentLink>
             </li>
             <li className="text-black-2/50">/</li>
             <li>
-              <Link
+              <IntentLink
                 href={`/champions/${formatSlug}/list`}
                 className="hover:text-black-2 transition-colors break-keep"
               >
                 포켓몬 도감
-              </Link>
+              </IntentLink>
             </li>
             <li className="text-black-2/50">/</li>
             <li className="text-black-2 font-bold break-keep">{displayName}</li>
           </ol>
-          <Link
+          <IntentLink
             href={generalDetailUrl}
             className="shrink-0 text-xs desktop:text-sm text-black-2/80 hover:text-black-2 underline underline-offset-2 break-keep"
           >
             ↗ 도감 보기
-          </Link>
+          </IntentLink>
         </nav>
 
         <div className="flex justify-between items-center">
@@ -215,23 +214,23 @@ const ChampionsDetailContent = ({
                 <br />
                 시즌이 시작되면 업데이트됩니다.
               </p>
-              <Link
+              <IntentLink
                 href={`/champions/${formatSlug}/list`}
                 className="inline-block px-4 py-2 bg-primary-1 text-primary-4 rounded-lg hover:bg-primary-2 transition-colors text-sm"
               >
                 목록으로 돌아가기
-              </Link>
+              </IntentLink>
             </div>
           )}
         </div>
       </div>
 
-      <Link
+      <IntentLink
         href={generalDetailUrl}
         className="block w-full mt-6 desktop:mt-8 py-3 text-center text-sm text-primary-3 hover:text-primary-1 underline underline-offset-2 transition-colors"
       >
         ↗ 일반 도감에서 자세히 보기
-      </Link>
+      </IntentLink>
     </section>
   )
 }
