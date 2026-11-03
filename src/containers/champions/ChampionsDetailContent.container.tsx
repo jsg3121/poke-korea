@@ -1,5 +1,3 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsPokemonDetailFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
@@ -16,6 +14,7 @@ import ChampionsFormTab from '~/components/champions/ChampionsFormTab.component'
 import ChampionsMetaList from '~/components/champions/ChampionsMetaList.component'
 import ChampionsPartnerList from '~/components/champions/ChampionsPartnerList.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import StatBar, { StatBarItem } from '~/components/statBar/StatBar.component'
 import Tag from '~/components/tag/Tag.component'
 

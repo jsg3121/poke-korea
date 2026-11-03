@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+
 import IntentLink from '~/components/link/IntentLink.component'
 
 interface DetailMovesFormSlideLinkProps {

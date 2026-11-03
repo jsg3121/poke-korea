@@ -1,12 +1,12 @@
 'use client'
 
 import { ReactNode } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonType } from '~/graphql/typeGenerated'
 import { useLazyImage } from '~/hooks/useLazyImage'
 import Ball from '~/components/ball/Ball.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 export const POKEMON_CARD_SIZE = {

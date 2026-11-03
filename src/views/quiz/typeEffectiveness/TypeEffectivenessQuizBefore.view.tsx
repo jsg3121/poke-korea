@@ -1,12 +1,11 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import {
   QUIZ_CONFIG,
   QUIZ_DESCRIPTION_LIST_DATA,
 } from '~/constants/quiz.constants'
 import { useTypeEffectivenessQuizContext } from '~/context/TypeEffectivenessQuiz.context'
+import IntentLink from '~/components/link/IntentLink.component'
 import PageHeader from '~/components/pageHeader/PageHeader.component'
 import GuideStartButton from '~/components/quiz/GuideStartButton.component'
 import OtherQuizLink from '~/components/quiz/OtherQuizLink.component'

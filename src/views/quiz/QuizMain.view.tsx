@@ -1,7 +1,6 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { QUIZ_CONFIG } from '~/constants/quiz.constants'
 import QuizMainTopBanner from '~/components/adSlot/QuizMainTopBanner.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import PageHeader from '~/components/pageHeader/PageHeader.component'
 
 const QuizMain = () => {

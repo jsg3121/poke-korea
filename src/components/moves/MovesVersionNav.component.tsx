@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useLayoutEffect, useRef } from 'react'
+
 import IntentLink from '~/components/link/IntentLink.component'
 
 const useIsomorphicLayoutEffect =

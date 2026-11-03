@@ -1,10 +1,9 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
 import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const TypeEffectivenessCta = () => {
   const { selectTypeList } = useTypeEffectiveness()
@@ -60,7 +59,10 @@ const TypeEffectivenessCta = () => {
           </IntentLink>
         </li>
         <li>
-          <IntentLink href="/quiz/type-effectiveness" className={CTA_LINK_CLASS}>
+          <IntentLink
+            href="/quiz/type-effectiveness"
+            className={CTA_LINK_CLASS}
+          >
             <span>타입 상성 퀴즈 도전</span>
             <span aria-hidden="true">→</span>
           </IntentLink>

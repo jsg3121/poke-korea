@@ -1,6 +1,5 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { AbilityInfoFragment } from '~/graphql/typeGenerated'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface AbilityCardProps {
   abilityData: AbilityInfoFragment

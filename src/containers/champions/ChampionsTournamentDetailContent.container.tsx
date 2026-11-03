@@ -1,5 +1,3 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { CHAMPIONS_SLOTS } from '~/constants/adSense'
 import { ChampionsTournamentDetailFragment } from '~/graphql/typeGenerated'
 import {
@@ -9,6 +7,7 @@ import {
 } from '~/utils/championsFormat.util'
 import ChampionsInContentBanner from '~/components/adSlot/ChampionsInContentBanner.component'
 import ChampionsTournamentTeamCard from '~/components/champions/ChampionsTournamentTeamCard.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsTournamentDetailContentProps {
   detail: ChampionsTournamentDetailFragment

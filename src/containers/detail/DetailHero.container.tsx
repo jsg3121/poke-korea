@@ -1,7 +1,6 @@
 'use client'
 
 import { useContext } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 import { useSearchParams } from 'next/navigation'
 
 import { changeColor } from '~/modules/changeColor.module'
@@ -14,6 +13,7 @@ import {
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import { DetailContext } from '~/context/Detail.context'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 import DetailSpeciesNav, { AdjacentPokemon } from './DetailSpeciesNav.container'

@@ -1,5 +1,3 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { PokemonSkillDetail, VersionGroup } from '~/graphql/typeGenerated'
 import {
   getDamageTypeChipColor,
@@ -7,6 +5,7 @@ import {
   hasDamageType,
 } from '~/utils/skill.util'
 import Chip from '~/components/chip/Chip.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 interface MoveDetailHeroProps {

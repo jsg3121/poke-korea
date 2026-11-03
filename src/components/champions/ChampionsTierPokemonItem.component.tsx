@@ -1,7 +1,5 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { ChampionsMetaSummaryFragment } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
@@ -11,6 +9,7 @@ import {
 import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 interface ChampionsTierPokemonItemProps {

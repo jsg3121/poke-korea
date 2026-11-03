@@ -1,7 +1,6 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 export interface TypeResultRow {

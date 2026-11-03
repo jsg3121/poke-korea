@@ -1,9 +1,8 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { GetChampionsTournamentsWithTopTeamQuery } from '~/graphql/typeGenerated'
 import { formatKstDate } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 type TournamentWithTopTeam =
   GetChampionsTournamentsWithTopTeamQuery['championsTournaments'][number]

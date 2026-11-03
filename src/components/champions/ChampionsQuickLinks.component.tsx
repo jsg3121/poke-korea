@@ -1,6 +1,5 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsQuickLinksProps {
   formatSlug: ChampionsFormatSlug

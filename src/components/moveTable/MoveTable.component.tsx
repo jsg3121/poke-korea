@@ -1,8 +1,7 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { PokemonType } from '~/graphql/typeGenerated'
 import Chip from '~/components/chip/Chip.component'
 import { ChipColor } from '~/components/chip/chip.types'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 import MoveTableStat from './MoveTableStat.component'

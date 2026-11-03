@@ -1,10 +1,10 @@
 'use client'
 
 import { useContext } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { DetailContext } from '~/context/Detail.context'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 import DetailBodySpecSection from './DetailBodySpecSection.container'

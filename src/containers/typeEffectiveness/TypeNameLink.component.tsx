@@ -1,8 +1,7 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface TypeNameLinkProps {
   type: PokemonType

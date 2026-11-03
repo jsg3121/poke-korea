@@ -1,10 +1,10 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
 import { usePathname } from 'next/navigation'
 
 import LogoIcon from '~/assets/logo.svg'
 import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import HeaderSearch from './header.search/HeaderSearch.container'
 import ListSearch from './header.search/ListSearch.container'

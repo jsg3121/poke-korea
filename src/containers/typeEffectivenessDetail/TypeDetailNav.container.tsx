@@ -1,5 +1,3 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import {
@@ -10,6 +8,7 @@ import {
 } from '~/modules/typeParams.module'
 import LinkButton from '~/components/button/LinkButton.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface TypeDetailNavProps {
   pokemonType: PokemonType

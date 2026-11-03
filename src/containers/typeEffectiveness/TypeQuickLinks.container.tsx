@@ -1,13 +1,12 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath, buildTypeSlug } from '~/modules/typeParams.module'
 import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
   (label) =>

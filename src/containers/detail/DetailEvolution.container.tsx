@@ -1,7 +1,6 @@
 'use client'
 
 import { useContext } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 
 import { buildEvolutionGroups } from '~/utils/evolution.util'
 import { imageMode } from '~/modules/buildMode.module'
@@ -9,6 +8,7 @@ import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import { DetailContext } from '~/context/Detail.context'
 import HorizontalScrollList from '~/components/horizontalScrollList/HorizontalScrollList.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { AdjacentPokemon } from './DetailSpeciesNav.container'
 import EvolutionConditionCard from './EvolutionConditionCard.component'

@@ -1,7 +1,8 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
 import { usePathname } from 'next/navigation'
+
+import IntentLink from '~/components/link/IntentLink.component'
 
 const HeaderNav = () => {
   const pathname = usePathname()

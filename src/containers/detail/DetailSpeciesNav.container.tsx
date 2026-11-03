@@ -1,6 +1,5 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
+import IntentLink from '~/components/link/IntentLink.component'
 
 export interface AdjacentPokemon {
   number: number

@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
-import IntentLink from '~/components/link/IntentLink.component'
 
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 export const metadata: Metadata = {
   title: '404 - 페이지를 찾을 수 없습니다',

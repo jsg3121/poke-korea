@@ -1,7 +1,6 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { QuizType } from '~/types/quiz.types'
 import { QUIZ_CROSS_LINKS } from '~/constants/quiz.constants'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface OtherQuizLinkProps {
   currentQuiz: QuizType

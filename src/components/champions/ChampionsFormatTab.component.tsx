@@ -1,12 +1,11 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import {
   CHAMPIONS_FORMAT_SLUGS,
   ChampionsFormatSlug,
   getFormatLabel,
 } from '~/utils/championsFormat.util'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsFormatTabProps {
   currentFormat: ChampionsFormatSlug

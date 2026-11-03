@@ -1,6 +1,5 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { buildFeedbackFormUrl } from '~/constants/feedbackForm'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const FEEDBACK_FORM_URL = buildFeedbackFormUrl()
 

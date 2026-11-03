@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 
 import { EvolutionNode, hasVersionVariants } from '~/utils/evolution.util'
 import { imageMode } from '~/modules/buildMode.module'
 import { pokemonNumberFormat } from '~/modules/pokemonCard.module'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface EvolutionConditionCardProps {
   node: EvolutionNode

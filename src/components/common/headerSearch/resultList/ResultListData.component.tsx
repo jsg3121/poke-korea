@@ -1,10 +1,9 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { imageMode } from '~/modules/buildMode.module'
 import { useLazyImage } from '~/hooks/useLazyImage'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ResultListDataProps {
   name: string

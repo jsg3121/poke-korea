@@ -1,12 +1,11 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import { useSearchPokemon } from '~/hooks/useSearchPokemon'
 import SearchResultList from '~/components/common/headerSearch/SearchResultList.component'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const HeaderSearch = () => {
   const {

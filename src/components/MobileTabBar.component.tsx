@@ -1,6 +1,5 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
 import { usePathname } from 'next/navigation'
 
 import AbilityIcon from '~/assets/icons/ability.svg'
@@ -10,6 +9,7 @@ import PokeballIcon from '~/assets/icons/pokeball.svg'
 import QuizIcon from '~/assets/icons/quiz.svg'
 import TabHomeIcon from '~/assets/icons/tabHome.svg'
 import TypeEffectivenessIcon from '~/assets/icons/typeEffectiveness.svg'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const MobileTabBar = () => {
   const pathname = usePathname()

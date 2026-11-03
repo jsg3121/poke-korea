@@ -1,13 +1,13 @@
 'use client'
 
 import { Fragment } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 import { usePathname } from 'next/navigation'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import LogoIcon from '~/assets/logo.svg'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import ChampionsSubNav from '~/components/champions/ChampionsSubNav.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import DetailSearch from './header.search/DetailSearch.container'
 import HeaderNav from './nav/HeaderNav.container'

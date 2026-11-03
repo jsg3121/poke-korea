@@ -1,11 +1,10 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsPartnerListProps {
   title: string

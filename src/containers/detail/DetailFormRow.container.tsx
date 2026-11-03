@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode, useContext } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 import { useSearchParams } from 'next/navigation'
 
 import RegionIcon from '~/assets/icons/region.svg'
@@ -10,6 +9,7 @@ import { DetailContext } from '~/context/Detail.context'
 import Ball from '~/components/ball/Ball.component'
 import ShinyRate from '~/components/detail.summary/summary.shinyRate/ShinyRate.component'
 import ShinyTooltip from '~/components/detail.summary/summary.shinyTooltip/ShinyTooltip.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import DetailWebpFormIcon from './DetailWebpFormIcon.component'
 import { getFormBasePath } from './modules/activeForm.module'

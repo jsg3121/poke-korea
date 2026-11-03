@@ -1,12 +1,12 @@
 'use client'
 
 import { useContext } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 import { useParams } from 'next/navigation'
 
 import { imageMode } from '~/modules/buildMode.module'
 import { DetailMovesContext } from '~/context/DetailMoves.context'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 import DetailMovesFormSlideLink from './DetailMovesFormSlideLink.component'

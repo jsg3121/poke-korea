@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import {
@@ -12,6 +11,7 @@ import {
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
 import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import TableActivePointer, {
   ActivePointerType,

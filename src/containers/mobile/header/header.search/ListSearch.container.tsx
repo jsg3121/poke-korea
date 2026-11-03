@@ -1,12 +1,12 @@
 'use client'
 
 import { ChangeEvent } from 'react'
-import IntentLink from '~/components/link/IntentLink.component'
 
 import FeedbackIcon from '~/assets/icons/feedback.svg'
 import { useFeedbackFormUrl } from '~/hooks/useFeedbackFormUrl'
 import { useSearchParamInput } from '~/hooks/useSearchParamInput'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const ListSearch = () => {
   const { keyword, updateKeyword } = useSearchParamInput('name')

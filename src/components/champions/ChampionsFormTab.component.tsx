@@ -1,13 +1,12 @@
 'use client'
 
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { ChampionsFormSiblingFragment } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
 import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsFormTabProps {
   formSiblings: ChampionsFormSiblingFragment[]

@@ -1,10 +1,9 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildChampionsDetailHref } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
 import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 import { ChampionsTypeEntry } from '~/app/type-effectiveness/[type]/_fetch/typeDetail.fetch'
 

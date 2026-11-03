@@ -1,7 +1,6 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import CorrectIcon from '~/assets/icons/correct-icon.svg'
 import InCorrectIcon from '~/assets/icons/wrong-correct.svg'
+import IntentLink from '~/components/link/IntentLink.component'
 
 import Portal from '../Portal.component'
 

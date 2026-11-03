@@ -1,9 +1,8 @@
-import IntentLink from '~/components/link/IntentLink.component'
-
 import { TYPE_DETAIL_CONTENT } from '~/constants/typeDetailContent'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { calculateRelationType } from '~/modules/calculateRelationType.module'
 import { getTypeLabel } from '~/modules/typeParams.module'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 interface TypeDetailSummaryProps {
@@ -20,7 +19,10 @@ const TypeDetailSummary = ({ pokemonType }: TypeDetailSummaryProps) => {
       <nav aria-label="현재 위치" className="mb-3">
         <ol className="flex flex-wrap items-center gap-1 text-xs text-primary-3 desktop:text-sm">
           <li>
-            <IntentLink href="/" className="hover:text-primary-4 hover:underline">
+            <IntentLink
+              href="/"
+              className="hover:text-primary-4 hover:underline"
+            >
               홈
             </IntentLink>
           </li>
