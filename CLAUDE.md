@@ -121,7 +121,8 @@ layout.tsx  →  page.tsx  →  views  →  container  →  components
 | 비즈니스 분석 | `.claude/specs/`, `.claude/skills/biz-strategy/`                                |
 | 경쟁사 분석   | `.claude/specs/service/competitor-map.md`                                       |
 | SEO 검사      | `/seo-audit` 스킬, `.claude/skills/seo-audit/`                                  |
-| 트래픽 조회   | `.claude/analyzer/index.md` (Search Console·GA4 API — 수동 CSV보다 우선)        |
+| 지표 분석     | `/metrics-analysis` 스킬 (항상 그 시점에 조회, 문서 수치 인용 금지)             |
+| 조회 스크립트 | `.claude/analyzer/index.md` (GA4·Search Console·애드센스·BigQuery API)          |
 | SEO 설계/구현 | `seo-specialist` 에이전트, `.claude/agents/seo-specialist.md`                   |
 
 ## 하네스 컨벤션

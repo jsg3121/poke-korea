@@ -42,6 +42,7 @@ allowedTools:
 - 불확실한 내용은 가정(Assumption)으로 명시한다
 - 신뢰할 수 있는 데이터 소스를 우선 사용한다 (`.claude/skills/biz-strategy/references/data-sources.md` 참조)
 - **자사 서비스 현황을 언급하기 전 반드시 상용 구현 상태를 직접 확인한다** (아래 "상용 구현 확인 의무" 절 참조)
+- **자사 트래픽·검색·수익 수치는 프롬프트로 전달받은 값만 현재값으로 쓴다.** 메인 세션이 `/metrics-analysis`로 조회해 조회일과 함께 넘긴다. 저장소 문서(보고서·기획서)의 수치는 작성 시점 값이라 현재값으로 인용하지 않는다. 전달받지 못했으면 "지표 미제공"으로 표시한다
 
 ## 상용 구현 확인 의무
 
@@ -52,7 +53,7 @@ allowedTools:
 1. **라우트 구조 확인**: `src/app/` 하위 폴더 구조를 직접 읽어 어떤 페이지/기능이 실제로 존재하는지 확인한다 (`Glob`/`Read` 도구 사용)
 2. **동적 라우트 확인**: `[id]`, `[slug]` 등 동적 경로의 `page.tsx`를 읽어 어떤 데이터를 어떻게 표시하는지 확인한다
 3. **메타데이터/SEO 인프라 확인**: `_metadata/`, `sitemap.ts`, JSON-LD 구성 등 SEO 자산이 이미 적용되어 있는지 확인한다
-4. **통계 문서와 코드 상태의 정합성 확인**: `.claude/specs/service/metrics-baseline.md`의 트래픽 데이터가 "리스트만 인기"인지, "상세 페이지 트래픽이 다른 형태로 집계되었을 가능성"인지 판단한다
+4. **지표와 코드 상태의 정합성 확인**: 전달받은 트래픽 수치가 "리스트만 인기"인지, "상세 페이지 트래픽이 다른 형태로 집계되었을 가능성"인지 판단한다
 
 확인 결과는 보고서의 **"자사 현황 확인" 섹션**에 명시한다. 추정만으로 "기능 부재"를 단정하지 않는다.
 
@@ -74,6 +75,6 @@ allowedTools:
 
 ## 참조 문서
 
-- `.claude/specs/service/service-overview.md` — 서비스 개요 (현황·핵심 지표)
+- `.claude/specs/service/target-segment.md` — 타겟 사용자
 - `.claude/skills/biz-strategy/references/data-sources.md` — 신뢰할 수 있는 데이터 소스
 - `.claude/skills/biz-strategy/references/frameworks.md` — 분석 프레임워크
