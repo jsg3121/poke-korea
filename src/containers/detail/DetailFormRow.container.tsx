@@ -105,7 +105,7 @@ const DetailFormRow = () => {
             href={shinyHref}
             replace
             className={getFormLinkClass(isShiny)}
-            aria-pressed={isShiny}
+            aria-current={isShiny ? 'page' : undefined}
           >
             <i
               className={`block h-5 w-5 shrink-0 [&>svg]:h-5 [&>svg]:w-5 will-change-[filter] ${isShiny ? '[&>svg]:fill-[#f5b62e]' : '[&>svg]:fill-transparent'}`}
