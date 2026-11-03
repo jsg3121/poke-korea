@@ -213,6 +213,16 @@ JSX 안에서 분기해야 하면 `&&` 대신 삼항을 쓰거나, 불리언으�
 
 ---
 
+## 링크
+
+내부 링크는 **`IntentLink`(`~/components/link/IntentLink.component`)로만** 만든다. `next/link`를 직접 import하지 않는다(ESLint `no-restricted-imports`가 막는다).
+
+`IntentLink`는 `next/link`와 사용법이 같다. 다른 점은 prefetch 시점뿐이다. 화면에 보인다고 미리 받지 않고, 터치 시작·마우스 올림·키보드 포커스 때만 `router.prefetch()`를 호출한다.
+
+> **Why:** Next.js `<Link>`는 화면에 들어온 링크를 모두 RSC로 미리 받는다. 이 사이트는 CloudFront가 요청마다 과금하는데, 2026-10-27~11-02 기준 전체 요청의 약 70%가 RSC였고 대부분은 누르지 않은 링크의 prefetch였다. 링크마다 `prefetch` 처리를 따로 하면 새 링크에서 빠뜨리기 쉬워, 컴포넌트 하나로 모으고 린트로 강제한다. 결정 근거는 [ADR-0025](../../decisions/records/ADR-0025-layout-link-prefetch-off.md).
+
+---
+
 ## 데이터 패칭
 
 **서버에서 가져와 클라이언트로 흘린다.** `page.tsx`가 Apollo로 데이터를 가져와 `initialApolloState`로 하이드레이션하고, 클라이언트에서 같은 쿼리를 다시 쏘지 않는다([ADR-0014](../../decisions/records/ADR-0014-apollo-ssr-cache-hydration.md)).
@@ -286,6 +296,7 @@ const label = value ?? '알 수 없음'
 | 이벤트 핸들러  | JSX 인라인 금지, 이름 있는 핸들러로 분리  |
 | 조건부 렌더링  | early return 우선, `&&`는 불리언으로 명시 |
 | `'use client'` | 필요한 곳에만, 트리 아래쪽으로            |
+| 내부 링크      | `IntentLink`만 사용 (`next/link` 금지)    |
 | 외부 입력      | `as` 대신 타입 가드                       |
 | 비교           | `===`, 기본값은 `??`                      |
 | 분석 이벤트    | `modules/`의 공통 유틸 + 타입 정의로만    |

@@ -1,8 +1,7 @@
-import Link from 'next/link'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath } from '~/modules/typeParams.module'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface TypeNameLinkProps {
   type: PokemonType
@@ -34,14 +33,13 @@ const TypeNameLink = ({ type, label }: TypeNameLinkProps) => {
   const text = label ?? `${PokemonTypes[type]} 타입`
 
   return (
-    <Link
+    <IntentLink
       href={buildTypeDetailPath(type)}
-      prefetch={false}
       aria-label={`${PokemonTypes[type]} 타입 약점과 상성 보기`}
       className="hover:underline focus-visible:underline"
     >
       <b className={TYPE_COLOR_CLASS[type]}>{text}</b>
-    </Link>
+    </IntentLink>
   )
 }
 

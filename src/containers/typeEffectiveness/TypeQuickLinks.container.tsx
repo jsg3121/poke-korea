@@ -1,13 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-
 import { PokemonTypes } from '~/types/pokemonTypes.types'
 import { TYPE_ORDER } from '~/constants/typeEffectivenessChart'
 import { PokemonType } from '~/graphql/typeGenerated'
 import { buildTypeDetailPath, buildTypeSlug } from '~/modules/typeParams.module'
 import { useTypeEffectiveness } from '~/context/TypeEffectiveness.context'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 const QUICK_LINK_TYPES: ReadonlyArray<PokemonType> = TYPE_ORDER.map(
   (label) =>
@@ -38,9 +37,8 @@ const TypeQuickLinks = () => {
       <ul className="mt-3 grid grid-cols-3 gap-1.5 desktop:grid-cols-6 desktop:gap-2">
         {QUICK_LINK_TYPES.map((type) => (
           <li key={type}>
-            <Link
+            <IntentLink
               href={buildTypeDetailPath(type)}
-              prefetch={false}
               aria-label={`${PokemonTypes[type]} 타입 약점과 상성 보기`}
               className="flex min-h-touch w-full min-w-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-solid border-primary-2 px-1.5 py-1.5 text-sm font-semibold text-primary-3 transition-colors hover:border-primary-4 hover:bg-primary-2 hover:text-primary-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-4 desktop:gap-1.5 desktop:px-2"
             >
@@ -55,7 +53,7 @@ const TypeQuickLinks = () => {
                 />
               </span>
               {PokemonTypes[type]}
-            </Link>
+            </IntentLink>
           </li>
         ))}
       </ul>

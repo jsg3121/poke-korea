@@ -1,11 +1,10 @@
-import Link from 'next/link'
-
 import {
   buildChampionsDetailHref,
   CHAMPIONS_FORMAT_SLUGS,
   ChampionsFormatSlug,
   getFormatLabel,
 } from '~/utils/championsFormat.util'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsDetailFormatSwitchProps {
   currentFormat: ChampionsFormatSlug
@@ -37,7 +36,7 @@ const ChampionsDetailFormatSwitch = ({
 
           return (
             <li key={slug}>
-              <Link
+              <IntentLink
                 href={href}
                 aria-current={isActive ? 'page' : undefined}
                 title={label}
@@ -48,7 +47,7 @@ const ChampionsDetailFormatSwitch = ({
                 }`}
               >
                 {label}
-              </Link>
+              </IntentLink>
             </li>
           )
         })}

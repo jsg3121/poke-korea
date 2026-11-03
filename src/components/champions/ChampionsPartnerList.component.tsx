@@ -1,11 +1,10 @@
-import Link from 'next/link'
-
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsPartnerListProps {
   title: string
@@ -74,7 +73,7 @@ const ChampionsPartnerList = ({
               key={`${item.pokemonId}-${displayName}-${index}-${item.formType}`}
             >
               {isLink ? (
-                <Link
+                <IntentLink
                   href={buildChampionsDetailHref({
                     formatSlug,
                     pokemonId: item.pokemonId as number,
@@ -84,7 +83,7 @@ const ChampionsPartnerList = ({
                   aria-label={`${displayName} 챔피언스 상세보기`}
                 >
                   {innerContent}
-                </Link>
+                </IntentLink>
               ) : (
                 innerContent
               )}

@@ -1,13 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-
 import { ChampionsFormSiblingFragment } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
   ChampionsFormatSlug,
 } from '~/utils/championsFormat.util'
 import ChampionsTierBadge from '~/components/common/ChampionsTierBadge.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsFormTabProps {
   formSiblings: ChampionsFormSiblingFragment[]
@@ -36,7 +35,7 @@ const ChampionsFormTab = ({
 
           return (
             <li key={sibling.id} className="shrink-0">
-              <Link
+              <IntentLink
                 href={href}
                 aria-current={isActive ? 'page' : undefined}
                 title={sibling.name}
@@ -52,7 +51,7 @@ const ChampionsFormTab = ({
                     <ChampionsTierBadge tier={sibling.tier} />
                   </span>
                 )}
-              </Link>
+              </IntentLink>
             </li>
           )
         })}

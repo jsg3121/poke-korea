@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { ChampionsTeamSlotFragment, PokemonType } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
@@ -7,6 +5,7 @@ import {
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 interface ChampionsTournamentSlotCardProps {
@@ -147,12 +146,12 @@ const ChampionsTournamentSlotCard = ({
 
   if (href) {
     return (
-      <Link
+      <IntentLink
         href={href}
         className="block w-full h-full hover:scale-105 transition-transform"
       >
         {inner}
-      </Link>
+      </IntentLink>
     )
   }
   return inner

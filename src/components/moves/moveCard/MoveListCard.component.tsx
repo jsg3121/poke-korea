@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { PokemonSkill } from '~/graphql/typeGenerated'
 import {
   getDamageTypeChipColor,
@@ -7,6 +5,7 @@ import {
   hasDamageType,
 } from '~/utils/skill.util'
 import Chip from '~/components/chip/Chip.component'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 const LONG_NAME_LENGTH = 9
@@ -26,7 +25,7 @@ const MoveListCard = ({ moveData }: MoveListCardProps) => {
       : 'text-base desktop:text-lg'
 
   return (
-    <Link
+    <IntentLink
       href={`/moves/${moveData.id}`}
       className="block w-full"
       aria-label={`${moveData.nameKo} 기술 상세보기`}
@@ -77,7 +76,7 @@ const MoveListCard = ({ moveData }: MoveListCardProps) => {
           세대별 기술 정보 보러가기 &gt;
         </p>
       </article>
-    </Link>
+    </IntentLink>
   )
 }
 

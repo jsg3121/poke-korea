@@ -20,7 +20,7 @@ const meta = {
           '',
           'Button/LinkButton과 분리: 버튼은 "상태 없는 액션/이동", 탭은 `active` 의미축을 가짐.',
           '',
-          '`href` 유무로 모드 자동 분기 — 있으면 이동 탭(next/link, `aria-current`), 없으면 상태 전환 탭(`button`, `role="tab"`).',
+          '`href` 유무로 모드 자동 분기 — 있으면 이동 탭(IntentLink, `aria-current`), 없으면 상태 전환 탭(`button`, `role="tab"`).',
           '',
           'variant: `underline`(네비게이션) / `fill`(컨텐츠 전환). 색은 등록된 토큰(primary-1~4)만 사용.',
         ].join('\n'),

@@ -1,6 +1,5 @@
-import Link from 'next/link'
-
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsQuickLinksProps {
   formatSlug: ChampionsFormatSlug
@@ -38,7 +37,7 @@ const ChampionsQuickLinks = ({ formatSlug }: ChampionsQuickLinksProps) => {
       <ul className="grid grid-cols-1 desktop:grid-cols-3 gap-4 desktop:gap-6">
         {items.map((item) => (
           <li key={item.href}>
-            <Link
+            <IntentLink
               href={item.href}
               className="group block w-full h-24 bg-primary-4 border-[2px] border-solid border-primary-1 rounded-xl shadow-[0_0_0px_3px_var(--color-primary-4)] p-4 relative hover:scale-105 transition-transform"
               aria-label={`${item.title}로 이동`}
@@ -65,7 +64,7 @@ const ChampionsQuickLinks = ({ formatSlug }: ChampionsQuickLinksProps) => {
                   →
                 </span>
               </div>
-            </Link>
+            </IntentLink>
           </li>
         ))}
       </ul>

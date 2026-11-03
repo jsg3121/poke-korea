@@ -56,7 +56,25 @@
     "jsx-a11y/aria-role": 1,
     // null 비교는 예외 — `== null`은 null·undefined를 함께 거르는 관용구다
     "eqeqeq": ["error", "always", { "null": "ignore" }],
+    // 링크는 IntentLink로만 만든다 — 화면에 보이는 링크를 미리 받지 않고 누르려 할 때만 prefetch한다 (ADR-0025)
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "next/link",
+            "message": "~/components/link/IntentLink.component를 사용하세요.",
+          },
+        ],
+      },
+    ],
   },
+  "overrides": [
+    {
+      "files": ["src/components/link/IntentLink.component.tsx"],
+      "rules": { "no-restricted-imports": "off" },
+    },
+  ],
   "ignorePatterns": ["**/*.js", "**/*.jsx"],
   "settings": {
     "react": {

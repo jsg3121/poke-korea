@@ -64,7 +64,6 @@ const meta = {
   component: PokemonCard,
   parameters: {
     layout: 'centered',
-    nextjs: { appDirectory: true },
     docs: {
       description: {
         component: [

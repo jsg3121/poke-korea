@@ -1,8 +1,7 @@
-import Link from 'next/link'
-
 import { PokemonType } from '~/graphql/typeGenerated'
 import Chip from '~/components/chip/Chip.component'
 import { ChipColor } from '~/components/chip/chip.types'
+import IntentLink from '~/components/link/IntentLink.component'
 import Tag from '~/components/tag/Tag.component'
 
 import MoveTableStat from './MoveTableStat.component'
@@ -68,7 +67,7 @@ const MoveTable = ({ moves, ariaLabel }: MoveTableProps) => {
             }`}
           >
             {move.href && (
-              <Link
+              <IntentLink
                 href={move.href}
                 aria-label={`${move.name} 상세 정보`}
                 className="absolute inset-0 z-10 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-1"

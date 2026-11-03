@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsHomeSectionHeaderProps {
   title: string
@@ -25,13 +25,13 @@ const ChampionsHomeSectionHeader = ({
           </p>
         )}
         {moreHref && (
-          <Link
+          <IntentLink
             href={moreHref}
             className="shrink-0 text-xs desktop:text-sm text-primary-3 hover:text-primary-4 transition-colors whitespace-nowrap"
             aria-label={`${title} ${moreLabel}`}
           >
             {moreLabel} →
-          </Link>
+          </IntentLink>
         )}
       </div>
     </header>

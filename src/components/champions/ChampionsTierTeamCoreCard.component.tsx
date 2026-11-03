@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import {
   buildChampionsDetailHref,
@@ -7,6 +5,7 @@ import {
 } from '~/utils/championsFormat.util'
 import { imageMode } from '~/modules/buildMode.module'
 import Image from '~/components/Image.component'
+import IntentLink from '~/components/link/IntentLink.component'
 
 interface ChampionsTierTeamCoreCardProps {
   core: ChampionsTeamCoreFragment
@@ -72,12 +71,12 @@ const ChampionsTierTeamCoreCard = ({
         className="flex items-center gap-1"
       >
         {href ? (
-          <Link
+          <IntentLink
             href={href}
             className="hover:text-primary-2 underline-offset-2 hover:underline"
           >
             {member.name}
-          </Link>
+          </IntentLink>
         ) : (
           <span>{member.name}</span>
         )}
@@ -133,13 +132,13 @@ const ChampionsTierTeamCoreCard = ({
               className={IMAGE_DIM.className}
             >
               {href ? (
-                <Link
+                <IntentLink
                   href={href}
                   className="block w-full h-full hover:scale-110 transition-transform"
                   aria-label={`${member.name} 챔피언스 상세보기`}
                 >
                   {imageContent}
-                </Link>
+                </IntentLink>
               ) : (
                 imageContent
               )}

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
-import Link from 'next/link'
+
+import IntentLink from '~/components/link/IntentLink.component'
 
 import { ButtonSize, ButtonVariant, getButtonClass } from './button.util'
 
@@ -27,7 +28,7 @@ const LinkButton = ({
   rel,
 }: LinkButtonProps) => {
   return (
-    <Link
+    <IntentLink
       href={href}
       className={getButtonClass({ variant, size, fullWidth })}
       aria-label={ariaLabel}
@@ -36,7 +37,7 @@ const LinkButton = ({
     >
       {children}
       {showArrow && <span aria-hidden="true">→</span>}
-    </Link>
+    </IntentLink>
   )
 }
 
