@@ -393,15 +393,15 @@ const nextConfig = {
         ],
       },
       {
-        // 웹폰트 - 브라우저 1일 / CloudFront 1년 캐싱
-        // 파일명에 해시가 없어 immutable은 붙이지 않는다. 서브셋을 다시 뜨면
-        // 같은 파일명으로 내용만 바뀔 수 있어, 하루마다 재검증할 여지를 남긴다.
-        // 교체 시 CloudFront /fonts/* 경로를 수동 무효화한다.
+        // 웹폰트 - 브라우저·CloudFront 1년 캐싱 (immutable)
+        // 폰트는 교체 계획이 없어 같은 파일명으로 오래 캐싱한다.
+        // 교체가 필요하면 반드시 파일명을 바꾼다. 같은 이름으로 내용만 바꾸면
+        // 이미 받은 브라우저는 최대 1년간 재검증 없이 예전 파일을 쓴다.
         source: '/fonts/:path*',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=86400, s-maxage=31536000',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
