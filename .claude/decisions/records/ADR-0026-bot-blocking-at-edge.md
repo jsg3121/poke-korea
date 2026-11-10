@@ -68,7 +68,7 @@
   - ALB `api-connect` 대상 그룹 `RequestCount`, `HTTPCode_Target_5XX_Count`
   - API 서버 PM2 로그의 `max-memory-restart` 재시작 횟수
 - 남는 과제(별도 결정):
-  - prefetch가 SSR 전체를 실행하는 문제는 ADR-0025 개정으로 다룬다.
+  - prefetch 조정은 **보류**했다(2026-11-10). 의도 기반 prefetch(`FULL`)는 누르지 않은 링크에도 SSR 전체를 실행한다. 11/04 기준 사람 RSC 요청은 GA4 사이트 내 이동 1회당 약 4.1건이라, 약 70~75%가 버려지는 prefetch로 추정된다. 그러나 prefetch를 끄면 줄어드는 양이 API 호출 약 7만 건/일(약 11%), CloudFront 비용 월 약 $2에 그친다. 그에 비해 이동 직후 바로 화면이 뜨는 체감 속도를 잃는다. 백엔드 캐시 상한 수정과 이 ADR의 봇 차단을 적용한 뒤에도 부하가 문제일 때 ADR-0025 개정으로 다시 검토한다.
   - 모든 페이지가 동적 렌더링인 구조(루트 레이아웃 `headers()`)는 렌더링 전략 재검토(ADR-0006·0007 관련)로 다룬다.
 
 ## 참고 자료
