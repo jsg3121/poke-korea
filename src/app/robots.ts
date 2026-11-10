@@ -20,6 +20,13 @@ const AI_TRAINING_AGENTS = [
   'CCBot',
 ]
 
+const SEO_UNRELATED_AGENTS = [
+  'QlyzeBot',
+  'SemrushBot',
+  'Baiduspider',
+  'ExaSearchBot',
+]
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -39,6 +46,10 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: AI_TRAINING_AGENTS,
+        disallow: ['/'],
+      },
+      {
+        userAgent: SEO_UNRELATED_AGENTS,
         disallow: ['/'],
       },
     ],
