@@ -34,3 +34,4 @@
 | [ADR-0023](ADR-0023-search-input-url-sync.md)              | 검색 입력과 URL 동기화 방식 통일, RHF 제거           | 승인   |
 | [ADR-0024](ADR-0024-no-unit-test-framework.md)             | 단위 테스트 도구 미도입, E2E만 유지                  | 승인   |
 | [ADR-0025](ADR-0025-layout-link-prefetch-off.md)            | 모든 내부 링크를 의도 기반 prefetch(IntentLink)로 통일          | 승인   |
+| [ADR-0026](ADR-0026-bot-blocking-at-edge.md)                | SEO와 무관한 크롤러를 robots.txt + CloudFront Function으로 차단 | 승인   |
