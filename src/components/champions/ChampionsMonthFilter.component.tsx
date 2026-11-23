@@ -12,7 +12,7 @@ const ChampionsMonthFilter = (props: ChampionsMonthFilterSelectProps) => {
       fallback={
         <div
           aria-hidden="true"
-          className="w-32 h-9 bg-primary-3 rounded-md animate-pulse"
+          className="w-32 h-touch desktop:h-9 bg-primary-3 rounded-md animate-pulse"
         />
       }
     >

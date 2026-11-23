@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { ChampionsPokemonSort } from '~/graphql/typeGenerated'
+import SelectInput from '~/components/input/SelectInput.component'
 
 type SortQueryValue = 'usage' | 'dex'
 
@@ -28,7 +29,7 @@ const ChampionsPokedexSortSelect = ({
 
   const currentValue = sortEnumToQuery(currentSort)
 
-  const handleChange = (value: SortQueryValue) => {
+  const handleChangeSort = (value: SortQueryValue) => {
     const params = new URLSearchParams(searchParams.toString())
     if (value === 'usage') {
       params.delete('sort')
@@ -40,20 +41,13 @@ const ChampionsPokedexSortSelect = ({
   }
 
   return (
-    <label className="inline-flex items-center gap-2">
-      <span className="sr-only">정렬 기준 선택</span>
-      <select
-        value={currentValue}
-        onChange={(e) => handleChange(e.target.value as SortQueryValue)}
-        className="bg-primary-4 text-primary-1 border border-solid border-primary-1 rounded-md px-2 py-1 text-xs font-bold cursor-pointer hover:bg-primary-3 transition-colors"
-      >
-        {SORT_OPTIONS.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </label>
+    <SelectInput
+      label="정렬 기준 선택"
+      visuallyHiddenLabel
+      value={currentValue}
+      options={SORT_OPTIONS}
+      onChange={handleChangeSort}
+    />
   )
 }
 
