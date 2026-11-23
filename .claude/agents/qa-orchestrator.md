@@ -55,7 +55,7 @@ git diff {대상 브랜치}...HEAD --name-only --diff-filter=ACMR
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
 | `lint-check`  | 소스 파일(`.ts`·`.tsx`·`.css`·`.json`) 변경                                                                                          | 문서(`.md`)만 변경                           |
 | `code-review` | 소스 파일 변경 (항상 권장)                                                                                                           | 문서·설정만 변경                             |
-| `a11y-check`  | `.tsx` 변경 — 특히 `components/`·`views/`·`container/` 하위                                                                          | 로직·유틸(`module/`·`utils/`·`hook/`)만 변경 |
+| `a11y-check`  | `.tsx` 변경 — 특히 `components/`·`views/`·`containers/` 하위                                                                          | 로직·유틸(`modules/`·`utils/`·`hooks/`)만 변경 |
 | `seo-audit`   | `app/` 하위 `page.tsx`·`layout.tsx`·`_metadata/`, `constants/*JsonLd.ts`, `constants/seoMetaData.ts`, `sitemap.ts`, `robots.ts` 변경 | 위 파일군 미변경                             |
 | `e2e-check`   | `.ts`·`.tsx` 소스 변경(`app/`·`containers/`·`components/`·`views/`·`hooks/`·`context/`·`modules/`), `playwright.config.ts` 변경 | 문서·스타일만 변경                           |
 
