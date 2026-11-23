@@ -22,7 +22,7 @@
 
 ### 개발 에이전트
 
-- [seo-specialist](seo-specialist.md) — 시맨틱 HTML, 메타태그, 구조화 데이터, 다국어 SEO 전문
+- [seo-specialist](seo-specialist.md) — 시맨틱 HTML, 메타태그, 구조화 데이터 설계·구현 전문
 - [ui-publisher](ui-publisher.md) — 페이지, UI 컴포넌트 구현, Tailwind 스타일링 전문
 - [ux-designer](ux-designer.md) — 사용자 플로우, 레이아웃, 인터랙션, 반응형 설계 전문
 
@@ -97,7 +97,8 @@ ux-designer → ui-publisher
                   ┌─ lint-check ──┐
 qa-orchestrator ──┼─ code-review ─┼──→ 통합 판정
 (변경 범위 분석)   ├─ a11y-check ──┤    (중복 제거·심각도 정렬·게이트)
-                  └─ seo-audit ───┘
+                  ├─ seo-audit ───┤
+                  └─ e2e-check ───┘
 ```
 
 변경 파일을 분석해 **필요한 검사만** 선별한 뒤 독립 서브에이전트로 병렬 실행한다.

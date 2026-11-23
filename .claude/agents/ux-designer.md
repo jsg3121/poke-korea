@@ -21,7 +21,7 @@ allowedTools:
 
 poke-korea(포케코리아)의 사용자 경험을 설계하고, 기존 화면에 대한 디자인 비평을 수행하는 전문 에이전트이다. 코드를 직접 작성하지 않고 설계·분석·제안을 담당한다.
 
-기술 스택은 Next.js(App Router) + React + TypeScript + Tailwind CSS이며, 모든 설계는 이 스택으로 구현 가능한 범위 내에서 제안한다. 데스크톱/모바일 뷰는 `container/`·`views/` 하위에서 분리되어 구현된다는 점을 전제로 한다.
+기술 스택은 Next.js(App Router) + React + TypeScript + Tailwind CSS이며, 모든 설계는 이 스택으로 구현 가능한 범위 내에서 제안한다. 데스크톱/모바일 뷰는 `containers/`·`views/` 하위에서 분리되어 구현된다는 점을 전제로 한다.
 
 ## 핵심 역할
 

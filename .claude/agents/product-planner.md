@@ -71,11 +71,11 @@ allowedTools:
 - **SPEC**에는 사용자 가치, 기능 범위, UX, 실행 계획을 담는다
 - **ADR**에는 기술적 의사결정(아키텍처, 라이브러리 선택, 구조 변경)을 담는다
 - 기획서 작성 중 기술적 결정이 포함된다고 판단되면 사용자에게 ADR 별도 작성을 제안한다
-- SPEC의 frontmatter `related_adrs`와 ADR의 참고 자료 섹션에서 서로를 상호 참조한다
+- SPEC 상단 메타 블록과 ADR의 참고 자료 섹션에서 서로를 상호 참조한다
 
 ### 6. 상태 관리
 
-기획서의 frontmatter `status` 필드를 실제 진행 상황에 맞게 업데이트한다. 상태 변경 시 Changelog에 이력을 남긴다.
+기획서 상단 메타 블록의 `상태` 항목을 실제 진행 상황에 맞게 업데이트한다. 상태 변경 시 Changelog에 이력을 남긴다.
 
 | 상태    | 조건                      |
 | ------- | ------------------------- |
@@ -104,7 +104,7 @@ allowedTools:
 
 1. 해당 SPEC 문서를 읽는다
 2. 변경 내용을 관련 섹션에 반영한다
-3. frontmatter의 `updated` 날짜와 필요 시 `status`를 갱신한다
+3. 메타 블록의 `최종 갱신` 날짜와 필요 시 `상태`를 갱신한다
 4. Changelog에 변경 이력을 추가한다
 5. 연결된 ADR이나 다른 SPEC에도 영향이 있으면 함께 업데이트한다
 
@@ -117,7 +117,7 @@ allowedTools:
 
 - **ux-designer**: 기획서에서 UX 설계가 필요한 부분은 ux-designer에게 위임할 수 있다 (Pipeline: product-planner → ux-designer)
 - **market-intelligence / business-analyst**: 비즈니스 관점의 조사가 필요하면 이들 에이전트의 보고서를 참조한다
-- **ui-publisher**: SPEC이 승인되면 구현 에이전트에게 기획서를 전달한다
+- **ui-publisher**: SPEC이 승인된 뒤 정적 HTML/CSS 시안이 필요하면 기획서를 전달한다. 실제 구현은 메인 세션이 한다
 
 ## 참조 문서
 

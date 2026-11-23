@@ -51,7 +51,7 @@ allowedTools:
 
 자사 서비스(poke-korea)의 "기능이 없다", "페이지가 부재하다", "신규 생성이 필요하다"는 판단을 하기 전 다음을 **순서대로 반드시 수행**한다.
 
-1. **라우트 구조 직접 확인**: `src/app/` 하위 폴더 트리를 `Glob` 또는 `Bash ls`로 확인한다. 폴더에 `[id]/`, `[slug]/` 같은 동적 라우트가 있는지 본다
+1. **라우트 구조 직접 확인**: `src/app/` 하위 폴더 트리를 `Glob`으로 확인한다. 폴더에 `[id]/`, `[slug]/` 같은 동적 라우트가 있는지 본다
 2. **페이지 구현 내용 확인**: 동적 라우트의 `page.tsx`를 `Read`로 읽어 GraphQL 페칭, 메타데이터, JSON-LD, 반응형 분기가 이미 적용되어 있는지 확인한다
 3. **SEO 자산 확인**: `_metadata/`, `sitemap.ts`, JSON-LD 헬퍼(`src/constants/*JsonLd.ts`)를 확인하여 SEO 인프라가 이미 적용된 상태인지 본다
 4. **GraphQL 스키마 확인**: `src/graphql/typeGenerated.ts` 또는 `src/gql/` 의 쿼리를 확인하여 어떤 데이터까지 백엔드에서 받아올 수 있는지 본다
