@@ -186,7 +186,7 @@ export const generatePokemonJsonLd = ({
           '@type': 'ListItem',
           position: 2,
           name: '포켓몬 도감',
-          item: 'https://poke-korea.com/detail',
+          item: 'https://poke-korea.com/list',
         },
         {
           '@type': 'ListItem',
