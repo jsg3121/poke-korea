@@ -24,11 +24,19 @@ interface SelectInputProps<T extends string> {
  * 글자는 16px(`text-md`) — iOS Safari는 16px 미만 입력 요소에 포커스하면 화면을 확대한다.
  */
 const SELECT_CLASS =
-  'min-h-touch desktop:min-h-9 cursor-pointer appearance-none bg-primary-4 text-primary-1 border-2 border-solid border-primary-2 rounded-md pl-3 pr-11 text-md font-medium transition-colors hover:bg-primary-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1 disabled:opacity-50 disabled:cursor-not-allowed'
+  'min-h-touch desktop:min-h-9 cursor-pointer appearance-none bg-primary-4 text-primary-1 border-2 border-solid border-primary-2 rounded-md pl-3 pr-11 text-md font-medium transition-colors hover:bg-primary-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
 
 const LABEL_TONE_CLASS: Record<SelectInputTone, string> = {
   onDark: 'text-sm text-primary-4',
   onLight: 'text-sm font-bold text-primary-1',
+}
+
+/**
+ * 포커스 링은 셀렉트 바깥(offset)에 그려져 주변 배경과 대비돼야 한다 — 톤과 같은 색이면 보이지 않는다.
+ */
+const FOCUS_TONE_CLASS: Record<SelectInputTone, string> = {
+  onDark: 'focus-visible:outline-primary-4',
+  onLight: 'focus-visible:outline-primary-1',
 }
 
 const SelectInput = <T extends string>({
@@ -44,7 +52,7 @@ const SelectInput = <T extends string>({
 }: SelectInputProps<T>) => {
   const handleChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     const selected = options.find((option) => option.value === e.target.value)
-    if (selected) onChange(selected.value)
+    if (selected !== undefined) onChange(selected.value)
   }
 
   return (
@@ -66,7 +74,7 @@ const SelectInput = <T extends string>({
           value={value}
           onChange={handleChangeSelect}
           disabled={disabled}
-          className={`${SELECT_CLASS} ${fullWidth ? 'w-full' : ''}`}
+          className={`${SELECT_CLASS} ${FOCUS_TONE_CLASS[tone]} ${fullWidth ? 'w-full' : ''}`}
         >
           {options.map((option) => (
             <option

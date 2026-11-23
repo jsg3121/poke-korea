@@ -92,6 +92,7 @@ flavorTexts {
 | 값 변경 | `e.target.value as T` | options에서 찾은 값만 전달(단언 제거) |
 
 | 비활성 옵션 | 없음 | 옵션별 `disabled` |
+| 포커스 링 | 톤과 무관하게 `primary-1` — 진한 배경(`primary-1`) 위에서 보이지 않음(WCAG 2.4.7) | 톤별: `onDark`는 `primary-4`, `onLight`는 `primary-1` |
 
 - Storybook에 `OnLight`, `OnLightFullWidth` story를 추가했다.
 

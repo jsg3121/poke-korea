@@ -56,7 +56,7 @@ const ChampionsTeamCoreSection = ({
     const size = SIZE_OPTIONS.find(
       (option) => String(option.value) === value,
     )?.value
-    if (size) setSelectedSize(size)
+    if (size !== undefined) setSelectedSize(size)
   }
 
   if (teamCores.length === 0) {
