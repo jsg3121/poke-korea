@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 
 import { ChampionsTeamCoreFragment } from '~/graphql/typeGenerated'
 import { ChampionsFormatSlug } from '~/utils/championsFormat.util'
+import SelectInput from '~/components/input/SelectInput.component'
 
 import ChampionsHomeSectionHeader from './ChampionsHomeSectionHeader.component'
 import ChampionsTeamCoreCard from './ChampionsTeamCoreCard.component'
@@ -42,6 +43,21 @@ const ChampionsTeamCoreSection = ({
   }, [teamCores])
 
   const selectedCores = coresBySize.get(selectedSize) ?? []
+  const sizeOptions = SIZE_OPTIONS.map((option) => {
+    const isDisabled = (coresBySize.get(option.value)?.length ?? 0) === 0
+    return {
+      value: String(option.value),
+      label: isDisabled ? `${option.label} (없음)` : option.label,
+      disabled: isDisabled,
+    }
+  })
+
+  const handleChangeSize = (value: string) => {
+    const size = SIZE_OPTIONS.find(
+      (option) => String(option.value) === value,
+    )?.value
+    if (size !== undefined) setSelectedSize(size)
+  }
 
   if (teamCores.length === 0) {
     return null
@@ -59,31 +75,16 @@ const ChampionsTeamCoreSection = ({
             description="대회에서 자주 쓰이는 포켓몬 조합"
           />
         </div>
-        <label className="mt-3 block shrink-0 desktop:mt-0 desktop:self-end">
-          <span className="sr-only">조합 크기 선택</span>
-          <select
-            value={selectedSize}
-            onChange={(e) =>
-              setSelectedSize(Number(e.target.value) as CoreSize)
-            }
-            className="w-full desktop:w-auto bg-primary-4 text-primary-1 border-[2px] border-solid border-primary-1 rounded-md px-3 py-1.5 text-sm font-bold cursor-pointer hover:bg-primary-3 transition-colors"
-          >
-            {SIZE_OPTIONS.map((option) => {
-              const count = coresBySize.get(option.value)?.length ?? 0
-              const isDisabled = count === 0
-              return (
-                <option
-                  key={option.value}
-                  value={option.value}
-                  disabled={isDisabled}
-                >
-                  {option.label}
-                  {isDisabled ? ' (없음)' : ''}
-                </option>
-              )
-            })}
-          </select>
-        </label>
+        <div className="mt-3 w-full shrink-0 desktop:mt-0 desktop:w-auto desktop:self-end">
+          <SelectInput
+            label="조합 크기 선택"
+            visuallyHiddenLabel
+            fullWidth
+            value={String(selectedSize)}
+            options={sizeOptions}
+            onChange={handleChangeSize}
+          />
+        </div>
       </div>
 
       {selectedCores.length === 0 ? (

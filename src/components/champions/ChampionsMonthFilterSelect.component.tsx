@@ -1,7 +1,8 @@
 'use client'
 
-import { ChangeEvent } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
+import SelectInput from '~/components/input/SelectInput.component'
 
 import { formatMonthLabel } from './utils/championsMonth.util'
 
@@ -18,8 +19,15 @@ const ChampionsMonthFilterSelect = ({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const handleChangeMonth = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value
+  const monthOptions = [
+    { value: '', label: '전체 기간' },
+    ...availableMonths.map((month) => ({
+      value: month,
+      label: formatMonthLabel(month),
+    })),
+  ]
+
+  const handleChangeMonth = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
     if (value !== '') {
       params.set('month', value)
@@ -31,21 +39,13 @@ const ChampionsMonthFilterSelect = ({
   }
 
   return (
-    <label className="inline-flex items-center gap-2">
-      <span className="sr-only">월별 필터</span>
-      <select
-        value={currentMonth ?? ''}
-        onChange={handleChangeMonth}
-        className="bg-primary-4 text-primary-1 border-[2px] border-solid border-primary-1 rounded-md px-3 py-1.5 text-sm font-bold cursor-pointer hover:bg-primary-3 transition-colors"
-      >
-        <option value="">전체 기간</option>
-        {availableMonths.map((month) => (
-          <option key={month} value={month}>
-            {formatMonthLabel(month)}
-          </option>
-        ))}
-      </select>
-    </label>
+    <SelectInput
+      label="월별 필터"
+      visuallyHiddenLabel
+      value={currentMonth ?? ''}
+      options={monthOptions}
+      onChange={handleChangeMonth}
+    />
   )
 }
 

@@ -228,6 +228,19 @@ query PokemonDetail($pokemonId: ID!) {
         }
       }
     }
+    flavorTexts {
+      versionName
+      flavorText
+      forms {
+        formType
+        formIndex
+      }
+      versionGroup {
+        ...VersionGroup
+        displayName
+        isLatest
+      }
+    }
   }
 }
 

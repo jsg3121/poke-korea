@@ -3,6 +3,7 @@ import DetailSkillsBanner from '~/components/adSlot/DetailSkillsBanner.component
 import DetailStatsBanner from '~/components/adSlot/DetailStatsBanner.component'
 import DetailEvolution from '~/containers/detail/DetailEvolution.container'
 import DetailExclusiveMoves from '~/containers/detail/DetailExclusiveMoves.container'
+import DetailFlavorText from '~/containers/detail/DetailFlavorText.container'
 import DetailFormRow from '~/containers/detail/DetailFormRow.container'
 import DetailHero from '~/containers/detail/DetailHero.container'
 import DetailInfoSection from '~/containers/detail/DetailInfoSection.container'
@@ -31,6 +32,7 @@ const Detail = ({
         <DetailStats />
         <div className="flex w-full flex-col gap-5 px-4 desktop:mx-auto desktop:max-w-7xl desktop:gap-8">
           <DetailStatsBanner />
+          <DetailFlavorText />
           <DetailInfoSection />
           <DetailExclusiveMoves />
           <DetailSignatureMoves />

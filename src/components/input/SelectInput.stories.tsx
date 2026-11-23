@@ -8,6 +8,14 @@ const NavyBg = (Story: React.ComponentType) => (
   </div>
 )
 
+const LightCardBg = (Story: React.ComponentType) => (
+  <div className="w-80">
+    <div className="card-detail">
+      <Story />
+    </div>
+  </div>
+)
+
 const SORT_OPTIONS = [
   { value: 'usage', label: '사용률순' },
   { value: 'dex', label: '도감번호순' },
@@ -30,6 +38,8 @@ const meta = {
           '서비스 무드의 밝은 컨트롤 톤(진한 배경 위에서 떠 보임). 색은 등록된 토큰만 사용.',
           '',
           'options/value는 제네릭 `<T extends string>`으로 타입 안전 — onChange가 정확한 값 타입을 받는다. label은 필수(접근성), `visuallyHiddenLabel`로 시각적 숨김 가능.',
+          '',
+          '`tone`: `onDark`(기본, 진한 배경) / `onLight`(밝은 카드 안). `fullWidth`로 부모 폭을 채운다. 글자는 16px — iOS Safari의 포커스 확대를 막는다.',
         ].join('\n'),
       },
     },
@@ -55,4 +65,14 @@ export const HiddenLabel: Story = {
 
 export const Disabled: Story = {
   args: { disabled: true },
+}
+
+export const OnLight: Story = {
+  args: { tone: 'onLight' },
+  decorators: [LightCardBg],
+}
+
+export const OnLightFullWidth: Story = {
+  args: { tone: 'onLight', fullWidth: true },
+  decorators: [LightCardBg],
 }
