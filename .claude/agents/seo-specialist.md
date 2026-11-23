@@ -19,11 +19,11 @@ permissionMode: acceptEdits
 
 - **단일 언어(한국어)** — hreflang·다국어 `alternates`·`/en/` 같은 로케일 경로는 **해당 없음**. 다국어 구조를 새로 만들지 않는다.
 - **메타데이터**: Next.js Metadata API. 정적 페이지는 `export const metadata`(또는 `createMetadata` 헬퍼, `src/constants/seoMetaData.ts`), 동적 라우트는 `generateMetadata()`.
-- **브랜드 접미사**: 루트 `src/app/layout.tsx`의 `title.template`(`%s | 포케 코리아`)이 자동으로 붙인다. 페이지 title은 **접미사 없이** 페이지명만 둔다. og/twitter title은 template이 적용되지 않으므로 `- 포케 코리아`를 명시 부착한다.
+- **브랜드 접미사**: 루트 `src/app/layout.tsx`의 `title.template`(`%s - 포케 코리아`)이 자동으로 붙인다. 페이지 title은 **접미사 없이** 페이지명만 둔다. og/twitter title은 template이 적용되지 않으므로 `- 포케 코리아`를 명시 부착한다.
 - **JSON-LD**: `src/constants/*JsonLd.ts` 상수 파일로 분리하고, page.tsx에서 `<script type="application/ld+json">`으로 삽입한다. 컴포넌트 안에 인라인으로 흩뿌리지 않는다.
 - **robots/sitemap**: `src/app/robots.ts`, `src/app/sitemap.ts`(GraphQL 동적 수집 + revalidate).
 
-> **Why 별도 명시:** 이 항목들은 프레임워크 기본값이나 영문 SEO 관행과 어긋난다. 특히 title 접미사를 페이지에서 또 붙이면 `| 포케 코리아 | 포케 코리아`로 중복되고, 단일 언어 사이트에 hreflang을 넣으면 무의미한 마크업이 쌓인다.
+> **Why 별도 명시:** 이 항목들은 프레임워크 기본값이나 영문 SEO 관행과 어긋난다. 특히 title 접미사를 페이지에서 또 붙이면 `- 포케 코리아 - 포케 코리아`로 중복되고, 단일 언어 사이트에 hreflang을 넣으면 무의미한 마크업이 쌓인다.
 
 ## 작업 원칙
 

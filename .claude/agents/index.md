@@ -18,12 +18,12 @@
 
 ### 기획 에이전트
 
-- [product-planner](product-planner.md) — 기능 기획서(SPEC) 작성/업데이트, ADR 연결 관리 전문
+- [product-planner](product-planner.md) — 기능 기획서(SPEC) 작성/업데이트 전문
 
 ### 개발 에이전트
 
-- [seo-specialist](seo-specialist.md) — 시맨틱 HTML, 메타태그, 구조화 데이터, 다국어 SEO 전문
-- [ui-publisher](ui-publisher.md) — 페이지, UI 컴포넌트 구현, Tailwind 스타일링 전문
+- [seo-specialist](seo-specialist.md) — 시맨틱 HTML, 메타태그, 구조화 데이터 설계·구현 전문
+- [ui-publisher](ui-publisher.md) — UX 설계를 정적 HTML/CSS 시안으로 시각화 (프로젝트 코드에 반영하지 않음)
 - [ux-designer](ux-designer.md) — 사용자 플로우, 레이아웃, 인터랙션, 반응형 설계 전문
 
 ### 품질 검증 에이전트
@@ -57,30 +57,26 @@ node .claude/playwright/capture.js <device> <url>[,<url>...] [name]
 
 ### 지표는 메인 세션이 그 시점에 조회해 전달한다
 
-트래픽·검색·수익·이벤트 수치가 필요한 에이전트(`market-intelligence`, `business-analyst`, `strategy-planner`, `product-planner`)를 호출할 때는 **메인 세션이 먼저 `/metrics-analysis`로 조회**하고, 결과를 조회일·기간·소스와 함께 프롬프트에 넣는다.
+트래픽·검색·수익·이벤트 수치가 필요한 에이전트(`market-intelligence`, `business-analyst`, `strategy-planner`, `product-planner`)는 `tools`에 Bash가 없어 스스로 API를 호출할 수 없다. 호출 전에 **메인 세션이 `/metrics-analysis`로 조회**해 조회일·기간·소스와 함께 프롬프트에 넣는다. 화면 분석에서 캡처를 메인 세션이 맡는 것과 같은 구조다.
 
-- 이 에이전트들은 `tools`에 Bash가 없어 **스스로 API를 호출할 수 없다**.
-- 저장소에는 지표 문서를 두지 않는다. 보고서·기획서에 적힌 수치는 작성 시점 값이므로 에이전트가 현재값으로 쓰지 않도록 프롬프트에 "제공된 수치만 현재값으로 사용"을 명시한다.
-- 조회 절차와 해석 주의사항은 [`/metrics-analysis`](../skills/metrics-analysis/SKILL.md)가 권위 원본이다.
-
-> **Why:** 2026-05에 측정한 지표 문서(`metrics-baseline.md`·`service-overview.md`)가 10월 분석까지 "현재 지표"로 읽혔다. 그 사이 MAU가 2배 넘게 변했다. 에이전트가 직접 조회할 수 없으니 저장소 문서가 유일한 수치 출처였던 것이 원인이다. 화면 분석에서 캡처를 메인 세션이 맡는 것과 같은 구조로, 조회도 메인 세션이 맡는다.
+절차·프롬프트 형식·이유는 [`/metrics-analysis`](../skills/metrics-analysis/SKILL.md)의 "원칙"과 "에이전트 연계"가 원본이다.
 
 ## 활용 패턴
 
-작업 유형에 따라 적절한 에이전트 조합과 아키텍처 패턴을 선택한다.
+작업 유형에 따라 적절한 에이전트 조합과 아키텍처 패턴을 선택한다. `ui-publisher`는 어느 패턴에서든 정적 시안까지만 만들고, 실제 React 구현과 Storybook 등록은 메인 세션이 한다.
 
 ### 새 기능 기획 → 구현 (Pipeline)
 
 ```
 product-planner → ux-designer → ui-publisher
-(기획서 작성)     (설계)         (구현)
+(기획서 작성)     (설계)         (시안)
 ```
 
 ### 기존 기획 기반 구현 (Pipeline)
 
 ```
 ux-designer → ui-publisher
-(설계)        (구현)
+(설계)        (시안)
 ```
 
 ### 페이지 구현 (Expert Pool)
@@ -88,7 +84,7 @@ ux-designer → ui-publisher
 작업 성격에 따라 적절한 에이전트 선택:
 
 - SEO 관련 → seo-specialist
-- UI/컴포넌트 관련 → ui-publisher
+- UI 시안(정적 HTML/CSS) → ui-publisher
 - UX/플로우 관련 → ux-designer
 
 ### 품질 검증 (Fan-out / Fan-in)
@@ -97,7 +93,8 @@ ux-designer → ui-publisher
                   ┌─ lint-check ──┐
 qa-orchestrator ──┼─ code-review ─┼──→ 통합 판정
 (변경 범위 분석)   ├─ a11y-check ──┤    (중복 제거·심각도 정렬·게이트)
-                  └─ seo-audit ───┘
+                  ├─ seo-audit ───┤
+                  └─ e2e-check ───┘
 ```
 
 변경 파일을 분석해 **필요한 검사만** 선별한 뒤 독립 서브에이전트로 병렬 실행한다.
@@ -116,5 +113,5 @@ market-intelligence → business-analyst → strategy-planner
 
 ```
 market-intelligence → business-analyst → strategy-planner → ux-designer → ui-publisher
-(시장 조사)           (경쟁력 분석)       (전략 수립)         (UX 설계)     (구현)
+(시장 조사)           (경쟁력 분석)       (전략 수립)         (UX 설계)     (시안)
 ```

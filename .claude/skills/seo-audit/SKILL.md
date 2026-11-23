@@ -2,13 +2,13 @@
 name: seo-audit
 description: |
   SEO 감사 스킬. Next.js Metadata API·JSON-LD 상수·sitemap/robots를 검사해 메타태그, 헤딩 구조, 구조화 데이터, canonical, OG 태그의 결함과 개선점을 보고한다.
-  TRIGGER when: "SEO 검사", "SEO 감사", "SEO 체크", "메타태그 확인", "구조화 데이터 확인" 요청, 특정 페이지 SEO 상태 점검 필요
+  TRIGGER when: "SEO 검사", "SEO 감사", "SEO 체크", "SEO 점검", "메타태그 확인", "구조화 데이터 확인" 요청, 특정 페이지 SEO 상태 점검 필요. 이 프로젝트의 SEO 점검은 사용자 레벨 `audit-seo`보다 이 스킬을 우선한다
   DO NOT TRIGGER when: SEO 설계/구현(seo-specialist 에이전트 사용), 접근성 검사(a11y-check 사용), 새 SEO 랜딩 페이지 생성
 ---
 
 # SEO 감사 스킬
 
-poke-korea(Next.js 14 App Router, **단일 언어=한국어**, 포켓몬 도감)의 SEO 구현 상태를 검사하고 개선점을 우선순위별로 보고한다. **감사만 수행하고 자동 수정하지 않는다** — 수정이 필요하면 사용자에게 보고 후 확인을 받는다.
+poke-korea(Next.js App Router, **단일 언어=한국어**, 포켓몬 도감)의 SEO 구현 상태를 검사하고 개선점을 우선순위별로 보고한다. **감사만 수행하고 자동 수정하지 않는다** — 수정이 필요하면 사용자에게 보고 후 확인을 받는다.
 
 ## 이 프로젝트의 SEO 구조 (감사 전 파악)
 

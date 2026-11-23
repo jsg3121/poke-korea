@@ -56,13 +56,7 @@ git diff {대상 브랜치}...HEAD
 
 #### 2-4. 프로젝트 컨벤션 준수
 
-`.claude/conventions/` 가이드를 참조하여 확인:
-
-- 화살표 함수 사용 여부
-- const 우선 사용 여부
-- JSDoc 함수 설명 여부
-- 네이밍 컨벤션 (컴포넌트 PascalCase, 유틸 camelCase)
-- import 정렬 순서
+변경 파일에 해당하는 `.claude/conventions/guides/` 문서(`coding.md`·`naming.md`·`comments.md`·`styling.md` 등)를 읽고 그 규칙으로 확인한다. 주석은 `comments.md`가 기준이다 — JSDoc은 `modules`·`utils`·`hooks`의 공용 함수에만 요구한다. 포맷·import 정렬은 lint-check 영역이므로 여기서 지적하지 않는다.
 
 ### 3. 리뷰 결과 보고
 
@@ -86,7 +80,6 @@ git diff {대상 브랜치}...HEAD
 // 현재 코드
 {문제 코드}
 ```
-````
 
 ```{언어}
 // 개선 제안
@@ -109,7 +102,7 @@ git diff {대상 브랜치}...HEAD
 - ✅ 불필요한 `as` 없음 / ❌ `as` 단언 {N}건 발견
 - {기타 타입 관련 사항}
 
-```
+````
 
 ## 주의사항
 
@@ -117,4 +110,3 @@ git diff {대상 브랜치}...HEAD
 - 리뷰 결과에서 자동 수정은 하지 않는다. 사용자가 검토 후 결정한다.
 - 프로젝트 컨벤션(`.claude/conventions/`)과 충돌하는 제안은 컨벤션이 우선한다.
 - 이 리뷰는 Gemini 코드 리뷰를 **대체하지 않고 보완**한다.
-```

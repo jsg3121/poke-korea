@@ -3,7 +3,7 @@ name: create-pr
 description: |
   PR 생성 스킬. 사용자가 선택한 검증 옵션에 따라 조건부로 품질 검증 후 PR을 생성한다.
   TRIGGER when: "PR 만들어줘", "PR 생성", "풀 리퀘스트 만들어줘", 작업 완료 후 PR 생성 필요
-  DO NOT TRIGGER when: 커밋만 필요(/commit 사용), 코드 리뷰만 필요(code-review 사용), 브랜치 생성/전환만 필요
+  DO NOT TRIGGER when: 커밋만 필요, 코드 리뷰만 필요(code-review 사용), 브랜치 생성/전환만 필요
 ---
 
 # PR 생성 스킬
@@ -76,6 +76,7 @@ git log {대상 브랜치}...HEAD --oneline
 
 - 변경 사항에 해당하는 작업 유형은 `[x]`로 체크한다
 - **해당하지 않는 작업 유형도 삭제하지 않고** `[ ]` 상태로 유지한다
+- **검토한 대안** 섹션: 이 작업에서 후보를 비교했거나 기각한 안이 있으면 고른 이유·기각 사유·근거 링크를 적는다. 없으면 "해당 없음"으로 둔다. 구조 결정을 바꾼 PR이면 `.claude/decisions/architecture.md` 변경이 같은 PR에 들어 있는지 확인한다 — 이 섹션이 그 결정의 유일한 근거 기록이 된다(`.claude/decisions/index.md`)
 
 ### 4.3 제목과 라벨
 
