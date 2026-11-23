@@ -23,7 +23,7 @@
 ### 개발 에이전트
 
 - [seo-specialist](seo-specialist.md) — 시맨틱 HTML, 메타태그, 구조화 데이터 설계·구현 전문
-- [ui-publisher](ui-publisher.md) — 페이지, UI 컴포넌트 구현, Tailwind 스타일링 전문
+- [ui-publisher](ui-publisher.md) — UX 설계를 정적 HTML/CSS 시안으로 시각화 (프로젝트 코드에 반영하지 않음)
 - [ux-designer](ux-designer.md) — 사용자 플로우, 레이아웃, 인터랙션, 반응형 설계 전문
 
 ### 품질 검증 에이전트
@@ -63,20 +63,20 @@ node .claude/playwright/capture.js <device> <url>[,<url>...] [name]
 
 ## 활용 패턴
 
-작업 유형에 따라 적절한 에이전트 조합과 아키텍처 패턴을 선택한다.
+작업 유형에 따라 적절한 에이전트 조합과 아키텍처 패턴을 선택한다. `ui-publisher`는 어느 패턴에서든 정적 시안까지만 만들고, 실제 React 구현과 Storybook 등록은 메인 세션이 한다.
 
 ### 새 기능 기획 → 구현 (Pipeline)
 
 ```
 product-planner → ux-designer → ui-publisher
-(기획서 작성)     (설계)         (구현)
+(기획서 작성)     (설계)         (시안)
 ```
 
 ### 기존 기획 기반 구현 (Pipeline)
 
 ```
 ux-designer → ui-publisher
-(설계)        (구현)
+(설계)        (시안)
 ```
 
 ### 페이지 구현 (Expert Pool)
@@ -84,7 +84,7 @@ ux-designer → ui-publisher
 작업 성격에 따라 적절한 에이전트 선택:
 
 - SEO 관련 → seo-specialist
-- UI/컴포넌트 관련 → ui-publisher
+- UI 시안(정적 HTML/CSS) → ui-publisher
 - UX/플로우 관련 → ux-designer
 
 ### 품질 검증 (Fan-out / Fan-in)
@@ -113,5 +113,5 @@ market-intelligence → business-analyst → strategy-planner
 
 ```
 market-intelligence → business-analyst → strategy-planner → ux-designer → ui-publisher
-(시장 조사)           (경쟁력 분석)       (전략 수립)         (UX 설계)     (구현)
+(시장 조사)           (경쟁력 분석)       (전략 수립)         (UX 설계)     (시안)
 ```

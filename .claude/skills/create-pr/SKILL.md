@@ -3,7 +3,7 @@ name: create-pr
 description: |
   PR 생성 스킬. 사용자가 선택한 검증 옵션에 따라 조건부로 품질 검증 후 PR을 생성한다.
   TRIGGER when: "PR 만들어줘", "PR 생성", "풀 리퀘스트 만들어줘", 작업 완료 후 PR 생성 필요
-  DO NOT TRIGGER when: 커밋만 필요(/commit 사용), 코드 리뷰만 필요(code-review 사용), 브랜치 생성/전환만 필요
+  DO NOT TRIGGER when: 커밋만 필요, 코드 리뷰만 필요(code-review 사용), 브랜치 생성/전환만 필요
 ---
 
 # PR 생성 스킬
