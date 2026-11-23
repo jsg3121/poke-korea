@@ -1,7 +1,6 @@
 'use client'
 
 import {
-  ChangeEvent,
   KeyboardEvent,
   MouseEvent,
   useContext,
@@ -11,6 +10,7 @@ import {
 } from 'react'
 
 import { DetailContext } from '~/context/Detail.context'
+import SelectInput from '~/components/input/SelectInput.component'
 
 import DetailFlavorTextPanel from './DetailFlavorTextPanel.component'
 import { getFlavorTextSection } from './modules/flavorText.module'
@@ -35,7 +35,10 @@ const DetailFlavorText = () => {
     ? selectedGenerationId
     : (generations[0]?.generationId ?? null)
   const hasGenerationSelector = generations.length > 1
-  const selectId = `${baseId}-select`
+  const generationOptions = generations.map(({ generationId }) => ({
+    value: String(generationId),
+    label: `${generationId}세대`,
+  }))
   const getTabId = (generationId: number) => `${baseId}-tab-${generationId}`
   const getPanelId = (generationId: number) => `${baseId}-panel-${generationId}`
 
@@ -66,8 +69,8 @@ const DetailFlavorText = () => {
       [nextIndex]?.focus()
   }
 
-  const handleChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedGenerationId(Number(e.target.value))
+  const handleChangeGeneration = (value: string) => {
+    setSelectedGenerationId(Number(value))
   }
 
   if (generations.length === 0 || activeGenerationId === null) return null
@@ -116,44 +119,15 @@ const DetailFlavorText = () => {
             })}
           </div>
 
-          <div className="mb-4 flex items-center gap-2 desktop:hidden">
-            <label
-              htmlFor={selectId}
-              className="shrink-0 text-sm font-bold text-primary-1"
-            >
-              세대 선택
-            </label>
-            <div className="relative min-w-0 flex-1">
-              <select
-                id={selectId}
-                value={activeGenerationId}
-                onChange={handleChangeSelect}
-                className="min-h-touch w-full cursor-pointer appearance-none rounded-md border-2 border-solid border-primary-2 bg-primary-4 pl-3 pr-10 text-md font-medium text-primary-1 transition-colors hover:bg-primary-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-1"
-              >
-                {generations.map(({ generationId }) => (
-                  <option
-                    key={`flavor-option-${generationId}`}
-                    value={generationId}
-                  >
-                    {generationId}세대
-                  </option>
-                ))}
-              </select>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-1"
-              >
-                <path
-                  d="M4 6l4 4 4-4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+          <div className="mb-4 desktop:hidden">
+            <SelectInput
+              label="세대 선택"
+              tone="onLight"
+              fullWidth
+              value={String(activeGenerationId)}
+              options={generationOptions}
+              onChange={handleChangeGeneration}
+            />
           </div>
         </>
       )}
