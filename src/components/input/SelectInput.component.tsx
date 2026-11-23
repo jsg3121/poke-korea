@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react'
 interface SelectOption<T extends string> {
   value: T
   label: string
+  disabled?: boolean
 }
 
 type SelectInputTone = 'onDark' | 'onLight'
@@ -68,7 +69,11 @@ const SelectInput = <T extends string>({
           className={`${SELECT_CLASS} ${fullWidth ? 'w-full' : ''}`}
         >
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option
+              key={option.value}
+              value={option.value}
+              disabled={option.disabled}
+            >
               {option.label}
             </option>
           ))}
