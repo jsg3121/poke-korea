@@ -167,9 +167,7 @@ const DetailFlavorText = () => {
             id={getPanelId(generationId)}
             role="tabpanel"
             aria-labelledby={getTabId(generationId)}
-            tabIndex={0}
             hidden={generationId !== activeGenerationId}
-            className="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-1"
           >
             <DetailFlavorTextPanel generation={generation} />
           </div>

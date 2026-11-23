@@ -66,7 +66,6 @@ const toGenerations = (
 
   rows.forEach(({ versionName, flavorText, versionGroup }) => {
     const text = flavorText.trim()
-    if (text === '') return
 
     let generation = generations.find(
       (item) => item.generationId === versionGroup.generationId,
@@ -119,7 +118,8 @@ export const getFlavorTextSection = ({
   activeType: TActiveType
   activeIndex: number
 }): FlavorTextSection => {
-  const activeRows = flavorTexts.filter((row) =>
+  const rows = flavorTexts.filter((row) => row.flavorText.trim() !== '')
+  const activeRows = rows.filter((row) =>
     isActiveFormRow(row, activeType, activeIndex),
   )
 
@@ -129,6 +129,6 @@ export const getFlavorTextSection = ({
 
   return {
     isFallback: true,
-    generations: toGenerations(flavorTexts.filter(isBaseRow)),
+    generations: toGenerations(rows.filter(isBaseRow)),
   }
 }
