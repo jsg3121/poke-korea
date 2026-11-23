@@ -1,5 +1,7 @@
 # ADR-0026: SEO와 무관한 크롤러 차단 — robots.txt + CloudFront Function UA 차단
 
+> **보관본 (2026-11-23)** — 결정 당시의 기록이며 더 이상 갱신하지 않는다. 현재 유효한 규칙은 [`architecture.md`](../architecture.md)에서 확인한다.
+
 - **상태**: 승인
 - **날짜**: 2026-11-10
 - **담당**: jsg3121, Claude

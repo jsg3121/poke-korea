@@ -1,5 +1,7 @@
 # ADR-0006: 적응형(Adaptive) 렌더링으로 일원화 + 데스크톱 min-width 전략
 
+> **보관본 (2026-11-23)** — 결정 당시의 기록이며 더 이상 갱신하지 않는다. 현재 유효한 규칙은 [`architecture.md`](../architecture.md)에서 확인한다.
+
 - **상태**: 대체됨 ([ADR-0007](./ADR-0007-responsive-rendering-strategy.md))
 - **날짜**: 2026-06-16
 - **담당**: jsg3121 + Claude
