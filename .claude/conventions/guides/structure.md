@@ -223,7 +223,7 @@ App Router에서는 폴더 구조가 곧 URL이다. 경로를 설계하는 규�
 | 폴더           | 역할                 | 산출물                              |
 | -------------- | -------------------- | ----------------------------------- |
 | `conventions/` | 코딩·워크플로우 규칙 | `guides/*.md`                       |
-| `decisions/`   | 의사결정 기록(ADR)   | `records/ADR-NNNN-*.md`             |
+| `decisions/`   | 구조 결정 현재 상태  | `architecture.md`, `records/`(ADR 보관본) |
 | `specs/`       | 기획서·계획서        | 아래 분류 참조                      |
 | `research/`    | 조사 보고서          | 유형별 폴더                         |
 | `agents/`      | 에이전트 정의        | `<name>.md`                         |
