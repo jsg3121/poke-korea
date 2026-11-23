@@ -28,5 +28,5 @@
 ## 작성 규칙
 
 - 기획서는 `product-planner` 에이전트가 담당한다. 정의는 [`../agents/product-planner.md`](../agents/product-planner.md).
-- 기술적 의사결정이 포함되면 ADR로 분리한다 — 규칙은 [`../decisions/index.md`](../decisions/index.md).
+- 구조 결정은 기획서에 다시 적지 않고 [`../decisions/architecture.md`](../decisions/architecture.md)의 절을 링크한다 — 기록 방법은 [`../decisions/index.md`](../decisions/index.md).
 - 백엔드 등 **다른 저장소가 대상인 문서는 두지 않는다.** 이 폴더는 이 저장소의 작업을 다룬다.
