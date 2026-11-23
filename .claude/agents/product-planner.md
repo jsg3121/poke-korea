@@ -14,9 +14,6 @@ tools:
   - Grep
   - WebSearch
   - WebFetch
-allowedTools:
-  - WebSearch
-  - WebFetch
 ---
 
 # product-planner
